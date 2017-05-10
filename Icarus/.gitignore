@@ -1,0 +1,15 @@
+*~
+.*
+!/.gitignore
+settings.fatjar
+Icarus_fat.jar
+Icarus.jar
+run.bat
+icarus.sql
+/Icarus_jars/*
+/plugins/*
+/lib/*
+/extensions/*
+/log/*
+/bin/*
+/bin/

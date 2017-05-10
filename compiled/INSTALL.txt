@@ -1,0 +1,93 @@
+# Run this on a recently released distro using systemd as init
+#
+# NOTE: this guide assumes you already installed and setup MariaDB as database
+#
+# Might require installation of `git` package
+# e.g.
+# On Arch Linux:    pacman -S git
+# On Debian/Ubuntu: apt-get install git
+# On Redhat/Fedora: yum install git
+
+# Execute these commands as a regular user
+# Which means: NOT AS ROOT.
+#
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+# EXECUTE THESE COMMANDS AS REGULAR USER, NOT AS ROOT
+#
+# For adding a user to your system, I refer to this page;
+# https://wiki.archlinux.org/index.php/users_and_groups
+
+sudo useradd icarus
+
+git clone https://git.alex-dev.org/alex/Icarus-data ~/Icarus-data
+
+sudo mkdir -p /opt/icarus
+
+sudo cp --recursive ~/Icarus-data/compiled /opt/icarus
+sudo cp ~/Icarus-data/icarus.service /etc/systemd/system/icarus.service
+
+# Set correct owner of files
+sudo chown --recursive icarus:icarus /opt/icarus
+
+# Set correct permissions on files
+# This way /opt/icarus is only accessible by the icarus user and our own user
+# Also see;
+# http://permissions-calculator.org/decode/0660/
+# http://permissions-calculator.org/decode/0770/
+# (Execute flag on directories doesn't mean execute, see: http://unix.stackexchange.com/a/21252)
+sudo find /opt/icarus -type f -exec chmod 660 {} +
+sudo find /opt/icarus -type d -exec chmod 770 {} +
+
+# Add your own user to the icarus group
+#
+# No, your username is not root. Please read the previous link /\
+usermod -a -G icarus YOUR USERNAME HERE
+
+# Login to new icarus group, because current session doesn't have icarus in it's groups
+newgrp icarus
+
+# Edit configuration files accordingly
+#
+# DO NOT OPEN THESE FILES WITH ROOT -- it'll mess with the owner info on the files, making it inaccessible for the service
+# DO NOT
+#
+# Open these files with your current user in the new shell session from the previous command
+$EDITOR /opt/icarus/icarus.properties
+e.g.
+nano /opt/icarus/icarus.properties
+vi /opt/icarus/icarus.properties
+
+# This lets systemd sense the presence of the newly added icarus.service
+sudo systemctl daemon-reload
+
+# If you want Icarus to start on boot, execute this;
+sudo systemctl enable icarus
+
+# Start Icarus
+sudo systemctl start icarus
+
+# Then check if Icarus succesfully started
+systemctl status icarus
+
+# If it errored out, examine the log files of icarus with;
+journalctl --unit=icarus.service

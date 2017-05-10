@@ -1,0 +1,50 @@
+package org.alexdev.icarus.messages.incoming.room.user;
+
+import java.util.LinkedList;
+
+import org.alexdev.icarus.game.pathfinder.Pathfinder;
+import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.game.room.model.Point;
+import org.alexdev.icarus.game.room.model.RoomModel;
+import org.alexdev.icarus.game.room.player.RoomUser;
+import org.alexdev.icarus.messages.MessageEvent;
+import org.alexdev.icarus.server.messages.AbstractReader;
+
+public class UserWalkMessageEvent implements MessageEvent {
+
+	@Override
+	public void handle(Player player, AbstractReader request) {
+
+		int X = request.readInt();
+		int Y = request.readInt();
+		
+		if (player.getRoomUser().getRoom().getData().getModel().isBlocked(X, Y)) {
+			return;
+		}
+		
+		if (player.getRoomUser().getPosition().sameAs(new Point(X, Y))) {
+			return;
+		}
+
+		System.out.println("walk req (" + X + ", " + Y + ")");
+		
+		RoomUser roomUser = player.getRoomUser();
+		roomUser.getGoal().setX(X);
+		roomUser.getGoal().setY(Y);
+
+		LinkedList<Point> path = Pathfinder.makePath(player);
+
+		if (path == null) {
+			System.out.println("lol112233");
+			return;
+		}
+
+		if (path.size() == 0) {
+			System.out.println("lol123");
+			return;
+		}
+		
+		roomUser.setPath(path);
+		roomUser.setWalking(true);
+	}
+}
