@@ -8,7 +8,7 @@ import org.alexdev.icarus.messages.outgoing.room.ChatOptionsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.WallOptionsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.notify.RoomSettingsOKMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.notify.RoomSettingsUpdatedMessageComposer;
-import org.alexdev.icarus.server.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.AbstractReader;
 
 public class SaveRoomMessageEvent implements MessageEvent {
 

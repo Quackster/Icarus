@@ -1,11 +1,11 @@
-package org.alexdev.icarus.netty.connections;
+package org.alexdev.icarus.server.netty.connections;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
-import org.alexdev.icarus.netty.NettyPlayerNetwork;
+import org.alexdev.icarus.server.netty.NettyPlayerNetwork;
 import org.jboss.netty.channel.Channel;
 
 public class SessionManager {

@@ -1,4 +1,4 @@
-package org.alexdev.icarus.server.messages;
+package org.alexdev.icarus.server.api.messages;
 
 public interface AbstractReader {
 

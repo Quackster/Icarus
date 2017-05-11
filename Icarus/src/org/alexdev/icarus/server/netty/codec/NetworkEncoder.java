@@ -17,12 +17,12 @@
  * along with Sierra.  If not, see <http ://www.gnu.org/licenses/>.
  */
 
-package org.alexdev.icarus.netty.codec;
+package org.alexdev.icarus.server.netty.codec;
 
 import java.nio.charset.Charset;
 
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.netty.readers.NettyResponse;
+import org.alexdev.icarus.server.netty.readers.NettyResponse;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.ChannelHandlerContext;

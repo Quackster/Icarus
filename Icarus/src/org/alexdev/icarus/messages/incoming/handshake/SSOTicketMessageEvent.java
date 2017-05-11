@@ -9,7 +9,7 @@ import org.alexdev.icarus.messages.outgoing.handshake.AuthenticationOKMessageCom
 import org.alexdev.icarus.messages.outgoing.handshake.UniqueMachineIDMessageComposer;
 import org.alexdev.icarus.messages.outgoing.user.HomeRoomMessageComposer;
 import org.alexdev.icarus.messages.outgoing.user.LandingWidgetMessageComposer;
-import org.alexdev.icarus.server.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.AbstractReader;
 
 public class SSOTicketMessageEvent implements MessageEvent {
 

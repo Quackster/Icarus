@@ -5,7 +5,7 @@ import org.alexdev.icarus.game.messenger.MessengerUser;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.messenger.RemoveFriendMessageComposer;
-import org.alexdev.icarus.server.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.AbstractReader;
 
 public class MessengerDeleteFriendMessageEvent implements MessageEvent {
 

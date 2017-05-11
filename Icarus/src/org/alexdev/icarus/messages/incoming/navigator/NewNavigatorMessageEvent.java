@@ -6,7 +6,7 @@ import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.navigator.FlatCategoriesMessageComposer;
 import org.alexdev.icarus.messages.outgoing.navigator.NavigatorCategories;
 import org.alexdev.icarus.messages.outgoing.navigator.NavigatorMetaDataComposer;
-import org.alexdev.icarus.server.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.AbstractReader;
 
 public class NewNavigatorMessageEvent implements MessageEvent {
 

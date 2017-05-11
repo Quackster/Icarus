@@ -13,7 +13,7 @@ import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseErrorMessageComposer;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessageComposer;
 import org.alexdev.icarus.messages.outgoing.item.NewInventoryItemsMessageComposer;
-import org.alexdev.icarus.server.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.AbstractReader;
 
 import com.google.common.collect.Lists;
 

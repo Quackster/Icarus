@@ -7,7 +7,7 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.item.RemoveInventoryItemComposer;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
-import org.alexdev.icarus.server.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.AbstractReader;
 
 public class PlaceItemMessageEvent implements MessageEvent {
 

@@ -16,7 +16,7 @@ import org.alexdev.icarus.messages.incoming.room.items.PlaceItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.user.*;
 import org.alexdev.icarus.messages.incoming.user.*;
 import org.alexdev.icarus.messages.outgoing.room.items.ApplyDecorationMessageEvent;
-import org.alexdev.icarus.server.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.AbstractReader;
 
 import com.google.common.collect.Maps;
 

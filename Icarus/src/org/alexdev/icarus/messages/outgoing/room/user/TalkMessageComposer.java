@@ -9,7 +9,7 @@ import org.alexdev.icarus.game.room.model.Point;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.AbstractResponse;
 
 public class TalkMessageComposer implements OutgoingMessageComposer {
 

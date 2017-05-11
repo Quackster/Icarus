@@ -1,7 +1,7 @@
 package org.alexdev.icarus.messages.parsers.handshake;
 
 import org.alexdev.icarus.messages.parsers.IncomingMessageParser;
-import org.alexdev.icarus.server.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.AbstractReader;
 
 public class SSOTicketMessageParser implements IncomingMessageParser {
 

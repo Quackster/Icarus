@@ -5,7 +5,7 @@ import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.messenger.FriendsListMessageComposer;
 import org.alexdev.icarus.messages.outgoing.messenger.MessengerCategoriesMessageComposer;
 import org.alexdev.icarus.messages.outgoing.messenger.MessengerRequestsMessageComposer;
-import org.alexdev.icarus.server.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.AbstractReader;
 
 public class MessengerMessageEvent implements MessageEvent {
 

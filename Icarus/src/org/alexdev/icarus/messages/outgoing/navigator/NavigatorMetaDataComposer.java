@@ -5,7 +5,7 @@ import java.util.List;
 import org.alexdev.icarus.game.navigator.NavigatorTab;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.AbstractResponse;
 
 public class NavigatorMetaDataComposer implements OutgoingMessageComposer {
 

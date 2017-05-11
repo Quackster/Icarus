@@ -2,7 +2,7 @@ package org.alexdev.icarus.game.catalogue;
 
 import org.alexdev.icarus.game.furniture.Furniture;
 import org.alexdev.icarus.game.furniture.FurnitureManager;
-import org.alexdev.icarus.server.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.AbstractResponse;
 
 public class CatalogueItem {
 

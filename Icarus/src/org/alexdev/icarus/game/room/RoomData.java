@@ -6,7 +6,7 @@ import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.game.room.settings.RoomState;
 import org.alexdev.icarus.game.room.settings.RoomType;
-import org.alexdev.icarus.server.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.AbstractResponse;
 
 public class RoomData {
 

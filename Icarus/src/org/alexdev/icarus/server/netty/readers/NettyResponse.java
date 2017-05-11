@@ -1,10 +1,10 @@
-package org.alexdev.icarus.netty.readers;
+package org.alexdev.icarus.server.netty.readers;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 
 import org.alexdev.icarus.log.Log;
-import org.alexdev.icarus.server.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.AbstractResponse;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBufferOutputStream;
 import org.jboss.netty.buffer.ChannelBuffers;

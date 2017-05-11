@@ -11,7 +11,7 @@ import org.alexdev.icarus.game.furniture.FurnitureManager;
 import org.alexdev.icarus.game.navigator.NavigatorManager;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.log.Log;
-import org.alexdev.icarus.server.IServerHandler;
+import org.alexdev.icarus.server.api.IServerHandler;
 import org.alexdev.icarus.util.Util;
 
 public class Icarus {
@@ -176,7 +176,7 @@ public class Icarus {
      * @return java class path string
      */
     private static String getServerClassPath() {
-        return "org.alexdev.icarus.netty.NettyServer";
+        return "org.alexdev.icarus.server.netty.NettyServer";
     }
 
     /**

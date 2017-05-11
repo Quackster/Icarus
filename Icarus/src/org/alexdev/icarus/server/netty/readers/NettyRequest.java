@@ -1,8 +1,8 @@
-package org.alexdev.icarus.netty.readers;
+package org.alexdev.icarus.server.netty.readers;
 
 import java.nio.charset.Charset;
 
-import org.alexdev.icarus.server.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.AbstractReader;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 

@@ -2,7 +2,7 @@ package org.alexdev.icarus.messages.outgoing.handshake;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.AbstractResponse;
 
 public class UniqueMachineIDMessageComposer implements OutgoingMessageComposer {
 

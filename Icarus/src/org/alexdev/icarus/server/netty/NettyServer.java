@@ -1,14 +1,14 @@
-package org.alexdev.icarus.netty;
+package org.alexdev.icarus.server.netty;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
 
 import org.alexdev.icarus.log.Log;
-import org.alexdev.icarus.netty.codec.NetworkDecoder;
-import org.alexdev.icarus.netty.codec.NetworkEncoder;
-import org.alexdev.icarus.netty.connections.ConnectionHandler;
-import org.alexdev.icarus.netty.connections.SessionManager;
-import org.alexdev.icarus.server.IServerHandler;
+import org.alexdev.icarus.server.api.IServerHandler;
+import org.alexdev.icarus.server.netty.codec.NetworkDecoder;
+import org.alexdev.icarus.server.netty.codec.NetworkEncoder;
+import org.alexdev.icarus.server.netty.connections.ConnectionHandler;
+import org.alexdev.icarus.server.netty.connections.SessionManager;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.ChannelException;
 import org.jboss.netty.channel.ChannelPipeline;

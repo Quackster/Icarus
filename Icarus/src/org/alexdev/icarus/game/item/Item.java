@@ -9,7 +9,7 @@ import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.pathfinder.AffectedTile;
 import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.PlayerManager;
-import org.alexdev.icarus.server.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.AbstractResponse;
 import org.alexdev.icarus.util.GameSettings;
 
 public class Item {

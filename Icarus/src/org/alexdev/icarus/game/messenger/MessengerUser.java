@@ -3,7 +3,7 @@ package org.alexdev.icarus.game.messenger;
 import org.alexdev.icarus.dao.mysql.PlayerDao;
 import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.PlayerManager;
-import org.alexdev.icarus.server.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.AbstractResponse;
 import org.alexdev.icarus.game.player.Player;
 
 public class MessengerUser {

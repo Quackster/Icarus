@@ -7,7 +7,7 @@ import org.alexdev.icarus.game.catalogue.CatalogueTab;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.catalogue.CatalogueTabMessageComposer;
-import org.alexdev.icarus.server.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.AbstractReader;
 
 public class CatalogueMessageEvent implements MessageEvent {
 

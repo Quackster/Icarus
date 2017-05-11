@@ -3,7 +3,7 @@ package org.alexdev.icarus.messages.outgoing.catalogue;
 import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.AbstractResponse;
 
 public class PurchaseNotificationMessageComposer implements OutgoingMessageComposer {
 	

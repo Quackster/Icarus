@@ -15,7 +15,7 @@ import org.alexdev.icarus.messages.outgoing.room.items.WallItemsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserDisplayMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
-import org.alexdev.icarus.server.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.AbstractReader;
 
 public class HeightmapMessageEvent implements MessageEvent {
 

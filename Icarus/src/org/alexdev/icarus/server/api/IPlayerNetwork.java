@@ -1,4 +1,4 @@
-package org.alexdev.icarus.server;
+package org.alexdev.icarus.server.api;
 
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 

@@ -11,7 +11,7 @@ import org.alexdev.icarus.messages.outgoing.room.notify.GenericErrorMessageCompo
 import org.alexdev.icarus.messages.outgoing.room.notify.GenericNoAnswerDoorbellMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.notify.RoomEnterErrorMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.HotelViewMessageComposer;
-import org.alexdev.icarus.server.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.AbstractReader;
 
 public class EnterRoomMessageEvent implements MessageEvent {
 

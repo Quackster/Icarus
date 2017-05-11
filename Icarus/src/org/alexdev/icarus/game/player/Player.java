@@ -10,7 +10,7 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.player.RoomUser;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.IPlayerNetwork;
+import org.alexdev.icarus.server.api.IPlayerNetwork;
 
 public class Player implements IEntity {
 

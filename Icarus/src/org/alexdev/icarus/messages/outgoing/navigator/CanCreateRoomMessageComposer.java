@@ -3,7 +3,7 @@ package org.alexdev.icarus.messages.outgoing.navigator;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.AbstractResponse;
 import org.alexdev.icarus.util.GameSettings;
 
 public class CanCreateRoomMessageComposer implements OutgoingMessageComposer {
