@@ -23,7 +23,7 @@ public class RoomDao {
 
     private static HashMap<String, RoomModel> roomModels;
 
-    public static void load() {
+    public static void getModels() {
 
         roomModels = Maps.newHashMap();
 

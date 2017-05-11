@@ -30,7 +30,7 @@ public class PlayerDao {
 
 				sqlConnection = Dao.getStorage().getConnection();
 				
-				preparedStatement = Dao.getStorage().prepare("SELECT id, username, rank, sso_ticket, motto, figure, credits FROM users WHERE id = ? LIMIT 1", sqlConnection);
+				preparedStatement = Dao.getStorage().prepare("SELECT id, username, rank, sso_ticket, mission, figure, credits FROM users WHERE id = ? LIMIT 1", sqlConnection);
 				preparedStatement.setInt(1, userId);
 				
 				resultSet = preparedStatement.executeQuery();
@@ -60,7 +60,7 @@ public class PlayerDao {
 		try {
 
 			sqlConnection = Dao.getStorage().getConnection();
-			preparedStatement = Dao.getStorage().prepare("SELECT id, username, rank, sso_ticket, motto, figure, credits FROM users WHERE sso_ticket = ? LIMIT 1", sqlConnection);
+			preparedStatement = Dao.getStorage().prepare("SELECT id, username, rank, sso_ticket, mission, figure, credits FROM users WHERE sso_ticket = ? LIMIT 1", sqlConnection);
 			preparedStatement.setString(1, ssoTicket);
 			
 			resultSet = preparedStatement.executeQuery();
@@ -110,7 +110,7 @@ public class PlayerDao {
 	}
 	
 	public static PlayerDetails fill(PlayerDetails details, ResultSet row) throws SQLException {
-		details.fill(row.getInt("id"), row.getString("username"), row.getString("motto"),  row.getString("figure"), row.getInt("rank"), row.getInt("credits"));
+		details.fill(row.getInt("id"), row.getString("username"), row.getString("mission"),  row.getString("figure"), row.getInt("rank"), row.getInt("credits"));
 		return details;
 	}
 }

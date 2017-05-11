@@ -14,6 +14,8 @@ public class RoomManager {
 
 	public static void load() {
 	    loadedRooms = Lists.newArrayList();
+	    
+	    RoomDao.getModels();
 		RoomDao.getPublicRooms(true);
 	}
 

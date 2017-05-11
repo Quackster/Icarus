@@ -87,11 +87,12 @@ public class InventoryDao {
 		try {
 
 			sqlConnection = Dao.getStorage().getConnection();
-			preparedStatement = Dao.getStorage().prepare("INSERT INTO items (user_id, item_id, extra_data) VALUES(?, ?, ?)", sqlConnection);
+			preparedStatement = Dao.getStorage().prepare("INSERT INTO items (owner_id, user_id, item_id, extra_data) VALUES(?, ?, ?, ?)", sqlConnection);
 			
 			preparedStatement.setInt(1, ownerId);
-			preparedStatement.setInt(2, itemId);
-			preparedStatement.setString(3, extraData);
+			preparedStatement.setInt(2, ownerId);
+			preparedStatement.setInt(3, itemId);
+			preparedStatement.setString(4, extraData);
 			preparedStatement.executeUpdate();
 
 			resultSet = preparedStatement.getGeneratedKeys();

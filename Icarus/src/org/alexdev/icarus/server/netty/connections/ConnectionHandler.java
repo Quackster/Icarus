@@ -7,6 +7,7 @@ import org.alexdev.icarus.server.netty.readers.NettyRequest;
 import org.alexdev.icarus.util.Util;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.ChannelStateEvent;
+import org.jboss.netty.channel.ExceptionEvent;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
 
@@ -69,6 +70,11 @@ public class ConnectionHandler extends SimpleChannelHandler {
         } catch (Exception ex) {
             Log.exception(ex);
         }
+    }
+    
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {
+        ctx.getChannel().close();
     }
 
 }
