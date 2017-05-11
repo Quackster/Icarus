@@ -32,14 +32,11 @@ import com.google.common.collect.Lists;
 public class Room {
 
     private int privateId = -1;
-    private boolean disposed;
 
     private RoomData data;
 
     private List<Entity> entities; 
     private List<Item> items;
-    
-    private ScheduledFuture<?> tickTask;
    
     private RoomScheduler scheduler;
     private RoomMapping mapping;
@@ -54,8 +51,6 @@ public class Room {
 
     public void loadRoom(Player player) {
 
-        this.disposed = false;
-        
         RoomUser roomUser = player.getRoomUser();
 
         roomUser.setRoom(this);
@@ -159,10 +154,6 @@ public class Room {
 
         } else {
 
-            if (this.disposed) {
-                return;
-            }
-
             if (this.getUsers().size() > 0) {
                 return;
             }
@@ -190,10 +181,6 @@ public class Room {
 
     public void send(OutgoingMessageComposer response, boolean checkRights) {
 
-        if (this.disposed) {
-            return;
-        }
-
         for (Player player : this.getUsers()) {
 
             if (checkRights && this.hasRights(player, false)) {
@@ -205,9 +192,6 @@ public class Room {
 
     public void send(OutgoingMessageComposer response) {
 
-        if (this.disposed) {
-            return;
-        }
 
         for (Player player : this.getUsers()) {
             player.send(response);
@@ -282,10 +266,6 @@ public class Room {
     public int getVirtualId() {
         this.privateId = this.privateId + 1;
         return this.privateId;
-    }
-
-    public boolean isDisposed() {
-        return disposed;
     }
 
 }

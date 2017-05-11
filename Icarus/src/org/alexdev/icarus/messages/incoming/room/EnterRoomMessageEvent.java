@@ -22,8 +22,10 @@ public class EnterRoomMessageEvent implements MessageEvent {
 
 		if (room == null) {
 			return;
-		} else {
-		    room.leaveRoom(player, false);
+		}
+		
+		if (player.inRoom()) {
+		    player.getRoom().leaveRoom(player, false);
 		}
 
 		String pass = request.readString();

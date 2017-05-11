@@ -23,7 +23,7 @@ public class RoomWalkScheduler implements Runnable {
 
         try {
 
-            if (this.room.isDisposed() || this.room.getEntities().size() == 0) {
+            if (this.room.getEntities().size() == 0) {
                 return;
             }
 
