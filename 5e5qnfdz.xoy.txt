@@ -1,0 +1,22 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# Explicit paths specified without -i or -o; assuming --only paths...
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	modified:   Icarus/src/org/alexdev/icarus/game/navigator/NavigatorTab.java
+#	deleted:    Icarus/src/org/alexdev/icarus/game/navigator/populator/FriendsPopulator.java
+#	deleted:    Icarus/src/org/alexdev/icarus/game/navigator/populator/MyRoomPopulator.java
+#	deleted:    Icarus/src/org/alexdev/icarus/game/navigator/populator/OfficialRoomPopulator.java
+#	deleted:    Icarus/src/org/alexdev/icarus/game/navigator/populator/PopularPopulator.java
+#	deleted:    Icarus/src/org/alexdev/icarus/game/navigator/populator/RoomPopulator.java
+#	modified:   Icarus/src/org/alexdev/icarus/game/room/Room.java
+#
+# Untracked files:
+#	Icarus/src/org/alexdev/icarus/game/room/RoomCycle.java
+#	Icarus/src/org/alexdev/icarus/game/room/RoomTask.java
+#	Icarus/src/org/alexdev/icarus/game/room/populator/
+#
+
