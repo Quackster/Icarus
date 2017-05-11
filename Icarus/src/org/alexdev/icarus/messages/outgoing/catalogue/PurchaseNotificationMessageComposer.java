@@ -3,7 +3,7 @@ package org.alexdev.icarus.messages.outgoing.catalogue;
 import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class PurchaseNotificationMessageComposer implements OutgoingMessageComposer {
 	
@@ -16,7 +16,7 @@ public class PurchaseNotificationMessageComposer implements OutgoingMessageCompo
 	}
 
 	@Override
-	public void write(AbstractResponse response) {
+	public void write(Response response) {
 	
 		response.init(Outgoing.PurchaseNotificationComposer);
 		response.writeInt(item.getData().getId());

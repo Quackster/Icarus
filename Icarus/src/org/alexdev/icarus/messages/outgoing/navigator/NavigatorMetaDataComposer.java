@@ -5,7 +5,7 @@ import java.util.List;
 import org.alexdev.icarus.game.navigator.NavigatorTab;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class NavigatorMetaDataComposer implements OutgoingMessageComposer {
 
@@ -16,7 +16,7 @@ public class NavigatorMetaDataComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(AbstractResponse response) {
+	public void write(Response response) {
 		response.init(Outgoing.NavigatorMetaDataComposer);
 		response.writeInt(this.tabs.size());
 

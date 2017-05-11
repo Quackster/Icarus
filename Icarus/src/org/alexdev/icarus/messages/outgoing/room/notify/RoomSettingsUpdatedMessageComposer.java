@@ -2,7 +2,7 @@ package org.alexdev.icarus.messages.outgoing.room.notify;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class RoomSettingsUpdatedMessageComposer implements OutgoingMessageComposer {
 
@@ -13,7 +13,7 @@ public class RoomSettingsUpdatedMessageComposer implements OutgoingMessageCompos
 	}
 
 	@Override
-	public void write(AbstractResponse response) {
+	public void write(Response response) {
 		response.init(Outgoing.RoomSettingsUpdatedMessageComposer);
 		response.writeInt(this.roomId);
 	}

@@ -7,7 +7,7 @@ import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.entity.IEntity;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class UserDisplayMessageComposer implements OutgoingMessageComposer {
 
@@ -22,7 +22,7 @@ public class UserDisplayMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(AbstractResponse response) {
+	public void write(Response response) {
 		
 		response.init(Outgoing.UserDisplayMessageComposer);
 		synchronized (this.entities) {
@@ -72,11 +72,11 @@ public class UserDisplayMessageComposer implements OutgoingMessageComposer {
 		            response.writeInt(1);
 		            response.writeString("Alex");
 		            response.writeInt(5);
-		            response.appendShort(1);
-		            response.appendShort(2);
-		            response.appendShort(3);
-		            response.appendShort(4);
-		            response.appendShort(5);
+		            response.writeShort(1);
+		            response.writeShort(2);
+		            response.writeShort(3);
+		            response.writeShort(4);
+		            response.writeShort(5);
 
 				}
 			}

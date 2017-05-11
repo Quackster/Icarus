@@ -6,7 +6,7 @@ import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.game.room.settings.RoomState;
 import org.alexdev.icarus.game.room.settings.RoomType;
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class RoomData {
 
@@ -96,11 +96,11 @@ public class RoomData {
 		this.thumbnail = thumbnail;
 	}
 	
-	public void serialise(AbstractResponse response) {
+	public void serialise(Response response) {
 		this.serialise(response, false);
 	}
 
-	public void serialise(AbstractResponse response, boolean enterRoom) {
+	public void serialise(Response response, boolean enterRoom) {
 		
 		response.writeInt(id);
 		response.writeString(this.name);

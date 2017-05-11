@@ -2,7 +2,7 @@ package org.alexdev.icarus.messages.outgoing.navigator;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class FlatCategoriesMessageComposer implements OutgoingMessageComposer {
 
@@ -13,7 +13,7 @@ public class FlatCategoriesMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(AbstractResponse response) {
+	public void write(Response response) {
 		
 		response.init(Outgoing.FlatCategoriesMessageComposer);
 		response.writeInt(this.categories.length);

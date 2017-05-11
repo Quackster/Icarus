@@ -3,7 +3,7 @@ package org.alexdev.icarus.messages.incoming.room;
 import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.game.room.player.RoomUser;
+import org.alexdev.icarus.game.room.RoomUser;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.room.RoomDataMessageComposer;
 import org.alexdev.icarus.server.api.messages.AbstractReader;
@@ -23,7 +23,7 @@ public class RoomInfoMessageEvent implements MessageEvent {
 
 		boolean forwardPlayer = true;
 
-		if (roomUser.inRoom()) {
+		if (player.inRoom()) {
 
 			if (roomUser.getRoom() != room) {
 				roomUser.getRoom().leaveRoom(player, false);
@@ -32,9 +32,9 @@ public class RoomInfoMessageEvent implements MessageEvent {
 			}
 		}
 
-		if (roomUser.isLoadingRoom()) {
-			forwardPlayer = false;
-		}
+		//if (roomUser.isLoadingRoom()) {
+		//	forwardPlayer = false;
+		//}
 
 		if (forwardPlayer) {
 			player.send(new RoomDataMessageComposer(room, player, request.readIntAsBool(), request.readIntAsBool()));

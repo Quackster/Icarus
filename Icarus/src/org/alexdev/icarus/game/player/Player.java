@@ -8,7 +8,7 @@ import org.alexdev.icarus.game.inventory.Inventory;
 import org.alexdev.icarus.game.messenger.Messenger;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
-import org.alexdev.icarus.game.room.player.RoomUser;
+import org.alexdev.icarus.game.room.RoomUser;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.IPlayerNetwork;
 
@@ -38,7 +38,7 @@ public class Player implements IEntity {
 		
 		if (this.details.isAuthenticated()) {
 
-			if (this.roomUser.inRoom()) {
+			if (this.roomUser.getRoom() != null) {
 				this.roomUser.getRoom().leaveRoom(this, false);
 			}
 
@@ -78,6 +78,14 @@ public class Player implements IEntity {
 		return details;
 	}
 
+	public Room getRoom() {
+	    return roomUser.getRoom();
+	}
+	
+	public boolean inRoom() {
+	    return roomUser.getRoom() != null;
+	}
+	
 	public RoomUser getRoomUser() {
 		return roomUser;
 	}

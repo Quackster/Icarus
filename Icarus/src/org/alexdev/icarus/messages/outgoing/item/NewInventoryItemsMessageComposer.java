@@ -5,7 +5,7 @@ import java.util.List;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class NewInventoryItemsMessageComposer implements OutgoingMessageComposer {
 
@@ -16,7 +16,7 @@ public class NewInventoryItemsMessageComposer implements OutgoingMessageComposer
 	}
 
 	@Override
-	public void write(AbstractResponse response) {
+	public void write(Response response) {
 		
 		response.init(Outgoing.NewInventoryItemsMessageComposer);
 		response.writeInt(1);

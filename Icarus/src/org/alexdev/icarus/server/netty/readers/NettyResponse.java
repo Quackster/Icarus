@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 import org.alexdev.icarus.log.Log;
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBufferOutputStream;
 import org.jboss.netty.buffer.ChannelBuffers;
 
-public class NettyResponse implements AbstractResponse
+public class NettyResponse implements Response
 {
 
 	private int id;
@@ -73,7 +73,7 @@ public class NettyResponse implements AbstractResponse
 	}
 
 	@Override
-	public void appendInt32(Boolean obj) {
+	public void writeInt(Boolean obj) {
 		try {
 			bodystream.writeInt(obj ? 1 : 0);
 		} catch (IOException e) {
@@ -82,7 +82,7 @@ public class NettyResponse implements AbstractResponse
 	}
 
 	@Override
-	public void appendShort(int obj) {
+	public void writeShort(int obj) {
 		try {
 			bodystream.writeShort((short)obj);
 		} catch (IOException e) {

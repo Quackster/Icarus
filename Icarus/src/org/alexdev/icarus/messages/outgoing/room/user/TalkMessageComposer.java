@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.alexdev.icarus.game.room.entity.RoomEntity;
+import org.alexdev.icarus.game.room.RoomUser;
 import org.alexdev.icarus.game.room.model.Point;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class TalkMessageComposer implements OutgoingMessageComposer {
 
-	private RoomEntity roomUser;
+	private RoomUser roomUser;
 	private boolean shout;
 	private String message;
 	private int count;
 	private int textColour;
 
-	public TalkMessageComposer(RoomEntity roomUser, boolean shout, String message, int count, int textColour) {
+	public TalkMessageComposer(RoomUser roomUser, boolean shout, String message, int count, int textColour) {
 		this.roomUser = roomUser;
 		this.shout = shout;
 		this.message = message;
@@ -28,7 +28,7 @@ public class TalkMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(AbstractResponse response) {
+	public void write(Response response) {
 	
 		List<Integer> allowedColours = new ArrayList<Integer>(Arrays.asList(new Integer[] { 0, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 29 }));
 

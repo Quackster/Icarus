@@ -2,7 +2,7 @@ package org.alexdev.icarus.game.catalogue;
 
 import org.alexdev.icarus.game.furniture.Furniture;
 import org.alexdev.icarus.game.furniture.FurnitureManager;
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class CatalogueItem {
 
@@ -49,7 +49,7 @@ public class CatalogueItem {
 	}
 	
 	
-	public void serialise(AbstractResponse response) {
+	public void serialise(Response response) {
 		
 		response.writeInt(this.id);
 		response.writeString(this.catalogueName);

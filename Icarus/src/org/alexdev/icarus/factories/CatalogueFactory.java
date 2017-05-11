@@ -1,7 +1,6 @@
 package org.alexdev.icarus.factories;
 
 import org.alexdev.icarus.game.catalogue.CatalogueItem;
-import org.alexdev.icarus.game.catalogue.CataloguePage;
 import org.alexdev.icarus.game.catalogue.CatalogueTab;
 
 public class CatalogueFactory {

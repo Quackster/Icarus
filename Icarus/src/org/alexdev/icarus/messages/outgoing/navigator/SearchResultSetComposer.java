@@ -8,7 +8,7 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 
 import com.google.common.collect.Lists;
 
@@ -25,7 +25,7 @@ public class SearchResultSetComposer implements OutgoingMessageComposer {
 	}
 	
 	@Override
-	public void write(AbstractResponse response) {
+	public void write(Response response) {
 	
 		response.init(Outgoing.SearchResultSetComposer);
 		response.writeString(this.navigatorTab.getTabName());
@@ -51,7 +51,7 @@ public class SearchResultSetComposer implements OutgoingMessageComposer {
 				response.writeString(tab.getTitle());
 				response.writeInt(roomLimit ? (int)tab.getButtonType() : 2); // force no button
 				response.writeBool(roomLimit ? tab.isClosed() : false); // force collapsed
-				response.appendInt32(tab.isThumbnail());
+				response.writeInt(tab.isThumbnail());
 				
 				List<Room> rooms = Lists.newArrayList();
 				

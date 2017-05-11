@@ -1,12 +1,10 @@
 package org.alexdev.icarus.messages.outgoing.catalogue;
 
-import java.util.List;
-
 import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.game.catalogue.CataloguePage;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class CataloguePageMessageComposer implements OutgoingMessageComposer {
 
@@ -19,7 +17,7 @@ public class CataloguePageMessageComposer implements OutgoingMessageComposer {
     }
 
     @Override
-    public void write(AbstractResponse response) {
+    public void write(Response response) {
 
         response.init(Outgoing.CataloguePageMessageComposer);
         response.writeInt(this.page.getId());

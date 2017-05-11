@@ -3,12 +3,17 @@ package org.alexdev.icarus.game.room;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
+import java.util.stream.Collectors;
+
+import org.alexdev.icarus.dao.mysql.ItemDao;
 import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.entity.IEntity;
+import org.alexdev.icarus.game.furniture.interactions.InteractionType;
+import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
-import org.alexdev.icarus.game.room.player.RoomUser;
 import org.alexdev.icarus.game.room.settings.RoomType;
 import org.alexdev.icarus.messages.outgoing.room.HasOwnerRightsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.PrepareRoomMessageComposer;
@@ -20,17 +25,20 @@ import org.alexdev.icarus.messages.outgoing.room.user.HotelViewMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RemoveUserMessageComposer;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
+import com.google.common.collect.Lists;
+
 public class Room {
 
-    private int privateId;
+    private int privateId = -1;
     private boolean disposed;
 
     private RoomData data;
-    private RoomItems items;
     private RoomCycle cycle;
 
     private List<IEntity> entities;
     private ScheduledFuture<?> tickTask;
+    private List<Item> items;
+
 
     public Room() {
         this.data = new RoomData(this);
@@ -42,7 +50,6 @@ public class Room {
         RoomUser roomUser = player.getRoomUser();
 
         roomUser.setRoom(this);
-        roomUser.setLoadingRoom(true);
         roomUser.getStatuses().clear();
 
         player.send(new RoomModelMessageComposer(this.getData().getModel().getName(), this.getData().getId()));
@@ -83,9 +90,8 @@ public class Room {
         }
 
         this.disposed = false;
+        this.items = ItemDao.getRoomItems(this.getData().getId());
         this.cycle = new RoomCycle(this);
-        this.items = new RoomItems(this);
-        this.items.load();
     }
 
 
@@ -98,7 +104,7 @@ public class Room {
         this.send(new RemoveUserMessageComposer(player.getRoomUser().getVirtualId()));
 
         RoomUser roomUser = player.getRoomUser();
-        roomUser.reset();
+        roomUser.dispose();
 
         if (this.entities != null) {
             this.entities.remove(player);
@@ -158,14 +164,11 @@ public class Room {
             this.tickTask = null;
         }
 
-        if (this.items != null) {
-            this.items.dispose();
-            this.items = null;
-        }
-
         if (this.entities != null) {
             this.entities.clear();
-        }		
+        }
+        
+        this.privateId = -1;
     }
 
     public void send(OutgoingMessageComposer response, boolean checkRights) {
@@ -217,6 +220,28 @@ public class Room {
 
         return e;
     }
+    
+    public Item[] getFloorItems() {
+        List<Item> floorItems = items.stream().filter(item -> item.getType() == ItemType.FLOOR).collect(Collectors.toList());
+        return floorItems.toArray(new Item[floorItems.size()]);
+    }
+
+    public Item[] getWallItems() {
+        List<Item> wallItems = items.stream().filter(item -> item.getType() == ItemType.WALL).collect(Collectors.toList());
+        return wallItems.toArray(new Item[wallItems.size()]);
+    }
+    
+    public List<Item> getItems() {
+        return this.items;
+    }  
+    
+    public List<Item> getItems(InteractionType interactionType) {
+        try {
+            return items.stream().filter(item -> item.getData().getInteractionType() == interactionType).collect(Collectors.toList());
+        } catch (Exception e) {
+            return Lists.newArrayList();
+        }
+    }
 
     public List<IEntity> getEntities() {
         return entities;
@@ -236,9 +261,6 @@ public class Room {
         return this.privateId;
     }
 
-    public RoomItems getItemManager() {
-        return items;
-    }
 
     public RoomCycle getCycle() {
         return cycle;

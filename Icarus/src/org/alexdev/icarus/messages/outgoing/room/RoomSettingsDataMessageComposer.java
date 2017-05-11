@@ -4,7 +4,7 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomData;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class RoomSettingsDataMessageComposer implements OutgoingMessageComposer {
 
@@ -15,7 +15,7 @@ public class RoomSettingsDataMessageComposer implements OutgoingMessageComposer 
 	}
 
 	@Override
-	public void write(AbstractResponse response) {
+	public void write(Response response) {
 		
 		RoomData data = this.room.getData();
 		
@@ -33,10 +33,10 @@ public class RoomSettingsDataMessageComposer implements OutgoingMessageComposer 
             response.appendString(s);
         }*/
         response.writeInt(data.getTradeState());
-        response.appendInt32(data.isAllowPets());
-        response.appendInt32(data.isAllowPetsEat());
-        response.appendInt32(data.isAllowWalkthrough());
-        response.appendInt32(data.isHideWall());
+        response.writeInt(data.isAllowPets());
+        response.writeInt(data.isAllowPetsEat());
+        response.writeInt(data.isAllowWalkthrough());
+        response.writeInt(data.isHideWall());
         response.writeInt(data.getWallThickness());
         response.writeInt(data.getFloorThickness());
         response.writeInt(data.getChatType());//room.RoomData.ChatType);

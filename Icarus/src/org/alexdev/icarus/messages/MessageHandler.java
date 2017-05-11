@@ -85,8 +85,6 @@ public class MessageHandler {
 		this.messages.put(Incoming.GetRoomRightsListMessageEvent, new GetRoomRightsListMessageEvent());
 		this.messages.put(Incoming.RequestHeightmapMessageEvent, new EnterRoomMessageEvent());
 		this.messages.put(Incoming.RoomSucessMessageEvent, new HeightmapMessageEvent());
-		
-		// inside room 
 		this.messages.put(Incoming.UserWalkMessageEvent, new UserWalkMessageEvent());
 		this.messages.put(Incoming.LeaveRoomMessageEvent, new LeaveRoomMessageEvent());
 		this.messages.put(Incoming.ChatMessageEvent, new ChatMessageEvent());
@@ -95,12 +93,8 @@ public class MessageHandler {
 		this.messages.put(Incoming.StartTypingMessageEvent, new TypingStatusMessageEvent());
 		this.messages.put(Incoming.StopTypingMessageEvent, new TypingStatusMessageEvent());
 		this.messages.put(Incoming.RoomThumbnailMessageEvent, new RoomThumbnailMessageEvent());
-		
-		// doorbell
 		this.messages.put(Incoming.DoorbellAnswerMessageEvent, new DoorbellAnswerMessageEvent());
 		this.messages.put(Incoming.DoorbellEnterMessageEvent, new DoorbellEnterMessageEvent());
-		
-		// edit room details
 		this.messages.put(Incoming.RoomEditInfoMessageEvent, new RoomSettingsDataMessageEvent());
 		this.messages.put(Incoming.SaveRoomMessageEvent, new SaveRoomMessageEvent());
 		this.messages.put(Incoming.DeleteRoomMessageEvent, new DeleteRoomMessageEvent());

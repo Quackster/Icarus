@@ -3,7 +3,7 @@ package org.alexdev.icarus.game.messenger;
 import org.alexdev.icarus.dao.mysql.PlayerDao;
 import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.PlayerManager;
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.game.player.Player;
 
 public class MessengerUser {
@@ -26,11 +26,11 @@ public class MessengerUser {
 		this.player = PlayerManager.findById(this.userId);
 	}
 
-	public void serialise(AbstractResponse response, boolean forceOffline) {
+	public void serialise(Response response, boolean forceOffline) {
 
 		response.writeInt(this.getDetails().getId());
 		response.writeString(this.getDetails().getUsername());
-		response.appendInt32(forceOffline ? false : this.isOnline()); // gender
+		response.writeInt(forceOffline ? false : this.isOnline()); // gender
 		response.writeBool(forceOffline ? false : this.isOnline());
 		response.writeBool(forceOffline ? false : this.inRoom());
 
@@ -49,10 +49,10 @@ public class MessengerUser {
 		response.writeBool(true);
 		response.writeBool(false);
 		response.writeBool(false);
-		response.appendShort(0); 
+		response.writeShort(0); 
 	}
 
-	public void searchSerialise(AbstractResponse response) {
+	public void searchSerialise(Response response) {
 
 		response.writeInt(this.getDetails().getId());
 		response.writeString(this.getDetails().getUsername());
@@ -88,7 +88,7 @@ public class MessengerUser {
 	}
 
 	public boolean inRoom() {
-		return isOnline() ? player.getRoomUser().inRoom() : false;
+		return isOnline() ? player.inRoom() : false;
 	}
 
 }

@@ -2,15 +2,15 @@ package org.alexdev.icarus.messages.incoming.room;
 
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.game.room.RoomUser;
 import org.alexdev.icarus.game.room.model.RoomModel;
-import org.alexdev.icarus.game.room.player.RoomUser;
 import org.alexdev.icarus.messages.MessageEvent;
-import org.alexdev.icarus.messages.incoming.room.items.FloorItemsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.ChatOptionsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.FloorMapMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.HeightMapMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.RoomDataMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.WallOptionsMessageComposer;
+import org.alexdev.icarus.messages.outgoing.room.items.FloorItemsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.items.WallItemsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserDisplayMessageComposer;
@@ -38,9 +38,6 @@ public class HeightmapMessageEvent implements MessageEvent {
 
 		player.send(new HeightMapMessageComposer(room, room.getData().getModel().getMapSizeX(), room.getData().getModel().getMapSizeY()));
 		player.send(new FloorMapMessageComposer(room));
-
-		player.getRoomUser().setLoadingRoom(false);
-		player.getRoomUser().setInRoom(true);
 		
 		RoomUser user = player.getRoomUser();
 
@@ -75,8 +72,8 @@ public class HeightmapMessageEvent implements MessageEvent {
 		player.send(new ChatOptionsMessageComposer(room));
 		player.send(new WallOptionsMessageComposer(room.getData().isHideWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
 
-		player.send(new FloorItemsMessageComposer(room.getItemManager().getFloorItems()));
-		player.send(new WallItemsMessageComposer(room.getItemManager().getWallItems()));
+		player.send(new FloorItemsMessageComposer(room.getFloorItems()));
+		player.send(new WallItemsMessageComposer(room.getWallItems()));
 		
 		player.getMessenger().sendStatus(false);
 

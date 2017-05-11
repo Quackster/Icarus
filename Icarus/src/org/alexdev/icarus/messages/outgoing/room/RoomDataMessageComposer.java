@@ -4,7 +4,7 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class RoomDataMessageComposer implements OutgoingMessageComposer {
 
@@ -21,7 +21,7 @@ public class RoomDataMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(AbstractResponse response) {
+	public void write(Response response) {
 		response.init(Outgoing.RoomDataMessageComposer);
 		response.writeBool(this.isLoading);
 		this.room.getData().serialise(response, this.isLoading);
@@ -29,9 +29,9 @@ public class RoomDataMessageComposer implements OutgoingMessageComposer {
 		response.writeBool(false); 
 		response.writeBool(false);
 		response.writeBool(false);
-		response.appendInt32(false);
-		response.appendInt32(false);
-		response.appendInt32(false);
+		response.writeInt(false);
+		response.writeInt(false);
+		response.writeInt(false);
 		response.writeBool(this.room.hasRights(this.player, true));
 		response.writeInt(0);
 		response.writeInt(0);

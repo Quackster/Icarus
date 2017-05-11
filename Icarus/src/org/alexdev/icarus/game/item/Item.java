@@ -9,7 +9,7 @@ import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.pathfinder.AffectedTile;
 import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.PlayerManager;
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.util.GameSettings;
 
 public class Item {
@@ -44,26 +44,22 @@ public class Item {
 		this.type = this.getData().getType().equals("i") ? ItemType.WALL : ItemType.FLOOR;
 
 		if (this.type == ItemType.FLOOR) {
-
 			this.x = Integer.parseInt(x);
 			this.y = Integer.parseInt(y);
-
 		} else {
-
 			try {
-				String[] xData = x.split(",");
+				String[] firstPosition = x.split(",");
 
-				this.side = xData[0].toCharArray()[0];
-				this.widthX = Integer.parseInt(xData[1]);
-				this.widthY = Integer.parseInt(xData[2]);
+				this.side = firstPosition[0].toCharArray()[0];
+				this.widthX = Integer.parseInt(firstPosition[1]);
+				this.widthY = Integer.parseInt(firstPosition[2]);
 
-				String[] yData = y.split(",");
+				String[] secondPosition = y.split(",");
 
-				this.lengthX = Integer.parseInt(yData[0]);
-				this.lengthY = Integer.parseInt(yData[1]);
+				this.lengthX = Integer.parseInt(secondPosition[0]);
+				this.lengthY = Integer.parseInt(secondPosition[1]);
 				
 			} catch (Exception e) {
-				
 				this.side = ' ';
 				this.widthX = 0;
 				this.widthY = 0;
@@ -83,7 +79,7 @@ public class Item {
 		return AffectedTile.getAffectedTilesAt(this.getData().getLength(), this.getData().getWidth(), this.x, this.y, this.rotation);
 	}
 
-	public void serialise(AbstractResponse message) {
+	public void serialise(Response message) {
 		if (this.type == ItemType.WALL) {
 
 			message.writeString(this.gameId + "");

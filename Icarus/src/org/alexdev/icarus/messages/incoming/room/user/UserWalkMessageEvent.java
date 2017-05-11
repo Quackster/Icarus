@@ -4,8 +4,8 @@ import java.util.LinkedList;
 
 import org.alexdev.icarus.game.pathfinder.Pathfinder;
 import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.game.room.RoomUser;
 import org.alexdev.icarus.game.room.model.Point;
-import org.alexdev.icarus.game.room.player.RoomUser;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.server.api.messages.AbstractReader;
 

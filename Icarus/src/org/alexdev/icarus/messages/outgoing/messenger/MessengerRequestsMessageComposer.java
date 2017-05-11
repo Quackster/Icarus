@@ -6,7 +6,7 @@ import org.alexdev.icarus.game.messenger.MessengerUser;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class MessengerRequestsMessageComposer implements OutgoingMessageComposer {
 
@@ -19,7 +19,7 @@ public class MessengerRequestsMessageComposer implements OutgoingMessageComposer
 	}
 
 	@Override
-	public void write(AbstractResponse response) {
+	public void write(Response response) {
 		
 		response.init(Outgoing.MessengerRequestsMessageComposer);
 		response.writeInt(this.player.getDetails().getId());

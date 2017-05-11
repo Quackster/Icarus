@@ -4,7 +4,7 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class HeightMapMessageComposer implements OutgoingMessageComposer {
 
@@ -19,7 +19,7 @@ public class HeightMapMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(AbstractResponse response) {
+	public void write(Response response) {
 		RoomModel roomModel = room.getData().getModel();
 
 		response.init(Outgoing.HeightMapMessageComposer);
@@ -32,7 +32,7 @@ public class HeightMapMessageComposer implements OutgoingMessageComposer {
 				//if (room.getCollisionMap()[x][y] == RoomModel.CLOSED) {
 				//	this.appendShort (-1);
 				//} else {
-				response.appendShort((int) (roomModel.getHeight(x, y) * 256));
+				response.writeShort((int) (roomModel.getHeight(x, y) * 256));
 				//}
 			}
 		}

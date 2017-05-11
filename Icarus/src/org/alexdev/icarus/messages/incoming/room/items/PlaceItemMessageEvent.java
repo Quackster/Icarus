@@ -58,7 +58,7 @@ public class PlaceItemMessageEvent implements MessageEvent {
             item.save();
             
 			player.getInventory().getItems().remove(item);
-			room.getItemManager().getItems().add(item);
+			room.getItems().add(item);
 			
 			room.send(new PlaceItemMessageComposer(item));//response);
 			
@@ -78,7 +78,7 @@ public class PlaceItemMessageEvent implements MessageEvent {
 			item.setRoomId(player.getRoomUser().getRoom().getData().getId());
 			item.save();
 
-			room.getItemManager().getItems().add(item);
+			room.getItems().add(item);
 			player.getInventory().getItems().remove(item);
 
 			room.send(new PlaceItemMessageComposer(item));//response);

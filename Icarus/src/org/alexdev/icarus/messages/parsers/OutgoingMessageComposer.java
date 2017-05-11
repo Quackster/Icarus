@@ -1,7 +1,7 @@
 package org.alexdev.icarus.messages.parsers;
 
-import org.alexdev.icarus.server.api.messages.AbstractResponse;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public interface OutgoingMessageComposer {
-	public void write(AbstractResponse response);
+	public void write(Response response);
 }

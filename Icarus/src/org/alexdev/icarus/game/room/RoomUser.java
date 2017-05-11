@@ -1,11 +1,10 @@
-package org.alexdev.icarus.game.room.entity;
+package org.alexdev.icarus.game.room;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 
 import org.alexdev.icarus.game.entity.IEntity;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.Point;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.log.DateTime;
@@ -17,7 +16,7 @@ import org.alexdev.icarus.util.GameSettings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-public abstract class RoomEntity {
+public class RoomUser {
 
 	private int virtualId;
 	private int lastChatId;
@@ -40,7 +39,7 @@ public abstract class RoomEntity {
 	private IEntity entity;
 	private Room room;
 	
-	public RoomEntity(IEntity entity) {
+	public RoomUser(IEntity entity) {
 		this.dispose();
 		this.entity = entity;
 	}

@@ -17,8 +17,8 @@ public class FollowFriendMessageEvent implements MessageEvent {
         Player client = player.getMessenger().getFriend(friendId).getPlayer();
         
         if (client != null) {
-            if (client.getRoomUser().inRoom()) {
-            	player.send(new FollowBuddyMessageComposer(client.getRoomUser().getRoom().getData().getId()));
+            if (client.inRoom()) {
+            	player.send(new FollowBuddyMessageComposer(client.getRoom().getData().getId()));
             }
 
             else errorID = 2; // User is not in a room
