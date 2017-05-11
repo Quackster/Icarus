@@ -16,14 +16,14 @@ import org.alexdev.icarus.messages.incoming.room.items.PlaceItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.user.*;
 import org.alexdev.icarus.messages.incoming.user.*;
 import org.alexdev.icarus.messages.outgoing.room.items.ApplyDecorationMessageEvent;
-import org.alexdev.icarus.server.api.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 import com.google.common.collect.Maps;
 
 public class MessageHandler {
 
 	//private List<IncomingMessageParser> parsers;
-	private HashMap<Short, MessageEvent> messages;
+	private HashMap<Integer, MessageEvent> messages;
 
 	public MessageHandler() {
 		//this.parsers = Lists.newArrayList();
@@ -48,23 +48,23 @@ public class MessageHandler {
 	private void registerHandshakePackets() {
 		this.messages.put(Incoming.VersionCheckMessageEvent, new VersionCheckMessageEvent());
 		this.messages.put(Incoming.UniqueIDMessageEvent, new UniqueIDMessageEvent());
-		this.messages.put(Incoming.SSOTicketMessageEvent, new SSOTicketMessageEvent());
+		this.messages.put(Incoming.AuthenticateMessageEvent, new AuthenticateMessageEvent());
 	}
 	
 	private void registerUserPackets() {
 		this.messages.put(Incoming.InfoRetrieveMessageEvent, new InfoRetrieveMessageEvent());
-		this.messages.put(Incoming.GetCurrencyBalanceMessageEvent, new GetCurrencyBalanceMessageEvent());
+		this.messages.put(Incoming.CurrencyBalanceMessageEvent, new CurrencyBalanceMessageEvent());
 	}
 	
 	private void registerMessenger() {
-		this.messages.put(Incoming.MessengerFriendsMessageEvent, new MessengerMessageEvent());
+		this.messages.put(Incoming.MessengerInitMessageEvent, new MessengerInitMessageEvent());
 		this.messages.put(Incoming.MessengerSearchMessageEvent, new MessengerSearchMessageEvent());
 		this.messages.put(Incoming.MessengerRequestMessageEvent, new MessengerRequestMessageEvent());
 		this.messages.put(Incoming.MessengerAcceptMessageEvent, new MessengerAcceptMessageEvent());
 		this.messages.put(Incoming.MessengerDeclineMessageEvent, new MessengerDeclineMessageEvent());
 		this.messages.put(Incoming.MessengerDeleteFriendMessageEvent, new MessengerDeleteFriendMessageEvent());
 		this.messages.put(Incoming.MessengerTalkMessageEvent, new MessengerTalkMessageEvent());
-		this.messages.put(Incoming.FriendListUpdateMessageEvent, new MessengerUpdateMessageEvent());
+		this.messages.put(Incoming.MessengerUpdateMessageEvent, new MessengerUpdateMessageEvent());
 		this.messages.put(Incoming.FollowFriendMessageEvent, new FollowFriendMessageEvent());
 	}
 	
@@ -82,9 +82,9 @@ public class MessageHandler {
 	
 	private void registerRoomPackets() {
 		this.messages.put(Incoming.RoomInfoMessageEvent, new RoomInfoMessageEvent());
-		this.messages.put(Incoming.GetRoomRightsListMessageEvent, new GetRoomRightsListMessageEvent());
-		this.messages.put(Incoming.RequestHeightmapMessageEvent, new EnterRoomMessageEvent());
-		this.messages.put(Incoming.RoomSucessMessageEvent, new HeightmapMessageEvent());
+		//this.messages.put(Incoming.GetRoomRightsListMessageEvent, new GetRoomRightsListMessageEvent());
+		this.messages.put(Incoming.EnterRoomMessageEvent, new EnterRoomMessageEvent());
+		this.messages.put(Incoming.HeightMapMessageEvent, new HeightmapMessageEvent());
 		this.messages.put(Incoming.UserWalkMessageEvent, new UserWalkMessageEvent());
 		this.messages.put(Incoming.LeaveRoomMessageEvent, new LeaveRoomMessageEvent());
 		this.messages.put(Incoming.ChatMessageEvent, new ChatMessageEvent());
@@ -92,16 +92,16 @@ public class MessageHandler {
 		this.messages.put(Incoming.DanceMessageEvent, new DanceMessageEvent());
 		this.messages.put(Incoming.StartTypingMessageEvent, new TypingStatusMessageEvent());
 		this.messages.put(Incoming.StopTypingMessageEvent, new TypingStatusMessageEvent());
-		this.messages.put(Incoming.RoomThumbnailMessageEvent, new RoomThumbnailMessageEvent());
-		this.messages.put(Incoming.DoorbellAnswerMessageEvent, new DoorbellAnswerMessageEvent());
-		this.messages.put(Incoming.DoorbellEnterMessageEvent, new DoorbellEnterMessageEvent());
+		//this.messages.put(Incoming.RoomThumbnailMessageEvent, new RoomThumbnailMessageEvent());
+		this.messages.put(Incoming.AnswerDoorbellMessageEvent, new DoorbellAnswerMessageEvent());
+		this.messages.put(Incoming.EnterDoorbellMessageEvent, new DoorbellEnterMessageEvent());
 		this.messages.put(Incoming.RoomEditInfoMessageEvent, new RoomSettingsDataMessageEvent());
 		this.messages.put(Incoming.SaveRoomMessageEvent, new SaveRoomMessageEvent());
 		this.messages.put(Incoming.DeleteRoomMessageEvent, new DeleteRoomMessageEvent());
 	}
 	
 	private void registerCataloguePackets() {
-		this.messages.put(Incoming.CatalogueMessageEvent, new CatalogueMessageEvent());
+		this.messages.put(Incoming.CatalogueTabMessageEvent, new CatalogueMessageEvent());
 		this.messages.put(Incoming.CataloguePageMessageEvent, new CataloguePageMessageEvent());
 		this.messages.put(Incoming.PurchaseObjectMessageEvent, new PurchaseMessageEvent());
 	}
@@ -114,13 +114,13 @@ public class MessageHandler {
 	}
 
 
-	public void handleRequest(Player player, AbstractReader message) {
+	public void handleRequest(Player player, ClientMessage message) {
 		if (messages.containsKey(message.getMessageId())) {
 			messages.get(message.getMessageId()).handle(player, message);
 		}
 	}
 
-	public HashMap<Short, MessageEvent> getMessages() {
+	public HashMap<Integer, MessageEvent> getMessages() {
 		return messages;
 	}
 

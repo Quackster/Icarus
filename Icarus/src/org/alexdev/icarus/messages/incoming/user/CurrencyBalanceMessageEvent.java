@@ -2,13 +2,13 @@ package org.alexdev.icarus.messages.incoming.user;
 
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.MessageEvent;
-import org.alexdev.icarus.messages.outgoing.user.CreditsBalanceMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractReader;
+import org.alexdev.icarus.messages.outgoing.user.CreditsMessageComposer;
+import org.alexdev.icarus.server.api.messages.ClientMessage;
 
-public class GetCurrencyBalanceMessageEvent implements MessageEvent {
+public class CurrencyBalanceMessageEvent implements MessageEvent {
 
 	@Override
-	public void handle(Player player, AbstractReader reader) {
+	public void handle(Player player, ClientMessage reader) {
 
 		/*Response response = new Response();
 		response.init(Outgoing.ActivityPointsMessageComposer);
@@ -19,7 +19,7 @@ public class GetCurrencyBalanceMessageEvent implements MessageEvent {
 		response.appendInt32(44444);
 		player.send(response);*/
 		
-		player.send(new CreditsBalanceMessageComposer(player.getDetails().getCredits()));		
+		player.send(new CreditsMessageComposer(player.getDetails().getCredits()));		
 	}
 
 }

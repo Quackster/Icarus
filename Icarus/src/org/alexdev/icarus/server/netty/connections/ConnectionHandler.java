@@ -3,7 +3,7 @@ package org.alexdev.icarus.server.netty.connections;
 import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.log.Log;
-import org.alexdev.icarus.server.netty.readers.NettyRequest;
+import org.alexdev.icarus.server.netty.streams.NettyRequest;
 import org.alexdev.icarus.util.Util;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.ChannelStateEvent;

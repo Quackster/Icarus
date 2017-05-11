@@ -11,12 +11,12 @@ import org.alexdev.icarus.messages.outgoing.room.notify.GenericErrorMessageCompo
 import org.alexdev.icarus.messages.outgoing.room.notify.GenericNoAnswerDoorbellMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.notify.RoomEnterErrorMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.HotelViewMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class EnterRoomMessageEvent implements MessageEvent {
 
 	@Override
-	public void handle(Player player, AbstractReader request) {
+	public void handle(Player player, ClientMessage request) {
 
 		Room room = RoomDao.getRoom(request.readInt(), true);
 

@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 import org.alexdev.icarus.game.entity.IEntity;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.game.room.model.Point;
+import org.alexdev.icarus.game.room.model.Position;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.log.DateTime;
 import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageComposer;
@@ -22,8 +22,8 @@ public class RoomUser {
 	private int lastChatId;
 	private int danceId;
 
-	private Point position;
-	private Point goal;
+	private Position position;
+	private Position goal;
 
 	private int rotation;
 	private int headRotation;
@@ -35,7 +35,7 @@ public class RoomUser {
 	private int chatCount;
 	
 	private HashMap<String, String> statuses;
-	private LinkedList<Point> path;
+	private LinkedList<Position> path;
 	private IEntity entity;
 	private Room room;
 	
@@ -114,8 +114,8 @@ public class RoomUser {
 		this.position = null;
 		this.goal = null;
 		
-		this.position = new Point(0, 0, 0);
-		this.goal = new Point(0, 0, 0);
+		this.position = new Position(0, 0, 0);
+		this.goal = new Position(0, 0, 0);
 
 		this.lastChatId = 0;
 		this.virtualId = -1;
@@ -123,19 +123,19 @@ public class RoomUser {
 
 	}
 
-	public Point getPosition() {
+	public Position getPosition() {
 		return position;
 	}
 
-	public void setPosition(Point position) {
+	public void setPosition(Position position) {
 		this.position = position;
 	}
 
-	public Point getGoal() {
+	public Position getGoal() {
 		return goal;
 	}
 
-	public void setGoal(Point goal) {
+	public void setGoal(Position goal) {
 		this.goal = goal;
 	}
 
@@ -195,12 +195,12 @@ public class RoomUser {
 		return statuses;
 	}
 
-	public LinkedList<Point> getPath() {
+	public LinkedList<Position> getPath() {
 		return path;
 	}
 
 
-	public void setPath(LinkedList<Point> path) {
+	public void setPath(LinkedList<Position> path) {
 
 		if (this.path != null) {
 			this.path.clear();

@@ -351,7 +351,7 @@ public class RoomData {
 		return rights;
 	}
 
-	public int getChatType() {
+	public int getChatMode() {
 		return chatType;
 	}
 
@@ -359,7 +359,7 @@ public class RoomData {
 		this.chatType = chatType;
 	}
 
-	public int getChatBalloon() {
+	public int getChatSize() {
 		return chatBalloon;
 	}
 

@@ -17,7 +17,7 @@ public class PurchaseErrorMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(Response response) {
 		
-		response.init(Outgoing.LackFundsMessageComposer);
+		response.init(Outgoing.PurchaseErrorMessageComposer);
 		response.writeBool(creditsError);
 		response.writeBool(pixelError);
 		

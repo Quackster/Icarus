@@ -1,35 +1,34 @@
 package org.alexdev.icarus.messages.outgoing.navigator;
 
+import java.util.List;
+
+import org.alexdev.icarus.game.navigator.NavigatorCategory;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
 public class FlatCategoriesMessageComposer implements OutgoingMessageComposer {
 
-	private String[] categories;
+	private List<NavigatorCategory> categories;
 
-	public FlatCategoriesMessageComposer(String[] categories) {
-		this.categories = categories;
+	public FlatCategoriesMessageComposer(List<NavigatorCategory> list) {
+		this.categories = list;
 	}
 
 	@Override
 	public void write(Response response) {
 		
 		response.init(Outgoing.FlatCategoriesMessageComposer);
-		response.writeInt(this.categories.length);
+		response.writeInt(this.categories.size());
 
-		int index = 0;
-		
-		for (String category : this.categories) {
-			response.writeInt(index);
-			response.writeString(category);
+		for (NavigatorCategory category : this.categories) {
+			response.writeInt(category.getId());
+			response.writeString(category.getName());
 			response.writeBool(true); // show category?
 			response.writeBool(false); // no idea
 			response.writeString("NONE");
 			response.writeString("");
 			response.writeBool(false);
-			
-			++index;
 		}
 	}
 }

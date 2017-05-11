@@ -1,14 +1,14 @@
-package org.alexdev.icarus.server.netty.readers;
+package org.alexdev.icarus.server.netty.streams;
 
 import java.nio.charset.Charset;
 
-import org.alexdev.icarus.server.api.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 
-public class NettyRequest implements AbstractReader {
+public class NettyRequest implements ClientMessage {
 
-	private short header;
+	private int header;
 	public ChannelBuffer buffer;
 	
 	public NettyRequest(int messageId, ChannelBuffer buffer) {
@@ -51,24 +51,19 @@ public class NettyRequest implements AbstractReader {
 	public String readString() {
 		
 		try {
-			
 			int length = this.readShort();
 			byte[] data = this.buffer.readBytes(length).array();
 
 			return new String(data);
-			
 		} catch (Exception e) {
 			return null;
 		}
 	}
-	
 
 	public byte[] readBytes(int len) {
 		
 		try {
-			
 			return this.buffer.readBytes(len).array();
-			
 		} catch (Exception e) {
 			return null;
 		}
@@ -89,7 +84,7 @@ public class NettyRequest implements AbstractReader {
 		return buffer;
 	}
 
-	public short getMessageId() {
+	public int getMessageId() {
 		return header;
 	}
 }

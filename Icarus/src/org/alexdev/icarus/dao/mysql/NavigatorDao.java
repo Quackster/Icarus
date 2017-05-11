@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.alexdev.icarus.factories.NavigatorFactory;
+import org.alexdev.icarus.game.navigator.NavigatorCategory;
 import org.alexdev.icarus.game.navigator.NavigatorTab;
 import org.alexdev.icarus.log.Log;
 
@@ -46,6 +47,35 @@ public class NavigatorDao {
 
 		return tabs;
 	}
+	
+	   public static List<NavigatorCategory> getCategories() {
+
+	        List<NavigatorCategory> categories = Lists.newArrayList();
+
+	        Connection sqlConnection = null;
+	        PreparedStatement preparedStatement = null;
+	        ResultSet resultSet = null;
+
+	        try {
+
+	            sqlConnection = Dao.getStorage().getConnection();
+	            preparedStatement = Dao.getStorage().prepare("SELECT * FROM navigator_categories", sqlConnection);
+	            resultSet = preparedStatement.executeQuery();
+
+	            while (resultSet.next()) {
+	                categories.add(new NavigatorCategory(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getInt("min_rank")));
+	            }
+
+	        } catch (Exception e) {
+	            Log.exception(e);
+	        } finally {
+	            Storage.closeSilently(resultSet);
+	            Storage.closeSilently(preparedStatement);
+	            Storage.closeSilently(sqlConnection);
+	        }
+
+	        return categories;
+	    }
 
 	public static NavigatorTab fill(ResultSet set) throws SQLException {
 

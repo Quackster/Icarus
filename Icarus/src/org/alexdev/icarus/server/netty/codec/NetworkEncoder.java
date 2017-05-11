@@ -22,7 +22,7 @@ package org.alexdev.icarus.server.netty.codec;
 import java.nio.charset.Charset;
 
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.netty.readers.NettyResponse;
+import org.alexdev.icarus.server.netty.streams.NettyResponse;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.ChannelHandlerContext;

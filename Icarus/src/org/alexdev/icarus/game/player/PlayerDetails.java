@@ -1,7 +1,7 @@
 package org.alexdev.icarus.game.player;
 
 import org.alexdev.icarus.game.entity.IEntity;
-import org.alexdev.icarus.messages.outgoing.user.CreditsBalanceMessageComposer;
+import org.alexdev.icarus.messages.outgoing.user.CreditsMessageComposer;
 
 public class PlayerDetails {
 
@@ -91,7 +91,7 @@ public class PlayerDetails {
 			if (this.entity instanceof Player) {
 			
 				Player player = (Player)this.entity;
-				player.send(new CreditsBalanceMessageComposer(this.credits));
+				player.send(new CreditsMessageComposer(this.credits));
 			
 			}
 		}

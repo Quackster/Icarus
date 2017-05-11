@@ -26,7 +26,7 @@ public class InventoryLoadMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(Response response) {
 
-		response.init(Outgoing.InventoryLoadMessageComposer);
+		response.init(Outgoing.InventoryMessageComposer);
 		response.writeInt(1);
 		response.writeInt(0);
 		response.writeInt(this.wallItems.size() + this.floorItems.size());

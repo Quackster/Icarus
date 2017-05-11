@@ -1,7 +1,7 @@
 package org.alexdev.icarus.messages.parsers;
 
-import org.alexdev.icarus.server.api.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public interface IncomingMessageParser {
-	public void read(AbstractReader reader);
+	public void read(ClientMessage reader);
 }

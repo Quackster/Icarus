@@ -21,7 +21,7 @@ package org.alexdev.icarus.server.netty.codec;
 
 import java.nio.ByteBuffer;
 
-import org.alexdev.icarus.server.netty.readers.NettyRequest;
+import org.alexdev.icarus.server.netty.streams.NettyRequest;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;

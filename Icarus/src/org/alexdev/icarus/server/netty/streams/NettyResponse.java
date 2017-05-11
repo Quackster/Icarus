@@ -1,4 +1,4 @@
-package org.alexdev.icarus.server.netty.readers;
+package org.alexdev.icarus.server.netty.streams;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

@@ -5,14 +5,14 @@ import java.util.LinkedList;
 import org.alexdev.icarus.game.pathfinder.Pathfinder;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.RoomUser;
-import org.alexdev.icarus.game.room.model.Point;
+import org.alexdev.icarus.game.room.model.Position;
 import org.alexdev.icarus.messages.MessageEvent;
-import org.alexdev.icarus.server.api.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class UserWalkMessageEvent implements MessageEvent {
 
 	@Override
-	public void handle(Player player, AbstractReader request) {
+	public void handle(Player player, ClientMessage request) {
 
 		int X = request.readInt();
 		int Y = request.readInt();
@@ -21,7 +21,7 @@ public class UserWalkMessageEvent implements MessageEvent {
 			return;
 		}
 		
-		if (player.getRoomUser().getPosition().sameAs(new Point(X, Y))) {
+		if (player.getRoomUser().getPosition().sameAs(new Position(X, Y))) {
 			return;
 		}
 
@@ -29,7 +29,7 @@ public class UserWalkMessageEvent implements MessageEvent {
 		roomUser.getGoal().setX(X);
 		roomUser.getGoal().setY(Y);
 
-		LinkedList<Point> path = Pathfinder.makePath(player);
+		LinkedList<Position> path = Pathfinder.makePath(player);
 
 		if (path == null) {
 			return;

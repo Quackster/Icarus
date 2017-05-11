@@ -18,7 +18,7 @@ public class NewInventoryItemsMessageComposer implements OutgoingMessageComposer
 	@Override
 	public void write(Response response) {
 		
-		response.init(Outgoing.NewInventoryItemsMessageComposer);
+		response.init(Outgoing.FurniListNotificationComposer);
 		response.writeInt(1);
 		response.writeInt(items.size());
 		

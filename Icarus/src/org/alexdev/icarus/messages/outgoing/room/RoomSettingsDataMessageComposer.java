@@ -19,7 +19,7 @@ public class RoomSettingsDataMessageComposer implements OutgoingMessageComposer 
 		
 		RoomData data = this.room.getData();
 		
-		response.init(Outgoing.RoomEditSettingsComposer);
+		response.init(Outgoing.RoomSettingsDataMessageComposer);
         response.writeInt(data.getId());
         response.writeString(data.getName());
         response.writeString(data.getDescription());
@@ -39,8 +39,8 @@ public class RoomSettingsDataMessageComposer implements OutgoingMessageComposer 
         response.writeInt(data.isHideWall());
         response.writeInt(data.getWallThickness());
         response.writeInt(data.getFloorThickness());
-        response.writeInt(data.getChatType());//room.RoomData.ChatType);
-        response.writeInt(data.getChatBalloon());//room.RoomData.ChatBalloon);
+        response.writeInt(data.getChatMode());//room.RoomData.ChatType);
+        response.writeInt(data.getChatSize());//room.RoomData.ChatBalloon);
         response.writeInt(data.getChatSpeed());//room.RoomData.ChatSpeed);
         response.writeInt(data.getChatMaxDistance());//room.RoomData.ChatMaxDistance);
         response.writeInt(data.getChatFloodProtection());//room.RoomData.ChatFloodProtection > 2 ? 2 : room.RoomData.ChatFloodProtection);

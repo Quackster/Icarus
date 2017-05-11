@@ -279,8 +279,8 @@ public class RoomDao {
             preparedStatement.setInt(15, data.getWhoCanMute());
             preparedStatement.setInt(16, data.getWhoCanKick());
             preparedStatement.setInt(17, data.getWhoCanBan());
-            preparedStatement.setInt(18, data.getChatType());
-            preparedStatement.setInt(19, data.getChatBalloon());
+            preparedStatement.setInt(18, data.getChatMode());
+            preparedStatement.setInt(19, data.getChatSize());
             preparedStatement.setInt(20, data.getChatSpeed());
             preparedStatement.setInt(21, data.getChatMaxDistance());
             preparedStatement.setInt(22, data.getChatFloodProtection());

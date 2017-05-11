@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.alexdev.icarus.game.room.RoomUser;
-import org.alexdev.icarus.game.room.model.Point;
+import org.alexdev.icarus.game.room.model.Position;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
@@ -56,7 +56,7 @@ public class TalkMessageComposer implements OutgoingMessageComposer {
 		response.writeInt(this.count);
 
 		if (!this.roomUser.isWalking()) {
-			Point point = this.roomUser.getPosition();
+			Position point = this.roomUser.getPosition();
 			this.roomUser.setRotation(Rotation.calculate(point.getX(), point.getY(), point.getX(), point.getY()), true);
 			this.roomUser.updateStatus();
 		}

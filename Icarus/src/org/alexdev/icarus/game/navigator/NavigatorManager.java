@@ -9,9 +9,11 @@ import org.alexdev.icarus.dao.mysql.NavigatorDao;
 public class NavigatorManager {
 
 	private static List<NavigatorTab> tabs;
+    private static List<NavigatorCategory> categories;
 	
 	public static void load() throws Exception {
 		tabs = NavigatorDao.getTabs(-1);
+		categories = NavigatorDao.getCategories();
 	}
 	
 	public static NavigatorTab getTab(String tabName) {
@@ -34,8 +36,8 @@ public class NavigatorManager {
 		}
 	}
 	
-	public static String[] getPrivateRoomCategories() {
-		return new String[] { "No Category", "School, Daycare & Adoption Rooms", "Help Centre, Guide & Service Rooms", "Hair Salons & Modelling Rooms", "Gaming & Race Rooms", "Trading & Shopping Rooms", "Maze & Theme Park Rooms", "Chat, Chill & Discussion Rooms", "Club & Group Rooms", "Restaurant, Bar & Night Club Rooms", "Themed & RPG Rooms", "Staff Rooms" };
+	public static List<NavigatorCategory> getCategories() {
+		return categories;
 	}
 
 	public static List<NavigatorTab> getAllTabs() {

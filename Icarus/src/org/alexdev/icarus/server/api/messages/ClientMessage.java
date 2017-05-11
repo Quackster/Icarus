@@ -1,6 +1,6 @@
 package org.alexdev.icarus.server.api.messages;
 
-public interface AbstractReader {
+public interface ClientMessage {
 
 	public int readShort();
 	public Integer readInt();
@@ -9,5 +9,5 @@ public interface AbstractReader {
 	public String readString();
 	public byte[] readBytes(int len);
 	public String getMessageBody();
-	public short getMessageId();
+	public int getMessageId();
 }

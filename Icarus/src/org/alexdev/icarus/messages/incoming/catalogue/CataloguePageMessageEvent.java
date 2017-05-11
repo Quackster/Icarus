@@ -5,12 +5,12 @@ import org.alexdev.icarus.game.catalogue.CataloguePage;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.catalogue.CataloguePageMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class CataloguePageMessageEvent implements MessageEvent {
 
 	@Override
-	public void handle(Player player, AbstractReader request) {
+	public void handle(Player player, ClientMessage request) {
 		
 		int pageId = request.readInt();
 		

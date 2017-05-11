@@ -11,13 +11,13 @@ public class RoomDataMessageComposer implements OutgoingMessageComposer {
 	private Room room;
 	private Player player;
 	private boolean isLoading;
-	private boolean stalkingRoom;
+	private boolean checkEntry;
 
-	public RoomDataMessageComposer(Room room, Player player, boolean isLoading, boolean stalkingRoom) {
+	public RoomDataMessageComposer(Room room, Player player, boolean isLoading, boolean checkEntry) {
 		this.room = room;
 		this.player = player;
 		this.isLoading = isLoading;
-		this.stalkingRoom = stalkingRoom;
+		this.checkEntry = checkEntry;
 	}
 
 	@Override
@@ -25,18 +25,22 @@ public class RoomDataMessageComposer implements OutgoingMessageComposer {
 		response.init(Outgoing.RoomDataMessageComposer);
 		response.writeBool(this.isLoading);
 		this.room.getData().serialise(response, this.isLoading);
-		response.writeBool(this.stalkingRoom);
+		response.writeBool(this.checkEntry);
 		response.writeBool(false); 
 		response.writeBool(false);
 		response.writeBool(false);
-		response.writeInt(false);
-		response.writeInt(false);
-		response.writeInt(false);
-		response.writeBool(this.room.hasRights(this.player, true));
-		response.writeInt(0);
-		response.writeInt(0);
-		response.writeInt(0);
-		response.writeInt(0);
-		response.writeInt(0);
+        response.writeInt(room.getData().getWhoCanMute());
+        response.writeInt(room.getData().getWhoCanKick());
+        response.writeInt(room.getData().getWhoCanBan());
+        response.writeBool(room.hasRights(player, true)); // TODO: Rights, true if moderator or room owner
+        response.writeInt(room.getData().getChatMode());
+        response.writeInt(room.getData().getChatSize());
+        response.writeInt(room.getData().getChatSpeed());
+        response.writeInt(room.getData().getChatFloodProtection());
+        response.writeInt(room.getData().getChatMaxDistance());
+        
+        /*response.writeInt(room->getData()->chat_speed);
+        response.writeInt(room->getData()->chat_flood);
+        response.writeInt(room->getData()->chat_distance)*/;
 	}
 }

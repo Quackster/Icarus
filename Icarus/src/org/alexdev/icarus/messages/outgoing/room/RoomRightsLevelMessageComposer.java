@@ -14,7 +14,7 @@ public class RoomRightsLevelMessageComposer implements OutgoingMessageComposer {
 
 	@Override
 	public void write(Response response) {
-		response.init(Outgoing.RoomRightsLevelMessageComposer);
+		response.init(Outgoing.RightsLevelMessageComposer);
 		response.writeInt(this.status);
 	}
 

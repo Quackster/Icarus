@@ -2,8 +2,6 @@ package org.alexdev.icarus.messages.incoming.room;
 
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.game.room.RoomUser;
-import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.room.ChatOptionsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.FloorMapMessageComposer;
@@ -15,37 +13,27 @@ import org.alexdev.icarus.messages.outgoing.room.items.WallItemsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserDisplayMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class HeightmapMessageEvent implements MessageEvent {
 
 	@Override
-	public void handle(Player player, AbstractReader request) {
+	public void handle(Player player, ClientMessage request) {
 
 		Room room = player.getRoomUser().getRoom();
 
 		if (room == null) {
 			return;
 		}
-
+		
 		if (room.getEntities().contains(player)) {
 			return;
 		}
-
-		RoomModel roomModel = room.getData().getModel();
 		
-		room.firstEntry(); // this method will load all pets AND items if this is the first user to join the room
+		room.firstEntry();
 
 		player.send(new HeightMapMessageComposer(room, room.getData().getModel().getMapSizeX(), room.getData().getModel().getMapSizeY()));
 		player.send(new FloorMapMessageComposer(room));
-		
-		RoomUser user = player.getRoomUser();
-
-		user.setVirtualId(room.getVirtualId());
-		user.setPosition(room.getData().getModel().getDoorPosition());
-		user.getPosition().setZ(roomModel.getHeight(user.getPosition().getX(), user.getPosition().getY()));
-		
-		user.setRotation(roomModel.getDoorRot(), false);
 
 		room.send(new UserDisplayMessageComposer(player));
 		room.send(new UserStatusMessageComposer(player));

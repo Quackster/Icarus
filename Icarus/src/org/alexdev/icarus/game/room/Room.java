@@ -14,6 +14,7 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
+import org.alexdev.icarus.game.room.model.Position;
 import org.alexdev.icarus.game.room.settings.RoomType;
 import org.alexdev.icarus.messages.outgoing.room.HasOwnerRightsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.PrepareRoomMessageComposer;
@@ -81,6 +82,14 @@ public class Room {
         }
 
         player.send(new PrepareRoomMessageComposer(this));
+
+        roomUser.setVirtualId(this.getVirtualId());
+        
+        Position startingPosition = this.data.getModel().getDoorPosition();
+        roomUser.getPosition().setX(startingPosition.getX());
+        roomUser.getPosition().setX(startingPosition.getY());
+        roomUser.getPosition().setZ(this.data.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
+        roomUser.setRotation(this.data.getModel().getDoorRot(), false);
     }
 
     public void firstEntry() {

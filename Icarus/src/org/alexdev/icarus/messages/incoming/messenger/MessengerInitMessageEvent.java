@@ -5,12 +5,12 @@ import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.messenger.FriendsListMessageComposer;
 import org.alexdev.icarus.messages.outgoing.messenger.MessengerCategoriesMessageComposer;
 import org.alexdev.icarus.messages.outgoing.messenger.MessengerRequestsMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.ClientMessage;
 
-public class MessengerMessageEvent implements MessageEvent {
+public class MessengerInitMessageEvent implements MessageEvent {
 
 	@Override
-	public void handle(Player player, AbstractReader request) {
+	public void handle(Player player, ClientMessage request) {
 		
 		if (player.getMessenger() == null) {
 			return;

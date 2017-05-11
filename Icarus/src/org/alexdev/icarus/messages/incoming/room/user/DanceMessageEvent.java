@@ -5,12 +5,12 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomUser;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class DanceMessageEvent implements MessageEvent {
 
 	@Override
-	public void handle(Player player, AbstractReader request) {
+	public void handle(Player player, ClientMessage request) {
 		
 		RoomUser roomUser = player.getRoomUser();
 

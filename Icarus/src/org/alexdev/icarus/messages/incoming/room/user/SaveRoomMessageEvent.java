@@ -8,12 +8,12 @@ import org.alexdev.icarus.messages.outgoing.room.ChatOptionsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.WallOptionsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.notify.RoomSettingsOKMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.notify.RoomSettingsUpdatedMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class SaveRoomMessageEvent implements MessageEvent {
 
 	@Override
-	public void handle(Player player, AbstractReader request) {
+	public void handle(Player player, ClientMessage request) {
 		
 		Room room = player.getRoomUser().getRoom();
 

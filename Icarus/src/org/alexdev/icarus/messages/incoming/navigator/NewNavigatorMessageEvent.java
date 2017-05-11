@@ -6,12 +6,12 @@ import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.navigator.FlatCategoriesMessageComposer;
 import org.alexdev.icarus.messages.outgoing.navigator.NavigatorCategories;
 import org.alexdev.icarus.messages.outgoing.navigator.NavigatorMetaDataComposer;
-import org.alexdev.icarus.server.api.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class NewNavigatorMessageEvent implements MessageEvent {
 
 	@Override
-	public void handle(Player player, AbstractReader request) {
+	public void handle(Player player, ClientMessage request) {
 
 		/*Response response = new Response();
 		response.init(Outgoing.NavigatorLiftedRoomsComposer);
@@ -36,8 +36,8 @@ public class NewNavigatorMessageEvent implements MessageEvent {
 		player.send(response);*/
 
 		player.send(new NavigatorMetaDataComposer(NavigatorManager.getParentTabs()));
-		player.send(new FlatCategoriesMessageComposer(NavigatorManager.getPrivateRoomCategories()));
-		player.send(new NavigatorCategories(NavigatorManager.getPrivateRoomCategories()));
+		player.send(new FlatCategoriesMessageComposer(NavigatorManager.getCategories()));
+		player.send(new NavigatorCategories(NavigatorManager.getCategories()));
 
 	}
 

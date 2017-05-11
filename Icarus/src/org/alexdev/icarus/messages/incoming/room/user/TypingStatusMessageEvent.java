@@ -6,12 +6,12 @@ import org.alexdev.icarus.game.room.RoomUser;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.headers.Incoming;
 import org.alexdev.icarus.messages.outgoing.room.user.TypingStatusMessageComposer;
-import org.alexdev.icarus.server.api.messages.AbstractReader;
+import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class TypingStatusMessageEvent implements MessageEvent {
 
 	@Override
-	public void handle(Player player, AbstractReader request) {
+	public void handle(Player player, ClientMessage request) {
 		
 		RoomUser roomUser = player.getRoomUser();
 

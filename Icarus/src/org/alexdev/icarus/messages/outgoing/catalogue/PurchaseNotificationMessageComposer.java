@@ -18,7 +18,7 @@ public class PurchaseNotificationMessageComposer implements OutgoingMessageCompo
 	@Override
 	public void write(Response response) {
 	
-		response.init(Outgoing.PurchaseNotificationComposer);
+		response.init(Outgoing.PurchaseNotificationMessageComposer);
 		response.writeInt(item.getData().getId());
 		response.writeString(item.getData().getItemName());
 		response.writeBool(false);
