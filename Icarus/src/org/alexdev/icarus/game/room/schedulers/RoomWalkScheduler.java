@@ -36,12 +36,12 @@ public class RoomWalkScheduler implements Runnable {
 
                 if (entity != null) {
                     if (entity.getRoomUser() != null) {
-
-                        this.processEntity(entity);
-
+                           
                         RoomUser roomEntity = entity.getRoomUser();
-
+  
                         if (roomEntity.needsUpdate()) {
+                            
+                            this.processEntity(entity);  
                             update_entities.add(entity);
                         }
                     }

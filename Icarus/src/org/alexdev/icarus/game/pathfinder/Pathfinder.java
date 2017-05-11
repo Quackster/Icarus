@@ -55,8 +55,6 @@ public class Pathfinder {
 		map[current.getPosition().getX()][current.getPosition().getY()] = current;
 		openList.add(current);
 
-		System.out.println("openList: " + (openList.size() > 0));
-
 		while (openList.size() > 0) {
 			current = openList.pollFirst();
 			current.setInClosed(true);
@@ -66,7 +64,7 @@ public class Pathfinder {
 
 				boolean isFinalMove = (tmp.getX() == end.getX() && tmp.getY() == end.getY());
 
-				if (false) { /*entity.getRoomUser().getRoom().getMapping().isValidStep(new Point(current.getPosition().getX(), current.getPosition().getY(), current.getPosition().getZ()), tmp, isFinalMove)) {*/
+				if (entity.getRoomUser().getRoom().getMapping().isValidStep(new Position(current.getPosition().getX(), current.getPosition().getY(), current.getPosition().getZ()), tmp, isFinalMove)) {
 					if (map[tmp.getX()][tmp.getY()] == null) {
 						node = new PathfinderNode(tmp);
 						map[tmp.getX()][tmp.getY()] = node;

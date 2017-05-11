@@ -46,7 +46,11 @@ public class UserStatusMessageComposer implements OutgoingMessageComposer {
 					status += set.getKey() + set.getValue() + "/";
 				}
 
-				response.writeString(status + "/");
+				response.writeString(status);
+				
+				if (user.getRoomUser().needsUpdate()) {
+				    user.getRoomUser().setNeedUpdate(false);
+				}
 			}
 		}
 	}

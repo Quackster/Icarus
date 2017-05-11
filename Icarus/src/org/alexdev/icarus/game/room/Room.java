@@ -36,14 +36,19 @@ public class Room {
 
     private RoomData data;
 
-    private List<Entity> entities;
-    private ScheduledFuture<?> tickTask;
+    private List<Entity> entities; 
     private List<Item> items;
+    
+    private ScheduledFuture<?> tickTask;
+   
     private RoomScheduler scheduler;
+    private RoomMapping mapping;
 
 
     public Room() {
         this.data = new RoomData(this);
+        this.mapping = new RoomMapping(this);
+        
         this.entities = new ArrayList<Entity>();
     }
 
@@ -268,12 +273,13 @@ public class Room {
         return RoomDao.getModel(this.data.getModel());
     }
     
-    
+    public RoomMapping getMapping() {
+        return mapping;
+    }
+
     public void save() {
         RoomDao.updateRoom(this);
     }
-
-
     public int getVirtualId() {
         this.privateId = this.privateId + 1;
         return this.privateId;

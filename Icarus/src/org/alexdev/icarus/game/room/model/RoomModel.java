@@ -135,6 +135,26 @@ public class RoomModel
 		}
 	}
 	
+    public boolean invalidXYCoords(int x, int y) {
+        if (x >= this.mapSizeX) {
+            return true;
+        }
+
+        if (y >= this.mapSizeY) {
+            return true;
+        }
+
+        if (x < 0) {
+            return true;
+        }
+
+        if (y < 0) {
+            return true;
+        }
+
+        return false;
+    }
+	
 	public String getName() {
 		return name;
 	}

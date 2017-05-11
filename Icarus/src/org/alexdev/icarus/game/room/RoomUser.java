@@ -138,6 +138,8 @@ public class RoomUser {
 		this.lastChatId = 0;
 		this.virtualId = -1;
 		this.danceId = 0;
+		
+		this.needsUpdate = false;
 
 	}
 
