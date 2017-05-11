@@ -11,5 +11,6 @@ public interface Response {
 	public String getBodyString();
 	public Object get();
 	public int getHeader();
+	public boolean isFinalised();
 
 }

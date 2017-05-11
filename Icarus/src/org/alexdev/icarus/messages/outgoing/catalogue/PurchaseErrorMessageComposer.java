@@ -4,7 +4,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class PurchaseErrorMessageComposer implements OutgoingMessageComposer {
+public class PurchaseErrorMessageComposer extends OutgoingMessageComposer {
 
 	private boolean creditsError;
 	private boolean pixelError;
@@ -15,7 +15,7 @@ public class PurchaseErrorMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		
 		response.init(Outgoing.PurchaseErrorMessageComposer);
 		response.writeBool(creditsError);

@@ -5,7 +5,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class ChatOptionsMessageComposer implements OutgoingMessageComposer {
+public class ChatOptionsMessageComposer extends OutgoingMessageComposer {
 
 	private Room room;
 
@@ -14,7 +14,7 @@ public class ChatOptionsMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.ChatOptionsMessageComposer);
 		response.writeInt(room.getData().getChatMode());
 		response.writeInt(room.getData().getChatSize());

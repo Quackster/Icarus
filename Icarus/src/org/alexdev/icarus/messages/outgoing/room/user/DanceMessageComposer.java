@@ -4,7 +4,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class DanceMessageComposer implements OutgoingMessageComposer {
+public class DanceMessageComposer extends OutgoingMessageComposer {
 
 	private int virtualId;
 	private int danceId;
@@ -15,7 +15,7 @@ public class DanceMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.DanceStatusMessageComposer);
 		response.writeInt(this.virtualId);
 		response.writeInt(this.danceId);

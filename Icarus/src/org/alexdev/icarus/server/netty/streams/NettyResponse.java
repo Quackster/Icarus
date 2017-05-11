@@ -9,11 +9,12 @@ import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBufferOutputStream;
 import org.jboss.netty.buffer.ChannelBuffers;
 
-public class NettyResponse implements Response
-{
+import com.google.common.base.Charsets;
 
+public class NettyResponse implements Response {
+    
+    private boolean finalised;
 	private int id;
-	private boolean finalised;
 	private ChannelBufferOutputStream bodystream;
 	private ChannelBuffer body;
 
@@ -57,7 +58,8 @@ public class NettyResponse implements Response
 		}
 		
 		try {
-			bodystream.writeUTF(obj.toString());
+		    bodystream.writeShort(obj.toString().length());
+			bodystream.write(obj.toString().getBytes());
 		} catch (IOException e) {
 			Log.exception(e);
 		}
@@ -122,5 +124,10 @@ public class NettyResponse implements Response
 
 	public int getHeader() {
 		return this.id;
-	}	
+	}
+
+    @Override
+    public boolean isFinalised() {
+        return this.finalised;
+    }	
 }

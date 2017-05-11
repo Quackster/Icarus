@@ -7,7 +7,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class CatalogueTabMessageComposer implements OutgoingMessageComposer {
+public class CatalogueTabMessageComposer extends OutgoingMessageComposer {
 
     private String type;
     private List<CatalogueTab> parentTabs;
@@ -18,7 +18,7 @@ public class CatalogueTabMessageComposer implements OutgoingMessageComposer {
     }
 
     @Override
-    public void write(Response response) {
+    public void write() {
         response.init(Outgoing.CatalogueTabMessageComposer);
         response.writeBool(true);
         response.writeInt(0);

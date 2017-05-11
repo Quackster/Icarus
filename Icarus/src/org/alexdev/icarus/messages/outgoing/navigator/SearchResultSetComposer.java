@@ -12,7 +12,7 @@ import org.alexdev.icarus.server.api.messages.Response;
 
 import com.google.common.collect.Lists;
 
-public class SearchResultSetComposer implements OutgoingMessageComposer {
+public class SearchResultSetComposer extends OutgoingMessageComposer {
 
 	private Player player;
 	private NavigatorTab navigatorTab;
@@ -25,7 +25,7 @@ public class SearchResultSetComposer implements OutgoingMessageComposer {
 	}
 	
 	@Override
-	public void write(Response response) {
+	public void write() {
 	
 		response.init(Outgoing.SearchResultSetComposer);
 		response.writeString(this.navigatorTab.getTabName());

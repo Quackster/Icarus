@@ -4,7 +4,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class CreateRoomMessageComposer implements OutgoingMessageComposer {
+public class CreateRoomMessageComposer extends OutgoingMessageComposer {
 
 	private int id;
 	private String name;
@@ -15,7 +15,7 @@ public class CreateRoomMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.CreateRoomMessageComposer);
 		response.writeInt(this.id);
 		response.writeString(this.name);

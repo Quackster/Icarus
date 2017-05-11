@@ -5,7 +5,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class UserObjectMessageComposer implements OutgoingMessageComposer {
+public class UserObjectMessageComposer extends OutgoingMessageComposer {
 
 	private PlayerDetails details;
 
@@ -14,7 +14,7 @@ public class UserObjectMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.UserObjectMessageComposer);
 		response.writeInt(this.details.getId()); // User ID
 		response.writeString(this.details.getUsername()); // Username

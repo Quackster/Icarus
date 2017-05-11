@@ -6,7 +6,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class RoomDataMessageComposer implements OutgoingMessageComposer {
+public class RoomDataMessageComposer extends OutgoingMessageComposer {
 
 	private Room room;
 	private Player player;
@@ -21,7 +21,7 @@ public class RoomDataMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.RoomDataMessageComposer);
 		response.writeBool(this.isLoading);
 		this.room.getData().serialise(response, this.isLoading);

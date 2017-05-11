@@ -4,7 +4,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class MessengerSendRequest implements OutgoingMessageComposer {
+public class MessengerSendRequest extends OutgoingMessageComposer {
 
 	private int id;
 	private String username;
@@ -17,7 +17,7 @@ public class MessengerSendRequest implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.MessengerSendRequest);
 		response.writeInt(this.id);
 		response.writeString(this.username);

@@ -94,7 +94,7 @@ public class Room {
         roomUser.getPosition().setZ(this.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
         roomUser.getPosition().setRotation(this.getModel().getDoorRot());
 
-        if (!(this.getUsers().size() > 0)) {
+        if (!(this.getPlayers().size() > 0)) {
             this.firstEntry();
         }
     }
@@ -121,7 +121,7 @@ public class Room {
             this.entities.remove(player);
         }
 
-        if (this.entities.size() > 0) {
+        if (this.getPlayers().size() > 0) {
             this.send(new RemoveUserMessageComposer(player.getRoomUser().getVirtualId()));
         }
 
@@ -155,7 +155,7 @@ public class Room {
 
         } else {
 
-            if (this.getUsers().size() > 0) {
+            if (this.getPlayers().size() > 0) {
                 return;
             }
 
@@ -182,7 +182,7 @@ public class Room {
 
     public void send(OutgoingMessageComposer response, boolean checkRights) {
 
-        for (Player player : this.getUsers()) {
+        for (Player player : this.getPlayers()) {
 
             if (checkRights && this.hasRights(player, false)) {
                 player.send(response);
@@ -194,12 +194,12 @@ public class Room {
     public void send(OutgoingMessageComposer response) {
 
 
-        for (Player player : this.getUsers()) {
+        for (Player player : this.getPlayers()) {
             player.send(response);
         }
     }
 
-    public List<Player> getUsers() {
+    public List<Player> getPlayers() {
 
         List<Player> sessions = new ArrayList<Player>();
 

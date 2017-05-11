@@ -7,7 +7,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class FriendsListMessageComposer implements OutgoingMessageComposer {
+public class FriendsListMessageComposer extends OutgoingMessageComposer {
 
 	private List<MessengerUser> friends;
 
@@ -16,7 +16,7 @@ public class FriendsListMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.InitMessengerMessageComposer);
 		response.writeInt(1);
 		response.writeInt(0);

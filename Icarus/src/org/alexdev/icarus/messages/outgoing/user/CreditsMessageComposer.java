@@ -4,7 +4,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class CreditsMessageComposer implements OutgoingMessageComposer {
+public class CreditsMessageComposer extends OutgoingMessageComposer {
 
 	private int credits;
 
@@ -13,7 +13,7 @@ public class CreditsMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.CreditsMessageComposer);
 		response.writeString(this.credits + ".0");
 	}

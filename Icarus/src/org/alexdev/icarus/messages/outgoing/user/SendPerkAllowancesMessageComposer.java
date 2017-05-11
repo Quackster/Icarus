@@ -4,10 +4,10 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class SendPerkAllowancesMessageComposer implements OutgoingMessageComposer {
+public class SendPerkAllowancesMessageComposer extends OutgoingMessageComposer {
 	
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.SendPerkAllowancesMessageComposer);
 		response.writeInt(11);
 		response.writeString("BUILDER_AT_WORK");

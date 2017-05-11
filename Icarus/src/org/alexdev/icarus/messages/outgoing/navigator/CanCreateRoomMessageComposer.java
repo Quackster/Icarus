@@ -6,7 +6,7 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.util.GameSettings;
 
-public class CanCreateRoomMessageComposer implements OutgoingMessageComposer {
+public class CanCreateRoomMessageComposer extends OutgoingMessageComposer {
 
 	private Player player;
 
@@ -15,7 +15,7 @@ public class CanCreateRoomMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.CanCreateRoomMessageComposer);
 		response.writeInt(this.player.getRooms().size() >= GameSettings.MAX_ROOMS_PER_ACCOUNT ? 1 : 0);
 		response.writeInt(GameSettings.MAX_ROOMS_PER_ACCOUNT);

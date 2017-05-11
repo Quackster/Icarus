@@ -7,7 +7,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class NavigatorMetaDataComposer implements OutgoingMessageComposer {
+public class NavigatorMetaDataComposer extends OutgoingMessageComposer {
 
 	private List<NavigatorTab> tabs;
 
@@ -16,7 +16,7 @@ public class NavigatorMetaDataComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.NavigatorMetaDataComposer);
 		response.writeInt(this.tabs.size());
 

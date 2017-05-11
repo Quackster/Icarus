@@ -50,6 +50,7 @@ public class NetworkDecoder extends FrameDecoder {
 					+ "<cross-domain-policy>\r\n"
 					+ "<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n"
 					+ "</cross-domain-policy>\0");
+				
 			} else {
 				
 				int messageLength = ByteBuffer.wrap(length).asIntBuffer().get();
@@ -59,7 +60,7 @@ public class NetworkDecoder extends FrameDecoder {
 			}	
 			
 		} catch (Exception e){
-			// Ignore
+			buffer.readBytes(buffer.readableBytes());
 		}
 		
 		return null;

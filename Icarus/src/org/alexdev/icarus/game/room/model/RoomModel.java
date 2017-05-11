@@ -153,6 +153,10 @@ public class RoomModel
         if (y < 0) {
             return true;
         }
+        
+        if (this.isBlocked(x, y)) {
+            return true;
+        }
 
         return false;
     }

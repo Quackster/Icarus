@@ -9,7 +9,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class InventoryLoadMessageComposer implements OutgoingMessageComposer {
+public class InventoryLoadMessageComposer extends OutgoingMessageComposer {
 
 	private List<Item> wallItems;
 	private List<Item> floorItems;
@@ -24,7 +24,7 @@ public class InventoryLoadMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 
 		response.init(Outgoing.InventoryMessageComposer);
 		response.writeInt(1);

@@ -4,7 +4,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class UniqueMachineIDMessageComposer implements OutgoingMessageComposer {
+public class UniqueMachineIDMessageComposer extends OutgoingMessageComposer {
 
 	private String uniqueMachineId;
 
@@ -13,7 +13,7 @@ public class UniqueMachineIDMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		
 		if (this.uniqueMachineId == null) {
 			return;

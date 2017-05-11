@@ -5,7 +5,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class FloorMapMessageComposer implements OutgoingMessageComposer {
+public class FloorMapMessageComposer extends OutgoingMessageComposer {
 
 	private Room room;
 
@@ -14,7 +14,7 @@ public class FloorMapMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.FloorMapMessageComposer);
 		response.writeBool(true);
 		response.writeInt(this.room.getData().getWallHeight());

@@ -4,7 +4,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class GenericErrorMessageComposer implements OutgoingMessageComposer {
+public class GenericErrorMessageComposer extends OutgoingMessageComposer {
 
 	private int errorCode;
 
@@ -13,7 +13,7 @@ public class GenericErrorMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.GenericErrorMessageComposer);
 		response.writeInt(this.errorCode);
 	}

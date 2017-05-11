@@ -7,7 +7,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class NavigatorCategories implements OutgoingMessageComposer {
+public class NavigatorCategories extends OutgoingMessageComposer {
 	
 	private List<NavigatorCategory> categories;
 
@@ -16,7 +16,7 @@ public class NavigatorCategories implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.NavigatorCategories);
 		response.writeInt(4 + this.categories.size());
 

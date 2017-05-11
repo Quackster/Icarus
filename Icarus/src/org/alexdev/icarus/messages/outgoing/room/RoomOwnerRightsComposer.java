@@ -4,7 +4,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class RoomOwnerRightsComposer implements OutgoingMessageComposer {
+public class RoomOwnerRightsComposer extends OutgoingMessageComposer {
 
 	private int id;
 	private boolean isOwner;
@@ -15,7 +15,7 @@ public class RoomOwnerRightsComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.RoomOwnerRightsComposer);
 		response.writeInt(this.id);
 		response.writeBool(this.isOwner);

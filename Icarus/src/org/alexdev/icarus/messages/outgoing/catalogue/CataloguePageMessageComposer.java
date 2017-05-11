@@ -6,7 +6,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class CataloguePageMessageComposer implements OutgoingMessageComposer {
+public class CataloguePageMessageComposer extends OutgoingMessageComposer {
 
     private CataloguePage page;
     private String type;
@@ -17,7 +17,7 @@ public class CataloguePageMessageComposer implements OutgoingMessageComposer {
     }
 
     @Override
-    public void write(Response response) {
+    public void write() {
 
         response.init(Outgoing.CataloguePageMessageComposer);
         response.writeInt(this.page.getId());

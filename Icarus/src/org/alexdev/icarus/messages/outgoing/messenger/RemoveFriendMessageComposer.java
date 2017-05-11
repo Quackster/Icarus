@@ -4,7 +4,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class RemoveFriendMessageComposer implements OutgoingMessageComposer {
+public class RemoveFriendMessageComposer extends OutgoingMessageComposer {
 
 	private int friendId;
 
@@ -13,7 +13,7 @@ public class RemoveFriendMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 
 		response.init(Outgoing.RemoveFriendMessageComposer);
 		response.writeInt(0);

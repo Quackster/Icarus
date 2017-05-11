@@ -4,7 +4,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class FollowBuddyMessageComposer implements OutgoingMessageComposer {
+public class FollowBuddyMessageComposer extends OutgoingMessageComposer {
 
 	private int friendId;
 
@@ -13,7 +13,7 @@ public class FollowBuddyMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
     	
     	response.init(Outgoing.FollowBuddyMessageComposer);
         response.writeInt(this.friendId);

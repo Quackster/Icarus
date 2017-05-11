@@ -23,41 +23,44 @@ import java.nio.charset.Charset;
 
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.netty.streams.NettyResponse;
-import org.jboss.netty.buffer.ChannelBuffer;
+import org.alexdev.icarus.util.Util;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.Channels;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
 
+import com.google.common.base.Charsets;
+
 public class NetworkEncoder extends SimpleChannelHandler {
-	
-	@Override
-	public void writeRequested(ChannelHandlerContext ctx, MessageEvent e) {
-		
-		try {
-			
-			if (e.getMessage() instanceof String) {
-				Channels.write(ctx, e.getFuture(), ChannelBuffers.copiedBuffer((String) e.getMessage(), Charset.forName("UTF-8")));
-				return;
-			}
-			
-			if (e.getMessage() instanceof OutgoingMessageComposer) {
-				
-				OutgoingMessageComposer msg = (OutgoingMessageComposer) e.getMessage();
-				
-				NettyResponse response = new NettyResponse();
-				msg.write(response);
-				
-				//Log.println("SENT: " + response.getBodyString());
-				
-				Channels.write(ctx, e.getFuture(), (ChannelBuffer)response.get());
-				return;
-			}
-		}
-		catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
+
+    @Override
+    public void writeRequested(ChannelHandlerContext ctx, MessageEvent e) {
+
+        try {
+
+            if (e.getMessage() instanceof String) {
+                Channels.write(ctx, e.getFuture(), ChannelBuffers.copiedBuffer((String) e.getMessage(),  Charsets.ISO_8859_1));
+                return;
+            }
+
+            if (e.getMessage() instanceof OutgoingMessageComposer) {
+
+                OutgoingMessageComposer msg = (OutgoingMessageComposer) e.getMessage();
+                if (!msg.getResponse().isFinalised()) {
+                    msg.write();
+                }
+
+                if (Util.getConfiguration().get("Logging", "log.packets", Boolean.class)) {
+                    Log.println("SENT: " + msg.getResponse().getBodyString());
+                }
+
+                Channels.write(ctx, e.getFuture(), ChannelBuffers.copiedBuffer(msg.getResponse().get()));
+                return;
+            }
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }

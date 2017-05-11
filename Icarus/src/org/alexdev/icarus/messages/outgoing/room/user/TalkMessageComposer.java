@@ -11,7 +11,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class TalkMessageComposer implements OutgoingMessageComposer {
+public class TalkMessageComposer extends OutgoingMessageComposer {
 
 	private RoomUser roomUser;
 	private boolean shout;
@@ -28,7 +28,7 @@ public class TalkMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 	
 		List<Integer> allowedColours = new ArrayList<Integer>(Arrays.asList(new Integer[] { 0, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 29 }));
 

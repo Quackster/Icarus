@@ -5,7 +5,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class PurchaseNotificationMessageComposer implements OutgoingMessageComposer {
+public class PurchaseNotificationMessageComposer extends OutgoingMessageComposer {
 	
 	private CatalogueItem item;
 	private int amount;
@@ -16,7 +16,7 @@ public class PurchaseNotificationMessageComposer implements OutgoingMessageCompo
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 	
 		response.init(Outgoing.PurchaseNotificationMessageComposer);
 		response.writeInt(item.getData().getId());

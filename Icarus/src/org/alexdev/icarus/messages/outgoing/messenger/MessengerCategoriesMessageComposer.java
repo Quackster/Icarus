@@ -4,10 +4,10 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class MessengerCategoriesMessageComposer implements OutgoingMessageComposer {
+public class MessengerCategoriesMessageComposer extends OutgoingMessageComposer {
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		
 		response.init(Outgoing.MessengerCategoriesMessageComposer);
 		response.writeInt(300);//GameSettings.MAX_FRIENDS_DEFAULT); // get max friends

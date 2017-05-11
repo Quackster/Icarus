@@ -43,7 +43,7 @@ public class HeightmapMessageEvent implements MessageEvent {
 		player.send(new UserDisplayMessageComposer(room.getEntities()));
 		player.send(new UserStatusMessageComposer(room.getEntities()));
 
-		for (Player players : room.getUsers()) {
+		for (Player players : room.getPlayers()) {
 			if (players.getRoomUser().isDancing()) {
 				player.send(new DanceMessageComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getDanceId()));
 			}

@@ -7,7 +7,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class MessengerSearchMessageComposer implements OutgoingMessageComposer {
+public class MessengerSearchMessageComposer extends OutgoingMessageComposer {
 
 	private List<MessengerUser> friends;
 	private List<MessengerUser> strangers;
@@ -18,7 +18,7 @@ public class MessengerSearchMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 
 		response.init(Outgoing.MessengerSearchMessageComposer);
 		

@@ -5,7 +5,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class FloorItemsMessageComposer implements OutgoingMessageComposer {
+public class FloorItemsMessageComposer extends OutgoingMessageComposer {
 
 	private Item[] items;
 
@@ -14,7 +14,7 @@ public class FloorItemsMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		
 		response.init(Outgoing.FloorItemsMessageComposer);
 		response.writeInt(items.length);

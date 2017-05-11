@@ -9,7 +9,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class UserDisplayMessageComposer implements OutgoingMessageComposer {
+public class UserDisplayMessageComposer extends OutgoingMessageComposer {
 
 	private List<Entity> entities;
 
@@ -22,7 +22,7 @@ public class UserDisplayMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		
 		response.init(Outgoing.UserDisplayMessageComposer);
 		synchronized (this.entities) {

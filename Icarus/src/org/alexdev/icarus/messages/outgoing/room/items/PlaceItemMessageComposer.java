@@ -6,7 +6,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class PlaceItemMessageComposer implements OutgoingMessageComposer {
+public class PlaceItemMessageComposer extends OutgoingMessageComposer {
 
 	private Item item;
 
@@ -15,7 +15,7 @@ public class PlaceItemMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		
 		if (this.item.getType() == ItemType.FLOOR) {
 			response.init(Outgoing.PlaceFloorItemMessageComposer); 

@@ -4,10 +4,10 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class AvailabilityMessageComposer implements OutgoingMessageComposer {
+public class AvailabilityMessageComposer extends OutgoingMessageComposer {
 
     @Override
-    public void write(Response response) {
+    public void write() {
         response.init(Outgoing.AvailabilityMessageComposer);
         response.writeBool(true);
         response.writeBool(false);

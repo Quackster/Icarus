@@ -4,7 +4,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class RoomRatingMessageComposer implements OutgoingMessageComposer {
+public class RoomRatingMessageComposer extends OutgoingMessageComposer {
 
 	private int score;
 
@@ -13,7 +13,7 @@ public class RoomRatingMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.RoomRatingMessageComposer);
 		response.writeInt(this.score);
 		response.writeBool(false);

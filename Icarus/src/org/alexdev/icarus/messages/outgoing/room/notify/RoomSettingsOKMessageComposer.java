@@ -4,7 +4,7 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class RoomSettingsOKMessageComposer implements OutgoingMessageComposer {
+public class RoomSettingsOKMessageComposer extends OutgoingMessageComposer {
 
 	private Room room;
 
@@ -13,7 +13,7 @@ public class RoomSettingsOKMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(-1);////Outgoing.RoomSettingsOKMessageComposer);
 		response.writeInt(this.room.getData().getId());
 	}

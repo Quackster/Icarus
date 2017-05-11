@@ -50,7 +50,7 @@ public class EnterRoomMessageEvent implements MessageEvent {
 		if (room.getData().getState().getStateCode() > 0 && !room.hasRights(player, false)) {
 			if (room.getData().getState() == RoomState.DOORBELL) {
 
-				if (room.getUsers().size() > 0) {
+				if (room.getPlayers().size() > 0) {
 					player.send(new HotelViewMessageComposer());
 					player.send(new GenericDoorbellMessageComposer(1));
 					room.send(new GenericDoorbellMessageComposer(player.getDetails().getUsername()), true);

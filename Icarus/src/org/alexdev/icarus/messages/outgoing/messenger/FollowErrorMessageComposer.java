@@ -4,7 +4,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class FollowErrorMessageComposer implements OutgoingMessageComposer {
+public class FollowErrorMessageComposer extends OutgoingMessageComposer {
 
 	private int errorID;
 
@@ -13,7 +13,7 @@ public class FollowErrorMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.FollowErrorMessageComposer);
         response.writeInt(this.errorID);
 

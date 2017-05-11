@@ -6,7 +6,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class HeightMapMessageComposer implements OutgoingMessageComposer {
+public class HeightMapMessageComposer extends OutgoingMessageComposer {
 
 	private Room room;
 	private int mapSizeX;
@@ -19,7 +19,7 @@ public class HeightMapMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		RoomModel roomModel = room.getModel();
 
 		response.init(Outgoing.HeightMapMessageComposer);

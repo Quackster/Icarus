@@ -4,7 +4,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class WallOptionsMessageComposer implements OutgoingMessageComposer {
+public class WallOptionsMessageComposer extends OutgoingMessageComposer {
 
 	private boolean hideWall;
 	private int wallThickness;
@@ -17,7 +17,7 @@ public class WallOptionsMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.WallOptionsMessageComposer);
 		response.writeBool(this.hideWall);
 		response.writeInt(this.wallThickness);

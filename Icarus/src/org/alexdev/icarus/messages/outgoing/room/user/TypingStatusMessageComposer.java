@@ -4,7 +4,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class TypingStatusMessageComposer implements OutgoingMessageComposer {
+public class TypingStatusMessageComposer extends OutgoingMessageComposer {
 
 	private int virtualId;
 	private boolean typeStart;
@@ -15,7 +15,7 @@ public class TypingStatusMessageComposer implements OutgoingMessageComposer {
 	}
 
 	@Override
-	public void write(Response response) {
+	public void write() {
 		response.init(Outgoing.TypingStatusMessageComposer);
 		response.writeInt(this.virtualId);
 		response.writeInt(this.typeStart);
