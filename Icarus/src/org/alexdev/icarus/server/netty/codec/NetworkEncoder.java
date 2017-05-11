@@ -21,6 +21,7 @@ package org.alexdev.icarus.server.netty.codec;
 
 import java.nio.charset.Charset;
 
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.netty.streams.NettyResponse;
 import org.jboss.netty.buffer.ChannelBuffer;
@@ -45,9 +46,11 @@ public class NetworkEncoder extends SimpleChannelHandler {
 			if (e.getMessage() instanceof OutgoingMessageComposer) {
 				
 				OutgoingMessageComposer msg = (OutgoingMessageComposer) e.getMessage();
-				NettyResponse response = new NettyResponse();
 				
+				NettyResponse response = new NettyResponse();
 				msg.write(response);
+				
+				Log.println("SENT: " + response.getBodyString());
 				
 				Channels.write(ctx, e.getFuture(), (ChannelBuffer)response.get());
 				return;

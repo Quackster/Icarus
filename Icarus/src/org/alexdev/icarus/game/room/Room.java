@@ -87,7 +87,7 @@ public class Room {
         
         Position startingPosition = this.data.getModel().getDoorPosition();
         roomUser.getPosition().setX(startingPosition.getX());
-        roomUser.getPosition().setX(startingPosition.getY());
+        roomUser.getPosition().setY(startingPosition.getY());
         roomUser.getPosition().setZ(this.data.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
         roomUser.setRotation(this.data.getModel().getDoorRot(), false);
     }
