@@ -1,4 +1,4 @@
-package org.alexdev.icarus.game.room.populator;
+package org.alexdev.icarus.game.navigator.populator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,16 +7,15 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 
-public class OfficialRoomPopulator  extends RoomPopulator {
+public class MyRoomPopulator extends RoomPopulator {
 	
 	@Override
 	public List<Room> generateListing(boolean limit, Player player) {
 		
-		List<Room> rooms =  RoomManager.getPublicRooms();
 		
 		if (rooms == null) {
-			return new ArrayList<Room>();
-		}								
+			rooms = new ArrayList<Room>();
+		}
 		
 		rooms.sort((room1, room2) -> 
 		room2.getData().getUsersNow() - 
@@ -24,4 +23,5 @@ public class OfficialRoomPopulator  extends RoomPopulator {
 		
 		return rooms;
 	}
+
 }

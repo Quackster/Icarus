@@ -34,7 +34,6 @@ public class Room {
     private boolean disposed;
 
     private RoomData data;
-    private RoomCycle cycle;
 
     private List<IEntity> entities;
     private ScheduledFuture<?> tickTask;
@@ -100,7 +99,6 @@ public class Room {
 
         this.disposed = false;
         this.items = ItemDao.getRoomItems(this.getData().getId());
-        this.cycle = new RoomCycle(this);
     }
 
 
@@ -270,9 +268,5 @@ public class Room {
         return this.privateId;
     }
 
-
-    public RoomCycle getCycle() {
-        return cycle;
-    }
 
 }

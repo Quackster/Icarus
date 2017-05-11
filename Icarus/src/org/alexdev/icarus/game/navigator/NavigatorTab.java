@@ -3,7 +3,7 @@ package org.alexdev.icarus.game.navigator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.alexdev.icarus.game.room.populator.RoomPopulator;
+import org.alexdev.icarus.game.navigator.populator.RoomPopulator;
 import org.alexdev.icarus.log.Log;
 
 public class NavigatorTab {
@@ -38,7 +38,7 @@ public class NavigatorTab {
 
         try {
 
-            Class<? extends RoomPopulator> clazz = Class.forName("org.alexdev.icarus.game.room.populator." + roomPopulatorClass).asSubclass(RoomPopulator.class);
+            Class<? extends RoomPopulator> clazz = Class.forName("org.alexdev.icarus.game.navigator.populator." + roomPopulatorClass).asSubclass(RoomPopulator.class);
             return clazz.newInstance();
 
         } catch (Exception e) {
