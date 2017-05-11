@@ -17,7 +17,7 @@ public class UserWalkMessageEvent implements MessageEvent {
 		int X = request.readInt();
 		int Y = request.readInt();
 		
-		if (player.getRoomUser().getRoom().getData().getModel().isBlocked(X, Y)) {
+		if (player.getRoomUser().getRoom().getModel().isBlocked(X, Y)) {
 			return;
 		}
 		

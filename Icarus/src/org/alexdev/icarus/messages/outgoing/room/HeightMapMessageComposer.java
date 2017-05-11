@@ -20,7 +20,7 @@ public class HeightMapMessageComposer implements OutgoingMessageComposer {
 
 	@Override
 	public void write(Response response) {
-		RoomModel roomModel = room.getData().getModel();
+		RoomModel roomModel = room.getModel();
 
 		response.init(Outgoing.HeightMapMessageComposer);
 		response.writeInt(this.mapSizeX);

@@ -1,6 +1,6 @@
 package org.alexdev.icarus.game.player;
 
-import org.alexdev.icarus.game.entity.IEntity;
+import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.messages.outgoing.user.CreditsMessageComposer;
 
 public class PlayerDetails {
@@ -13,9 +13,9 @@ public class PlayerDetails {
 	private int credits;
 	
 	private boolean authenticated;
-	private IEntity entity;
+	private Entity entity;
 	
-	public PlayerDetails(IEntity session) {
+	public PlayerDetails(Entity session) {
 		this.authenticated = false;
 		this.entity = session;
 	}
@@ -100,11 +100,11 @@ public class PlayerDetails {
 		return credits;
 	}
 
-	public IEntity getEntity() {
+	public Entity getEntity() {
 		return entity;
 	}
 
-	public void setEntity(IEntity entity) {
+	public void setEntity(Entity entity) {
 		this.entity = entity;
 	}
 }

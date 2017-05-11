@@ -8,13 +8,14 @@ import java.util.stream.Collectors;
 import org.alexdev.icarus.dao.mysql.ItemDao;
 import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.entity.EntityType;
-import org.alexdev.icarus.game.entity.IEntity;
+import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.model.Position;
+import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.game.room.settings.RoomType;
 import org.alexdev.icarus.messages.outgoing.room.HasOwnerRightsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.PrepareRoomMessageComposer;
@@ -34,16 +35,15 @@ public class Room {
     private boolean disposed;
 
     private RoomData data;
-    private RoomCycle cycle;
 
-    private List<IEntity> entities;
+    private List<Entity> entities;
     private ScheduledFuture<?> tickTask;
     private List<Item> items;
 
 
     public Room() {
         this.data = new RoomData(this);
-        this.entities = new ArrayList<IEntity>();
+        this.entities = new ArrayList<Entity>();
     }
 
     public void loadRoom(Player player) {
@@ -53,7 +53,7 @@ public class Room {
         roomUser.setRoom(this);
         roomUser.getStatuses().clear();
 
-        player.send(new RoomModelMessageComposer(this.getData().getModel().getName(), this.getData().getId()));
+        player.send(new RoomModelMessageComposer(this.getModel().getName(), this.getData().getId()));
         player.send(new RoomRatingMessageComposer(this.data.getScore()));
 
         int floorData = Integer.parseInt(this.data.getFloor());
@@ -85,11 +85,11 @@ public class Room {
 
         roomUser.setVirtualId(this.getVirtualId());
         
-        Position startingPosition = this.data.getModel().getDoorPosition();
+        Position startingPosition = this.getModel().getDoorPosition();
         roomUser.getPosition().setX(startingPosition.getX());
         roomUser.getPosition().setY(startingPosition.getY());
-        roomUser.getPosition().setZ(this.data.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
-        roomUser.setRotation(this.data.getModel().getDoorRot(), false);
+        roomUser.getPosition().setZ(this.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
+        roomUser.setRotation(this.getModel().getDoorRot(), false);
     }
 
     public void firstEntry() {
@@ -100,7 +100,6 @@ public class Room {
 
         this.disposed = false;
         this.items = ItemDao.getRoomItems(this.getData().getId());
-        this.cycle = new RoomCycle(this);
     }
 
 
@@ -210,7 +209,7 @@ public class Room {
 
         List<Player> sessions = new ArrayList<Player>();
 
-        for (IEntity entity : this.getEntities(EntityType.PLAYER)) {
+        for (Entity entity : this.getEntities(EntityType.PLAYER)) {
             Player player = (Player)entity;
             sessions.add(player);
         }
@@ -218,10 +217,10 @@ public class Room {
         return sessions;
     }
 
-    public List<IEntity> getEntities(EntityType type) {
-        List<IEntity> e = new ArrayList<IEntity>();
+    public List<Entity> getEntities(EntityType type) {
+        List<Entity> e = new ArrayList<Entity>();
 
-        for (IEntity entity : this.entities) {
+        for (Entity entity : this.entities) {
             if (entity.getType() == type) {
                 e.add(entity);
             }
@@ -252,7 +251,7 @@ public class Room {
         }
     }
 
-    public List<IEntity> getEntities() {
+    public List<Entity> getEntities() {
         return entities;
     }
 
@@ -260,6 +259,11 @@ public class Room {
         return data;
     }
 
+    public RoomModel getModel() {
+        return RoomDao.getModel(this.data.getModel());
+    }
+    
+    
     public void save() {
         RoomDao.updateRoom(this);
     }
@@ -268,11 +272,6 @@ public class Room {
     public int getVirtualId() {
         this.privateId = this.privateId + 1;
         return this.privateId;
-    }
-
-
-    public RoomCycle getCycle() {
-        return cycle;
     }
 
 }

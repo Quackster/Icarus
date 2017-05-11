@@ -186,7 +186,23 @@ public class RoomData {
 		this.description = description;
 	}
 
-	public int getTradeState() {
+	public int getUsersNow() {
+        return usersNow;
+    }
+
+    public void setUsersNow(int usersNow) {
+        this.usersNow = usersNow;
+    }
+
+    public int getUsersMax() {
+        return usersMax;
+    }
+
+    public void setUsersMax(int usersMax) {
+        this.usersMax = usersMax;
+    }
+
+    public int getTradeState() {
 		return tradeState;
 	}
 
@@ -307,18 +323,6 @@ public class RoomData {
 		return ownerName;
 	}
 
-	public void setUsersMax(int usersMax) {
-		this.usersMax = usersMax;
-	}
-
-	public int getUsersMax() {
-		return this.usersMax;
-	}
-
-	public int getUsersNow() {
-		return this.room.getUsers().size();
-	}
-
 	public String getThumbnail() {
 		return thumbnail;
 	}
@@ -343,8 +347,8 @@ public class RoomData {
 		this.model = model;
 	}
 
-	public RoomModel getModel() {
-		return RoomDao.getModel(this.model);
+	public String getModel() {
+		return this.model;
 	}
 	
 	public List<Integer> getRights() {

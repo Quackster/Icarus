@@ -69,7 +69,7 @@ public class PlaceItemMessageEvent implements MessageEvent {
 			int x = Integer.parseInt(data[1]);
 			int y = Integer.parseInt(data[2]);
 			int rotation = Integer.parseInt(data[3]);
-			double height = player.getRoomUser().getRoom().getData().getModel().getHeight(x, y);
+			double height = player.getRoomUser().getRoom().getModel().getHeight(x, y);
 
 			item.setX(x);
 			item.setY(y);

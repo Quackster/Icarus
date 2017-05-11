@@ -4,21 +4,21 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.alexdev.icarus.game.entity.IEntity;
+import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
 public class UserStatusMessageComposer implements OutgoingMessageComposer {
 
-	private List<IEntity> users;
+	private List<Entity> users;
 
-	public UserStatusMessageComposer(IEntity entity) {
-		this(Arrays.asList(new IEntity[] { entity }));
+	public UserStatusMessageComposer(Entity entity) {
+		this(Arrays.asList(new Entity[] { entity }));
 	}
 
 
-	public UserStatusMessageComposer(List<IEntity> users) {
+	public UserStatusMessageComposer(List<Entity> users) {
 		this.users = users;
 	}
 
@@ -31,7 +31,7 @@ public class UserStatusMessageComposer implements OutgoingMessageComposer {
 
 			response.writeInt(this.users.size());
 
-			for (IEntity  user : this.users) {
+			for (Entity  user : this.users) {
 
 				response.writeInt(user.getRoomUser().getVirtualId());
 				response.writeInt(user.getRoomUser().getPosition().getX());

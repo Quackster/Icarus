@@ -3,7 +3,7 @@ package org.alexdev.icarus.game.room;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import org.alexdev.icarus.game.entity.IEntity;
+import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.model.Position;
 import org.alexdev.icarus.game.room.model.RoomModel;
@@ -36,10 +36,10 @@ public class RoomUser {
 	
 	private HashMap<String, String> statuses;
 	private LinkedList<Position> path;
-	private IEntity entity;
+	private Entity entity;
 	private Room room;
 	
-	public RoomUser(IEntity entity) {
+	public RoomUser(Entity entity) {
 		this.dispose();
 		this.entity = entity;
 	}
@@ -234,9 +234,6 @@ public class RoomUser {
 		this.room = room;
 	}
 
-	public RoomModel getModel() {
-		return room.getData().getModel();
-	}
 	public boolean isWalking() {
 		return isWalking;
 	}
@@ -245,7 +242,7 @@ public class RoomUser {
 		this.isWalking = isWalking;
 	}
 
-	public IEntity getEntity() {
+	public Entity getEntity() {
 		return entity;
 	}
 }

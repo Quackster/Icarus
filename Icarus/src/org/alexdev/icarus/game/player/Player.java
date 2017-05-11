@@ -3,7 +3,7 @@ package org.alexdev.icarus.game.player;
 import java.util.List;
 
 import org.alexdev.icarus.game.entity.EntityType;
-import org.alexdev.icarus.game.entity.IEntity;
+import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.inventory.Inventory;
 import org.alexdev.icarus.game.messenger.Messenger;
 import org.alexdev.icarus.game.room.Room;
@@ -12,7 +12,7 @@ import org.alexdev.icarus.game.room.RoomUser;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.IPlayerNetwork;
 
-public class Player implements IEntity {
+public class Player extends Entity {
 
 	private String machineId;
 	private PlayerDetails details;
@@ -78,14 +78,6 @@ public class Player implements IEntity {
 		return details;
 	}
 
-	public Room getRoom() {
-	    return roomUser.getRoom();
-	}
-	
-	public boolean inRoom() {
-	    return roomUser.getRoom() != null;
-	}
-	
 	public RoomUser getRoomUser() {
 		return roomUser;
 	}

@@ -4,20 +4,20 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.alexdev.icarus.game.entity.EntityType;
-import org.alexdev.icarus.game.entity.IEntity;
+import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
 public class UserDisplayMessageComposer implements OutgoingMessageComposer {
 
-	private List<IEntity> entities;
+	private List<Entity> entities;
 
-	public UserDisplayMessageComposer(IEntity entity) {
-		this(Arrays.asList(new IEntity[] { entity }));
+	public UserDisplayMessageComposer(Entity entity) {
+		this(Arrays.asList(new Entity[] { entity }));
 	}
 
-	public UserDisplayMessageComposer(List<IEntity> entities) {
+	public UserDisplayMessageComposer(List<Entity> entities) {
 		this.entities = entities;
 	}
 
@@ -28,7 +28,7 @@ public class UserDisplayMessageComposer implements OutgoingMessageComposer {
 		synchronized (this.entities) {
 
 			response.writeInt(this.entities.size());
-			for (IEntity entity : this.entities) {
+			for (Entity entity : this.entities) {
 
 				if (entity.getType() == EntityType.PLAYER) {
 

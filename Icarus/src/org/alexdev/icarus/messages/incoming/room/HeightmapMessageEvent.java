@@ -32,7 +32,7 @@ public class HeightmapMessageEvent implements MessageEvent {
 		
 		room.firstEntry();
 
-		player.send(new HeightMapMessageComposer(room, room.getData().getModel().getMapSizeX(), room.getData().getModel().getMapSizeY()));
+		player.send(new HeightMapMessageComposer(room, room.getModel().getMapSizeX(), room.getModel().getMapSizeY()));
 		player.send(new FloorMapMessageComposer(room));
 
 		room.send(new UserDisplayMessageComposer(player));
