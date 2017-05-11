@@ -21,7 +21,6 @@ public class PlayerDetails {
 	}
 	
 	public void fill(int id, String username, String motto, String figure, int rank, int credits) {
-		
 		this.id = id;
 		this.username = username;
 		this.motto = motto;

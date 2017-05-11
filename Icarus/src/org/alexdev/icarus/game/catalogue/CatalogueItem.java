@@ -23,7 +23,7 @@ public class CatalogueItem {
 	
 	private boolean hasOffer;
 
-	public void fill(int id, int pageId, int itemIds, String catalogueName, int costCredits, int costDuckets, 
+	public CatalogueItem(int id, int pageId, int itemIds, String catalogueName, int costCredits, int costDuckets, 
 						int amount, int subscriptionStatus, int songId, String extraData, String badage, int limitedStack, int limitedSells, 
 						boolean hasOffer) {
 

@@ -36,7 +36,7 @@ public class PlaceItemMessageEvent implements MessageEvent {
             
             char side;
             
-            if (posD[2] == "l")
+            if (posD[2].equals("l"))
                 side = 'l';
             else
                 side = 'r';

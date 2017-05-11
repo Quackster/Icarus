@@ -2,7 +2,6 @@ package org.alexdev.icarus.messages.outgoing.catalogue;
 
 import java.util.List;
 
-import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.catalogue.CatalogueTab;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
@@ -12,12 +11,10 @@ public class CatalogueTabMessageComposer implements OutgoingMessageComposer {
 
     private String type;
     private List<CatalogueTab> parentTabs;
-    private int rank;
 
-    public CatalogueTabMessageComposer(String type, List<CatalogueTab> parentTabs, int parentId, int rank) {
+    public CatalogueTabMessageComposer(String type, List<CatalogueTab> parentTabs) {
         this.type = type;
         this.parentTabs = parentTabs;
-        this.rank = rank;
     }
 
     @Override

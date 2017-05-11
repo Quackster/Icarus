@@ -26,7 +26,7 @@ public class CatalogueMessageEvent implements MessageEvent {
 			return;
 		}
 		
-		player.send(new CatalogueTabMessageComposer(type, parentTabs, -1, player.getDetails().getRank()));
+		player.send(new CatalogueTabMessageComposer(type, parentTabs));
 	}
 
 }

@@ -3,77 +3,90 @@ package org.alexdev.icarus.game.navigator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.alexdev.icarus.factories.NavigatorFactory;
-import org.alexdev.icarus.game.room.populator.IRoomPopulator;
+import org.alexdev.icarus.game.room.populator.RoomPopulator;
+import org.alexdev.icarus.log.Log;
 
 public class NavigatorTab {
 
-	private int id;
-	private int childId;
-	private String tabName;
-	private String title;
-	private byte buttonType;
-	private boolean closed;
-	private boolean thumbnail;
-	private IRoomPopulator roomPopulator;
-	
-	public void fill(int id, int childId, String tabName, String title, byte buttonType, boolean closed, boolean thumbnail, String roomPopulator) {
-		
-		this.id = id;
-		this.childId = childId;
-		this.tabName = tabName;
-		this.title = title;
-		this.buttonType = buttonType;
-		this.closed = closed;
-		this.thumbnail = thumbnail;
+    private int id;
+    private int childId;
+    private String tabName;
+    private String title;
+    private byte buttonType;
+    private boolean closed;
+    private boolean thumbnail;
+    private RoomPopulator roomPopulator;
 
-		String roomPopulatorClass = roomPopulator;
-		
-		if (roomPopulator.length() > 0) {
-			this.roomPopulator = NavigatorFactory.getPopulator(roomPopulatorClass);
-			this.roomPopulator.setNavigatorTab(this);
-		}
-	}
+    public void fill(int id, int childId, String tabName, String title, byte buttonType, boolean closed, boolean thumbnail, String roomPopulator) {
+        this.id = id;
+        this.childId = childId;
+        this.tabName = tabName;
+        this.title = title;
+        this.buttonType = buttonType;
+        this.closed = closed;
+        this.thumbnail = thumbnail;
 
-	public List<NavigatorTab> getChildTabs() {
+        String roomPopulatorClass = roomPopulator;
 
-		try {
-			return NavigatorManager.getAllTabs().stream().filter(t -> t.childId == this.id).collect(Collectors.toList());
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	
-	public int getId() {
-		return id;
-	}
+        if (roomPopulator.length() > 0) {
+            this.roomPopulator = getPopulator(roomPopulatorClass);
+            this.roomPopulator.setNavigatorTab(this);
+        }
+    }
 
-	public int getChildId() {
-		return childId;
-	}
+    public static RoomPopulator getPopulator(String roomPopulatorClass) {
 
-	public String getTabName() {
-		return tabName;
-	}
+        try {
 
-	public String getTitle() {
-		return title;
-	}
+            Class<? extends RoomPopulator> clazz = Class.forName("org.alexdev.icarus.game.room.populator." + roomPopulatorClass).asSubclass(RoomPopulator.class);
+            return clazz.newInstance();
 
-	public byte getButtonType() {
-		return buttonType;
-	}
+        } catch (Exception e) {
+            Log.exception(e);
+        }
 
-	public boolean isClosed() {
-		return closed;
-	}
+        return null;
+    }
 
-	public boolean isThumbnail() {
-		return thumbnail;
-	}
+    public List<NavigatorTab> getChildTabs() {
 
-	public IRoomPopulator getRoomPopulator() {
-		return roomPopulator;
-	}
+        try {
+            return NavigatorManager.getAllTabs().stream().filter(t -> t.childId == this.id).collect(Collectors.toList());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getChildId() {
+        return childId;
+    }
+
+    public String getTabName() {
+        return tabName;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public byte getButtonType() {
+        return buttonType;
+    }
+
+    public boolean isClosed() {
+        return closed;
+    }
+
+    public boolean isThumbnail() {
+        return thumbnail;
+    }
+
+    public RoomPopulator getRoomPopulator() {
+        return roomPopulator;
+    }
 
 }

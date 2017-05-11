@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 
-import org.alexdev.icarus.factories.ItemFactory;
 import org.alexdev.icarus.game.furniture.Furniture;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
@@ -32,7 +31,7 @@ public class ItemDao {
 
 			while (resultSet.next()) {
 
-				furni.add(ItemFactory.getFurniture(resultSet.getInt("id"), resultSet.getString("public_name"), resultSet.getString("item_name"), resultSet.getString("type"), 
+				furni.add(new Furniture(resultSet.getInt("id"), resultSet.getString("public_name"), resultSet.getString("item_name"), resultSet.getString("type"), 
 						resultSet.getInt("width"), resultSet.getInt("length"), resultSet.getDouble("stack_height"), resultSet.getInt("can_stack") == 1,
 						resultSet.getInt("can_sit") == 1, resultSet.getInt("is_walkable") == 1, resultSet.getInt("sprite_id"), resultSet.getInt("allow_recycle") == 1, 
 						resultSet.getInt("allow_trade") == 1, resultSet.getInt("allow_marketplace_sell") == 1, resultSet.getInt("allow_gift") == 1, 
@@ -124,7 +123,7 @@ public class ItemDao {
 
 
 	public static Item fill(ResultSet row) throws Exception {
-		Item item = ItemFactory.getItem(row.getLong("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
+		Item item = new Item(row.getLong("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
 		return item;
 	}
 

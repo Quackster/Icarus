@@ -6,7 +6,7 @@ import org.alexdev.icarus.game.navigator.NavigatorTab;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 
-public abstract class IRoomPopulator {
+public abstract class RoomPopulator {
 
 	private NavigatorTab navigatorTab;
 	

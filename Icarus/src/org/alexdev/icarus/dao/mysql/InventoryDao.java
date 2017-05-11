@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import org.alexdev.icarus.factories.ItemFactory;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.log.Log;
 
@@ -113,8 +112,7 @@ public class InventoryDao {
 	}
 
 	public static Item fill(ResultSet row) throws Exception {
-		Item instance = ItemFactory.newItem();
-		instance.fill(row.getLong("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
+		Item instance = new Item(row.getLong("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
 		return instance;
 	}
 

@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.alexdev.icarus.factories.MessengerFactory;
 import org.alexdev.icarus.game.messenger.MessengerUser;
 import org.alexdev.icarus.log.Log;
 
@@ -33,9 +32,9 @@ public class MessengerDao {
 				MessengerUser friend = null;
 
 				if (resultSet.getInt("sender") != userId) {
-					friend = MessengerFactory.getUser(resultSet.getInt("sender"));
+					friend = new MessengerUser(resultSet.getInt("sender"));
 				} else {
-					friend = MessengerFactory.getUser(resultSet.getInt("receiver"));
+					friend = new MessengerUser(resultSet.getInt("receiver"));
 				}
 
 				friends.add(friend);
@@ -68,7 +67,7 @@ public class MessengerDao {
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
-				users.add(MessengerFactory.getUser(resultSet.getInt("from_id")));
+				users.add(new MessengerUser(resultSet.getInt("from_id")));
 			}
 
 		} catch (Exception e) {

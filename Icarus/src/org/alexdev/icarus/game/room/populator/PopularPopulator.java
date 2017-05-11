@@ -7,7 +7,7 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 
-public class PopularPopulator extends IRoomPopulator {
+public class PopularPopulator extends RoomPopulator {
 
 	@Override
 	public List<Room> generateListing(boolean limit, Player player) {

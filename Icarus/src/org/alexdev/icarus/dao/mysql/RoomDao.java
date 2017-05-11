@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
-import org.alexdev.icarus.factories.RoomFactory;
+
 import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
@@ -315,7 +315,7 @@ public class RoomDao {
             details = PlayerDao.getDetails(row.getInt("owner_id"));
         }
 
-        Room instance = RoomFactory.newRoom();
+        Room instance = new Room();
 
         instance.getData().fill(row.getInt("id"), type, details == null ? 0 : details.getId(), details == null ? "" : details.getUsername(), row.getString("name"), 
                 row.getInt("state"), row.getString("password"), row.getInt("users_now"),

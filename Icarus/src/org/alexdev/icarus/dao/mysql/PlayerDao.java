@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.alexdev.icarus.factories.PlayerFactory;
 import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.player.Player;
@@ -15,7 +14,7 @@ public class PlayerDao {
 
 	public static PlayerDetails getDetails(int userId) {
 
-		PlayerDetails details = PlayerFactory.newDetails();
+		PlayerDetails details = new PlayerDetails(null);
 		Player player = PlayerManager.findById(userId);
 
 		if (player != null) {
@@ -53,6 +52,8 @@ public class PlayerDao {
 
 	public static boolean login(Player player, String ssoTicket) {
 		
+	    boolean success = false;
+	    
 		Connection sqlConnection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -67,7 +68,7 @@ public class PlayerDao {
 
 			if (resultSet.next()) {
 				fill(player.getDetails(), resultSet);
-				return true;
+				success = true;
 			}
 
 		} catch (Exception e) {
@@ -78,11 +79,13 @@ public class PlayerDao {
 			Storage.closeSilently(sqlConnection);
 		}
 
-		return false;
+		return success;
 	}
 
 	public static int getId(String username) {
 
+	    int id = -1;
+	    
 		Connection sqlConnection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -96,7 +99,7 @@ public class PlayerDao {
 			resultSet = preparedStatement.executeQuery();
 			
 			if (resultSet.next()) {
-				return resultSet.getInt("id");
+				id = resultSet.getInt("id");
 			}
 		} catch (Exception e) {
 			Log.exception(e);
@@ -106,7 +109,7 @@ public class PlayerDao {
 			Storage.closeSilently(sqlConnection);
 		}
 
-		return -1;	
+		return id;	
 	}
 	
 	public static PlayerDetails fill(PlayerDetails details, ResultSet row) throws SQLException {

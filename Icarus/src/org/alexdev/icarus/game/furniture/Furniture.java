@@ -24,7 +24,7 @@ public class Furniture {
 	private int interationModes;
 	private String[] vendingIds;
 	
-	public void fill (int id, String publicName, String itemName, String type, int width, int length, double stackHeight,
+	public Furniture(int id, String publicName, String itemName, String type, int width, int length, double stackHeight,
 			boolean canStack, boolean canSit, boolean isWalkable, int spriteId, boolean allowRecycle,
 			boolean allowTrade, boolean allowMarketplaceSell, boolean allowGift, boolean allowInventoryStack,
 			InteractionType interactionType, int interationModes, String[] vendingIds) {

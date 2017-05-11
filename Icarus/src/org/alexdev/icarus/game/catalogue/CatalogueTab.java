@@ -15,11 +15,7 @@ public class CatalogueTab {
 	private int minRank;
 	private List<CatalogueTab> childTabs;
 	
-	public CatalogueTab() {
-		this.childTabs = Lists.newArrayList();
-	}
-	
-	public void fill(int id, int parentId, String caption, int iconColour, int iconImage, boolean enabled, int minRank) {
+	public CatalogueTab(int id, int parentId, String caption, int iconColour, int iconImage, boolean enabled, int minRank) {
 		
 		this.id = id;
 		this.parentId = parentId;
@@ -28,6 +24,7 @@ public class CatalogueTab {
 		this.iconImage = iconImage;
 		this.enabled = enabled;
 		this.minRank = minRank;
+		this.childTabs = Lists.newArrayList();
 	}
 
 	public int getId() {
