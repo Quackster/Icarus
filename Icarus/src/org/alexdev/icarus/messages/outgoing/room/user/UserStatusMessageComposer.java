@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import org.alexdev.icarus.game.entity.Entity;
+import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
@@ -31,25 +32,46 @@ public class UserStatusMessageComposer implements OutgoingMessageComposer {
 
 			response.writeInt(this.users.size());
 
-			for (Entity  user : this.users) {
+			for (Entity entity : this.users) {
 
-				response.writeInt(user.getRoomUser().getVirtualId());
-				response.writeInt(user.getRoomUser().getPosition().getX());
-				response.writeInt(user.getRoomUser().getPosition().getY());
-				response.writeString(Double.toString(user.getRoomUser().getPosition().getZ()));
-				response.writeInt(user.getRoomUser().getHeadRotation());
-				response.writeInt(user.getRoomUser().getRotation());
+				response.writeInt(entity.getRoomUser().getVirtualId());
+				
+	            if (entity.getRoomUser().isWalking()) {
+	                
+	                if (entity.getRoomUser().getNext() == null) {
+	                    entity.getRoomUser().stopWalking();
+	                }
+	            }
+				
+				response.writeInt(entity.getRoomUser().getPosition().getX());
+				response.writeInt(entity.getRoomUser().getPosition().getY());
+				response.writeString(Double.toString(entity.getRoomUser().getPosition().getZ()));
+				
+	            if (entity.getRoomUser().isWalking()) {
+
+	                if (entity.getRoomUser().getNext() != null) {
+
+	                    Position next = entity.getRoomUser().getNext();
+
+	                    entity.getRoomUser().getPosition().setZ(entity.getRoomUser().getRoom().getModel().getHeight(next.getX(), next.getY()));
+	                    entity.getRoomUser().getPosition().setX(next.getX());
+	                    entity.getRoomUser().getPosition().setY(next.getY());
+	                }
+	            }
+				
+				response.writeInt(entity.getRoomUser().getPosition().getHeadRotation());
+				response.writeInt(entity.getRoomUser().getPosition().getBodyRotation());
 
 				String status = "/";
 
-				for (Entry<String, String> set : user.getRoomUser().getStatuses().entrySet()) {
+				for (Entry<String, String> set : entity.getRoomUser().getStatuses().entrySet()) {
 					status += set.getKey() + set.getValue() + "/";
 				}
 
 				response.writeString(status);
 				
-				if (user.getRoomUser().needsUpdate()) {
-				    user.getRoomUser().setNeedUpdate(false);
+				if (entity.getRoomUser().needsUpdate()) {
+				    entity.getRoomUser().setNeedUpdate(false);
 				}
 			}
 		}

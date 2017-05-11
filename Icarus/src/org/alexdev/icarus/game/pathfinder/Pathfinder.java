@@ -2,7 +2,6 @@ package org.alexdev.icarus.game.pathfinder;
 
 import java.util.LinkedList;
 import org.alexdev.icarus.game.entity.Entity;
-import org.alexdev.icarus.game.room.model.Position;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.MinMaxPriorityQueue;

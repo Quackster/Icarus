@@ -3,9 +3,10 @@ package org.alexdev.icarus.messages.incoming.room.user;
 import java.util.LinkedList;
 
 import org.alexdev.icarus.game.pathfinder.Pathfinder;
+import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.RoomUser;
-import org.alexdev.icarus.game.room.model.Position;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
@@ -32,10 +33,12 @@ public class UserWalkMessageEvent implements MessageEvent {
 		LinkedList<Position> path = Pathfinder.makePath(player);
 
 		if (path == null) {
+		    Log.println("Debug 1");
 			return;
 		}
 
 		if (path.size() == 0) {
+		    Log.println("Debug 2");
 			return;
 		}
 		

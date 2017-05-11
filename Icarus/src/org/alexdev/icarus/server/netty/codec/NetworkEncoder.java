@@ -50,7 +50,7 @@ public class NetworkEncoder extends SimpleChannelHandler {
 				NettyResponse response = new NettyResponse();
 				msg.write(response);
 				
-				Log.println("SENT: " + response.getBodyString());
+				//Log.println("SENT: " + response.getBodyString());
 				
 				Channels.write(ctx, e.getFuture(), (ChannelBuffer)response.get());
 				return;

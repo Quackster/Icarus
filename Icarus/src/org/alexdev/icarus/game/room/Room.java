@@ -12,9 +12,9 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
+import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
-import org.alexdev.icarus.game.room.model.Position;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.game.room.settings.RoomType;
 import org.alexdev.icarus.messages.outgoing.room.HasOwnerRightsMessageComposer;
@@ -54,6 +54,8 @@ public class Room {
 
     public void loadRoom(Player player) {
 
+        this.disposed = false;
+        
         RoomUser roomUser = player.getRoomUser();
 
         roomUser.setRoom(this);
@@ -95,17 +97,15 @@ public class Room {
         roomUser.getPosition().setX(startingPosition.getX());
         roomUser.getPosition().setY(startingPosition.getY());
         roomUser.getPosition().setZ(this.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
-        roomUser.setRotation(this.getModel().getDoorRot(), false);
+        roomUser.getPosition().setRotation(this.getModel().getDoorRot());
+        
+        if (!(this.getUsers().size() > 0)) {
+            this.firstEntry();
+        }
     }
 
-    public void firstEntry() {
+    private void firstEntry() {
         
-        this.disposed = false;
- 
-        if (this.getUsers().size() != 0) {
-            return;
-        }
-
         this.items = ItemDao.getRoomItems(this.getData().getId());
         
         this.scheduler = new RoomScheduler(this);
@@ -177,9 +177,8 @@ public class Room {
 
     private void cleanupRoomData() {
 
-        if (this.tickTask != null) {
-            this.tickTask.cancel(true);
-            this.tickTask = null;
+        if (this.scheduler != null) {
+            this.scheduler.cancelTasks();
         }
 
         if (this.entities != null) {

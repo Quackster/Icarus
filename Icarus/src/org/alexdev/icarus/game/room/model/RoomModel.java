@@ -19,6 +19,8 @@
 
 package org.alexdev.icarus.game.room.model;
 
+import org.alexdev.icarus.game.pathfinder.Position;
+
 public class RoomModel 
 {
 	public final static int OPEN = 0;

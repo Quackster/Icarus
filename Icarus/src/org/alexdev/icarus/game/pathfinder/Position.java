@@ -1,10 +1,12 @@
-package org.alexdev.icarus.game.room.model;
+package org.alexdev.icarus.game.pathfinder;
 
 public class Position {
 
 	private int X;
 	private int Y;
 	private double Z;
+	private int bodyRotation;
+	private int headRotation;
 
 	public Position() {
 		this(0, 0, 0);
@@ -46,7 +48,32 @@ public class Position {
 		Z = z;
 	}
 
-	public Position add(Position other) {
+	public int getBodyRotation() {
+        return bodyRotation;
+    }
+
+    public void setBodyRotation(int bodyRotation) {
+        this.bodyRotation = bodyRotation;
+    }
+
+    public int getHeadRotation() {
+        return headRotation;
+    }
+
+    public void setHeadRotation(int headRotation) {
+        this.headRotation = headRotation;
+    }
+
+    public int getRotation() {
+        return bodyRotation;
+    }
+
+    public void setRotation(int headRotation) {
+        this.headRotation = headRotation;
+        this.bodyRotation = headRotation;
+    }
+
+    public Position add(Position other) {
 		return new Position(other.getX() + getX(), other.getY() + getY(), other.getZ() + getZ());
 	}
 

@@ -1,7 +1,5 @@
 package org.alexdev.icarus.game.pathfinder;
 
-import org.alexdev.icarus.game.room.model.Position;
-
 public class PathfinderNode implements Comparable<PathfinderNode> {
 	
     private Position position;

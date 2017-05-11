@@ -29,8 +29,6 @@ public class HeightmapMessageEvent implements MessageEvent {
 		if (room.getEntities().contains(player)) {
 			return;
 		}
-		
-		room.firstEntry();
 
 		player.send(new HeightMapMessageComposer(room, room.getModel().getMapSizeX(), room.getModel().getMapSizeY()));
 		player.send(new FloorMapMessageComposer(room));

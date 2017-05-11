@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.game.entity.Entity;
+import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomUser;
-import org.alexdev.icarus.game.room.model.Position;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 
@@ -36,12 +36,12 @@ public class RoomWalkScheduler implements Runnable {
 
                 if (entity != null) {
                     if (entity.getRoomUser() != null) {
-                           
+
+                        this.processEntity(entity);
+
                         RoomUser roomEntity = entity.getRoomUser();
-  
+
                         if (roomEntity.needsUpdate()) {
-                            
-                            this.processEntity(entity);  
                             update_entities.add(entity);
                         }
                     }
@@ -62,26 +62,33 @@ public class RoomWalkScheduler implements Runnable {
 
         RoomUser roomEntity = entity.getRoomUser();
 
-        if (roomEntity.getPath().size() > 0) {
+        if (roomEntity.isWalking()) {
+            if (roomEntity.getPath().size() > 0) {
 
-            Position next = roomEntity.getPath().pop();
-            
-            roomEntity.removeStatus("lay");
-            roomEntity.removeStatus("sit");
+                Position next = roomEntity.getPath().pop();
 
-            int rotation = Rotation.calculate(roomEntity.getPosition().getX(), roomEntity.getPosition().getY(), next.getX(), next.getY());
-            double height = this.room.getModel().getHeight(next.getX(), next.getY());
+                roomEntity.removeStatus("lay");
+                roomEntity.removeStatus("sit");
 
-            roomEntity.setRotation(rotation, false);
+                int rotation = Rotation.calculate(roomEntity.getPosition().getX(), roomEntity.getPosition().getY(), next.getX(), next.getY());
+                double height = this.room.getModel().getHeight(next.getX(), next.getY());
 
-            roomEntity.setStatus("mv", " " + next.getX() + "," + next.getY() + "," + (int)height, true, -1);
-            roomEntity.setNeedUpdate(true);
-            roomEntity.setNext(next);
+                /*roomEntity.getPosition().setRotation(rotation);
+                roomEntity.getPosition().setX(next.getX());
+                roomEntity.getPosition().setY(next.getY());*/
+ 
+                roomEntity.setStatus("mv", " " + next.getX() + "," + next.getY() + "," + (int)height, true, -1);
+                roomEntity.getPosition().setZ(height);
+                roomEntity.getPosition().setRotation(rotation);
+                
+                roomEntity.setNext(next);
+                roomEntity.setNeedUpdate(true);
 
-        }
-        else {
-            roomEntity.setNext(null);
-            roomEntity.setNeedUpdate(true);
+            }
+            else {
+                roomEntity.setNext(null);
+                roomEntity.setNeedUpdate(true);
+            }
         }
     }
 }

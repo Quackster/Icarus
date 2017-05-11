@@ -1,6 +1,6 @@
 package org.alexdev.icarus.game.room;
 
-import org.alexdev.icarus.game.room.model.Position;
+import org.alexdev.icarus.game.pathfinder.Position;
 
 public class RoomMapping {
 

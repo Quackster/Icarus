@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import org.alexdev.icarus.game.entity.Entity;
+import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.game.room.model.Position;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.log.DateTime;
 import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageComposer;
@@ -24,9 +24,7 @@ public class RoomUser {
 
 	private Position position;
 	private Position goal;
-
-	private int rotation;
-	private int headRotation;
+	private Position next;
 
 	private boolean isWalking;
 	private boolean needsUpdate;
@@ -43,6 +41,16 @@ public class RoomUser {
 		this.dispose();
 		this.entity = entity;
 	}
+	
+    public void stopWalking() {
+        
+        this.removeStatus("mv");
+        
+        this.next = null;
+
+        this.isWalking = false;
+        this.needsUpdate = true;
+    }
 	
     public boolean containsStatus(String key) {
         return this.statuses.containsKey(key);
@@ -73,8 +81,6 @@ public class RoomUser {
 			isStaff = player.getDetails().hasFuse("moderator");
 		}
 
-		// if current time less than the chat flood timer (last chat time + seconds to check)
-		// say that they still need to wait before shouting again
 		if (spamCheck) {
 			if (DateTime.getTimeSeconds() < this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
 
@@ -87,16 +93,11 @@ public class RoomUser {
 			}
 		}
 
-		// TODO: Check if not bot
-		// The below function validates the chat bubbles
 		if (bubble == 2 || (bubble == 23 && !player.getDetails().hasFuse("moderator")) || bubble < 0 || bubble > 29) {
 			bubble = this.lastChatId;
 		}
 
 		this.room.send(new TalkMessageComposer(this, shout, message, count, bubble));
-
-		// if the users timestamp has passed the check but the chat count is still high
-		// the chat count is reset then
 
 		if (spamCheck) {
 			if (!player.getDetails().hasFuse("moderator")) {
@@ -159,7 +160,15 @@ public class RoomUser {
 		this.goal = goal;
 	}
 
-	public void updateStatus() {
+	public Position getNext() {
+        return next;
+    }
+
+    public void setNext(Position next) {
+        this.next = next;
+    }
+
+    public void updateStatus() {
 		this.room.send(new UserStatusMessageComposer(this.entity));
 	}
 
@@ -190,27 +199,6 @@ public class RoomUser {
 		this.danceId = danceId;
 	}
 
-	public int getRotation() {
-		return rotation;
-	}
-
-	public void setRotation(int rotation) {
-		this.rotation = rotation;
-	}
-
-	public int getHeadRotation() {
-		return headRotation;
-	}
-
-	public void setRotation(int rotation, boolean headOnly) {
-
-		this.headRotation = rotation;
-
-		if (!headOnly) {
-			this.rotation = rotation;
-		}
-	}
-
 	public HashMap<String, String> getStatuses() {
 		return statuses;
 	}
@@ -218,7 +206,6 @@ public class RoomUser {
 	public LinkedList<Position> getPath() {
 		return path;
 	}
-
 
 	public void setPath(LinkedList<Position> path) {
 
@@ -235,11 +222,6 @@ public class RoomUser {
 
 	public void setNeedUpdate(boolean needsWalkUpdate) {
 		this.needsUpdate = needsWalkUpdate;
-
-		if (!this.needsUpdate) {
-			this.goal.setX(-1);
-			this.goal.setY(-1);
-		}
 	}
 
 	public Room getRoom() {
@@ -266,8 +248,4 @@ public class RoomUser {
 		return entity;
 	}
 
-    public void setNext(Position next) {
-        // TODO Auto-generated method stub
-        
-    }
 }

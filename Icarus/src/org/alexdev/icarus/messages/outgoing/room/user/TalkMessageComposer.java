@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.RoomUser;
-import org.alexdev.icarus.game.room.model.Position;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
@@ -42,11 +42,6 @@ public class TalkMessageComposer implements OutgoingMessageComposer {
 			header = Outgoing.ShoutMessageComposer;
 		}
 
-		// TODO: Filtering/anti-flodding
-		// TODO: Chat logs
-
-		// TODO: If bot then chat colour = 2
-
 		response.init(header);
 		response.writeInt(this.roomUser.getVirtualId());
 		response.writeString(this.message);
@@ -54,12 +49,6 @@ public class TalkMessageComposer implements OutgoingMessageComposer {
 		response.writeInt(this.textColour);
 		response.writeInt(0);// links count (foreach string string bool)
 		response.writeInt(this.count);
-
-		if (!this.roomUser.isWalking()) {
-			Position point = this.roomUser.getPosition();
-			this.roomUser.setRotation(Rotation.calculate(point.getX(), point.getY(), point.getX(), point.getY()), true);
-			this.roomUser.updateStatus();
-		}
 
 	}
 
