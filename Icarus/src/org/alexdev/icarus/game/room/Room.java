@@ -114,9 +114,6 @@ public class Room {
         player.send(new HotelViewMessageComposer());
         }
 
-        RoomUser roomUser = player.getRoomUser();
-        roomUser.dispose();
-
         if (this.entities != null) {
             this.entities.remove(player);
         }
@@ -125,6 +122,7 @@ public class Room {
             this.send(new RemoveUserMessageComposer(player.getRoomUser().getVirtualId()));
         }
 
+        player.getRoomUser().dispose();
         player.getMessenger().sendStatus(false);
 
         this.dispose(false);

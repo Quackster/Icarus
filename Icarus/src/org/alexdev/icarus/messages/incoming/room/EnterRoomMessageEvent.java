@@ -30,10 +30,6 @@ public class EnterRoomMessageEvent implements MessageEvent {
 
 		String pass = request.readString();
 		
-		if (room.getEntities().contains(player)) {
-			return;
-		}
-		
 		boolean isOwner = room.hasRights(player, true);
 		player.send(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
 
