@@ -43,7 +43,7 @@ public class UserStatusMessageComposer implements OutgoingMessageComposer {
 				String status = "/";
 
 				for (Entry<String, String> set : user.getRoomUser().getStatuses().entrySet()) {
-					status += set.getKey() + " " + set.getValue() + "/";
+					status += set.getKey() + set.getValue() + "/";
 				}
 
 				response.writeString(status + "/");

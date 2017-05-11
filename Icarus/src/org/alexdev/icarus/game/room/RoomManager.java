@@ -1,6 +1,8 @@
 package org.alexdev.icarus.game.room;
 
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.stream.Collectors;
 
 import org.alexdev.icarus.dao.mysql.RoomDao;
@@ -10,14 +12,16 @@ import com.google.common.collect.Lists;
 
 public class RoomManager {
 
-	public static List<Room> loadedRooms;
+    private static List<Room> loadedRooms;
+    private static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(8);
 
-	public static void load() {
-	    loadedRooms = Lists.newArrayList();
-	    
-	    RoomDao.getModels();
-		RoomDao.getPublicRooms(true);
-	}
+    public static void load() {
+        loadedRooms = Lists.newArrayList();
+        scheduler = Executors.newScheduledThreadPool(8);
+        
+        RoomDao.getModels();
+        RoomDao.getPublicRooms(true);
+    }
 
 	public static void add(Room room) {
 
@@ -63,5 +67,9 @@ public class RoomManager {
 	public static List<Room> getLoadedRooms() {
 		return loadedRooms;
 	}
+
+    public static ScheduledExecutorService getScheduler() {
+        return scheduler;
+    }
 
 }

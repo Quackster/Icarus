@@ -52,7 +52,7 @@ public class HeightmapMessageEvent implements MessageEvent {
 		}
 
 		if (room.hasRights(player, false)) {
-			player.getRoomUser().getStatuses().put("flatctrl", "1");
+			player.getRoomUser().setStatus("flatctrl", " 1", true, -1);
 		}		
 
 		player.send(new RoomDataMessageComposer(room, player, true, true));

@@ -44,6 +44,24 @@ public class RoomUser {
 		this.entity = entity;
 	}
 	
+    public boolean containsStatus(String key) {
+        return this.statuses.containsKey(key);
+    }
+
+    public void removeStatus(String key) {
+        this.statuses.remove(key);
+    }
+    
+
+    public void setStatus(String key, String value, boolean infinite, int duration) {
+       
+        if (this.containsStatus(key)) {
+            this.removeStatus(key);
+        }
+        
+        this.statuses.put(key, value);
+    }
+	
 	public void chat(String message, int bubble, int count, boolean shout, boolean spamCheck) {
 
 		boolean isStaff = false;
@@ -245,4 +263,9 @@ public class RoomUser {
 	public Entity getEntity() {
 		return entity;
 	}
+
+    public void setNext(Position next) {
+        // TODO Auto-generated method stub
+        
+    }
 }
