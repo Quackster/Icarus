@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.alexdev.icarus.dao.mysql.MessengerDao;
 import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.messages.outgoing.messenger.MessengerUpdateMessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class Messenger {
 
@@ -62,13 +64,13 @@ public class Messenger {
 	
 	public void sendStatus(boolean forceOffline) {
 
-		//AbstractResponse message = new MessengerUpdateMessageComposer(new MessengerUser(this.player.getDetails().getId()), forceOffline);
+	    MessengerUpdateMessageComposer message = new MessengerUpdateMessageComposer(new MessengerUser(this.player.getDetails().getId()), forceOffline);
 
 		for (MessengerUser friend : this.friends) {
 
 			if (friend.isOnline()) {
 				if (friend.getPlayer().getMessenger().hasInitalised()) {
-					//friend.getPlayer().send(message);
+					friend.getPlayer().send(message);
 				}
 			}
 		}

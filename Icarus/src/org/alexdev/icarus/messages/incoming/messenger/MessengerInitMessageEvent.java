@@ -23,6 +23,7 @@ public class MessengerInitMessageEvent implements MessageEvent {
 		player.send(new FriendsListMessageComposer(player.getMessenger().getFriends()));
 		
 		player.getMessenger().setInitalised(true);
+		player.getMessenger().sendStatus(false);
 	}
 
 }
