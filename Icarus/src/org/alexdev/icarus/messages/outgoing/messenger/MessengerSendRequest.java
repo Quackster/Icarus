@@ -19,9 +19,9 @@ public class MessengerSendRequest implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.MessengerSendRequest);
-		response.appendInt32(this.id);
-		response.appendString(this.username);
-		response.appendString(this.figure);
+		response.writeInt(this.id);
+		response.writeString(this.username);
+		response.writeString(this.figure);
 	}
 
 }

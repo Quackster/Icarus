@@ -16,18 +16,18 @@ public class FlatCategoriesMessageComposer implements OutgoingMessageComposer {
 	public void write(AbstractResponse response) {
 		
 		response.init(Outgoing.FlatCategoriesMessageComposer);
-		response.appendInt32(this.categories.length);
+		response.writeInt(this.categories.length);
 
 		int index = 0;
 		
 		for (String category : this.categories) {
-			response.appendInt32(index);
-			response.appendString(category);
-			response.appendBoolean(true); // show category?
-			response.appendBoolean(false); // no idea
-			response.appendString("NONE");
-			response.appendString("");
-			response.appendBoolean(false);
+			response.writeInt(index);
+			response.writeString(category);
+			response.writeBool(true); // show category?
+			response.writeBool(false); // no idea
+			response.writeString("NONE");
+			response.writeString("");
+			response.writeBool(false);
 			
 			++index;
 		}

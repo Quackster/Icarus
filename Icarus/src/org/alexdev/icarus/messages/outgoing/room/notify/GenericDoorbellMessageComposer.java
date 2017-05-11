@@ -22,9 +22,9 @@ public class GenericDoorbellMessageComposer implements OutgoingMessageComposer {
 		response.init(Outgoing.GenericDoorbellMessageComposer);
 
 		if (this.username != null) {
-			response.appendString(this.username); 
+			response.writeString(this.username); 
 		} else {
-			response.appendInt32(this.notifyCode);
+			response.writeInt(this.notifyCode);
 		}
 	}
 }

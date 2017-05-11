@@ -15,8 +15,8 @@ public class RoomRatingMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.RoomRatingMessageComposer);
-		response.appendInt32(this.score);
-		response.appendBoolean(false);
+		response.writeInt(this.score);
+		response.writeBool(false);
 	}
 
 }

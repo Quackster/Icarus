@@ -15,7 +15,7 @@ public class GenerateSecretKeyComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.SecretKeyMessageComposer);	
-		response.appendString(this.publicKey);
-		response.appendBoolean(false);
+		response.writeString(this.publicKey);
+		response.writeBool(false);
 	}
 }

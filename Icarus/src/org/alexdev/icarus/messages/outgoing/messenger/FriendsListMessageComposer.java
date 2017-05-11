@@ -18,9 +18,9 @@ public class FriendsListMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.InitMessengerMessageComposer);
-		response.appendInt32(1);
-		response.appendInt32(0);
-		response.appendInt32(this.friends.size());
+		response.writeInt(1);
+		response.writeInt(0);
+		response.writeInt(this.friends.size());
 		
 		for (MessengerUser friend : this.friends) {
 			friend.serialise(response, false);

@@ -15,7 +15,7 @@ public class CreditsBalanceMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.CreditsBalanceMessageComposer);
-		response.appendString(this.credits + ".0");
+		response.writeString(this.credits + ".0");
 	}
 
 }

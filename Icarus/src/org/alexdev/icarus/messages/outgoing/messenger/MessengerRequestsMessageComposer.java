@@ -22,13 +22,13 @@ public class MessengerRequestsMessageComposer implements OutgoingMessageComposer
 	public void write(AbstractResponse response) {
 		
 		response.init(Outgoing.MessengerRequestsMessageComposer);
-		response.appendInt32(this.player.getDetails().getId());
-		response.appendInt32(this.requests.size()); 
+		response.writeInt(this.player.getDetails().getId());
+		response.writeInt(this.requests.size()); 
 
 		for (MessengerUser user : this.requests) {
-			response.appendInt32(user.getUserId());
-			response.appendString(user.getDetails().getUsername());
-			response.appendString(user.getDetails().getFigure());
+			response.writeInt(user.getUserId());
+			response.writeString(user.getDetails().getUsername());
+			response.writeString(user.getDetails().getFigure());
 		}
 	}
 

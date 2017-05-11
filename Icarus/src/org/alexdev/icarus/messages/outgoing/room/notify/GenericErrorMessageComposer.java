@@ -15,7 +15,7 @@ public class GenericErrorMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.GenericErrorMessageComposer);
-		response.appendInt32(this.errorCode);
+		response.writeInt(this.errorCode);
 	}
 
 }

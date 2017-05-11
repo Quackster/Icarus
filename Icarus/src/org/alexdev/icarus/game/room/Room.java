@@ -3,9 +3,6 @@ package org.alexdev.icarus.game.room;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.entity.IEntity;
@@ -13,7 +10,6 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.player.RoomUser;
 import org.alexdev.icarus.game.room.settings.RoomType;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.HasOwnerRightsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.PrepareRoomMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.RoomModelMessageComposer;

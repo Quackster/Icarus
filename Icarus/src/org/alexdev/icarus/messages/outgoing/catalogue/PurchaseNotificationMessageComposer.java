@@ -19,30 +19,30 @@ public class PurchaseNotificationMessageComposer implements OutgoingMessageCompo
 	public void write(AbstractResponse response) {
 	
 		response.init(Outgoing.PurchaseNotificationComposer);
-		response.appendInt32(item.getData().getId());
-		response.appendString(item.getData().getItemName());
-		response.appendBoolean(false);
-		response.appendInt32(item.getCostCredits());
-		response.appendInt32(item.getCostPixels());
-		response.appendInt32(0);
-		response.appendBoolean(true);
+		response.writeInt(item.getData().getId());
+		response.writeString(item.getData().getItemName());
+		response.writeBool(false);
+		response.writeInt(item.getCostCredits());
+		response.writeInt(item.getCostPixels());
+		response.writeInt(0);
+		response.writeBool(true);
 		
-		response.appendInt32(1); // amount
+		response.writeInt(1); // amount
 		
-		response.appendString(item.getData().getType());
-		response.appendInt32(item.getData().getSpriteId());
-		response.appendString(item.getExtraData());
-		response.appendInt32(amount);
+		response.writeString(item.getData().getType());
+		response.writeInt(item.getData().getSpriteId());
+		response.writeString(item.getExtraData());
+		response.writeInt(amount);
 		
-		response.appendBoolean(item.isLimited());
+		response.writeBool(item.isLimited());
 		
 		if (item.isLimited()) {
-			response.appendInt32(item.getLimitedStack());
-			response.appendInt32(item.getLimitedSells());
+			response.writeInt(item.getLimitedStack());
+			response.writeInt(item.getLimitedSells());
 		}
 		
-		response.appendString(item.getSubscriptionStatus());
-		response.appendInt32(1);
+		response.writeString(item.getSubscriptionStatus());
+		response.writeInt(1);
 		
 	}
 

@@ -16,6 +16,6 @@ public class PrepareRoomMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.RoomUpdateMessageComposer);
-		response.appendInt32(room.getData().getId());
+		response.writeInt(room.getData().getId());
 	}
 }

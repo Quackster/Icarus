@@ -20,8 +20,8 @@ public class WallOptionsMessageComposer implements OutgoingMessageComposer {
 	public void write(AbstractResponse response) {
 		
 		response.init(Outgoing.WallOptionsMessageComposer);
-		response.appendBoolean(this.hideWall);
-		response.appendInt32(this.wallThickness);
-		response.appendInt32(this.floorThickness);
+		response.writeBool(this.hideWall);
+		response.writeInt(this.wallThickness);
+		response.writeInt(this.floorThickness);
 	}
 }

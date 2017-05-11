@@ -15,9 +15,9 @@ public class MessengerMessageComposer implements OutgoingMessageComposer {
 
 	@Override
 	public void write(AbstractResponse response) {
-        response.appendInt32(this.userId);
-        response.appendString(this.message);
-        response.appendInt32(0);
+        response.writeInt(this.userId);
+        response.writeString(this.message);
+        response.writeInt(0);
 	}
 
 }

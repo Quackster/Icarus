@@ -2,9 +2,7 @@ package org.alexdev.icarus.game.room;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.dao.mysql.RoomDao;
-import org.alexdev.icarus.game.entity.IEntity;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.game.room.settings.RoomState;
 import org.alexdev.icarus.game.room.settings.RoomType;
@@ -38,10 +36,8 @@ public class RoomData {
 	private int wallThickness;
 	private int floorThickness;
 	private String[] tags;
-	
 	private List<Integer> rights;
 	private Room room;
-	
 	private int chatType;
 	private int chatBalloon;
 	private int chatSpeed;
@@ -62,7 +58,7 @@ public class RoomData {
 			String description, int tradeState, int score, int category, int groupId, String model, String wall,
 			String floor, String landscape, boolean allowPets, boolean allowPetsEat, boolean allowWalkthrough,
 			boolean hideWall, int wallThickness, int floorThickness, String tagFormat, int chatType, int chatBalloon, int chatSpeed,
-			int chatMaxDistance, int chatFloodProtection, int whoCanMute, int whoCanKick, int whoCanBan) {
+			int chatMaxDistance, int chatFloodProtection, int whoCanMute, int whoCanKick, int whoCanBan, String thumbnail) {
 
 		this.id = id;
 		this.roomType = type;
@@ -97,6 +93,7 @@ public class RoomData {
 		this.whoCanMute = whoCanMute;
 		this.whoCanKick = whoCanKick;
 		this.whoCanBan = whoCanBan;
+		this.thumbnail = thumbnail;
 	}
 	
 	public void serialise(AbstractResponse response) {
@@ -105,22 +102,22 @@ public class RoomData {
 
 	public void serialise(AbstractResponse response, boolean enterRoom) {
 		
-		response.appendInt32(id);
-		response.appendString(this.name);
-		response.appendInt32(this.ownerId);
-		response.appendString(this.ownerName);
-		response.appendInt32(this.state.getStateCode());
-		response.appendInt32(this.usersNow);
-		response.appendInt32(this.usersMax);
-		response.appendString(this.description);
-		response.appendInt32(this.tradeState);
-		response.appendInt32(this.score);
-		response.appendInt32(0); // Ranking
-		response.appendInt32(this.category);
-		response.appendInt32(this.tags.length); //TagCount
+		response.writeInt(id);
+		response.writeString(this.name);
+		response.writeInt(this.ownerId);
+		response.writeString(this.ownerName);
+		response.writeInt(this.state.getStateCode());
+		response.writeInt(this.usersNow);
+		response.writeInt(this.usersMax);
+		response.writeString(this.description);
+		response.writeInt(this.tradeState);
+		response.writeInt(this.score);
+		response.writeInt(0); // Ranking
+		response.writeInt(this.category);
+		response.writeInt(this.tags.length); //TagCount
 
 		for (String tag : this.tags) {
-			response.appendString(tag);
+			response.writeString(tag);
 		}
 		
 		int enumType = enterRoom ? 32 : 0;
@@ -142,11 +139,11 @@ public class RoomData {
 			enumType += 16;
 		}
 
-		response.appendInt32(enumType);
+		response.writeInt(enumType);
 		
 		if (this.thumbnail != null) {
 			if (this.thumbnail.length() > 0) {
-				response.appendString(this.thumbnail);
+				response.writeString(this.thumbnail);
 			}
 		}
 		

@@ -3,7 +3,6 @@ package org.alexdev.icarus.netty.connections;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.netty.NettyPlayerNetwork;

@@ -40,14 +40,10 @@ public class Icarus {
             }
 
             serverPort = Util.getConfiguration().get("Server", "server.port", int.class);
-
-            Log.println("Server IP: " + serverIP);
-
+            
             if (!Dao.connect()) {
                 return;
             }
-
-            Log.println();
             
             server = Class.forName(Icarus.getServerClassPath()).asSubclass(IServerHandler.class).newInstance();
             server.setIp(serverIP);
@@ -61,7 +57,8 @@ public class Icarus {
             FurnitureManager.load();
             
             Log.println("Settting up server");
-
+            Log.println();
+            
             if (server.listenSocket()) {
                 Log.println("Server is listening on " + serverIP + ":" + serverPort);
             } else {

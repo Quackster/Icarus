@@ -19,12 +19,12 @@ public class NewInventoryItemsMessageComposer implements OutgoingMessageComposer
 	public void write(AbstractResponse response) {
 		
 		response.init(Outgoing.NewInventoryItemsMessageComposer);
-		response.appendInt32(1);
-		response.appendInt32(items.size());
+		response.writeInt(1);
+		response.writeInt(items.size());
 		
 		for (Item bought : items) {	
-			response.appendInt32(1);
-			response.appendInt32(bought.getGameId());
+			response.writeInt(1);
+			response.writeInt(bought.getGameId());
 		}
 		
 	}

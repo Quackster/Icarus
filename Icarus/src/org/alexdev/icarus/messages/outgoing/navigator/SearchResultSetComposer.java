@@ -28,8 +28,8 @@ public class SearchResultSetComposer implements OutgoingMessageComposer {
 	public void write(AbstractResponse response) {
 	
 		response.init(Outgoing.SearchResultSetComposer);
-		response.appendString(this.navigatorTab.getTabName());
-		response.appendString(this.searchQuery);
+		response.writeString(this.navigatorTab.getTabName());
+		response.writeString(this.searchQuery);
 
 		if (this.searchQuery.isEmpty()) {
 
@@ -43,25 +43,25 @@ public class SearchResultSetComposer implements OutgoingMessageComposer {
 				tabs.addAll(this.navigatorTab.getChildTabs());
 			}
 				
-			response.appendInt32(tabs.size());
+			response.writeInt(tabs.size());
 				
 			for (NavigatorTab tab : tabs) {
 				
-				response.appendString(tab.getTabName());
-				response.appendString(tab.getTitle());
-				response.appendInt32(roomLimit ? (int)tab.getButtonType() : 2); // force no button
-				response.appendBoolean(roomLimit ? tab.isClosed() : false); // force collapsed
+				response.writeString(tab.getTabName());
+				response.writeString(tab.getTitle());
+				response.writeInt(roomLimit ? (int)tab.getButtonType() : 2); // force no button
+				response.writeBool(roomLimit ? tab.isClosed() : false); // force collapsed
 				response.appendInt32(tab.isThumbnail());
 				
 				List<Room> rooms = Lists.newArrayList();
 				
 				if (tab.getRoomPopulator() == null) {
-					response.appendInt32(0);
+					response.writeInt(0);
 				} else {
 					
 					rooms.addAll(tab.getRoomPopulator().generateListing(roomLimit, player));
 					
-					response.appendInt32(rooms.size());
+					response.writeInt(rooms.size());
 					
 					for (Room room : rooms) {
 						room.getData().serialise(response, false);
@@ -74,7 +74,7 @@ public class SearchResultSetComposer implements OutgoingMessageComposer {
 			tabs.clear();
 
 		} else { // TODO: Search
-			response.appendInt32(0);
+			response.writeInt(0);
 			
 		}
 

@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.factories.PlayerFactory;
 import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.PlayerManager;

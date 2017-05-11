@@ -17,7 +17,7 @@ public class TypingStatusMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.TypingStatusMessageComposer);
-		response.appendInt32(this.virtualId);
+		response.writeInt(this.virtualId);
 		response.appendInt32(this.typeStart);
 		
 	}

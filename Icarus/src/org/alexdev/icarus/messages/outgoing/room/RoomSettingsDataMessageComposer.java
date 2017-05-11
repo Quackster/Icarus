@@ -20,34 +20,34 @@ public class RoomSettingsDataMessageComposer implements OutgoingMessageComposer 
 		RoomData data = this.room.getData();
 		
 		response.init(Outgoing.RoomEditSettingsComposer);
-        response.appendInt32(data.getId());
-        response.appendString(data.getName());
-        response.appendString(data.getDescription());
-        response.appendInt32(data.getState().getStateCode());
-        response.appendInt32(data.getCategory());
-        response.appendInt32(data.getUsersMax());
-        response.appendInt32(data.getUsersMax());
-        response.appendInt32(0);
+        response.writeInt(data.getId());
+        response.writeString(data.getName());
+        response.writeString(data.getDescription());
+        response.writeInt(data.getState().getStateCode());
+        response.writeInt(data.getCategory());
+        response.writeInt(data.getUsersMax());
+        response.writeInt(data.getUsersMax());
+        response.writeInt(0);
         /*foreach (var s in room.RoomData.Tags)
         {
             response.appendString(s);
         }*/
-        response.appendInt32(data.getTradeState());
+        response.writeInt(data.getTradeState());
         response.appendInt32(data.isAllowPets());
         response.appendInt32(data.isAllowPetsEat());
         response.appendInt32(data.isAllowWalkthrough());
         response.appendInt32(data.isHideWall());
-        response.appendInt32(data.getWallThickness());
-        response.appendInt32(data.getFloorThickness());
-        response.appendInt32(data.getChatType());//room.RoomData.ChatType);
-        response.appendInt32(data.getChatBalloon());//room.RoomData.ChatBalloon);
-        response.appendInt32(data.getChatSpeed());//room.RoomData.ChatSpeed);
-        response.appendInt32(data.getChatMaxDistance());//room.RoomData.ChatMaxDistance);
-        response.appendInt32(data.getChatFloodProtection());//room.RoomData.ChatFloodProtection > 2 ? 2 : room.RoomData.ChatFloodProtection);
-        response.appendBoolean(false); //allow_dyncats_checkbox
-        response.appendInt32(data.getWhoCanMute());//room.RoomData.WhoCanMute);
-        response.appendInt32(data.getWhoCanKick());//room.RoomData.WhoCanKick);
-        response.appendInt32(data.getWhoCanBan());//room.RoomData.WhoCanBan);
+        response.writeInt(data.getWallThickness());
+        response.writeInt(data.getFloorThickness());
+        response.writeInt(data.getChatType());//room.RoomData.ChatType);
+        response.writeInt(data.getChatBalloon());//room.RoomData.ChatBalloon);
+        response.writeInt(data.getChatSpeed());//room.RoomData.ChatSpeed);
+        response.writeInt(data.getChatMaxDistance());//room.RoomData.ChatMaxDistance);
+        response.writeInt(data.getChatFloodProtection());//room.RoomData.ChatFloodProtection > 2 ? 2 : room.RoomData.ChatFloodProtection);
+        response.writeBool(false); //allow_dyncats_checkbox
+        response.writeInt(data.getWhoCanMute());//room.RoomData.WhoCanMute);
+        response.writeInt(data.getWhoCanKick());//room.RoomData.WhoCanKick);
+        response.writeInt(data.getWhoCanBan());//room.RoomData.WhoCanBan);
 	}
 
 }

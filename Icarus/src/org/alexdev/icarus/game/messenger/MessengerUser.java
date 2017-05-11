@@ -1,6 +1,5 @@
 package org.alexdev.icarus.game.messenger;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.dao.mysql.PlayerDao;
 import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.PlayerManager;
@@ -29,41 +28,41 @@ public class MessengerUser {
 
 	public void serialise(AbstractResponse response, boolean forceOffline) {
 
-		response.appendInt32(this.getDetails().getId());
-		response.appendString(this.getDetails().getUsername());
+		response.writeInt(this.getDetails().getId());
+		response.writeString(this.getDetails().getUsername());
 		response.appendInt32(forceOffline ? false : this.isOnline()); // gender
-		response.appendBoolean(forceOffline ? false : this.isOnline());
-		response.appendBoolean(forceOffline ? false : this.inRoom());
+		response.writeBool(forceOffline ? false : this.isOnline());
+		response.writeBool(forceOffline ? false : this.inRoom());
 
 		if (forceOffline) {
-			response.appendString("");
-			response.appendInt32(0);
-			response.appendString("");  
+			response.writeString("");
+			response.writeInt(0);
+			response.writeString("");  
 		} else {
-			response.appendString(this.isOnline() ? this.getDetails().getFigure() : "");
-			response.appendInt32(0);
-			response.appendString(this.isOnline() ? this.getDetails().getMotto() : "");  
+			response.writeString(this.isOnline() ? this.getDetails().getFigure() : "");
+			response.writeInt(0);
+			response.writeString(this.isOnline() ? this.getDetails().getMotto() : "");  
 		}
 
-		response.appendString("");
-		response.appendString("");
-		response.appendBoolean(true);
-		response.appendBoolean(false);
-		response.appendBoolean(false);
+		response.writeString("");
+		response.writeString("");
+		response.writeBool(true);
+		response.writeBool(false);
+		response.writeBool(false);
 		response.appendShort(0); 
 	}
 
 	public void searchSerialise(AbstractResponse response) {
 
-		response.appendInt32(this.getDetails().getId());
-		response.appendString(this.getDetails().getUsername());
-		response.appendString(this.getDetails().getMotto()); 
-		response.appendBoolean(this.isOnline());
-		response.appendBoolean(this.inRoom());
-		response.appendString("");
-		response.appendInt32(0);
-		response.appendString(this.isOnline() ? this.getDetails().getFigure() : ""); 
-		response.appendString("");
+		response.writeInt(this.getDetails().getId());
+		response.writeString(this.getDetails().getUsername());
+		response.writeString(this.getDetails().getMotto()); 
+		response.writeBool(this.isOnline());
+		response.writeBool(this.inRoom());
+		response.writeString("");
+		response.writeInt(0);
+		response.writeString(this.isOnline() ? this.getDetails().getFigure() : ""); 
+		response.writeString("");
 	}
 
 	public void dispose() {

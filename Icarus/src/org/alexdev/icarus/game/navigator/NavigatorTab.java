@@ -3,7 +3,6 @@ package org.alexdev.icarus.game.navigator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.factories.NavigatorFactory;
 import org.alexdev.icarus.game.room.populator.IRoomPopulator;
 

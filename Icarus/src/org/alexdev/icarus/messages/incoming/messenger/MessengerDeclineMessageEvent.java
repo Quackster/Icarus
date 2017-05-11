@@ -1,6 +1,5 @@
 package org.alexdev.icarus.messages.incoming.messenger;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.dao.mysql.MessengerDao;
 import org.alexdev.icarus.game.messenger.MessengerUser;
 import org.alexdev.icarus.game.player.Player;

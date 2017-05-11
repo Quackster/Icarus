@@ -18,8 +18,8 @@ public class PurchaseErrorMessageComposer implements OutgoingMessageComposer {
 	public void write(AbstractResponse response) {
 		
 		response.init(Outgoing.LackFundsMessageComposer);
-		response.appendBoolean(creditsError);
-		response.appendBoolean(pixelError);
+		response.writeBool(creditsError);
+		response.writeBool(pixelError);
 		
 	}
 

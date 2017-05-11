@@ -2,9 +2,7 @@ package org.alexdev.icarus.game.item;
 
 import java.util.List;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.dao.mysql.ItemDao;
-import org.alexdev.icarus.dao.mysql.PlayerDao;
 import org.alexdev.icarus.game.furniture.Furniture;
 import org.alexdev.icarus.game.furniture.FurnitureManager;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
@@ -88,104 +86,104 @@ public class Item {
 	public void serialise(AbstractResponse message) {
 		if (this.type == ItemType.WALL) {
 
-			message.appendString(this.gameId + "");
-			message.appendInt32(this.getData().getSpriteId());
-			message.appendString(this.getWallPosition());
+			message.writeString(this.gameId + "");
+			message.writeInt(this.getData().getSpriteId());
+			message.writeString(this.getWallPosition());
 
 			if (this.getData().getInteractionType() == InteractionType.POSTIT) {
-				message.appendString(this.extraData.split(" ")[0]);
+				message.writeString(this.extraData.split(" ")[0]);
 			} else {
-				message.appendString(this.extraData);
+				message.writeString(this.extraData);
 			}
 
-			message.appendInt32(-1);
-			message.appendInt32(this.getData().getInteractionType() == InteractionType.DEFAULT ? 0 : 1);
-			message.appendInt32(this.userId);
+			message.writeInt(-1);
+			message.writeInt(this.getData().getInteractionType() == InteractionType.DEFAULT ? 0 : 1);
+			message.writeInt(this.userId);
 
 		}
 
 		if (this.type == ItemType.FLOOR) {
 
-			message.appendInt32(this.gameId);
-			message.appendInt32(this.getData().getSpriteId());
-			message.appendInt32(this.x);
-			message.appendInt32(this.y);
-			message.appendInt32(this.rotation);
-			message.appendString("" + this.z);
-			message.appendString("" + this.z);
+			message.writeInt(this.gameId);
+			message.writeInt(this.getData().getSpriteId());
+			message.writeInt(this.x);
+			message.writeInt(this.y);
+			message.writeInt(this.rotation);
+			message.writeString("" + this.z);
+			message.writeString("" + this.z);
 
 			if (this.getData().getInteractionType() == InteractionType.YOUTUBETV) {
 
-				message.appendInt32(0);
-				message.appendInt32(1);
-				message.appendInt32(1);
-				message.appendString("THUMBNAIL_URL");
-				message.appendString("/deliver/" + "");
+				message.writeInt(0);
+				message.writeInt(1);
+				message.writeInt(1);
+				message.writeString("THUMBNAIL_URL");
+				message.writeString("/deliver/" + "");
 			} else if (this.getData().getInteractionType() == InteractionType.BADGE_DISPLAY) {
 
-				message.appendInt32(0);
-				message.appendInt32(2);
-				message.appendInt32(4);
+				message.writeInt(0);
+				message.writeInt(2);
+				message.writeInt(4);
 
 				if (this.extraData.length() > 0) {
 
-					message.appendString("0"); // extradata check
+					message.writeString("0"); // extradata check
 
 					for (int i = 0; i <= this.extraData.split(Character.toString((char)9)).length - 1; i++)
-						message.appendString(this.extraData.split(Character.toString((char)9))[i]);
+						message.writeString(this.extraData.split(Character.toString((char)9))[i]);
 				} else {
-					message.appendInt32(0);
+					message.writeInt(0);
 				}
 
 			} else if (this.getData().getInteractionType() == InteractionType.BG_COLORBACKGROUND) {
 
-				message.appendInt32(1); // is ads
-				message.appendInt32(5); //type
-				message.appendInt32(4);
+				message.writeInt(1); // is ads
+				message.writeInt(5); //type
+				message.writeInt(4);
 
-				message.appendInt32(0); // online?
-				message.appendInt32(0);
-				message.appendInt32(0);
-				message.appendInt32(0);
+				message.writeInt(0); // online?
+				message.writeInt(0);
+				message.writeInt(0);
+				message.writeInt(0);
 			} else if (this.getData().getInteractionType() == InteractionType.MANNEQUIN) {
 
 				String[] Extradatas = this.extraData.split(";");
 
 				if (this.extraData.contains(";") && Extradatas.length >= 3)
 				{
-					message.appendInt32(1);
-					message.appendInt32(1);
-					message.appendInt32(3);
+					message.writeInt(1);
+					message.writeInt(1);
+					message.writeInt(3);
 
-					message.appendString("GENDER");
-					message.appendString(Extradatas[0]);
-					message.appendString("FIGURE");
-					message.appendString(Extradatas[1]);
-					message.appendString("OUTFIT_NAME");
-					message.appendString(Extradatas[2]);
+					message.writeString("GENDER");
+					message.writeString(Extradatas[0]);
+					message.writeString("FIGURE");
+					message.writeString(Extradatas[1]);
+					message.writeString("OUTFIT_NAME");
+					message.writeString(Extradatas[2]);
 				}
 				else
 				{
-					message.appendInt32(1);
-					message.appendInt32(1);
-					message.appendInt32(3);
+					message.writeInt(1);
+					message.writeInt(1);
+					message.writeInt(3);
 
-					message.appendString("GENDER");
-					message.appendString("m");
-					message.appendString("FIGURE");
-					message.appendString("");
-					message.appendString("OUTFIT_NAME");
-					message.appendString("");
+					message.writeString("GENDER");
+					message.writeString("m");
+					message.writeString("FIGURE");
+					message.writeString("");
+					message.writeString("OUTFIT_NAME");
+					message.writeString("");
 				}
 			} else {
-				message.appendInt32((this.getData().getInteractionType() == InteractionType.DEFAULT) ? 0 : 1);
-				message.appendInt32(0);
-				message.appendString(this.extraData);
+				message.writeInt((this.getData().getInteractionType() == InteractionType.DEFAULT) ? 0 : 1);
+				message.writeInt(0);
+				message.writeString(this.extraData);
 			}
 
-			message.appendInt32(-1); // secondsToExpiration
-			message.appendInt32(this.getData().getInteractionType() != InteractionType.DEFAULT ? 1 : 0);
-			message.appendInt32(this.getOwnerId());
+			message.writeInt(-1); // secondsToExpiration
+			message.writeInt(this.getData().getInteractionType() != InteractionType.DEFAULT ? 1 : 0);
+			message.writeInt(this.getOwnerId());
 		}
 	}
 

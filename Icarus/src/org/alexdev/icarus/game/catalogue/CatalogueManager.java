@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.dao.mysql.CatalogueDao;
 
 import com.google.common.collect.Lists;

@@ -10,177 +10,41 @@ import org.alexdev.icarus.server.messages.AbstractResponse;
 
 public class CataloguePageMessageComposer implements OutgoingMessageComposer {
 
-	private CataloguePage page;
-	private String type;
+    private CataloguePage page;
+    private String type;
 
-	public CataloguePageMessageComposer(CataloguePage page, String type) {
-		this.page = page;
-		this.type = type;
-	}
+    public CataloguePageMessageComposer(CataloguePage page, String type) {
+        this.page = page;
+        this.type = type;
+    }
 
-	@Override
-	public void write(AbstractResponse response) {
-		
-		response.init(Outgoing.CataloguePageMessageComposer);
-		response.appendInt32(this.page.getId());
-		response.appendString(this.type);
+    @Override
+    public void write(AbstractResponse response) {
 
-		if (page.getLayout().toLowerCase().contains("frontpage")) {
+        response.init(Outgoing.CataloguePageMessageComposer);
+        response.writeInt(this.page.getId());
+        response.writeString(this.type);
+        response.writeString(page.getLayout());
+        
+        response.writeInt(page.getImages().size());
+        for (String image : page.getImages()) {
+            response.writeString(image);
+        }
+        
+       response.writeInt(page.getTexts().size());
+        for (String text : page.getTexts()) {
+            response.writeString(text);
+        }
 
-			response.appendString("frontpage4");
-			response.appendInt32(2);
-			response.appendString(page.getHeadline());
-			response.appendString(page.getTeaser());
-			response.appendInt32(2);
-			response.appendString(page.getText1());
-			response.appendString(page.getText2());
+        response.writeInt(page.getItems().size()); 
 
-		} else if (page.equals("spaces") || page.equals("spaces_new")) {
+        for (CatalogueItem item : page.getItems()) {
+            item.serialise(response);
+        }
 
-			response.appendString("spaces_new");
-			response.appendInt32(1);
-			response.appendString(page.getHeadline());
-			response.appendInt32(1);
-			response.appendString(page.getText1());
+        response.writeInt(0);
+        response.writeBool(false);
 
-		} else if (page.equals("default_3x3")) {
-
-			response.appendString(page.getLayout());
-			response.appendInt32(3);
-			response.appendString(page.getHeadline());
-			response.appendString(page.getTeaser());
-			response.appendString(page.getSpecial());
-			response.appendInt32(3);
-			response.appendString(page.getText1());
-			response.appendString(page.getTextDetails());
-			response.appendString(page.getTextTeaser());
-
-		} else if (page.equals("club_buy")) {
-
-			response.appendString("vip_buy");
-			response.appendString(page.getLayout());
-			response.appendInt32(2);
-			response.appendString(page.getHeadline());
-			response.appendString(page.getTeaser());
-			response.appendInt32(0);
-
-		} else if (page.equals("club_gifts")) {
-
-			response.appendString("club_gifts");
-			response.appendString(page.getHeadline());
-			response.appendInt32(2);
-			response.appendString(page.getText1());
-			response.appendInt32(0);
-
-		} else if (page.equals("recycler_info")) {
-
-			response.appendString(page.getLayout());
-			response.appendInt32(2);
-			response.appendString(page.getHeadline());
-			response.appendString(page.getTeaser());
-			response.appendInt32(3);
-			response.appendString(page.getText1());
-			response.appendString(page.getText2());
-			response.appendString(page.getTextDetails());
-
-		} else if (page.equals("recycler_prizes")) {
-
-			response.appendString("recycler_prizes");
-			response.appendInt32(1);
-			response.appendString("catalog_header_furnimatic");
-			response.appendInt32(1);
-			response.appendString(page.getText1());
-
-		} else if (page.equals("guilds")) {
-
-			response.appendString("guild_frontpage");
-			response.appendInt32(2);
-			response.appendString(page.getHeadline());
-			response.appendString(page.getTeaser());
-			response.appendInt32(3);
-			response.appendString(page.getText1());
-			response.appendString(page.getTextDetails());
-			response.appendString(page.getTextTeaser());
-
-		} else if (page.equals("guild_furni")) {
-
-			response.appendString("guild_custom_furni");
-			response.appendInt32(3);
-			response.appendString(page.getHeadline());
-			response.appendString(page.getTeaser());
-			response.appendString(page.getSpecial());
-			response.appendInt32(3);
-			response.appendString(page.getText1());
-			response.appendString(page.getTextDetails());
-			response.appendString(page.getTextTeaser());
-
-		} else if (page.equals("soundmachine")) {
-
-			response.appendString("soundmachine");
-			response.appendInt32(2);
-			response.appendString(page.getHeadline());
-			response.appendString(page.getTeaser());
-			response.appendInt32(2);
-			response.appendString(page.getText1());
-			response.appendString(page.getTextDetails());
-
-		} else if (page.equals("pets")) {
-
-			response.appendString("pets");
-			response.appendInt32(2);
-			response.appendString(page.getHeadline());
-			response.appendString(page.getTeaser());
-			response.appendInt32(1);
-			response.appendString(page.getText1());
-
-		} else if (page.equals("bots")) {
-
-			response.appendString(page.getLayout());
-			response.appendInt32(2);
-			response.appendString(page.getHeadline());
-			response.appendString(page.getTeaser());
-			response.appendInt32(2);
-			response.appendString(page.getText1());
-			response.appendString(page.getTextDetails());
-
-		} else if (page.equals("default_3x3_color_grouping")) {
-
-			response.appendString(page.getLayout());
-			response.appendInt32(2);
-			response.appendString(page.getHeadline());
-			response.appendString(page.getTeaser());
-			response.appendInt32(2);
-			response.appendString(page.getText1());
-			response.appendString(page.getTextDetails());
-		} else {
-
-			response.appendString(page.getLayout());
-			response.appendInt32(3);
-			response.appendString(page.getHeadline());
-			response.appendString(page.getTeaser());
-			response.appendString(page.getSpecial());
-			response.appendInt32(3);
-			response.appendString(page.getText1());
-			response.appendString(page.getTextDetails());
-			response.appendString(page.getTextTeaser());
-		}
-
-		if (!page.getLayout().equals("frontpage") || !page.getLayout().equals("club_buy") || !page.getLayout().equals("guilds")) {
-
-			List<CatalogueItem> items = page.getItems();
-
-			response.appendInt32(items.size()); 
-
-			for (CatalogueItem item : items) {
-				item.serialise(response);
-			}
-		} else {
-			response.appendInt32(0);
-		}
-
-		response.appendInt32(0);
-		response.appendBoolean(false);
-		
-	}
+    }
 
 }

@@ -17,14 +17,14 @@ public class FloorItemsMessageComposer implements OutgoingMessageComposer {
 	public void write(AbstractResponse response) {
 		
 		response.init(Outgoing.FloorItemsMessageComposer);
-		response.appendInt32(items.length);
+		response.writeInt(items.length);
 		
 		for (Item floorItem : items) { 
-			response.appendInt32(floorItem.getOwnerId());
-			response.appendString(floorItem.getOwnerData().getUsername());
+			response.writeInt(floorItem.getOwnerId());
+			response.writeString(floorItem.getOwnerData().getUsername());
 		}
 
-		response.appendInt32(items.length);
+		response.writeInt(items.length);
 
 		for (Item floorItem : items) {
 			floorItem.serialise(response);

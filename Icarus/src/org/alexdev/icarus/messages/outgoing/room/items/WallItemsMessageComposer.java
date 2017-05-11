@@ -18,13 +18,13 @@ public class WallItemsMessageComposer implements OutgoingMessageComposer {
 		
 		response.init(Outgoing.WallItemsMessageComposer);
 		
-		response.appendInt32(this.items.length);
+		response.writeInt(this.items.length);
 		for (Item wallItem : this.items) { 
-			response.appendInt32(wallItem.getOwnerId());
-			response.appendString(wallItem.getOwnerData().getUsername());
+			response.writeInt(wallItem.getOwnerId());
+			response.writeString(wallItem.getOwnerData().getUsername());
 		}
 
-		response.appendInt32(this.items.length);
+		response.writeInt(this.items.length);
 		for (Item wallItem : this.items) {
 			wallItem.serialise(response);
 		}

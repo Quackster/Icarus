@@ -2,7 +2,6 @@ package org.alexdev.icarus.messages.outgoing.catalogue;
 
 import java.util.List;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.catalogue.CatalogueTab;
 import org.alexdev.icarus.messages.headers.Outgoing;
@@ -13,54 +12,52 @@ public class CatalogueTabMessageComposer implements OutgoingMessageComposer {
 
 	private String type;
 	private List<CatalogueTab> parentTabs;
-	//private int parentId;
 	private int rank;
 
 	public CatalogueTabMessageComposer(String type, List<CatalogueTab> parentTabs, int parentId, int rank) {
 		this.type = type;
 		this.parentTabs = parentTabs;
-		//this.parentId = parentId;
 		this.rank = rank;
 	}
 	
 	@Override
-	public void write (AbstractResponse response) {
+	public void write(AbstractResponse response) {
 		
 		response.init(Outgoing.CatalogueTabMessageComposer);
-		response.appendBoolean(true);
-		response.appendInt32(0);
-		response.appendInt32(-1);
-		response.appendString("root");
-		response.appendString("");
-		response.appendInt32(0);
-		response.appendInt32(this.parentTabs.size());
+		response.writeBool(true);
+		response.writeInt(0);
+		response.writeInt(-1);
+		response.writeString("root");
+		response.writeString("");
+		response.writeInt(0);
+		response.writeInt(this.parentTabs.size());
 		
 		for (CatalogueTab parentTab : this.parentTabs) {
 			
-			response.appendBoolean(parentTab.isEnabled());
-			response.appendInt32(parentTab.getIconImage());
-			response.appendInt32(parentTab.getId());
-			response.appendString(parentTab.getCaption().toLowerCase().replace(" ", "_"));
-			response.appendString(parentTab.getCaption());
-			response.appendInt32(0); // TODO: flat offers
+			response.writeBool(parentTab.isEnabled());
+			response.writeInt(parentTab.getIconImage());
+			response.writeInt(parentTab.getId());
+			response.writeString(parentTab.getCaption().toLowerCase().replace(" ", "_"));
+			response.writeString(parentTab.getCaption());
+			response.writeInt(0); // TODO: flat offers
 			
 			List<CatalogueTab> childTabs = CatalogueManager.getChildTabs(parentTab.getId(), this.rank);
 			
-			response.appendInt32(childTabs.size());
+			response.writeInt(childTabs.size());
 			
 			for (CatalogueTab childTab : childTabs) {
 				
-				response.appendBoolean(childTab.isEnabled());
-				response.appendInt32(childTab.getIconImage());
-				response.appendInt32(childTab.getId());
-				response.appendString(childTab.getCaption().toLowerCase().replace(" ", "_"));
-				response.appendString(childTab.getCaption());
-				response.appendInt32(0);
-				response.appendInt32(0);
+				response.writeBool(childTab.isEnabled());
+				response.writeInt(childTab.getIconImage());
+				response.writeInt(childTab.getId());
+				response.writeString(childTab.getCaption().toLowerCase().replace(" ", "_"));
+				response.writeString(childTab.getCaption());
+				response.writeInt(0);
+				response.writeInt(0);
 			}
 		}
 		
-		response.appendBoolean(false);
-		response.appendString(type);
+		response.writeBool(false);
+		response.writeString(type);
 	}
 }

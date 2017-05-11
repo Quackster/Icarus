@@ -2,7 +2,6 @@ package org.alexdev.icarus.messages.incoming.catalogue;
 
 import java.util.List;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.dao.mysql.InventoryDao;
 import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;

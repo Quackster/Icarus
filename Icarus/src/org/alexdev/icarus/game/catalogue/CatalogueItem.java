@@ -1,6 +1,5 @@
 package org.alexdev.icarus.game.catalogue;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.game.furniture.Furniture;
 import org.alexdev.icarus.game.furniture.FurnitureManager;
 import org.alexdev.icarus.server.messages.AbstractResponse;
@@ -24,10 +23,6 @@ public class CatalogueItem {
 	
 	private boolean hasOffer;
 
-	/*				item.fill(row.getInt("id"), row.getInt("page_id"), row.getInt("item_ids"), row.getString("catalog_name"), 
-							row.getInt("cost_credits"), row.getInt("cost_pixels"), row.getInt("cost_belcredits"), row.getInt("amount"), 
-							row.getInt("item_subscription_status"), row.getInt("quest_type"), row.getInt("song_id"), row.getString("extradata"),
-							row.getString("badge"), row.getInt("limited_stack"), row.getInt("limited_sells"), row.getInt("offer_active") == 1);*/
 	public void fill(int id, int pageId, int itemIds, String catalogueName, int costCredits, int costDuckets, 
 						int amount, int subscriptionStatus, int songId, String extraData, String badage, int limitedStack, int limitedSells, 
 						boolean hasOffer) {
@@ -56,59 +51,59 @@ public class CatalogueItem {
 	
 	public void serialise(AbstractResponse response) {
 		
-		response.appendInt32(this.id);
-		response.appendString(this.catalogueName);
-		response.appendBoolean(false);
+		response.writeInt(this.id);
+		response.writeString(this.catalogueName);
+		response.writeBool(false);
 		
         if (this.getCostPixels() == 0 && this.getCostCredits() == 0) {
-            response.appendInt32(this.costCredits);
-            response.appendInt32(0);
+            response.writeInt(this.costCredits);
+            response.writeInt(0);
             
         } else  {
-            response.appendInt32(this.costCredits);
-            response.appendInt32(this.costPixels);
+            response.writeInt(this.costCredits);
+            response.writeInt(this.costPixels);
         }
 
-        response.appendInt32(0);///item.getQuestType());
+        response.writeInt(0);///item.getQuestType());
         
         if (this.isLimited() || this.getData().getType().equals("r")) {
-        	response.appendBoolean(false);
+        	response.writeBool(false);
         } else {
-        	response.appendBoolean(this.getData().allowGift());
+        	response.writeBool(this.getData().allowGift());
         }
         
-        response.appendInt32(1); // is deal
-        response.appendString(this.getData().getType());
+        response.writeInt(1); // is deal
+        response.writeString(this.getData().getType());
         
         if (this.badge.length() > 0) {
         	
-        	response.appendString(this.badge);
-        	response.appendInt32(this.subscriptionStatus);
-        	response.appendInt32(this.amount);
+        	response.writeString(this.badge);
+        	response.writeInt(this.subscriptionStatus);
+        	response.writeInt(this.amount);
         } else {
         	
-        	response.appendInt32(this.getData().getSpriteId());
+        	response.writeInt(this.getData().getSpriteId());
         	
         	if (this.catalogueName.contains("_single_")) {
-            	response.appendString(this.catalogueName.split("_")[2]);
+            	response.writeString(this.catalogueName.split("_")[2]);
         	} else {
-            	response.appendString(this.extraData);
+            	response.writeString(this.extraData);
         	}
 
-        	response.appendInt32(this.amount);
-        	response.appendBoolean(this.isLimited()); 
+        	response.writeInt(this.amount);
+        	response.writeBool(this.isLimited()); 
         	
         	if (this.isLimited()) {
-        		response.appendInt32(this.limitedStack);
-        		response.appendInt32(this.limitedSells);
+        		response.writeInt(this.limitedStack);
+        		response.writeInt(this.limitedSells);
         	}
         	
-        	response.appendInt32(this.subscriptionStatus);
+        	response.writeInt(this.subscriptionStatus);
         	
         	if (this.isLimited()) {
-        		response.appendBoolean(!this.isLimited() && this.hasOffer()); // && HaveOffer
+        		response.writeBool(!this.isLimited() && this.hasOffer()); // && HaveOffer
         	} else {
-        		response.appendBoolean(false);
+        		response.writeBool(false);
         	}	
         }
 	}

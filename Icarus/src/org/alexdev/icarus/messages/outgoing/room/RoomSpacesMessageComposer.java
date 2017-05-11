@@ -17,8 +17,8 @@ public class RoomSpacesMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.RoomSpacesMessageComposer);
-		response.appendString(this.space);
-		response.appendString(this.data);
+		response.writeString(this.space);
+		response.writeString(this.data);
 	}
 
 }

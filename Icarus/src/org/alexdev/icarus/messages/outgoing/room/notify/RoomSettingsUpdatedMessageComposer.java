@@ -15,7 +15,7 @@ public class RoomSettingsUpdatedMessageComposer implements OutgoingMessageCompos
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.RoomSettingsUpdatedMessageComposer);
-		response.appendInt32(this.roomId);
+		response.writeInt(this.roomId);
 	}
 
 }

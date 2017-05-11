@@ -2,7 +2,6 @@ package org.alexdev.icarus.game.player;
 
 import java.util.List;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.entity.IEntity;
 import org.alexdev.icarus.game.inventory.Inventory;
@@ -10,10 +9,8 @@ import org.alexdev.icarus.game.messenger.Messenger;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.player.RoomUser;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.IPlayerNetwork;
-import org.alexdev.icarus.server.messages.AbstractReader;
 
 public class Player implements IEntity {
 

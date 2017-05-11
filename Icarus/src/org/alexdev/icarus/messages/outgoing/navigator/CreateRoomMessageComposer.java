@@ -17,8 +17,8 @@ public class CreateRoomMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.CreateRoomMessageComposer);
-		response.appendInt32(this.id);
-		response.appendString(this.name);
+		response.writeInt(this.id);
+		response.writeString(this.name);
 	}
 
 }

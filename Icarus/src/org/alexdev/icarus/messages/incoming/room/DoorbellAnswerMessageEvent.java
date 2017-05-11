@@ -1,6 +1,5 @@
 package org.alexdev.icarus.messages.incoming.room;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.Room;

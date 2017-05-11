@@ -3,7 +3,6 @@ package org.alexdev.icarus.game.furniture;
 import java.util.List;
 import java.util.Optional;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.dao.mysql.ItemDao;
 
 public class FurnitureManager {

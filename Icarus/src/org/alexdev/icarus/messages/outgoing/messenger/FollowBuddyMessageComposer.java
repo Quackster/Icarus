@@ -16,7 +16,7 @@ public class FollowBuddyMessageComposer implements OutgoingMessageComposer {
 	public void write(AbstractResponse response) {
     	
     	response.init(Outgoing.FollowBuddyMessageComposer);
-        response.appendInt32(this.friendId);
+        response.writeInt(this.friendId);
 	}
 
 }

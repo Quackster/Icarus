@@ -48,12 +48,12 @@ public class TalkMessageComposer implements OutgoingMessageComposer {
 		// TODO: If bot then chat colour = 2
 
 		response.init(header);
-		response.appendInt32(this.roomUser.getVirtualId());
-		response.appendString(this.message);
-		response.appendInt32(0);
-		response.appendInt32(this.textColour);
-		response.appendInt32(0);// links count (foreach string string bool)
-		response.appendInt32(this.count);
+		response.writeInt(this.roomUser.getVirtualId());
+		response.writeString(this.message);
+		response.writeInt(0);
+		response.writeInt(this.textColour);
+		response.writeInt(0);// links count (foreach string string bool)
+		response.writeInt(this.count);
 
 		if (!this.roomUser.isWalking()) {
 			Point point = this.roomUser.getPosition();

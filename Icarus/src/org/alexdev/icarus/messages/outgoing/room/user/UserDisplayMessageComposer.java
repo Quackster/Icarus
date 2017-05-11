@@ -27,51 +27,51 @@ public class UserDisplayMessageComposer implements OutgoingMessageComposer {
 		response.init(Outgoing.UserDisplayMessageComposer);
 		synchronized (this.entities) {
 
-			response.appendInt32(this.entities.size());
+			response.writeInt(this.entities.size());
 			for (IEntity entity : this.entities) {
 
 				if (entity.getType() == EntityType.PLAYER) {
 
 
-					response.appendInt32(entity.getDetails().getId());
-					response.appendString(entity.getDetails().getUsername());
-					response.appendString(entity.getDetails().getMotto());
-					response.appendString(entity.getDetails().getFigure());
-					response.appendInt32(entity.getRoomUser().getVirtualId());
-					response.appendInt32(entity.getRoomUser().getPosition().getX());
-					response.appendInt32(entity.getRoomUser().getPosition().getY());
-					response.appendString(Double.toString(entity.getRoomUser().getPosition().getZ()));
-					response.appendInt32(0);
-					response.appendInt32(1);
-					response.appendString("m");
-					response.appendInt32(-1);
-					response.appendInt32(-1);
-					response.appendInt32(0);
-					response.appendInt32(1337); // achievement points
-					response.appendBoolean(false);
+					response.writeInt(entity.getDetails().getId());
+					response.writeString(entity.getDetails().getUsername());
+					response.writeString(entity.getDetails().getMotto());
+					response.writeString(entity.getDetails().getFigure());
+					response.writeInt(entity.getRoomUser().getVirtualId());
+					response.writeInt(entity.getRoomUser().getPosition().getX());
+					response.writeInt(entity.getRoomUser().getPosition().getY());
+					response.writeString(Double.toString(entity.getRoomUser().getPosition().getZ()));
+					response.writeInt(0);
+					response.writeInt(1);
+					response.writeString("m");
+					response.writeInt(-1);
+					response.writeInt(-1);
+					response.writeInt(0);
+					response.writeInt(1337); // achievement points
+					response.writeBool(false);
 
 				}
 
 				if (entity.getType() == EntityType.BOT) {
 
 
-					response.appendInt32(entity.getDetails().getId());
-					response.appendString(entity.getDetails().getUsername());
-					response.appendString(entity.getDetails().getMotto());
-					response.appendString(entity.getDetails().getFigure());
-					response.appendInt32(entity.getRoomUser().getVirtualId());
-					response.appendInt32(entity.getRoomUser().getPosition().getX());
-					response.appendInt32(entity.getRoomUser().getPosition().getY());
-					response.appendString(Double.toString(entity.getRoomUser().getPosition().getZ()));
-					response.appendInt32(0);
-					response.appendInt32(4); // 2 if pet
+					response.writeInt(entity.getDetails().getId());
+					response.writeString(entity.getDetails().getUsername());
+					response.writeString(entity.getDetails().getMotto());
+					response.writeString(entity.getDetails().getFigure());
+					response.writeInt(entity.getRoomUser().getVirtualId());
+					response.writeInt(entity.getRoomUser().getPosition().getX());
+					response.writeInt(entity.getRoomUser().getPosition().getY());
+					response.writeString(Double.toString(entity.getRoomUser().getPosition().getZ()));
+					response.writeInt(0);
+					response.writeInt(4); // 2 if pet
 					
 					// TODO: pet shit here
 					
-					response.appendString("m");
-		            response.appendInt32(1);
-		            response.appendString("Alex");
-		            response.appendInt32(5);
+					response.writeString("m");
+		            response.writeInt(1);
+		            response.writeString("Alex");
+		            response.writeInt(5);
 		            response.appendShort(1);
 		            response.appendShort(2);
 		            response.appendShort(3);

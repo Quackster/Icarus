@@ -1,6 +1,5 @@
 package org.alexdev.icarus.messages.incoming.room.items;
 
-import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.player.Player;
@@ -9,7 +8,6 @@ import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.item.RemoveInventoryItemComposer;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
 import org.alexdev.icarus.server.messages.AbstractReader;
-import org.alexdev.icarus.util.GameSettings;
 
 public class PlaceItemMessageEvent implements MessageEvent {
 

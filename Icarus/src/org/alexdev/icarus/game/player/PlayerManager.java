@@ -2,7 +2,6 @@ package org.alexdev.icarus.game.player;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.dao.mysql.PlayerDao;
 
 public class PlayerManager {

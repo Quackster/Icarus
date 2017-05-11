@@ -9,6 +9,6 @@ public class AcceptUserInsideRoomMessageComposer implements OutgoingMessageCompo
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.AcceptUserInsideRoomMessageComposer);
-		response.appendInt32(1);
+		response.writeInt(1);
 	}
 }

@@ -260,7 +260,7 @@ public class RoomDao {
             preparedStatement = Dao.getStorage().prepare("UPDATE rooms SET name = ?, description = ?, "
                     + "state = ?, password = ?, users_max = ?, category = ?, tags = ?, trade_state = ?, allow_pets = ?, allow_pets_eat = ?, " 
                     + "allow_walkthrough = ?, hidewall = ?, wall_thickness = ?, floor_thickness = ?, who_can_mute = ?, who_can_kick = ?, who_can_ban = ?, "
-                    + "chat_type = ?, chat_balloon = ?, chat_speed = ?, chat_max_distance = ?, chat_flood_protection = ?, wallpaper = ?, floor = ?, outside = ? WHERE id = ?", sqlConnection);
+                    + "chat_mode = ?, chat_size = ?, chat_speed = ?, chat_distance = ?, chat_flood = ?, wallpaper = ?, floor = ?, outside = ? WHERE id = ?", sqlConnection);
 
             preparedStatement.setString(1, data.getName());
             preparedStatement.setString(2, data.getDescription());
@@ -323,12 +323,7 @@ public class RoomDao {
                 row.getInt("category"), row.getString("model"), row.getString("wallpaper"), row.getString("floor"), row.getString("outside"), 
                 row.getBoolean("allow_pets"), row.getBoolean("allow_pets_eat"), row.getBoolean("allow_walkthrough"), row.getBoolean("hidewall"), 
                 row.getInt("wall_thickness"), row.getInt("floor_thickness"), row.getString("tags"), row.getInt("chat_mode"), row.getInt("chat_size"), row.getInt("chat_speed"),
-                row.getInt("chat_max_distance"), row.getInt("chat_flood_protection"), row.getInt("who_can_mute"), row.getInt("who_can_kick"), row.getInt("who_can_ban"));
-
-        if (Dao.getStorage().exists("SELECT * from room_thumbnails WHERE room_id = " + instance.getData().getId())) {
-            instance.getData().setThumbnail(Dao.getStorage().getString("SELECT image_url from room_thumbnails WHERE room_id = " + instance.getData().getId()));
-
-        }
+                row.getInt("chat_distance"), row.getInt("chat_flood"), row.getInt("who_can_mute"), row.getInt("who_can_kick"), row.getInt("who_can_ban"), row.getString("thumbnail"));
 
         return instance;
     }

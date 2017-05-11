@@ -15,7 +15,7 @@ public class RemoveUserMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.UserLeftRoomMessageComposer);
-		response.appendString(this.virtualId + "");
+		response.writeString(this.virtualId + "");
 	}
 
 }

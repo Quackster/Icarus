@@ -15,7 +15,7 @@ public class FloodFilterMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.FloodFilterMessageComposer);
-		response.appendInt32(this.waitSeconds);
+		response.writeInt(this.waitSeconds);
 	}
 
 }

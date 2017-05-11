@@ -27,63 +27,63 @@ public class InventoryLoadMessageComposer implements OutgoingMessageComposer {
 	public void write(AbstractResponse response) {
 
 		response.init(Outgoing.InventoryLoadMessageComposer);
-		response.appendInt32(1);
-		response.appendInt32(0);
-		response.appendInt32(this.wallItems.size() + this.floorItems.size());
+		response.writeInt(1);
+		response.writeInt(0);
+		response.writeInt(this.wallItems.size() + this.floorItems.size());
 
 		for (Item item : this.wallItems) {
 
-			response.appendInt32(item.getGameId());
-			response.appendString(item.getData().getType().toUpperCase());
-			response.appendInt32(item.getGameId());
-			response.appendInt32(item.getData().getSpriteId());
+			response.writeInt(item.getGameId());
+			response.writeString(item.getData().getType().toUpperCase());
+			response.writeInt(item.getGameId());
+			response.writeInt(item.getData().getSpriteId());
 
 			if (item.getData().getItemName().contains("landscape"))
-				response.appendInt32(4);
+				response.writeInt(4);
 			else if (item.getData().getItemName().contains("wallpaper"))
-				response.appendInt32(2);
+				response.writeInt(2);
 			else if (item.getData().getItemName().contains("a2")) 
-				response.appendInt32(3);
+				response.writeInt(3);
 			else
-				response.appendInt32(1);
+				response.writeInt(1);
 
-			response.appendInt32(0);
-			response.appendString(item.getExtraData());
-			response.appendBoolean(item.getData().allowRecycle());
-			response.appendBoolean(item.getData().allowTrade());
-			response.appendBoolean(item.getData().allowInventoryStack());
-			response.appendBoolean(item.getData().allowMarketplaceSell());
-			response.appendInt32(-1);
-			response.appendBoolean(false);
-			response.appendInt32(-1);
+			response.writeInt(0);
+			response.writeString(item.getExtraData());
+			response.writeBool(item.getData().allowRecycle());
+			response.writeBool(item.getData().allowTrade());
+			response.writeBool(item.getData().allowInventoryStack());
+			response.writeBool(item.getData().allowMarketplaceSell());
+			response.writeInt(-1);
+			response.writeBool(false);
+			response.writeInt(-1);
 		}
 
 		for (Item item : floorItems) {
 
-			response.appendInt32(item.getGameId());
-			response.appendString(item.getData().getType().toUpperCase());
-			response.appendInt32(item.getGameId());
-			response.appendInt32(item.getData().getSpriteId());
+			response.writeInt(item.getGameId());
+			response.writeString(item.getData().getType().toUpperCase());
+			response.writeInt(item.getGameId());
+			response.writeInt(item.getData().getSpriteId());
 
 			if (item.getData().getInteractionType() == InteractionType.GROUPITEM || item.getData().getInteractionType() == InteractionType.GLD_GATE) {
-				response.appendInt32(17); 
+				response.writeInt(17); 
 			} else if (item.getData().getInteractionType() == InteractionType.MUSICDISK) {
-				response.appendInt32(8);
+				response.writeInt(8);
 			} else {
-				response.appendInt32(1);
+				response.writeInt(1);
 			}
 
-			response.appendInt32(0);
-			response.appendString(item.getExtraData());
-			response.appendBoolean(item.getData().allowRecycle());
-			response.appendBoolean(item.getData().allowTrade());
-			response.appendBoolean(item.getData().allowInventoryStack());
-			response.appendBoolean(item.getData().allowMarketplaceSell());
-			response.appendInt32(-1);
-			response.appendBoolean(false); 
-			response.appendInt32(-1);
-			response.appendString("");
-			response.appendInt32(0);
+			response.writeInt(0);
+			response.writeString(item.getExtraData());
+			response.writeBool(item.getData().allowRecycle());
+			response.writeBool(item.getData().allowTrade());
+			response.writeBool(item.getData().allowInventoryStack());
+			response.writeBool(item.getData().allowMarketplaceSell());
+			response.writeInt(-1);
+			response.writeBool(false); 
+			response.writeInt(-1);
+			response.writeString("");
+			response.writeInt(0);
 		}
 
 	}

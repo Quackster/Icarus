@@ -2,7 +2,6 @@ package org.alexdev.icarus.messages.incoming.messenger;
 
 import java.util.List;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.dao.mysql.MessengerDao;
 import org.alexdev.icarus.game.messenger.Messenger;
 import org.alexdev.icarus.game.messenger.MessengerUser;

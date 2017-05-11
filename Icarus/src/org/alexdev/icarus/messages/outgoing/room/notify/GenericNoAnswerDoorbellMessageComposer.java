@@ -9,6 +9,6 @@ public class GenericNoAnswerDoorbellMessageComposer implements OutgoingMessageCo
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.GenericNoAnswerDoorbellMessageComposer);
-		response.appendString("");
+		response.writeString("");
 	}
 }

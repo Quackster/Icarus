@@ -50,7 +50,7 @@ public class NettyResponse implements AbstractResponse
 	}
 
 	@Override
-	public void appendString(Object obj) {
+	public void writeString(Object obj) {
 
 		if (obj == null) {
 			obj = "";
@@ -64,7 +64,7 @@ public class NettyResponse implements AbstractResponse
 	}
 
 	@Override
-	public void appendInt32(Integer obj) {
+	public void writeInt(Integer obj) {
 		try {
 			bodystream.writeInt(obj);
 		} catch (IOException e) {
@@ -91,7 +91,7 @@ public class NettyResponse implements AbstractResponse
 	}
 
 	@Override
-	public void appendBoolean(Boolean obj) {
+	public void writeBool(Boolean obj) {
 		try {
 			bodystream.writeBoolean(obj);
 		} catch (IOException e) {

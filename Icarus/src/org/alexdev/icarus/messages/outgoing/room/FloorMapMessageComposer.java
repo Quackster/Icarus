@@ -16,9 +16,9 @@ public class FloorMapMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.FloorMapMessageComposer);
-		response.appendBoolean(true);
-		response.appendInt32(this.room.getData().getWallHeight());
-		response.appendString(this.room.getData().getModel().getFloorMap());
+		response.writeBool(true);
+		response.writeInt(this.room.getData().getWallHeight());
+		response.writeString(this.room.getData().getModel().getFloorMap());
 	}
 
 }

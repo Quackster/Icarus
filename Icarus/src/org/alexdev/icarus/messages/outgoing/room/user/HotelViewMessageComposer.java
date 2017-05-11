@@ -9,6 +9,6 @@ public class HotelViewMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.HotelScreenMessageComposer);
-		response.appendInt32(3);
+		response.writeInt(3);
 	}
 }

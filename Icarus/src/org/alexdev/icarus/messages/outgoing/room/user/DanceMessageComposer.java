@@ -17,8 +17,8 @@ public class DanceMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.DanceStatusMessageComposer);
-		response.appendInt32(this.virtualId);
-		response.appendInt32(this.danceId);
+		response.writeInt(this.virtualId);
+		response.writeInt(this.danceId);
 	}
 
 }

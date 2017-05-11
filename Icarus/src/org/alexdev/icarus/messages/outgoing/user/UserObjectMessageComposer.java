@@ -16,20 +16,20 @@ public class UserObjectMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.UserObjectMessageComposer);
-		response.appendInt32(this.details.getId()); // User ID
-		response.appendString(this.details.getUsername()); // Username
-		response.appendString(this.details.getFigure()); // Figure
-		response.appendString("M"); // Gender
-		response.appendString(this.details.getMotto()); // Motto
-		response.appendString(""); // ?
-		response.appendBoolean(false); // ?
-		response.appendInt32(0); // Respect
-		response.appendInt32(3); // Daily Respect Points
-		response.appendInt32(3); // Daily Pet Respect Points
-		response.appendBoolean(true); // ?
-		response.appendString("1448526834"); // Last Online (format?)
-		response.appendBoolean(true); // Can Change Username
-		response.appendBoolean(false); // ?
+		response.writeInt(this.details.getId()); // User ID
+		response.writeString(this.details.getUsername()); // Username
+		response.writeString(this.details.getFigure()); // Figure
+		response.writeString("M"); // Gender
+		response.writeString(this.details.getMotto()); // Motto
+		response.writeString(""); // ?
+		response.writeBool(false); // ?
+		response.writeInt(0); // Respect
+		response.writeInt(3); // Daily Respect Points
+		response.writeInt(3); // Daily Pet Respect Points
+		response.writeBool(true); // ?
+		response.writeString("1448526834"); // Last Online (format?)
+		response.writeBool(true); // Can Change Username
+		response.writeBool(false); // ?
 	}
 
 }

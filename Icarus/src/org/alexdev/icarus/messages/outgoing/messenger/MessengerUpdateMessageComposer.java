@@ -19,11 +19,11 @@ public class MessengerUpdateMessageComposer implements OutgoingMessageComposer {
 	public void write(AbstractResponse response) {
 		
 		response.init(Outgoing.FriendUpdateMessageComposer);
-        response.appendInt32(0);
-        response.appendInt32(1);
-        response.appendInt32(0);
+        response.writeInt(0);
+        response.writeInt(1);
+        response.writeInt(0);
         this.friend.serialise(response, this.forceOffline);
-        response.appendBoolean(false);
+        response.writeBool(false);
 		
 	}
 

@@ -23,8 +23,8 @@ public class HeightMapMessageComposer implements OutgoingMessageComposer {
 		RoomModel roomModel = room.getData().getModel();
 
 		response.init(Outgoing.HeightMapMessageComposer);
-		response.appendInt32(this.mapSizeX);
-		response.appendInt32(this.mapSizeX * mapSizeY);
+		response.writeInt(this.mapSizeX);
+		response.writeInt(this.mapSizeX * mapSizeY);
 		
 		for (int y = 0; y < this.mapSizeY; y++) {
 			for (int x = 0; x < this.mapSizeX; x++) {

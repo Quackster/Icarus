@@ -18,11 +18,11 @@ public class NavigatorMetaDataComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.NavigatorMetaDataComposer);
-		response.appendInt32(this.tabs.size());
+		response.writeInt(this.tabs.size());
 
 		for (NavigatorTab tab : this.tabs) {
-			response.appendString(tab.getTabName());
-			response.appendInt32(0);
+			response.writeString(tab.getTabName());
+			response.writeInt(0);
 		}
 	}
 }

@@ -27,7 +27,7 @@ public class ItemDao {
 		try {
 
 			sqlConnection = Dao.getStorage().getConnection();
-			preparedStatement = Dao.getStorage().prepare("SELECT * FROM items_base", sqlConnection);
+			preparedStatement = Dao.getStorage().prepare("SELECT * FROM furniture", sqlConnection);
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {

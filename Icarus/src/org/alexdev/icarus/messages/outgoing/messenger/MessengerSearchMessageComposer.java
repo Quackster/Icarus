@@ -22,12 +22,12 @@ public class MessengerSearchMessageComposer implements OutgoingMessageComposer {
 
 		response.init(Outgoing.MessengerSearchMessageComposer);
 		
-		response.appendInt32(this.friends.size());
+		response.writeInt(this.friends.size());
 		for (MessengerUser friend : this.friends) {
 			friend.searchSerialise(response);
 		}
 
-		response.appendInt32(this.strangers.size());
+		response.writeInt(this.strangers.size());
 		for (MessengerUser stranger : this.strangers) {
 			stranger.searchSerialise(response);
 			stranger.dispose();

@@ -17,8 +17,8 @@ public class RoomOwnerRightsComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.RoomOwnerRightsComposer);
-		response.appendInt32(this.id);
-		response.appendBoolean(this.isOwner);
+		response.writeInt(this.id);
+		response.writeBool(this.isOwner);
 	}
 
 }

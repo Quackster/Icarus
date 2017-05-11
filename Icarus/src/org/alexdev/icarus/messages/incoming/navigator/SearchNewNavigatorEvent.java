@@ -1,6 +1,5 @@
 package org.alexdev.icarus.messages.incoming.navigator;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.game.navigator.NavigatorManager;
 import org.alexdev.icarus.game.navigator.NavigatorTab;
 import org.alexdev.icarus.game.player.Player;

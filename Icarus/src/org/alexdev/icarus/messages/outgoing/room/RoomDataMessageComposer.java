@@ -23,20 +23,20 @@ public class RoomDataMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.RoomDataMessageComposer);
-		response.appendBoolean(this.isLoading);
+		response.writeBool(this.isLoading);
 		this.room.getData().serialise(response, this.isLoading);
-		response.appendBoolean(this.stalkingRoom);
-		response.appendBoolean(false); 
-		response.appendBoolean(false);
-		response.appendBoolean(false);
+		response.writeBool(this.stalkingRoom);
+		response.writeBool(false); 
+		response.writeBool(false);
+		response.writeBool(false);
 		response.appendInt32(false);
 		response.appendInt32(false);
 		response.appendInt32(false);
-		response.appendBoolean(this.room.hasRights(this.player, true));
-		response.appendInt32(0);
-		response.appendInt32(0);
-		response.appendInt32(0);
-		response.appendInt32(0);
-		response.appendInt32(0);
+		response.writeBool(this.room.hasRights(this.player, true));
+		response.writeInt(0);
+		response.writeInt(0);
+		response.writeInt(0);
+		response.writeInt(0);
+		response.writeInt(0);
 	}
 }

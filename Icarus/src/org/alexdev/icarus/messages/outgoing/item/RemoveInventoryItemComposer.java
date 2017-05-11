@@ -15,7 +15,7 @@ public class RemoveInventoryItemComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.RemoveInventoryItemComposer);
-		response.appendInt32(this.itemId);
+		response.writeInt(this.itemId);
 	}
 
 }

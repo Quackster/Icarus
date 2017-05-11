@@ -1,6 +1,5 @@
 package org.alexdev.icarus.messages.incoming.handshake;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.dao.mysql.PlayerDao;
 import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.player.Player;

@@ -3,7 +3,6 @@ package org.alexdev.icarus.game.room.entity;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.game.entity.IEntity;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
@@ -29,8 +28,6 @@ public abstract class RoomEntity {
 
 	private int rotation;
 	private int headRotation;
-
-
 
 	private boolean isWalking;
 	private boolean needsUpdate;

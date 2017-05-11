@@ -24,7 +24,7 @@ public class PlaceItemMessageComposer implements OutgoingMessageComposer {
 		}
 		
         this.item.serialise(response);
-        response.appendString(this.item.getOwnerData().getUsername());
+        response.writeString(this.item.getOwnerData().getUsername());
 		
 	}
 

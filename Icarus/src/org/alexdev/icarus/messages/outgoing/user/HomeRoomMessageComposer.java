@@ -17,7 +17,7 @@ public class HomeRoomMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.HomeRoomMessageComposer);
-        response.appendInt32(this.roomId); 
+        response.writeInt(this.roomId); 
         response.appendInt32(this.forceEnter); 
 	}
 

@@ -11,11 +11,11 @@ public class MessengerCategoriesMessageComposer implements OutgoingMessageCompos
 	public void write(AbstractResponse response) {
 		
 		response.init(Outgoing.MessengerCategoriesMessageComposer);
-		response.appendInt32(GameSettings.MAX_FRIENDS_DEFAULT); // get max friends
-		response.appendInt32(GameSettings.MAX_FRIENDS_DEFAULT);
-		response.appendInt32(GameSettings.MAX_FRIENDS_BASIC);
-		response.appendInt32(GameSettings.MAX_FRIENDS_VIP);
-		response.appendInt32(0);
+		response.writeInt(GameSettings.MAX_FRIENDS_DEFAULT); // get max friends
+		response.writeInt(GameSettings.MAX_FRIENDS_DEFAULT);
+		response.writeInt(GameSettings.MAX_FRIENDS_BASIC);
+		response.writeInt(GameSettings.MAX_FRIENDS_VIP);
+		response.writeInt(0);
 		
 	}
 }

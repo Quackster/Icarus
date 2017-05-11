@@ -20,6 +20,6 @@ public class UniqueMachineIDMessageComposer implements OutgoingMessageComposer {
 		}
 		
 		response.init(Outgoing.UniqueMachineIDMessageComposer);
-		response.appendString(this.uniqueMachineId);
+		response.writeString(this.uniqueMachineId);
 	}
 }

@@ -16,10 +16,10 @@ public class ChatOptionsMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.ChatOptionsMessageComposer);
-		response.appendInt32(room.getData().getChatType());
-		response.appendInt32(room.getData().getChatBalloon());
-		response.appendInt32(room.getData().getChatSpeed());
-		response.appendInt32(room.getData().getChatMaxDistance());
-		response.appendInt32(room.getData().getChatFloodProtection());
+		response.writeInt(room.getData().getChatType());
+		response.writeInt(room.getData().getChatBalloon());
+		response.writeInt(room.getData().getChatSpeed());
+		response.writeInt(room.getData().getChatMaxDistance());
+		response.writeInt(room.getData().getChatFloodProtection());
 	}
 }

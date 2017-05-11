@@ -1,6 +1,5 @@
 package org.alexdev.icarus.messages.incoming.catalogue;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.catalogue.CataloguePage;
 import org.alexdev.icarus.game.player.Player;

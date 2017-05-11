@@ -15,7 +15,7 @@ public class RoomEnterErrorMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.RoomEnterErrorMessageComposer);
-		response.appendInt32(this.errorCode);
+		response.writeInt(this.errorCode);
 
 	}
 }

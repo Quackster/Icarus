@@ -15,7 +15,7 @@ public class FollowErrorMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.FollowErrorMessageComposer);
-        response.appendInt32(this.errorID);
+        response.writeInt(this.errorID);
 
 	}
 

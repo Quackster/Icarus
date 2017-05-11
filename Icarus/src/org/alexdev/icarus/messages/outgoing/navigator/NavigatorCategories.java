@@ -15,15 +15,15 @@ public class NavigatorCategories implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.NavigatorCategories);
-		response.appendInt32(4 + this.categories.length);
+		response.writeInt(4 + this.categories.length);
 
 		for (String category : this.categories) {
-			response.appendString("category__" + category);
+			response.writeString("category__" + category);
 		}
 
-		response.appendString("recommended");
-		response.appendString("new_ads");
-		response.appendString("staffpicks");
-		response.appendString("official");
+		response.writeString("recommended");
+		response.writeString("new_ads");
+		response.writeString("staffpicks");
+		response.writeString("official");
 	}
 }

@@ -9,7 +9,7 @@ public class LandingWidgetMessageComposer implements OutgoingMessageComposer {
 	@Override
 	public void write(AbstractResponse response) {
 		response.init(Outgoing.LandingWidgetMessageComposer);
-		response.appendString("");
-		response.appendString("");
+		response.writeString("");
+		response.writeString("");
 	}
 }

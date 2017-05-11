@@ -29,16 +29,16 @@ public class UserStatusMessageComposer implements OutgoingMessageComposer {
 		
 		synchronized (this.users) {
 
-			response.appendInt32(this.users.size());
+			response.writeInt(this.users.size());
 
 			for (IEntity  user : this.users) {
 
-				response.appendInt32(user.getRoomUser().getVirtualId());
-				response.appendInt32(user.getRoomUser().getPosition().getX());
-				response.appendInt32(user.getRoomUser().getPosition().getY());
-				response.appendString(Double.toString(user.getRoomUser().getPosition().getZ()));
-				response.appendInt32(user.getRoomUser().getHeadRotation());
-				response.appendInt32(user.getRoomUser().getRotation());
+				response.writeInt(user.getRoomUser().getVirtualId());
+				response.writeInt(user.getRoomUser().getPosition().getX());
+				response.writeInt(user.getRoomUser().getPosition().getY());
+				response.writeString(Double.toString(user.getRoomUser().getPosition().getZ()));
+				response.writeInt(user.getRoomUser().getHeadRotation());
+				response.writeInt(user.getRoomUser().getRotation());
 
 				String status = "/";
 
@@ -46,7 +46,7 @@ public class UserStatusMessageComposer implements OutgoingMessageComposer {
 					status += set.getKey() + " " + set.getValue() + "/";
 				}
 
-				response.appendString(status + "/");
+				response.writeString(status + "/");
 			}
 		}
 	}
