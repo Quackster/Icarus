@@ -88,9 +88,7 @@ public class CatalogueDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT id, page_id, item_ids, catalog_name, cost_credits, cost_snow, amount, vip, achievement, "
-                    + "song_id, limited_sells, limited_stack, offer_active, extradata, badge_id, flat_id " 
-                    + "FROM catalog_items", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT id, page_id, item_ids, catalog_name, cost_credits, cost_snow, amount, vip, achievement, song_id, limited_sells, limited_stack, offer_active, extradata, badge_id, flat_id FROM catalog_items", sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -114,24 +112,7 @@ public class CatalogueDao {
     }
 
     public static CataloguePage fill(ResultSet row) throws Exception {
-
-        /*     public CataloguePage(int id, String caption, int parentId, String type, String layout, int minimum_rank, List<String> images, List<String> texts, List<CatalogueItem> items) {
-        super();
-        this.id = id;
-        this.caption = caption;
-        this.parentId = parentId;
-        this.type = type;
-        this.layout = layout;
-        this.minimum_rank = minimum_rank;
-        this.images = images;
-        this.texts = texts;
-    }
-    }*/
-
         CataloguePage page = new CataloguePage(row.getInt("id"), row.getString("caption"), row.getInt("parent_id"), row.getString("type"), row.getString("page_layout"), row.getInt("min_rank"), Lists.newArrayList(), Lists.newArrayList(), null);
-
         return page;
-
     }
-
 }

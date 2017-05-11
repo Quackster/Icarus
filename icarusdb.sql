@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2017 at 04:29 AM
+-- Generation Time: May 11, 2017 at 06:27 PM
 -- Server version: 5.5.25a
 -- PHP Version: 5.4.4
 
@@ -12603,55 +12603,22 @@ CREATE TABLE IF NOT EXISTS `items` (
   `owner_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL DEFAULT '-1',
-  `x` varchar(50) DEFAULT NULL,
-  `y` varchar(50) DEFAULT NULL,
+  `x` varchar(50) DEFAULT '0',
+  `y` varchar(50) DEFAULT '0',
   `z` double NOT NULL DEFAULT '0',
   `rotation` int(11) NOT NULL DEFAULT '0',
   `extra_data` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=59 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=64 ;
 
 --
 -- Dumping data for table `items`
 --
 
 INSERT INTO `items` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`, `y`, `z`, `rotation`, `extra_data`) VALUES
-(23, 5, 5, 110, 9, '9', '6', 0, 2, ''),
-(24, 5, 5, 110, 9, '9', '1', 0, 2, '1'),
-(25, 5, 5, 100, 9, '4', '5', 0, 0, ''),
-(26, 5, 5, 100, 9, '1', '5', 0, 0, ''),
-(27, 5, 5, 110, 9, '9', '4', 0, 2, ''),
-(28, 5, 5, 111, -1, '-1', '-1', 0, 0, ''),
-(29, 5, 5, 213, 9, '11', '5', 0, 0, '2'),
-(30, 5, 5, 744, -1, '-1', '-1', 0, 0, ''),
-(31, 5, 5, 1131, 9, '7', '9', 0, 0, '1'),
-(32, 5, 5, 3868, 9, '5', '1', 0, 0, '4'),
-(33, 5, 5, 3868, 9, '5', '2', 1, 0, ''),
-(34, 5, 5, 3873, 9, '5', '3', 1, 4, '2'),
-(35, 5, 5, 1558, 9, '9', '3', 0, 0, ''),
-(36, 5, 5, 3868, 9, '6', '1', 0, 0, ''),
-(37, 5, 5, 3868, 9, '5', '2', 0, 0, '1'),
-(38, 5, 5, 3873, 9, '5', '5', 0, 4, ''),
-(39, 5, 5, 3868, 9, '5', '3', 0, 4, '3'),
-(40, 5, 5, 3875, 9, '11', '1', 0, 4, ''),
-(41, 5, 5, 743, -1, '9', '7', 0, 0, ''),
-(42, 5, 5, 743, -1, '2', '8', 1, 0, ''),
-(43, 5, 5, 743, 9, '6', '1', 1.2, 0, ''),
-(44, 5, 5, 743, 9, '6', '1', 1, 0, ''),
-(45, 5, 5, 5, 9, '6', '3', 0, 2, ''),
-(46, 5, 5, 1037, -1, '-1', '-1', 0, 0, ''),
-(47, 5, 5, 5, 9, '6', '2', 0, 2, ''),
-(48, 5, 5, 213, 9, '9', '8', 0, 0, ''),
-(49, 5, 5, 3868, 9, '5', '4', 0, 4, ''),
-(50, 5, 5, 3868, 9, '7', '1', 0, 6, ''),
-(51, 5, 5, 3868, 9, '5', '1', 1, 0, ''),
-(52, 5, 5, 3868, 9, '8', '1', 0, 6, ''),
-(53, 5, 5, 3868, 9, '7', '8', 0, 2, '1'),
-(54, 5, 5, 213, 9, '1', '5', 0.01, 0, ''),
-(55, 5, 5, 111, -1, '-1', '-1', 0, 0, ''),
-(56, 5, 5, 903, -1, '-1', '-1', 0, 0, ''),
-(57, 5, 5, 940, 9, '1', '7', 0, 0, ''),
-(58, 5, 5, 1516, -1, '-1', '-1', 0, 0, '');
+(60, 5, 5, 752, 9, '2', '6', 0, 0, ''),
+(61, 5, 5, 1744, 9, 'r,0,9', '15,30', 0, 0, ''),
+(62, 5, 5, 2036, 9, '5', '4', 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -12801,29 +12768,28 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `allow_pets_eat` tinyint(1) NOT NULL DEFAULT '1',
   `allow_walkthrough` tinyint(1) NOT NULL DEFAULT '0',
   `hidewall` tinyint(1) NOT NULL DEFAULT '0',
-  `wall_thickness` tinyint(3) NOT NULL DEFAULT '1',
+  `wall_thickness` tinyint(3) NOT NULL DEFAULT '0',
   `floor_thickness` tinyint(3) NOT NULL DEFAULT '1',
   `chat_mode` int(11) NOT NULL DEFAULT '0',
-  `chat_size` int(11) NOT NULL DEFAULT '0',
-  `chat_speed` int(11) NOT NULL DEFAULT '0',
-  `chat_flood` int(11) NOT NULL DEFAULT '0',
-  `chat_distance` int(11) NOT NULL DEFAULT '100',
+  `chat_size` int(11) NOT NULL DEFAULT '1',
+  `chat_speed` int(11) NOT NULL DEFAULT '1',
+  `chat_flood` int(11) NOT NULL DEFAULT '1',
+  `chat_distance` int(11) NOT NULL DEFAULT '30',
   `who_can_mute` int(11) NOT NULL DEFAULT '0',
   `who_can_kick` int(11) NOT NULL DEFAULT '0',
   `who_can_ban` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `rooms`
 --
 
 INSERT INTO `rooms` (`id`, `name`, `room_type`, `date_created`, `owner_id`, `group_id`, `thumbnail`, `description`, `password`, `users_now`, `users_max`, `model`, `wallpaper`, `floor`, `outside`, `tags`, `trade_state`, `state`, `score`, `category`, `allow_pets`, `allow_pets_eat`, `allow_walkthrough`, `hidewall`, `wall_thickness`, `floor_thickness`, `chat_mode`, `chat_size`, `chat_speed`, `chat_flood`, `chat_distance`, `who_can_mute`, `who_can_kick`, `who_can_ban`) VALUES
-(5, 'Hotel Lobby', 1, '2017-03-20 20:15:27', -1, 0, 'thumbnails/picture1.png', '', '', 0, 25, 'model_n', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 100, 0, 0, 0),
-(6, 'Chill Lounge', 1, '2017-03-20 20:19:36', -1, 0, 'thumbnails/picture2.png', '', '', 0, 25, 'model_newbie', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 100, 0, 0, 0),
-(9, 'test12', 0, '2017-03-22 04:28:10', 5, 0, NULL, '', '', 0, 10, 'model_b', '0', '0', '0', '', 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 90, 0, 0, 0),
-(10, 'stairs', 0, '2017-03-23 09:38:33', 5, 0, NULL, '', '', 0, 10, 'model_g', '0', '0', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 100, 0, 0, 0),
-(11, 'wdwdd', 0, '2017-03-23 14:24:04', 5, 0, NULL, '', '', 0, 10, 'model_a', '0', '0', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 100, 0, 0, 0);
+(5, 'Hotel Lobby', 1, '2017-03-20 20:15:27', -1, 0, 'thumbnails/picture1.png', '', '', 0, 25, 'model_n', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 100, 0, 0, 0),
+(6, 'Chill Lounge', 1, '2017-03-20 20:19:36', -1, 0, 'thumbnails/picture2.png', '', '', 0, 25, 'model_newbie', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 100, 0, 0, 0),
+(9, 'test12', 0, '2017-03-22 04:28:10', 5, 0, NULL, '', '', 0, 10, 'model_b', '110', '0', '0', '', 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 30, 0, 0, 0),
+(10, 'stairs', 0, '2017-03-23 09:38:33', 5, 0, NULL, '', '', 0, 10, 'model_g', '0', '0', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0);
 
 -- --------------------------------------------------------
 

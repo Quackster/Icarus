@@ -36,8 +36,8 @@ public class RoomDataMessageComposer implements OutgoingMessageComposer {
         response.writeInt(room.getData().getChatMode());
         response.writeInt(room.getData().getChatSize());
         response.writeInt(room.getData().getChatSpeed());
-        response.writeInt(room.getData().getChatFloodProtection());
         response.writeInt(room.getData().getChatMaxDistance());
+        response.writeInt(room.getData().getChatFloodProtection());
         
         /*response.writeInt(room->getData()->chat_speed);
         response.writeInt(room->getData()->chat_flood);

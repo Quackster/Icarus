@@ -37,7 +37,7 @@ public class Room {
 
     private List<Entity> entities; 
     private List<Item> items;
-   
+
     private RoomScheduler scheduler;
     private RoomMapping mapping;
 
@@ -45,7 +45,7 @@ public class Room {
     public Room() {
         this.data = new RoomData(this);
         this.mapping = new RoomMapping(this);
-        
+
         this.entities = new ArrayList<Entity>();
     }
 
@@ -87,22 +87,22 @@ public class Room {
         player.send(new PrepareRoomMessageComposer(this));
 
         roomUser.setVirtualId(this.getVirtualId());
-        
+
         Position startingPosition = this.getModel().getDoorPosition();
         roomUser.getPosition().setX(startingPosition.getX());
         roomUser.getPosition().setY(startingPosition.getY());
         roomUser.getPosition().setZ(this.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
         roomUser.getPosition().setRotation(this.getModel().getDoorRot());
-        
+
         if (!(this.getUsers().size() > 0)) {
             this.firstEntry();
         }
     }
 
     private void firstEntry() {
-        
+
         this.items = ItemDao.getRoomItems(this.getData().getId());
-        
+
         this.scheduler = new RoomScheduler(this);
         this.scheduler.scheduleTasks();
     }
@@ -114,13 +114,15 @@ public class Room {
         player.send(new HotelViewMessageComposer());
         }
 
-        this.send(new RemoveUserMessageComposer(player.getRoomUser().getVirtualId()));
-
         RoomUser roomUser = player.getRoomUser();
         roomUser.dispose();
 
         if (this.entities != null) {
             this.entities.remove(player);
+        }
+
+        if (this.entities.size() > 0) {
+            this.send(new RemoveUserMessageComposer(player.getRoomUser().getVirtualId()));
         }
 
         player.getMessenger().sendStatus(false);
@@ -148,8 +150,7 @@ public class Room {
         if (forceDisposal) {
 
             this.cleanupRoomData();
-            this.entities = null;
-
+            
             RoomManager.getLoadedRooms().remove(this);
 
         } else {
@@ -175,7 +176,7 @@ public class Room {
         if (this.entities != null) {
             this.entities.clear();
         }
-        
+
         this.privateId = -1;
     }
 
@@ -221,7 +222,7 @@ public class Room {
 
         return e;
     }
-    
+
     public Item[] getFloorItems() {
         List<Item> floorItems = items.stream().filter(item -> item.getType() == ItemType.FLOOR).collect(Collectors.toList());
         return floorItems.toArray(new Item[floorItems.size()]);
@@ -231,11 +232,11 @@ public class Room {
         List<Item> wallItems = items.stream().filter(item -> item.getType() == ItemType.WALL).collect(Collectors.toList());
         return wallItems.toArray(new Item[wallItems.size()]);
     }
-    
+
     public List<Item> getItems() {
         return this.items;
     }  
-    
+
     public List<Item> getItems(InteractionType interactionType) {
         try {
             return items.stream().filter(item -> item.getData().getInteractionType() == interactionType).collect(Collectors.toList());
@@ -255,7 +256,7 @@ public class Room {
     public RoomModel getModel() {
         return RoomDao.getModel(this.data.getModel());
     }
-    
+
     public RoomMapping getMapping() {
         return mapping;
     }

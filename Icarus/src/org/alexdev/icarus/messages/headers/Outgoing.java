@@ -76,5 +76,7 @@ public class Outgoing {
     public static int RemoveWallItemMessageComposer = 209;//2793
     public static int CommunityGoalHallOfFameWidget = 2208;
     public static int AvailabilityMessageComposer = 3690;
+    public static int ChatOptionsMessageComposer = 2824;
+    public static int WallOptionsMessageComposer = 3003;
     
 }

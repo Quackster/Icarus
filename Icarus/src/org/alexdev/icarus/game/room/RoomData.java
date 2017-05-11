@@ -96,10 +96,6 @@ public class RoomData {
 		this.thumbnail = thumbnail;
 	}
 	
-	public void serialise(Response response) {
-		this.serialise(response, false);
-	}
-
 	public void serialise(Response response, boolean enterRoom) {
 		
 		response.writeInt(id);
@@ -112,9 +108,9 @@ public class RoomData {
 		response.writeString(this.description);
 		response.writeInt(this.tradeState);
 		response.writeInt(this.score);
-		response.writeInt(0); // Ranking
+		response.writeInt(0);
 		response.writeInt(this.category);
-		response.writeInt(this.tags.length); //TagCount
+		response.writeInt(this.tags.length);
 
 		for (String tag : this.tags) {
 			response.writeString(tag);
@@ -122,9 +118,6 @@ public class RoomData {
 		
 		int enumType = enterRoom ? 32 : 0;
 		
-		// if has event
-		//enumType += 4;
-
 		if (this.thumbnail != null) {
 			if (this.thumbnail.length() > 0) {
 				enumType += 1;
@@ -146,12 +139,6 @@ public class RoomData {
 				response.writeString(this.thumbnail);
 			}
 		}
-		
-		//response.appendString("Hello");
-        //response.appendString("xd lolz");
-        //response.appendInt32(100);
-        
-
 	}
 	
 	public String getName() {
