@@ -116,6 +116,7 @@ public class Room {
 
         if (this.entities != null) {
             this.entities.remove(player);
+            this.data.updateUsersNow();
         }
 
         if (this.getPlayers().size() > 0) {

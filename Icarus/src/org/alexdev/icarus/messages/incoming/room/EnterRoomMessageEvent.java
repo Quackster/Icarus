@@ -38,7 +38,7 @@ public class EnterRoomMessageEvent implements MessageEvent {
 			if (!player.getDetails().hasFuse("user_enter_full_rooms") && player.getDetails().getId() != room.getData().getOwnerId()) {
 
 				player.send(new RoomEnterErrorMessageComposer(1));
-				player.send(new HotelViewMessageComposer());
+				//player.send(new HotelViewMessageComposer());
 				return;
 			}
 		}
@@ -47,13 +47,13 @@ public class EnterRoomMessageEvent implements MessageEvent {
 			if (room.getData().getState() == RoomState.DOORBELL) {
 
 				if (room.getPlayers().size() > 0) {
-					player.send(new HotelViewMessageComposer());
+					//player.send(new HotelViewMessageComposer());
 					player.send(new GenericDoorbellMessageComposer(1));
 					room.send(new GenericDoorbellMessageComposer(player.getDetails().getUsername()), true);
 				} else {
 
 					player.send(new GenericNoAnswerDoorbellMessageComposer());
-					player.send(new HotelViewMessageComposer());
+					//player.send(new HotelViewMessageComposer());
 				}
 
 				return;
@@ -62,7 +62,7 @@ public class EnterRoomMessageEvent implements MessageEvent {
 			if (room.getData().getState() == RoomState.PASSWORD) {
 				if (!pass.equals(room.getData().getPassword())) {
 					player.send(new GenericErrorMessageComposer(-100002));
-					player.send(new HotelViewMessageComposer());
+					//player.send(new HotelViewMessageComposer());
 					return;
 				}
 			}

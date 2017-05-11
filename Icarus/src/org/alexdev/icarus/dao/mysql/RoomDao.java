@@ -248,7 +248,6 @@ public class RoomDao {
 
         RoomData data = room.getData();
 
-
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;

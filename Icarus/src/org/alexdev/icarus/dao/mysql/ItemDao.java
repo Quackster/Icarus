@@ -95,9 +95,7 @@ public class ItemDao {
 		ResultSet resultSet = null;
 
 		try {
-
 			sqlConnection = Dao.getStorage().getConnection();
-			
 			preparedStatement = Dao.getStorage().prepare("UPDATE items SET extra_data = ?, x = ?, y = ?, z = ?, rotation = ?, room_id = ? WHERE id = ?", sqlConnection);
 			preparedStatement.setString(1, item.getExtraData());
 			preparedStatement.setString(2, x);

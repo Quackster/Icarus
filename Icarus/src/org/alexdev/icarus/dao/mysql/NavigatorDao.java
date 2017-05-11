@@ -14,76 +14,76 @@ import com.google.common.collect.Lists;
 
 public class NavigatorDao {
 
-	public static List<NavigatorTab> getTabs(int childId) {
+    public static List<NavigatorTab> getTabs(int childId) {
 
-		List<NavigatorTab> tabs = Lists.newArrayList();
+        List<NavigatorTab> tabs = Lists.newArrayList();
 
-		Connection sqlConnection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
-		try {
+        try {
 
-			sqlConnection = Dao.getStorage().getConnection();
-			preparedStatement = Dao.getStorage().prepare("SELECT * FROM navigator_tabs WHERE child_id = " + childId, sqlConnection);
-			resultSet = preparedStatement.executeQuery();
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM navigator_tabs WHERE child_id = " + childId, sqlConnection);
+            resultSet = preparedStatement.executeQuery();
 
-			while (resultSet.next()) {
+            while (resultSet.next()) {
 
-				NavigatorTab tab = fill(resultSet);
+                NavigatorTab tab = fill(resultSet);
 
-				tabs.add(tab);
-				tabs.addAll(getTabs(tab.getId()));
-			}
+                tabs.add(tab);
+                tabs.addAll(getTabs(tab.getId()));
+            }
 
-		} catch (Exception e) {
-			Log.exception(e);
-		} finally {
-			Storage.closeSilently(resultSet);
-			Storage.closeSilently(preparedStatement);
-			Storage.closeSilently(sqlConnection);
-		}
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
 
-		return tabs;
-	}
-	
-	   public static List<NavigatorCategory> getCategories() {
+        return tabs;
+    }
 
-	        List<NavigatorCategory> categories = Lists.newArrayList();
+    public static List<NavigatorCategory> getCategories() {
 
-	        Connection sqlConnection = null;
-	        PreparedStatement preparedStatement = null;
-	        ResultSet resultSet = null;
+        List<NavigatorCategory> categories = Lists.newArrayList();
 
-	        try {
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
-	            sqlConnection = Dao.getStorage().getConnection();
-	            preparedStatement = Dao.getStorage().prepare("SELECT * FROM navigator_categories", sqlConnection);
-	            resultSet = preparedStatement.executeQuery();
+        try {
 
-	            while (resultSet.next()) {
-	                categories.add(new NavigatorCategory(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getInt("min_rank")));
-	            }
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM navigator_categories", sqlConnection);
+            resultSet = preparedStatement.executeQuery();
 
-	        } catch (Exception e) {
-	            Log.exception(e);
-	        } finally {
-	            Storage.closeSilently(resultSet);
-	            Storage.closeSilently(preparedStatement);
-	            Storage.closeSilently(sqlConnection);
-	        }
+            while (resultSet.next()) {
+                categories.add(new NavigatorCategory(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getInt("min_rank")));
+            }
 
-	        return categories;
-	    }
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
 
-	public static NavigatorTab fill(ResultSet set) throws SQLException {
+        return categories;
+    }
 
-		NavigatorTab instance = new NavigatorTab();
-		
-		instance.fill(set.getInt("id"), set.getInt("child_id"), set.getString("tab_name"), set.getString("title"), set.getByte("button_type"), 
-		                set.getByte("closed") == 1, set.getByte("thumbnail") == 1, set.getString("room_populator"));
+    public static NavigatorTab fill(ResultSet set) throws SQLException {
 
-		return instance;
-	}
+        NavigatorTab instance = new NavigatorTab();
+
+        instance.fill(set.getInt("id"), set.getInt("child_id"), set.getString("tab_name"), set.getString("title"), set.getByte("button_type"), 
+                set.getByte("closed") == 1, set.getByte("thumbnail") == 1, set.getString("room_populator"));
+
+        return instance;
+    }
 
 }

@@ -33,12 +33,11 @@ public class Storage {
 			config.setPartitionCount(Runtime.getRuntime().availableProcessors()); // set partion count to number of cores (inc. hyperthreading)
 
 			this.connections = new BoneCP(config);
-
 			this.isConnected = true;
 
-		} catch (Exception e) {
+		} catch (Exception ex) {
 			this.isConnected = false;
-			Log.exception(e);
+			Log.exception(ex);
 		}
 	}
 
@@ -57,7 +56,8 @@ public class Storage {
 		return null;
 	}
 	
-	public boolean execute(String query) {
+	public void execute(String query) {
+	    
 		Connection sqlConnection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -66,7 +66,7 @@ public class Storage {
 
 			sqlConnection = this.getConnection();
 			preparedStatement = this.prepare(query, sqlConnection);
-			return preparedStatement.execute();
+			preparedStatement.execute();
 
 		} catch (Exception e) {
 			Log.exception(e);
@@ -75,34 +75,6 @@ public class Storage {
 			Storage.closeSilently(preparedStatement);
 			Storage.closeSilently(sqlConnection);
 		}
-
-		return false;
-	}
-	
-	public boolean exists(String query) {
-		
-		boolean exists = false;
-		
-		Connection sqlConnection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-
-		try {
-
-			sqlConnection = this.getConnection();
-			preparedStatement = this.prepare(query, sqlConnection);
-			resultSet = preparedStatement.executeQuery();
-			exists = resultSet.next();
-
-		} catch (Exception e) {
-			Log.exception(e);
-		} finally {
-			Storage.closeSilently(resultSet);
-			Storage.closeSilently(preparedStatement);
-			Storage.closeSilently(sqlConnection);
-		}
-
-		return exists;
 	}
 	
 	public String getString(String query) {

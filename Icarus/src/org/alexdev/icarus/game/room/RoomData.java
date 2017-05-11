@@ -180,7 +180,10 @@ public class RoomData {
     public void setUsersNow(int usersNow) {
         this.usersNow = usersNow;
     }
-
+    
+    public void updateUsersNow() {
+        this.usersNow = this.room.getPlayers().size();
+    }
     public int getUsersMax() {
         return usersMax;
     }
