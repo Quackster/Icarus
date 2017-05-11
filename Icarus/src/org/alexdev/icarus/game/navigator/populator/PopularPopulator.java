@@ -12,6 +12,7 @@ public class PopularPopulator extends RoomPopulator {
 	@Override
 	public List<Room> generateListing(boolean limit, Player player) {
 
+		List<Room> loadedRooms =  RoomManager.getLoadedRooms();
 		List<Room> activeRooms = loadedRooms.stream().filter(r -> r.getData().getUsersNow() > 0).collect(Collectors.toList());
 		
 		activeRooms.sort((room1, room2)
