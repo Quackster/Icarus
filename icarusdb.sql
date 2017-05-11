@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2017 at 06:27 PM
+-- Generation Time: May 12, 2017 at 12:18 AM
 -- Server version: 5.5.25a
 -- PHP Version: 5.4.4
 
@@ -12602,23 +12602,32 @@ CREATE TABLE IF NOT EXISTS `items` (
   `user_id` int(11) NOT NULL,
   `owner_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
-  `room_id` int(11) NOT NULL DEFAULT '-1',
+  `room_id` int(11) NOT NULL DEFAULT '0',
   `x` varchar(50) DEFAULT '0',
   `y` varchar(50) DEFAULT '0',
   `z` double NOT NULL DEFAULT '0',
   `rotation` int(11) NOT NULL DEFAULT '0',
   `extra_data` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=64 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=77 ;
 
 --
 -- Dumping data for table `items`
 --
 
 INSERT INTO `items` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`, `y`, `z`, `rotation`, `extra_data`) VALUES
-(60, 5, 5, 752, 9, '2', '6', 0, 0, ''),
-(61, 5, 5, 1744, 9, 'r,0,9', '15,30', 0, 0, ''),
-(62, 5, 5, 2036, 9, '5', '4', 0, 0, '');
+(65, 5, 5, 1036, 9, '2', '7', 0, 0, ''),
+(66, 5, 5, 1508, 9, '6', '4', 0, 0, ''),
+(67, 5, 5, 1036, 6, '2', '3', 0, 0, ''),
+(68, 5, 5, 2580, 6, '2', '3', 0, 0, ''),
+(69, 5, 5, 2588, 6, '4', '5', 0, 0, ''),
+(70, 5, 5, 3005, 6, '4', '3', 0, 0, ''),
+(71, 5, 5, 1723, 9, 'r,2,4', '15,33', 0, 0, ''),
+(72, 5, 5, 1007, 10, '9', '6', 0, 2, ''),
+(73, 5, 5, 1098, 10, '8', '3', 0, 0, ''),
+(74, 5, 5, 1008, 10, '3', '6', 1, 2, ''),
+(75, 5, 5, 2178, 10, 'l,1,8', '1,35', 0, 0, ''),
+(76, 5, 5, 2178, 0, '0', '0', 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -12779,7 +12788,7 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `who_can_kick` int(11) NOT NULL DEFAULT '0',
   `who_can_ban` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `rooms`
@@ -12789,7 +12798,8 @@ INSERT INTO `rooms` (`id`, `name`, `room_type`, `date_created`, `owner_id`, `gro
 (5, 'Hotel Lobby', 1, '2017-03-20 20:15:27', -1, 0, 'thumbnails/picture1.png', '', '', 0, 25, 'model_n', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 100, 0, 0, 0),
 (6, 'Chill Lounge', 1, '2017-03-20 20:19:36', -1, 0, 'thumbnails/picture2.png', '', '', 0, 25, 'model_newbie', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 100, 0, 0, 0),
 (9, 'test12', 0, '2017-03-22 04:28:10', 5, 0, NULL, '', '', 0, 10, 'model_b', '110', '0', '0', '', 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 30, 0, 0, 0),
-(10, 'stairs', 0, '2017-03-23 09:38:33', 5, 0, NULL, '', '', 0, 10, 'model_g', '0', '0', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0);
+(10, 'stairs |', 0, '2017-03-23 09:38:33', 5, 0, NULL, '', '', 0, 10, 'model_g', '0', '0', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0),
+(14, 'test', 0, '2017-05-11 18:43:04', 2, 0, NULL, '', '', 0, 10, 'model_a', '0', '0', '0', '', 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 30, 0, 0, 0);
 
 -- --------------------------------------------------------
 

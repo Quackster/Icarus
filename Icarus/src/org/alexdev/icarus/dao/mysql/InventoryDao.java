@@ -49,6 +49,7 @@ public class InventoryDao {
 		Connection sqlConnection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+		Item item = null;
 
 		try {
 
@@ -59,11 +60,9 @@ public class InventoryDao {
 			
 			resultSet = preparedStatement.executeQuery();
 				
-			if (!resultSet.next()) {
-				return null;
+			if (resultSet.next()) {
+				item = fill(resultSet);
 			}
-
-			return fill(resultSet);
 			
 		} catch (Exception e) {
 			Log.exception(e);
@@ -73,7 +72,7 @@ public class InventoryDao {
 			Storage.closeSilently(sqlConnection);
 		}
 
-		return null;
+		return item;
 	}
 
 	public static Item newItem(int itemId, int ownerId, String extraData) {

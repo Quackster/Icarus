@@ -53,8 +53,7 @@ public class RoomWalkScheduler implements Runnable {
             }
 
         } catch (Exception e) {
-
-
+            e.printStackTrace();
         }
     }
 
@@ -72,18 +71,12 @@ public class RoomWalkScheduler implements Runnable {
 
                 int rotation = Rotation.calculate(roomEntity.getPosition().getX(), roomEntity.getPosition().getY(), next.getX(), next.getY());
                 double height = this.room.getModel().getHeight(next.getX(), next.getY());
-
-                /*roomEntity.getPosition().setRotation(rotation);
-                roomEntity.getPosition().setX(next.getX());
-                roomEntity.getPosition().setY(next.getY());*/
- 
-                roomEntity.setStatus("mv", " " + next.getX() + "," + next.getY() + "," + (int)height, true, -1);
-                roomEntity.getPosition().setZ(height);
+                          
                 roomEntity.getPosition().setRotation(rotation);
+                roomEntity.setStatus("mv", " " + next.getX() + "," + next.getY() + "," + Double.toString(height), true, -1);
                 
                 roomEntity.setNext(next);
                 roomEntity.setNeedUpdate(true);
-
             }
             else {
                 roomEntity.setNext(null);
