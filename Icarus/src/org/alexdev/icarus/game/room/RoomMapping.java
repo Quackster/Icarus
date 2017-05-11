@@ -44,7 +44,11 @@ public class RoomMapping {
                 continue;
             }
 
-            double stacked_height = item.getDefinition().getStackHeight();
+            double stacked_height = 0;
+
+            if (item.getDefinition().isCanStack()) {
+                stacked_height = item.getDefinition().getStackHeight();
+            }
 
             this.checkHighestItem(item, item.getPosition().getX(), item.getPosition().getY());
 
@@ -141,9 +145,9 @@ public class RoomMapping {
             this.handleItemAdjustment(item, false);
             this.regenerateCollisionMaps();
         }
-        
+
         this.room.send(new PlaceItemMessageComposer(item));
-        
+
         item.save();
     }
 
@@ -184,13 +188,25 @@ public class RoomMapping {
         }
         else {
 
-            // Don't make rugs stackable on top of other objects
-            if (item.getDefinition().isWalkable()) {    
+            Item highestItem = this.getHighestItem(item.getPosition().getX(), item.getPosition().getY());
+
+            if (highestItem != null) {
+                if (highestItem.getDefinition().isCanStack()) {
+                    item.getPosition().setZ(this.getStackHeight(item.getPosition().getX(), item.getPosition().getY()));
+                } else {
+                    item.getPosition().setZ(highestItem.getPosition().getZ() + 0.01);
+                }
+            } else {
                 item.getPosition().setZ(this.room.getModel().getHeight(item.getPosition().getX(), item.getPosition().getY()));
+            }
+
+            // Don't make rugs stackable on top of other objects
+
+            /*    item.getPosition().setZ(this.room.getModel().getHeight(item.getPosition().getX(), item.getPosition().getY()));
             } else {
                 item.getPosition().setZ(this.getStackHeight(item.getPosition().getX(), item.getPosition().getY()));
 
-            }
+            }*/
         }
     }
 

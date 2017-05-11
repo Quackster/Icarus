@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import org.alexdev.icarus.game.entity.Entity;
+import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.log.DateTime;
@@ -46,6 +47,15 @@ public class RoomUser {
         this.removeStatus("mv");
         
         this.next = null;
+        
+        Item item = this.room.getMapping().getHighestItem(this.position.getX(), this.position.getY());
+        
+        if (item != null) {
+            if (item.getDefinition().isCanSit()) {
+                
+                this.setStatus("sit", " " + Double.toString(item.getPosition().getZ() + 1), true, -1);
+            }
+        }
 
         this.isWalking = false;
         this.needsUpdate = true;
