@@ -39,6 +39,7 @@ public class Room {
     private List<Entity> entities;
     private ScheduledFuture<?> tickTask;
     private List<Item> items;
+    private RoomScheduler scheduler;
 
 
     public Room() {
@@ -93,13 +94,17 @@ public class Room {
     }
 
     public void firstEntry() {
-
+        
+        this.disposed = false;
+ 
         if (this.getUsers().size() != 0) {
             return;
         }
 
-        this.disposed = false;
         this.items = ItemDao.getRoomItems(this.getData().getId());
+        
+        this.scheduler = new RoomScheduler(this);
+        this.scheduler.scheduleTasks();
     }
 
 
@@ -272,6 +277,10 @@ public class Room {
     public int getVirtualId() {
         this.privateId = this.privateId + 1;
         return this.privateId;
+    }
+
+    public boolean isDisposed() {
+        return disposed;
     }
 
 }
