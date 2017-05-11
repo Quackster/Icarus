@@ -1,5 +1,9 @@
 package org.alexdev.icarus.game.catalogue;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
 public class CatalogueTab {
 
 	private int id;
@@ -9,10 +13,10 @@ public class CatalogueTab {
 	private int iconImage;
 	private boolean enabled;
 	private int minRank;
+	private List<CatalogueTab> childTabs;
 	
 	public CatalogueTab() {
-		
-		
+		this.childTabs = Lists.newArrayList();
 	}
 	
 	public void fill(int id, int parentId, String caption, int iconColour, int iconImage, boolean enabled, int minRank) {
@@ -53,4 +57,8 @@ public class CatalogueTab {
 	public int getMinRank() {
 		return minRank;
 	}
+
+    public List<CatalogueTab> getChildTabs() {
+        return childTabs;
+    }
 }

@@ -106,6 +106,9 @@ public class CatalogueItem {
         		response.writeBool(false);
         	}	
         }
+        
+        response.writeBool(false);
+        response.writeString("");
 	}
 	
 	
