@@ -3,7 +3,6 @@ package org.alexdev.icarus.game.room;
 import java.util.ArrayList;
 import java.util.List;
 import org.alexdev.icarus.dao.mysql.RoomDao;
-import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.game.room.settings.RoomState;
 import org.alexdev.icarus.game.room.settings.RoomType;
 import org.alexdev.icarus.server.api.messages.Response;

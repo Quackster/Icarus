@@ -27,19 +27,19 @@ public class ApplyDecorationMessageEvent implements MessageEvent {
 			return;
 		}
 		
-		System.out.println(item.getData().getItemName() + " ---- " + item.getData().getPublicName() + " --- " + item.getExtraData());
+		System.out.println(item.getDefinition().getItemName() + " ---- " + item.getDefinition().getPublicName() + " --- " + item.getExtraData());
 		
-		if (item.getData().getItemName().startsWith("wallpaper")) {
+		if (item.getDefinition().getItemName().startsWith("wallpaper")) {
 			room.getData().setWall(item.getExtraData());
 			room.send(new RoomSpacesMessageComposer("wallpaper", room.getData().getWall()));
 		}
 		
-		if (item.getData().getItemName().startsWith("a2")) {
+		if (item.getDefinition().getItemName().startsWith("a2")) {
 			room.getData().setFloor(item.getExtraData());
 			room.send(new RoomSpacesMessageComposer("floor", room.getData().getFloor()));	
 		}
 
-		if (item.getData().getItemName().startsWith("landscape")) {
+		if (item.getDefinition().getItemName().startsWith("landscape")) {
 			room.getData().setLandscape(item.getExtraData());
 			room.send(new RoomSpacesMessageComposer("landscape", room.getData().getLandscape()));
 		}

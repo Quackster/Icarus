@@ -8,7 +8,6 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.api.messages.Response;
 
 public class UserStatusMessageComposer extends OutgoingMessageComposer {
 

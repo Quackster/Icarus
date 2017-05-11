@@ -19,8 +19,6 @@
 
 package org.alexdev.icarus.server.netty.codec;
 
-import java.nio.charset.Charset;
-
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.util.Util;

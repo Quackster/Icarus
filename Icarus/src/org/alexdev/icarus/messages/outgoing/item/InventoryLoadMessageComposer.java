@@ -7,7 +7,6 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.api.messages.Response;
 
 public class InventoryLoadMessageComposer extends OutgoingMessageComposer {
 
@@ -34,25 +33,25 @@ public class InventoryLoadMessageComposer extends OutgoingMessageComposer {
 		for (Item item : this.wallItems) {
 
 			response.writeInt(item.getGameId());
-			response.writeString(item.getData().getType().toUpperCase());
+			response.writeString(item.getDefinition().getType().toUpperCase());
 			response.writeInt(item.getGameId());
-			response.writeInt(item.getData().getSpriteId());
+			response.writeInt(item.getDefinition().getSpriteId());
 
-			if (item.getData().getItemName().contains("landscape"))
+			if (item.getDefinition().getItemName().contains("landscape"))
 				response.writeInt(4);
-			else if (item.getData().getItemName().contains("wallpaper"))
+			else if (item.getDefinition().getItemName().contains("wallpaper"))
 				response.writeInt(2);
-			else if (item.getData().getItemName().contains("a2")) 
+			else if (item.getDefinition().getItemName().contains("a2")) 
 				response.writeInt(3);
 			else
 				response.writeInt(1);
 
 			response.writeInt(0);
 			response.writeString(item.getExtraData());
-			response.writeBool(item.getData().allowRecycle());
-			response.writeBool(item.getData().allowTrade());
-			response.writeBool(item.getData().allowInventoryStack());
-			response.writeBool(item.getData().allowMarketplaceSell());
+			response.writeBool(item.getDefinition().allowRecycle());
+			response.writeBool(item.getDefinition().allowTrade());
+			response.writeBool(item.getDefinition().allowInventoryStack());
+			response.writeBool(item.getDefinition().allowMarketplaceSell());
 			response.writeInt(-1);
 			response.writeBool(false);
 			response.writeInt(-1);
@@ -61,13 +60,13 @@ public class InventoryLoadMessageComposer extends OutgoingMessageComposer {
 		for (Item item : floorItems) {
 
 			response.writeInt(item.getGameId());
-			response.writeString(item.getData().getType().toUpperCase());
+			response.writeString(item.getDefinition().getType().toUpperCase());
 			response.writeInt(item.getGameId());
-			response.writeInt(item.getData().getSpriteId());
+			response.writeInt(item.getDefinition().getSpriteId());
 
-			if (item.getData().getInteractionType() == InteractionType.GROUPITEM || item.getData().getInteractionType() == InteractionType.GLD_GATE) {
+			if (item.getDefinition().getInteractionType() == InteractionType.GROUPITEM || item.getDefinition().getInteractionType() == InteractionType.GLD_GATE) {
 				response.writeInt(17); 
-			} else if (item.getData().getInteractionType() == InteractionType.MUSICDISK) {
+			} else if (item.getDefinition().getInteractionType() == InteractionType.MUSICDISK) {
 				response.writeInt(8);
 			} else {
 				response.writeInt(1);
@@ -75,10 +74,10 @@ public class InventoryLoadMessageComposer extends OutgoingMessageComposer {
 
 			response.writeInt(0);
 			response.writeString(item.getExtraData());
-			response.writeBool(item.getData().allowRecycle());
-			response.writeBool(item.getData().allowTrade());
-			response.writeBool(item.getData().allowInventoryStack());
-			response.writeBool(item.getData().allowMarketplaceSell());
+			response.writeBool(item.getDefinition().allowRecycle());
+			response.writeBool(item.getDefinition().allowTrade());
+			response.writeBool(item.getDefinition().allowInventoryStack());
+			response.writeBool(item.getDefinition().allowMarketplaceSell());
 			response.writeInt(-1);
 			response.writeBool(false); 
 			response.writeInt(-1);

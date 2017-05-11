@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
+import org.alexdev.icarus.game.room.settings.RoomType;
 
 public class PopularPopulator extends RoomPopulator {
 
@@ -13,7 +14,7 @@ public class PopularPopulator extends RoomPopulator {
 	public List<Room> generateListing(boolean limit, Player player) {
 
 		List<Room> loadedRooms =  RoomManager.getLoadedRooms();
-		List<Room> activeRooms = loadedRooms.stream().filter(r -> r.getData().getUsersNow() > 0).collect(Collectors.toList());
+		List<Room> activeRooms = loadedRooms.stream().filter(r -> r.getData().getUsersNow() > 0 && r.getData().getRoomType() == RoomType.PRIVATE).collect(Collectors.toList());
 		
 		activeRooms.sort((room1, room2)
 		->room2.getData().getUsersNow()

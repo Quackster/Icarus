@@ -3,10 +3,11 @@ package org.alexdev.icarus.game.item;
 import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.ItemDao;
-import org.alexdev.icarus.game.furniture.Furniture;
+import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.game.furniture.FurnitureManager;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.pathfinder.AffectedTile;
+import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.server.api.messages.Response;
@@ -21,9 +22,8 @@ public class Item {
     private int userId;
     private int itemId;
     private int roomId;
-    private int x;
-    private int y;
-    private double z;
+    private Position position;
+
     private int rotation;
     private String extraData;
     private ItemType type;
@@ -43,11 +43,21 @@ public class Item {
         this.roomId = roomId;
         this.rotation = rotation;
         this.extraData = extraData;
-        this.type = this.getData().getType().equals("i") ? ItemType.WALL : ItemType.FLOOR;
+
+        if (this.getDefinition().getType().equals("i")) {
+            this.type = ItemType.WALL;
+        } else if (this.getDefinition().getType().equals("s")) {
+            this.type = ItemType.FLOOR;
+        } else {
+            this.type = ItemType.OTHER;
+        }
+        
+        this.position = new Position();
 
         if (this.type == ItemType.FLOOR) {
-            this.x = Integer.parseInt(x);
-            this.y = Integer.parseInt(y);
+            this.position.setX(Integer.parseInt(x));
+            this.position.setY(Integer.parseInt(y));
+            this.position.setZ(z);
         } else {
             try {
                 String[] firstPosition = x.split(",");
@@ -69,34 +79,47 @@ public class Item {
                 this.lengthY = 0;
             }
         }
-
-        this.z = z;
     }
 
     public List<AffectedTile> getAffectedTiles() {
-        
+
         if (this.type == ItemType.WALL) {
             return Lists.newArrayList();
         }
-        
-        return AffectedTile.getAffectedTilesAt(this.getData().getLength(), this.getData().getWidth(), this.x, this.y, this.rotation);
+
+        return AffectedTile.getAffectedTilesAt(this.getDefinition().getLength(), this.getDefinition().getWidth(), this.position.getX(), this.position.getY(), this.rotation);
+    }
+
+    public boolean canWalk() {
+
+        ItemDefinition definition = this.getDefinition();
+
+        if (definition.isCanSit()) {
+            return true;
+        }
+
+        if (definition.getInteractionType() == InteractionType.BED) {
+            return true;
+        }
+
+        return false;
     }
 
     public void serialise(Response message) {
         if (this.type == ItemType.WALL) {
 
             message.writeString(this.gameId + "");
-            message.writeInt(this.getData().getSpriteId());
+            message.writeInt(this.getDefinition().getSpriteId());
             message.writeString(this.getWallPosition());
 
-            if (this.getData().getInteractionType() == InteractionType.POSTIT) {
+            if (this.getDefinition().getInteractionType() == InteractionType.POSTIT) {
                 message.writeString(this.extraData.split(" ")[0]);
             } else {
                 message.writeString(this.extraData);
             }
 
             message.writeInt(-1);
-            message.writeInt(this.getData().getInteractionType() == InteractionType.DEFAULT ? 0 : 1);
+            message.writeInt(this.getDefinition().getInteractionType() == InteractionType.DEFAULT ? 0 : 1);
             message.writeInt(this.userId);
 
         }
@@ -104,21 +127,21 @@ public class Item {
         if (this.type == ItemType.FLOOR) {
 
             message.writeInt(this.gameId);
-            message.writeInt(this.getData().getSpriteId());
-            message.writeInt(this.x);
-            message.writeInt(this.y);
+            message.writeInt(this.getDefinition().getSpriteId());
+            message.writeInt(this.position.getX());
+            message.writeInt(this.position.getY());
             message.writeInt(this.rotation);
-            message.writeString("" + this.z);
-            message.writeString("" + this.z);
+            message.writeString("" + this.position.getZ());
+            message.writeString("" + this.position.getZ());
 
-            if (this.getData().getInteractionType() == InteractionType.YOUTUBETV) {
+            if (this.getDefinition().getInteractionType() == InteractionType.YOUTUBETV) {
 
                 message.writeInt(0);
                 message.writeInt(1);
                 message.writeInt(1);
                 message.writeString("THUMBNAIL_URL");
                 message.writeString("/deliver/" + "");
-            } else if (this.getData().getInteractionType() == InteractionType.BADGE_DISPLAY) {
+            } else if (this.getDefinition().getInteractionType() == InteractionType.BADGE_DISPLAY) {
 
                 message.writeInt(0);
                 message.writeInt(2);
@@ -134,7 +157,7 @@ public class Item {
                     message.writeInt(0);
                 }
 
-            } else if (this.getData().getInteractionType() == InteractionType.BG_COLORBACKGROUND) {
+            } else if (this.getDefinition().getInteractionType() == InteractionType.BG_COLORBACKGROUND) {
 
                 message.writeInt(1); // is ads
                 message.writeInt(5); //type
@@ -144,7 +167,7 @@ public class Item {
                 message.writeInt(0);
                 message.writeInt(0);
                 message.writeInt(0);
-            } else if (this.getData().getInteractionType() == InteractionType.MANNEQUIN) {
+            } else if (this.getDefinition().getInteractionType() == InteractionType.MANNEQUIN) {
 
                 String[] Extradatas = this.extraData.split(";");
 
@@ -175,13 +198,13 @@ public class Item {
                     message.writeString("");
                 }
             } else {
-                message.writeInt((this.getData().getInteractionType() == InteractionType.DEFAULT) ? 0 : 1);
+                message.writeInt((this.getDefinition().getInteractionType() == InteractionType.DEFAULT) ? 0 : 1);
                 message.writeInt(0);
                 message.writeString(this.extraData);
             }
 
             message.writeInt(-1); // secondsToExpiration
-            message.writeInt(this.getData().getInteractionType() != InteractionType.DEFAULT ? 1 : 0);
+            message.writeInt(this.getDefinition().getInteractionType() != InteractionType.DEFAULT ? 1 : 0);
             message.writeInt(this.getOwnerId());
         }
     }
@@ -198,7 +221,7 @@ public class Item {
         return databaseId;
     }
 
-    public Furniture getData() {
+    public ItemDefinition getDefinition() {
         return FurnitureManager.getFurnitureById(this.itemId);
     }
 
@@ -208,30 +231,6 @@ public class Item {
 
     public void delete() {
         ItemDao.deleteItem(this.databaseId);
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public double getZ() {
-        return z;
-    }
-
-    public void setZ(double z) {
-        this.z = z;
     }
 
     public int getLengthX() {
@@ -324,6 +323,9 @@ public class Item {
         return type;
     }
 
+    public Position getPosition() {
+        return this.position;
+    }
 
 
 }

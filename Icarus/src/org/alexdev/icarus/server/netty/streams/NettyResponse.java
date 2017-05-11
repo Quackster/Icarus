@@ -9,8 +9,6 @@ import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBufferOutputStream;
 import org.jboss.netty.buffer.ChannelBuffers;
 
-import com.google.common.base.Charsets;
-
 public class NettyResponse implements Response {
     
     private boolean finalised;

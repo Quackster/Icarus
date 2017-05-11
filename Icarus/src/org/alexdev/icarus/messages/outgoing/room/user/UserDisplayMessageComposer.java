@@ -7,7 +7,6 @@ import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.api.messages.Response;
 
 public class UserDisplayMessageComposer extends OutgoingMessageComposer {
 
@@ -25,14 +24,13 @@ public class UserDisplayMessageComposer extends OutgoingMessageComposer {
 	public void write() {
 		
 		response.init(Outgoing.UserDisplayMessageComposer);
+		
 		synchronized (this.entities) {
 
 			response.writeInt(this.entities.size());
+			
 			for (Entity entity : this.entities) {
-
 				if (entity.getType() == EntityType.PLAYER) {
-
-
 					response.writeInt(entity.getDetails().getId());
 					response.writeString(entity.getDetails().getUsername());
 					response.writeString(entity.getDetails().getMotto());
@@ -49,12 +47,9 @@ public class UserDisplayMessageComposer extends OutgoingMessageComposer {
 					response.writeInt(0);
 					response.writeInt(1337); // achievement points
 					response.writeBool(false);
-
 				}
 
 				if (entity.getType() == EntityType.BOT) {
-
-
 					response.writeInt(entity.getDetails().getId());
 					response.writeString(entity.getDetails().getUsername());
 					response.writeString(entity.getDetails().getMotto());

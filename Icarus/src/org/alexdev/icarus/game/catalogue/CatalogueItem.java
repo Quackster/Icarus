@@ -1,6 +1,6 @@
 package org.alexdev.icarus.game.catalogue;
 
-import org.alexdev.icarus.game.furniture.Furniture;
+import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.game.furniture.FurnitureManager;
 import org.alexdev.icarus.server.api.messages.Response;
 
@@ -44,7 +44,7 @@ public class CatalogueItem {
 	}
 
 	
-	public Furniture getData() {
+	public ItemDefinition getData() {
 		return FurnitureManager.getFurnitureById(this.itemId);
 	}
 	

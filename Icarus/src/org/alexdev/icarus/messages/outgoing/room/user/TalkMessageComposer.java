@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.RoomUser;
-import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.api.messages.Response;
 
 public class TalkMessageComposer extends OutgoingMessageComposer {
 

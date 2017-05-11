@@ -2,7 +2,6 @@ package org.alexdev.icarus.game.room;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ScheduledFuture;
 import java.util.stream.Collectors;
 
 import org.alexdev.icarus.dao.mysql.ItemDao;
@@ -102,7 +101,8 @@ public class Room {
     private void firstEntry() {
 
         this.items = ItemDao.getRoomItems(this.getData().getId());
-
+        this.mapping.regenerateCollisionMaps();
+        
         this.scheduler = new RoomScheduler(this);
         this.scheduler.scheduleTasks();
     }
@@ -238,7 +238,7 @@ public class Room {
 
     public List<Item> getItems(InteractionType interactionType) {
         try {
-            return items.stream().filter(item -> item.getData().getInteractionType() == interactionType).collect(Collectors.toList());
+            return items.stream().filter(item -> item.getDefinition().getInteractionType() == interactionType).collect(Collectors.toList());
         } catch (Exception e) {
             return Lists.newArrayList();
         }

@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 
-import org.alexdev.icarus.game.furniture.Furniture;
+import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
@@ -15,9 +15,9 @@ import com.google.common.collect.Lists;
 
 public class ItemDao {
 
-	public static List<Furniture> getFurniture() {
+	public static List<ItemDefinition> getFurniture() {
 
-		List<Furniture> furni = Lists.newArrayList();
+		List<ItemDefinition> furni = Lists.newArrayList();
 
 		Connection sqlConnection = null;
 		PreparedStatement preparedStatement = null;
@@ -31,7 +31,7 @@ public class ItemDao {
 
 			while (resultSet.next()) {
 
-				furni.add(new Furniture(resultSet.getInt("id"), resultSet.getString("public_name"), resultSet.getString("item_name"), resultSet.getString("type"), 
+				furni.add(new ItemDefinition(resultSet.getInt("id"), resultSet.getString("public_name"), resultSet.getString("item_name"), resultSet.getString("type"), 
 						resultSet.getInt("width"), resultSet.getInt("length"), resultSet.getDouble("stack_height"), resultSet.getInt("can_stack") == 1,
 						resultSet.getInt("can_sit") == 1, resultSet.getInt("is_walkable") == 1, resultSet.getInt("sprite_id"), resultSet.getInt("allow_recycle") == 1, 
 						resultSet.getInt("allow_trade") == 1, resultSet.getInt("allow_marketplace_sell") == 1, resultSet.getInt("allow_gift") == 1, 
@@ -82,8 +82,8 @@ public class ItemDao {
 
 	public static void saveItem(Item item) {
 
-		String x = item.getX() + "";
-		String y = item.getY() + "";
+		String x = item.getPosition().getX() + "";
+		String y = item.getPosition().getY() + "";
 
 		if (item.getType() == ItemType.WALL) {
 			x = item.getSide() + "," + item.getWidthX() + "," + item.getWidthY();
@@ -100,7 +100,7 @@ public class ItemDao {
 			preparedStatement.setString(1, item.getExtraData());
 			preparedStatement.setString(2, x);
 			preparedStatement.setString(3, y);
-			preparedStatement.setDouble(4, item.getZ());
+			preparedStatement.setDouble(4, item.getPosition().getZ());
 			preparedStatement.setInt(5, item.getRotation());
 			preparedStatement.setInt(6, item.getRoomId());
 			preparedStatement.setLong(7, item.getDatabaseId());

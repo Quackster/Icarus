@@ -2,7 +2,7 @@ package org.alexdev.icarus.game.furniture;
 
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 
-public class Furniture {
+public class ItemDefinition {
 
 	private int id;
 	private String publicName;
@@ -24,7 +24,7 @@ public class Furniture {
 	private int interationModes;
 	private String[] vendingIds;
 	
-	public Furniture(int id, String publicName, String itemName, String type, int width, int length, double stackHeight,
+	public ItemDefinition(int id, String publicName, String itemName, String type, int width, int length, double stackHeight,
 			boolean canStack, boolean canSit, boolean isWalkable, int spriteId, boolean allowRecycle,
 			boolean allowTrade, boolean allowMarketplaceSell, boolean allowGift, boolean allowInventoryStack,
 			InteractionType interactionType, int interationModes, String[] vendingIds) {

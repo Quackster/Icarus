@@ -7,15 +7,15 @@ import org.alexdev.icarus.dao.mysql.ItemDao;
 
 public class FurnitureManager {
 
-	private static List<Furniture> furniture;
+	private static List<ItemDefinition> furniture;
 
 	public static void load() {
 		furniture = ItemDao.getFurniture();
 	}
 
-	public static Furniture getFurnitureById(int id) {
+	public static ItemDefinition getFurnitureById(int id) {
 		
-		Optional<Furniture> furni = furniture.stream().filter(item -> item.getId() == id).findFirst();
+		Optional<ItemDefinition> furni = furniture.stream().filter(item -> item.getId() == id).findFirst();
 
 		if (furni.isPresent()) {
 			return furni.get();
@@ -24,7 +24,7 @@ public class FurnitureManager {
 		}
 	}
 
-	public static List<Furniture> getFurniture() {
+	public static List<ItemDefinition> getFurniture() {
 		return furniture;
 	}
 }

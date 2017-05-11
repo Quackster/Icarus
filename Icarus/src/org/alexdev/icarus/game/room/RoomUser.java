@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.log.DateTime;
 import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.TalkMessageComposer;

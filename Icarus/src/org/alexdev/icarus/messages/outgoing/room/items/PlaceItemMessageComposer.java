@@ -4,7 +4,6 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.alexdev.icarus.server.api.messages.Response;
 
 public class PlaceItemMessageComposer extends OutgoingMessageComposer {
 
@@ -19,7 +18,9 @@ public class PlaceItemMessageComposer extends OutgoingMessageComposer {
 		
 		if (this.item.getType() == ItemType.FLOOR) {
 			response.init(Outgoing.PlaceFloorItemMessageComposer); 
-		} else {
+		}
+		
+		if (this.item.getType() == ItemType.WALL) {
 			response.init(Outgoing.PlaceWallItemMessageComposer);
 		}
 		

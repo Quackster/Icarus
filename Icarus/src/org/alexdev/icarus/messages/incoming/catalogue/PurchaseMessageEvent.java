@@ -101,15 +101,15 @@ public class PurchaseMessageEvent implements MessageEvent {
 			Item inventoryItem = InventoryDao.newItem(item.getItemId(), player.getDetails().getId(), extraData);
 			bought.add(inventoryItem);
 			
-			if (inventoryItem.getData().getInteractionType() == InteractionType.JUKEBOX) {
+			if (inventoryItem.getDefinition().getInteractionType() == InteractionType.JUKEBOX) {
 				inventoryItem.setExtraData("0");
 			}
 
-			if (inventoryItem.getData().getInteractionType() == InteractionType.GATE) {
+			if (inventoryItem.getDefinition().getInteractionType() == InteractionType.GATE) {
 				inventoryItem.setExtraData("0");
 			}
 			
-			if (inventoryItem.getData().getInteractionType() == InteractionType.TELEPORT) {
+			if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
 				inventoryItem.setExtraData("0");
 			}
 			

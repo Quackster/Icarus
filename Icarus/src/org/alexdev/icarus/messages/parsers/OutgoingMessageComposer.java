@@ -1,6 +1,5 @@
 package org.alexdev.icarus.messages.parsers;
 
-import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.server.netty.streams.NettyResponse;
 
 public abstract class OutgoingMessageComposer {

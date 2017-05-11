@@ -6,7 +6,6 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.item.RemoveInventoryItemComposer;
-import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class PlaceItemMessageEvent implements MessageEvent {
@@ -54,13 +53,6 @@ public class PlaceItemMessageEvent implements MessageEvent {
             item.setSide(side);
             item.setLengthX(lengthX);
             item.setLengthY(lengthY);
-			item.setRoomId(player.getRoomUser().getRoom().getData().getId());
-            item.save();
-            
-			player.getInventory().getItems().remove(item);
-			room.getItems().add(item);
-			
-			room.send(new PlaceItemMessageComposer(item));//response);
 			
 		}
 
@@ -71,21 +63,18 @@ public class PlaceItemMessageEvent implements MessageEvent {
 			int rotation = Integer.parseInt(data[3]);
 			double height = player.getRoomUser().getRoom().getModel().getHeight(x, y);
 
-			item.setX(x);
-			item.setY(y);
-			item.setZ(height);
+			item.getPosition().setX(x);
+			item.getPosition().setY(y);
+			item.getPosition().setZ(height);
 			item.setRotation(rotation);
-			item.setRoomId(player.getRoomUser().getRoom().getData().getId());
-			item.save();
-
-			room.getItems().add(item);
-			player.getInventory().getItems().remove(item);
-
-			room.send(new PlaceItemMessageComposer(item));//response);
 		
 		}
+        
+        room.getMapping().addItem(item);
 		
 		player.send(new RemoveInventoryItemComposer(item.getGameId()));
+		
+		player.getInventory().getItems().remove(item);
 		player.getInventory().forceUpdate(false);
 	}
 
