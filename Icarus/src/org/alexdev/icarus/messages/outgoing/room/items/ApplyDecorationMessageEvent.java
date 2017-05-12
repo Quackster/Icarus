@@ -4,7 +4,6 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.MessageEvent;
-import org.alexdev.icarus.messages.outgoing.item.RemoveInventoryItemComposer;
 import org.alexdev.icarus.messages.outgoing.room.RoomSpacesMessageComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
@@ -27,8 +26,6 @@ public class ApplyDecorationMessageEvent implements MessageEvent {
 			return;
 		}
 		
-		System.out.println(item.getDefinition().getItemName() + " ---- " + item.getDefinition().getPublicName() + " --- " + item.getExtraData());
-		
 		if (item.getDefinition().getItemName().startsWith("wallpaper")) {
 			room.getData().setWall(item.getExtraData());
 			room.send(new RoomSpacesMessageComposer("wallpaper", room.getData().getWall()));
@@ -47,11 +44,8 @@ public class ApplyDecorationMessageEvent implements MessageEvent {
 		room.save();
 		item.delete();
 		
-		player.getInventory().getItems().remove(item);
-		player.getInventory().forceUpdate(false);
-		
-		player.send(new RemoveInventoryItemComposer(item.getId()));
-		
+		player.getInventory().remove(item);
+		player.getInventory().update();
 	}
 
 }

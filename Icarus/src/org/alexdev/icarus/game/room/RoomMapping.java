@@ -6,6 +6,7 @@ import org.alexdev.icarus.game.pathfinder.AffectedTile;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
+import org.alexdev.icarus.messages.outgoing.room.user.RemoveItemMessageComposer;
 
 public class RoomMapping {
 
@@ -40,7 +41,7 @@ public class RoomMapping {
                 continue;
             }
 
-            if (item.getDefinition().isWalkable()) {
+            if (item.getDefinition().isWalkable() && !item.getDefinition().isCanSit()) {
                 continue;
             }
 
@@ -166,12 +167,10 @@ public class RoomMapping {
 
         item.setRoomId(0);
         item.save();
-
-        if (item.getType() == ItemType.FLOOR) {
-            item.setExtraData("");
-        }
-
-        this.room.getItems().remove(item);
+        
+        this.room.getItems().remove(item.getId());
+        this.room.send(new RemoveItemMessageComposer(item));
+        
         this.regenerateCollisionMaps();
 
     }

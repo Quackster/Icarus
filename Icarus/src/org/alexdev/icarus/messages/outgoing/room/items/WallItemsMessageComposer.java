@@ -19,7 +19,7 @@ public class WallItemsMessageComposer extends OutgoingMessageComposer {
 		
 		response.writeInt(this.items.length);
 		for (Item wallItem : this.items) { 
-			response.writeInt(wallItem.getOwnerId());
+			response.writeInt(wallItem.getUserId());
 			response.writeString(wallItem.getOwnerData().getUsername());
 		}
 

@@ -4,17 +4,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Map;
+
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.log.Log;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class InventoryDao {
     
-	public static List<Item> getInventoryItems(int userId) {
+	public static Map<Integer, Item> getInventoryItems(int userId) {
 
-		List<Item> items = Lists.newArrayList();
+	    Map<Integer, Item> items = Maps.newHashMap();
 		
 		Connection sqlConnection = null;
 		PreparedStatement preparedStatement = null;
@@ -30,7 +31,7 @@ public class InventoryDao {
 			resultSet = preparedStatement.executeQuery();
 	
 			while (resultSet.next()) {
-				items.add(fill(resultSet));
+				items.put(resultSet.getInt("id"), fill(resultSet));
 			}
 
 		} catch (Exception e) {

@@ -13,6 +13,7 @@ import org.alexdev.icarus.messages.incoming.navigator.*;
 import org.alexdev.icarus.messages.incoming.room.*;
 import org.alexdev.icarus.messages.incoming.room.items.InventoryMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.MoveItemMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.items.PickupItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.PlaceItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.user.*;
 import org.alexdev.icarus.messages.incoming.user.*;
@@ -83,7 +84,6 @@ public class MessageHandler {
 	
 	private void registerRoomPackets() {
 		this.messages.put(Incoming.RoomInfoMessageEvent, new RoomInfoMessageEvent());
-		//this.messages.put(Incoming.GetRoomRightsListMessageEvent, new GetRoomRightsListMessageEvent());
 		this.messages.put(Incoming.EnterRoomMessageEvent, new EnterRoomMessageEvent());
 		this.messages.put(Incoming.HeightMapMessageEvent, new HeightmapMessageEvent());
 		this.messages.put(Incoming.UserWalkMessageEvent, new UserWalkMessageEvent());
@@ -93,7 +93,6 @@ public class MessageHandler {
 		this.messages.put(Incoming.DanceMessageEvent, new DanceMessageEvent());
 		this.messages.put(Incoming.StartTypingMessageEvent, new TypingStatusMessageEvent());
 		this.messages.put(Incoming.StopTypingMessageEvent, new TypingStatusMessageEvent());
-		//this.messages.put(Incoming.RoomThumbnailMessageEvent, new RoomThumbnailMessageEvent());
 		this.messages.put(Incoming.AnswerDoorbellMessageEvent, new DoorbellAnswerMessageEvent());
 		this.messages.put(Incoming.EnterDoorbellMessageEvent, new DoorbellEnterMessageEvent());
 		this.messages.put(Incoming.RoomEditInfoMessageEvent, new RoomSettingsDataMessageEvent());
@@ -112,7 +111,9 @@ public class MessageHandler {
 		this.messages.put(Incoming.InventoryMessageEvent, new InventoryMessageEvent());
 		this.messages.put(Incoming.PlaceItemMessageEvent, new PlaceItemMessageEvent());
 		this.messages.put(Incoming.MoveItemMessageEvent, new MoveItemMessageEvent());
+		this.messages.put(Incoming.PickupItemMessageEvent, new PickupItemMessageEvent());
 		this.messages.put(Incoming.ApplyDecorationMessageEvent, new ApplyDecorationMessageEvent());
+		this.messages.put(Incoming.MoveWallItemMessageEvent, new MoveItemMessageEvent());
 	}
 
 

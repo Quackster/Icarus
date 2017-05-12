@@ -7,6 +7,7 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.log.DateTime;
 import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.TalkMessageComposer;
@@ -18,41 +19,42 @@ import com.google.common.collect.Maps;
 
 public class RoomUser {
 
-	private int virtualId;
-	private int lastChatId;
-	private int danceId;
+    private int virtualId;
+    private int lastChatId;
+    private int danceId;
 
-	private Position position;
-	private Position goal;
-	private Position next;
+    private Position position;
+    private Position goal;
+    private Position next;
 
-	private boolean isWalking;
-	private boolean needsUpdate;
+    private boolean isWalking;
+    private boolean needsUpdate;
 
-	private long chatFloodTimer;
-	private int chatCount;
-	
-	private HashMap<String, String> statuses;
-	private LinkedList<Position> path;
-	private Entity entity;
-	private Room room;
-	
-	public RoomUser(Entity entity) {
-		this.dispose();
-		this.entity = entity;
-	}
-	
+    private long chatFloodTimer;
+    private int chatCount;
+    private int lookResetTime;
+
+    private HashMap<String, String> statuses;
+    private LinkedList<Position> path;
+    private Entity entity;
+    private Room room;
+
+    public RoomUser(Entity entity) {
+        this.dispose();
+        this.entity = entity;
+    }
+
     public void stopWalking() {
-        
+
         this.removeStatus("mv");
-        
+
         this.next = null;
-        
+
         Item item = this.room.getMapping().getHighestItem(this.position.getX(), this.position.getY());
-        
+
         if (item != null) {
             if (item.getDefinition().isCanSit()) {
-                
+
                 this.setStatus("sit", " " + Double.toString(item.getPosition().getZ() + 1), true, -1);
             }
         }
@@ -60,7 +62,7 @@ public class RoomUser {
         this.isWalking = false;
         this.needsUpdate = true;
     }
-	
+
     public boolean containsStatus(String key) {
         return this.statuses.containsKey(key);
     }
@@ -68,108 +70,141 @@ public class RoomUser {
     public void removeStatus(String key) {
         this.statuses.remove(key);
     }
-    
+
 
     public void setStatus(String key, String value, boolean infinite, int duration) {
-       
+
         if (this.containsStatus(key)) {
             this.removeStatus(key);
         }
-        
+
         this.statuses.put(key, value);
     }
-	
-	public void chat(String message, int bubble, int count, boolean shout, boolean spamCheck) {
 
-		boolean isStaff = false;
-		Player player = null;
+    public void chat(String message, int bubble, int count, boolean shout, boolean spamCheck) {
 
-		if (this.entity instanceof Player) {
+        boolean isStaff = false;
+        Player player = null;
 
-			player = (Player)this.entity;
-			isStaff = player.getDetails().hasFuse("moderator");
-		}
+        if (this.entity instanceof Player) {
 
-		if (spamCheck) {
-			if (DateTime.getTimeSeconds() < this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
+            player = (Player)this.entity;
+            isStaff = player.getDetails().hasFuse("moderator");
+        }
 
-				if (!isStaff) {
-					if (player != null) {
-						player.send(new FloodFilterMessageComposer(GameSettings.CHAT_FLOOD_WAIT));
-					}
-					return;
-				}
-			}
-		}
+        if (spamCheck) {
+            if (DateTime.getTimeSeconds() < this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
 
-		if (bubble == 2 || (bubble == 23 && !player.getDetails().hasFuse("moderator")) || bubble < 0 || bubble > 29) {
-			bubble = this.lastChatId;
-		}
+                if (!isStaff) {
+                    if (player != null) {
+                        player.send(new FloodFilterMessageComposer(GameSettings.CHAT_FLOOD_WAIT));
+                    }
+                    return;
+                }
+            }
+        }
 
-		this.room.send(new TalkMessageComposer(this, shout, message, count, bubble));
+        if (bubble == 2 || (bubble == 23 && !player.getDetails().hasFuse("moderator")) || bubble < 0 || bubble > 29) {
+            bubble = this.lastChatId;
+        }
 
-		if (spamCheck) {
-			if (!player.getDetails().hasFuse("moderator")) {
+        this.room.send(new TalkMessageComposer(this, shout, message, count, bubble));
+        
+        for (Player person : this.room.getPlayers()) {
+            
+            if (this.entity == person) {
+                continue;
+            }
+            
+            person.getRoomUser().lookTowards(this.entity.getRoomUser().getPosition());
+        }
 
-				if (DateTime.getTimeSeconds() > this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
-					this.chatCount = 0;
-				} else {
-					this.chatCount = this.chatCount + 1;
-				}
+        if (spamCheck) {
+            if (!player.getDetails().hasFuse("moderator")) {
 
-				this.chatFloodTimer = (DateTime.getTimeSeconds() + GameSettings.CHAT_FLOOD_SECONDS);
+                if (DateTime.getTimeSeconds() > this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
+                    this.chatCount = 0;
+                } else {
+                    this.chatCount = this.chatCount + 1;
+                }
 
-			}
-		}
-	}
+                this.chatFloodTimer = (DateTime.getTimeSeconds() + GameSettings.CHAT_FLOOD_SECONDS);
 
-	public void dispose() {
+            }
+        }
+    }
 
-		if (this.statuses != null) {
-			this.statuses.clear();
-		}
+    public void lookTowards(Position look) {
 
-		if (this.path != null) {
-			this.path.clear();
-		}
-		
-		this.statuses = null;
-		this.path = null;
+        if (this.isWalking) {
+            return;
+        }
 
-		this.statuses = Maps.newHashMap();
-		this.path = Lists.newLinkedList();
+        int diff = this.getPosition().getRotation() - Rotation.calculate(this.position.getX(), this.position.getY(), look.getX(), look.getY());
 
-		this.position = null;
-		this.goal = null;
-		
-		this.position = new Position(0, 0, 0);
-		this.goal = new Position(0, 0, 0);
+        if ((this.getPosition().getRotation() % 2) == 0) {
 
-		this.lastChatId = 0;
-		this.virtualId = -1;
-		this.danceId = 0;
-		
-		this.needsUpdate = false;
+            if (diff > 0) {
+                this.position.setHeadRotation(this.getPosition().getRotation() - 1);
+            } else if (diff < 0) {
+                this.position.setHeadRotation(this.getPosition().getRotation() + 1);
+            } else {
+                this.position.setHeadRotation(this.getPosition().getRotation());
+            }
+        }
 
-	}
+        this.lookResetTime = 6;
+        this.needsUpdate = true;
+    }
 
-	public Position getPosition() {
-		return position;
-	}
+    public void dispose() {
 
-	public void setPosition(Position position) {
-		this.position = position;
-	}
+        if (this.statuses != null) {
+            this.statuses.clear();
+        }
 
-	public Position getGoal() {
-		return goal;
-	}
+        if (this.path != null) {
+            this.path.clear();
+        }
 
-	public void setGoal(Position goal) {
-		this.goal = goal;
-	}
+        this.statuses = null;
+        this.path = null;
 
-	public Position getNext() {
+        this.statuses = Maps.newHashMap();
+        this.path = Lists.newLinkedList();
+
+        this.position = null;
+        this.goal = null;
+
+        this.position = new Position(0, 0, 0);
+        this.goal = new Position(0, 0, 0);
+
+        this.lastChatId = 0;
+        this.virtualId = -1;
+        this.danceId = 0;
+        this.lookResetTime = 0;
+
+        this.needsUpdate = false;
+
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public Position getGoal() {
+        return goal;
+    }
+
+    public void setGoal(Position goal) {
+        this.goal = goal;
+    }
+
+    public Position getNext() {
         return next;
     }
 
@@ -178,83 +213,91 @@ public class RoomUser {
     }
 
     public void updateStatus() {
-		this.room.send(new UserStatusMessageComposer(this.entity));
-	}
+        this.room.send(new UserStatusMessageComposer(this.entity));
+    }
 
-	public boolean isDancing() {
-		return this.danceId != 0;
-	}
-	public int getVirtualId() {
-		return virtualId;
-	}
+    public boolean isDancing() {
+        return this.danceId != 0;
+    }
+    public int getVirtualId() {
+        return virtualId;
+    }
 
-	public void setVirtualId(int virtualId) {
-		this.virtualId = virtualId;
-	}
+    public void setVirtualId(int virtualId) {
+        this.virtualId = virtualId;
+    }
 
-	public int getLastChatId() {
-		return lastChatId;
-	}
+    public int getLastChatId() {
+        return lastChatId;
+    }
 
-	public void setLastChatId(int lastChatId) {
-		this.lastChatId = lastChatId;
-	}
+    public void setLastChatId(int lastChatId) {
+        this.lastChatId = lastChatId;
+    }
 
-	public int getDanceId() {
-		return danceId;
-	}
+    public int getDanceId() {
+        return danceId;
+    }
 
-	public void setDanceId(int danceId) {
-		this.danceId = danceId;
-	}
+    public void setDanceId(int danceId) {
+        this.danceId = danceId;
+    }
 
-	public HashMap<String, String> getStatuses() {
-		return statuses;
-	}
+    public HashMap<String, String> getStatuses() {
+        return statuses;
+    }
 
-	public LinkedList<Position> getPath() {
-		return path;
-	}
+    public LinkedList<Position> getPath() {
+        return path;
+    }
 
-	public void setPath(LinkedList<Position> path) {
+    public void setPath(LinkedList<Position> path) {
 
-		if (this.path != null) {
-			this.path.clear();
-		}
+        if (this.path != null) {
+            this.path.clear();
+        }
 
-		this.path = path;
-	}
+        this.path = path;
+    }
 
-	public boolean needsUpdate() {
-		return needsUpdate;
-	}
+    public boolean needsUpdate() {
+        return needsUpdate;
+    }
 
-	public void setNeedUpdate(boolean needsWalkUpdate) {
-		this.needsUpdate = needsWalkUpdate;
-	}
+    public void setNeedUpdate(boolean needsWalkUpdate) {
+        this.needsUpdate = needsWalkUpdate;
+    }
 
-	public Room getRoom() {
-		return room;
-	}
+    public Room getRoom() {
+        return room;
+    }
 
-	public int getRoomId() {
-		return (room == null ? 0 : room.getData().getId());
-	}
+    public int getRoomId() {
+        return (room == null ? 0 : room.getData().getId());
+    }
 
-	public void setRoom(Room room) {
-		this.room = room;
-	}
+    public void setRoom(Room room) {
+        this.room = room;
+    }
 
-	public boolean isWalking() {
-		return isWalking;
-	}
+    public boolean isWalking() {
+        return isWalking;
+    }
 
-	public void setWalking(boolean isWalking) {
-		this.isWalking = isWalking;
-	}
+    public void setWalking(boolean isWalking) {
+        this.isWalking = isWalking;
+    }
 
-	public Entity getEntity() {
-		return entity;
-	}
+    public Entity getEntity() {
+        return entity;
+    }
+
+    public int getLookResetTime() {
+        return lookResetTime;
+    }
+
+    public void setLookResetTime(int lookResetTime) {
+        this.lookResetTime = lookResetTime;
+    }
 
 }

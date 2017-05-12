@@ -27,6 +27,6 @@ public class WallItemSerialise implements ItemSerialise {
         response.writeString(this.item.getExtraData());
         response.writeInt(-1); // secondsToExpiration
         response.writeInt(this.item.getDefinition().getInteractionType() != InteractionType.DEFAULT ? 1 : 0);
-        response.writeInt(this.item.getOwnerId());
+        response.writeInt(this.item.getUserId());
     }
 }

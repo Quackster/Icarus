@@ -204,7 +204,7 @@ public class Item {
         this.widthY = widthY;
     }
 
-    public int getOwnerId() {
+    public int getUserId() {
         return userId;
     }
 

@@ -12,7 +12,6 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseErrorMessageComposer;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessageComposer;
-import org.alexdev.icarus.messages.outgoing.item.NewInventoryItemsMessageComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 import com.google.common.collect.Lists;
@@ -113,11 +112,10 @@ public class PurchaseMessageEvent implements MessageEvent {
 				inventoryItem.setExtraData("0");
 			}
 			
-			player.getInventory().getItems().add(inventoryItem);
+			player.getInventory().addItem(inventoryItem);
 		}
 
-		player.send(new NewInventoryItemsMessageComposer(bought));
-		player.getInventory().forceUpdate(true);
+		player.getInventory().update();
 		
 		// TODO: Add items to players inventory
 	}

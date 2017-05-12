@@ -19,7 +19,7 @@ public class FloorItemsMessageComposer extends OutgoingMessageComposer {
 		response.writeInt(items.length);
 		
 		for (Item floorItem : items) { 
-			response.writeInt(floorItem.getOwnerId());
+			response.writeInt(floorItem.getUserId());
 			response.writeString(floorItem.getOwnerData().getUsername());
 		}
 

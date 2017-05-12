@@ -5,7 +5,6 @@ import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.MessageEvent;
-import org.alexdev.icarus.messages.outgoing.item.RemoveInventoryItemComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class PlaceItemMessageEvent implements MessageEvent {
@@ -13,24 +12,30 @@ public class PlaceItemMessageEvent implements MessageEvent {
 	@Override
 	public void handle(Player player, ClientMessage reader) {
 
+		Room room = player.getRoomUser().getRoom();
+		
+		if (room == null) {
+			return;
+		}
+
+		if (!room.hasRights(player, false)) {
+		    return;
+		}
+		
 		String input = reader.readString();
 
 		String[] data = input.split(" ");
 		int id = Integer.parseInt(data[0].replace("-", ""));
-
+		
 		Item item = player.getInventory().getItem(id);
-		Room room = player.getRoomUser().getRoom();
 
 		if (item == null) {
 			return;
 		}
 
-		if (room == null) {
-			return;
-		}
 
 		if (item.getType() == ItemType.WALL) {
-            String[] pos = input.split(input.split(":")[1], ' ');
+            String[] pos = input.split(":")[1].split(" ");
             item.parseWallPosition(pos[2] + "," + pos[0].substring(2) + " " + pos[1].substring(2));
 		}
 
@@ -49,11 +54,9 @@ public class PlaceItemMessageEvent implements MessageEvent {
 		}
         
         room.getMapping().addItem(item);
-		
-		player.send(new RemoveInventoryItemComposer(item.getId()));
-		
-		player.getInventory().getItems().remove(item);
-		player.getInventory().forceUpdate(false);
+
+		player.getInventory().remove(item);
+		player.getInventory().update();
 	}
 
 }
