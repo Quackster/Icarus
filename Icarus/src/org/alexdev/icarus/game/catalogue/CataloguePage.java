@@ -2,7 +2,6 @@ package org.alexdev.icarus.game.catalogue;
 
 import java.util.List;
 
-import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.messages.outgoing.catalogue.CataloguePageMessageComposer;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 

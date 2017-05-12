@@ -7,8 +7,6 @@ import org.alexdev.icarus.game.catalogue.CatalogueBundledItem;
 import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.catalogue.CataloguePage;
-import org.alexdev.icarus.game.furniture.FurnitureManager;
-import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.player.Player;
@@ -27,7 +25,7 @@ public class PurchaseMessageEvent implements MessageEvent {
         int pageId = request.readInt();
         int itemId = request.readInt();
         String extraData = request.readString();
-        int priceAmount = request.readInt();
+        int amount = request.readInt();
 
         CataloguePage page = CatalogueManager.getPage(pageId);
 
@@ -37,78 +35,82 @@ public class PurchaseMessageEvent implements MessageEvent {
 
         CatalogueItem item = page.getItem(itemId);
 
-        this.purchase(player, item, extraData, priceAmount);
+        this.purchase(player, item, extraData, amount);
 
         player.getInventory().update();
     }
 
-    private void purchase(Player player, CatalogueItem item, String extraData, int priceAmount) {
+    private void purchase(Player player, CatalogueItem item, String extraData, int amount) {
 
-        int finalAmount = priceAmount;
-
-        if (priceAmount > 5) {
-
-            int discount = ((int) Math.floorDiv(priceAmount, 6) * 6);
-
-            int freeItems = (discount - 3) / 3;
-
-            if (priceAmount >= 42) {
-                freeItems++; // add another free item if more than 42 items 8)
-            }
-
-            if (priceAmount >= 99) { // not divisible by 3
-                freeItems = 33;
-            }
-
-            finalAmount = priceAmount - freeItems;
+        if (amount > 99) {
+            amount = 1;
         }
 
-        int amountPurchased = item.getAmount();
+        if (amount > 1 && !item.allowOffer()) {
+            //client.send(new AlertMessageComposer(Locale.get("catalog.error.nooffer")));
 
+            return;
+        }
 
+        int totalCostCredits;
+        // int totalCostPoints;
+        // int totalCostActivityPoints;
+
+        if (item.getLimitedSells() >= item.getLimitedTotal() && item.getLimitedTotal() != 0) {
+            // client.send(new LimitedEditionSoldOutMessageComposer());
+            // TODO: Fix this.
+            return;
+        }
+
+        if (item.allowOffer()) {
+            totalCostCredits = amount > 1 ? ((item.getCostCredits() * amount) - ((int) Math.floor((double) amount / 6) * item.getCostCredits())) : item.getCostCredits();
+            //totalCostPoints = amount > 1 ? ((item.getCostOther() * amount) - ((int) Math.floor((double) amount / 6) * item.getCostOther())) : item.getCostOther();
+            //totalCostActivityPoints = amount > 1 ? ((item.getCostPixels() * amount) - ((int) Math.floor((double) amount / 6) * item.getCostPixels())) : item.getCostPixels();
+        } else {
+            totalCostCredits = item.getCostCredits();
+            //totalCostPoints = item.getCostOther();
+            //totalCostActivityPoints = item.getCostPixels();
+        }
 
         boolean creditsError = false;
 
-        if (player.getDetails().getCredits() < (item.getCostCredits() * finalAmount)) {
+        if (player.getDetails().getCredits() < totalCostCredits) {
             player.send(new PurchaseErrorMessageComposer(creditsError, false));
             return;
         }
 
         if (item.getCostCredits() > 0) {
-            player.getDetails().setCredits(player.getDetails().getCredits() - item.getCostCredits());
+            player.getDetails().setCredits(player.getDetails().getCredits() - totalCostCredits);
             player.getDetails().sendCredits();
         }
 
         for (CatalogueBundledItem bundleItem : item.getItems()) {
 
-            ItemDefinition definition = FurnitureManager.getFurnitureById(bundleItem.getItemId());
-
-            if (definition.getInteractionType() == InteractionType.TELEPORT) {
-                amountPurchased = 2;
-            }
-            
             List<Item> bought = Lists.newArrayList();
 
-            for (int i = 0; i < amountPurchased; i++) {
-                player.send(new PurchaseNotificationMessageComposer(bundleItem, finalAmount));
+            for (int i = 0; i < amount; i++) {
+                for (int j = 0; j < item.getAmount(); j++) {
+                    
+                    Item inventoryItem = InventoryDao.newItem(bundleItem.getItemId(), player.getDetails().getId(), extraData);
+                    bought.add(inventoryItem);
 
-                Item inventoryItem = InventoryDao.newItem(bundleItem.getItemId(), player.getDetails().getId(), extraData);
-                bought.add(inventoryItem);
+                    if (inventoryItem.getDefinition().getInteractionType() == InteractionType.JUKEBOX) {
+                        inventoryItem.setExtraData("0");
+                    }
 
-                if (inventoryItem.getDefinition().getInteractionType() == InteractionType.JUKEBOX) {
-                    inventoryItem.setExtraData("0");
+                    if (inventoryItem.getDefinition().getInteractionType() == InteractionType.GATE) {
+                        inventoryItem.setExtraData("0");
+                    }
+
+                    if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
+                        inventoryItem.setExtraData("0");
+                    }
+
+                    player.getInventory().addItem(inventoryItem);
                 }
-
-                if (inventoryItem.getDefinition().getInteractionType() == InteractionType.GATE) {
-                    inventoryItem.setExtraData("0");
-                }
-
-                if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
-                    inventoryItem.setExtraData("0");
-                }
-
-                player.getInventory().addItem(inventoryItem);
             }
+
+            player.send(new PurchaseNotificationMessageComposer(bundleItem));
 
         }
     }

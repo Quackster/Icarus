@@ -4,6 +4,7 @@ import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.catalogue.CataloguePage;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.MessageEvent;
+import org.alexdev.icarus.messages.outgoing.catalogue.CatalogueDiscountComposer;
 import org.alexdev.icarus.messages.outgoing.catalogue.CataloguePageMessageComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
@@ -23,6 +24,7 @@ public class CataloguePageMessageEvent implements MessageEvent {
 		request.readInt();
 		
 		player.send(new CataloguePageMessageComposer(page, request.readString()));
+		player.send(new CatalogueDiscountComposer());
 	}
 
 }

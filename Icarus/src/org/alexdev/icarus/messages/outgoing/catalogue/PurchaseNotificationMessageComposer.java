@@ -1,7 +1,6 @@
 package org.alexdev.icarus.messages.outgoing.catalogue;
 
 import org.alexdev.icarus.game.catalogue.CatalogueBundledItem;
-import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.game.furniture.FurnitureManager;
 import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.messages.headers.Outgoing;
@@ -10,11 +9,9 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 public class PurchaseNotificationMessageComposer extends OutgoingMessageComposer {
 	
 	private CatalogueBundledItem item;
-	private int amount;
 	
-	public PurchaseNotificationMessageComposer(CatalogueBundledItem item, int amount) {
+	public PurchaseNotificationMessageComposer(CatalogueBundledItem item) {
         this.item = item;
-		this.amount = amount;
     }
 
     @Override
@@ -36,7 +33,7 @@ public class PurchaseNotificationMessageComposer extends OutgoingMessageComposer
 		response.writeString(definition.getType());
 		response.writeInt(definition.getSpriteId());
 		response.writeString(item.getExtraData());
-		response.writeInt(amount);
+		response.writeInt(item.getAmount());
 		
 		response.writeBool(item.getCatalogueItem().getLimitedTotal() > 0);
 		

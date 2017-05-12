@@ -78,5 +78,6 @@ public class Outgoing {
     public static int AvailabilityMessageComposer = 3690;
     public static int ChatOptionsMessageComposer = 2824;
     public static int WallOptionsMessageComposer = 3003;
+    public static int CatalogueDiscountComposer = 796;
     
 }

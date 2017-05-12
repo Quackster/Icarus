@@ -3,17 +3,12 @@ package org.alexdev.icarus.dao.mysql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Base64;
 import java.util.List;
 
 import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.game.catalogue.CataloguePage;
 import org.alexdev.icarus.game.catalogue.CatalogueTab;
 import org.alexdev.icarus.log.Log;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
 import com.google.common.collect.Lists;
 
 public class CatalogueDao {

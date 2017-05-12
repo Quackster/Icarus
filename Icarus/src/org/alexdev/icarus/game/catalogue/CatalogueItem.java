@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.alexdev.icarus.game.furniture.FurnitureManager;
 import org.alexdev.icarus.server.api.messages.Response;
-import org.alexdev.icarus.server.netty.streams.NettyResponse;
 
 import com.google.common.collect.Lists;
 
