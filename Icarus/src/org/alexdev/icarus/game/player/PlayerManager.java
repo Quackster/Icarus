@@ -43,15 +43,7 @@ public class PlayerManager {
 	
 	public static boolean checkForDuplicates(Player player) {
 		
-		if (player.getNetwork().getConnectionId() == -1 || player.getDetails() == null) {
-			return false;
-		}
-		
 		for (Player session : players.values()) {
-			
-			if (session.getNetwork().getConnectionId() == -1 || session.getDetails() == null) {
-				continue;
-			}
 			
 			if (session.getDetails().getId() == player.getDetails().getId()) {
 				if (session.getNetwork().getConnectionId() != player.getNetwork().getConnectionId()) { // user tries to login twice

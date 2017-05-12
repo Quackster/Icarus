@@ -3,9 +3,12 @@ package org.alexdev.icarus.messages.incoming.catalogue;
 import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.InventoryDao;
+import org.alexdev.icarus.game.catalogue.CatalogueBundledItem;
 import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.catalogue.CataloguePage;
+import org.alexdev.icarus.game.furniture.FurnitureManager;
+import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.player.Player;
@@ -32,11 +35,13 @@ public class PurchaseMessageEvent implements MessageEvent {
 			return;
 		}
 
-		CatalogueItem item = CatalogueManager.getItem(itemId);
+		CatalogueBundledItem item = page.getItem(itemId);
 
 		if (item == null) {
 			return;
 		}
+		
+		ItemDefinition definition = FurnitureManager.getFurnitureById(item.getItemId());
 
 		int finalAmount = priceAmount;
 
@@ -59,34 +64,23 @@ public class PurchaseMessageEvent implements MessageEvent {
 
 		int amountPurchased = item.getAmount();
 
-		if (item.getData().getInteractionType() == InteractionType.TELEPORT) {
+		if (definition.getInteractionType() == InteractionType.TELEPORT) {
 			amountPurchased = 2;
-		}
-
-		//TODO: Check for club membership
-
-		if (item.isLimited() && item.getLimitedStack() <= item.getLimitedSells()) {
-			// TODO: Alert deal soldout
-			return;
-		} 
-
-		if (item.isLimited()) {
-
-			// TODO: Allow possible chance that everyone is allowed to buy one rare
 		}
 
 		boolean creditsError = false;
 
 		// TODO: Pixel error
-		if (player.getDetails().getCredits() < (item.getCostCredits() * finalAmount)) {
+		if (player.getDetails().getCredits() < (item.getCatalogueItem().getCostCredits() * finalAmount)) {
 			player.send(new PurchaseErrorMessageComposer(creditsError, false));
 			return;
 		}
 
 		// TODO: Seasonal currency error?
 
-		if (item.getCostCredits() > 0) {
-			player.getDetails().setCredits(player.getDetails().getCredits() - item.getCostCredits(), true);
+		if (item.getCatalogueItem().getCostCredits() > 0) {
+			player.getDetails().setCredits(player.getDetails().getCredits() - item.getCatalogueItem().getCostCredits());
+			player.getDetails().sendCredits();
 		}
 
 		// TODO: Item badges

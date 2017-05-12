@@ -39,7 +39,7 @@ public class CataloguePageMessageComposer extends OutgoingMessageComposer {
             item.serialise(response);
         }
 
-        response.writeInt(0);
+        response.writeInt(-1);
         response.writeBool(false);
         
         if (page.getLayout().equals("frontpage4")) {
@@ -78,8 +78,6 @@ public class CataloguePageMessageComposer extends OutgoingMessageComposer {
         else {
             response.writeInt(0);
         }
-        
-        response.writeBool(false);
 
     }
 

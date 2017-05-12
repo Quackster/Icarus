@@ -33,7 +33,7 @@ public class UserDisplayMessageComposer extends OutgoingMessageComposer {
 				if (entity.getType() == EntityType.PLAYER) {
 					response.writeInt(entity.getDetails().getId());
 					response.writeString(entity.getDetails().getUsername());
-					response.writeString(entity.getDetails().getMotto());
+					response.writeString(entity.getDetails().getMission());
 					response.writeString(entity.getDetails().getFigure());
 					response.writeInt(entity.getRoomUser().getVirtualId());
 					response.writeInt(entity.getRoomUser().getPosition().getX());
@@ -52,7 +52,7 @@ public class UserDisplayMessageComposer extends OutgoingMessageComposer {
 				if (entity.getType() == EntityType.BOT) {
 					response.writeInt(entity.getDetails().getId());
 					response.writeString(entity.getDetails().getUsername());
-					response.writeString(entity.getDetails().getMotto());
+					response.writeString(entity.getDetails().getMission());
 					response.writeString(entity.getDetails().getFigure());
 					response.writeInt(entity.getRoomUser().getVirtualId());
 					response.writeInt(entity.getRoomUser().getPosition().getX());

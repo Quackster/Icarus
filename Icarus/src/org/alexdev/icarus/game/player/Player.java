@@ -3,6 +3,7 @@ package org.alexdev.icarus.game.player;
 import java.util.List;
 
 import org.alexdev.icarus.game.entity.EntityType;
+import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.inventory.Inventory;
 import org.alexdev.icarus.game.messenger.Messenger;
@@ -14,94 +15,98 @@ import org.alexdev.icarus.server.api.IPlayerNetwork;
 
 public class Player extends Entity {
 
-	private String machineId;
-	private PlayerDetails details;
-	private IPlayerNetwork network;
-	private RoomUser roomUser;
-	private Messenger messenger;
-	private Inventory inventory;
+    private String machineId;
+    private PlayerDetails details;
+    private IPlayerNetwork network;
+    private RoomUser roomUser;
+    private Messenger messenger;
+    private Inventory inventory;
 
-	public Player(IPlayerNetwork network) {
+    public Player(IPlayerNetwork network) {
+        this.network = network;
+        this.details = new PlayerDetails(this);
+        this.roomUser = new RoomUser(this);
+        this.messenger = new Messenger(this);
+        this.inventory = new Inventory(this);
+    }
 
-		this.network = network;
-		this.details = new PlayerDetails(this);
-		this.roomUser = new RoomUser(this);
-		this.messenger = new Messenger(this);
-		this.inventory = new Inventory(this);
-	}
 
-	public List<Room> getRooms() {
-		return RoomManager.getPlayerRooms(this.details.getId());
-	}
-	
-	public void dispose() {
-		
-		if (this.details.isAuthenticated()) {
+    public void login() {
+        
+        // Load all the rooms the player owns
+        // Items and pets and other shit are only loaded when player enters the specific room
+        RoomDao.getPlayerRooms(this.details, true);
 
-			if (this.roomUser.getRoom() != null) {
-				this.roomUser.getRoom().leaveRoom(this, false);
-			}
+        // Load their inventory data
+        this.inventory.init();
+    }
 
-			List<Room> rooms = RoomManager.getPlayerRooms(this.details.getId());
+    public void dispose() {
 
-			if (rooms.size() > 0) {
-				for (Room room : rooms) {
-					room.dispose(false); 
-				}
-			}
-		}
-		
-		this.messenger.dispose();
-		this.messenger = null;
+        if (this.details.isAuthenticated()) {
 
-		this.roomUser.dispose();
-		this.roomUser = null;
+            if (this.roomUser.getRoom() != null) {
+                this.roomUser.getRoom().leaveRoom(this, false);
+            }
 
-		this.details.dispose();
-		this.details = null;
-		
-		this.inventory.dispose();
-		this.inventory = null;
+            List<Room> rooms = RoomManager.getPlayerRooms(this.details.getId());
 
-		this.machineId = null;
-	}
-	
-	public void setMachineId(String machineId) {
-		this.machineId = machineId;
-	}
+            if (rooms.size() > 0) {
+                for (Room room : rooms) {
+                    room.dispose(false); 
+                }
+            }
+        }
 
-	public String getMachineId() {
-		return machineId;
-	}
+        this.messenger.dispose();
+        this.roomUser.dispose();
+        this.inventory.dispose();
 
-	public PlayerDetails getDetails() {
-		return details;
-	}
+        this.messenger = null;
+        this.inventory = null;
+        this.roomUser = null;
+        this.machineId = null;
+    }
 
-	public RoomUser getRoomUser() {
-		return roomUser;
-	}
+    public List<Room> getRooms() {
+        return RoomManager.getPlayerRooms(this.details.getId());
+    }
 
-	public Messenger getMessenger() {
-		return messenger;
-	}
+    public void setMachineId(String machineId) {
+        this.machineId = machineId;
+    }
 
-	public Inventory getInventory() {
-		return inventory;
-	}
+    public String getMachineId() {
+        return machineId;
+    }
 
-	@Override
-	public EntityType getType() {
-		return EntityType.PLAYER;
-	}
+    public PlayerDetails getDetails() {
+        return details;
+    }
 
-	public IPlayerNetwork getNetwork() {
-		return network;
-	}
+    public RoomUser getRoomUser() {
+        return roomUser;
+    }
 
-	public void send(OutgoingMessageComposer response) {
-		this.network.send(response);
-		
-	}
+    public Messenger getMessenger() {
+        return messenger;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.PLAYER;
+    }
+
+    public IPlayerNetwork getNetwork() {
+        return network;
+    }
+
+    public void send(OutgoingMessageComposer response) {
+        this.network.send(response);
+    }
 
 }

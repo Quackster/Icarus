@@ -2,6 +2,7 @@ package org.alexdev.icarus.game.catalogue;
 
 import java.util.List;
 
+import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.messages.outgoing.catalogue.CataloguePageMessageComposer;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
@@ -31,6 +32,22 @@ public class CataloguePage {
         this.images = images;
         this.texts = texts;
     }
+	
+    public CatalogueBundledItem getItem(int itemId) {
+       
+        for (CatalogueItem item : this.items) {
+            
+            for (CatalogueBundledItem bundle : item.getItems()) {
+                
+                if (bundle.getItemId() == itemId) {
+                    return bundle;
+                }
+            }
+        }
+        
+        return null;
+    }
+    
 
     public OutgoingMessageComposer getComposer() {
 		
@@ -105,7 +122,7 @@ public class CataloguePage {
     public List<String> getTexts() {
         return texts;
     }
-	
+
 	
 
 

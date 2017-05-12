@@ -1,10 +1,8 @@
 package org.alexdev.icarus.messages.incoming.handshake;
 
 import org.alexdev.icarus.dao.mysql.PlayerDao;
-import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.handshake.AuthenticationOKMessageComposer;
 import org.alexdev.icarus.messages.outgoing.handshake.AvailabilityMessageComposer;
@@ -17,7 +15,11 @@ public class AuthenticateMessageEvent implements MessageEvent {
 
 	@Override
 	public void handle(Player player, ClientMessage request) {
-
+	    
+	    if (player.getDetails().isAuthenticated()) {
+	        return;
+	    }
+	    
 		String sso = request.readString();
 		
 		boolean loginSuccess = PlayerDao.login(player, sso);
@@ -37,18 +39,12 @@ public class AuthenticateMessageEvent implements MessageEvent {
 			return;
 		}
 		
-		Log.println("SSO ticket: " + sso);
-        
-        
-		
 		player.send(new UniqueMachineIDMessageComposer(player.getMachineId()));
 		player.send(new AuthenticationOKMessageComposer());
 		player.send(new HomeRoomMessageComposer(2, false));
 		player.send(new LandingWidgetMessageComposer());
 		player.send(new AvailabilityMessageComposer());
+		player.login();
 		
-		RoomDao.getPlayerRooms(player.getDetails(), true); // load de rooms!
-		
-		player.getInventory().init(); // load de items!
 	}
 }

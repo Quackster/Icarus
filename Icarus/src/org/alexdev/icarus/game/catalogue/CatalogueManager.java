@@ -75,7 +75,7 @@ public class CatalogueManager {
     public static List<CatalogueItem> getPageItems(int pageId) {
 
         try {
-            return items.stream().filter(item -> item.getPageId() == pageId && item.getData() != null).collect(Collectors.toList());
+            return items.stream().filter(item -> item.getPageId() == pageId).collect(Collectors.toList());
         } catch (Exception e) {
             return Lists.newArrayList();
         }

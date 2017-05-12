@@ -19,7 +19,7 @@ public class UserObjectMessageComposer extends OutgoingMessageComposer {
 		response.writeString(this.details.getUsername()); // Username
 		response.writeString(this.details.getFigure()); // Figure
 		response.writeString("M"); // Gender
-		response.writeString(this.details.getMotto()); // Motto
+		response.writeString(this.details.getMission()); // Motto
 		response.writeString(""); // ?
 		response.writeBool(false); // ?
 		response.writeInt(0); // Respect

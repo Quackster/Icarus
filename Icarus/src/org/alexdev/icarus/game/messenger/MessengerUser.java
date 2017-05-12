@@ -41,7 +41,7 @@ public class MessengerUser {
 		} else {
 			response.writeString(this.isOnline() ? this.getDetails().getFigure() : "");
 			response.writeInt(0);
-			response.writeString(this.isOnline() ? this.getDetails().getMotto() : "");  
+			response.writeString(this.isOnline() ? this.getDetails().getMission() : "");  
 		}
 
 		response.writeString("");
@@ -56,7 +56,7 @@ public class MessengerUser {
 
 		response.writeInt(this.getDetails().getId());
 		response.writeString(this.getDetails().getUsername());
-		response.writeString(this.getDetails().getMotto()); 
+		response.writeString(this.getDetails().getMission()); 
 		response.writeBool(this.isOnline());
 		response.writeBool(this.inRoom());
 		response.writeString("");

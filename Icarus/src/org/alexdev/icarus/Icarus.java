@@ -53,8 +53,9 @@ public class Icarus {
             
             RoomManager.load();
             NavigatorManager.load();
-            CatalogueManager.load();
             FurnitureManager.load();
+            CatalogueManager.load();
+            
             
             Log.println("Settting up server");
             Log.println();
