@@ -120,7 +120,7 @@ public class CatalogueDao {
         List<String> images = Lists.newArrayList();
         List<String> texts = Lists.newArrayList();
         
-        String rawImages = row.getString("page_images");
+        /*String rawImages = row.getString("page_images");
         rawImages = rawImages.replace("[", "");
         rawImages = rawImages.replace("]", "");
         rawImages = rawImages.replace("\"", "|");
@@ -149,7 +149,7 @@ public class CatalogueDao {
             }
             
             texts.add(text);
-        }
+        }*/
         
         CataloguePage page = new CataloguePage(row.getInt("id"), row.getString("caption"), row.getInt("parent_id"), row.getString("type"), row.getString("page_layout"), row.getInt("min_rank"), images, texts, null);
         return page;

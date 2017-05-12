@@ -33,15 +33,11 @@ public class CataloguePage {
         this.texts = texts;
     }
 	
-    public CatalogueBundledItem getItem(int itemId) {
+    public CatalogueItem getItem(int itemId) {
        
         for (CatalogueItem item : this.items) {
-            
-            for (CatalogueBundledItem bundle : item.getItems()) {
-                
-                if (bundle.getItemId() == itemId) {
-                    return bundle;
-                }
+            if (item.getId() == itemId) {
+                return item;
             }
         }
         

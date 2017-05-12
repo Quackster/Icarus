@@ -20,7 +20,9 @@ public class CataloguePageMessageEvent implements MessageEvent {
 			return;
 		}
 		
-		player.send(new CataloguePageMessageComposer(page, "NORMAL"));
+		request.readInt();
+		
+		player.send(new CataloguePageMessageComposer(page, request.readString()));
 	}
 
 }

@@ -21,97 +21,96 @@ import com.google.common.collect.Lists;
 
 public class PurchaseMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
+    @Override
+    public void handle(Player player, ClientMessage request) {
 
-		int pageId = request.readInt();
-		int itemId = request.readInt();
-		String extraData = request.readString();
-		int priceAmount = request.readInt();
+        int pageId = request.readInt();
+        int itemId = request.readInt();
+        String extraData = request.readString();
+        int priceAmount = request.readInt();
 
-		CataloguePage page = CatalogueManager.getPage(pageId);
+        CataloguePage page = CatalogueManager.getPage(pageId);
 
-		if (page.getMinRank() > player.getDetails().getRank()) {
-			return;
-		}
+        if (page.getMinRank() > player.getDetails().getRank()) {
+            return;
+        }
 
-		CatalogueBundledItem item = page.getItem(itemId);
+        CatalogueItem item = page.getItem(itemId);
 
-		if (item == null) {
-			return;
-		}
-		
-		ItemDefinition definition = FurnitureManager.getFurnitureById(item.getItemId());
+        this.purchase(player, item, extraData, priceAmount);
 
-		int finalAmount = priceAmount;
+        player.getInventory().update();
+    }
 
-		if (priceAmount > 5) {
+    private void purchase(Player player, CatalogueItem item, String extraData, int priceAmount) {
 
-			int discount = ((int) Math.floorDiv(priceAmount, 6) * 6);
+        int finalAmount = priceAmount;
 
-			int freeItems = (discount - 3) / 3;
+        if (priceAmount > 5) {
 
-			if (priceAmount >= 42) {
-				freeItems++; // add another free item if more than 42 items 8)
-			}
+            int discount = ((int) Math.floorDiv(priceAmount, 6) * 6);
 
-			if (priceAmount >= 99) { // not divisible by 3
-				freeItems = 33;
-			}
+            int freeItems = (discount - 3) / 3;
 
-			finalAmount = priceAmount - freeItems;
-		}
+            if (priceAmount >= 42) {
+                freeItems++; // add another free item if more than 42 items 8)
+            }
 
-		int amountPurchased = item.getAmount();
+            if (priceAmount >= 99) { // not divisible by 3
+                freeItems = 33;
+            }
 
-		if (definition.getInteractionType() == InteractionType.TELEPORT) {
-			amountPurchased = 2;
-		}
+            finalAmount = priceAmount - freeItems;
+        }
 
-		boolean creditsError = false;
+        int amountPurchased = item.getAmount();
 
-		// TODO: Pixel error
-		if (player.getDetails().getCredits() < (item.getCatalogueItem().getCostCredits() * finalAmount)) {
-			player.send(new PurchaseErrorMessageComposer(creditsError, false));
-			return;
-		}
 
-		// TODO: Seasonal currency error?
 
-		if (item.getCatalogueItem().getCostCredits() > 0) {
-			player.getDetails().setCredits(player.getDetails().getCredits() - item.getCatalogueItem().getCostCredits());
-			player.getDetails().sendCredits();
-		}
+        boolean creditsError = false;
 
-		// TODO: Item badges
-		// TODO: Limited sales update
+        if (player.getDetails().getCredits() < (item.getCostCredits() * finalAmount)) {
+            player.send(new PurchaseErrorMessageComposer(creditsError, false));
+            return;
+        }
 
-		List<Item> bought = Lists.newArrayList();
-		
-		for (int i = 0; i < amountPurchased; i++) {
-			player.send(new PurchaseNotificationMessageComposer(item, finalAmount));
-			
-			Item inventoryItem = InventoryDao.newItem(item.getItemId(), player.getDetails().getId(), extraData);
-			bought.add(inventoryItem);
-			
-			if (inventoryItem.getDefinition().getInteractionType() == InteractionType.JUKEBOX) {
-				inventoryItem.setExtraData("0");
-			}
+        if (item.getCostCredits() > 0) {
+            player.getDetails().setCredits(player.getDetails().getCredits() - item.getCostCredits());
+            player.getDetails().sendCredits();
+        }
 
-			if (inventoryItem.getDefinition().getInteractionType() == InteractionType.GATE) {
-				inventoryItem.setExtraData("0");
-			}
-			
-			if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
-				inventoryItem.setExtraData("0");
-			}
-			
-			player.getInventory().addItem(inventoryItem);
-		}
+        for (CatalogueBundledItem bundleItem : item.getItems()) {
 
-		player.getInventory().update();
-		
-		// TODO: Add items to players inventory
-	}
+            ItemDefinition definition = FurnitureManager.getFurnitureById(bundleItem.getItemId());
+
+            if (definition.getInteractionType() == InteractionType.TELEPORT) {
+                amountPurchased = 2;
+            }
+            
+            List<Item> bought = Lists.newArrayList();
+
+            for (int i = 0; i < amountPurchased; i++) {
+                player.send(new PurchaseNotificationMessageComposer(bundleItem, finalAmount));
+
+                Item inventoryItem = InventoryDao.newItem(bundleItem.getItemId(), player.getDetails().getId(), extraData);
+                bought.add(inventoryItem);
+
+                if (inventoryItem.getDefinition().getInteractionType() == InteractionType.JUKEBOX) {
+                    inventoryItem.setExtraData("0");
+                }
+
+                if (inventoryItem.getDefinition().getInteractionType() == InteractionType.GATE) {
+                    inventoryItem.setExtraData("0");
+                }
+
+                if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
+                    inventoryItem.setExtraData("0");
+                }
+
+                player.getInventory().addItem(inventoryItem);
+            }
+
+        }
+    }
 
 }
