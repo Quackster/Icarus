@@ -6,42 +6,44 @@ import org.alexdev.icarus.dao.mysql.ItemDao;
 import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.game.furniture.FurnitureManager;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
+import org.alexdev.icarus.game.item.serialise.FloorItemSerialise;
+import org.alexdev.icarus.game.item.serialise.WallItemSerialise;
 import org.alexdev.icarus.game.pathfinder.AffectedTile;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.PlayerManager;
-import org.alexdev.icarus.server.api.messages.Response;
-import org.alexdev.icarus.util.GameSettings;
+import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.game.room.RoomManager;
+import org.alexdev.icarus.log.Log;
+import org.alexdev.icarus.messages.outgoing.room.items.MoveItemMessageComposer;
 
 import com.google.common.collect.Lists;
 
 public class Item {
 
-    private int gameId;
-    private long databaseId;
+    private int id;
     private int userId;
     private int itemId;
     private int roomId;
     private Position position;
-
-    private int rotation;
     private String extraData;
     private ItemType type;
+    private ItemSerialise serializer;
 
+    /**
+     * Wall position variables
+     */
     private int lengthX = 0;
     private int lengthY = 0;
-
     private char side = 0;
     private int widthX = 0;
     private int widthY = 0;
 
-    public Item(long databaseId, int userId, int itemId, int roomId, String x, String y, double z, int rotation, String extraData) {
-        this.databaseId = databaseId;
-        this.gameId = GameSettings.ITEM_ID_COUNTER++;
+    public Item(long id, int userId, int itemId, int roomId, String x, String y, double z, int rotation, String extraData) {
+        this.id = (int)id;
         this.userId = userId;
         this.itemId = itemId;
         this.roomId = roomId;
-        this.rotation = rotation;
         this.extraData = extraData;
 
         if (this.getDefinition().getType().equals("i")) {
@@ -51,45 +53,47 @@ public class Item {
         } else {
             this.type = ItemType.OTHER;
         }
-        
+
         this.position = new Position();
 
         if (this.type == ItemType.FLOOR) {
             this.position.setX(Integer.parseInt(x));
             this.position.setY(Integer.parseInt(y));
             this.position.setZ(z);
-        } else {
-            try {
-                String[] firstPosition = x.split(",");
-
-                this.side = firstPosition[0].toCharArray()[0];
-                this.widthX = Integer.parseInt(firstPosition[1]);
-                this.widthY = Integer.parseInt(firstPosition[2]);
-
-                String[] secondPosition = y.split(",");
-
-                this.lengthX = Integer.parseInt(secondPosition[0]);
-                this.lengthY = Integer.parseInt(secondPosition[1]);
-
-            } catch (Exception e) {
-                this.side = ' ';
-                this.widthX = 0;
-                this.widthY = 0;
-                this.lengthX = 0;
-                this.lengthY = 0;
+            this.position.setRotation(rotation);
+            this.serializer = new FloorItemSerialise(this);
+        }
+        
+        if (this.type == ItemType.WALL) {
+            if (this.roomId > 0) {
+                Log.println("PARSE WALL ITEM");
+                this.parseWallPosition(x + " " + y);
             }
+            
+            this.serializer = new WallItemSerialise(this);
         }
     }
 
+    /**
+     * Returns the coordinates that this item can possibly affect, such as
+     * a table covering 2x2 squares
+     * 
+     * @return {@link List} - of {@link AffectedTile}'s
+     */
     public List<AffectedTile> getAffectedTiles() {
 
         if (this.type == ItemType.WALL) {
             return Lists.newArrayList();
         }
 
-        return AffectedTile.getAffectedTilesAt(this.getDefinition().getLength(), this.getDefinition().getWidth(), this.position.getX(), this.position.getY(), this.rotation);
+        return AffectedTile.getAffectedTilesAt(this.getDefinition().getLength(), this.getDefinition().getWidth(), this.position.getX(), this.position.getY(), this.position.getRotation());
     }
 
+    /**
+     * Is this item walkable or not
+     * 
+     * @return {@link boolean} - true if walkable
+     */
     public boolean canWalk() {
 
         ItemDefinition definition = this.getDefinition();
@@ -104,121 +108,48 @@ public class Item {
 
         return false;
     }
-
-    public void serialise(Response message) {
+    
+    /**
+        Parse wall item with the arguments given, this should only exist in one place!
+    
+        @param Wall position (left/right,width_x, width_y length_x, length_y) eg (r,3,6 2,7)
+        @return none
+     */
+    public void parseWallPosition(String position) {
+    
+        try {
+            String[] x_data = position.split(" ")[0].split(",");
+            this.side = x_data[0].toCharArray()[0];
+            this.widthX = Integer.valueOf(x_data[1]);
+            this.widthY = Integer.valueOf(x_data[2]);
+   
+            String[] y_data = position.split(" ")[1].split(",");
+            this.lengthX = Integer.valueOf(y_data[0]);
+            this.lengthY = Integer.valueOf(y_data[1]);
+            
+        } catch (NumberFormatException e) {
+            Log.println("Error parsing wall item for item ID: " + this.id);
+        }
+    }
+    
+    /**
+     * Gets the variables and generates the needed wall position
+     */
+    public String getWallPosition() {
+    
         if (this.type == ItemType.WALL) {
-
-            message.writeString(this.gameId + "");
-            message.writeInt(this.getDefinition().getSpriteId());
-            message.writeString(this.getWallPosition());
-
-            if (this.getDefinition().getInteractionType() == InteractionType.POSTIT) {
-                message.writeString(this.extraData.split(" ")[0]);
-            } else {
-                message.writeString(this.extraData);
-            }
-
-            message.writeInt(-1);
-            message.writeInt(this.getDefinition().getInteractionType() == InteractionType.DEFAULT ? 0 : 1);
-            message.writeInt(this.userId);
-
+            return ":w=" + this.widthX + "," + this.widthY + " " + "l=" + this.lengthX + "," + this.lengthY + " " + this.side;
         }
-
-        if (this.type == ItemType.FLOOR) {
-
-            message.writeInt(this.gameId);
-            message.writeInt(this.getDefinition().getSpriteId());
-            message.writeInt(this.position.getX());
-            message.writeInt(this.position.getY());
-            message.writeInt(this.rotation);
-            message.writeString("" + this.position.getZ());
-            message.writeString("" + this.position.getZ());
-
-            if (this.getDefinition().getInteractionType() == InteractionType.YOUTUBETV) {
-
-                message.writeInt(0);
-                message.writeInt(1);
-                message.writeInt(1);
-                message.writeString("THUMBNAIL_URL");
-                message.writeString("/deliver/" + "");
-            } else if (this.getDefinition().getInteractionType() == InteractionType.BADGE_DISPLAY) {
-
-                message.writeInt(0);
-                message.writeInt(2);
-                message.writeInt(4);
-
-                if (this.extraData.length() > 0) {
-
-                    message.writeString("0"); // extradata check
-
-                    for (int i = 0; i <= this.extraData.split(Character.toString((char)9)).length - 1; i++)
-                        message.writeString(this.extraData.split(Character.toString((char)9))[i]);
-                } else {
-                    message.writeInt(0);
-                }
-
-            } else if (this.getDefinition().getInteractionType() == InteractionType.BG_COLORBACKGROUND) {
-
-                message.writeInt(1); // is ads
-                message.writeInt(5); //type
-                message.writeInt(4);
-
-                message.writeInt(0); // online?
-                message.writeInt(0);
-                message.writeInt(0);
-                message.writeInt(0);
-            } else if (this.getDefinition().getInteractionType() == InteractionType.MANNEQUIN) {
-
-                String[] Extradatas = this.extraData.split(";");
-
-                if (this.extraData.contains(";") && Extradatas.length >= 3)
-                {
-                    message.writeInt(1);
-                    message.writeInt(1);
-                    message.writeInt(3);
-
-                    message.writeString("GENDER");
-                    message.writeString(Extradatas[0]);
-                    message.writeString("FIGURE");
-                    message.writeString(Extradatas[1]);
-                    message.writeString("OUTFIT_NAME");
-                    message.writeString(Extradatas[2]);
-                }
-                else
-                {
-                    message.writeInt(1);
-                    message.writeInt(1);
-                    message.writeInt(3);
-
-                    message.writeString("GENDER");
-                    message.writeString("m");
-                    message.writeString("FIGURE");
-                    message.writeString("");
-                    message.writeString("OUTFIT_NAME");
-                    message.writeString("");
-                }
-            } else {
-                message.writeInt((this.getDefinition().getInteractionType() == InteractionType.DEFAULT) ? 0 : 1);
-                message.writeInt(0);
-                message.writeString(this.extraData);
-            }
-
-            message.writeInt(-1); // secondsToExpiration
-            message.writeInt(this.getDefinition().getInteractionType() != InteractionType.DEFAULT ? 1 : 0);
-            message.writeInt(this.getOwnerId());
-        }
+    
+        return null;
+    }
+    
+    public void updateStatus() {
+        this.getRoom().send(new MoveItemMessageComposer(this));
     }
 
-    // Different ids so the database can support 64bit integer of items
-    // When emulator is loaded, the item ids for the client are generated when client connects 
-    // Credits to Leon to support 9,223,372,036,854,775,80 items :))
-
-    public int getGameId() {
-        return gameId;
-    }
-
-    public long getDatabaseId() {
-        return databaseId;
+    public int getId() {
+        return id;
     }
 
     public ItemDefinition getDefinition() {
@@ -230,7 +161,7 @@ public class Item {
     }
 
     public void delete() {
-        ItemDao.deleteItem(this.databaseId);
+        ItemDao.deleteItem(this.id);
     }
 
     public int getLengthX() {
@@ -273,23 +204,6 @@ public class Item {
         this.widthY = widthY;
     }
 
-    public int getRotation() {
-        return rotation;
-    }
-
-    public void setRotation(int rotation) {
-        this.rotation = rotation;
-    }
-
-    public String getWallPosition() {
-
-        if (this.type == ItemType.WALL) {
-            return ":w=" + this.widthX + "," + this.widthY + " " + "l=" + this.lengthX + "," + this.lengthY + " " + this.side;
-        }
-
-        return null;
-    }
-
     public int getOwnerId() {
         return userId;
     }
@@ -309,6 +223,10 @@ public class Item {
     public int getRoomId() {
         return roomId;
     }
+    
+    public Room getRoom() {
+        return RoomManager.find(this.roomId);
+    }
 
     public String getExtraData() {
         return extraData;
@@ -325,6 +243,14 @@ public class Item {
 
     public Position getPosition() {
         return this.position;
+    }
+
+    public ItemSerialise getSerializer() {
+        return serializer;
+    }
+
+    public void setSerializer(ItemSerialise serializer) {
+        this.serializer = serializer;
     }
 
 

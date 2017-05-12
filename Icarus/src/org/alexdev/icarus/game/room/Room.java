@@ -2,6 +2,7 @@ package org.alexdev.icarus.game.room;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.alexdev.icarus.dao.mysql.ItemDao;
@@ -27,25 +28,26 @@ import org.alexdev.icarus.messages.outgoing.room.user.RemoveUserMessageComposer;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class Room {
 
     private int privateId = -1;
 
     private RoomData data;
-
-    private List<Entity> entities; 
-    private List<Item> items;
-
     private RoomScheduler scheduler;
     private RoomMapping mapping;
+    
+    private List<Entity> entities; 
+    private Map<Integer, Item> items;
 
 
     public Room() {
         this.data = new RoomData(this);
         this.mapping = new RoomMapping(this);
-
-        this.entities = new ArrayList<Entity>();
+        
+        this.items = Maps.newHashMap();
+        this.entities = Lists.newArrayList();
     }
 
     public void loadRoom(Player player) {
@@ -223,27 +225,36 @@ public class Room {
     }
 
     public Item[] getFloorItems() {
-        List<Item> floorItems = items.stream().filter(item -> item.getType() == ItemType.FLOOR).collect(Collectors.toList());
+        List<Item> floorItems = items.values().stream().filter(item -> item.getType() == ItemType.FLOOR).collect(Collectors.toList());
         return floorItems.toArray(new Item[floorItems.size()]);
     }
 
     public Item[] getWallItems() {
-        List<Item> wallItems = items.stream().filter(item -> item.getType() == ItemType.WALL).collect(Collectors.toList());
+        List<Item> wallItems = items.values().stream().filter(item -> item.getType() == ItemType.WALL).collect(Collectors.toList());
         return wallItems.toArray(new Item[wallItems.size()]);
     }
 
-    public List<Item> getItems() {
+    public Map<Integer, Item> getItems() {
         return this.items;
     }  
 
     public List<Item> getItems(InteractionType interactionType) {
         try {
-            return items.stream().filter(item -> item.getDefinition().getInteractionType() == interactionType).collect(Collectors.toList());
+            return items.values().stream().filter(item -> item.getDefinition().getInteractionType() == interactionType).collect(Collectors.toList());
         } catch (Exception e) {
             return Lists.newArrayList();
         }
     }
 
+    public Item getItem(int itemId) {
+      
+        if (this.items.containsKey(itemId)) {
+            return this.items.get(itemId);
+        }
+        
+        return null;
+    }
+    
     public List<Entity> getEntities() {
         return entities;
     }
@@ -267,5 +278,6 @@ public class Room {
         this.privateId = this.privateId + 1;
         return this.privateId;
     }
+
 
 }

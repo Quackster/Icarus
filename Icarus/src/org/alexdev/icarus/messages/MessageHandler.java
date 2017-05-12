@@ -12,6 +12,7 @@ import org.alexdev.icarus.messages.incoming.misc.*;
 import org.alexdev.icarus.messages.incoming.navigator.*;
 import org.alexdev.icarus.messages.incoming.room.*;
 import org.alexdev.icarus.messages.incoming.room.items.InventoryMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.items.MoveItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.PlaceItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.user.*;
 import org.alexdev.icarus.messages.incoming.user.*;
@@ -110,6 +111,7 @@ public class MessageHandler {
 	private void registerItemPackets() {
 		this.messages.put(Incoming.InventoryMessageEvent, new InventoryMessageEvent());
 		this.messages.put(Incoming.PlaceItemMessageEvent, new PlaceItemMessageEvent());
+		this.messages.put(Incoming.MoveItemMessageEvent, new MoveItemMessageEvent());
 		this.messages.put(Incoming.ApplyDecorationMessageEvent, new ApplyDecorationMessageEvent());
 	}
 

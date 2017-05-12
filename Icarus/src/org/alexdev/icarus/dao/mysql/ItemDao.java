@@ -3,7 +3,7 @@ package org.alexdev.icarus.dao.mysql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
+import java.util.Map;
 
 import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
@@ -11,13 +11,13 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.log.Log;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class ItemDao {
 
-	public static List<ItemDefinition> getFurniture() {
+	public static Map<Integer, ItemDefinition> getFurniture() {
 
-		List<ItemDefinition> furni = Lists.newArrayList();
+	    Map<Integer, ItemDefinition> furni = Maps.newHashMap();
 
 		Connection sqlConnection = null;
 		PreparedStatement preparedStatement = null;
@@ -31,7 +31,7 @@ public class ItemDao {
 
 			while (resultSet.next()) {
 
-				furni.add(new ItemDefinition(resultSet.getInt("id"), resultSet.getString("public_name"), resultSet.getString("item_name"), resultSet.getString("type"), 
+				furni.put(resultSet.getInt("id"), new ItemDefinition(resultSet.getInt("id"), resultSet.getString("public_name"), resultSet.getString("item_name"), resultSet.getString("type"), 
 						resultSet.getInt("width"), resultSet.getInt("length"), resultSet.getDouble("stack_height"), resultSet.getInt("can_stack") == 1,
 						resultSet.getInt("can_sit") == 1, resultSet.getInt("is_walkable") == 1, resultSet.getInt("sprite_id"), resultSet.getInt("allow_recycle") == 1, 
 						resultSet.getInt("allow_trade") == 1, resultSet.getInt("allow_marketplace_sell") == 1, resultSet.getInt("allow_gift") == 1, 
@@ -51,9 +51,9 @@ public class ItemDao {
 
 	}
 
-	public static List<Item> getRoomItems(int roomId) {
+	public static Map<Integer, Item> getRoomItems(int roomId) {
 
-		List<Item> items = Lists.newArrayList();
+	    Map<Integer, Item> items = Maps.newHashMap();
 
 		Connection sqlConnection = null;
 		PreparedStatement preparedStatement = null;
@@ -66,7 +66,7 @@ public class ItemDao {
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
-				items.add(fill(resultSet));
+				items.put(resultSet.getInt("id"), fill(resultSet));
 			}
 
 		} catch (Exception e) {
@@ -101,9 +101,9 @@ public class ItemDao {
 			preparedStatement.setString(2, x);
 			preparedStatement.setString(3, y);
 			preparedStatement.setDouble(4, item.getPosition().getZ());
-			preparedStatement.setInt(5, item.getRotation());
+			preparedStatement.setInt(5, item.getPosition().getRotation());
 			preparedStatement.setInt(6, item.getRoomId());
-			preparedStatement.setLong(7, item.getDatabaseId());
+			preparedStatement.setLong(7, item.getId());
 			preparedStatement.executeUpdate();
 
 		} catch (Exception e) {

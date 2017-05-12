@@ -32,9 +32,9 @@ public class InventoryLoadMessageComposer extends OutgoingMessageComposer {
 
 		for (Item item : this.wallItems) {
 
-			response.writeInt(item.getGameId());
+			response.writeInt(item.getId());
 			response.writeString(item.getDefinition().getType().toUpperCase());
-			response.writeInt(item.getGameId());
+			response.writeInt(item.getId());
 			response.writeInt(item.getDefinition().getSpriteId());
 
 			if (item.getDefinition().getItemName().contains("landscape"))
@@ -59,9 +59,9 @@ public class InventoryLoadMessageComposer extends OutgoingMessageComposer {
 
 		for (Item item : floorItems) {
 
-			response.writeInt(item.getGameId());
+			response.writeInt(item.getId());
 			response.writeString(item.getDefinition().getType().toUpperCase());
-			response.writeInt(item.getGameId());
+			response.writeInt(item.getId());
 			response.writeInt(item.getDefinition().getSpriteId());
 
 			if (item.getDefinition().getInteractionType() == InteractionType.GROUPITEM || item.getDefinition().getInteractionType() == InteractionType.GLD_GATE) {

@@ -11,9 +11,9 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 public class PlaceItemMessageEvent implements MessageEvent {
 
 	@Override
-	public void handle(Player player, ClientMessage request) {
+	public void handle(Player player, ClientMessage reader) {
 
-		String input = request.readString();
+		String input = reader.readString();
 
 		String[] data = input.split(" ");
 		int id = Integer.parseInt(data[0].replace("-", ""));
@@ -30,30 +30,8 @@ public class PlaceItemMessageEvent implements MessageEvent {
 		}
 
 		if (item.getType() == ItemType.WALL) {
-
-            String[] posD = input.split(":")[1].split(" ");
-            
-            char side;
-            
-            if (posD[2].equals("l"))
-                side = 'l';
-            else
-                side = 'r';
-
-            String[] widD = posD[0].substring(2).split(",");
-            int widthX = Integer.parseInt(widD[0]);
-            int widthY = Integer.parseInt(widD[1]);
-
-            String[] lenD = posD[1].substring(2).split(",");
-            int lengthX = Integer.parseInt(lenD[0]);
-            int lengthY = Integer.parseInt(lenD[1]);
-            
-            item.setWidthX(widthX);
-            item.setWidthY(widthY);
-            item.setSide(side);
-            item.setLengthX(lengthX);
-            item.setLengthY(lengthY);
-			
+            String[] pos = input.split(input.split(":")[1], ' ');
+            item.parseWallPosition(pos[2] + "," + pos[0].substring(2) + " " + pos[1].substring(2));
 		}
 
 		if (item.getType() == ItemType.FLOOR) {
@@ -66,13 +44,13 @@ public class PlaceItemMessageEvent implements MessageEvent {
 			item.getPosition().setX(x);
 			item.getPosition().setY(y);
 			item.getPosition().setZ(height);
-			item.setRotation(rotation);
+			item.getPosition().setRotation(rotation);
 		
 		}
         
         room.getMapping().addItem(item);
 		
-		player.send(new RemoveInventoryItemComposer(item.getGameId()));
+		player.send(new RemoveInventoryItemComposer(item.getId()));
 		
 		player.getInventory().getItems().remove(item);
 		player.getInventory().forceUpdate(false);

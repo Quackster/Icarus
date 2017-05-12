@@ -23,7 +23,7 @@ public class NewInventoryItemsMessageComposer extends OutgoingMessageComposer {
 		
 		for (Item bought : items) {	
 			response.writeInt(1);
-			response.writeInt(bought.getGameId());
+			response.writeInt(bought.getId());
 		}
 		
 	}

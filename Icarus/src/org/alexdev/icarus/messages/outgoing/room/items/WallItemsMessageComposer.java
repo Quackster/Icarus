@@ -25,7 +25,7 @@ public class WallItemsMessageComposer extends OutgoingMessageComposer {
 
 		response.writeInt(this.items.length);
 		for (Item wallItem : this.items) {
-			wallItem.serialise(response);
+		    wallItem.getSerializer().serialiseItem(response);
 		}
 	}
 

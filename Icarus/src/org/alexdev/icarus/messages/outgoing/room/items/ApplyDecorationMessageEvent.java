@@ -50,7 +50,7 @@ public class ApplyDecorationMessageEvent implements MessageEvent {
 		player.getInventory().getItems().remove(item);
 		player.getInventory().forceUpdate(false);
 		
-		player.send(new RemoveInventoryItemComposer(item.getGameId()));
+		player.send(new RemoveInventoryItemComposer(item.getId()));
 		
 	}
 

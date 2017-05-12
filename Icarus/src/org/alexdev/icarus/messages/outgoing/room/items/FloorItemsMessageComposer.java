@@ -26,7 +26,7 @@ public class FloorItemsMessageComposer extends OutgoingMessageComposer {
 		response.writeInt(items.length);
 
 		for (Item floorItem : items) {
-			floorItem.serialise(response);
+			floorItem.getSerializer().serialiseItem(response);
 		}
 	}
 }

@@ -139,7 +139,7 @@ public class RoomMapping {
 
         item.setRoomId(this.room.getData().getId());
 
-        this.room.getItems().add(item);
+        this.room.getItems().put(item.getId(), item);
 
         if (item.getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, false);
@@ -153,13 +153,12 @@ public class RoomMapping {
 
     public void updateItemPosition(Item item, boolean rotation_only) {
 
-        item.setExtraData("");
-
         if (item.getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, rotation_only);
             this.regenerateCollisionMaps();
         }
 
+        item.updateStatus();
         item.save();
     }
 

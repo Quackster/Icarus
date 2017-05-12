@@ -31,7 +31,7 @@ public class Inventory {
 
 	public Item getItem(int id) {
 		
-		Optional<Item> inventoryItem = this.items.stream().filter(item -> item.getGameId() == id).findFirst();
+		Optional<Item> inventoryItem = this.items.stream().filter(item -> item.getId() == id).findFirst();
 		
 		if (inventoryItem.isPresent()) {
 			return inventoryItem.get();

@@ -24,7 +24,7 @@ public class PlaceItemMessageComposer extends OutgoingMessageComposer {
 			response.init(Outgoing.PlaceWallItemMessageComposer);
 		}
 		
-        this.item.serialise(response);
+        this.item.getSerializer().serialiseItem(response);
         response.writeString(this.item.getOwnerData().getUsername());
 		
 	}
