@@ -30,7 +30,7 @@ public class DanceMessageEvent implements MessageEvent {
             danceId = 0;
 		
         if (danceId > 0) {
-        	// TODO: Remove any carried items
+        	roomUser.carryItem(0); // remove anything they were carrying
         }
 
         roomUser.getRoom().send(new DanceMessageComposer(roomUser.getVirtualId(), danceId));

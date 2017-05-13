@@ -10,6 +10,7 @@ import org.alexdev.icarus.messages.outgoing.room.RoomDataMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.WallOptionsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.items.FloorItemsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.items.WallItemsMessageComposer;
+import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserDisplayMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
@@ -47,6 +48,10 @@ public class HeightmapMessageEvent implements MessageEvent {
 		for (Player players : room.getPlayers()) {
 			if (players.getRoomUser().isDancing()) {
 				player.send(new DanceMessageComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getDanceId()));
+			}
+			
+			if (players.getRoomUser().getCarryItem() > 0) {
+			    player.send(new CarryObjectComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getCarryItem())); 
 			}
 		}
 

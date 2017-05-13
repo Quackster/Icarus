@@ -13,6 +13,7 @@ import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.log.DateTime;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageComposer;
+import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.TalkMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 import org.alexdev.icarus.util.GameSettings;
@@ -42,6 +43,8 @@ public class RoomUser {
     private Entity entity;
     private Room room;
     private Item currentItem;
+    private int carryTimer;
+    private int carryItem;
 
     public RoomUser(Entity entity) {
         this.dispose();
@@ -224,6 +227,23 @@ public class RoomUser {
         this.path = path;
         this.isWalking = true;
     }
+    
+    public void carryItem(int vendingId) {
+        
+        if (vendingId == -1) {
+            return;
+        }
+        
+        this.carryTimer = 0;
+        this.carryItem = vendingId;
+        
+        if (vendingId > 0)
+            this.carryTimer = 240;
+        else
+            this.carryTimer = 0;
+        
+        this.room.send(new CarryObjectComposer(this.virtualId, vendingId)); 
+    }
 
     public void dispose() {
 
@@ -374,6 +394,22 @@ public class RoomUser {
 
     public void setCurrentItem(Item currentItem) {
         this.currentItem = currentItem;
+    }
+
+    public int getCarryTimer() {
+        return carryTimer;
+    }
+
+    public void setCarryTimer(int carryTimer) {
+        this.carryTimer = carryTimer;
+    }
+
+    public int getCarryItem() {
+        return carryItem;
+    }
+
+    public void setCarryItem(int carryItem) {
+        this.carryItem = carryItem;
     }
 
 }

@@ -11,7 +11,7 @@ import org.alexdev.icarus.game.room.RoomUser;
 public class VendingInteractor implements Interaction {
 
     @Override
-    public void onUseItem(final Item item, RoomUser roomUser) {
+    public void onUseItem(final Item item, final RoomUser roomUser) {
 
         // Can't get to the vending machine unless we're close
         Position front = item.getPosition().getSquareInFront();
@@ -32,15 +32,20 @@ public class VendingInteractor implements Interaction {
         item.setExtraData("1");
         item.updateStatus();
         
-        Runnable task = new Runnable() {
+        RoomManager.getScheduler().schedule(new Runnable() {
+            @Override
+            public void run() {
+                roomUser.carryItem(item.getDefinition().getVendingId());
+            }
+        }, 1, TimeUnit.SECONDS);
+
+        RoomManager.getScheduler().schedule(new Runnable() {
             @Override
             public void run() {
                 item.setExtraData("0");
                 item.updateStatus();
             }
-        };
-
-        RoomManager.getScheduler().schedule(task, 1, TimeUnit.SECONDS);
+        }, 2, TimeUnit.SECONDS);
     }
 
     @Override
