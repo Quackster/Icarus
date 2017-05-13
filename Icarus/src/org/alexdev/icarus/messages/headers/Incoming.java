@@ -51,5 +51,5 @@ public class Incoming {
     public static final Integer InteractFloorItemMessageEvent = 3249;//103
     public static final Integer InteractWallItemMessageEvent = 3674;
     public static final Integer DropItemMessageEvent = 3296;
-	
+    
 }

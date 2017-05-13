@@ -4,7 +4,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 
 public class NonBlockingExecutor {
-	
+    
     private ExecutorService executor;
  
     public NonBlockingExecutor(ExecutorService executor) {
@@ -13,7 +13,7 @@ public class NonBlockingExecutor {
  
     public <T> NonBlockingFuture<T> submitNonBlocking(final Callable<T> userTask) {
         
-    	final NonBlockingFuture<T> nbFuture = new NonBlockingFuture<>();
+        final NonBlockingFuture<T> nbFuture = new NonBlockingFuture<>();
         
         executor.submit(new Callable<T>() {
             @Override

@@ -7,16 +7,16 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class LeaveRoomMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
+    @Override
+    public void handle(Player player, ClientMessage request) {
 
-		Room room = player.getRoomUser().getRoom();
-		
-		if (room == null) {
-			return;
-		}
+        Room room = player.getRoomUser().getRoom();
+        
+        if (room == null) {
+            return;
+        }
 
-		room.leaveRoom(player, false);
-	}
+        room.leaveRoom(player, false);
+    }
 
 }

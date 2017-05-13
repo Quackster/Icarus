@@ -5,16 +5,16 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class RoomSettingsOKMessageComposer extends OutgoingMessageComposer {
 
-	private Room room;
+    private Room room;
 
-	public RoomSettingsOKMessageComposer(Room room) {
-		this.room = room;
-	}
+    public RoomSettingsOKMessageComposer(Room room) {
+        this.room = room;
+    }
 
-	@Override
-	public void write() {
-		response.init(-1);////Outgoing.RoomSettingsOKMessageComposer);
-		response.writeInt(this.room.getData().getId());
-	}
+    @Override
+    public void write() {
+        response.init(-1);////Outgoing.RoomSettingsOKMessageComposer);
+        response.writeInt(this.room.getData().getId());
+    }
 
 }

@@ -7,26 +7,26 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class PlaceItemMessageComposer extends OutgoingMessageComposer {
 
-	private Item item;
+    private Item item;
 
-	public PlaceItemMessageComposer(Item item) {
-		this.item = item;
-	}
+    public PlaceItemMessageComposer(Item item) {
+        this.item = item;
+    }
 
-	@Override
-	public void write() {
-		
-		if (this.item.getType() == ItemType.FLOOR) {
-			response.init(Outgoing.PlaceFloorItemMessageComposer); 
-		}
-		
-		if (this.item.getType() == ItemType.WALL) {
-			response.init(Outgoing.PlaceWallItemMessageComposer);
-		}
-		
+    @Override
+    public void write() {
+        
+        if (this.item.getType() == ItemType.FLOOR) {
+            response.init(Outgoing.PlaceFloorItemMessageComposer); 
+        }
+        
+        if (this.item.getType() == ItemType.WALL) {
+            response.init(Outgoing.PlaceWallItemMessageComposer);
+        }
+        
         this.item.getSerializer().serialiseItem(response);
         response.writeString(this.item.getOwnerData().getUsername());
-		
-	}
+        
+    }
 
 }

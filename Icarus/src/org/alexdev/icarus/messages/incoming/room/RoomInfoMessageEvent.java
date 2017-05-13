@@ -9,19 +9,19 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class RoomInfoMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
+    @Override
+    public void handle(Player player, ClientMessage request) {
 
-		Room room = RoomDao.getRoom(request.readInt(), true);
+        Room room = RoomDao.getRoom(request.readInt(), true);
 
-		if (room == null) {
-			return;
-		}
+        if (room == null) {
+            return;
+        }
         
-		int isLoading = request.readInt();
+        int isLoading = request.readInt();
         int checkEntry = request.readInt();
-		
+        
         player.send(new RoomDataMessageComposer(room, player, isLoading == 1, checkEntry == 1));
-	}
+    }
 
 }

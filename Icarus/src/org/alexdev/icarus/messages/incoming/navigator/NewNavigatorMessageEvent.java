@@ -10,35 +10,35 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class NewNavigatorMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
+    @Override
+    public void handle(Player player, ClientMessage request) {
 
-		/*Response response = new Response();
-		response.init(Outgoing.NavigatorLiftedRoomsComposer);
-		response.appendInt32(0);
-		player.send(response);
+        /*Response response = new Response();
+        response.init(Outgoing.NavigatorLiftedRoomsComposer);
+        response.appendInt32(0);
+        player.send(response);
 
-		response.init(Outgoing.NavigatorSavedSearchesComposer);
-		response.appendInt32(1);
-		response.appendInt32(1);
-		response.appendString("myworld_view");
-		response.appendString("test3");
-		response.appendString("");
-		player.send(response);
-		
-		response.init(Outgoing.NewNavigatorSizeMessageComposer);
-		response.appendInt32(50);//pref.NewnaviX);
-		response.appendInt32(50);//pref.NewnaviY);
-		response.appendInt32(580);//pref.NewnaviWidth);
-		response.appendInt32(600);//pref.NewnaviHeight);
-		response.appendBoolean(true);
-		response.appendInt32(1);
-		player.send(response);*/
+        response.init(Outgoing.NavigatorSavedSearchesComposer);
+        response.appendInt32(1);
+        response.appendInt32(1);
+        response.appendString("myworld_view");
+        response.appendString("test3");
+        response.appendString("");
+        player.send(response);
+        
+        response.init(Outgoing.NewNavigatorSizeMessageComposer);
+        response.appendInt32(50);//pref.NewnaviX);
+        response.appendInt32(50);//pref.NewnaviY);
+        response.appendInt32(580);//pref.NewnaviWidth);
+        response.appendInt32(600);//pref.NewnaviHeight);
+        response.appendBoolean(true);
+        response.appendInt32(1);
+        player.send(response);*/
 
-		player.send(new NavigatorMetaDataComposer(NavigatorManager.getParentTabs()));
-		player.send(new FlatCategoriesMessageComposer(NavigatorManager.getCategories()));
-		player.send(new NavigatorCategories(NavigatorManager.getCategories()));
+        player.send(new NavigatorMetaDataComposer(NavigatorManager.getParentTabs()));
+        player.send(new FlatCategoriesMessageComposer(NavigatorManager.getCategories()));
+        player.send(new NavigatorCategories(NavigatorManager.getCategories()));
 
-	}
+    }
 
 }

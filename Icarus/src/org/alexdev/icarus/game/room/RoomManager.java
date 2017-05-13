@@ -23,50 +23,50 @@ public class RoomManager {
         RoomDao.getPublicRooms(true);
     }
 
-	public static void add(Room room) {
+    public static void add(Room room) {
 
-		boolean add = true;
-		
-		for (Room loadedRoom : loadedRooms) {
+        boolean add = true;
+        
+        for (Room loadedRoom : loadedRooms) {
 
-			if (room.getData().getId() == loadedRoom.getData().getId()) {
-				add = false;
-			}
-		}
+            if (room.getData().getId() == loadedRoom.getData().getId()) {
+                add = false;
+            }
+        }
 
-		if (add) {
-			loadedRooms.add(room);
-		}
-	}
-	
-	public static List<Room> getPublicRooms() {
-		try {
-			return loadedRooms.stream().filter(room -> room.getData().getRoomType() == RoomType.PUBLIC).collect(Collectors.toList());
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	
-	public static List<Room> getPlayerRooms(int userId) {
-		try {
-			return loadedRooms.stream().filter(room -> room.getData().getOwnerId() == userId).collect(Collectors.toList());
-		} catch (Exception e) {
-			return null;
-		}
-	}
+        if (add) {
+            loadedRooms.add(room);
+        }
+    }
+    
+    public static List<Room> getPublicRooms() {
+        try {
+            return loadedRooms.stream().filter(room -> room.getData().getRoomType() == RoomType.PUBLIC).collect(Collectors.toList());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public static List<Room> getPlayerRooms(int userId) {
+        try {
+            return loadedRooms.stream().filter(room -> room.getData().getOwnerId() == userId).collect(Collectors.toList());
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
-	public static Room find(int roomId) {
+    public static Room find(int roomId) {
 
-		try {
-			return getLoadedRooms().stream().filter(r -> r.getData().getId() == roomId).findFirst().get();
-		} catch (Exception e) {
-			return null;
-		}
-	}
+        try {
+            return getLoadedRooms().stream().filter(r -> r.getData().getId() == roomId).findFirst().get();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
-	public static List<Room> getLoadedRooms() {
-		return loadedRooms;
-	}
+    public static List<Room> getLoadedRooms() {
+        return loadedRooms;
+    }
 
     public static ScheduledExecutorService getScheduler() {
         return scheduler;

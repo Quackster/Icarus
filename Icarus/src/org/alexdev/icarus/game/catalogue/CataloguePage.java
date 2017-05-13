@@ -17,10 +17,10 @@ public class CataloguePage {
     private List<String> images;
     private List<String> texts;
     private List<CatalogueItem> items = null;
-	private CataloguePageMessageComposer composer = null;
+    private CataloguePageMessageComposer composer = null;
 
-	
-	public CataloguePage(int id, String caption, int parentId, String type, String layout, int minimum_rank, List<String> images, List<String> texts, List<CatalogueItem> items) {
+    
+    public CataloguePage(int id, String caption, int parentId, String type, String layout, int minimum_rank, List<String> images, List<String> texts, List<CatalogueItem> items) {
         super();
         this.id = id;
         this.caption = caption;
@@ -31,7 +31,7 @@ public class CataloguePage {
         this.images = images;
         this.texts = texts;
     }
-	
+    
     public CatalogueItem getItem(int itemId) {
        
         for (CatalogueItem item : this.items) {
@@ -45,22 +45,22 @@ public class CataloguePage {
     
 
     public OutgoingMessageComposer getComposer() {
-		
-		if (this.composer == null) {
-			this.composer = new CataloguePageMessageComposer(this, "NORMAL");
-		}
-		
-		return composer;
-	}
-	
-	public List<CatalogueItem> getItems() {
-	    
-	    if (this.items == null) {
-		this.items = CatalogueManager.getPageItems(this.id);
-	    }
-	    
-	    return items;
-	}
+        
+        if (this.composer == null) {
+            this.composer = new CataloguePageMessageComposer(this, "NORMAL");
+        }
+        
+        return composer;
+    }
+    
+    public List<CatalogueItem> getItems() {
+        
+        if (this.items == null) {
+        this.items = CatalogueManager.getPageItems(this.id);
+        }
+        
+        return items;
+    }
 
     /**
      * @return the id
@@ -118,7 +118,7 @@ public class CataloguePage {
         return texts;
     }
 
-	
+    
 
 
 }

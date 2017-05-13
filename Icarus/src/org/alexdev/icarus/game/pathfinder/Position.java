@@ -2,53 +2,53 @@ package org.alexdev.icarus.game.pathfinder;
 
 public class Position {
 
-	private int X;
-	private int Y;
-	private double Z;
-	private int bodyRotation;
-	private int headRotation;
+    private int X;
+    private int Y;
+    private double Z;
+    private int bodyRotation;
+    private int headRotation;
 
-	public Position() {
-		this(0, 0, 0);
-	}
+    public Position() {
+        this(0, 0, 0);
+    }
 
-	public Position(int x, int y) {
-		this.X = x;
-		this.Y = y;
-		this.Z = 0;
-	}
+    public Position(int x, int y) {
+        this.X = x;
+        this.Y = y;
+        this.Z = 0;
+    }
 
-	public Position(int x, int y, double i) {
-		this.X = x;
-		this.Y = y;
-		this.Z = i;
-	}
+    public Position(int x, int y, double i) {
+        this.X = x;
+        this.Y = y;
+        this.Z = i;
+    }
 
-	public int getX() {
-		return X;
-	}
+    public int getX() {
+        return X;
+    }
 
-	public void setX(int x) {
-		X = x;
-	}
+    public void setX(int x) {
+        X = x;
+    }
 
-	public int getY() {
-		return Y;
-	}
+    public int getY() {
+        return Y;
+    }
 
-	public void setY(int y) {
-		Y = y;
-	}
+    public void setY(int y) {
+        Y = y;
+    }
 
-	public double getZ() {
-		return Z;
-	}
+    public double getZ() {
+        return Z;
+    }
 
-	public void setZ(double z) {
-		Z = z;
-	}
+    public void setZ(double z) {
+        Z = z;
+    }
 
-	public int getBodyRotation() {
+    public int getBodyRotation() {
         return bodyRotation;
     }
 
@@ -74,20 +74,20 @@ public class Position {
     }
 
     public Position add(Position other) {
-		return new Position(other.getX() + getX(), other.getY() + getY(), other.getZ() + getZ());
-	}
+        return new Position(other.getX() + getX(), other.getY() + getY(), other.getZ() + getZ());
+    }
 
-	public Position subtract(Position other) {
-		return new Position(other.getX() - getX(), other.getY() - getY(), other.getZ() - getZ());
-	}
+    public Position subtract(Position other) {
+        return new Position(other.getX() - getX(), other.getY() - getY(), other.getZ() - getZ());
+    }
 
-	public int getDistanceSquared(Position point) {
-		int dx = this.getX() - point.getX();
-		int dy = this.getY() - point.getY();
+    public int getDistanceSquared(Position point) {
+        int dx = this.getX() - point.getX();
+        int dy = this.getY() - point.getY();
 
-		return (dx * dx) + (dy * dy);
-	}
-	
+        return (dx * dx) + (dy * dy);
+    }
+    
     public Position getSquareInFront() {
         Position square = new Position(this.X, this.Y);
 
@@ -138,14 +138,14 @@ public class Position {
         return square;
     }
 
-	public boolean isMatch(Position point) {	
-		return (this.X == point.getX() && this.Y == point.getY());
-	}
+    public boolean isMatch(Position point) {    
+        return (this.X == point.getX() && this.Y == point.getY());
+    }
 
-	@Override
-	public String toString() {
+    @Override
+    public String toString() {
 
-		return "[" + this.X + ", " + this.Y + "]";
-	}
+        return "[" + this.X + ", " + this.Y + "]";
+    }
 
 }

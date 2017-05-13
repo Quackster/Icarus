@@ -5,17 +5,17 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class FollowErrorMessageComposer extends OutgoingMessageComposer {
 
-	private int errorID;
+    private int errorID;
 
-	public FollowErrorMessageComposer(int errorID) {
-		this.errorID = errorID;
-	}
+    public FollowErrorMessageComposer(int errorID) {
+        this.errorID = errorID;
+    }
 
-	@Override
-	public void write() {
-		response.init(Outgoing.FollowErrorMessageComposer);
+    @Override
+    public void write() {
+        response.init(Outgoing.FollowErrorMessageComposer);
         response.writeInt(this.errorID);
 
-	}
+    }
 
 }

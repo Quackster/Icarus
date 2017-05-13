@@ -14,143 +14,143 @@ import com.jolbox.bonecp.BoneCPConfig;
 
 public class Storage {
 
-	private BoneCP connections = null;
-	private BoneCPConfig config;
-	private boolean isConnected = false;
+    private BoneCP connections = null;
+    private BoneCPConfig config;
+    private boolean isConnected = false;
 
-	public Storage(String host, String username, String password, String db) {
+    public Storage(String host, String username, String password, String db) {
 
-		try {
+        try {
 
-			config = new BoneCPConfig();
-			config.setJdbcUrl("jdbc:mysql://" + host + "/" + db);
-			config.setUsername(username);
-			config.setPassword(password);
+            config = new BoneCPConfig();
+            config.setJdbcUrl("jdbc:mysql://" + host + "/" + db);
+            config.setUsername(username);
+            config.setPassword(password);
 
-			config.setMinConnectionsPerPartition(0);
-			config.setMaxConnectionsPerPartition(5);
-			config.setConnectionTimeout(1000, TimeUnit.SECONDS);
-			config.setPartitionCount(Runtime.getRuntime().availableProcessors()); // set partion count to number of cores (inc. hyperthreading)
+            config.setMinConnectionsPerPartition(0);
+            config.setMaxConnectionsPerPartition(5);
+            config.setConnectionTimeout(1000, TimeUnit.SECONDS);
+            config.setPartitionCount(Runtime.getRuntime().availableProcessors()); // set partion count to number of cores (inc. hyperthreading)
 
-			this.connections = new BoneCP(config);
-			this.isConnected = true;
+            this.connections = new BoneCP(config);
+            this.isConnected = true;
 
-		} catch (Exception ex) {
-			this.isConnected = false;
-			Log.exception(ex);
-		}
-	}
+        } catch (Exception ex) {
+            this.isConnected = false;
+            Log.exception(ex);
+        }
+    }
 
-	public PreparedStatement prepare(String query, Connection conn) throws SQLException {
+    public PreparedStatement prepare(String query, Connection conn) throws SQLException {
 
-		try {
-			conn = this.connections.getConnection();
-			return conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        try {
+            conn = this.connections.getConnection();
+            return conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} finally {
-			conn.close();
-		}
+        } catch(SQLException e) {
+            e.printStackTrace();
+        } finally {
+            conn.close();
+        }
 
-		return null;
-	}
-	
-	public void execute(String query) {
-	    
-		Connection sqlConnection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
+        return null;
+    }
+    
+    public void execute(String query) {
+        
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
-		try {
+        try {
 
-			sqlConnection = this.getConnection();
-			preparedStatement = this.prepare(query, sqlConnection);
-			preparedStatement.execute();
+            sqlConnection = this.getConnection();
+            preparedStatement = this.prepare(query, sqlConnection);
+            preparedStatement.execute();
 
-		} catch (Exception e) {
-			Log.exception(e);
-		} finally {
-			Storage.closeSilently(resultSet);
-			Storage.closeSilently(preparedStatement);
-			Storage.closeSilently(sqlConnection);
-		}
-	}
-	
-	public String getString(String query) {
-		
-		String value = null;
-		
-		Connection sqlConnection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+    
+    public String getString(String query) {
+        
+        String value = null;
+        
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
-		try {
+        try {
 
-			sqlConnection = this.getConnection();
-			preparedStatement = this.prepare(query, sqlConnection);
-			
-			resultSet = preparedStatement.executeQuery();
-			resultSet.next();
-			
-			value = resultSet.getString(query.split(" ")[1]);
+            sqlConnection = this.getConnection();
+            preparedStatement = this.prepare(query, sqlConnection);
+            
+            resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            
+            value = resultSet.getString(query.split(" ")[1]);
 
-		} catch (Exception e) {
-			Log.exception(e);
-		} finally {
-			Storage.closeSilently(resultSet);
-			Storage.closeSilently(preparedStatement);
-			Storage.closeSilently(sqlConnection);
-		}
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
 
-		return value;
-	}
-	
-	public void checkDriver() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
+        return value;
+    }
+    
+    public void checkDriver() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-	public int getConnectionCount() {
-		return this.connections.getTotalLeased();
-	}
+    public int getConnectionCount() {
+        return this.connections.getTotalLeased();
+    }
 
-	public Connection getConnection() {
+    public Connection getConnection() {
 
-		try {
-			return this.connections.getConnection();
-		} catch (SQLException e) {
-			Log.exception(e);
-		}
+        try {
+            return this.connections.getConnection();
+        } catch (SQLException e) {
+            Log.exception(e);
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public boolean isConnected() {
-		return this.isConnected;
-	}
+    public boolean isConnected() {
+        return this.isConnected;
+    }
 
-	public static void closeSilently(ResultSet resultSet) {
-		try {
-			resultSet.close();
-		} catch (Exception e) { }
-		
-	}
+    public static void closeSilently(ResultSet resultSet) {
+        try {
+            resultSet.close();
+        } catch (Exception e) { }
+        
+    }
 
-	public static void closeSilently(PreparedStatement preparedStatement) {
-		try {
-			preparedStatement.close();
-		} catch (Exception e) { }
-		
-	}
+    public static void closeSilently(PreparedStatement preparedStatement) {
+        try {
+            preparedStatement.close();
+        } catch (Exception e) { }
+        
+    }
 
-	public static void closeSilently(Connection sqlConnection) {
-		try {
-			sqlConnection.close();
-		} catch (Exception e) { }
-		
-	}
+    public static void closeSilently(Connection sqlConnection) {
+        try {
+            sqlConnection.close();
+        } catch (Exception e) { }
+        
+    }
 }

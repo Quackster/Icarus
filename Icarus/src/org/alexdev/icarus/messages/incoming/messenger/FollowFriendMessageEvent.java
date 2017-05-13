@@ -8,9 +8,9 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class FollowFriendMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
-		
+    @Override
+    public void handle(Player player, ClientMessage request) {
+        
         int friendId = request.readInt();
         int errorID = -1;
 
@@ -18,7 +18,7 @@ public class FollowFriendMessageEvent implements MessageEvent {
         
         if (client != null) {
             if (client.inRoom()) {
-            	player.send(new FollowBuddyMessageComposer(client.getRoom().getData().getId()));
+                player.send(new FollowBuddyMessageComposer(client.getRoom().getData().getId()));
             }
 
             else errorID = 2; // User is not in a room
@@ -30,6 +30,6 @@ public class FollowFriendMessageEvent implements MessageEvent {
         if (errorID != -1) {
             player.send(new FollowErrorMessageComposer(errorID));
         }
-	}
+    }
 
 }

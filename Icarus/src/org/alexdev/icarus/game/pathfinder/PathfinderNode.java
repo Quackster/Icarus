@@ -1,7 +1,7 @@
 package org.alexdev.icarus.game.pathfinder;
 
 public class PathfinderNode implements Comparable<PathfinderNode> {
-	
+    
     private Position position;
     private PathfinderNode nextNode;
 

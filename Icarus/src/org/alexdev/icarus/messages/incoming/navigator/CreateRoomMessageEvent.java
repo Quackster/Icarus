@@ -9,10 +9,10 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class CreateRoomMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
-		
-		String name = request.readString();
+    @Override
+    public void handle(Player player, ClientMessage request) {
+        
+        String name = request.readString();
         String description = request.readString();
         String model = request.readString();
         int category = request.readInt();
@@ -20,13 +20,13 @@ public class CreateRoomMessageEvent implements MessageEvent {
         int tradeState = request.readInt();
         
         if (name == null || description == null || model == null) {
-        	return;
+            return;
         }
         
         Room room = RoomDao.createRoom(player, name, description, model, category, usersMax, tradeState);
         
         player.send(new CreateRoomMessageComposer(room.getData().getId(), room.getData().getName()));
 
-	}
+    }
 
 }

@@ -5,50 +5,50 @@ import java.util.List;
 
 public class AffectedTile {
 
-	public static List<Position> getAffectedTiles(int length, int width, int posX, int posY, int rotation) {
-		
-		List<Position> points = new ArrayList<Position>();
+    public static List<Position> getAffectedTiles(int length, int width, int posX, int posY, int rotation) {
+        
+        List<Position> points = new ArrayList<Position>();
 
-		if (length > 1)	{
-			if (rotation == 0 || rotation == 4) {
-				for (int i = 1; i < length; i++) {
-					points.add(new Position(posX, posY + i, i));
+        if (length > 1)    {
+            if (rotation == 0 || rotation == 4) {
+                for (int i = 1; i < length; i++) {
+                    points.add(new Position(posX, posY + i, i));
 
-					for (int j = 1; j < width; j++) {
-						points.add(new Position(posX + j, posY + i, (i < j) ? j : i));
-					}
-				}
-			} else if (rotation == 2 || rotation == 6) {
-				for (int i = 1; i < length; i++) {
-					points.add(new Position(posX + i, posY, i));
+                    for (int j = 1; j < width; j++) {
+                        points.add(new Position(posX + j, posY + i, (i < j) ? j : i));
+                    }
+                }
+            } else if (rotation == 2 || rotation == 6) {
+                for (int i = 1; i < length; i++) {
+                    points.add(new Position(posX + i, posY, i));
 
-					for (int j = 1; j < width; j++) {
-						points.add(new Position(posX + i, posY + j, (i < j) ? j : i));
-					}
-				}
-			}
-		}
+                    for (int j = 1; j < width; j++) {
+                        points.add(new Position(posX + i, posY + j, (i < j) ? j : i));
+                    }
+                }
+            }
+        }
 
-		if (width > 1) {
-			if (rotation == 0 || rotation == 4) {
-				for (int i = 1; i < width; i++) {
-					points.add(new Position(posX + i, posY, i));
+        if (width > 1) {
+            if (rotation == 0 || rotation == 4) {
+                for (int i = 1; i < width; i++) {
+                    points.add(new Position(posX + i, posY, i));
 
-					for (int j = 1; j < length; j++) {
-						points.add(new Position(posX + i, posY + j, (i < j) ? j : i));
-					}
-				}
-			} else if (rotation == 2 || rotation == 6) {
-				for (int i = 1; i < width; i++) {
-					points.add(new Position(posX, posY + i, i));
+                    for (int j = 1; j < length; j++) {
+                        points.add(new Position(posX + i, posY + j, (i < j) ? j : i));
+                    }
+                }
+            } else if (rotation == 2 || rotation == 6) {
+                for (int i = 1; i < width; i++) {
+                    points.add(new Position(posX, posY + i, i));
 
-					for (int j = 1; j < length; j++) {
-						points.add(new Position(posX + j, posY + i, (i < j) ? j : i));
-					}
-				}
-			}
-		}
-		
-		return points;
-	}
+                    for (int j = 1; j < length; j++) {
+                        points.add(new Position(posX + j, posY + i, (i < j) ? j : i));
+                    }
+                }
+            }
+        }
+        
+        return points;
+    }
 }

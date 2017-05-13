@@ -5,16 +5,16 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class RemoveInventoryItemComposer extends OutgoingMessageComposer {
 
-	private int itemId;
+    private int itemId;
 
-	public RemoveInventoryItemComposer(int gameId) {
-		this.itemId = gameId;
-	}
+    public RemoveInventoryItemComposer(int gameId) {
+        this.itemId = gameId;
+    }
 
-	@Override
-	public void write() {
-		response.init(Outgoing.RemoveInventoryItemComposer);
-		response.writeInt(this.itemId);
-	}
+    @Override
+    public void write() {
+        response.init(Outgoing.RemoveInventoryItemComposer);
+        response.writeInt(this.itemId);
+    }
 
 }

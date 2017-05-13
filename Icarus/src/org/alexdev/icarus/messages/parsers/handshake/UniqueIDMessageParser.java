@@ -5,10 +5,10 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class UniqueIDMessageParser implements IncomingMessageParser {
 
-	@Override
-	public void read(ClientMessage reader) {
-		// TODO Auto-generated method stub
+    @Override
+    public void read(ClientMessage reader) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
 }

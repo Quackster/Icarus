@@ -5,16 +5,16 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class CreditsMessageComposer extends OutgoingMessageComposer {
 
-	private int credits;
+    private int credits;
 
-	public CreditsMessageComposer(int credits) {
-		this.credits = credits;
-	}
+    public CreditsMessageComposer(int credits) {
+        this.credits = credits;
+    }
 
-	@Override
-	public void write() {
-		response.init(Outgoing.CreditsMessageComposer);
-		response.writeString(this.credits + ".0");
-	}
+    @Override
+    public void write() {
+        response.init(Outgoing.CreditsMessageComposer);
+        response.writeString(this.credits + ".0");
+    }
 
 }

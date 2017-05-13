@@ -8,10 +8,10 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class InfoRetrieveMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
-		player.send(new UserObjectMessageComposer(player.getDetails()));
-		player.send(new SendPerkAllowancesMessageComposer());
-	}
+    @Override
+    public void handle(Player player, ClientMessage request) {
+        player.send(new UserObjectMessageComposer(player.getDetails()));
+        player.send(new SendPerkAllowancesMessageComposer());
+    }
 
 }

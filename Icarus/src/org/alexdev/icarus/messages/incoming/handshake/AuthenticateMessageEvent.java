@@ -13,38 +13,38 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class AuthenticateMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
-	    
-	    if (player.getDetails().isAuthenticated()) {
-	        return;
-	    }
-	    
-		String sso = request.readString();
-		
-		boolean loginSuccess = PlayerDao.login(player, sso);
-		
-		if (!loginSuccess) {
-			player.getNetwork().close();
-			return;
-		}
-		
-		if (player.getMachineId() == null) {
-			player.getNetwork().close();
-			return;
-		}
-		
-		if (PlayerManager.checkForDuplicates(player)) {
-			player.getNetwork().close();
-			return;
-		}
-		
-		player.send(new UniqueMachineIDMessageComposer(player.getMachineId()));
-		player.send(new AuthenticationOKMessageComposer());
-		player.send(new HomeRoomMessageComposer(2, false));
-		player.send(new LandingWidgetMessageComposer());
-		player.send(new AvailabilityMessageComposer());
-		player.login();
-		
-	}
+    @Override
+    public void handle(Player player, ClientMessage request) {
+        
+        if (player.getDetails().isAuthenticated()) {
+            return;
+        }
+        
+        String sso = request.readString();
+        
+        boolean loginSuccess = PlayerDao.login(player, sso);
+        
+        if (!loginSuccess) {
+            player.getNetwork().close();
+            return;
+        }
+        
+        if (player.getMachineId() == null) {
+            player.getNetwork().close();
+            return;
+        }
+        
+        if (PlayerManager.checkForDuplicates(player)) {
+            player.getNetwork().close();
+            return;
+        }
+        
+        player.send(new UniqueMachineIDMessageComposer(player.getMachineId()));
+        player.send(new AuthenticationOKMessageComposer());
+        player.send(new HomeRoomMessageComposer(2, false));
+        player.send(new LandingWidgetMessageComposer());
+        player.send(new AvailabilityMessageComposer());
+        player.login();
+        
+    }
 }

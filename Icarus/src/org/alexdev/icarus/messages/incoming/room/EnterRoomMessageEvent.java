@@ -14,60 +14,60 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class EnterRoomMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
+    @Override
+    public void handle(Player player, ClientMessage request) {
 
-		Room room = RoomDao.getRoom(request.readInt(), true);
+        Room room = RoomDao.getRoom(request.readInt(), true);
 
-		if (room == null) {
-			return;
-		}
-		
-		if (player.inRoom()) {
-		    player.getRoom().leaveRoom(player, false);
-		}
+        if (room == null) {
+            return;
+        }
+        
+        if (player.inRoom()) {
+            player.getRoom().leaveRoom(player, false);
+        }
 
-		String pass = request.readString();
-		
-		boolean isOwner = room.hasRights(player, true);
-		player.send(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
+        String pass = request.readString();
+        
+        boolean isOwner = room.hasRights(player, true);
+        player.send(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
 
-		if (room.getData().getUsersNow() >= room.getData().getUsersMax()) {
+        if (room.getData().getUsersNow() >= room.getData().getUsersMax()) {
 
-			if (!player.getDetails().hasFuse("user_enter_full_rooms") && player.getDetails().getId() != room.getData().getOwnerId()) {
+            if (!player.getDetails().hasFuse("user_enter_full_rooms") && player.getDetails().getId() != room.getData().getOwnerId()) {
 
-				player.send(new RoomEnterErrorMessageComposer(1));
-				//player.send(new HotelViewMessageComposer());
-				return;
-			}
-		}
+                player.send(new RoomEnterErrorMessageComposer(1));
+                //player.send(new HotelViewMessageComposer());
+                return;
+            }
+        }
 
-		if (room.getData().getState().getStateCode() > 0 && !room.hasRights(player, false)) {
-			if (room.getData().getState() == RoomState.DOORBELL) {
+        if (room.getData().getState().getStateCode() > 0 && !room.hasRights(player, false)) {
+            if (room.getData().getState() == RoomState.DOORBELL) {
 
-				if (room.getPlayers().size() > 0) {
-					//player.send(new HotelViewMessageComposer());
-					player.send(new GenericDoorbellMessageComposer(1));
-					room.send(new GenericDoorbellMessageComposer(player.getDetails().getUsername()), true);
-				} else {
+                if (room.getPlayers().size() > 0) {
+                    //player.send(new HotelViewMessageComposer());
+                    player.send(new GenericDoorbellMessageComposer(1));
+                    room.send(new GenericDoorbellMessageComposer(player.getDetails().getUsername()), true);
+                } else {
 
-					player.send(new GenericNoAnswerDoorbellMessageComposer());
-					//player.send(new HotelViewMessageComposer());
-				}
+                    player.send(new GenericNoAnswerDoorbellMessageComposer());
+                    //player.send(new HotelViewMessageComposer());
+                }
 
-				return;
-			}
+                return;
+            }
 
-			if (room.getData().getState() == RoomState.PASSWORD) {
-				if (!pass.equals(room.getData().getPassword())) {
-					player.send(new GenericErrorMessageComposer(-100002));
-					//player.send(new HotelViewMessageComposer());
-					return;
-				}
-			}
-		}
-		
-		room.loadRoom(player);
-	}
+            if (room.getData().getState() == RoomState.PASSWORD) {
+                if (!pass.equals(room.getData().getPassword())) {
+                    player.send(new GenericErrorMessageComposer(-100002));
+                    //player.send(new HotelViewMessageComposer());
+                    return;
+                }
+            }
+        }
+        
+        room.loadRoom(player);
+    }
 
 }

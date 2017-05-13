@@ -6,19 +6,19 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class ChatOptionsMessageComposer extends OutgoingMessageComposer {
 
-	private Room room;
+    private Room room;
 
-	public ChatOptionsMessageComposer(Room room) {
-		this.room = room;
-	}
+    public ChatOptionsMessageComposer(Room room) {
+        this.room = room;
+    }
 
-	@Override
-	public void write() {
-		response.init(Outgoing.ChatOptionsMessageComposer);
-		response.writeInt(room.getData().getChatMode());
-		response.writeInt(room.getData().getChatSize());
-		response.writeInt(room.getData().getChatSpeed());
-		response.writeInt(room.getData().getChatMaxDistance());
-		response.writeInt(room.getData().getChatFloodProtection());
-	}
+    @Override
+    public void write() {
+        response.init(Outgoing.ChatOptionsMessageComposer);
+        response.writeInt(room.getData().getChatMode());
+        response.writeInt(room.getData().getChatSize());
+        response.writeInt(room.getData().getChatSpeed());
+        response.writeInt(room.getData().getChatMaxDistance());
+        response.writeInt(room.getData().getChatFloodProtection());
+    }
 }

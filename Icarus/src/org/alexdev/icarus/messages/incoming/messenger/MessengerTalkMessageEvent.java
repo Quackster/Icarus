@@ -8,25 +8,25 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class MessengerTalkMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
-		
-		int friendId = request.readInt();
-		
-		if (!player.getMessenger().isFriend(friendId)) {
-			return;
-		}
-		
-		MessengerUser friend = player.getMessenger().getFriend(friendId);
-		
-		if (friend.isOnline()) {
-		
-			String message = request.readString();
+    @Override
+    public void handle(Player player, ClientMessage request) {
+        
+        int friendId = request.readInt();
+        
+        if (!player.getMessenger().isFriend(friendId)) {
+            return;
+        }
+        
+        MessengerUser friend = player.getMessenger().getFriend(friendId);
+        
+        if (friend.isOnline()) {
+        
+            String message = request.readString();
             friend.getPlayer().send(new MessengerMessageComposer(player.getDetails().getId(), message));
-			
-		} else {
-			// TODO: Offline messaging
-		}
-	}
+            
+        } else {
+            // TODO: Offline messaging
+        }
+    }
 
 }

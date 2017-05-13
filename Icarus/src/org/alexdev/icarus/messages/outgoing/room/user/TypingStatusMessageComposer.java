@@ -5,20 +5,20 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class TypingStatusMessageComposer extends OutgoingMessageComposer {
 
-	private int virtualId;
-	private boolean typeStart;
+    private int virtualId;
+    private boolean typeStart;
 
-	public TypingStatusMessageComposer(int virtualId, boolean typeStart) {
-		this.virtualId = virtualId;
-		this.typeStart = typeStart;
-	}
+    public TypingStatusMessageComposer(int virtualId, boolean typeStart) {
+        this.virtualId = virtualId;
+        this.typeStart = typeStart;
+    }
 
-	@Override
-	public void write() {
-		response.init(Outgoing.TypingStatusMessageComposer);
-		response.writeInt(this.virtualId);
-		response.writeInt(this.typeStart);
-		
-	}
+    @Override
+    public void write() {
+        response.init(Outgoing.TypingStatusMessageComposer);
+        response.writeInt(this.virtualId);
+        response.writeInt(this.typeStart);
+        
+    }
 
 }

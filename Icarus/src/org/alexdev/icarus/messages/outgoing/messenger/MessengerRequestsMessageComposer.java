@@ -9,26 +9,26 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class MessengerRequestsMessageComposer extends OutgoingMessageComposer {
 
-	private Player player;
-	private List<MessengerUser> requests;
+    private Player player;
+    private List<MessengerUser> requests;
 
-	public MessengerRequestsMessageComposer(Player player, List<MessengerUser> requests) {
-		this.player = player;
-		this.requests = requests;
-	}
+    public MessengerRequestsMessageComposer(Player player, List<MessengerUser> requests) {
+        this.player = player;
+        this.requests = requests;
+    }
 
-	@Override
-	public void write() {
-		
-		response.init(Outgoing.MessengerRequestsMessageComposer);
-		response.writeInt(this.player.getDetails().getId());
-		response.writeInt(this.requests.size()); 
+    @Override
+    public void write() {
+        
+        response.init(Outgoing.MessengerRequestsMessageComposer);
+        response.writeInt(this.player.getDetails().getId());
+        response.writeInt(this.requests.size()); 
 
-		for (MessengerUser user : this.requests) {
-			response.writeInt(user.getUserId());
-			response.writeString(user.getDetails().getUsername());
-			response.writeString(user.getDetails().getFigure());
-		}
-	}
+        for (MessengerUser user : this.requests) {
+            response.writeInt(user.getUserId());
+            response.writeString(user.getDetails().getUsername());
+            response.writeString(user.getDetails().getFigure());
+        }
+    }
 
 }

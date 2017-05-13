@@ -1,10 +1,10 @@
 package org.alexdev.icarus.pooling;
 
 public class NonBlockingFuture<T> {
-	
+    
     private FutureHandler<T> handler;
     private T result;
-	private Throwable failure;
+    private Throwable failure;
     private boolean isCompleted;
  
     public void setHandler(FutureHandler<T> handler) {
@@ -32,6 +32,6 @@ public class NonBlockingFuture<T> {
     }
     
     public T getResult() {
-		return result;
+        return result;
     }
 }

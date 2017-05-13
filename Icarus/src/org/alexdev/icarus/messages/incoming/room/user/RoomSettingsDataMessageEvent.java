@@ -8,18 +8,18 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class RoomSettingsDataMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
-		
-		int roomId = request.readInt();
-		
-		Room room = player.getRoomUser().getRoom();
-		
-		if (room.getData().getId() != roomId) {
-			return;
-		}
-		
-		player.send(new RoomSettingsDataMessageComposer(room));
-	}
+    @Override
+    public void handle(Player player, ClientMessage request) {
+        
+        int roomId = request.readInt();
+        
+        Room room = player.getRoomUser().getRoom();
+        
+        if (room.getData().getId() != roomId) {
+            return;
+        }
+        
+        player.send(new RoomSettingsDataMessageComposer(room));
+    }
 
 }

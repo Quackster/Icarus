@@ -8,17 +8,17 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class DoorbellEnterMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
-		
-		int roomId = request.readInt();
-		
-		Room room = RoomManager.find(roomId);
-		
-		if (room == null) {
-			return;
-		}
-		
-		room.loadRoom(player);
-	}
+    @Override
+    public void handle(Player player, ClientMessage request) {
+        
+        int roomId = request.readInt();
+        
+        Room room = RoomManager.find(roomId);
+        
+        if (room == null) {
+            return;
+        }
+        
+        room.loadRoom(player);
+    }
 }

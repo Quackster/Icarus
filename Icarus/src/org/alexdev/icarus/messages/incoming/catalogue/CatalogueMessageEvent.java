@@ -11,22 +11,22 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class CatalogueMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
-	
-		String type = request.readString();
-		
-		if (type == null) {
-			return;
-		}
-		
-		List<CatalogueTab> parentTabs = CatalogueManager.getParentTabs(player.getDetails().getRank());
-		
-		if (parentTabs == null) {
-			return;
-		}
-		
-		player.send(new CatalogueTabMessageComposer(type, parentTabs));
-	}
+    @Override
+    public void handle(Player player, ClientMessage request) {
+    
+        String type = request.readString();
+        
+        if (type == null) {
+            return;
+        }
+        
+        List<CatalogueTab> parentTabs = CatalogueManager.getParentTabs(player.getDetails().getRank());
+        
+        if (parentTabs == null) {
+            return;
+        }
+        
+        player.send(new CatalogueTabMessageComposer(type, parentTabs));
+    }
 
 }

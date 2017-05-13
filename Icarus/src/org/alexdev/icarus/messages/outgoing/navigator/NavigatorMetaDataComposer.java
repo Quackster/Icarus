@@ -8,20 +8,20 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class NavigatorMetaDataComposer extends OutgoingMessageComposer {
 
-	private List<NavigatorTab> tabs;
+    private List<NavigatorTab> tabs;
 
-	public NavigatorMetaDataComposer(List<NavigatorTab> tabs) {
-		this.tabs = tabs;
-	}
+    public NavigatorMetaDataComposer(List<NavigatorTab> tabs) {
+        this.tabs = tabs;
+    }
 
-	@Override
-	public void write() {
-		response.init(Outgoing.NavigatorMetaDataComposer);
-		response.writeInt(this.tabs.size());
+    @Override
+    public void write() {
+        response.init(Outgoing.NavigatorMetaDataComposer);
+        response.writeInt(this.tabs.size());
 
-		for (NavigatorTab tab : this.tabs) {
-			response.writeString(tab.getTabName());
-			response.writeInt(0);
-		}
-	}
+        for (NavigatorTab tab : this.tabs) {
+            response.writeString(tab.getTabName());
+            response.writeInt(0);
+        }
+    }
 }

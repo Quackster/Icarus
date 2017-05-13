@@ -10,17 +10,17 @@ import org.alexdev.icarus.game.room.settings.RoomType;
 
 public class PopularPopulator extends RoomPopulator {
 
-	@Override
-	public List<Room> generateListing(boolean limit, Player player) {
+    @Override
+    public List<Room> generateListing(boolean limit, Player player) {
 
-		List<Room> loadedRooms =  RoomManager.getLoadedRooms();
-		List<Room> activeRooms = loadedRooms.stream().filter(r -> r.getData().getUsersNow() > 0 && r.getData().getRoomType() == RoomType.PRIVATE).collect(Collectors.toList());
-		
-		activeRooms.sort((room1, room2)
-		->room2.getData().getUsersNow()
-		- room1.getData().getUsersNow());
+        List<Room> loadedRooms =  RoomManager.getLoadedRooms();
+        List<Room> activeRooms = loadedRooms.stream().filter(r -> r.getData().getUsersNow() > 0 && r.getData().getRoomType() == RoomType.PRIVATE).collect(Collectors.toList());
+        
+        activeRooms.sort((room1, room2)
+        ->room2.getData().getUsersNow()
+        - room1.getData().getUsersNow());
 
-		return activeRooms;
-	}
+        return activeRooms;
+    }
 
 }

@@ -7,10 +7,10 @@ import com.google.common.collect.Lists;
 
 public class FriendsPopulator extends RoomPopulator {
 
-	@Override
-	public List<Room> generateListing(boolean limit, Player player) {
+    @Override
+    public List<Room> generateListing(boolean limit, Player player) {
 
-		return Lists.newArrayList();
-	}
+        return Lists.newArrayList();
+    }
 
 }

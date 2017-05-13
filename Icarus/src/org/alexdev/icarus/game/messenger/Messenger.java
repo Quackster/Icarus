@@ -9,102 +9,102 @@ import org.alexdev.icarus.messages.outgoing.messenger.MessengerUpdateMessageComp
 
 public class Messenger {
 
-	private boolean initalised;
-	private Player player;
+    private boolean initalised;
+    private Player player;
 
-	private List<MessengerUser> friends;
-	private List<MessengerUser> requests;
+    private List<MessengerUser> friends;
+    private List<MessengerUser> requests;
 
-	public Messenger(Player player) {
-		this.player = player;
-		this.initalised = false;
-	}
+    public Messenger(Player player) {
+        this.player = player;
+        this.initalised = false;
+    }
 
-	public void load() {
-		this.friends = MessengerDao.getFriends(player.getDetails().getId());
-		this.requests = MessengerDao.getRequests(player.getDetails().getId());
-	}
+    public void load() {
+        this.friends = MessengerDao.getFriends(player.getDetails().getId());
+        this.requests = MessengerDao.getRequests(player.getDetails().getId());
+    }
 
-	public boolean hasReqest(int id) {
-		return this.getRequest(id) != null;
-	}
-	
-	public boolean isFriend(int id) {
-		return this.getFriend(id) != null;
-	}
-	
-	public MessengerUser getFriend(int id) {
-		
-		Optional<MessengerUser> friend = this.friends.stream().filter(f -> f.getDetails().getId() == id).findFirst();
+    public boolean hasReqest(int id) {
+        return this.getRequest(id) != null;
+    }
+    
+    public boolean isFriend(int id) {
+        return this.getFriend(id) != null;
+    }
+    
+    public MessengerUser getFriend(int id) {
+        
+        Optional<MessengerUser> friend = this.friends.stream().filter(f -> f.getDetails().getId() == id).findFirst();
 
-		if (friend.isPresent()) {
-			return friend.get();
-		} else {
-			return null;
-		}
-	}
-	
-	public MessengerUser getRequest(int id) {
+        if (friend.isPresent()) {
+            return friend.get();
+        } else {
+            return null;
+        }
+    }
+    
+    public MessengerUser getRequest(int id) {
 
-		Optional<MessengerUser> request = this.requests.stream().filter(f -> f.getDetails().getId() == id).findFirst();
+        Optional<MessengerUser> request = this.requests.stream().filter(f -> f.getDetails().getId() == id).findFirst();
 
-		if (request.isPresent()) {
-			return request.get();
-		} else {
-			return null;
-		}
-	}
+        if (request.isPresent()) {
+            return request.get();
+        } else {
+            return null;
+        }
+    }
 
 
-	public void removeFriend(int id) {
-		MessengerUser user = this.getFriend(id);
-		this.friends.remove(user);
-	}
-	
-	public void sendStatus(boolean forceOffline) {
+    public void removeFriend(int id) {
+        MessengerUser user = this.getFriend(id);
+        this.friends.remove(user);
+    }
+    
+    public void sendStatus(boolean forceOffline) {
 
-	    MessengerUpdateMessageComposer message = new MessengerUpdateMessageComposer(new MessengerUser(this.player.getDetails().getId()), forceOffline);
+        MessengerUpdateMessageComposer message = new MessengerUpdateMessageComposer(new MessengerUser(this.player.getDetails().getId()), forceOffline);
 
-		for (MessengerUser friend : this.friends) {
+        for (MessengerUser friend : this.friends) {
 
-			if (friend.isOnline()) {
-				if (friend.getPlayer().getMessenger().hasInitalised()) {
-					friend.getPlayer().send(message);
-				}
-			}
-		}
-	}
-	
-	public void dispose() {
+            if (friend.isOnline()) {
+                if (friend.getPlayer().getMessenger().hasInitalised()) {
+                    friend.getPlayer().send(message);
+                }
+            }
+        }
+    }
+    
+    public void dispose() {
 
-		this.sendStatus(false);
-		
-		if (this.friends != null) {
-			this.friends.clear();
-			this.friends = null;
-		}
+        this.sendStatus(false);
+        
+        if (this.friends != null) {
+            this.friends.clear();
+            this.friends = null;
+        }
 
-		if (this.requests != null) {
-			this.requests.clear();
-			this.requests = null;
-		}
+        if (this.requests != null) {
+            this.requests.clear();
+            this.requests = null;
+        }
 
-		this.player = null;
-	}
+        this.player = null;
+    }
 
-	public List<MessengerUser> getFriends() {
-		return friends;
-	}
+    public List<MessengerUser> getFriends() {
+        return friends;
+    }
 
-	public List<MessengerUser> getRequests() {
-		return requests;
-	}
+    public List<MessengerUser> getRequests() {
+        return requests;
+    }
 
-	public boolean hasInitalised() {
-		return initalised;
-	}
+    public boolean hasInitalised() {
+        return initalised;
+    }
 
-	public void setInitalised(boolean initalised) {
-		this.initalised = initalised;
-	}
+    public void setInitalised(boolean initalised) {
+        this.initalised = initalised;
+    }
 }

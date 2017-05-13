@@ -5,8 +5,8 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class HasOwnerRightsMessageComposer extends OutgoingMessageComposer {
 
-	@Override
-	public void write() {
-		response.init(Outgoing.HasOwnerRightsMessageComposer);
-	}
+    @Override
+    public void write() {
+        response.init(Outgoing.HasOwnerRightsMessageComposer);
+    }
 }

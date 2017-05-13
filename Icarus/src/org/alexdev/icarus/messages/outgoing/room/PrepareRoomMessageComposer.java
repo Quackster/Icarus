@@ -6,15 +6,15 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class PrepareRoomMessageComposer extends OutgoingMessageComposer {
 
-	private Room room;
+    private Room room;
 
-	public PrepareRoomMessageComposer(Room room) {
-		this.room = room;
-	}
+    public PrepareRoomMessageComposer(Room room) {
+        this.room = room;
+    }
 
-	@Override
-	public void write() {
-		response.init(Outgoing.RoomUpdateMessageComposer);
-		response.writeInt(room.getData().getId());
-	}
+    @Override
+    public void write() {
+        response.init(Outgoing.RoomUpdateMessageComposer);
+        response.writeInt(room.getData().getId());
+    }
 }

@@ -6,18 +6,18 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class FloorMapMessageComposer extends OutgoingMessageComposer {
 
-	private Room room;
+    private Room room;
 
-	public FloorMapMessageComposer(Room room) {
-		this.room = room;
-	}
+    public FloorMapMessageComposer(Room room) {
+        this.room = room;
+    }
 
-	@Override
-	public void write() {
-		response.init(Outgoing.FloorMapMessageComposer);
-		response.writeBool(true);
-		response.writeInt(this.room.getData().getWallHeight());
-		response.writeString(this.room.getModel().getFloorMap());
-	}
+    @Override
+    public void write() {
+        response.init(Outgoing.FloorMapMessageComposer);
+        response.writeBool(true);
+        response.writeInt(this.room.getData().getWallHeight());
+        response.writeString(this.room.getModel().getFloorMap());
+    }
 
 }

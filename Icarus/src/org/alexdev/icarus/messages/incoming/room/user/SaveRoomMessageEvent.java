@@ -12,29 +12,29 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class SaveRoomMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
-		
-		Room room = player.getRoomUser().getRoom();
+    @Override
+    public void handle(Player player, ClientMessage request) {
+        
+        Room room = player.getRoomUser().getRoom();
 
-		if (room == null) {
-			return;
-		}
-		
-		if (!room.hasRights(player, true)) {
-			return;
-		}
-		
-		request.readInt(); // room id
-		
-		RoomData data = room.getData();
-		
-		String oldName = data.getName();
-		
+        if (room == null) {
+            return;
+        }
+        
+        if (!room.hasRights(player, true)) {
+            return;
+        }
+        
+        request.readInt(); // room id
+        
+        RoomData data = room.getData();
+        
+        String oldName = data.getName();
+        
         data.setName(request.readString());
         
         if (data.getName().length() < 3) {
-        	data.setName(oldName);
+            data.setName(oldName);
         }
 
         data.setDescription(request.readString());
@@ -51,7 +51,7 @@ public class SaveRoomMessageEvent implements MessageEvent {
         int tagCount = request.readInt();
 
         if (tagCount > 2) {
-        	return;
+            return;
         }
         
         String[] tags = new String[tagCount];
@@ -69,12 +69,12 @@ public class SaveRoomMessageEvent implements MessageEvent {
         
         data.setWallThickness(request.readInt());
         if (data.getWallThickness() < -2 || data.getWallThickness() > 1) {
-        	data.setWallThickness(0);
+            data.setWallThickness(0);
         }
 
         data.setFloorThickness(request.readInt());
         if (data.getFloorThickness() < -2 || data.getFloorThickness() > 1) {
-        	data.setFloorThickness(0);
+            data.setFloorThickness(0);
         }
         
         data.setWhoCanMute(request.readInt());
@@ -86,22 +86,22 @@ public class SaveRoomMessageEvent implements MessageEvent {
         data.setChatMaxDistance(request.readInt());
         
         if (data.getChatMaxDistance() > 90) {
-        	data.setChatMaxDistance(90);
+            data.setChatMaxDistance(90);
         }
         
         data.setChatFloodProtection(request.readInt());
         
         if (data.getChatFloodProtection() > 2) {
-        	data.setChatFloodProtection(1);
+            data.setChatFloodProtection(1);
         }        
         
         room.save();
         
-		player.send(new ChatOptionsMessageComposer(room));
-		player.send(new WallOptionsMessageComposer(room.getData().isHideWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
-		
-		player.send(new RoomSettingsOKMessageComposer(room));
-		player.send(new RoomSettingsUpdatedMessageComposer(room.getData().getId()));
-	}
+        player.send(new ChatOptionsMessageComposer(room));
+        player.send(new WallOptionsMessageComposer(room.getData().isHideWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
+        
+        player.send(new RoomSettingsOKMessageComposer(room));
+        player.send(new RoomSettingsUpdatedMessageComposer(room.getData().getId()));
+    }
 
 }

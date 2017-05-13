@@ -5,20 +5,20 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class UniqueMachineIDMessageComposer extends OutgoingMessageComposer {
 
-	private String uniqueMachineId;
+    private String uniqueMachineId;
 
-	public UniqueMachineIDMessageComposer(String uniqueMachineId) {
-		this.uniqueMachineId = uniqueMachineId;
-	}
+    public UniqueMachineIDMessageComposer(String uniqueMachineId) {
+        this.uniqueMachineId = uniqueMachineId;
+    }
 
-	@Override
-	public void write() {
-		
-		if (this.uniqueMachineId == null) {
-			return;
-		}
-		
-		response.init(Outgoing.UniqueMachineIDMessageComposer);
-		response.writeString(this.uniqueMachineId);
-	}
+    @Override
+    public void write() {
+        
+        if (this.uniqueMachineId == null) {
+            return;
+        }
+        
+        response.init(Outgoing.UniqueMachineIDMessageComposer);
+        response.writeString(this.uniqueMachineId);
+    }
 }

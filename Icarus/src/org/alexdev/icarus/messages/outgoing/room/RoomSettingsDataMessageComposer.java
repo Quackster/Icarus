@@ -7,18 +7,18 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class RoomSettingsDataMessageComposer extends OutgoingMessageComposer {
 
-	private Room room;
+    private Room room;
 
-	public RoomSettingsDataMessageComposer(Room room) {
-		this.room = room;
-	}
+    public RoomSettingsDataMessageComposer(Room room) {
+        this.room = room;
+    }
 
-	@Override
-	public void write() {
-		
-		RoomData data = this.room.getData();
-		
-		response.init(Outgoing.RoomSettingsDataMessageComposer);
+    @Override
+    public void write() {
+        
+        RoomData data = this.room.getData();
+        
+        response.init(Outgoing.RoomSettingsDataMessageComposer);
         response.writeInt(data.getId());
         response.writeString(data.getName());
         response.writeString(data.getDescription());
@@ -47,6 +47,6 @@ public class RoomSettingsDataMessageComposer extends OutgoingMessageComposer {
         response.writeInt(data.getWhoCanMute());//room.RoomData.WhoCanMute);
         response.writeInt(data.getWhoCanKick());//room.RoomData.WhoCanKick);
         response.writeInt(data.getWhoCanBan());//room.RoomData.WhoCanBan);
-	}
+    }
 
 }

@@ -14,41 +14,41 @@ import com.google.common.collect.Lists;
 
 public class MessengerSearchMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
-		
-		String searchQuery = request.readString();
-		
-		if (searchQuery == null) {
-			return;
-		}
+    @Override
+    public void handle(Player player, ClientMessage request) {
+        
+        String searchQuery = request.readString();
+        
+        if (searchQuery == null) {
+            return;
+        }
 
-		Messenger messenger = player.getMessenger();
-		
-		if (messenger == null) {
-			return;
-		}
-		
-		if (!messenger.hasInitalised()) {
-			return;
-		}
-		
-		List<Integer> search = MessengerDao.search(searchQuery);
-		List<MessengerUser> friends = Lists.newArrayList();
-		List<MessengerUser> strangers = Lists.newArrayList();
+        Messenger messenger = player.getMessenger();
+        
+        if (messenger == null) {
+            return;
+        }
+        
+        if (!messenger.hasInitalised()) {
+            return;
+        }
+        
+        List<Integer> search = MessengerDao.search(searchQuery);
+        List<MessengerUser> friends = Lists.newArrayList();
+        List<MessengerUser> strangers = Lists.newArrayList();
 
-		for (Integer id : search) {
+        for (Integer id : search) {
 
-			if (id != player.getDetails().getId()) {
+            if (id != player.getDetails().getId()) {
 
-				if (player.getMessenger().isFriend(id)) {
-					friends.add(player.getMessenger().getFriend(id));
-				} else {
-					strangers.add(new MessengerUser(id));
-				}
-			}
-		}
-		
-		player.send(new MessengerSearchMessageComposer(friends, strangers));
-	}
+                if (player.getMessenger().isFriend(id)) {
+                    friends.add(player.getMessenger().getFriend(id));
+                } else {
+                    strangers.add(new MessengerUser(id));
+                }
+            }
+        }
+        
+        player.send(new MessengerSearchMessageComposer(friends, strangers));
+    }
 }

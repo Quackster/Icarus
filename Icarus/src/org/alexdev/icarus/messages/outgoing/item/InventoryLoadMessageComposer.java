@@ -10,81 +10,81 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class InventoryLoadMessageComposer extends OutgoingMessageComposer {
 
-	private List<Item> wallItems;
-	private List<Item> floorItems;
+    private List<Item> wallItems;
+    private List<Item> floorItems;
 
-	public InventoryLoadMessageComposer(Player player) {
-		this(player.getInventory().getWallItems(), player.getInventory().getFloorItems());
-	}
+    public InventoryLoadMessageComposer(Player player) {
+        this(player.getInventory().getWallItems(), player.getInventory().getFloorItems());
+    }
 
-	public InventoryLoadMessageComposer(List<Item> wallItems, List<Item> floorItems) {
-		this.wallItems = wallItems;
-		this.floorItems = floorItems;
-	}
+    public InventoryLoadMessageComposer(List<Item> wallItems, List<Item> floorItems) {
+        this.wallItems = wallItems;
+        this.floorItems = floorItems;
+    }
 
-	@Override
-	public void write() {
+    @Override
+    public void write() {
 
-		response.init(Outgoing.InventoryMessageComposer);
-		response.writeInt(1);
-		response.writeInt(0);
-		response.writeInt(this.wallItems.size() + this.floorItems.size());
+        response.init(Outgoing.InventoryMessageComposer);
+        response.writeInt(1);
+        response.writeInt(0);
+        response.writeInt(this.wallItems.size() + this.floorItems.size());
 
-		for (Item item : this.wallItems) {
+        for (Item item : this.wallItems) {
 
-			response.writeInt(item.getId());
-			response.writeString(item.getDefinition().getType().toUpperCase());
-			response.writeInt(item.getId());
-			response.writeInt(item.getDefinition().getSpriteId());
+            response.writeInt(item.getId());
+            response.writeString(item.getDefinition().getType().toUpperCase());
+            response.writeInt(item.getId());
+            response.writeInt(item.getDefinition().getSpriteId());
 
-			if (item.getDefinition().getItemName().contains("landscape"))
-				response.writeInt(4);
-			else if (item.getDefinition().getItemName().contains("wallpaper"))
-				response.writeInt(2);
-			else if (item.getDefinition().getItemName().contains("a2")) 
-				response.writeInt(3);
-			else
-				response.writeInt(1);
+            if (item.getDefinition().getItemName().contains("landscape"))
+                response.writeInt(4);
+            else if (item.getDefinition().getItemName().contains("wallpaper"))
+                response.writeInt(2);
+            else if (item.getDefinition().getItemName().contains("a2")) 
+                response.writeInt(3);
+            else
+                response.writeInt(1);
 
-			response.writeInt(0);
-			response.writeString(item.getExtraData());
-			response.writeBool(item.getDefinition().allowRecycle());
-			response.writeBool(item.getDefinition().allowTrade());
-			response.writeBool(item.getDefinition().allowInventoryStack());
-			response.writeBool(item.getDefinition().allowMarketplaceSell());
-			response.writeInt(-1);
-			response.writeBool(false);
-			response.writeInt(-1);
-		}
+            response.writeInt(0);
+            response.writeString(item.getExtraData());
+            response.writeBool(item.getDefinition().allowRecycle());
+            response.writeBool(item.getDefinition().allowTrade());
+            response.writeBool(item.getDefinition().allowInventoryStack());
+            response.writeBool(item.getDefinition().allowMarketplaceSell());
+            response.writeInt(-1);
+            response.writeBool(false);
+            response.writeInt(-1);
+        }
 
-		for (Item item : floorItems) {
+        for (Item item : floorItems) {
 
-			response.writeInt(item.getId());
-			response.writeString(item.getDefinition().getType().toUpperCase());
-			response.writeInt(item.getId());
-			response.writeInt(item.getDefinition().getSpriteId());
+            response.writeInt(item.getId());
+            response.writeString(item.getDefinition().getType().toUpperCase());
+            response.writeInt(item.getId());
+            response.writeInt(item.getDefinition().getSpriteId());
 
-			if (item.getDefinition().getInteractionType() == InteractionType.GROUPITEM || item.getDefinition().getInteractionType() == InteractionType.GLD_GATE) {
-				response.writeInt(17); 
-			} else if (item.getDefinition().getInteractionType() == InteractionType.MUSICDISK) {
-				response.writeInt(8);
-			} else {
-				response.writeInt(1);
-			}
+            if (item.getDefinition().getInteractionType() == InteractionType.GROUPITEM || item.getDefinition().getInteractionType() == InteractionType.GLD_GATE) {
+                response.writeInt(17); 
+            } else if (item.getDefinition().getInteractionType() == InteractionType.MUSICDISK) {
+                response.writeInt(8);
+            } else {
+                response.writeInt(1);
+            }
 
-			response.writeInt(0);
-			response.writeString(item.getExtraData());
-			response.writeBool(item.getDefinition().allowRecycle());
-			response.writeBool(item.getDefinition().allowTrade());
-			response.writeBool(item.getDefinition().allowInventoryStack());
-			response.writeBool(item.getDefinition().allowMarketplaceSell());
-			response.writeInt(-1);
-			response.writeBool(false); 
-			response.writeInt(-1);
-			response.writeString("");
-			response.writeInt(0);
-		}
+            response.writeInt(0);
+            response.writeString(item.getExtraData());
+            response.writeBool(item.getDefinition().allowRecycle());
+            response.writeBool(item.getDefinition().allowTrade());
+            response.writeBool(item.getDefinition().allowInventoryStack());
+            response.writeBool(item.getDefinition().allowMarketplaceSell());
+            response.writeInt(-1);
+            response.writeBool(false); 
+            response.writeInt(-1);
+            response.writeString("");
+            response.writeInt(0);
+        }
 
-	}
+    }
 
 }

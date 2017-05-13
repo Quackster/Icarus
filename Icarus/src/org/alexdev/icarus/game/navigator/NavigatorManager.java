@@ -8,39 +8,39 @@ import org.alexdev.icarus.dao.mysql.NavigatorDao;
 
 public class NavigatorManager {
 
-	private static List<NavigatorTab> tabs;
+    private static List<NavigatorTab> tabs;
     private static List<NavigatorCategory> categories;
-	
-	public static void load() throws Exception {
-		tabs = NavigatorDao.getTabs(-1);
-		categories = NavigatorDao.getCategories();
-	}
-	
-	public static NavigatorTab getTab(String tabName) {
+    
+    public static void load() throws Exception {
+        tabs = NavigatorDao.getTabs(-1);
+        categories = NavigatorDao.getCategories();
+    }
+    
+    public static NavigatorTab getTab(String tabName) {
 
-		Optional<NavigatorTab> navigatorTab = tabs.stream().filter(tab -> tab.getTabName().equals(tabName)).findFirst();
+        Optional<NavigatorTab> navigatorTab = tabs.stream().filter(tab -> tab.getTabName().equals(tabName)).findFirst();
 
-		if (navigatorTab.isPresent()) {
-			return navigatorTab.get();
-		} else {
-			return null;
-		}
-	}
+        if (navigatorTab.isPresent()) {
+            return navigatorTab.get();
+        } else {
+            return null;
+        }
+    }
 
-	public static List<NavigatorTab> getParentTabs() {
+    public static List<NavigatorTab> getParentTabs() {
 
-		try {
-			return tabs.stream().filter(tab -> tab.getChildId() == -1).collect(Collectors.toList());
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	
-	public static List<NavigatorCategory> getCategories() {
-		return categories;
-	}
+        try {
+            return tabs.stream().filter(tab -> tab.getChildId() == -1).collect(Collectors.toList());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    public static List<NavigatorCategory> getCategories() {
+        return categories;
+    }
 
-	public static List<NavigatorTab> getAllTabs() {
-		return tabs;
-	}
+    public static List<NavigatorTab> getAllTabs() {
+        return tabs;
+    }
 }

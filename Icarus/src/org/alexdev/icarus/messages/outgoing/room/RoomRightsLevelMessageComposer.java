@@ -5,16 +5,16 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class RoomRightsLevelMessageComposer extends OutgoingMessageComposer {
 
-	private int status;
+    private int status;
 
-	public RoomRightsLevelMessageComposer(int status) {
-		this.status = status;
-	}
+    public RoomRightsLevelMessageComposer(int status) {
+        this.status = status;
+    }
 
-	@Override
-	public void write() {
-		response.init(Outgoing.RightsLevelMessageComposer);
-		response.writeInt(this.status);
-	}
+    @Override
+    public void write() {
+        response.init(Outgoing.RightsLevelMessageComposer);
+        response.writeInt(this.status);
+    }
 
 }

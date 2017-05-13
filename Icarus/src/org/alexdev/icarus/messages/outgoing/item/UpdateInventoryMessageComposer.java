@@ -5,9 +5,9 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class UpdateInventoryMessageComposer extends OutgoingMessageComposer {
 
-	@Override
-	public void write() {
-		response.init(Outgoing.UpdateInventoryMessageComposer);
-		
-	}
+    @Override
+    public void write() {
+        response.init(Outgoing.UpdateInventoryMessageComposer);
+        
+    }
 }

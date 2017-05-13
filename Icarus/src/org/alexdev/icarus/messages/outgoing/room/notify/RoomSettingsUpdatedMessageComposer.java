@@ -4,16 +4,16 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class RoomSettingsUpdatedMessageComposer extends OutgoingMessageComposer {
 
-	private int roomId;
+    private int roomId;
 
-	public RoomSettingsUpdatedMessageComposer(int roomId) {
-		this.roomId = roomId;
-	}
+    public RoomSettingsUpdatedMessageComposer(int roomId) {
+        this.roomId = roomId;
+    }
 
-	@Override
-	public void write() {
-		response.init(-1);//Outgoing.RoomSettingsUpdatedMessageComposer);
-		response.writeInt(this.roomId);
-	}
+    @Override
+    public void write() {
+        response.init(-1);//Outgoing.RoomSettingsUpdatedMessageComposer);
+        response.writeInt(this.roomId);
+    }
 
 }

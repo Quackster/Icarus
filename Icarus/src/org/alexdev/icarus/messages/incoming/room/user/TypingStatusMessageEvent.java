@@ -10,23 +10,23 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class TypingStatusMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
-		
-		RoomUser roomUser = player.getRoomUser();
+    @Override
+    public void handle(Player player, ClientMessage request) {
+        
+        RoomUser roomUser = player.getRoomUser();
 
-		if (roomUser == null) {
-			return;
-		}
+        if (roomUser == null) {
+            return;
+        }
 
-		Room room = roomUser.getRoom();
+        Room room = roomUser.getRoom();
 
-		if (room == null) {
-			return;
-		}
-		
-		room.send(new TypingStatusMessageComposer(roomUser.getVirtualId(), request.getMessageId() == Incoming.StartTypingMessageEvent));
+        if (room == null) {
+            return;
+        }
+        
+        room.send(new TypingStatusMessageComposer(roomUser.getVirtualId(), request.getMessageId() == Incoming.StartTypingMessageEvent));
 
-	}
+    }
 
 }

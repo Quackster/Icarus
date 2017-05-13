@@ -9,32 +9,32 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class DanceMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
-		
-		RoomUser roomUser = player.getRoomUser();
+    @Override
+    public void handle(Player player, ClientMessage request) {
+        
+        RoomUser roomUser = player.getRoomUser();
 
-		if (roomUser == null) {
-			return;
-		}
+        if (roomUser == null) {
+            return;
+        }
 
-		Room room = roomUser.getRoom();
+        Room room = roomUser.getRoom();
 
-		if (room == null) {
-			return;
-		}
-		
-		int danceId = request.readInt();
-		
-		if (danceId < 0 || danceId > 4)
+        if (room == null) {
+            return;
+        }
+        
+        int danceId = request.readInt();
+        
+        if (danceId < 0 || danceId > 4)
             danceId = 0;
-		
+        
         if (danceId > 0) {
-        	roomUser.carryItem(0); // remove anything they were carrying
+            roomUser.carryItem(0); // remove anything they were carrying
         }
 
         roomUser.getRoom().send(new DanceMessageComposer(roomUser.getVirtualId(), danceId));
         roomUser.setDanceId(danceId);
-	}
+    }
 
 }

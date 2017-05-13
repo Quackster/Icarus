@@ -9,18 +9,18 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class SearchNewNavigatorEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
-		
-		String tab = request.readString();
-		String searchQuery = request.readString();
-		
-		NavigatorTab navigatorTab = NavigatorManager.getTab(tab);
-		
-		if (navigatorTab == null) {
-			return;
-		}
-		
-		player.send(new SearchResultSetComposer(player, navigatorTab, searchQuery));
-	}
+    @Override
+    public void handle(Player player, ClientMessage request) {
+        
+        String tab = request.readString();
+        String searchQuery = request.readString();
+        
+        NavigatorTab navigatorTab = NavigatorManager.getTab(tab);
+        
+        if (navigatorTab == null) {
+            return;
+        }
+        
+        player.send(new SearchResultSetComposer(player, navigatorTab, searchQuery));
+    }
 }

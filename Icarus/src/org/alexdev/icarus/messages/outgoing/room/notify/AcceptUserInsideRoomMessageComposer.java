@@ -5,9 +5,9 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class AcceptUserInsideRoomMessageComposer extends OutgoingMessageComposer {
 
-	@Override
-	public void write() {
-		response.init(Outgoing.AcceptUserInsideRoomMessageComposer);
-		response.writeInt(1);
-	}
+    @Override
+    public void write() {
+        response.init(Outgoing.AcceptUserInsideRoomMessageComposer);
+        response.writeInt(1);
+    }
 }

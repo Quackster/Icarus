@@ -8,23 +8,23 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class ChatMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
+    @Override
+    public void handle(Player player, ClientMessage request) {
 
-		RoomUser roomUser = player.getRoomUser();
+        RoomUser roomUser = player.getRoomUser();
 
-		if (roomUser == null) {
-			return;
-		}
+        if (roomUser == null) {
+            return;
+        }
 
-		Room room = roomUser.getRoom();
+        Room room = roomUser.getRoom();
 
-		if (room == null) {
-			return;
-		}
-		
-		roomUser.chat(request.readString(), request.readInt(),  request.readInt(), false, true);
-		
-	}
+        if (room == null) {
+            return;
+        }
+        
+        roomUser.chat(request.readString(), request.readInt(),  request.readInt(), false, true);
+        
+    }
 
 }

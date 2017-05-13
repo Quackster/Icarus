@@ -9,21 +9,21 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class MessengerInitMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
-		
-		if (player.getMessenger() == null) {
-			return;
-		}
-		
-		player.getMessenger().load();
-		
-		player.send(new MessengerCategoriesMessageComposer());
-		player.send(new MessengerRequestsMessageComposer(player, player.getMessenger().getRequests()));
-		player.send(new FriendsListMessageComposer(player.getMessenger().getFriends()));
-		
-		player.getMessenger().setInitalised(true);
-		player.getMessenger().sendStatus(false);
-	}
+    @Override
+    public void handle(Player player, ClientMessage request) {
+        
+        if (player.getMessenger() == null) {
+            return;
+        }
+        
+        player.getMessenger().load();
+        
+        player.send(new MessengerCategoriesMessageComposer());
+        player.send(new MessengerRequestsMessageComposer(player, player.getMessenger().getRequests()));
+        player.send(new FriendsListMessageComposer(player.getMessenger().getFriends()));
+        
+        player.getMessenger().setInitalised(true);
+        player.getMessenger().sendStatus(false);
+    }
 
 }

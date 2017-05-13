@@ -5,17 +5,17 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class RoomRatingMessageComposer extends OutgoingMessageComposer {
 
-	private int score;
+    private int score;
 
-	public RoomRatingMessageComposer(int score) {
-		this.score = score;
-	}
+    public RoomRatingMessageComposer(int score) {
+        this.score = score;
+    }
 
-	@Override
-	public void write() {
-		response.init(Outgoing.RoomRatingMessageComposer);
-		response.writeInt(this.score);
-		response.writeBool(false);
-	}
+    @Override
+    public void write() {
+        response.init(Outgoing.RoomRatingMessageComposer);
+        response.writeInt(this.score);
+        response.writeBool(false);
+    }
 
 }

@@ -6,27 +6,27 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class FloorItemsMessageComposer extends OutgoingMessageComposer {
 
-	private Item[] items;
+    private Item[] items;
 
-	public FloorItemsMessageComposer(Item[] items) {
-		this.items = items;
-	}
+    public FloorItemsMessageComposer(Item[] items) {
+        this.items = items;
+    }
 
-	@Override
-	public void write() {
-		
-		response.init(Outgoing.FloorItemsMessageComposer);
-		response.writeInt(items.length);
-		
-		for (Item floorItem : items) { 
-			response.writeInt(floorItem.getUserId());
-			response.writeString(floorItem.getOwnerData().getUsername());
-		}
+    @Override
+    public void write() {
+        
+        response.init(Outgoing.FloorItemsMessageComposer);
+        response.writeInt(items.length);
+        
+        for (Item floorItem : items) { 
+            response.writeInt(floorItem.getUserId());
+            response.writeString(floorItem.getOwnerData().getUsername());
+        }
 
-		response.writeInt(items.length);
+        response.writeInt(items.length);
 
-		for (Item floorItem : items) {
-			floorItem.getSerializer().serialiseItem(response);
-		}
-	}
+        for (Item floorItem : items) {
+            floorItem.getSerializer().serialiseItem(response);
+        }
+    }
 }

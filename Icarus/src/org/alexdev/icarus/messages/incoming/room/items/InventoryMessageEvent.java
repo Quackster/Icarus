@@ -8,16 +8,16 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class InventoryMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
-		
-		Inventory inventory = player.getInventory();
-		
-		if (inventory == null) {
-			return;
-		}
-		
-		player.send(new InventoryLoadMessageComposer(inventory.getWallItems(), inventory.getFloorItems()));
-	}
+    @Override
+    public void handle(Player player, ClientMessage request) {
+        
+        Inventory inventory = player.getInventory();
+        
+        if (inventory == null) {
+            return;
+        }
+        
+        player.send(new InventoryLoadMessageComposer(inventory.getWallItems(), inventory.getFloorItems()));
+    }
 
 }

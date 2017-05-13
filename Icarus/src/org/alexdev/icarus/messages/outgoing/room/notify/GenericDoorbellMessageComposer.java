@@ -5,25 +5,25 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class GenericDoorbellMessageComposer extends OutgoingMessageComposer {
 
-	private String username;
-	private int notifyCode = -1;
+    private String username;
+    private int notifyCode = -1;
 
-	public GenericDoorbellMessageComposer(String username) {
-		this.username = username;
-	}
+    public GenericDoorbellMessageComposer(String username) {
+        this.username = username;
+    }
 
-	public GenericDoorbellMessageComposer(int notifyCode) {
-		this.notifyCode = notifyCode;
-	}
+    public GenericDoorbellMessageComposer(int notifyCode) {
+        this.notifyCode = notifyCode;
+    }
 
-	@Override
-	public void write() {
-		response.init(Outgoing.GenericDoorbellMessageComposer);
+    @Override
+    public void write() {
+        response.init(Outgoing.GenericDoorbellMessageComposer);
 
-		if (this.username != null) {
-			response.writeString(this.username); 
-		} else {
-			response.writeInt(this.notifyCode);
-		}
-	}
+        if (this.username != null) {
+            response.writeString(this.username); 
+        } else {
+            response.writeInt(this.notifyCode);
+        }
+    }
 }

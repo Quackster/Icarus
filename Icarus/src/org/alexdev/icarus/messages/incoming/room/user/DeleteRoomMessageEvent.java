@@ -8,27 +8,27 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class DeleteRoomMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
-		
-		Room room = player.getRoomUser().getRoom();
+    @Override
+    public void handle(Player player, ClientMessage request) {
+        
+        Room room = player.getRoomUser().getRoom();
 
-		if (room == null) {
-			return;
-		}
-		
-		if (!room.hasRights(player, true)) {
-			return;
-		}
-		
-		request.readInt(); // room id
-		
-		for (Player users : room.getPlayers()) {
-			room.leaveRoom(users, true);
-		}
-		
-		RoomDao.deleteRoom(room);
-		room.dispose(true);
-	}
+        if (room == null) {
+            return;
+        }
+        
+        if (!room.hasRights(player, true)) {
+            return;
+        }
+        
+        request.readInt(); // room id
+        
+        for (Player users : room.getPlayers()) {
+            room.leaveRoom(users, true);
+        }
+        
+        RoomDao.deleteRoom(room);
+        room.dispose(true);
+    }
 
 }

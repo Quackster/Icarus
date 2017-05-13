@@ -12,106 +12,106 @@ import org.alexdev.icarus.log.Log;
 
 public class PlayerDao {
 
-	public static PlayerDetails getDetails(int userId) {
+    public static PlayerDetails getDetails(int userId) {
 
-		PlayerDetails details = new PlayerDetails(null);
-		Player player = PlayerManager.getById(userId);
+        PlayerDetails details = new PlayerDetails(null);
+        Player player = PlayerManager.getById(userId);
 
-		if (player != null) {
-			details = player.getDetails();
-		} else {
+        if (player != null) {
+            details = player.getDetails();
+        } else {
 
-			Connection sqlConnection = null;
-			PreparedStatement preparedStatement = null;
-			ResultSet resultSet = null;
+            Connection sqlConnection = null;
+            PreparedStatement preparedStatement = null;
+            ResultSet resultSet = null;
 
-			try {
+            try {
 
-				sqlConnection = Dao.getStorage().getConnection();
-				
-				preparedStatement = Dao.getStorage().prepare("SELECT id, username, rank, sso_ticket, mission, figure, credits FROM users WHERE id = ? LIMIT 1", sqlConnection);
-				preparedStatement.setInt(1, userId);
-				
-				resultSet = preparedStatement.executeQuery();
+                sqlConnection = Dao.getStorage().getConnection();
+                
+                preparedStatement = Dao.getStorage().prepare("SELECT id, username, rank, sso_ticket, mission, figure, credits FROM users WHERE id = ? LIMIT 1", sqlConnection);
+                preparedStatement.setInt(1, userId);
+                
+                resultSet = preparedStatement.executeQuery();
 
-				if (resultSet.next()) {
-					fill(details, resultSet);
-				}
+                if (resultSet.next()) {
+                    fill(details, resultSet);
+                }
 
-			} catch (Exception e) {
-				Log.exception(e);
-			} finally {
-				Storage.closeSilently(resultSet);
-				Storage.closeSilently(preparedStatement);
-				Storage.closeSilently(sqlConnection);
-			}
-		}
+            } catch (Exception e) {
+                Log.exception(e);
+            } finally {
+                Storage.closeSilently(resultSet);
+                Storage.closeSilently(preparedStatement);
+                Storage.closeSilently(sqlConnection);
+            }
+        }
 
-		return details;
-	}
+        return details;
+    }
 
-	public static boolean login(Player player, String ssoTicket) {
-		
-	    boolean success = false;
-	    
-		Connection sqlConnection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
+    public static boolean login(Player player, String ssoTicket) {
+        
+        boolean success = false;
+        
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
-		try {
+        try {
 
-			sqlConnection = Dao.getStorage().getConnection();
-			preparedStatement = Dao.getStorage().prepare("SELECT id, username, rank, sso_ticket, mission, figure, credits FROM users WHERE sso_ticket = ? LIMIT 1", sqlConnection);
-			preparedStatement.setString(1, ssoTicket);
-			
-			resultSet = preparedStatement.executeQuery();
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("SELECT id, username, rank, sso_ticket, mission, figure, credits FROM users WHERE sso_ticket = ? LIMIT 1", sqlConnection);
+            preparedStatement.setString(1, ssoTicket);
+            
+            resultSet = preparedStatement.executeQuery();
 
-			if (resultSet.next()) {
-				fill(player.getDetails(), resultSet);
-				success = true;
-			}
+            if (resultSet.next()) {
+                fill(player.getDetails(), resultSet);
+                success = true;
+            }
 
-		} catch (Exception e) {
-			Log.exception(e);
-		} finally {
-			Storage.closeSilently(resultSet);
-			Storage.closeSilently(preparedStatement);
-			Storage.closeSilently(sqlConnection);
-		}
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
 
-		return success;
-	}
+        return success;
+    }
 
-	public static int getId(String username) {
+    public static int getId(String username) {
 
-	    int id = -1;
-	    
-		Connection sqlConnection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
+        int id = -1;
+        
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
-		try {
+        try {
 
-			sqlConnection = Dao.getStorage().getConnection();
-			preparedStatement = Dao.getStorage().prepare("SELECT id FROM users WHERE username = ? LIMIT 1", sqlConnection);
-			preparedStatement.setString(1, username);
-			
-			resultSet = preparedStatement.executeQuery();
-			
-			if (resultSet.next()) {
-				id = resultSet.getInt("id");
-			}
-		} catch (Exception e) {
-			Log.exception(e);
-		} finally {
-			Storage.closeSilently(resultSet);
-			Storage.closeSilently(preparedStatement);
-			Storage.closeSilently(sqlConnection);
-		}
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("SELECT id FROM users WHERE username = ? LIMIT 1", sqlConnection);
+            preparedStatement.setString(1, username);
+            
+            resultSet = preparedStatement.executeQuery();
+            
+            if (resultSet.next()) {
+                id = resultSet.getInt("id");
+            }
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
 
-		return id;	
-	}
-	
+        return id;    
+    }
+    
 
     public static void save(PlayerDetails details) {
         
@@ -138,9 +138,9 @@ public class PlayerDao {
             Storage.closeSilently(sqlConnection);
         }
     }
-	
-	public static PlayerDetails fill(PlayerDetails details, ResultSet row) throws SQLException {
-		details.fill(row.getInt("id"), row.getString("username"), row.getString("mission"),  row.getString("figure"), row.getInt("rank"), row.getInt("credits"));
-		return details;
-	}
+    
+    public static PlayerDetails fill(PlayerDetails details, ResultSet row) throws SQLException {
+        details.fill(row.getInt("id"), row.getString("username"), row.getString("mission"),  row.getString("figure"), row.getInt("rank"), row.getInt("credits"));
+        return details;
+    }
 }

@@ -9,54 +9,54 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class PlaceItemMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage reader) {
+    @Override
+    public void handle(Player player, ClientMessage reader) {
 
-		Room room = player.getRoomUser().getRoom();
-		
-		if (room == null) {
-			return;
-		}
+        Room room = player.getRoomUser().getRoom();
+        
+        if (room == null) {
+            return;
+        }
 
-		if (!room.hasRights(player, false)) {
-		    return;
-		}
-		
-		String input = reader.readString();
+        if (!room.hasRights(player, false)) {
+            return;
+        }
+        
+        String input = reader.readString();
 
-		String[] data = input.split(" ");
-		int id = Integer.parseInt(data[0].replace("-", ""));
-		
-		Item item = player.getInventory().getItem(id);
+        String[] data = input.split(" ");
+        int id = Integer.parseInt(data[0].replace("-", ""));
+        
+        Item item = player.getInventory().getItem(id);
 
-		if (item == null) {
-			return;
-		}
+        if (item == null) {
+            return;
+        }
 
 
-		if (item.getType() == ItemType.WALL) {
+        if (item.getType() == ItemType.WALL) {
             String[] pos = input.split(":")[1].split(" ");
             item.parseWallPosition(pos[2] + "," + pos[0].substring(2) + " " + pos[1].substring(2));
-		}
+        }
 
-		if (item.getType() == ItemType.FLOOR) {
+        if (item.getType() == ItemType.FLOOR) {
 
-			int x = Integer.parseInt(data[1]);
-			int y = Integer.parseInt(data[2]);
-			int rotation = Integer.parseInt(data[3]);
-			double height = player.getRoomUser().getRoom().getModel().getHeight(x, y);
+            int x = Integer.parseInt(data[1]);
+            int y = Integer.parseInt(data[2]);
+            int rotation = Integer.parseInt(data[3]);
+            double height = player.getRoomUser().getRoom().getModel().getHeight(x, y);
 
-			item.getPosition().setX(x);
-			item.getPosition().setY(y);
-			item.getPosition().setZ(height);
-			item.getPosition().setRotation(rotation);
-		
-		}
+            item.getPosition().setX(x);
+            item.getPosition().setY(y);
+            item.getPosition().setZ(height);
+            item.getPosition().setRotation(rotation);
+        
+        }
         
         room.getMapping().addItem(item);
 
-		player.getInventory().remove(item);
-		player.getInventory().update();
-	}
+        player.getInventory().remove(item);
+        player.getInventory().update();
+    }
 
 }

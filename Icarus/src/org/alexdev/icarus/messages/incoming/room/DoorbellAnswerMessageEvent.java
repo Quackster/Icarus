@@ -10,34 +10,34 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class DoorbellAnswerMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
+    @Override
+    public void handle(Player player, ClientMessage request) {
 
-		Room room = player.getRoomUser().getRoom();
+        Room room = player.getRoomUser().getRoom();
 
-		if (room == null) {
-			return;
-		}
+        if (room == null) {
+            return;
+        }
 
-		String name = request.readString();
-		boolean accept = request.readBoolean();
+        String name = request.readString();
+        boolean accept = request.readBoolean();
 
-		if (name == null) {
-			return;
-		}
+        if (name == null) {
+            return;
+        }
 
-		Player client = PlayerManager.getByName(name);
+        Player client = PlayerManager.getByName(name);
 
-		if (client == null || client.getDetails() == null) {
-			return;
-		}
+        if (client == null || client.getDetails() == null) {
+            return;
+        }
 
-		if (!accept) {
-			client.send(new GenericNoAnswerDoorbellMessageComposer());
-		
-		} else {
-			client.send(new AcceptUserInsideRoomMessageComposer());
-		}
-	}
+        if (!accept) {
+            client.send(new GenericNoAnswerDoorbellMessageComposer());
+        
+        } else {
+            client.send(new AcceptUserInsideRoomMessageComposer());
+        }
+    }
 
 }

@@ -12,7 +12,7 @@ import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
 
 public class ConnectionHandler extends SimpleChannelHandler {
-	
+    
     private SessionManager sessionManager;
 
     public ConnectionHandler(SessionManager sessionManager) {

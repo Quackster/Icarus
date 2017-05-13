@@ -23,120 +23,120 @@ import org.alexdev.icarus.game.pathfinder.Position;
 
 public class RoomModel 
 {
-	public final static int OPEN = 0;
-	public final static int CLOSED = 1;
-	
-	private String name;
-	private String heightmap;
-	private String floorMap;
-	private String[][] squareChar;
-	
-	private int doorX;
-	private int doorY;
-	private int doorZ;
-	private int doorRot;
-	private int mapSizeX;
-	private int mapSizeY;
-	
-	private int[][] squares;
-	private double[][] squareHeight;
+    public final static int OPEN = 0;
+    public final static int CLOSED = 1;
+    
+    private String name;
+    private String heightmap;
+    private String floorMap;
+    private String[][] squareChar;
+    
+    private int doorX;
+    private int doorY;
+    private int doorZ;
+    private int doorRot;
+    private int mapSizeX;
+    private int mapSizeY;
+    
+    private int[][] squares;
+    private double[][] squareHeight;
 
-	public RoomModel(String name, String heightmap, int doorX, int doorY, int doorZ, int doorRot) {
-		
-		this.name = name;
-		this.heightmap = heightmap;
-		this.doorX = doorX;
-		this.doorY = doorY;
-		this.doorZ = doorZ;
-		this.doorRot = doorRot;
+    public RoomModel(String name, String heightmap, int doorX, int doorY, int doorZ, int doorRot) {
+        
+        this.name = name;
+        this.heightmap = heightmap;
+        this.doorX = doorX;
+        this.doorY = doorY;
+        this.doorZ = doorZ;
+        this.doorRot = doorRot;
 
-		String[] temporary = heightmap.split(Character.toString((char)13));
+        String[] temporary = heightmap.split(Character.toString((char)13));
 
-		this.mapSizeX = temporary[0].length();
-		this.mapSizeY = temporary.length;
-		this.squares = new int[mapSizeX][mapSizeY];
-		this.squareHeight = new double[mapSizeX][mapSizeY];
-		this.squareChar = new String[mapSizeX][mapSizeY];
+        this.mapSizeX = temporary[0].length();
+        this.mapSizeY = temporary.length;
+        this.squares = new int[mapSizeX][mapSizeY];
+        this.squareHeight = new double[mapSizeX][mapSizeY];
+        this.squareChar = new String[mapSizeX][mapSizeY];
 
 
-		for (int y = 0; y < mapSizeY; y++) {
-			
-			if (y > 0) {
-				temporary[y] = temporary[y].substring(1);
-			}
+        for (int y = 0; y < mapSizeY; y++) {
+            
+            if (y > 0) {
+                temporary[y] = temporary[y].substring(1);
+            }
 
-			for (int x = 0; x < mapSizeX; x++) {
-				
-				String square = temporary[y].substring(x,x + 1).trim().toLowerCase();
+            for (int x = 0; x < mapSizeX; x++) {
+                
+                String square = temporary[y].substring(x,x + 1).trim().toLowerCase();
 
-				if (square.equals("x"))	{
-					squares[x][y] = CLOSED;
-					
-				} else if(isNumeric(square)) {
-					
-					squares[x][y] = OPEN;
-					squareHeight[x][y] = Double.parseDouble(square);
-				}
-				
-				
-				if (this.doorX == x && this.doorY == y) {
-					squares[x][y] = OPEN;
-					squareHeight[x][y] = Double.parseDouble(this.doorZ + "");
-				}
-				
-				squareChar[x][y] = square;
+                if (square.equals("x"))    {
+                    squares[x][y] = CLOSED;
+                    
+                } else if(isNumeric(square)) {
+                    
+                    squares[x][y] = OPEN;
+                    squareHeight[x][y] = Double.parseDouble(square);
+                }
+                
+                
+                if (this.doorX == x && this.doorY == y) {
+                    squares[x][y] = OPEN;
+                    squareHeight[x][y] = Double.parseDouble(this.doorZ + "");
+                }
+                
+                squareChar[x][y] = square;
 
-			}
-		}
-		
-		StringBuilder stringBuilder = new StringBuilder();
+            }
+        }
+        
+        StringBuilder stringBuilder = new StringBuilder();
 
-		for (int i = 0; i < this.getMapSizeY(); i++) {
-			for (int j = 0; j < this.getMapSizeX(); j++) {
+        for (int i = 0; i < this.getMapSizeY(); i++) {
+            for (int j = 0; j < this.getMapSizeX(); j++) {
 
-				try {
+                try {
 
-					if (j == this.getDoorX() && i == this.getDoorY())	{
-						stringBuilder.append(this.getDoorZ());
-					} else {
+                    if (j == this.getDoorX() && i == this.getDoorY())    {
+                        stringBuilder.append(this.getDoorZ());
+                    } else {
 
-						stringBuilder.append(this.getSquareChar()[j][i].toString());
-					}
-				}
-				catch (Exception e) {
-					stringBuilder.append("0");
-				}
-			}
-			stringBuilder.append((char)13);
-		}
-		
-		this.floorMap = stringBuilder.toString();
+                        stringBuilder.append(this.getSquareChar()[j][i].toString());
+                    }
+                }
+                catch (Exception e) {
+                    stringBuilder.append("0");
+                }
+            }
+            stringBuilder.append((char)13);
+        }
+        
+        this.floorMap = stringBuilder.toString();
 
-	}
-	
-	public double getHeight(Position point) {
-		return squareHeight[point.getX()][point.getY()];
-	}
-	
-	
-	public String getHeightMap() {
-		return heightmap;
-	}
-	
-	public String getFloorMap() {
-		return floorMap;
-	}
+    }
+    
+    public double getHeight(Position point) {
+        return squareHeight[point.getX()][point.getY()];
+    }
+    
+    
+    public String getHeightMap() {
+        return heightmap;
+    }
+    
+    public String getFloorMap() {
+        return floorMap;
+    }
 
-	private boolean isNumeric(String input) {
-		
-		try {
-			Integer.parseInt(input);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-	
+    private boolean isNumeric(String input) {
+        
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
     public boolean invalidXYCoords(int x, int y) {
         if (x >= this.mapSizeX) {
             return true;
@@ -156,48 +156,48 @@ public class RoomModel
         
         return false;
     }
-	
-	public String getName() {
-		return name;
-	}
-	
-	public int getDoorX() {
-		return doorX;
-	}
-	
-	public int getDoorY() {
-		return doorY;
-	}
-	
-	public int getDoorZ() {
-		return doorZ;
-	}
-	
-	public int getDoorRot() {
-		return doorRot;
-	}
-	
-	public int getMapSizeX() {
-		return mapSizeX;
-	}
-	
-	public int getMapSizeY() {
-		return mapSizeY;
-	}
-	
-	public double getHeight(int x, int y) {
-		return squareHeight[x][y];
-	}
-	
-	public boolean isBlocked(int x, int y) {
-		return squares[x][y] == RoomModel.CLOSED;
-	}
+    
+    public String getName() {
+        return name;
+    }
+    
+    public int getDoorX() {
+        return doorX;
+    }
+    
+    public int getDoorY() {
+        return doorY;
+    }
+    
+    public int getDoorZ() {
+        return doorZ;
+    }
+    
+    public int getDoorRot() {
+        return doorRot;
+    }
+    
+    public int getMapSizeX() {
+        return mapSizeX;
+    }
+    
+    public int getMapSizeY() {
+        return mapSizeY;
+    }
+    
+    public double getHeight(int x, int y) {
+        return squareHeight[x][y];
+    }
+    
+    public boolean isBlocked(int x, int y) {
+        return squares[x][y] == RoomModel.CLOSED;
+    }
 
-	public String[][] getSquareChar() {
-		return squareChar;
-	}
+    public String[][] getSquareChar() {
+        return squareChar;
+    }
 
-	public Position getDoorPosition() {
-		return new Position(this.doorX, this.doorY, this.doorZ);
-	}
+    public Position getDoorPosition() {
+        return new Position(this.doorX, this.doorY, this.doorZ);
+    }
 }

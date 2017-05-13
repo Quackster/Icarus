@@ -10,35 +10,35 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class MessengerRequestMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
+    @Override
+    public void handle(Player player, ClientMessage request) {
 
-		String username = request.readString();
+        String username = request.readString();
 
-		if (username == null) {
-			return;
-		}
+        if (username == null) {
+            return;
+        }
 
-		int userId = PlayerDao.getId(username);
+        int userId = PlayerDao.getId(username);
 
-		if (userId < 1) {
-			return;
-		}
+        if (userId < 1) {
+            return;
+        }
 
-		if (player.getMessenger().hasReqest(userId)) {
-			return;
-		}
+        if (player.getMessenger().hasReqest(userId)) {
+            return;
+        }
 
-		//TODO: Check if they have blocked friend requests
+        //TODO: Check if they have blocked friend requests
 
-		if (MessengerDao.newRequest(player.getDetails().getId(), userId)) {
+        if (MessengerDao.newRequest(player.getDetails().getId(), userId)) {
 
-			MessengerUser user = new MessengerUser(userId);
-			player.getMessenger().getRequests().add(user);
+            MessengerUser user = new MessengerUser(userId);
+            player.getMessenger().getRequests().add(user);
 
-			if (user.isOnline()) {
-				user.getPlayer().send(new MessengerSendRequest(player.getDetails().getId(), player.getDetails().getUsername(), player.getDetails().getFigure()));
-			}
-		}
-	}
+            if (user.isOnline()) {
+                user.getPlayer().send(new MessengerSendRequest(player.getDetails().getId(), player.getDetails().getUsername(), player.getDetails().getFigure()));
+            }
+        }
+    }
 }

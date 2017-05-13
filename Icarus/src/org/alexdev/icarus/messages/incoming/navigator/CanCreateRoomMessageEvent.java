@@ -7,8 +7,8 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class CanCreateRoomMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
-		player.send(new CanCreateRoomMessageComposer(player));
-	}
+    @Override
+    public void handle(Player player, ClientMessage request) {
+        player.send(new CanCreateRoomMessageComposer(player));
+    }
 }

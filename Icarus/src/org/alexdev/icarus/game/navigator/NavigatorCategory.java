@@ -2,10 +2,10 @@ package org.alexdev.icarus.game.navigator;
 
 public class NavigatorCategory {
 
-	private int id;
-	private String name;
-	private int minimumRank;
-	
+    private int id;
+    private String name;
+    private int minimumRank;
+    
     public NavigatorCategory(int id, String name, int minimumRank) {
         this.id = id;
         this.name = name;

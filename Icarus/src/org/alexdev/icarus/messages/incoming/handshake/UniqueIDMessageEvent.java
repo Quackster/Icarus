@@ -6,11 +6,11 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class UniqueIDMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
+    @Override
+    public void handle(Player player, ClientMessage request) {
 
-		request.readString();
-		player.setMachineId(request.readString());
-	}
+        request.readString();
+        player.setMachineId(request.readString());
+    }
 
 }

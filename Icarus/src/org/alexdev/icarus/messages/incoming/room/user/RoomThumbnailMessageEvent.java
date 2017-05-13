@@ -9,36 +9,36 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class RoomThumbnailMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage request) {
+    @Override
+    public void handle(Player player, ClientMessage request) {
 
-		int count = request.readInt();
+        int count = request.readInt();
 
-		byte[] bytes = request.readBytes(count);
-		byte[] buffer = new byte[bytes.length * 3];
+        byte[] bytes = request.readBytes(count);
+        byte[] buffer = new byte[bytes.length * 3];
 
-		try {
+        try {
 
-			Inflater inflater = new Inflater();
-			inflater.setInput(bytes);
+            Inflater inflater = new Inflater();
+            inflater.setInput(bytes);
 
-			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
-			while (!inflater.finished()) {
-				int amount = inflater.inflate(buffer);
-				outputStream.write(buffer, 0, amount);
-			}
+            while (!inflater.finished()) {
+                int amount = inflater.inflate(buffer);
+                outputStream.write(buffer, 0, amount);
+            }
 
-			//outputStream.close();
-			//byte[] output = outputStream.toByteArray();
+            //outputStream.close();
+            //byte[] output = outputStream.toByteArray();
 
-			inflater.end();
-			outputStream.close();
+            inflater.end();
+            outputStream.close();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-	}
+    }
 
 }

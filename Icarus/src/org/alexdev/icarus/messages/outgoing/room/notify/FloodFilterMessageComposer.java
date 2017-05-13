@@ -5,16 +5,16 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class FloodFilterMessageComposer extends OutgoingMessageComposer {
 
-	private int waitSeconds;
+    private int waitSeconds;
 
-	public FloodFilterMessageComposer(int waitSeconds) {
-		this.waitSeconds = waitSeconds;
-	}
+    public FloodFilterMessageComposer(int waitSeconds) {
+        this.waitSeconds = waitSeconds;
+    }
 
-	@Override
-	public void write() {
-		response.init(Outgoing.FloodFilterMessageComposer);
-		response.writeInt(this.waitSeconds);
-	}
+    @Override
+    public void write() {
+        response.init(Outgoing.FloodFilterMessageComposer);
+        response.writeInt(this.waitSeconds);
+    }
 
 }

@@ -7,27 +7,27 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class RoomDataMessageComposer extends OutgoingMessageComposer {
 
-	private Room room;
-	private Player player;
-	private boolean isLoading;
-	private boolean checkEntry;
+    private Room room;
+    private Player player;
+    private boolean isLoading;
+    private boolean checkEntry;
 
-	public RoomDataMessageComposer(Room room, Player player, boolean isLoading, boolean checkEntry) {
-		this.room = room;
-		this.player = player;
-		this.isLoading = isLoading;
-		this.checkEntry = checkEntry;
-	}
+    public RoomDataMessageComposer(Room room, Player player, boolean isLoading, boolean checkEntry) {
+        this.room = room;
+        this.player = player;
+        this.isLoading = isLoading;
+        this.checkEntry = checkEntry;
+    }
 
-	@Override
-	public void write() {
-		response.init(Outgoing.RoomDataMessageComposer);
-		response.writeBool(this.isLoading);
-		this.room.getData().serialise(response, this.isLoading);
-		response.writeBool(this.checkEntry);
-		response.writeBool(false); 
-		response.writeBool(false);
-		response.writeBool(false);
+    @Override
+    public void write() {
+        response.init(Outgoing.RoomDataMessageComposer);
+        response.writeBool(this.isLoading);
+        this.room.getData().serialise(response, this.isLoading);
+        response.writeBool(this.checkEntry);
+        response.writeBool(false); 
+        response.writeBool(false);
+        response.writeBool(false);
         response.writeInt(room.getData().getWhoCanMute());
         response.writeInt(room.getData().getWhoCanKick());
         response.writeInt(room.getData().getWhoCanBan());
@@ -41,5 +41,5 @@ public class RoomDataMessageComposer extends OutgoingMessageComposer {
         /*response.writeInt(room->getData()->chat_speed);
         response.writeInt(room->getData()->chat_flood);
         response.writeInt(room->getData()->chat_distance)*/;
-	}
+    }
 }
