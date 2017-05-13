@@ -81,13 +81,13 @@ public class Item {
      * 
      * @return {@link List} - of {@link AffectedTile}'s
      */
-    public List<AffectedTile> getAffectedTiles() {
+    public List<Position> getAffectedTiles() {
 
         if (this.type == ItemType.WALL) {
             return Lists.newArrayList();
         }
 
-        return AffectedTile.getAffectedTilesAt(this.getDefinition().getLength(), this.getDefinition().getWidth(), this.position.getX(), this.position.getY(), this.position.getRotation());
+        return AffectedTile.getAffectedTiles(this.getDefinition().getLength(), this.getDefinition().getWidth(), this.position.getX(), this.position.getY(), this.position.getRotation());
     }
     
     /**
@@ -143,7 +143,7 @@ public class Item {
         if (this.position.getX() == x && this.position.getY() == y) {
             return true;
         } else {
-            for (AffectedTile tile : this.getAffectedTiles()) {
+            for (Position tile : this.getAffectedTiles()) {
                 if (tile.getX() == x && tile.getY() == y) {
                     return true;
                 }

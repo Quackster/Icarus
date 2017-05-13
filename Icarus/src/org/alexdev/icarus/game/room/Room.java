@@ -103,7 +103,7 @@ public class Room {
     private void firstEntry() {
 
         this.items = ItemDao.getRoomItems(this.getData().getId());
-        this.mapping.generateCollisionMaps();
+        this.mapping.regenerateCollisionMaps();
         
         this.scheduler = new RoomScheduler(this);
         this.scheduler.scheduleTasks();

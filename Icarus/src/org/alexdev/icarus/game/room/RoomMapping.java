@@ -22,7 +22,7 @@ public class RoomMapping {
         this.room = room;
     }
 
-    public void generateCollisionMaps() {
+    public void regenerateCollisionMaps() {
 
         this.mapSizeX = this.room.getModel().getMapSizeX();
         this.mapSizeY = this.room.getModel().getMapSizeY();
@@ -62,30 +62,31 @@ public class RoomMapping {
 
             this.checkHighestItem(item, item.getPosition().getX(), item.getPosition().getY());
 
-            RoomTile roomTile = this.getTile(item.getPosition().getX(), item.getPosition().getY());
+            RoomTile tile = this.getTile(item.getPosition().getX(), item.getPosition().getY());
 
-            if (roomTile == null) {
+            if (tile == null) {
                 continue;
             }
 
-            roomTile.getItems().add(item);
-            roomTile.setHeight(roomTile.getHeight() + stacked_height);
+            tile.getItems().add(item);
+            tile.setHeight(tile.getHeight() + stacked_height);
 
-            for (AffectedTile tile : item.getAffectedTiles()) {
+            for (Position position : item.getAffectedTiles()) {
+                
+                if (this.checkHighestItem(item, position.getX(), position.getY())) {
 
-                if (this.checkHighestItem(item, tile.getX(), tile.getY())) {
+                    RoomTile affectedTile = this.getTile(position.getX(), position.getY());
 
-                    RoomTile affectedRoomTile = this.getTile(tile.getX(), tile.getY());
-
-                    if (affectedRoomTile != null) {
-                        affectedRoomTile.getItems().add(item);
-                        affectedRoomTile.setHeight(affectedRoomTile.getHeight() + stacked_height);
+                    if (affectedTile == null) {
+                        continue;
                     }
+                    
+                    affectedTile.getItems().add(item);
+                    affectedTile.setHeight(affectedTile.getHeight() + stacked_height);
                 }
             }
         }
     }
-
 
     public boolean isValidStep(Entity entity, Position position, Position tmp, boolean isFinalMove) {
 
@@ -159,7 +160,7 @@ public class RoomMapping {
 
         if (item.getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, false);
-            this.generateCollisionMaps();
+            this.regenerateCollisionMaps();
         }
 
         this.room.send(new PlaceItemMessageComposer(item));
@@ -171,7 +172,7 @@ public class RoomMapping {
 
         if (item.getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, rotation_only);
-            this.generateCollisionMaps();
+            this.regenerateCollisionMaps();
         }
 
         item.updateStatus();
@@ -187,7 +188,7 @@ public class RoomMapping {
         this.room.getItems().remove(item.getId());
         this.room.send(new RemoveItemMessageComposer(item));
 
-        this.generateCollisionMaps();
+        this.regenerateCollisionMaps();
 
     }
 
