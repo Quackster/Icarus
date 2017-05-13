@@ -6,10 +6,12 @@ import java.util.LinkedList;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.furniture.interactions.Interaction;
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.pathfinder.Pathfinder;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.log.DateTime;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.TalkMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
@@ -183,6 +185,44 @@ public class RoomUser {
 
         this.lookResetTime = 6;
         this.needsUpdate = true;
+    }
+    
+    public void walkTo(int X, int Y) {
+        
+        if (this.room.getModel().isBlocked(X, Y)) {
+            return;
+        }
+
+        Item item = this.room.getMapping().getHighestItem(X, Y);
+        
+        if (item != null) {
+            Log.println("ITEM: " + item.getId() + " - " + item.getDefinition().getPublicName() + " - " + item.getDefinition().getInteractionType().name());
+        }
+        
+        
+        if (!this.room.getMapping().isTileWalkable(this.entity, X, Y)) {
+            return;
+        }
+
+        if (this.position.isMatch(new Position(X, Y))) {
+            return;
+        }
+
+        this.goal.setX(X);
+        this.goal.setY(Y);
+
+        LinkedList<Position> path = Pathfinder.makePath(this.entity);
+
+        if (path == null) {
+            return;
+        }
+
+        if (path.size() == 0) {
+            return;
+        }
+
+        this.path = path;
+        this.isWalking = true;
     }
 
     public void dispose() {

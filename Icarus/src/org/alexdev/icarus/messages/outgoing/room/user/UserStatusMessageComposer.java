@@ -52,7 +52,7 @@ public class UserStatusMessageComposer extends OutgoingMessageComposer {
 
 	                    Position next = entity.getRoomUser().getNext();
 
-	                    entity.getRoomUser().getPosition().setZ(entity.getRoomUser().getRoom().getModel().getHeight(next.getX(), next.getY()));
+	                    entity.getRoomUser().getPosition().setZ(entity.getRoomUser().getRoom().getMapping().getTile(next.getX(), next.getY()).getHeight());
 	                    entity.getRoomUser().getPosition().setX(next.getX());
 	                    entity.getRoomUser().getPosition().setY(next.getY());
 	                }

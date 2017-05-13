@@ -50,7 +50,23 @@ public class RoomMapping {
                 continue;
             }
 
-            if (item.getDefinition().isWalkable() && !item.getDefinition().isCanSit()) {
+            if (item.getDefinition().isWalkable()) {
+                
+                /*double stacked_height = 0;
+
+                if (item.getDefinition().isCanStack()) {
+                    stacked_height = item.getDefinition().getStackHeight();
+                }
+                
+                RoomTile tile = this.getTile(item.getPosition().getX(), item.getPosition().getY());
+
+                if (tile == null) {
+                    continue;
+                }
+
+                //tile.getItems().add(item);
+                tile.setHeight(tile.getHeight() + stacked_height);*/
+                
                 continue;
             }
 
@@ -139,17 +155,20 @@ public class RoomMapping {
                 return false;
             }
         }
-
-        Item item = tile.getHighestItem();
-        boolean tile_valid = (this.room.getModel().isBlocked(x, y) != true);
-
-        if (item != null) {
-            if (tile_valid) {
-                tile_valid = item.canWalk();
-            }
+        
+        if (this.room.getModel().isBlocked(x, y)) {
+            return false;
         }
 
-        return tile_valid;
+        Item item = tile.getHighestItem();
+
+        if (item != null) {
+               if (!item.canWalk()) {
+                   return false;
+               }
+        }
+
+        return true;
     }
 
     public void addItem(Item item) {
@@ -214,7 +233,7 @@ public class RoomMapping {
                     item.getPosition().setZ(highestItem.getPosition().getZ() + zOffset);
                 }
             } else {
-                item.getPosition().setZ(this.room.getModel().getHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
+                item.getPosition().setZ(this.getStackHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
             }
         }
 

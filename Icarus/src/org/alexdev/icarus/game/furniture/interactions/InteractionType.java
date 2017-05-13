@@ -2,6 +2,7 @@ package org.alexdev.icarus.game.furniture.interactions;
 
 import org.alexdev.icarus.game.furniture.interactions.types.DefaultInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.GateInteractor;
+import org.alexdev.icarus.game.furniture.interactions.types.VendingInteractor;
 
 public enum InteractionType {
 
@@ -13,7 +14,7 @@ public enum InteractionType {
 	TROPHY(null),
 	BED(null),
 	SCOREBOARD(null),
-	VENDINGMACHINE(null),
+	VENDINGMACHINE(new VendingInteractor()),
 	ALERT(null),
 	ONEWAYGATE(null),
 	LOVESHUFFLER(null),

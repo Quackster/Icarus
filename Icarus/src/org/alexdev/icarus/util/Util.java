@@ -44,4 +44,14 @@ public class Util {
     public static Wini getHabboConfig() {
         return habboConfig;
     }
+
+    public static boolean isNumber(Object object) {
+       
+        try {
+            Integer.valueOf(object.toString());
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }

@@ -88,8 +88,58 @@ public class Position {
 
 		return (dx * dx) + (dy * dy);
 	}
+	
+    public Position getSquareInFront() {
+        Position square = new Position(this.X, this.Y);
 
-	public boolean sameAs(Position point) {	
+        if (this.bodyRotation == 0) {
+            square.Y--;
+        } else if (this.bodyRotation == 2) {
+            square.X++;
+        } else if (this.bodyRotation == 4) {
+            square.Y++;
+        } else if (this.bodyRotation == 6) {
+            square.X--;
+        }
+
+        return square;
+    }
+
+    public Position getSquareLeft() {
+
+        Position square = new Position(this.X, this.Y);
+
+        if (this.bodyRotation == 0) {
+            square.X--;
+        } else if (this.bodyRotation == 2) {
+            square.Y++;
+        } else if (this.bodyRotation == 4) {
+            square.X++;
+        } else if (this.bodyRotation == 6) {
+            square.Y++;
+        }
+
+        return square;
+    }
+    
+    public Position getSquareRight() {
+
+        Position square = new Position(this.X, this.Y);
+
+        if (this.bodyRotation == 0) {
+            square.X++;
+        } else if (this.bodyRotation == 2) {
+            square.Y--;
+        } else if (this.bodyRotation == 4) {
+            square.X--;
+        } else if (this.bodyRotation == 6) {
+            square.Y--;
+        }
+
+        return square;
+    }
+
+	public boolean isMatch(Position point) {	
 		return (this.X == point.getX() && this.Y == point.getY());
 	}
 

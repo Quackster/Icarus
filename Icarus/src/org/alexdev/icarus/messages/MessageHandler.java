@@ -11,6 +11,7 @@ import org.alexdev.icarus.messages.incoming.messenger.*;
 import org.alexdev.icarus.messages.incoming.misc.*;
 import org.alexdev.icarus.messages.incoming.navigator.*;
 import org.alexdev.icarus.messages.incoming.room.*;
+import org.alexdev.icarus.messages.incoming.room.items.InteractItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.InventoryMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.MoveItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.PickupItemMessageEvent;
@@ -114,6 +115,7 @@ public class MessageHandler {
 		this.messages.put(Incoming.PickupItemMessageEvent, new PickupItemMessageEvent());
 		this.messages.put(Incoming.ApplyDecorationMessageEvent, new ApplyDecorationMessageEvent());
 		this.messages.put(Incoming.MoveWallItemMessageEvent, new MoveItemMessageEvent());
+		this.messages.put(Incoming.InteractItemMessageEvent, new InteractItemMessageEvent());
 	}
 
 

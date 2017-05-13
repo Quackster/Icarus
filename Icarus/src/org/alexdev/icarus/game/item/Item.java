@@ -167,6 +167,11 @@ public class Item {
             return true;
         }
 
+        if (definition.isWalkable()) {
+            return true;
+        }
+
+        
         if (definition.getInteractionType() == InteractionType.BED) {
             return true;
         }
