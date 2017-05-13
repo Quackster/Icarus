@@ -21,7 +21,7 @@ public class MessengerUpdateMessageComposer extends OutgoingMessageComposer {
         response.writeInt(0);
         response.writeInt(1);
         response.writeInt(0);
-        this.friend.serialise(response, this.forceOffline);
+        this.friend.serialiseFriend(response, this.forceOffline);
         response.writeBool(false);
 		
 	}

@@ -23,14 +23,13 @@ public class MessengerUser {
 	}
 
 	public void update() {
-		this.player = PlayerManager.findById(this.userId);
+		this.player = PlayerManager.getById(this.userId);
 	}
 
-	public void serialise(Response response, boolean forceOffline) {
-
+	public void serialiseFriend(Response response, boolean forceOffline) {
 		response.writeInt(this.getDetails().getId());
 		response.writeString(this.getDetails().getUsername());
-		response.writeInt(forceOffline ? false : this.isOnline()); // gender
+		response.writeInt(forceOffline ? false : this.isOnline());
 		response.writeBool(forceOffline ? false : this.isOnline());
 		response.writeBool(forceOffline ? false : this.inRoom());
 
@@ -52,8 +51,7 @@ public class MessengerUser {
 		response.writeShort(0); 
 	}
 
-	public void searchSerialise(Response response) {
-
+	public void serialiseSearch(Response response) {
 		response.writeInt(this.getDetails().getId());
 		response.writeString(this.getDetails().getUsername());
 		response.writeString(this.getDetails().getMission()); 

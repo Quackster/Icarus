@@ -15,7 +15,7 @@ public class PlayerDao {
 	public static PlayerDetails getDetails(int userId) {
 
 		PlayerDetails details = new PlayerDetails(null);
-		Player player = PlayerManager.findById(userId);
+		Player player = PlayerManager.getById(userId);
 
 		if (player != null) {
 			details = player.getDetails();

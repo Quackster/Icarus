@@ -23,12 +23,12 @@ public class MessengerSearchMessageComposer extends OutgoingMessageComposer {
 		
 		response.writeInt(this.friends.size());
 		for (MessengerUser friend : this.friends) {
-			friend.searchSerialise(response);
+			friend.serialiseSearch(response);
 		}
 
 		response.writeInt(this.strangers.size());
 		for (MessengerUser stranger : this.strangers) {
-			stranger.searchSerialise(response);
+			stranger.serialiseSearch(response);
 			stranger.dispose();
 		}
 	}

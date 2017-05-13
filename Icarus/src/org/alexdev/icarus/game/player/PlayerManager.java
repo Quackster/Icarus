@@ -12,7 +12,7 @@ public class PlayerManager {
 		players = new ConcurrentHashMap<Integer, Player>();
 	}
 
-	public static Player findById(int userId) {
+	public static Player getById(int userId) {
 		
 		try {
 			return players.values().stream().filter(s -> s.getDetails().getId() == userId).findFirst().get();
@@ -21,7 +21,7 @@ public class PlayerManager {
 		}
 	}
 	
-	public static Player findByName(String name) {
+	public static Player getByName(String name) {
 		
 		try {
 			return players.values().stream().filter(s -> s.getDetails().getUsername().equals(name)).findFirst().get();
@@ -32,7 +32,7 @@ public class PlayerManager {
 	
 	public static PlayerDetails getPlayerData(int userId) {
 		
-		Player player = findById(userId);
+		Player player = getById(userId);
 		
 		if (player == null) {
 			return PlayerDao.getDetails(userId);

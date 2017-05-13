@@ -18,6 +18,8 @@ public class FurnitureManager {
         for (Entry<Integer, ItemDefinition> set : furnitureIds.entrySet()) {
             furnitureSpriteIds.put(set.getValue().getSpriteId(), set.getValue());
         }
+        
+        String test = "";
     }
 
     public static ItemDefinition getFurnitureById(int id) {

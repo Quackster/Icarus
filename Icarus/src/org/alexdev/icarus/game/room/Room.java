@@ -162,7 +162,7 @@ public class Room {
 
             this.cleanupRoomData();
 
-            if (PlayerManager.findById(this.data.getOwnerId()) == null && this.data.getRoomType() == RoomType.PRIVATE) { 
+            if (PlayerManager.getById(this.data.getOwnerId()) == null && this.data.getRoomType() == RoomType.PRIVATE) { 
                 RoomManager.getLoadedRooms().remove(this);
             }
         }
