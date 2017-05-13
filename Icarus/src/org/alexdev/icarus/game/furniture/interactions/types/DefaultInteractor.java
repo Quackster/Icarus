@@ -12,12 +12,12 @@ public class DefaultInteractor implements Interaction {
         
         int modes = item.getDefinition().getInterationModes();
         int current_mode = Util.isNumber(item.getExtraData()) ? Integer.valueOf(item.getExtraData()) : 0;
-
-        if (current_mode >= modes) {
+        int new_mode = current_mode + 1;
+        
+        if (new_mode >= modes) {
             current_mode = 0;
-        }
-        else {
-            current_mode++;
+        } else {
+            current_mode = new_mode;
         }
 
         item.setExtraData(String.valueOf(current_mode));

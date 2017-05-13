@@ -48,6 +48,7 @@ public class Incoming {
     public static final Integer MoveItemMessageEvent = 3583;//888
     public static final Integer MoveWallItemMessageEvent = 1778;//3589
     public static final Integer PickupItemMessageEvent = 1766;//103
-    public static final Integer InteractItemMessageEvent = 3249;//103
+    public static final Integer InteractFloorItemMessageEvent = 3249;//103
+    public static final Integer InteractWallItemMessageEvent = 3674;
 	
 }

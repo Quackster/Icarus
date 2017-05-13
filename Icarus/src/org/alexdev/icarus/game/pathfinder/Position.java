@@ -81,7 +81,6 @@ public class Position {
 		return new Position(other.getX() - getX(), other.getY() - getY(), other.getZ() - getZ());
 	}
 
-
 	public int getDistanceSquared(Position point) {
 		int dx = this.getX() - point.getX();
 		int dy = this.getY() - point.getY();

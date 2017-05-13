@@ -64,13 +64,13 @@ public class Item {
             this.position.setRotation(rotation);
             this.serializer = new FloorItemSerialise(this);
         }
-        
+
         if (this.type == ItemType.WALL) {
             if (this.roomId > 0) {
                 Log.println("PARSE WALL ITEM");
                 this.parseWallPosition(x + " " + y);
             }
-            
+
             this.serializer = new WallItemSerialise(this);
         }
     }
@@ -89,7 +89,7 @@ public class Item {
 
         return AffectedTile.getAffectedTiles(this.getDefinition().getLength(), this.getDefinition().getWidth(), this.position.getX(), this.position.getY(), this.position.getRotation());
     }
-    
+
     /**
      * Updates entities who are or were sitting/laying/standing on this furniture
      * 
@@ -151,7 +151,6 @@ public class Item {
         }
 
         return false;
-
     }
 
     /**
@@ -163,6 +162,18 @@ public class Item {
 
         ItemDefinition definition = this.getDefinition();
 
+        if (definition.getInteractionType() == InteractionType.BED) {
+            return true;
+        }
+        
+        if (definition.getInteractionType() == InteractionType.GATE) {
+            if (this.extraData.equals("1")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
         if (definition.isCanSit()) {
             return true;
         }
@@ -171,51 +182,48 @@ public class Item {
             return true;
         }
 
-        
-        if (definition.getInteractionType() == InteractionType.BED) {
-            return true;
-        }
-
         return false;
     }
-    
+
     /**
         Parse wall item with the arguments given, this should only exist in one place!
-    
+
         @param Wall position (left/right,width_x, width_y length_x, length_y) eg (r,3,6 2,7)
         @return none
      */
     public void parseWallPosition(String position) {
-    
+
         try {
             String[] x_data = position.split(" ")[0].split(",");
             this.side = x_data[0].toCharArray()[0];
             this.widthX = Integer.valueOf(x_data[1]);
             this.widthY = Integer.valueOf(x_data[2]);
-   
+
             String[] y_data = position.split(" ")[1].split(",");
             this.lengthX = Integer.valueOf(y_data[0]);
             this.lengthY = Integer.valueOf(y_data[1]);
-            
+
         } catch (NumberFormatException e) {
             Log.println("Error parsing wall item for item ID: " + this.id);
         }
     }
-    
+
     /**
      * Gets the variables and generates the needed wall position
      */
     public String getWallPosition() {
-    
+
         if (this.type == ItemType.WALL) {
             return ":w=" + this.widthX + "," + this.widthY + " " + "l=" + this.lengthX + "," + this.lengthY + " " + this.side;
         }
-    
+
         return null;
     }
-    
+
     public void updateStatus() {
-        this.getRoom().send(new MoveItemMessageComposer(this));
+        try {
+            this.getRoom().send(new MoveItemMessageComposer(this));
+        } catch (Exception e) { }
     }
 
     public int getId() {
@@ -293,7 +301,7 @@ public class Item {
     public int getRoomId() {
         return roomId;
     }
-    
+
     public Room getRoom() {
         return RoomManager.find(this.roomId);
     }
@@ -306,7 +314,6 @@ public class Item {
         this.extraData = extraData;
     }
 
-
     public ItemType getType() {
         return type;
     }
@@ -318,10 +325,4 @@ public class Item {
     public ItemSerialise getSerializer() {
         return serializer;
     }
-
-    public void setSerializer(ItemSerialise serializer) {
-        this.serializer = serializer;
-    }
-
-
 }

@@ -115,7 +115,8 @@ public class MessageHandler {
 		this.messages.put(Incoming.PickupItemMessageEvent, new PickupItemMessageEvent());
 		this.messages.put(Incoming.ApplyDecorationMessageEvent, new ApplyDecorationMessageEvent());
 		this.messages.put(Incoming.MoveWallItemMessageEvent, new MoveItemMessageEvent());
-		this.messages.put(Incoming.InteractItemMessageEvent, new InteractItemMessageEvent());
+		this.messages.put(Incoming.InteractFloorItemMessageEvent, new InteractItemMessageEvent());
+		this.messages.put(Incoming.InteractWallItemMessageEvent, new InteractItemMessageEvent());
 	}
 
 

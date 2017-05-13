@@ -3,6 +3,7 @@ package org.alexdev.icarus.game.room;
 import java.util.List;
 
 import org.alexdev.icarus.game.entity.Entity;
+import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.pathfinder.AffectedTile;
@@ -50,7 +51,7 @@ public class RoomMapping {
                 continue;
             }
 
-            if (item.getDefinition().isWalkable()) {
+            if (item.getDefinition().isWalkable() && item.getDefinition().getInteractionType() != InteractionType.GATE) {
                 
                 /*double stacked_height = 0;
 
