@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import org.alexdev.icarus.game.entity.Entity;
+import org.alexdev.icarus.game.furniture.interactions.Interaction;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
@@ -38,6 +39,7 @@ public class RoomUser {
     private LinkedList<Position> path;
     private Entity entity;
     private Room room;
+    private Item currentItem;
 
     public RoomUser(Entity entity) {
         this.dispose();
@@ -49,17 +51,43 @@ public class RoomUser {
         this.removeStatus("mv");
 
         this.next = null;
+        this.isWalking = false;
 
         Item item = this.room.getMapping().getHighestItem(this.position.getX(), this.position.getY());
 
-        if (item != null) {
-            if (item.getDefinition().isCanSit()) {
+        boolean no_current_item = false;
 
-                this.setStatus("sit", " " + Double.toString(item.getPosition().getZ() + 1), true, -1);
+        if (item != null) {
+            if (item.canWalk()) {
+                this.currentItem = item;
+                this.currentItemTrigger();
+            } else {
+                no_current_item = true;
             }
+        } else {
+            no_current_item = true;
         }
 
-        this.isWalking = false;
+        if (no_current_item) {
+            this.currentItem = null;
+        }
+        
+        this.needsUpdate = true;
+    }
+
+    public void currentItemTrigger() {
+
+        if (this.currentItem == null) {
+            this.removeStatus("sit");
+            this.removeStatus("lay");
+        } else {
+            Interaction handler = this.currentItem.getDefinition().getInteractionType().getHandler();
+            
+            if (handler != null) {
+                handler.onStopWalking(this.currentItem, this);
+            }
+        }
+        
         this.needsUpdate = true;
     }
 
@@ -182,7 +210,7 @@ public class RoomUser {
         this.lastChatId = 0;
         this.virtualId = -1;
         this.danceId = 0;
-        this.lookResetTime = 0;
+        this.lookResetTime = -1;
 
         this.needsUpdate = false;
 
@@ -298,6 +326,14 @@ public class RoomUser {
 
     public void setLookResetTime(int lookResetTime) {
         this.lookResetTime = lookResetTime;
+    }
+
+    public Item getCurrentItem() {
+        return currentItem;
+    }
+
+    public void setCurrentItem(Item currentItem) {
+        this.currentItem = currentItem;
     }
 
 }

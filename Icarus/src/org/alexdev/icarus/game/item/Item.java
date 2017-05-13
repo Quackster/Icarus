@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.ItemDao;
 import org.alexdev.icarus.game.furniture.ItemDefinition;
+import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.furniture.FurnitureManager;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.serialise.FloorItemSerialise;
@@ -87,6 +88,70 @@ public class Item {
         }
 
         return AffectedTile.getAffectedTilesAt(this.getDefinition().getLength(), this.getDefinition().getWidth(), this.position.getX(), this.position.getY(), this.position.getRotation());
+    }
+    
+    /**
+     * Updates entities who are or were sitting/laying/standing on this furniture
+     * 
+     */
+    public void updateEntities() {
+
+        List<Entity> affected_players = Lists.newArrayList();
+
+        Room room = this.getRoom();
+
+        if (room == null) {
+            return;
+        }
+
+        for (Entity entity : this.getRoom().getEntities()) {
+
+            if (entity.getRoomUser().getCurrentItem() != null) {
+                if (entity.getRoomUser().getCurrentItem().getId() == this.id) {
+
+                    // Item doesn't exist within player
+                    if (!hasEntityCollision(entity.getRoomUser().getPosition().getX(), entity.getRoomUser().getPosition().getY())) {
+                        entity.getRoomUser().setCurrentItem(null);
+                    }
+
+                    affected_players.add(entity);
+                }
+            }
+
+            // Moved item inside a player
+            else if (hasEntityCollision(entity.getRoomUser().getPosition().getX(), entity.getRoomUser().getPosition().getY())) {
+                entity.getRoomUser().setCurrentItem(this);
+                affected_players.add(entity);
+            }
+        }
+
+        // Trigger item update for affected players
+        for (Entity entity : affected_players) {
+            entity.getRoomUser().currentItemTrigger();
+        }
+    }
+
+    /**
+     * Check if specified coordinates collide with the item
+     * 
+     * @param x
+     * @param y
+     * @return {@link boolean} - true if item exits within these coordinates
+     */
+    private boolean hasEntityCollision(int x, int y) {
+
+        if (this.position.getX() == x && this.position.getY() == y) {
+            return true;
+        } else {
+            for (AffectedTile tile : this.getAffectedTiles()) {
+                if (tile.getX() == x && tile.getY() == y) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+
     }
 
     /**

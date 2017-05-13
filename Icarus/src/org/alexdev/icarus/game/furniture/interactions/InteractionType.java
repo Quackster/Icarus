@@ -1,9 +1,12 @@
 package org.alexdev.icarus.game.furniture.interactions;
 
+import org.alexdev.icarus.game.furniture.interactions.types.DefaultInteractor;
+import org.alexdev.icarus.game.furniture.interactions.types.GateInteractor;
+
 public enum InteractionType {
 
-	DEFAULT(null),
-	GATE(null),
+	DEFAULT(new DefaultInteractor()),
+	GATE(new GateInteractor()),
 	POSTIT(null),
 	ROOMEFFECT(null),
 	DIMMER(null),

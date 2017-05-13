@@ -20,7 +20,7 @@ public class CatalogueMessageEvent implements MessageEvent {
 			return;
 		}
 		
-		List<CatalogueTab> parentTabs = CatalogueManager.getParentTabs(player.getDetails().getId());
+		List<CatalogueTab> parentTabs = CatalogueManager.getParentTabs(player.getDetails().getRank());
 		
 		if (parentTabs == null) {
 			return;

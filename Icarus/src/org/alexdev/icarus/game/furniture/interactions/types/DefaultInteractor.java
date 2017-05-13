@@ -4,7 +4,7 @@ import org.alexdev.icarus.game.furniture.interactions.Interaction;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.room.RoomUser;
 
-public class GateInteractor implements Interaction {
+public class DefaultInteractor implements Interaction {
 
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {
@@ -14,8 +14,12 @@ public class GateInteractor implements Interaction {
 
     @Override
     public void onStopWalking(Item item, RoomUser roomUser) {
-        // TODO Auto-generated method stub
         
+        if (item.getDefinition().isCanSit()) {
+            
+            roomUser.setStatus("sit", " " + (roomUser.getPosition().getZ() + 1), true, -1);
+            roomUser.getPosition().setRotation(item.getPosition().getRotation());
+        }
     }
 
 }

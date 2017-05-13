@@ -1,5 +1,8 @@
 package org.alexdev.icarus.game.room;
 
+import java.util.List;
+
+import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.pathfinder.AffectedTile;
@@ -19,7 +22,7 @@ public class RoomMapping {
         this.room = room;
     }
 
-    public void regenerateCollisionMaps() {
+    public void generateCollisionMaps() {
 
         this.mapSizeX = this.room.getModel().getMapSizeX();
         this.mapSizeY = this.room.getModel().getMapSizeY();
@@ -31,6 +34,12 @@ public class RoomMapping {
                 this.tiles[x][y] = new RoomTile(this.room);
                 this.tiles[x][y].setHeight(this.room.getModel().getHeight(x, y));
             }
+        }
+        
+        List<Entity> entities = this.room.getEntities();
+        
+        for (Entity entity : entities) {
+            this.tiles[entity.getRoomUser().getPosition().getX()][entity.getRoomUser().getPosition().getY()].setEntity(entity);
         }
 
         Item[] items = this.room.getFloorItems();
@@ -78,13 +87,13 @@ public class RoomMapping {
     }
 
 
-    public boolean isValidStep(Position position, Position tmp, boolean isFinalMove) {
+    public boolean isValidStep(Entity entity, Position position, Position tmp, boolean isFinalMove) {
 
-        if (!this.isTileWalkable(position.getX(), position.getY())) {
+        if (!this.isTileWalkable(entity, position.getX(), position.getY())) {
             return false;
         }
 
-        if (!this.isTileWalkable(tmp.getX(), tmp.getY())) {
+        if (!this.isTileWalkable(entity, tmp.getX(), tmp.getY())) {
             return false;
         }
 
@@ -112,7 +121,7 @@ public class RoomMapping {
         return true;
     }
 
-    public boolean isTileWalkable(int x, int y) {
+    public boolean isTileWalkable(Entity entity, int x, int y) {
 
         if (this.room.getModel().invalidXYCoords(x, y)) {
             return false;
@@ -122,6 +131,12 @@ public class RoomMapping {
 
         if (tile.hasOverrideLock()) {
             return false;
+        }
+
+        if (tile.getEntity() != null) {
+            if (tile.getEntity() != entity) {
+                return false;
+            }
         }
 
         Item item = tile.getHighestItem();
@@ -144,7 +159,7 @@ public class RoomMapping {
 
         if (item.getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, false);
-            this.regenerateCollisionMaps();
+            this.generateCollisionMaps();
         }
 
         this.room.send(new PlaceItemMessageComposer(item));
@@ -156,7 +171,7 @@ public class RoomMapping {
 
         if (item.getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, rotation_only);
-            this.regenerateCollisionMaps();
+            this.generateCollisionMaps();
         }
 
         item.updateStatus();
@@ -165,13 +180,14 @@ public class RoomMapping {
 
     public void removeItem(Item item) {
 
+        item.updateEntities();
         item.setRoomId(0);
         item.save();
-        
+
         this.room.getItems().remove(item.getId());
         this.room.send(new RemoveItemMessageComposer(item));
-        
-        this.regenerateCollisionMaps();
+
+        this.generateCollisionMaps();
 
     }
 
@@ -185,27 +201,23 @@ public class RoomMapping {
             }
         }
         else {
+            
+            double zOffset = 0.01;
 
             Item highestItem = this.getHighestItem(item.getPosition().getX(), item.getPosition().getY());
 
             if (highestItem != null) {
                 if (highestItem.getDefinition().isCanStack()) {
-                    item.getPosition().setZ(this.getStackHeight(item.getPosition().getX(), item.getPosition().getY()));
+                    item.getPosition().setZ(this.getStackHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
                 } else {
-                    item.getPosition().setZ(highestItem.getPosition().getZ() + 0.01);
+                    item.getPosition().setZ(highestItem.getPosition().getZ() + zOffset);
                 }
             } else {
-                item.getPosition().setZ(this.room.getModel().getHeight(item.getPosition().getX(), item.getPosition().getY()));
+                item.getPosition().setZ(this.room.getModel().getHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
             }
-
-            // Don't make rugs stackable on top of other objects
-
-            /*    item.getPosition().setZ(this.room.getModel().getHeight(item.getPosition().getX(), item.getPosition().getY()));
-            } else {
-                item.getPosition().setZ(this.getStackHeight(item.getPosition().getX(), item.getPosition().getY()));
-
-            }*/
         }
+
+        item.updateEntities();
     }
 
     private double getStackHeight(int x, int y) {

@@ -7,6 +7,7 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomUser;
+import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 
@@ -65,6 +66,17 @@ public class RoomWalkScheduler implements Runnable {
             if (roomEntity.getPath().size() > 0) {
 
                 Position next = roomEntity.getPath().pop();
+                
+                if (!roomEntity.getRoom().getMapping().isTileWalkable(entity, next.getX(), next.getY())) {
+                    roomEntity.stopWalking();
+                    return;
+                }
+                
+                RoomTile nextTile = roomEntity.getRoom().getMapping().getTile(next.getX(), next.getY());
+                nextTile.setEntity(entity);
+                
+                RoomTile previousTile = roomEntity.getRoom().getMapping().getTile(roomEntity.getPosition().getX(), roomEntity.getPosition().getY());
+                previousTile.setEntity(null);
 
                 roomEntity.removeStatus("lay");
                 roomEntity.removeStatus("sit");
@@ -77,6 +89,7 @@ public class RoomWalkScheduler implements Runnable {
                 
                 roomEntity.setNext(next);
                 roomEntity.setNeedUpdate(true);
+                
             }
             else {
                 roomEntity.setNext(null);
