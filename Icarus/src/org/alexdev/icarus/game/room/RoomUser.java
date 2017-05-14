@@ -199,7 +199,7 @@ public class RoomUser {
         Item item = this.room.getMapping().getHighestItem(X, Y);
         
         if (item != null) {
-            Log.println("ITEM: " + item.getId() + " - " + item.getDefinition().getPublicName() + " - " + item.getDefinition().getInteractionType().name());
+            Log.println("ITEM: " + item.getId() + " - " + item.getDefinition().getPublicName() + " - " + item.getPosition().getZ());
         }
         
         
@@ -249,17 +249,15 @@ public class RoomUser {
 
         if (this.statuses != null) {
             this.statuses.clear();
+        } else {
+        	this.statuses = Maps.newHashMap();
         }
 
         if (this.path != null) {
             this.path.clear();
+        } else {
+        	this.path = Lists.newLinkedList();
         }
-
-        this.statuses = null;
-        this.path = null;
-
-        this.statuses = Maps.newHashMap();
-        this.path = Lists.newLinkedList();
 
         this.position = null;
         this.goal = null;
@@ -271,6 +269,8 @@ public class RoomUser {
         this.virtualId = -1;
         this.danceId = 0;
         this.lookResetTime = -1;
+        this.carryItem = 0;
+        this.carryTimer = 0;
 
         this.needsUpdate = false;
 

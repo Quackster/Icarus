@@ -57,6 +57,7 @@ public class MessageHandler {
     private void registerUserPackets() {
         this.messages.put(Incoming.InfoRetrieveMessageEvent, new InfoRetrieveMessageEvent());
         this.messages.put(Incoming.CurrencyBalanceMessageEvent, new CurrencyBalanceMessageEvent());
+        this.messages.put(Incoming.ChangeAppearanceMessageEvent, new ChangeAppearanceMessageEvent());
     }
     
     private void registerMessenger() {

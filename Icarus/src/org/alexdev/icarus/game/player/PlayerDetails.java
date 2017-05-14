@@ -10,6 +10,7 @@ public class PlayerDetails {
     private String username = "Alex";
     private String motto = "banana man";
     private String figure;
+    private String gender;
     private int rank;
     private int credits;
 
@@ -21,11 +22,12 @@ public class PlayerDetails {
         this.entity = session;
     }
 
-    public void fill(int id, String username, String motto, String figure, int rank, int credits) {
+    public void fill(int id, String username, String motto, String figure, String gender, int rank, int credits) {
         this.id = id;
         this.username = username;
         this.motto = motto;
         this.figure = figure;
+        this.gender = gender;
         this.rank = rank;
         this.credits = credits;
         this.authenticated = true;
@@ -75,7 +77,15 @@ public class PlayerDetails {
         this.figure = figure;
     }
 
-    public int getRank() {
+    public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public int getRank() {
         return rank;
     }
 
@@ -101,4 +111,8 @@ public class PlayerDetails {
     public void setEntity(Entity entity) {
         this.entity = entity;
     }
+
+	public Integer getAchievementPoints() {
+		return 0;
+	}
 }

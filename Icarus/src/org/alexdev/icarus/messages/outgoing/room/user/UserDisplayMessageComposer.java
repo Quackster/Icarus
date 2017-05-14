@@ -41,7 +41,7 @@ public class UserDisplayMessageComposer extends OutgoingMessageComposer {
                     response.writeString(Double.toString(entity.getRoomUser().getPosition().getZ()));
                     response.writeInt(0);
                     response.writeInt(1);
-                    response.writeString("m");
+                    response.writeString(entity.getDetails().getGender().toLowerCase());
                     response.writeInt(-1);
                     response.writeInt(-1);
                     response.writeInt(0);

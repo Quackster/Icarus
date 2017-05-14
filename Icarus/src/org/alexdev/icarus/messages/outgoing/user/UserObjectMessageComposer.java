@@ -18,7 +18,7 @@ public class UserObjectMessageComposer extends OutgoingMessageComposer {
         response.writeInt(this.details.getId()); // User ID
         response.writeString(this.details.getUsername()); // Username
         response.writeString(this.details.getFigure()); // Figure
-        response.writeString("M"); // Gender
+        response.writeString(this.details.getGender().toUpperCase()); // Gender
         response.writeString(this.details.getMission()); // Motto
         response.writeString(""); // ?
         response.writeBool(false); // ?
@@ -27,7 +27,7 @@ public class UserObjectMessageComposer extends OutgoingMessageComposer {
         response.writeInt(3); // Daily Pet Respect Points
         response.writeBool(true); // ?
         response.writeString("1448526834"); // Last Online (format?)
-        response.writeBool(true); // Can Change Username
+        response.writeBool(false); // Can Change Username
         response.writeBool(false); // ?
     }
 

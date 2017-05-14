@@ -28,6 +28,9 @@ public class VendingInteractor implements Interaction {
             roomUser.setNeedUpdate(true);
             return; // Don't give the drink immediately after we turn, just like in the old Shockwave versions :^)
         }
+        
+        item.setExtraData("1");
+        item.updateStatus();
 
         RoomManager.getScheduler().schedule(() -> {
             roomUser.carryItem(item.getDefinition().getVendingId());

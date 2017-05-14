@@ -14,51 +14,51 @@ import org.alexdev.icarus.messages.outgoing.room.user.RemoveItemMessageComposer;
 
 public class RoomMapping {
 
-    private Room room;
-    private int mapSizeX;
-    private int mapSizeY;
-    private RoomTile[][] tiles;
+	private Room room;
+	private int mapSizeX;
+	private int mapSizeY;
+	private RoomTile[][] tiles;
 
-    public RoomMapping(Room room) {
-        this.room = room;
-    }
+	public RoomMapping(Room room) {
+		this.room = room;
+	}
 
-    public void regenerateCollisionMaps() {
+	public void regenerateCollisionMaps() {
 
-        this.mapSizeX = this.room.getModel().getMapSizeX();
-        this.mapSizeY = this.room.getModel().getMapSizeY();
+		this.mapSizeX = this.room.getModel().getMapSizeX();
+		this.mapSizeY = this.room.getModel().getMapSizeY();
 
-        this.tiles = new RoomTile[this.mapSizeX][this.mapSizeY];
+		this.tiles = new RoomTile[this.mapSizeX][this.mapSizeY];
 
-        for (int y = 0; y < mapSizeY; y++) {
-            for (int x = 0; x < mapSizeX; x++) {
-                this.tiles[x][y] = new RoomTile(this.room);
-                this.tiles[x][y].setHeight(this.room.getModel().getHeight(x, y));
-            }
-        }
-        
-        List<Entity> entities = this.room.getEntities();
-        
-        for (Entity entity : entities) {
-            this.tiles[entity.getRoomUser().getPosition().getX()][entity.getRoomUser().getPosition().getY()].setEntity(entity);
-        }
+		for (int y = 0; y < mapSizeY; y++) {
+			for (int x = 0; x < mapSizeX; x++) {
+				this.tiles[x][y] = new RoomTile(this.room);
+				this.tiles[x][y].setHeight(this.room.getModel().getHeight(x, y));
+			}
+		}
 
-        Item[] items = this.room.getFloorItems();
+		List<Entity> entities = this.room.getEntities();
 
-        for (Item item : items) {
+		for (Entity entity : entities) {
+			this.tiles[entity.getRoomUser().getPosition().getX()][entity.getRoomUser().getPosition().getY()].setEntity(entity);
+		}
 
-            if (item == null) {
-                continue;
-            }
+		Item[] items = this.room.getFloorItems();
 
-            if (item.getDefinition().isWalkable() && item.getDefinition().getInteractionType() != InteractionType.GATE) {
-                
+		for (Item item : items) {
+
+			if (item == null) {
+				continue;
+			}
+
+			/*if (item.getDefinition().isWalkable() && item.getDefinition().getInteractionType() != InteractionType.GATE) {
+
                 /*double stacked_height = 0;
 
                 if (item.getDefinition().isCanStack()) {
                     stacked_height = item.getDefinition().getStackHeight();
                 }
-                
+
                 RoomTile tile = this.getTile(item.getPosition().getX(), item.getPosition().getY());
 
                 if (tile == null) {
@@ -66,207 +66,207 @@ public class RoomMapping {
                 }
 
                 //tile.getItems().add(item);
-                tile.setHeight(tile.getHeight() + stacked_height);*/
-                
+                tile.setHeight(tile.getHeight() + stacked_height);               
                 continue;
-            }
+            }*/
 
-            double stacked_height = 0;
+			double stacked_height = 0.001;
+			
+			if (item.getDefinition().isCanStack()) {
+				stacked_height = item.getDefinition().getStackHeight();
+			}
 
-            if (item.getDefinition().isCanStack()) {
-                stacked_height = item.getDefinition().getStackHeight();
-            }
+			if (this.checkHighestItem(item, item.getPosition().getX(), item.getPosition().getY())) {
 
-            this.checkHighestItem(item, item.getPosition().getX(), item.getPosition().getY());
+				RoomTile tile = this.getTile(item.getPosition().getX(), item.getPosition().getY());
 
-            RoomTile tile = this.getTile(item.getPosition().getX(), item.getPosition().getY());
+				if (tile == null) {
+					continue;
+				}
 
-            if (tile == null) {
-                continue;
-            }
+				tile.getItems().add(item);
+				tile.setHeight(tile.getHeight() + stacked_height);
 
-            tile.getItems().add(item);
-            tile.setHeight(tile.getHeight() + stacked_height);
+				for (Position position : item.getAffectedTiles()) {
 
-            for (Position position : item.getAffectedTiles()) {
-                
-                if (this.checkHighestItem(item, position.getX(), position.getY())) {
+					if (this.checkHighestItem(item, position.getX(), position.getY())) {
 
-                    RoomTile affectedTile = this.getTile(position.getX(), position.getY());
+						RoomTile affectedTile = this.getTile(position.getX(), position.getY());
 
-                    if (affectedTile == null) {
-                        continue;
-                    }
-                    
-                    affectedTile.getItems().add(item);
-                    affectedTile.setHeight(affectedTile.getHeight() + stacked_height);
-                }
-            }
-        }
-    }
+						if (affectedTile == null) {
+							continue;
+						}
 
-    public boolean isValidStep(Entity entity, Position position, Position tmp, boolean isFinalMove) {
+						affectedTile.getItems().add(item);
+						affectedTile.setHeight(affectedTile.getHeight() + stacked_height);
+					}
+				}
+			}
+		}
+	}
 
-        if (!this.isTileWalkable(entity, position.getX(), position.getY())) {
-            return false;
-        }
+	public boolean isValidStep(Entity entity, Position position, Position tmp, boolean isFinalMove) {
 
-        if (!this.isTileWalkable(entity, tmp.getX(), tmp.getY())) {
-            return false;
-        }
+		if (!this.isTileWalkable(entity, position.getX(), position.getY())) {
+			return false;
+		}
+
+		if (!this.isTileWalkable(entity, tmp.getX(), tmp.getY())) {
+			return false;
+		}
 
 
-        return true;
-    }
+		return true;
+	}
 
-    private boolean checkHighestItem(Item item, int x, int y) {
+	private boolean checkHighestItem(Item item, int x, int y) {
 
-        if (this.room.getModel().invalidXYCoords(x, y)) {
-            return false;
-        }
+		if (this.room.getModel().invalidXYCoords(x, y)) {
+			return false;
+		}
 
-        Item highest_item = this.tiles[x][y].getHighestItem();
+		Item highest_item = this.tiles[x][y].getHighestItem();
 
-        if (highest_item == null) {
-            this.tiles[x][y].setHighestItem(item);
-        }
-        else {
-            if (item.getPosition().getZ() > highest_item.getPosition().getZ()) {
-                this.tiles[x][y].setHighestItem(item);
-            }
-        }
+		if (highest_item == null) {
+			this.tiles[x][y].setHighestItem(item);
+		}
+		else {
+			if (item.getPosition().getZ() > highest_item.getPosition().getZ()) {
+				this.tiles[x][y].setHighestItem(item);
+			}
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    public boolean isTileWalkable(Entity entity, int x, int y) {
+	public boolean isTileWalkable(Entity entity, int x, int y) {
 
-        if (this.room.getModel().invalidXYCoords(x, y)) {
-            return false;
-        }
+		if (this.room.getModel().invalidXYCoords(x, y)) {
+			return false;
+		}
 
-        RoomTile tile = this.tiles[x][y];
+		RoomTile tile = this.tiles[x][y];
 
-        if (tile.hasOverrideLock()) {
-            return false;
-        }
+		if (tile.hasOverrideLock()) {
+			return false;
+		}
 
-        if (tile.getEntity() != null) {
-            if (tile.getEntity() != entity) {
-                return false;
-            }
-        }
-        
-        if (this.room.getModel().isBlocked(x, y)) {
-            return false;
-        }
+		if (tile.getEntity() != null) {
+			if (tile.getEntity() != entity) {
+				return false;
+			}
+		}
 
-        Item item = tile.getHighestItem();
+		if (this.room.getModel().isBlocked(x, y)) {
+			return false;
+		}
 
-        if (item != null) {
-               if (!item.canWalk()) {
-                   return false;
-               }
-        }
+		Item item = tile.getHighestItem();
 
-        return true;
-    }
+		if (item != null) {
+			if (!item.canWalk()) {
+				return false;
+			}
+		}
 
-    public void addItem(Item item) {
+		return true;
+	}
 
-        item.setRoomId(this.room.getData().getId());
+	public void addItem(Item item) {
 
-        this.room.getItems().put(item.getId(), item);
+		item.setRoomId(this.room.getData().getId());
 
-        if (item.getType() == ItemType.FLOOR) {
-            this.handleItemAdjustment(item, false);
-            this.regenerateCollisionMaps();
-        }
+		this.room.getItems().put(item.getId(), item);
 
-        this.room.send(new PlaceItemMessageComposer(item));
+		if (item.getType() == ItemType.FLOOR) {
+			this.handleItemAdjustment(item, false);
+			this.regenerateCollisionMaps();
+		}
 
-        item.save();
-    }
+		this.room.send(new PlaceItemMessageComposer(item));
 
-    public void updateItemPosition(Item item, boolean rotation_only) {
+		item.save();
+	}
 
-        if (item.getType() == ItemType.FLOOR) {
-            this.handleItemAdjustment(item, rotation_only);
-            this.regenerateCollisionMaps();
-        }
+	public void updateItemPosition(Item item, boolean rotation_only) {
 
-        item.updateStatus();
-        item.save();
-    }
+		if (item.getType() == ItemType.FLOOR) {
+			this.handleItemAdjustment(item, rotation_only);
+			this.regenerateCollisionMaps();
+		}
 
-    public void removeItem(Item item) {
+		item.updateStatus();
+		item.save();
+	}
 
-        item.updateEntities();
-        item.setRoomId(0);
-        item.save();
+	public void removeItem(Item item) {
 
-        this.room.getItems().remove(item.getId());
-        this.room.send(new RemoveItemMessageComposer(item));
+		item.updateEntities();
+		item.setRoomId(0);
+		item.save();
 
-        this.regenerateCollisionMaps();
+		this.room.getItems().remove(item.getId());
+		this.room.send(new RemoveItemMessageComposer(item));
 
-    }
+		this.regenerateCollisionMaps();
 
-    private void handleItemAdjustment(Item item, boolean rotation_only) {
+	}
 
-        if (rotation_only) {
-            for (Item items : this.getTile(item.getPosition().getX(), item.getPosition().getY()).getItems()) {
-                if (items != item && items.getPosition().getZ() >= item.getPosition().getZ()) {
-                    items.getPosition().setRotation(item.getPosition().getRotation());
-                }
-            }
-        }
-        else {
-            
-            double zOffset = 0.01;
+	private void handleItemAdjustment(Item item, boolean rotation_only) {
 
-            Item highestItem = this.getHighestItem(item.getPosition().getX(), item.getPosition().getY());
+		if (rotation_only) {
+			for (Item items : this.getTile(item.getPosition().getX(), item.getPosition().getY()).getItems()) {
+				if (items != item && items.getPosition().getZ() >= item.getPosition().getZ()) {
+					items.getPosition().setRotation(item.getPosition().getRotation());
+				}
+			}
+		}
+		else {
 
-            if (highestItem != null) {
-                if (highestItem.getDefinition().isCanStack()) {
-                    item.getPosition().setZ(this.getStackHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
-                } else {
-                    item.getPosition().setZ(highestItem.getPosition().getZ() + zOffset);
-                }
-            } else {
-                item.getPosition().setZ(this.getStackHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
-            }
-        }
+			double zOffset = 0.001;
 
-        item.updateEntities();
-    }
+			Item highestItem = this.getHighestItem(item.getPosition().getX(), item.getPosition().getY());
 
-    private double getStackHeight(int x, int y) {
+			if (highestItem != null) {
+				if (highestItem.getDefinition().isCanStack()) {
+					item.getPosition().setZ(this.getStackHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
+				} else {
+					item.getPosition().setZ(highestItem.getPosition().getZ() + zOffset);
+				}
+			} else {
+				item.getPosition().setZ(this.getStackHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
+			}
+		}
 
-        if (this.room.getModel().invalidXYCoords(x, y)) {
-            return 0;
-        }
+		item.updateEntities();
+	}
 
-        return this.tiles[x][y].getHeight();
-    }
+	private double getStackHeight(int x, int y) {
 
-    public RoomTile getTile(int x, int y) {
+		if (this.room.getModel().invalidXYCoords(x, y)) {
+			return 0;
+		}
 
-        if (this.room.getModel().invalidXYCoords(x, y)) {
-            return null;
-        }
+		return this.tiles[x][y].getHeight();
+	}
 
-        return this.tiles[x][y];
-    }
+	public RoomTile getTile(int x, int y) {
 
-    public Item getHighestItem(int x, int y) {
+		if (this.room.getModel().invalidXYCoords(x, y)) {
+			return null;
+		}
 
-        if (this.room.getModel().invalidXYCoords(x, y)) {
-            return null;
-        }
+		return this.tiles[x][y];
+	}
 
-        return this.tiles[x][y].getHighestItem();
-    }
+	public Item getHighestItem(int x, int y) {
+
+		if (this.room.getModel().invalidXYCoords(x, y)) {
+			return null;
+		}
+
+		return this.tiles[x][y].getHighestItem();
+	}
 
 
 }

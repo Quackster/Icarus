@@ -10,6 +10,7 @@ import org.alexdev.icarus.game.catalogue.CataloguePage;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.game.player.club.ClubManager;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseErrorMessageComposer;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessageComposer;
@@ -86,6 +87,11 @@ public class PurchaseMessageEvent implements MessageEvent {
 
         for (CatalogueBundledItem bundleItem : item.getItems()) {
 
+        	if (bundleItem.getCatalogueItem().getCatalogueName().startsWith("DEAL_HC_")) {
+        		ClubManager.handlePurchase(player, bundleItem);
+        		return;
+        	}
+        	
             List<Item> bought = Lists.newArrayList();
 
             for (int i = 0; i < amount; i++) {

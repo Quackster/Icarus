@@ -1,5 +1,7 @@
 package org.alexdev.icarus.game.item.serialise;
 
+import java.text.DecimalFormat;
+
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemSerialise;
@@ -22,13 +24,15 @@ public class FloorItemSerialise implements ItemSerialise {
     @Override
     public void serialiseItem(Response response) {
         
+    	DecimalFormat f = new DecimalFormat("#.00");
+    	
         response.writeInt(this.item.getId());
         response.writeInt(this.item.getDefinition().getSpriteId());
         response.writeInt(this.item.getPosition().getX());
         response.writeInt(this.item.getPosition().getY());
         response.writeInt(this.item.getPosition().getRotation());
-        response.writeString("" + this.item.getPosition().getZ());
-        response.writeString("" + this.item.getPosition().getZ());
+        response.writeString("" + f.format(this.item.getPosition().getZ()));
+        response.writeString("" + f.format(this.item.getPosition().getZ()));
 
         if (this.item.getDefinition().getInteractionType() == InteractionType.YOUTUBETV) {
             response.writeInt(0);

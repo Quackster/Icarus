@@ -21,7 +21,7 @@ public class Log {
         output("-----------------------------------------", false);
         output("", false);
 
-        println("Roseau - Habbo Hotel PRODUCTION63 Server");
+        println("Icarus - Habbo Hotel PRODUCTION63 Server");
         println("Loading server...");
         println();
     }
