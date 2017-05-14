@@ -185,7 +185,7 @@ public class RoomMapping {
 
 			if (highestItem != null) {
 				if (highestItem.getDefinition().isCanStack()) {
-					item.getPosition().setZ(this.getStackHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
+					item.getPosition().setZ(this.getTileHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
 				} else {
 					item.getPosition().setZ(highestItem.getPosition().getZ() + zOffset);
 				}
@@ -197,7 +197,7 @@ public class RoomMapping {
 		item.updateEntities();
 	}
 
-	private double getStackHeight(int x, int y) {
+	public double getTileHeight(int x, int y) {
 
 		if (this.room.getModel().invalidXYCoords(x, y)) {
 			return 0;
