@@ -6,7 +6,7 @@ import org.alexdev.icarus.dao.mysql.ItemDao;
 
 import com.google.common.collect.Maps;
 
-public class FurnitureManager {
+public class ItemManager {
 
     private static Map<Integer, ItemDefinition> furnitureIds;
     private static Map<Integer, ItemDefinition> furnitureSpriteIds;
@@ -18,8 +18,6 @@ public class FurnitureManager {
         for (Entry<Integer, ItemDefinition> set : furnitureIds.entrySet()) {
             furnitureSpriteIds.put(set.getValue().getSpriteId(), set.getValue());
         }
-        
-        String test = "";
     }
 
     public static ItemDefinition getFurnitureById(int id) {

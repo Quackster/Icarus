@@ -5,7 +5,7 @@ import java.util.List;
 import org.alexdev.icarus.dao.mysql.ItemDao;
 import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.game.entity.Entity;
-import org.alexdev.icarus.game.furniture.FurnitureManager;
+import org.alexdev.icarus.game.furniture.ItemManager;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.serialise.FloorItemSerialise;
 import org.alexdev.icarus.game.item.serialise.WallItemSerialise;
@@ -231,7 +231,7 @@ public class Item {
     }
 
     public ItemDefinition getDefinition() {
-        return FurnitureManager.getFurnitureById(this.itemId);
+        return ItemManager.getFurnitureById(this.itemId);
     }
 
     public void save() {

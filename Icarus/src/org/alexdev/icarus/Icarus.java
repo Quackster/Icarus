@@ -7,7 +7,7 @@ import java.net.InetAddress;
 
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
-import org.alexdev.icarus.game.furniture.FurnitureManager;
+import org.alexdev.icarus.game.furniture.ItemManager;
 import org.alexdev.icarus.game.navigator.NavigatorManager;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.log.Log;
@@ -53,7 +53,7 @@ public class Icarus {
             
             RoomManager.load();
             NavigatorManager.load();
-            FurnitureManager.load();
+            ItemManager.load();
             CatalogueManager.load();
             
             

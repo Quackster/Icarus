@@ -15,36 +15,27 @@ public class VendingInteractor implements Interaction {
 
         // Can't get to the vending machine unless we're close
         Position front = item.getPosition().getSquareInFront();
-        
+
         if (!front.isMatch(roomUser.getPosition())) {
             roomUser.walkTo(front.getX(), front.getY());
             return;
         }
 
         int newRotation = item.getPosition().getRotation() - 4;
-        
+
         if (roomUser.getPosition().getRotation() != newRotation) {
             roomUser.getPosition().setRotation(newRotation);
             roomUser.setNeedUpdate(true);
             return; // Don't give the drink immediately after we turn, just like in the old Shockwave versions :^)
         }
-        
-        item.setExtraData("1");
-        item.updateStatus();
-        
-        RoomManager.getScheduler().schedule(new Runnable() {
-            @Override
-            public void run() {
-                roomUser.carryItem(item.getDefinition().getVendingId());
-            }
+
+        RoomManager.getScheduler().schedule(() -> {
+            roomUser.carryItem(item.getDefinition().getVendingId());
         }, 1, TimeUnit.SECONDS);
 
-        RoomManager.getScheduler().schedule(new Runnable() {
-            @Override
-            public void run() {
-                item.setExtraData("0");
-                item.updateStatus();
-            }
+        RoomManager.getScheduler().schedule(() -> {
+            item.setExtraData("0");
+            item.updateStatus();
         }, 2, TimeUnit.SECONDS);
     }
 

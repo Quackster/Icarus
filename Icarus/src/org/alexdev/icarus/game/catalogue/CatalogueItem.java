@@ -6,7 +6,7 @@ import org.alexdev.icarus.log.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.alexdev.icarus.game.furniture.FurnitureManager;
+import org.alexdev.icarus.game.furniture.ItemManager;
 import org.alexdev.icarus.server.api.messages.Response;
 
 import com.google.common.collect.Lists;
@@ -87,7 +87,7 @@ public class CatalogueItem {
 
         for (CatalogueBundledItem catalogBundledItem : this.items) {
 
-            ItemDefinition itemDefinition = FurnitureManager.getFurnitureById(catalogBundledItem.getItemId());
+            ItemDefinition itemDefinition = ItemManager.getFurnitureById(catalogBundledItem.getItemId());
 
             if (itemDefinition == null) {
                 itemsToRemove.add(catalogBundledItem);
@@ -104,7 +104,7 @@ public class CatalogueItem {
     // All credits to Leon for this structure.
     public void serialise(Response response) {
 
-        final ItemDefinition firstItem = this.itemId.equals("-1") ? null : FurnitureManager.getFurnitureById(this.getItems().get(0).getItemId());
+        final ItemDefinition firstItem = this.itemId.equals("-1") ? null : ItemManager.getFurnitureById(this.getItems().get(0).getItemId());
 
         response.writeInt(this.getId());
         response.writeString(this.getCatalogueName());
@@ -135,7 +135,7 @@ public class CatalogueItem {
 
         if (!this.isBadgeOnly()) {
             for (CatalogueBundledItem bundledItem : this.getItems()) {
-                ItemDefinition def = FurnitureManager.getFurnitureById(bundledItem.getItemId());
+                ItemDefinition def = ItemManager.getFurnitureById(bundledItem.getItemId());
 
                 response.writeString(def.getType());
                 response.writeInt(def.getSpriteId());

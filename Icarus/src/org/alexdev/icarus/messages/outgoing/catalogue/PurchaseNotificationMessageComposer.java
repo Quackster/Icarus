@@ -1,7 +1,7 @@
 package org.alexdev.icarus.messages.outgoing.catalogue;
 
 import org.alexdev.icarus.game.catalogue.CatalogueBundledItem;
-import org.alexdev.icarus.game.furniture.FurnitureManager;
+import org.alexdev.icarus.game.furniture.ItemManager;
 import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
@@ -17,7 +17,7 @@ public class PurchaseNotificationMessageComposer extends OutgoingMessageComposer
     @Override
     public void write() {
         
-        ItemDefinition definition = FurnitureManager.getFurnitureById(item.getItemId());
+        ItemDefinition definition = ItemManager.getFurnitureById(item.getItemId());
         
         response.init(Outgoing.PurchaseNotificationMessageComposer);
         response.writeInt(definition.getId());
