@@ -1,4 +1,4 @@
-package org.alexdev.icarus.game.room.schedulers;
+package org.alexdev.icarus.game.room.tasks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +12,11 @@ import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 import org.alexdev.icarus.util.Util;
 
-public class RoomWalkScheduler implements Runnable {
+public class EntityStatusTask implements Runnable {
 
     private Room room;
 
-    public RoomWalkScheduler(Room room) {
+    public EntityStatusTask(Room room) {
         this.room = room;
     }
 

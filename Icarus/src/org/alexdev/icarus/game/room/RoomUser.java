@@ -45,6 +45,7 @@ public class RoomUser {
     private Item currentItem;
     private int carryTimer;
     private int carryItem;
+    private boolean isRolling;
 
     public RoomUser(Entity entity) {
         this.dispose();
@@ -273,6 +274,7 @@ public class RoomUser {
         this.carryTimer = 0;
 
         this.needsUpdate = false;
+        this.isRolling = false;
 
     }
 
@@ -411,5 +413,13 @@ public class RoomUser {
     public void setCarryItem(int carryItem) {
         this.carryItem = carryItem;
     }
+
+	public boolean isRolling() {
+		return isRolling;
+	}
+
+	public void setRolling(boolean isRolling) {
+		this.isRolling = isRolling;
+	}
 
 }

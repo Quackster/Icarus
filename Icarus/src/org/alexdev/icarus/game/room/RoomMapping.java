@@ -61,6 +61,7 @@ public class RoomMapping {
 				
 				tile.setHeight(item.getTotalHeight() - this.room.getModel().getHeight(item.getPosition()));
 				tile.setHighestItem(item);
+				tile.getItems().add(item);
 				
 				for (Position affected : item.getAffectedTiles()) {
 					
@@ -90,26 +91,6 @@ public class RoomMapping {
 			return false;
 		}
 
-
-		return true;
-	}
-
-	private boolean checkHighestItem(Item item, int x, int y) {
-
-		if (this.room.getModel().invalidXYCoords(x, y)) {
-			return false;
-		}
-
-		Item highest_item = this.tiles[x][y].getHighestItem();
-
-		if (highest_item == null) {
-			this.tiles[x][y].setHighestItem(item);
-		}
-		else {
-			if (item.getPosition().getZ() > highest_item.getPosition().getZ()) {
-				this.tiles[x][y].setHighestItem(item);
-			}
-		}
 
 		return true;
 	}
@@ -209,7 +190,7 @@ public class RoomMapping {
 					item.getPosition().setZ(highestItem.getPosition().getZ() + zOffset);
 				}
 			} else {
-				item.getPosition().setZ(this.getStackHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
+				item.getPosition().setZ(this.room.getModel().getHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
 			}
 		}
 

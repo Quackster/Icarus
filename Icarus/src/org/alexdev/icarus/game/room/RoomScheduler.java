@@ -3,8 +3,9 @@ package org.alexdev.icarus.game.room;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import org.alexdev.icarus.game.room.schedulers.RoomTaskScheduler;
-import org.alexdev.icarus.game.room.schedulers.RoomWalkScheduler;
+import org.alexdev.icarus.game.room.tasks.CarryItemTask;
+import org.alexdev.icarus.game.room.tasks.EntityStatusTask;
+import org.alexdev.icarus.game.room.tasks.RollerTask;
 
 public class RoomScheduler {
 
@@ -12,18 +13,27 @@ public class RoomScheduler {
     private ScheduledFuture<?> walkingScheduledTask;
     private ScheduledFuture<?> roomScheduledTasks;
     
+    private RollerTask rollerTask;
+    private CarryItemTask carryItemTask;
+    
     public RoomScheduler (Room room) {
         this.room = room;
+        this.rollerTask = new RollerTask(room);
+        this.carryItemTask = new CarryItemTask(room);
     }
 
     public void scheduleTasks() {
 
+    	// Walking has it's own task because I don't want any overhead
         if (this.walkingScheduledTask == null) {
-            this.walkingScheduledTask = RoomManager.getScheduler().scheduleAtFixedRate(new RoomWalkScheduler(this.room), 0, 500, TimeUnit.MILLISECONDS);
+            this.walkingScheduledTask = RoomManager.getScheduler().scheduleAtFixedRate(new EntityStatusTask(this.room), 0, 500, TimeUnit.MILLISECONDS);
         }
         
         if (this.roomScheduledTasks == null) {
-            this.roomScheduledTasks = RoomManager.getScheduler().scheduleAtFixedRate(new RoomTaskScheduler(this.room), 0, 1, TimeUnit.SECONDS);
+            this.roomScheduledTasks = RoomManager.getScheduler().scheduleAtFixedRate(() -> {
+            	this.rollerTask.execute();
+            	this.carryItemTask.execute();
+            }, 0, 1, TimeUnit.SECONDS);
         }
     }
 

@@ -82,5 +82,6 @@ public class Outgoing {
     public static int CarryObjectComposer = 2106;
 	public static int AvatarAspectUpdateMessageComposer = 884;
 	public static int UserChangeComposer = 2248;
+	public static int SlideObjectMessageComposer = 330;
     
 }

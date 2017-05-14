@@ -1,4 +1,4 @@
-package org.alexdev.icarus.game.room.populator;
+package org.alexdev.icarus.game.navigator.populator;
 
 import java.util.List;
 

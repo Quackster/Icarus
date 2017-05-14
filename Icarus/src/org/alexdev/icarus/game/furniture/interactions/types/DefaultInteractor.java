@@ -3,6 +3,7 @@ package org.alexdev.icarus.game.furniture.interactions.types;
 import org.alexdev.icarus.game.furniture.interactions.Interaction;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.room.RoomUser;
+import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.util.Util;
 
 public class DefaultInteractor implements Interaction {
@@ -30,7 +31,10 @@ public class DefaultInteractor implements Interaction {
     public void onStopWalking(Item item, RoomUser roomUser) {
         
         if (item.getDefinition().isCanSit()) {
-            roomUser.setStatus("sit", " " + Util.getDecimalFormatter().format(roomUser.getPosition().getZ() + 1), true, -1);
+        	
+        	RoomTile tile = roomUser.getRoom().getMapping().getTile(roomUser.getPosition().getX(), roomUser.getPosition().getY());
+        	
+            roomUser.setStatus("sit", " 1.0", true, -1);
             roomUser.getPosition().setRotation(item.getPosition().getRotation());
         }
     }

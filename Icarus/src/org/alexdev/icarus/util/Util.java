@@ -19,7 +19,7 @@ public class Util {
         configuration = new Wini(new File("icarus.properties"));
         habboConfig =  new Wini(new File("habbohotel.properties"));
         secureRandom = new SecureRandom();
-        decimalFormatter = new DecimalFormat("#.0"); // round to 1 decimal place
+        decimalFormatter = new DecimalFormat("#.#"); // round to 1 decimal place
     }
     
     public boolean isNullOrEmpty(String param) { 
