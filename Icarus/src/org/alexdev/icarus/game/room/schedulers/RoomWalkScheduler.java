@@ -10,6 +10,7 @@ import org.alexdev.icarus.game.room.RoomUser;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
+import org.alexdev.icarus.util.Util;
 
 public class RoomWalkScheduler implements Runnable {
 
@@ -85,7 +86,7 @@ public class RoomWalkScheduler implements Runnable {
                 double height = this.room.getMapping().getTile(next.getX(), next.getY()).getHeight();
                           
                 roomEntity.getPosition().setRotation(rotation);
-                roomEntity.setStatus("mv", " " + next.getX() + "," + next.getY() + "," + Double.toString(height), true, -1);
+                roomEntity.setStatus("mv", " " + next.getX() + "," + next.getY() + "," + Util.getDecimalFormatter().format(height), true, -1);
                 
                 roomEntity.setNext(next);
                 roomEntity.setNeedUpdate(true);

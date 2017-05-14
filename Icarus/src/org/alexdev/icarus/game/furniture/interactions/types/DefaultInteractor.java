@@ -30,7 +30,7 @@ public class DefaultInteractor implements Interaction {
     public void onStopWalking(Item item, RoomUser roomUser) {
         
         if (item.getDefinition().isCanSit()) {
-            roomUser.setStatus("sit", " " + (roomUser.getPosition().getZ() + 1), true, -1);
+            roomUser.setStatus("sit", " " + Util.getDecimalFormatter().format(roomUser.getPosition().getZ() + 1), true, -1);
             roomUser.getPosition().setRotation(item.getPosition().getRotation());
         }
     }

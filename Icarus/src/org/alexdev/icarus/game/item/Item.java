@@ -242,6 +242,22 @@ public class Item {
         ItemDao.deleteItem(this.id);
     }
 
+    public double getTotalHeight() {
+    	
+    	double currentHeight = 0.0;
+    	
+    	// TODO: Include variable height
+    	if (currentHeight <= 0.0) {
+    		currentHeight = this.position.getZ();
+    		
+    		if (this.getDefinition().isCanStack()) {
+    			currentHeight += this.getDefinition().getStackHeight();
+    		}
+    	}
+    	
+    	return currentHeight;
+    }
+    
     public int getLengthX() {
         return lengthX;
     }

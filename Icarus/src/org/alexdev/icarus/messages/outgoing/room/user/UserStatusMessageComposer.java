@@ -1,5 +1,6 @@
 package org.alexdev.icarus.messages.outgoing.room.user;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
@@ -8,6 +9,7 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.util.Util;
 
 public class UserStatusMessageComposer extends OutgoingMessageComposer {
 
@@ -24,7 +26,7 @@ public class UserStatusMessageComposer extends OutgoingMessageComposer {
 
     @Override
     public void write() {
-        
+ 
         response.init(Outgoing.UserStatusMessageComposer);
         
         synchronized (this.users) {
@@ -44,7 +46,7 @@ public class UserStatusMessageComposer extends OutgoingMessageComposer {
                 
                 response.writeInt(entity.getRoomUser().getPosition().getX());
                 response.writeInt(entity.getRoomUser().getPosition().getY());
-                response.writeString(Double.toString(entity.getRoomUser().getPosition().getZ()));
+                response.writeString(Util.getDecimalFormatter().format(entity.getRoomUser().getPosition().getZ()));
                 
                 if (entity.getRoomUser().isWalking()) {
 

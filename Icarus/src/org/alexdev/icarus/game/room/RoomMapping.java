@@ -50,55 +50,30 @@ public class RoomMapping {
 			if (item == null) {
 				continue;
 			}
-
-			/*if (item.getDefinition().isWalkable() && item.getDefinition().getInteractionType() != InteractionType.GATE) {
-
-                /*double stacked_height = 0;
-
-                if (item.getDefinition().isCanStack()) {
-                    stacked_height = item.getDefinition().getStackHeight();
-                }
-
-                RoomTile tile = this.getTile(item.getPosition().getX(), item.getPosition().getY());
-
-                if (tile == null) {
-                    continue;
-                }
-
-                //tile.getItems().add(item);
-                tile.setHeight(tile.getHeight() + stacked_height);               
-                continue;
-            }*/
-
-			double stacked_height = 0.001;
 			
-			if (item.getDefinition().isCanStack()) {
-				stacked_height = item.getDefinition().getStackHeight();
+			RoomTile tile = this.getTile(item.getPosition().getX(), item.getPosition().getY());
+			
+			if (tile == null) {
+				continue;
 			}
-
-			if (this.checkHighestItem(item, item.getPosition().getX(), item.getPosition().getY())) {
-
-				RoomTile tile = this.getTile(item.getPosition().getX(), item.getPosition().getY());
-
-				if (tile == null) {
-					continue;
-				}
-
-				tile.getItems().add(item);
-				tile.setHeight(tile.getHeight() + stacked_height);
-
-				for (Position position : item.getAffectedTiles()) {
-
-					if (this.checkHighestItem(item, position.getX(), position.getY())) {
-
-						RoomTile affectedTile = this.getTile(position.getX(), position.getY());
-
-						if (affectedTile == null) {
-							continue;
-						}
-
-						affectedTile.getItems().add(item);
-						affectedTile.setHeight(affectedTile.getHeight() + stacked_height);
+		
+			if (tile.getHeight() <= item.getTotalHeight()) {
+				
+				tile.setHeight(item.getTotalHeight() - this.room.getModel().getHeight(item.getPosition()));
+				tile.setHighestItem(item);
+				
+				for (Position affected : item.getAffectedTiles()) {
+					
+					RoomTile affectedTile = this.getTile(affected.getX(), affected.getY());
+					
+					if (tile == null) {
+						continue;
+					}
+					
+					if (affectedTile.getHeight() <= item.getTotalHeight()) {
+						affectedTile.setHeight(item.getTotalHeight() - this.room.getModel().getHeight(affected.getX(), affected.getY()));
+						affectedTile.setHighestItem(item);
+						
 					}
 				}
 			}

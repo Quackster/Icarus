@@ -3,6 +3,7 @@ package org.alexdev.icarus.util;
 import java.io.File;
 import java.io.IOException;
 import java.security.SecureRandom;
+import java.text.DecimalFormat;
 
 import org.ini4j.InvalidFileFormatException;
 import org.ini4j.Wini;
@@ -12,11 +13,13 @@ public class Util {
     private static Wini configuration;
     private static SecureRandom secureRandom;
     private static Wini habboConfig;
+    private static DecimalFormat decimalFormatter;
 
     public static void load() throws InvalidFileFormatException, IOException {
         configuration = new Wini(new File("icarus.properties"));
         habboConfig =  new Wini(new File("habbohotel.properties"));
         secureRandom = new SecureRandom();
+        decimalFormatter = new DecimalFormat("#.0"); // round to 1 decimal place
     }
     
     public boolean isNullOrEmpty(String param) { 
@@ -54,4 +57,8 @@ public class Util {
             return false;
         }
     }
+
+	public static DecimalFormat getDecimalFormatter() {
+		return decimalFormatter;
+	}
 }
