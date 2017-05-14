@@ -26,14 +26,10 @@ public class DefaultInteractor implements Interaction {
         item.save();
         
     }
-
     @Override
     public void onStopWalking(Item item, RoomUser roomUser) {
         
         if (item.getDefinition().isCanSit()) {
-        	
-        	RoomTile tile = roomUser.getRoom().getMapping().getTile(roomUser.getPosition().getX(), roomUser.getPosition().getY());
-        	
             roomUser.setStatus("sit", " 1.0", true, -1);
             roomUser.getPosition().setRotation(item.getPosition().getRotation());
         }
