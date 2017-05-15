@@ -1,6 +1,5 @@
 package org.alexdev.icarus.game.item.serialise;
 
-import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemSerialise;
 import org.alexdev.icarus.server.api.messages.Response;
@@ -25,10 +24,8 @@ public class WallItemSerialise implements ItemSerialise {
     	response.writeString(this.item.getId() + "");
         response.writeInt(this.item.getDefinition().getSpriteId());
         response.writeString(this.item.getWallPosition());
-        
         response.writeString(this.item.getExtraData());
-        
-        response.writeInt(-1); // secondsToExpiration
+        response.writeInt(-1);
         response.writeInt(this.item.getDefinition().getInterationModes() > 0 ? 1 : 0);
         response.writeInt(this.item.getUserId());
     }

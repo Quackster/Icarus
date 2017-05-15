@@ -32,6 +32,7 @@ public class Item extends Metadata {
 	private String extraData;
 	private ItemType type;
 	private ItemSerialise serializer;
+	private Item itemUnderneath;
 
 	/**
 	 * Wall position variables
@@ -48,6 +49,7 @@ public class Item extends Metadata {
 		this.itemId = itemId;
 		this.roomId = roomId;
 		this.extraData = extraData;
+		this.itemUnderneath = null;
 
 		if (this.getDefinition().getType().equals("i")) {
 			this.type = ItemType.WALL;
@@ -349,5 +351,13 @@ public class Item extends Metadata {
 
 	public ItemSerialise getSerializer() {
 		return serializer;
+	}
+
+	public Item getItemUnderneath() {
+		return itemUnderneath;
+	}
+
+	public void setItemUnderneath(Item itemUnderneath) {
+		this.itemUnderneath = itemUnderneath;
 	}
 }

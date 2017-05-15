@@ -1,7 +1,5 @@
 package org.alexdev.icarus.game.item.moodlight;
 
-import org.alexdev.icarus.log.Log;
-
 public class MoodlightPreset {
 	
 	private boolean backgroundOnly;

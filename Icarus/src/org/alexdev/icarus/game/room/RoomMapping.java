@@ -7,7 +7,6 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
-import org.alexdev.icarus.game.pathfinder.AffectedTile;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
@@ -57,12 +56,14 @@ public class RoomMapping {
 			if (tile == null) {
 				continue;
 			}
+			
+			tile.getItems().add(item);
 
 			if (tile.getHeight() <= item.getTotalHeight()) {
 
 				tile.setHeight(item.getTotalHeight() - this.room.getModel().getHeight(item.getPosition()));
+				item.setItemUnderneath(tile.getHighestItem());
 				tile.setHighestItem(item);
-				tile.getItems().add(item);
 
 				for (Position affected : item.getAffectedTiles()) {
 
@@ -183,6 +184,7 @@ public class RoomMapping {
 			for (Item items : this.getTile(item.getPosition().getX(), item.getPosition().getY()).getItems()) {
 				if (items != item && items.getPosition().getZ() >= item.getPosition().getZ()) {
 					items.getPosition().setRotation(item.getPosition().getRotation());
+					items.updateStatus();
 				}
 			}
 		}

@@ -1,9 +1,6 @@
 package org.alexdev.icarus.messages.incoming.room.user;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
-import java.util.zip.Inflater;
-
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.MessageEvent;
