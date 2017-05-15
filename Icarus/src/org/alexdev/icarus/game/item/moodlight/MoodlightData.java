@@ -26,7 +26,7 @@ public class MoodlightData {
 	}
 	
     public String generateExtraData() {
-        MoodlightPreset preset = this.presets.get(this.currentPreset);
+        MoodlightPreset preset = this.presets.get(this.currentPreset - 1);
         
         StringBuilder builder = new StringBuilder();
         builder.append(enabled == true ? 2 : 1);

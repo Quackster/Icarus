@@ -9,6 +9,7 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
+import org.alexdev.icarus.util.Util;
 
 public class PlaceItemMessageEvent implements MessageEvent {
 
@@ -41,7 +42,8 @@ public class PlaceItemMessageEvent implements MessageEvent {
     		List<Item> items = player.getRoom().getItems(InteractionType.DIMMER);
     		
     		if (items.size() > 0) {
-    			return; // TODO: Alert no more dimmers
+    			player.sendAlert(Util.getLocale("one.roller.per.room"));
+    			return;
     		}
         }
 

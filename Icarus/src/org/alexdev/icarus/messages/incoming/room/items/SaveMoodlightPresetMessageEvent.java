@@ -16,7 +16,7 @@ public class SaveMoodlightPresetMessageEvent implements MessageEvent {
 	@Override
 	public void handle(Player player, ClientMessage reader) {
 		
-		int presetId = reader.readInt() - 1;
+		int presetId = reader.readInt();
 		boolean backgroundOnly = reader.readInt() == 2;
 		String colour = reader.readString();
 		int colorIntensity = reader.readInt();
@@ -44,7 +44,7 @@ public class SaveMoodlightPresetMessageEvent implements MessageEvent {
 		
 		MoodlightData data = MoodlightManager.getMoodlightData(moodlight.getId());
 		
-		MoodlightPreset preset = data.getPresets().get(presetId);
+		MoodlightPreset preset = data.getPresets().get(presetId - 1);
 		preset.setBackgroundOnly(backgroundOnly);
 		preset.setColorCode(colour);
 		preset.setColorIntensity(colorIntensity);

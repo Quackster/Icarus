@@ -19,7 +19,7 @@ public class MoodlightConfigComposer extends OutgoingMessageComposer {
 		this.response.writeInt(this.data.getPresets().size());
 		this.response.writeInt(this.data.getCurrentPreset());
 		
-		int id = 0;
+		int id = 1;
 		
 		for (MoodlightPreset preset : this.data.getPresets()) {
 			

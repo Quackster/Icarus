@@ -10,6 +10,7 @@ import org.alexdev.icarus.game.messenger.Messenger;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.RoomUser;
+import org.alexdev.icarus.messages.outgoing.user.BroadcastMessageAlertComposer;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.IPlayerNetwork;
 
@@ -39,6 +40,10 @@ public class Player extends Entity {
 
         // Load their inventory data
         this.inventory.init();
+    }
+    
+    public void sendAlert(String message) {
+    	this.send(new BroadcastMessageAlertComposer(message));
     }
 
     public void dispose() {

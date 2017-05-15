@@ -112,6 +112,17 @@ public class Icarus {
             writer.flush();
             writer.close();
         }
+        
+        file = new File("locale.ini");
+
+        if (!file.isFile()) { 
+            file.createNewFile();
+            PrintWriter writer = new PrintWriter(file.getAbsoluteFile());
+            writeLocaleConfiguration(writer);
+            writer.flush();
+            writer.close();
+        }
+
 
         Util.load();
     }
@@ -168,6 +179,20 @@ public class Icarus {
         writer.println();
         writer.println("[Debug]");
         writer.println("debug.enable=true");
+        writer.println();
+    }
+    
+    /**
+     * Writes default values for the locale
+     * 
+     * @param writer - {@link PrintWriter} the file writer
+     */
+    private static void writeLocaleConfiguration(PrintWriter writer) {
+        writer.println("[Locale]");
+        writer.println("language=English");
+        writer.println();
+        writer.println("[English]");
+        writer.println("one.roller.per.room=You can only have one roller per room!");
         writer.println();
     }
 

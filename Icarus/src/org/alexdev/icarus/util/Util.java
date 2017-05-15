@@ -14,12 +14,20 @@ public class Util {
     private static SecureRandom secureRandom;
     private static Wini habboConfig;
     private static DecimalFormat decimalFormatter;
+    private static String language;
+	private static Wini locale;
 
     public static void load() throws InvalidFileFormatException, IOException {
         configuration = new Wini(new File("icarus.properties"));
         habboConfig =  new Wini(new File("habbohotel.properties"));
+        locale =  new Wini(new File("locale.ini"));
         secureRandom = new SecureRandom();
         decimalFormatter = new DecimalFormat("#.#"); // round to 1 decimal place
+        language = locale.get("Locale", "language", String.class);
+    }
+    
+    public static String getLocale(String entry) {
+    	return locale.get(language, entry, String.class);
     }
     
     public boolean isNullOrEmpty(String param) { 
@@ -44,7 +52,7 @@ public class Util {
         return secureRandom;
     }
 
-    public static Wini getHabboConfig() {
+    public static Wini getGameConfig() {
         return habboConfig;
     }
 

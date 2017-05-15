@@ -39,7 +39,6 @@ public class MoodlightPreset {
 	}
 
 	public void setColorCode(String colorCode) {
-		Log.println("new color code: " + colorCode);
 		this.colorCode = colorCode;
 	}
 

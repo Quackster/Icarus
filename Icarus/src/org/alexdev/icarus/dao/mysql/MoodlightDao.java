@@ -9,7 +9,7 @@ import org.alexdev.icarus.log.Log;
 
 public class MoodlightDao {
 
-    public static boolean hasMoodlightData(int roomId) {
+    public static boolean hasMoodlightData(int itemId) {
 
         boolean exists = false;
         
@@ -20,9 +20,10 @@ public class MoodlightDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT item_id FROM room_items_moodlight WHERE item_id = " + roomId, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT item_id FROM room_items_moodlight  WHERE item_id = ? LIMIT 1", sqlConnection);
+            preparedStatement.setInt(1, itemId);
             resultSet = preparedStatement.executeQuery();
-
+            
             while (resultSet.next()) {
                 exists = true;
             }
@@ -49,11 +50,12 @@ public class MoodlightDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_items_moodlight WHERE item_id = " + itemId, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_items_moodlight WHERE item_id = ? LIMIT 1", sqlConnection);
+            preparedStatement.setInt(1, itemId);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                data = new MoodlightData(resultSet.getInt("item_id"), resultSet.getInt("current_preset"), resultSet.getInt("enabled") == 1, resultSet.getString("preset_one"), resultSet.getString("preset_three"), resultSet.getString("preset_three"));
+                data = fill(resultSet);
             	
             }
 
@@ -147,9 +149,9 @@ public class MoodlightDao {
     }
 
 
-    public static Item fill(ResultSet row) throws Exception {
-        Item item = new Item(row.getLong("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
-        return item;
+    public static MoodlightData fill(ResultSet row) throws Exception {
+        MoodlightData data = new MoodlightData(row.getInt("item_id"), row.getInt("current_preset"), row.getInt("enabled") == 1, row.getString("preset_one"), row.getString("preset_two"), row.getString("preset_three"));
+        return data;
     }
 
 }
