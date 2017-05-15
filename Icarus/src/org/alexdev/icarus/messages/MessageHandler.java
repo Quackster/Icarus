@@ -13,9 +13,12 @@ import org.alexdev.icarus.messages.incoming.navigator.*;
 import org.alexdev.icarus.messages.incoming.room.*;
 import org.alexdev.icarus.messages.incoming.room.items.InteractItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.InventoryMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.items.MoodlightInteractMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.MoveItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.PickupItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.PlaceItemMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.items.SaveMoodlightPresetMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.items.ToggleMoodlightMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.user.*;
 import org.alexdev.icarus.messages.incoming.user.*;
 import org.alexdev.icarus.messages.outgoing.room.items.ApplyDecorationMessageEvent;
@@ -100,6 +103,8 @@ public class MessageHandler {
         this.messages.put(Incoming.RoomEditInfoMessageEvent, new RoomSettingsDataMessageEvent());
         this.messages.put(Incoming.SaveRoomMessageEvent, new SaveRoomMessageEvent());
         this.messages.put(Incoming.DeleteRoomMessageEvent, new DeleteRoomMessageEvent());
+        this.messages.put(Incoming.RoomThumbnailMessageEvent, new RoomThumbnailMessageEvent());
+        this.messages.put(Incoming.RoomCameraMessageEvent, new RoomThumbnailMessageEvent());
     }
     
     private void registerCataloguePackets() {
@@ -119,6 +124,9 @@ public class MessageHandler {
         this.messages.put(Incoming.InteractFloorItemMessageEvent, new InteractItemMessageEvent());
         this.messages.put(Incoming.InteractWallItemMessageEvent, new InteractItemMessageEvent());
         this.messages.put(Incoming.DropItemMessageEvent, new DropItemMessageEvent());
+        this.messages.put(Incoming.MoodlightInteractMessageEvent, new MoodlightInteractMessageEvent());
+        this.messages.put(Incoming.ToggleMoodlightMessageEvent, new ToggleMoodlightMessageEvent());
+        this.messages.put(Incoming.SaveMoodlightPresetMessageEvent, new SaveMoodlightPresetMessageEvent());
     }
 
 

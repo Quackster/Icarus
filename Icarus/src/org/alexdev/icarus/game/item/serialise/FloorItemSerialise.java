@@ -1,7 +1,5 @@
 package org.alexdev.icarus.game.item.serialise;
 
-import java.text.DecimalFormat;
-
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemSerialise;
@@ -102,7 +100,7 @@ public class FloorItemSerialise implements ItemSerialise {
         }
         
         response.writeInt(-1); // secondsToExpiration
-        response.writeInt(this.item.getDefinition().getInteractionType() != InteractionType.DEFAULT ? 1 : 0);
+        response.writeInt(this.item.getDefinition().getInterationModes() > 0 ? 1 : 0);
         response.writeInt(this.item.getUserId());
     }
 }

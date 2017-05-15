@@ -12,69 +12,69 @@ import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
 
 public class ConnectionHandler extends SimpleChannelHandler {
-    
-    private SessionManager sessionManager;
 
-    public ConnectionHandler(SessionManager sessionManager) {
-        this.sessionManager = sessionManager;
-    }
+	private SessionManager sessionManager;
 
-    @Override
-    public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent e) {
+	public ConnectionHandler(SessionManager sessionManager) {
+		this.sessionManager = sessionManager;
+	}
 
-        sessionManager.addSession(ctx.getChannel());
-        
-        Player player = (Player) ctx.getChannel().getAttachment();
-        
-        if (Util.getConfiguration().get("Logging", "log.connections", Boolean.class)) {
-            Log.println("[" + player.getNetwork().getConnectionId() + "] Connection from " + ctx.getChannel().getRemoteAddress().toString().replace("/", "").split(":")[0]);
-        }
+	@Override
+	public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent e) {
 
-    } 
+		sessionManager.addSession(ctx.getChannel());
 
-    @Override
-    public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) {
-        
-        sessionManager.removeSession(ctx.getChannel());
-        
-        Player player = (Player) ctx.getChannel().getAttachment();
-        
-        if (Util.getConfiguration().get("Logging", "log.connections", Boolean.class)) {
-            Log.println("[" + player.getNetwork().getConnectionId() + "] Disconnection from " + ctx.getChannel().getRemoteAddress().toString().replace("/", "").split(":")[0]);
-        }
-        
-        player.dispose();
-        
-    }
+		Player player = (Player) ctx.getChannel().getAttachment();
 
-    @Override
-    public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) {
+		if (Util.getConfiguration().get("Logging", "log.connections", Boolean.class)) {
+			Log.println("[" + player.getNetwork().getConnectionId() + "] Connection from " + ctx.getChannel().getRemoteAddress().toString().replace("/", "").split(":")[0]);
+		}
 
-        try {
+	} 
 
-            Player player = (Player) ctx.getChannel().getAttachment();
-            NettyRequest request = (NettyRequest) e.getMessage();
-            
-            if (request == null) {
-                return;
-            }
+	@Override
+	public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) {
 
-            if (Util.getConfiguration().get("Logging", "log.packets", Boolean.class)) {
-                Log.println("Received: " + request.getMessageId() + " / " + request.getMessageBody());
-            }
+		sessionManager.removeSession(ctx.getChannel());
 
-            if (player != null){
-                Icarus.getServer().getMessageHandler().handleRequest(player, request);
-            }
+		Player player = (Player) ctx.getChannel().getAttachment();
 
-        } catch (Exception ex) {
-            Log.exception(ex);
-        }
-    }
-    
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {
-        ctx.getChannel().close();
-    }
+		if (Util.getConfiguration().get("Logging", "log.connections", Boolean.class)) {
+			Log.println("[" + player.getNetwork().getConnectionId() + "] Disconnection from " + ctx.getChannel().getRemoteAddress().toString().replace("/", "").split(":")[0]);
+		}
+
+		player.dispose();
+
+	}
+
+	@Override
+	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) {
+
+		try {
+
+			Player player = (Player) ctx.getChannel().getAttachment();
+			NettyRequest request = (NettyRequest) e.getMessage();
+
+			if (request == null) {
+				return;
+			}
+
+			if (Util.getConfiguration().get("Logging", "log.packets", Boolean.class)) {
+					Log.println("Received: " + request.getMessageId() + " / " + request.getMessageBody());
+			}
+
+			if (player != null){
+				Icarus.getServer().getMessageHandler().handleRequest(player, request);
+			}
+
+		} catch (Exception ex) {
+			Log.exception(ex);
+		}
+	}
+
+	@Override
+	public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {
+		ctx.getChannel().close();
+	}
 
 }

@@ -1,6 +1,5 @@
 package org.alexdev.icarus.messages.outgoing.room.user;
 
-import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;

@@ -21,12 +21,15 @@ public class WallItemSerialise implements ItemSerialise {
 
     @Override
     public void serialiseItem(Response response) {
-        response.writeString(this.item.getId() + "");
+        
+    	response.writeString(this.item.getId() + "");
         response.writeInt(this.item.getDefinition().getSpriteId());
         response.writeString(this.item.getWallPosition());
+        
         response.writeString(this.item.getExtraData());
+        
         response.writeInt(-1); // secondsToExpiration
-        response.writeInt(this.item.getDefinition().getInteractionType() != InteractionType.DEFAULT ? 1 : 0);
+        response.writeInt(this.item.getDefinition().getInterationModes() > 0 ? 1 : 0);
         response.writeInt(this.item.getUserId());
     }
 }

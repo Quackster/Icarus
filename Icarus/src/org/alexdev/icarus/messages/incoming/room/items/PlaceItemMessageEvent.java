@@ -1,5 +1,8 @@
 package org.alexdev.icarus.messages.incoming.room.items;
 
+import java.util.List;
+
+import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.player.Player;
@@ -33,6 +36,14 @@ public class PlaceItemMessageEvent implements MessageEvent {
             return;
         }
 
+        if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
+        	
+    		List<Item> items = player.getRoom().getItems(InteractionType.DIMMER);
+    		
+    		if (items.size() > 0) {
+    			return; // TODO: Alert no more dimmers
+    		}
+        }
 
         if (item.getType() == ItemType.WALL) {
             String[] pos = input.split(":")[1].split(" ");

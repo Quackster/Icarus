@@ -1,6 +1,7 @@
 package org.alexdev.icarus.server.netty.streams;
 
 import java.nio.charset.Charset;
+import java.util.Arrays;
 
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.jboss.netty.buffer.ChannelBuffer;
@@ -87,4 +88,11 @@ public class NettyRequest implements ClientMessage {
     public int getMessageId() {
         return header;
     }
+
+	@Override
+	public byte[] getRawMessage() {
+		byte[] complete = this.buffer.array();
+		
+		return Arrays.copyOfRange(complete, 6, complete.length); 
+	}
 }

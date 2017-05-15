@@ -52,5 +52,10 @@ public class Incoming {
     public static Integer InteractWallItemMessageEvent = 3674;
     public static Integer DropItemMessageEvent = 3296;
 	public static Integer ChangeAppearanceMessageEvent = 498;
+	public static Integer RoomThumbnailMessageEvent = -1184;//1184;
+	public static Integer RoomCameraMessageEvent = -2343;//2343;
+	public static Integer MoodlightInteractMessageEvent = 2906;
+	public static Integer ToggleMoodlightMessageEvent = 14;
+	public static Integer SaveMoodlightPresetMessageEvent = 2913;
     
 }

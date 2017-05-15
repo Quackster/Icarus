@@ -2,6 +2,7 @@ package org.alexdev.icarus.game.room;
 
 import java.util.List;
 
+import org.alexdev.icarus.dao.mysql.MoodlightDao;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
@@ -50,31 +51,31 @@ public class RoomMapping {
 			if (item == null) {
 				continue;
 			}
-			
+
 			RoomTile tile = this.getTile(item.getPosition().getX(), item.getPosition().getY());
-			
+
 			if (tile == null) {
 				continue;
 			}
-		
+
 			if (tile.getHeight() <= item.getTotalHeight()) {
-				
+
 				tile.setHeight(item.getTotalHeight() - this.room.getModel().getHeight(item.getPosition()));
 				tile.setHighestItem(item);
 				tile.getItems().add(item);
-				
+
 				for (Position affected : item.getAffectedTiles()) {
-					
+
 					RoomTile affectedTile = this.getTile(affected.getX(), affected.getY());
-					
+
 					if (tile == null) {
 						continue;
 					}
-					
+
 					if (affectedTile.getHeight() <= item.getTotalHeight()) {
 						affectedTile.setHeight(item.getTotalHeight() - this.room.getModel().getHeight(affected.getX(), affected.getY()));
 						affectedTile.setHighestItem(item);
-						
+
 					}
 				}
 			}
@@ -156,6 +157,14 @@ public class RoomMapping {
 	}
 
 	public void removeItem(Item item) {
+
+		if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
+			if (MoodlightDao.hasMoodlightData(item.getId())) {
+				MoodlightDao.deleteMoodlightData(item.getId());
+			}
+			
+			item.setExtraData("");
+		}
 
 		item.updateEntities();
 		item.setRoomId(0);

@@ -1,13 +1,6 @@
 package org.alexdev.icarus.messages.incoming.room.user;
 
-import java.util.LinkedList;
-
-import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.pathfinder.Pathfinder;
-import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.game.room.RoomUser;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
