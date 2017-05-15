@@ -80,9 +80,9 @@ public class Outgoing {
     public static int WallOptionsMessageComposer = 3003;
     public static int CatalogueDiscountComposer = 796;
     public static int CarryObjectComposer = 2106;
-	public static int AvatarAspectUpdateMessageComposer = 884;
-	public static int UserChangeComposer = 2248;
-	public static int SlideObjectMessageComposer = 330;
-	public static int MoodlightConfigMessageComposer = 1540;
+    public static int AvatarAspectUpdateMessageComposer = 884;
+    public static int UserChangeComposer = 2248;
+    public static int SlideObjectMessageComposer = 330;
+    public static int MoodlightConfigMessageComposer = 1540;
     
 }

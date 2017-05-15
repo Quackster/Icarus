@@ -9,12 +9,12 @@ import org.alexdev.icarus.game.room.RoomUser;
 
 public class CarryItemTask extends RoomTask {
 
-	private Room room;
-	
-	public CarryItemTask(Room room) {
-		this.room = room;
-	}
-	
+    private Room room;
+    
+    public CarryItemTask(Room room) {
+        this.room = room;
+    }
+    
     public void execute() {
 
         try {

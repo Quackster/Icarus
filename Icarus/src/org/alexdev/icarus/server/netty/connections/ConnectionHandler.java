@@ -13,68 +13,68 @@ import org.jboss.netty.channel.SimpleChannelHandler;
 
 public class ConnectionHandler extends SimpleChannelHandler {
 
-	private SessionManager sessionManager;
+    private SessionManager sessionManager;
 
-	public ConnectionHandler(SessionManager sessionManager) {
-		this.sessionManager = sessionManager;
-	}
+    public ConnectionHandler(SessionManager sessionManager) {
+        this.sessionManager = sessionManager;
+    }
 
-	@Override
-	public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent e) {
+    @Override
+    public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent e) {
 
-		sessionManager.addSession(ctx.getChannel());
+        sessionManager.addSession(ctx.getChannel());
 
-		Player player = (Player) ctx.getChannel().getAttachment();
+        Player player = (Player) ctx.getChannel().getAttachment();
 
-		if (Util.getConfiguration().get("Logging", "log.connections", Boolean.class)) {
-			Log.println("[" + player.getNetwork().getConnectionId() + "] Connection from " + ctx.getChannel().getRemoteAddress().toString().replace("/", "").split(":")[0]);
-		}
+        if (Util.getConfiguration().get("Logging", "log.connections", Boolean.class)) {
+            Log.println("[" + player.getNetwork().getConnectionId() + "] Connection from " + ctx.getChannel().getRemoteAddress().toString().replace("/", "").split(":")[0]);
+        }
 
-	} 
+    } 
 
-	@Override
-	public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) {
+    @Override
+    public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) {
 
-		sessionManager.removeSession(ctx.getChannel());
+        sessionManager.removeSession(ctx.getChannel());
 
-		Player player = (Player) ctx.getChannel().getAttachment();
+        Player player = (Player) ctx.getChannel().getAttachment();
 
-		if (Util.getConfiguration().get("Logging", "log.connections", Boolean.class)) {
-			Log.println("[" + player.getNetwork().getConnectionId() + "] Disconnection from " + ctx.getChannel().getRemoteAddress().toString().replace("/", "").split(":")[0]);
-		}
+        if (Util.getConfiguration().get("Logging", "log.connections", Boolean.class)) {
+            Log.println("[" + player.getNetwork().getConnectionId() + "] Disconnection from " + ctx.getChannel().getRemoteAddress().toString().replace("/", "").split(":")[0]);
+        }
 
-		player.dispose();
+        player.dispose();
 
-	}
+    }
 
-	@Override
-	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) {
+    @Override
+    public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) {
 
-		try {
+        try {
 
-			Player player = (Player) ctx.getChannel().getAttachment();
-			NettyRequest request = (NettyRequest) e.getMessage();
+            Player player = (Player) ctx.getChannel().getAttachment();
+            NettyRequest request = (NettyRequest) e.getMessage();
 
-			if (request == null) {
-				return;
-			}
+            if (request == null) {
+                return;
+            }
 
-			if (Util.getConfiguration().get("Logging", "log.packets", Boolean.class)) {
-					Log.println("Received: " + request.getMessageId() + " / " + request.getMessageBody());
-			}
+            if (Util.getConfiguration().get("Logging", "log.packets", Boolean.class)) {
+                    Log.println("Received: " + request.getMessageId() + " / " + request.getMessageBody());
+            }
 
-			if (player != null){
-				Icarus.getServer().getMessageHandler().handleRequest(player, request);
-			}
+            if (player != null){
+                Icarus.getServer().getMessageHandler().handleRequest(player, request);
+            }
 
-		} catch (Exception ex) {
-			Log.exception(ex);
-		}
-	}
+        } catch (Exception ex) {
+            Log.exception(ex);
+        }
+    }
 
-	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {
-		ctx.getChannel().close();
-	}
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {
+        ctx.getChannel().close();
+    }
 
 }

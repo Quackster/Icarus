@@ -78,14 +78,14 @@ public class PlayerDetails {
     }
 
     public String getGender() {
-		return gender;
-	}
+        return gender;
+    }
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-	public int getRank() {
+    public int getRank() {
         return rank;
     }
 
@@ -112,7 +112,7 @@ public class PlayerDetails {
         this.entity = entity;
     }
 
-	public Integer getAchievementPoints() {
-		return 0;
-	}
+    public Integer getAchievementPoints() {
+        return 0;
+    }
 }

@@ -15,7 +15,7 @@ public class Util {
     private static Wini habboConfig;
     private static DecimalFormat decimalFormatter;
     private static String language;
-	private static Wini locale;
+    private static Wini locale;
 
     public static void load() throws InvalidFileFormatException, IOException {
         configuration = new Wini(new File("icarus.properties"));
@@ -27,7 +27,7 @@ public class Util {
     }
     
     public static String getLocale(String entry) {
-    	return locale.get(language, entry, String.class);
+        return locale.get(language, entry, String.class);
     }
     
     public boolean isNullOrEmpty(String param) { 
@@ -66,7 +66,7 @@ public class Util {
         }
     }
 
-	public static DecimalFormat getDecimalFormatter() {
-		return decimalFormatter;
-	}
+    public static DecimalFormat getDecimalFormatter() {
+        return decimalFormatter;
+    }
 }

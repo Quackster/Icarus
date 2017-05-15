@@ -24,15 +24,15 @@ public class RoomScheduler {
 
     public void scheduleTasks() {
 
-    	// Walking has it's own task because I don't want any overhead
+        // Walking has it's own task because I don't want any overhead
         if (this.walkingScheduledTask == null) {
             this.walkingScheduledTask = RoomManager.getScheduler().scheduleAtFixedRate(new EntityStatusTask(this.room), 0, 500, TimeUnit.MILLISECONDS);
         }
         
         if (this.roomScheduledTasks == null) {
             this.roomScheduledTasks = RoomManager.getScheduler().scheduleAtFixedRate(() -> {
-            	this.rollerTask.execute();
-            	this.carryItemTask.execute();
+                this.rollerTask.execute();
+                this.carryItemTask.execute();
             }, 0, 1, TimeUnit.SECONDS);
         }
     }

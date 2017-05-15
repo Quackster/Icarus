@@ -13,28 +13,28 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class MoodlightInteractMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage reader) {
-		
-		List<Item> items = player.getRoom().getItems(InteractionType.DIMMER);
-		
-		Item moodlight = null;
-		
-		for (Item item : items) {
-			moodlight = item;
-			continue;
-		}
+    @Override
+    public void handle(Player player, ClientMessage reader) {
+        
+        List<Item> items = player.getRoom().getItems(InteractionType.DIMMER);
+        
+        Item moodlight = null;
+        
+        for (Item item : items) {
+            moodlight = item;
+            continue;
+        }
 
-		if (moodlight == null) {
-			return;
-		}
-		
-		MoodlightData data = MoodlightManager.getMoodlightData(moodlight.getId());
-		
-		moodlight.setExtraData(data.generateExtraData());
-		moodlight.save();
-		
-		player.send(new MoodlightConfigComposer(data));
-	}
+        if (moodlight == null) {
+            return;
+        }
+        
+        MoodlightData data = MoodlightManager.getMoodlightData(moodlight.getId());
+        
+        moodlight.setExtraData(data.generateExtraData());
+        moodlight.save();
+        
+        player.send(new MoodlightConfigComposer(data));
+    }
 
 }

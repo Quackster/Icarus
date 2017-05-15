@@ -251,13 +251,13 @@ public class RoomUser {
         if (this.statuses != null) {
             this.statuses.clear();
         } else {
-        	this.statuses = Maps.newHashMap();
+            this.statuses = Maps.newHashMap();
         }
 
         if (this.path != null) {
             this.path.clear();
         } else {
-        	this.path = Lists.newLinkedList();
+            this.path = Lists.newLinkedList();
         }
 
         this.position = null;
@@ -414,12 +414,12 @@ public class RoomUser {
         this.carryItem = carryItem;
     }
 
-	public boolean isRolling() {
-		return isRolling;
-	}
+    public boolean isRolling() {
+        return isRolling;
+    }
 
-	public void setRolling(boolean isRolling) {
-		this.isRolling = isRolling;
-	}
+    public void setRolling(boolean isRolling) {
+        this.isRolling = isRolling;
+    }
 
 }

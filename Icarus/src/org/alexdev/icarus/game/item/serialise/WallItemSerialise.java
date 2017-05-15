@@ -21,7 +21,7 @@ public class WallItemSerialise implements ItemSerialise {
     @Override
     public void serialiseItem(Response response) {
         
-    	response.writeString(this.item.getId() + "");
+        response.writeString(this.item.getId() + "");
         response.writeInt(this.item.getDefinition().getSpriteId());
         response.writeString(this.item.getWallPosition());
         response.writeString(this.item.getExtraData());

@@ -43,7 +43,7 @@ public class Player extends Entity {
     }
     
     public void sendAlert(String message) {
-    	this.send(new BroadcastMessageAlertComposer(message));
+        this.send(new BroadcastMessageAlertComposer(message));
     }
 
     public void dispose() {

@@ -38,13 +38,13 @@ public class PlaceItemMessageEvent implements MessageEvent {
         }
 
         if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
-        	
-    		List<Item> items = player.getRoom().getItems(InteractionType.DIMMER);
-    		
-    		if (items.size() > 0) {
-    			player.sendAlert(Util.getLocale("one.roller.per.room"));
-    			return;
-    		}
+            
+            List<Item> items = player.getRoom().getItems(InteractionType.DIMMER);
+            
+            if (items.size() > 0) {
+                player.sendAlert(Util.getLocale("one.roller.per.room"));
+                return;
+            }
         }
 
         if (item.getType() == ItemType.WALL) {

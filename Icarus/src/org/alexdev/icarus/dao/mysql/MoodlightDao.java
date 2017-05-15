@@ -40,7 +40,7 @@ public class MoodlightDao {
     
     public static MoodlightData getMoodlightData(int itemId) {
 
-    	MoodlightData data = null;
+        MoodlightData data = null;
         
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -55,7 +55,7 @@ public class MoodlightDao {
 
             while (resultSet.next()) {
                 data = fill(resultSet);
-            	
+                
             }
 
         } catch (Exception e) {

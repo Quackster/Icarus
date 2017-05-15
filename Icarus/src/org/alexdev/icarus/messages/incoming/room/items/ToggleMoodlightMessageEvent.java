@@ -12,29 +12,29 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class ToggleMoodlightMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage reader) {
+    @Override
+    public void handle(Player player, ClientMessage reader) {
 
-		List<Item> items = player.getRoom().getItems(InteractionType.DIMMER);
-		
-		Item moodlight = null;
-		
-		for (Item item : items) {
-			moodlight = item;
-			continue;
-		}
+        List<Item> items = player.getRoom().getItems(InteractionType.DIMMER);
+        
+        Item moodlight = null;
+        
+        for (Item item : items) {
+            moodlight = item;
+            continue;
+        }
 
-		if (moodlight == null) {
-			return;
-		}
-		
-		MoodlightData data = MoodlightManager.getMoodlightData(moodlight.getId());
-		data.setEnabled(!data.isEnabled());
-		data.save();
-		
-		moodlight.setExtraData(data.generateExtraData());
-		moodlight.updateStatus();
-		moodlight.save();
-	}
+        if (moodlight == null) {
+            return;
+        }
+        
+        MoodlightData data = MoodlightManager.getMoodlightData(moodlight.getId());
+        data.setEnabled(!data.isEnabled());
+        data.save();
+        
+        moodlight.setExtraData(data.generateExtraData());
+        moodlight.updateStatus();
+        moodlight.save();
+    }
 
 }

@@ -14,226 +14,226 @@ import org.alexdev.icarus.messages.outgoing.room.user.RemoveItemMessageComposer;
 
 public class RoomMapping {
 
-	private Room room;
-	private int mapSizeX;
-	private int mapSizeY;
-	private RoomTile[][] tiles;
+    private Room room;
+    private int mapSizeX;
+    private int mapSizeY;
+    private RoomTile[][] tiles;
 
-	public RoomMapping(Room room) {
-		this.room = room;
-	}
+    public RoomMapping(Room room) {
+        this.room = room;
+    }
 
-	public void regenerateCollisionMaps() {
+    public void regenerateCollisionMaps() {
 
-		this.mapSizeX = this.room.getModel().getMapSizeX();
-		this.mapSizeY = this.room.getModel().getMapSizeY();
+        this.mapSizeX = this.room.getModel().getMapSizeX();
+        this.mapSizeY = this.room.getModel().getMapSizeY();
 
-		this.tiles = new RoomTile[this.mapSizeX][this.mapSizeY];
+        this.tiles = new RoomTile[this.mapSizeX][this.mapSizeY];
 
-		for (int y = 0; y < mapSizeY; y++) {
-			for (int x = 0; x < mapSizeX; x++) {
-				this.tiles[x][y] = new RoomTile(this.room);
-				this.tiles[x][y].setHeight(this.room.getModel().getHeight(x, y));
-			}
-		}
+        for (int y = 0; y < mapSizeY; y++) {
+            for (int x = 0; x < mapSizeX; x++) {
+                this.tiles[x][y] = new RoomTile(this.room);
+                this.tiles[x][y].setHeight(this.room.getModel().getHeight(x, y));
+            }
+        }
 
-		List<Entity> entities = this.room.getEntities();
+        List<Entity> entities = this.room.getEntities();
 
-		for (Entity entity : entities) {
-			this.tiles[entity.getRoomUser().getPosition().getX()][entity.getRoomUser().getPosition().getY()].setEntity(entity);
-		}
+        for (Entity entity : entities) {
+            this.tiles[entity.getRoomUser().getPosition().getX()][entity.getRoomUser().getPosition().getY()].setEntity(entity);
+        }
 
-		Item[] items = this.room.getFloorItems();
+        Item[] items = this.room.getFloorItems();
 
-		for (Item item : items) {
+        for (Item item : items) {
 
-			if (item == null) {
-				continue;
-			}
+            if (item == null) {
+                continue;
+            }
 
-			RoomTile tile = this.getTile(item.getPosition().getX(), item.getPosition().getY());
+            RoomTile tile = this.getTile(item.getPosition().getX(), item.getPosition().getY());
 
-			if (tile == null) {
-				continue;
-			}
-			
-			tile.getItems().add(item);
+            if (tile == null) {
+                continue;
+            }
+            
+            tile.getItems().add(item);
 
-			if (tile.getHeight() <= item.getTotalHeight()) {
+            if (tile.getHeight() <= item.getTotalHeight()) {
 
-				tile.setHeight(item.getTotalHeight() - this.room.getModel().getHeight(item.getPosition()));
-				item.setItemUnderneath(tile.getHighestItem());
-				tile.setHighestItem(item);
+                tile.setHeight(item.getTotalHeight() - this.room.getModel().getHeight(item.getPosition()));
+                item.setItemUnderneath(tile.getHighestItem());
+                tile.setHighestItem(item);
 
-				for (Position affected : item.getAffectedTiles()) {
+                for (Position affected : item.getAffectedTiles()) {
 
-					RoomTile affectedTile = this.getTile(affected.getX(), affected.getY());
+                    RoomTile affectedTile = this.getTile(affected.getX(), affected.getY());
 
-					if (tile == null) {
-						continue;
-					}
+                    if (tile == null) {
+                        continue;
+                    }
 
-					if (affectedTile.getHeight() <= item.getTotalHeight()) {
-						affectedTile.setHeight(item.getTotalHeight() - this.room.getModel().getHeight(affected.getX(), affected.getY()));
-						affectedTile.setHighestItem(item);
+                    if (affectedTile.getHeight() <= item.getTotalHeight()) {
+                        affectedTile.setHeight(item.getTotalHeight() - this.room.getModel().getHeight(affected.getX(), affected.getY()));
+                        affectedTile.setHighestItem(item);
 
-					}
-				}
-			}
-		}
-	}
+                    }
+                }
+            }
+        }
+    }
 
-	public boolean isValidStep(Entity entity, Position position, Position tmp, boolean isFinalMove) {
+    public boolean isValidStep(Entity entity, Position position, Position tmp, boolean isFinalMove) {
 
-		if (!this.isTileWalkable(entity, position.getX(), position.getY())) {
-			return false;
-		}
+        if (!this.isTileWalkable(entity, position.getX(), position.getY())) {
+            return false;
+        }
 
-		if (!this.isTileWalkable(entity, tmp.getX(), tmp.getY())) {
-			return false;
-		}
+        if (!this.isTileWalkable(entity, tmp.getX(), tmp.getY())) {
+            return false;
+        }
 
 
-		return true;
-	}
+        return true;
+    }
 
-	public boolean isTileWalkable(Entity entity, int x, int y) {
+    public boolean isTileWalkable(Entity entity, int x, int y) {
 
-		if (this.room.getModel().invalidXYCoords(x, y)) {
-			return false;
-		}
+        if (this.room.getModel().invalidXYCoords(x, y)) {
+            return false;
+        }
 
-		RoomTile tile = this.tiles[x][y];
+        RoomTile tile = this.tiles[x][y];
 
-		if (tile.hasOverrideLock()) {
-			return false;
-		}
+        if (tile.hasOverrideLock()) {
+            return false;
+        }
 
-		if (tile.getEntity() != null) {
-			if (tile.getEntity() != entity) {
-				return false;
-			}
-		}
+        if (tile.getEntity() != null) {
+            if (tile.getEntity() != entity) {
+                return false;
+            }
+        }
 
-		if (this.room.getModel().isBlocked(x, y)) {
-			return false;
-		}
+        if (this.room.getModel().isBlocked(x, y)) {
+            return false;
+        }
 
-		Item item = tile.getHighestItem();
+        Item item = tile.getHighestItem();
 
-		if (item != null) {
-			if (!item.canWalk()) {
-				return false;
-			}
-		}
+        if (item != null) {
+            if (!item.canWalk()) {
+                return false;
+            }
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	public void addItem(Item item) {
+    public void addItem(Item item) {
 
-		item.setRoomId(this.room.getData().getId());
+        item.setRoomId(this.room.getData().getId());
 
-		this.room.getItems().put(item.getId(), item);
+        this.room.getItems().put(item.getId(), item);
 
-		if (item.getType() == ItemType.FLOOR) {
-			this.handleItemAdjustment(item, false);
-			this.regenerateCollisionMaps();
-		}
+        if (item.getType() == ItemType.FLOOR) {
+            this.handleItemAdjustment(item, false);
+            this.regenerateCollisionMaps();
+        }
 
-		this.room.send(new PlaceItemMessageComposer(item));
+        this.room.send(new PlaceItemMessageComposer(item));
 
-		item.save();
-	}
+        item.save();
+    }
 
-	public void updateItemPosition(Item item, boolean rotation_only) {
+    public void updateItemPosition(Item item, boolean rotation_only) {
 
-		if (item.getType() == ItemType.FLOOR) {
-			this.handleItemAdjustment(item, rotation_only);
-			this.regenerateCollisionMaps();
-		}
+        if (item.getType() == ItemType.FLOOR) {
+            this.handleItemAdjustment(item, rotation_only);
+            this.regenerateCollisionMaps();
+        }
 
-		item.updateStatus();
-		item.save();
-	}
+        item.updateStatus();
+        item.save();
+    }
 
-	public void removeItem(Item item) {
+    public void removeItem(Item item) {
 
-		if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
-			if (MoodlightDao.hasMoodlightData(item.getId())) {
-				MoodlightDao.deleteMoodlightData(item.getId());
-			}
-			
-			item.setExtraData("");
-		}
+        if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
+            if (MoodlightDao.hasMoodlightData(item.getId())) {
+                MoodlightDao.deleteMoodlightData(item.getId());
+            }
+            
+            item.setExtraData("");
+        }
 
-		item.updateEntities();
-		item.setRoomId(0);
-		item.save();
+        item.updateEntities();
+        item.setRoomId(0);
+        item.save();
 
-		this.room.getItems().remove(item.getId());
-		this.room.send(new RemoveItemMessageComposer(item));
+        this.room.getItems().remove(item.getId());
+        this.room.send(new RemoveItemMessageComposer(item));
 
-		this.regenerateCollisionMaps();
+        this.regenerateCollisionMaps();
 
-	}
+    }
 
-	private void handleItemAdjustment(Item item, boolean rotation_only) {
+    private void handleItemAdjustment(Item item, boolean rotation_only) {
 
-		if (rotation_only) {
-			for (Item items : this.getTile(item.getPosition().getX(), item.getPosition().getY()).getItems()) {
-				if (items != item && items.getPosition().getZ() >= item.getPosition().getZ()) {
-					items.getPosition().setRotation(item.getPosition().getRotation());
-					items.updateStatus();
-				}
-			}
-		}
-		else {
+        if (rotation_only) {
+            for (Item items : this.getTile(item.getPosition().getX(), item.getPosition().getY()).getItems()) {
+                if (items != item && items.getPosition().getZ() >= item.getPosition().getZ()) {
+                    items.getPosition().setRotation(item.getPosition().getRotation());
+                    items.updateStatus();
+                }
+            }
+        }
+        else {
 
-			double zOffset = 0.001;
+            double zOffset = 0.001;
 
-			Item highestItem = this.getHighestItem(item.getPosition().getX(), item.getPosition().getY());
+            Item highestItem = this.getHighestItem(item.getPosition().getX(), item.getPosition().getY());
 
-			if (highestItem != null) {
-				if (highestItem.getDefinition().isCanStack()) {
-					item.getPosition().setZ(this.getTileHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
-				} else {
-					item.getPosition().setZ(highestItem.getPosition().getZ() + zOffset);
-				}
-			} else {
-				item.getPosition().setZ(this.room.getModel().getHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
-			}
-		}
+            if (highestItem != null) {
+                if (highestItem.getDefinition().isCanStack()) {
+                    item.getPosition().setZ(this.getTileHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
+                } else {
+                    item.getPosition().setZ(highestItem.getPosition().getZ() + zOffset);
+                }
+            } else {
+                item.getPosition().setZ(this.room.getModel().getHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
+            }
+        }
 
-		item.updateEntities();
-	}
+        item.updateEntities();
+    }
 
-	public double getTileHeight(int x, int y) {
+    public double getTileHeight(int x, int y) {
 
-		if (this.room.getModel().invalidXYCoords(x, y)) {
-			return 0;
-		}
+        if (this.room.getModel().invalidXYCoords(x, y)) {
+            return 0;
+        }
 
-		return this.tiles[x][y].getHeight();
-	}
+        return this.tiles[x][y].getHeight();
+    }
 
-	public RoomTile getTile(int x, int y) {
+    public RoomTile getTile(int x, int y) {
 
-		if (this.room.getModel().invalidXYCoords(x, y)) {
-			return null;
-		}
+        if (this.room.getModel().invalidXYCoords(x, y)) {
+            return null;
+        }
 
-		return this.tiles[x][y];
-	}
+        return this.tiles[x][y];
+    }
 
-	public Item getHighestItem(int x, int y) {
+    public Item getHighestItem(int x, int y) {
 
-		if (this.room.getModel().invalidXYCoords(x, y)) {
-			return null;
-		}
+        if (this.room.getModel().invalidXYCoords(x, y)) {
+            return null;
+        }
 
-		return this.tiles[x][y].getHighestItem();
-	}
+        return this.tiles[x][y].getHighestItem();
+    }
 
 
 }

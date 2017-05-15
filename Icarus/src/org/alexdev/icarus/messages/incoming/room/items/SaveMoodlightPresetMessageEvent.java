@@ -13,48 +13,48 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class SaveMoodlightPresetMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage reader) {
-		
-		int presetId = reader.readInt();
-		boolean backgroundOnly = reader.readInt() == 2;
-		String colour = reader.readString();
-		int colorIntensity = reader.readInt();
-		
-		if (!MoodlightManager.isValidColor(colour)) {
-			return;
-		}
-		
-		if (!MoodlightManager.isValidIntensity(colorIntensity)) {
-			return;
-		}
-		
-		List<Item> items = player.getRoom().getItems(InteractionType.DIMMER);
-		
-		Item moodlight = null;
-		
-		for (Item item : items) {
-			moodlight = item;
-			continue;
-		}
+    @Override
+    public void handle(Player player, ClientMessage reader) {
+        
+        int presetId = reader.readInt();
+        boolean backgroundOnly = reader.readInt() == 2;
+        String colour = reader.readString();
+        int colorIntensity = reader.readInt();
+        
+        if (!MoodlightManager.isValidColor(colour)) {
+            return;
+        }
+        
+        if (!MoodlightManager.isValidIntensity(colorIntensity)) {
+            return;
+        }
+        
+        List<Item> items = player.getRoom().getItems(InteractionType.DIMMER);
+        
+        Item moodlight = null;
+        
+        for (Item item : items) {
+            moodlight = item;
+            continue;
+        }
 
-		if (moodlight == null) {
-			return;
-		}
-		
-		MoodlightData data = MoodlightManager.getMoodlightData(moodlight.getId());
-		
-		MoodlightPreset preset = data.getPresets().get(presetId - 1);
-		preset.setBackgroundOnly(backgroundOnly);
-		preset.setColorCode(colour);
-		preset.setColorIntensity(colorIntensity);
-		
-		data.setCurrentPreset(presetId);
-		data.save();
-		
-		moodlight.setExtraData(data.generateExtraData());
-		moodlight.updateStatus();
-		moodlight.save();
-	}
+        if (moodlight == null) {
+            return;
+        }
+        
+        MoodlightData data = MoodlightManager.getMoodlightData(moodlight.getId());
+        
+        MoodlightPreset preset = data.getPresets().get(presetId - 1);
+        preset.setBackgroundOnly(backgroundOnly);
+        preset.setColorCode(colour);
+        preset.setColorIntensity(colorIntensity);
+        
+        data.setCurrentPreset(presetId);
+        data.save();
+        
+        moodlight.setExtraData(data.generateExtraData());
+        moodlight.updateStatus();
+        moodlight.save();
+    }
 
 }

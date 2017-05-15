@@ -5,17 +5,17 @@ import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class BroadcastMessageAlertComposer extends OutgoingMessageComposer {
 
-	private String message;
+    private String message;
 
-	public BroadcastMessageAlertComposer(String message) {
-		this.message = message;
-	}
+    public BroadcastMessageAlertComposer(String message) {
+        this.message = message;
+    }
 
-	@Override
-	public void write() {
-		this.response.init(Outgoing.BroadcastMessageAlertComposer);
-		this.response.writeString(this.message);
-		this.response.writeString(""); // TODO: URL
-	}
+    @Override
+    public void write() {
+        this.response.init(Outgoing.BroadcastMessageAlertComposer);
+        this.response.writeString(this.message);
+        this.response.writeString(""); // TODO: URL
+    }
 
 }
