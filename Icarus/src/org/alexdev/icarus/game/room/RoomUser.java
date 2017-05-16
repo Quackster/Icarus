@@ -271,7 +271,7 @@ public class RoomUser {
         this.danceId = 0;
         this.lookResetTime = -1;
         this.carryItem = 0;
-        this.carryTimer = 0;
+        this.carryTimer = -1;
 
         this.needsUpdate = false;
         this.isRolling = false;
