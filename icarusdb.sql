@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2017 at 03:19 AM
+-- Generation Time: May 16, 2017 at 06:34 AM
 -- Server version: 5.5.25a
 -- PHP Version: 5.4.4
 
@@ -6614,16 +6614,16 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (424, 'Blue Powered Fan', 'rare_fan*1', 's', 1, 1, '0.01', '1', '0', '0', 1646, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (425, 'Turquoise Powered Fan', 'rare_fan*8', 's', 1, 1, '0.01', '1', '0', '0', 1647, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (426, 'Green Powered Fan', 'rare_fan*2', 's', 1, 1, '0.01', '1', '0', '0', 1648, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(427, 'Aqua Habbo Roller', 'queue_tile1*3', 's', 1, 1, '0.5', '1', '0', '1', 1649, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
-(428, 'Blue Habbo Roller', 'queue_tile1*6', 's', 1, 1, '0.5', '1', '0', '1', 1650, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
-(429, 'Gold Habbo Roller', 'queue_tile1*4', 's', 1, 1, '0.5', '1', '0', '1', 1651, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
-(430, 'Green Habbo Roller', 'queue_tile1*9', 's', 1, 1, '0.5', '1', '0', '1', 1652, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
-(431, 'Teal Habbo Roller', 'queue_tile1*8', 's', 1, 1, '0.5', '1', '0', '1', 1653, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
-(432, 'Black Habbo Roller', 'queue_tile1*5', 's', 1, 1, '0.5', '1', '0', '1', 1654, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
-(433, 'Purple Habbo Roller', 'queue_tile1*7', 's', 1, 1, '0.5', '1', '0', '1', 1655, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
-(434, 'Red Habbo Roller', 'queue_tile1*2', 's', 1, 1, '0.5', '1', '0', '1', 1656, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
-(435, 'Pink Habbo Roller', 'queue_tile1*1', 's', 1, 1, '0.5', '1', '0', '1', 1657, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
-(436, 'Silver Habbo Rollers', 'queue_tile1*0', 's', 1, 1, '0.5', '1', '0', '1', 1658, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
+(427, 'Aqua Habbo Roller', 'queue_tile1*3', 's', 1, 1, '0.3', '1', '0', '1', 1649, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
+(428, 'Blue Habbo Roller', 'queue_tile1*6', 's', 1, 1, '0.3', '1', '0', '1', 1650, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
+(429, 'Gold Habbo Roller', 'queue_tile1*4', 's', 1, 1, '0.3', '1', '0', '1', 1651, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
+(430, 'Green Habbo Roller', 'queue_tile1*9', 's', 1, 1, '0.3', '1', '0', '1', 1652, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
+(431, 'Teal Habbo Roller', 'queue_tile1*8', 's', 1, 1, '0.3', '1', '0', '1', 1653, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
+(432, 'Black Habbo Roller', 'queue_tile1*5', 's', 1, 1, '0.3', '1', '0', '1', 1654, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
+(433, 'Purple Habbo Roller', 'queue_tile1*7', 's', 1, 1, '0.3', '1', '0', '1', 1655, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
+(434, 'Red Habbo Roller', 'queue_tile1*2', 's', 1, 1, '0.3', '1', '0', '1', 1656, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
+(435, 'Pink Habbo Roller', 'queue_tile1*1', 's', 1, 1, '0.3', '1', '0', '1', 1657, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
+(436, 'Silver Habbo Rollers', 'queue_tile1*0', 's', 1, 1, '0.3', '1', '0', '1', 1658, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
 (437, 'Snow Patch', 'rare_snowrug', 's', 2, 2, '0.01', '1', '0', '1', 1738, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (438, 'Chinese Lantern', 'cn_lamp', 's', 1, 1, '1', '0', '0', '0', 1741, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (439, 'Chinese Lacquer Sofa', 'cn_sofa', 's', 3, 1, '1', '0', '1', '0', 1742, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -6949,7 +6949,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (758, 'Heavy Duty Fireplace', 'hc_frplc', 's', 1, 3, '1', '0', '0', '0', 2078, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (759, 'Victorian Street Light', 'hc_lmpst', 's', 1, 1, '1', '0', '0', '0', 2079, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (760, 'Weird Science Machine', 'hc_machine', 's', 1, 3, '1', '0', '0', '0', 2080, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(761, 'HC Roller', 'hc_rllr', 's', 1, 1, '0.5', '0', '0', '1', 2081, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
+(761, 'HC Roller', 'hc_rllr', 's', 1, 1, '0.3', '0', '0', '1', 2081, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
 (762, 'X-Ray Divider', 'hc_rntgn', 's', 2, 1, '1', '0', '0', '0', 2082, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (763, 'Drinks Trolley', 'hc_trll', 's', 1, 2, '1', '0', '0', '0', 2083, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (764, 'Gothic Chair Pink', 'gothic_chair*1', 's', 1, 1, '1', '0', '1', '0', 2084, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -7768,7 +7768,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (1575, 'Spaceship Floor Light', 'SF_floor_1', 's', 2, 2, '0.01', '1', '0', '1', 3222, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1576, 'Mall Kiosk', 'ads_mall_kiosk', 's', 1, 2, '1', '0', '0', '0', 3216, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1577, 'Space Teleporter', 'sf_tele', 's', 1, 1, '1', '0', '0', '1', 3214, '0', '1', '0', '1', '1', 'teleport', 1, '0', 0, '0', -1, 0, '1', '', NULL),
-(1578, 'SciFi Roller', 'sf_roller', 's', 1, 1, '0.5', '1', '0', '1', 3209, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
+(1578, 'SciFi Roller', 'sf_roller', 's', 1, 1, '0.3', '1', '0', '1', 3209, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
 (1579, 'Hot Trophy', 'prizetrophy_hot', 's', 1, 1, '1', '0', '0', '0', 3229, '0', '1', '0', '1', '1', 'trophy', 1, '0', 0, '0', -1, 0, '1', '', NULL),
 (1580, 'Pink Raft', 'summer_raft1', 's', 1, 1, '1', '0', '1', '0', 3228, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1581, 'Cool Trophy', 'prizetrophy_cool', 's', 1, 1, '1', '0', '0', '0', 3225, '0', '1', '0', '1', '1', 'trophy', 1, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -8055,15 +8055,15 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (1861, 'Coin Rain', 'js_coins', 's', 1, 1, '0.01', '1', '0', '1', 4728, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1862, 'Ghost Train Car', 'hween12_cart', 's', 1, 1, '1', '0', '1', '0', 4729, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1863, 'Fairground Entrance', 'hween12_entry', 's', 1, 2, '1', '0', '0', '1', 4730, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(1864, 'Ghost Train Track', 'hween12_track', 's', 1, 1, '0.01', '1', '0', '1', 4731, '0', '1', '0', '1', '1', 'roller', 3, '0', 0, '0', -1, 0, '1', '', NULL),
+(1864, 'Ghost Train Track', 'hween12_track', 's', 1, 1, '0.3', '1', '0', '1', 4731, '0', '1', '0', '1', '1', 'roller', 3, '0', 0, '0', -1, 0, '1', '', NULL),
 (1865, 'Ghost Light', 'hween12_orb', 's', 1, 1, '1', '0', '0', '0', 4732, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1866, 'Scarecrow', 'hween12_scarecrow', 's', 1, 1, '1', '0', '0', '0', 4733, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1867, 'Fairground Of Fear', 'roombg_hween12', 's', 1, 1, '1', '0', '0', '1', 4734, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1868, 'Costume Hopper', 'hween12_costume_hopper', 's', 1, 1, '1', '0', '0', '0', 4735, '0', '1', '0', '1', '1', 'teleport', 1, '0', 0, '0', -1, 0, '1', '', NULL),
-(1869, 'Ghost Train Left Corner', 'hween12_track_crl', 's', 1, 1, '0.5', '0', '0', '1', 4736, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
+(1869, 'Ghost Train Left Corner', 'hween12_track_crl', 's', 1, 1, '0.3', '0', '0', '1', 4736, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
 (1870, 'Snake skin', 'hween12_shedskin', 's', 1, 1, '1', '0', '0', '1', 4737, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1871, 'Guillotine', 'hween12_guillotine', 's', 1, 3, '1.8', '0', '0', '0', 4738, '0', '1', '0', '1', '1', 'bed', 3, '0', 0, '0', -1, 0, '1', '', NULL),
-(1872, 'Ghost Train Right Corner', 'hween12_track_crr', 's', 1, 1, '0.5', '0', '0', '1', 4739, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
+(1872, 'Ghost Train Right Corner', 'hween12_track_crr', 's', 1, 1, '0.3', '0', '0', '1', 4739, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
 (1873, 'Moon Light', 'hween12_moon', 's', 1, 1, '0.01', '1', '0', '1', 4740, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1874, 'Executioner''s Coffin', 'hween12_coffin', 's', 1, 2, '1', '0', '0', '1', 4741, '0', '1', '0', '1', '1', 'pressure_pad', 1, '0', 0, '0', -1, 0, '1', '', NULL),
 (1875, 'Lantern', 'hween12_lantern', 's', 1, 2, '1', '0', '0', '0', 4742, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -8919,7 +8919,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (2722, 'TMNT_fountin2', 'TMNT_fountin2', 's', 1, 1, '0.01', '1', '0', '0', 51242, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2723, 'TMNT_fountin3', 'TMNT_fountin3', 's', 1, 1, '0.01', '1', '0', '0', 51243, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2724, 'TMNT_fountin4', 'TMNT_fountin4', 's', 1, 1, '0.01', '1', '0', '0', 51244, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(2725, 'USAV_Roller', 'USAV_Roller', 's', 1, 1, '0.5', '1', '0', '1', 51245, '0', '1', '1', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
+(2725, 'USAV_Roller', 'USAV_Roller', 's', 1, 1, '0.3', '1', '0', '1', 51245, '0', '1', '1', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
 (2726, 'NaturePs1', 'NaturePs1', 'i', 0, 0, '1', '0', '0', '0', 51267, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2727, 'NaturePs2', 'NaturePs2', 'i', 0, 0, '1', '0', '0', '0', 51268, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2728, 'NaturePs3', 'NaturePs3', 'i', 0, 0, '1', '0', '0', '0', 51269, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -8995,7 +8995,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (2798, 'Shed Wall', 'gardenshed_wall', 'i', 0, 0, '0.01', '1', '0', '0', 4455, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2799, 'Stone Wall', 'stone_wall', 'i', 0, 0, '0.01', '1', '0', '0', 4454, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2800, 'Stone Stairs', 'stone_stairs', 's', 2, 1, '0.4', '1', '0', '1', 4585, '0', '1', '0', '1', '1', 'default', 2, '0', 0, '0', -1, 0, '1', '', NULL),
-(2801, 'Stone Patio', 'stone_platform', 's', 2, 2, '0.2', '1', '0', '1', 4584, '0', '1', '0', '1', '1', 'default', 2, '0', 0, '0', -1, 0, '1', '', NULL),
+(2801, 'Stone Patio', 'stone_platform', 's', 2, 2, '0.01', '1', '0', '1', 4584, '0', '1', '0', '1', '1', 'adjustable_height', 3, '0', 0, '0', -1, 0, '1', '0.01,0.5,1.00', NULL),
 (2802, 'Horse Manure', 'horse_poop', 's', 1, 1, '1', '0', '0', '0', 4246, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2803, 'Sawdust Floor', 'horse_sawdustfloor', 's', 2, 2, '0.01', '1', '0', '1', 4229, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2804, 'Horse Shoe', 'horse_shoe_wall', 'i', 0, 0, '0.01', '1', '0', '0', 4433, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -12584,15 +12584,21 @@ CREATE TABLE IF NOT EXISTS `items` (
   `rotation` int(11) NOT NULL DEFAULT '0',
   `extra_data` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `items`
 --
 
 INSERT INTO `items` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`, `y`, `z`, `rotation`, `extra_data`) VALUES
-(1, 5, 5, 1755, 15, 'l,0,6', '7,38', 0, 0, '2,0,2,#0053F7,100'),
-(2, 5, 5, 1752, 0, '0', '0', 0, 0, '');
+(1, 5, 5, 2801, 9, '1', '7', 0.001, 0, '0'),
+(2, 5, 5, 5166, 10, '7', '13', 0.001, 0, '2'),
+(3, 5, 5, 5174, 0, '-1', '-1', 0.001, 0, '0'),
+(4, 5, 5, 1578, 9, '4', '7', 0.001, 0, ''),
+(5, 5, 5, 1316, 10, '10', '3', 0.001, 0, ''),
+(6, 5, 5, 1322, 10, '10', '4', 0.802, 2, ''),
+(7, 5, 5, 1698, 0, 'l,6,3', '9,40', 0, 0, ''),
+(8, 5, 5, 2755, 0, '-1', '-1', 0.001, 0, '1');
 
 -- --------------------------------------------------------
 
@@ -12753,7 +12759,7 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `who_can_kick` int(11) NOT NULL DEFAULT '0',
   `who_can_ban` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `rooms`
@@ -12762,7 +12768,7 @@ CREATE TABLE IF NOT EXISTS `rooms` (
 INSERT INTO `rooms` (`id`, `name`, `room_type`, `date_created`, `owner_id`, `group_id`, `thumbnail`, `description`, `password`, `users_now`, `users_max`, `model`, `wallpaper`, `floor`, `outside`, `tags`, `trade_state`, `state`, `score`, `category`, `allow_pets`, `allow_pets_eat`, `allow_walkthrough`, `hidewall`, `wall_thickness`, `floor_thickness`, `chat_mode`, `chat_size`, `chat_speed`, `chat_flood`, `chat_distance`, `who_can_mute`, `who_can_kick`, `who_can_ban`) VALUES
 (5, 'Hotel Lobby', 1, '2017-03-20 20:15:27', -1, 0, 'thumbnails/picture1.png', '', '', 0, 25, 'model_n', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 100, 0, 0, 0),
 (6, 'Chill Lounge', 1, '2017-03-20 20:19:36', -1, 0, 'thumbnails/picture2.png', '', '', 0, 25, 'model_newbie', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 100, 0, 0, 0),
-(9, 'The Office', 0, '2017-03-22 04:28:10', 5, 0, NULL, '', '', 0, 30, 'model_b', '3104', '401', '1.4', '', 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
+(9, 'The Office', 0, '2017-03-22 04:28:10', 5, 0, NULL, '', '', 0, 30, 'model_b', '111', '401', '1.4', '', 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
 (10, 'stairs |', 0, '2017-03-23 09:38:33', 5, 0, NULL, '', '', 0, 10, 'model_g', '216', '608', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0),
 (14, 'test', 0, '2017-05-11 18:43:04', 2, 0, NULL, '', '', 0, 1, 'model_a', '0', '0', '0', '', 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
 (15, 'test', 0, '2017-05-12 20:54:02', 5, 0, NULL, '', '', 0, 10, 'model_b', '0', '0', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 30, 0, 0, 0);
@@ -12811,14 +12817,15 @@ CREATE TABLE IF NOT EXISTS `room_items_moodlight` (
   PRIMARY KEY (`id`),
   KEY `item_id` (`item_id`),
   KEY `enabled` (`enabled`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `room_items_moodlight`
 --
 
 INSERT INTO `room_items_moodlight` (`id`, `item_id`, `enabled`, `current_preset`, `preset_one`, `preset_two`, `preset_three`) VALUES
-(2, 1, 1, 0, '#0053F7,100,1', '#000000,255,0', '#000000,255,0');
+(8, 2, 1, 3, '#74F5F5,145,1', '#E759DE,143,0', '#000000,135,0'),
+(10, 1, 1, 1, '#0053F7,114,1', '#000000,255,0', '#000000,255,0');
 
 -- --------------------------------------------------------
 

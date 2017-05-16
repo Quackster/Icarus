@@ -1,6 +1,7 @@
 package org.alexdev.icarus.game.furniture;
 
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.util.Util;
 
 public class ItemDefinition {
@@ -11,7 +12,7 @@ public class ItemDefinition {
     private String type;
     private int width;
     private int length;
-    private double stackHeight;
+    private double height;
     private boolean canStack;
     private boolean canSit;
     private boolean isWalkable;
@@ -24,11 +25,12 @@ public class ItemDefinition {
     private InteractionType interactionType;
     private int interationModes;
     private String[] vendingIds;
+    private double[] variableHeight;
 
     public ItemDefinition(int id, String publicName, String itemName, String type, int width, int length, double stackHeight,
             boolean canStack, boolean canSit, boolean isWalkable, int spriteId, boolean allowRecycle,
             boolean allowTrade, boolean allowMarketplaceSell, boolean allowGift, boolean allowInventoryStack,
-            InteractionType interactionType, int interationModes, String vendingIds) {
+            InteractionType interactionType, int interationModes, String vendingIds, String adjustableHeights) {
 
         this.id = id;
         this.publicName = publicName;
@@ -36,7 +38,7 @@ public class ItemDefinition {
         this.type = type;
         this.width = width;
         this.length = length;
-        this.stackHeight = stackHeight;
+        this.height = stackHeight;
         this.canStack = canStack;
         this.canSit = canSit;
         this.isWalkable = isWalkable;
@@ -49,6 +51,19 @@ public class ItemDefinition {
         this.interactionType = interactionType;
         this.interationModes = interationModes;
         this.vendingIds = vendingIds.isEmpty() ? new String[0] : vendingIds.split(",");
+        
+        if (adjustableHeights.length() > 0) {
+            
+            String[] parts = adjustableHeights.split(",");
+            this.variableHeight = new double[parts.length];
+            
+            for (int i = 0; i < parts.length; i++) {
+                    this.variableHeight[i] = Double.parseDouble(parts[i]);
+            }
+            
+        } else {
+            this.variableHeight = new double[0];
+        }
     }
 
     public int getId() {
@@ -75,15 +90,15 @@ public class ItemDefinition {
         return length;
     }
 
-    public double getStackHeight() {
-        return stackHeight;
+    public double getHeight() {
+        return height;
     }
 
-    public boolean isCanStack() {
+    public boolean allowStack() {
         return canStack;
     }
 
-    public boolean isCanSit() {
+    public boolean allowSit() {
         return canSit;
     }
 
@@ -115,6 +130,10 @@ public class ItemDefinition {
         return allowInventoryStack;
     }
 
+    public boolean isRoller() {
+        return interactionType == InteractionType.ROLLER;
+    }
+    
     public InteractionType getInteractionType() {
         return interactionType;
     }
@@ -131,5 +150,9 @@ public class ItemDefinition {
         }
 
         return -1;
+    }
+
+    public double[] getVariableHeight() {
+        return variableHeight;
     }
 }

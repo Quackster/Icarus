@@ -19,6 +19,7 @@ import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.items.MoveItemMessageComposer;
 import org.alexdev.icarus.util.Metadata;
+import org.alexdev.icarus.util.Util;
 
 import com.google.common.collect.Lists;
 
@@ -131,7 +132,7 @@ public class Item extends Metadata {
 
         // Trigger item update for affected players
         for (Entity entity : affected_players) {
-            entity.getRoomUser().currentItemTrigger();
+            entity.getRoomUser().triggerCurrentItem();
         }
     }
 
@@ -178,7 +179,7 @@ public class Item extends Metadata {
             }
         }
 
-        if (definition.isCanSit()) {
+        if (definition.allowSit()) {
             return true;
         }
 
@@ -252,6 +253,7 @@ public class Item extends Metadata {
 
         ItemDao.deleteItem(this.id);
     }
+    
 
     public double getTotalHeight() {
 
@@ -259,10 +261,21 @@ public class Item extends Metadata {
 
         // TODO: Include variable height
         if (currentHeight <= 0.0) {
-            currentHeight = this.position.getZ();
+            
 
-            if (this.getDefinition().isCanStack()) {
-                currentHeight += this.getDefinition().getStackHeight();
+            if (this.getDefinition().getVariableHeight().length > 0) {
+                if (!Util.isNumber(this.extraData)) {
+                    this.extraData = "0";
+                }
+                
+                int variableHeight = Integer.parseInt(this.extraData);
+                currentHeight = this.getDefinition().getVariableHeight()[variableHeight];
+            }
+            
+            currentHeight += this.position.getZ();
+            
+            if (!this.getDefinition().allowSit()) {
+                currentHeight += this.getDefinition().getHeight();
             }
         }
 

@@ -29,7 +29,7 @@ public class RollerTask extends RoomTask {
                 if (room.getEntities().size() == 0) {
                     return;
                 }
-
+                
                 List<Item> rollers = room.getItems(InteractionType.ROLLER);
 
                 boolean reconstructMap = false;
@@ -59,7 +59,7 @@ public class RollerTask extends RoomTask {
 
                             // If this item is stacked, we maintain its stack height
                             if (item.getItemUnderneath() != null) {
-                                if (item.getItemUnderneath().getDefinition().getInteractionType() != InteractionType.ROLLER) {
+                                if (!item.getItemUnderneath().getDefinition().isRoller()) {
                                     nextHeight = item.getPosition().getZ();
                                     
                                     // If the next tile/front tile is not a roller, we need to adjust the sliding so the stacked items
@@ -68,7 +68,7 @@ public class RollerTask extends RoomTask {
                                     boolean subtractRollerHeight = false;
                                     
                                     if (frontTile.getHighestItem() != null) {
-                                        if (frontTile.getHighestItem().getDefinition().getInteractionType() != InteractionType.ROLLER) {
+                                        if (!frontTile.getHighestItem().getDefinition().isRoller()) {
                                             subtractRollerHeight = true;
                                         }
                                     } else {
@@ -76,7 +76,7 @@ public class RollerTask extends RoomTask {
                                     }
                                     
                                     if (subtractRollerHeight) {
-                                        nextHeight -= roller.getDefinition().getStackHeight();
+                                        nextHeight -= roller.getDefinition().getHeight();
                                     }
                                 }
                             }

@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.furniture.interactions;
 
+import org.alexdev.icarus.game.furniture.interactions.types.AdjustableHeightInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.DefaultInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.DimmerInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.GateInteractor;
@@ -16,6 +17,7 @@ public enum InteractionType {
     BED(null),
     SCOREBOARD(null),
     VENDINGMACHINE(new VendingInteractor()),
+    ADJUSTABLEHEIGHT(new AdjustableHeightInteractor()),
     ALERT(null),
     ONEWAYGATE(null),
     LOVESHUFFLER(null),

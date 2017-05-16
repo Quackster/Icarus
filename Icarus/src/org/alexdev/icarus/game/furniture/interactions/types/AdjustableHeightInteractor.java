@@ -3,14 +3,15 @@ package org.alexdev.icarus.game.furniture.interactions.types;
 import org.alexdev.icarus.game.furniture.interactions.Interaction;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.room.RoomUser;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.util.Util;
 
-public class DefaultInteractor implements Interaction {
+public class AdjustableHeightInteractor implements Interaction {
 
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {
         
-        int modes = item.getDefinition().getInterationModes();
+        int modes = item.getDefinition().getVariableHeight().length;
         int current_mode = Util.isNumber(item.getExtraData()) ? Integer.valueOf(item.getExtraData()) : 0;
         int new_mode = current_mode + 1;
         
@@ -24,14 +25,12 @@ public class DefaultInteractor implements Interaction {
         item.updateStatus();
         item.save();
         
-    }
-    @Override
-    public void onStopWalking(Item item, RoomUser roomUser) {
+        Log.println("Regenerate collision map: " + current_mode);
+        item.getRoom().getMapping().regenerateCollisionMaps();
         
-        if (item.getDefinition().allowSit()) {
-            roomUser.setStatus("sit", " 1.0", true, -1);
-            roomUser.getPosition().setRotation(item.getPosition().getRotation());
-        }
     }
+    
+    @Override
+    public void onStopWalking(Item item, RoomUser roomUser) { }
 
 }

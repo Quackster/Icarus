@@ -66,7 +66,7 @@ public class RoomUser {
         if (item != null) {
             if (item.canWalk()) {
                 this.currentItem = item;
-                this.currentItemTrigger();
+                this.triggerCurrentItem();
             } else {
                 no_current_item = true;
             }
@@ -81,7 +81,7 @@ public class RoomUser {
         this.needsUpdate = true;
     }
 
-    public void currentItemTrigger() {
+    public void triggerCurrentItem() {
 
         if (this.currentItem == null) {
             this.removeStatus("sit");
@@ -200,7 +200,7 @@ public class RoomUser {
         Item item = this.room.getMapping().getHighestItem(X, Y);
         
         if (item != null) {
-            Log.println("ITEM: " + item.getId() + " - " + item.getDefinition().getPublicName() + " - " + item.getPosition().getZ());
+            Log.println("ITEM: " + item.getId() + " - " + item.getDefinition().getPublicName() + " - " + item.getPosition().getZ() + " - " + item.getTotalHeight());
         }
         
         

@@ -195,7 +195,7 @@ public class RoomMapping {
             Item highestItem = this.getHighestItem(item.getPosition().getX(), item.getPosition().getY());
 
             if (highestItem != null) {
-                if (highestItem.getDefinition().isCanStack()) {
+                if (highestItem.getDefinition().allowStack()) {
                     item.getPosition().setZ(this.getTileHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
                 } else {
                     item.getPosition().setZ(highestItem.getPosition().getZ() + zOffset);
