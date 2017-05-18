@@ -48,53 +48,102 @@ public class RoomMapping {
         }
 
         List<Item> items = Arrays.asList(this.room.getFloorItems());
-        
-        // TODO: REMOVE THIS, THIS IS REALLY BAD AND CREATES A LOT OF OVERHEAD!
+
+        // Sort items by smallest to largest height/Z coordinate
         Collections.sort(items, new Comparator<Item>() {
             @Override
             public int compare(Item item1, Item item2) {
                 return Double.compare(item1.getPosition().getZ(), item2.getPosition().getZ());
             }
         });
-        
+
 
         for (Item item : items) {
+            this.addMappedItem(item);
+        }
+    }
 
-            if (item == null) {
-                continue;
+    public void addMappedItem(Item item) {
+
+        if (item == null) {
+            return;
+        }
+
+        item.setItemUnderneath(null);
+
+        RoomTile tile = this.getTile(item.getPosition().getX(), item.getPosition().getY());
+
+        if (tile == null) {
+            return;
+        }
+
+        tile.getItems().add(item);
+
+        if (tile.getHeight() <= item.getTotalHeight()) {
+
+            item.setItemUnderneath(tile.getHighestItem());
+
+            tile.setHeight(item.getTotalHeight());// - this.room.getModel().getHeight(item.getPosition()));
+            tile.setHighestItem(item);
+
+            for (Position affected : item.getAffectedTiles()) {
+
+                RoomTile affectedTile = this.getTile(affected.getX(), affected.getY());
+
+                if (tile == null) {
+                    continue;
+                }
+
+                if (affectedTile.getHeight() <= item.getTotalHeight()) {
+                    affectedTile.setHeight(item.getTotalHeight());// - this.room.getModel().getHeight(affected.getX(), affected.getY()));
+                    affectedTile.setHighestItem(item);
+
+                }
             }
-            item.setItemUnderneath(null);
+        }
 
-            RoomTile tile = this.getTile(item.getPosition().getX(), item.getPosition().getY());
+    }
+
+    public void removeMappedItem(Item item) {
+
+        if (item == null) {
+            return;
+        }
+
+
+        RoomTile tile = this.getTile(item.getPosition().getX(), item.getPosition().getY());
+
+        if (tile == null) {
+            return;
+        }
+
+        tile.getItems().remove(item);
+
+        double height = 0.0;
+        
+        if (item.getItemUnderneath() != null) {
+            height = item.getItemUnderneath().getTotalHeight();
+        } else {
+            height = this.room.getModel().getHeight(item.getPosition());
+        }
+        
+        tile.setHeight(height);
+        tile.setHighestItem(item.getItemUnderneath());
+
+        for (Position affected : item.getAffectedTiles()) {
+
+            RoomTile affectedTile = this.getTile(affected.getX(), affected.getY());
 
             if (tile == null) {
                 continue;
             }
 
-            tile.getItems().add(item);
-
-            if (tile.getHeight() <= item.getTotalHeight()) {
-
-                tile.setHeight(item.getTotalHeight());// - this.room.getModel().getHeight(item.getPosition()));
-                item.setItemUnderneath(tile.getHighestItem());
-                tile.setHighestItem(item);
-
-                for (Position affected : item.getAffectedTiles()) {
-
-                    RoomTile affectedTile = this.getTile(affected.getX(), affected.getY());
-
-                    if (tile == null) {
-                        continue;
-                    }
-
-                    if (affectedTile.getHeight() <= item.getTotalHeight()) {
-                        affectedTile.setHeight(item.getTotalHeight());// - this.room.getModel().getHeight(affected.getX(), affected.getY()));
-                        affectedTile.setHighestItem(item);
-
-                    }
-                }
-            }
+            affectedTile.setHeight(height);
+            affectedTile.setHighestItem(affectedTile.getItemUnderneath());
         }
+
+        item.setItemUnderneath(null);
+
     }
 
     public boolean isValidStep(Entity entity, Position position, Position tmp, boolean isFinalMove) {
@@ -152,7 +201,7 @@ public class RoomMapping {
 
         if (item.getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, false);
-            this.regenerateCollisionMaps();
+            this.addMappedItem(item);
         }
 
         this.room.send(new PlaceItemMessageComposer(item));
@@ -164,7 +213,7 @@ public class RoomMapping {
 
         if (item.getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, rotation_only);
-            this.regenerateCollisionMaps();
+            this.addMappedItem(item);
         }
 
         item.updateStatus();
@@ -172,6 +221,8 @@ public class RoomMapping {
     }
 
     public void removeItem(Item item) {
+
+        this.removeMappedItem(item);
 
         if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
             if (MoodlightDao.hasMoodlightData(item.getId())) {
@@ -187,8 +238,6 @@ public class RoomMapping {
 
         this.room.getItems().remove(item.getId());
         this.room.send(new RemoveItemMessageComposer(item));
-
-        this.regenerateCollisionMaps();
 
     }
 

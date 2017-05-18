@@ -16,6 +16,7 @@ public class RoomTile {
     
     private Room room;
     private Item highestItem = null;
+    private Item itemUnderneath = null;
     private Entity entity;
     
     public RoomTile(Room room) {
@@ -62,5 +63,13 @@ public class RoomTile {
 
     public void setOverrideLock(boolean overrideLock) {
         this.overrideLock = overrideLock;
+    }
+
+    public Item getItemUnderneath() {
+        return itemUnderneath;
+    }
+
+    public void setItemUnderneath(Item itemUnderneath) {
+        this.itemUnderneath = itemUnderneath;
     }
 }

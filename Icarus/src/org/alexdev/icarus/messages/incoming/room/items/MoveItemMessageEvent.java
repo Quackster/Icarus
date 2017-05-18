@@ -42,6 +42,8 @@ public class MoveItemMessageEvent implements MessageEvent {
                 rotation_only = true;
             }
 
+            item.getRoom().getMapping().removeMappedItem(item);
+            
             item.getPosition().setX(x);
             item.getPosition().setY(y);
             item.getPosition().setRotation(rotation);

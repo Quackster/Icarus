@@ -29,12 +29,13 @@ public class RollerTask extends RoomTask {
                 if (room.getEntities().size() == 0) {
                     return;
                 }
-                
+
                 List<Item> rollers = room.getItems(InteractionType.ROLLER);
+                List<Entity> entities = this.room.getEntities();
 
-                boolean reconstructMap = false;
+                for (int i = 0; i < entities.size(); i++) {
 
-                for (Entity entity : this.room.getEntities()) {
+                    Entity entity = entities.get(i);
 
                     if (entity.getRoomUser().isRolling()) {
                         entity.getRoomUser().setRolling(false);
@@ -45,9 +46,15 @@ public class RollerTask extends RoomTask {
 
                     List<Item> items = this.room.getMapping().getTile(roller.getPosition().getX(), roller.getPosition().getY()).getItems();
 
-                    for (Item item : items) {    
+                    for (int i = 0; i < items.size(); i++) {
+
+                        Item item = items.get(i);
+
                         if (item.getPosition().isMatch(roller.getPosition()) && item.getPosition().getZ() > roller.getPosition().getZ()) {
 
+
+                            Log.println("Test");
+                            
                             Position front = roller.getPosition().getSquareInFront();
 
                             if (!this.room.getMapping().isTileWalkable(null, front.getX(), front.getY())) {
@@ -61,12 +68,12 @@ public class RollerTask extends RoomTask {
                             if (item.getItemUnderneath() != null) {
                                 if (!item.getItemUnderneath().getDefinition().isRoller()) {
                                     nextHeight = item.getPosition().getZ();
-                                    
+
                                     // If the next tile/front tile is not a roller, we need to adjust the sliding so the stacked items
                                     // don't float, so we subtract the stack height of the roller
-                                    
+
                                     boolean subtractRollerHeight = false;
-                                    
+
                                     if (frontTile.getHighestItem() != null) {
                                         if (!frontTile.getHighestItem().getDefinition().isRoller()) {
                                             subtractRollerHeight = true;
@@ -74,27 +81,30 @@ public class RollerTask extends RoomTask {
                                     } else {
                                         subtractRollerHeight = true;
                                     }
-                                    
+
                                     if (subtractRollerHeight) {
                                         nextHeight -= roller.getDefinition().getHeight();
                                     }
                                 }
                             }
-                            
-                            
+
+
                             room.send(new SlideObjectMessageComposer(item, front, roller.getId(), nextHeight));
+                            room.getMapping().removeMappedItem(item);
 
                             item.getPosition().setX(front.getX());
                             item.getPosition().setY(front.getY());
                             item.getPosition().setZ(nextHeight);
                             item.save();
 
-                            reconstructMap = true;
+                            room.getMapping().addMappedItem(item);
 
                         }
                     }
 
-                    for (Entity entity : this.room.getEntities()) {
+                    for (int i = 0; i < entities.size(); i++) {
+
+                        Entity entity = entities.get(i);
 
                         if (entity.getRoomUser().isRolling()) {
                             continue;
@@ -120,15 +130,9 @@ public class RollerTask extends RoomTask {
                             entity.getRoomUser().getPosition().setY(front.getY());
                             entity.getRoomUser().getPosition().setZ(nextHeight);
                             entity.getRoomUser().setNeedUpdate(true);
-
-                            reconstructMap = true;
                         }
 
                     }
-                }
-
-                if (reconstructMap) {
-                    this.room.getMapping().regenerateCollisionMaps();
                 }
             }
         } catch (Exception e) { e.printStackTrace(); }

@@ -35,11 +35,6 @@ public class PickupItemMessageEvent implements MessageEvent {
 
         if (item.getType() == ItemType.FLOOR || item.getType() == ItemType.WALL) {
 
-            if (item.getType() == ItemType.FLOOR) {
-                item.getPosition().setX(-1);
-                item.getPosition().setY(-1);
-            }
-            
             room.getMapping().removeItem(item);
             
             player.getInventory().addItem(item);
