@@ -22,6 +22,9 @@ public class ClubManager {
         
         player.send(new PurchaseNotificationMessageComposer(bundleItem));
         
+        // test
+        
+        
         Log.println("Days of Habbo Club purchased: " + daysPurchased);
     }
 

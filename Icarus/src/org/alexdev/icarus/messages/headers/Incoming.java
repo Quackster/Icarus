@@ -57,5 +57,6 @@ public class Incoming {
     public static Integer MoodlightInteractMessageEvent = 2906;
     public static Integer ToggleMoodlightMessageEvent = 14;
     public static Integer SaveMoodlightPresetMessageEvent = 2913;
+    public static Integer SubscriptionMessageEvent = 2749;
     
 }

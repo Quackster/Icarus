@@ -253,30 +253,25 @@ public class Item extends Metadata {
 
         ItemDao.deleteItem(this.id);
     }
-    
+
 
     public double getTotalHeight() {
 
-        double currentHeight = 0.0;
+        double currentHeight = 0.00;
 
-        // TODO: Include variable height
-        if (currentHeight <= 0.0) {
-            
+        if (this.getDefinition().getVariableHeight().length > 0) {
+            if (!Util.isNumber(this.extraData)) {
+                this.extraData = "0";
+            }
 
-            if (this.getDefinition().getVariableHeight().length > 0) {
-                if (!Util.isNumber(this.extraData)) {
-                    this.extraData = "0";
-                }
-                
-                int variableHeight = Integer.parseInt(this.extraData);
-                currentHeight = this.getDefinition().getVariableHeight()[variableHeight];
-            }
-            
-            currentHeight += this.position.getZ();
-            
-            if (!this.getDefinition().allowSit()) {
-                currentHeight += this.getDefinition().getHeight();
-            }
+            int variableHeight = Integer.parseInt(this.extraData);
+            currentHeight += this.getDefinition().getVariableHeight()[variableHeight];
+        }
+
+        currentHeight += this.position.getZ();
+
+        if (!this.getDefinition().allowSit()) {
+            currentHeight += this.getDefinition().getHeight();
         }
 
         return currentHeight;

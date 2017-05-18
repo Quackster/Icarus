@@ -1,4 +1,4 @@
-package org.alexdev.icarus.messages.outgoing.room.items;
+package org.alexdev.icarus.messages.incoming.room.items;
 
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.player.Player;

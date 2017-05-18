@@ -11,6 +11,7 @@ import org.alexdev.icarus.messages.incoming.messenger.*;
 import org.alexdev.icarus.messages.incoming.misc.*;
 import org.alexdev.icarus.messages.incoming.navigator.*;
 import org.alexdev.icarus.messages.incoming.room.*;
+import org.alexdev.icarus.messages.incoming.room.items.ApplyDecorationMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.InteractItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.InventoryMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.MoodlightInteractMessageEvent;
@@ -21,7 +22,6 @@ import org.alexdev.icarus.messages.incoming.room.items.SaveMoodlightPresetMessag
 import org.alexdev.icarus.messages.incoming.room.items.ToggleMoodlightMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.user.*;
 import org.alexdev.icarus.messages.incoming.user.*;
-import org.alexdev.icarus.messages.outgoing.room.items.ApplyDecorationMessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 import com.google.common.collect.Maps;
@@ -61,6 +61,7 @@ public class MessageHandler {
         this.messages.put(Incoming.InfoRetrieveMessageEvent, new InfoRetrieveMessageEvent());
         this.messages.put(Incoming.CurrencyBalanceMessageEvent, new CurrencyBalanceMessageEvent());
         this.messages.put(Incoming.ChangeAppearanceMessageEvent, new ChangeAppearanceMessageEvent());
+        this.messages.put(Incoming.SubscriptionMessageEvent, new SubscriptionMessageEvent());
     }
     
     private void registerMessenger() {

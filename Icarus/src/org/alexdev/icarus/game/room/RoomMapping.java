@@ -1,5 +1,8 @@
 package org.alexdev.icarus.game.room;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.MoodlightDao;
@@ -9,6 +12,7 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.model.RoomTile;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RemoveItemMessageComposer;
 
@@ -43,25 +47,35 @@ public class RoomMapping {
             this.tiles[entity.getRoomUser().getPosition().getX()][entity.getRoomUser().getPosition().getY()].setEntity(entity);
         }
 
-        Item[] items = this.room.getFloorItems();
+        List<Item> items = Arrays.asList(this.room.getFloorItems());
+        
+        // TODO: REMOVE THIS, THIS IS REALLY BAD AND CREATES A LOT OF OVERHEAD!
+        Collections.sort(items, new Comparator<Item>() {
+            @Override
+            public int compare(Item item1, Item item2) {
+                return Double.compare(item1.getPosition().getZ(), item2.getPosition().getZ());
+            }
+        });
+        
 
         for (Item item : items) {
 
             if (item == null) {
                 continue;
             }
+            item.setItemUnderneath(null);
 
             RoomTile tile = this.getTile(item.getPosition().getX(), item.getPosition().getY());
 
             if (tile == null) {
                 continue;
             }
-            
+
             tile.getItems().add(item);
 
             if (tile.getHeight() <= item.getTotalHeight()) {
 
-                tile.setHeight(item.getTotalHeight() - this.room.getModel().getHeight(item.getPosition()));
+                tile.setHeight(item.getTotalHeight());// - this.room.getModel().getHeight(item.getPosition()));
                 item.setItemUnderneath(tile.getHighestItem());
                 tile.setHighestItem(item);
 
@@ -74,7 +88,7 @@ public class RoomMapping {
                     }
 
                     if (affectedTile.getHeight() <= item.getTotalHeight()) {
-                        affectedTile.setHeight(item.getTotalHeight() - this.room.getModel().getHeight(affected.getX(), affected.getY()));
+                        affectedTile.setHeight(item.getTotalHeight());// - this.room.getModel().getHeight(affected.getX(), affected.getY()));
                         affectedTile.setHighestItem(item);
 
                     }
@@ -163,7 +177,7 @@ public class RoomMapping {
             if (MoodlightDao.hasMoodlightData(item.getId())) {
                 MoodlightDao.deleteMoodlightData(item.getId());
             }
-            
+
             item.setExtraData("");
         }
 
@@ -190,17 +204,22 @@ public class RoomMapping {
         }
         else {
 
-            double zOffset = 0.001;
+            double zOffset = 0.01;
 
             Item highestItem = this.getHighestItem(item.getPosition().getX(), item.getPosition().getY());
 
             if (highestItem != null) {
                 if (highestItem.getDefinition().allowStack()) {
+
+
                     item.getPosition().setZ(this.getTileHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
                 } else {
                     item.getPosition().setZ(highestItem.getPosition().getZ() + zOffset);
                 }
             } else {
+
+                Log.println("[handleItemAdjustment] Item placed: " + item.getDefinition().getPublicName());
+
                 item.getPosition().setZ(this.room.getModel().getHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
             }
         }

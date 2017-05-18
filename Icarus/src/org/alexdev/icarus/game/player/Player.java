@@ -7,6 +7,7 @@ import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.inventory.Inventory;
 import org.alexdev.icarus.game.messenger.Messenger;
+import org.alexdev.icarus.game.player.club.ClubSubscription;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.RoomUser;
@@ -22,6 +23,7 @@ public class Player extends Entity {
     private RoomUser roomUser;
     private Messenger messenger;
     private Inventory inventory;
+    private ClubSubscription subscription;
 
     public Player(IPlayerNetwork network) {
         this.network = network;
@@ -29,6 +31,7 @@ public class Player extends Entity {
         this.roomUser = new RoomUser(this);
         this.messenger = new Messenger(this);
         this.inventory = new Inventory(this);
+        this.subscription = new ClubSubscription(System.currentTimeMillis() * 300, System.currentTimeMillis());
     }
 
 
@@ -99,6 +102,10 @@ public class Player extends Entity {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public ClubSubscription getSubscription() {
+        return subscription;
     }
 
     @Override
