@@ -33,7 +33,7 @@ public class RoomScheduler {
             this.roomScheduledTasks = RoomManager.getScheduler().scheduleAtFixedRate(() -> {
                 this.rollerTask.execute();
                 this.carryItemTask.execute();
-            }, 4, 1, TimeUnit.SECONDS);
+            }, 0, 1, TimeUnit.SECONDS);
         }
     }
 

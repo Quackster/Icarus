@@ -12,6 +12,8 @@ import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.items.SlideObjectMessageComposer;
 
+import com.google.common.collect.Lists;
+
 public class RollerTask extends RoomTask {
 
     private Room room;
@@ -23,8 +25,10 @@ public class RollerTask extends RoomTask {
     public void execute() {
 
         try {
-
+            
             if (this.canTick(4)) {
+                
+                boolean redoMap = false;
 
                 if (room.getEntities().size() == 0) {
                     return;
@@ -41,6 +45,8 @@ public class RollerTask extends RoomTask {
                         entity.getRoomUser().setRolling(false);
                     }
                 }
+                
+                List<Item> rollingItems = Lists.newArrayList();
 
                 for (Item roller : rollers) {
 
@@ -50,16 +56,19 @@ public class RollerTask extends RoomTask {
 
                         Item item = items.get(i);
 
+                        if (rollingItems.contains(item)) {
+                            continue;
+                        }
+                        
                         if (item.getPosition().isMatch(roller.getPosition()) && item.getPosition().getZ() > roller.getPosition().getZ()) {
 
-
-                            Log.println("Test");
-                            
                             Position front = roller.getPosition().getSquareInFront();
 
                             if (!this.room.getMapping().isTileWalkable(null, front.getX(), front.getY())) {
                                 continue;
                             }
+                            
+                            rollingItems.add(item);
 
                             RoomTile frontTile = this.room.getMapping().getTile(front.getX(), front.getY());
                             double nextHeight = frontTile.getHeight();
@@ -90,14 +99,16 @@ public class RollerTask extends RoomTask {
 
 
                             room.send(new SlideObjectMessageComposer(item, front, roller.getId(), nextHeight));
-                            room.getMapping().removeMappedItem(item);
+                            //room.getMapping().removeMappedItem(item);
 
                             item.getPosition().setX(front.getX());
                             item.getPosition().setY(front.getY());
                             item.getPosition().setZ(nextHeight);
                             item.save();
 
-                            room.getMapping().addMappedItem(item);
+                            //room.getMapping().addMappedItem(item);
+                            
+                            redoMap = true;
 
                         }
                     }
@@ -133,13 +144,17 @@ public class RollerTask extends RoomTask {
                         }
 
                     }
+                    
+                    if (redoMap) {
+                        this.room.getMapping().regenerateCollisionMaps();
+                    }
                 }
             }
         } catch (Exception e) { e.printStackTrace(); }
-
-
-
+        
+        
         this.tick();
+
     }
 
 }
