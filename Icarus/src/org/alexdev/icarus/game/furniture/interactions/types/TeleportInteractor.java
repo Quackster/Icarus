@@ -11,18 +11,21 @@ import org.alexdev.icarus.game.room.RoomUser;
 
 public class TeleportInteractor implements Interaction {
 
+    public static final String TELEPORTER_CLOSE = "0";
+    public static final String TELEPORTER_OPEN = "1";
+    public static final String TELEPORTER_EFFECTS = "2";
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {
         
         if (item.getPosition().isMatch(roomUser.getPosition())) {
             
-            item.setExtraData("1");
+            item.setExtraData(TELEPORTER_OPEN);
             item.updateStatus();
             
             roomUser.walkTo(item.getPosition().getSquareInFront().getX(), item.getPosition().getSquareInFront().getY());
             
             RoomManager.getScheduler().schedule(() -> {
-                item.setExtraData("0");
+                item.setExtraData(TELEPORTER_CLOSE);
                 item.updateStatus();
             }, 1, TimeUnit.SECONDS);
             
@@ -42,42 +45,44 @@ public class TeleportInteractor implements Interaction {
             roomUser.setNeedUpdate(true);
         }
         
-        item.setExtraData("1");
+        item.setExtraData(TELEPORTER_OPEN);
         item.updateStatus();
         
         roomUser.walkTo(item.getPosition().getX(), item.getPosition().getY());
  
         Item targetTeleporter = roomUser.getRoom().getItem(item.getTeleporterId());//ItemDao.getItem(item.getTeleporterId());
  
+        // Do teleporter flashing effects for the teleporter they hopped into
         RoomManager.getScheduler().schedule(() -> {
-            item.setExtraData("2");
+            item.setExtraData(TELEPORTER_EFFECTS);
             item.updateStatus();
-
-            roomUser.warpTo(targetTeleporter.getPosition().getX(), targetTeleporter.getPosition().getY(), targetTeleporter.getPosition().getRotation());
             
         }, 1, TimeUnit.SECONDS);
         
+        // Stop previous teleporter from flashing and do the effects for the new teleporter
         RoomManager.getScheduler().schedule(() -> {
-            item.setExtraData("0");
+            item.setExtraData(TELEPORTER_CLOSE);
             item.updateStatus();
             
-            targetTeleporter.setExtraData("2");
-            targetTeleporter.updateStatus();
+            roomUser.warpTo(targetTeleporter.getPosition().getX(), targetTeleporter.getPosition().getY(), targetTeleporter.getPosition().getRotation());
             
-            roomUser.walkTo(targetTeleporter.getPosition().getSquareInFront().getX(), targetTeleporter.getPosition().getSquareInFront().getY());
+            targetTeleporter.setExtraData(TELEPORTER_EFFECTS);
+            targetTeleporter.updateStatus();
             
         }, 2, TimeUnit.SECONDS);
         
+        // Open up new teleporter and walk out of it
         RoomManager.getScheduler().schedule(() -> {
-            targetTeleporter.setExtraData("1");
+            targetTeleporter.setExtraData(TELEPORTER_OPEN);
             targetTeleporter.updateStatus();
             
             roomUser.walkTo(targetTeleporter.getPosition().getSquareInFront().getX(), targetTeleporter.getPosition().getSquareInFront().getY());
             
         }, 3, TimeUnit.SECONDS);
         
+        // Close the teleporter
         RoomManager.getScheduler().schedule(() -> {
-            targetTeleporter.setExtraData("0");
+            targetTeleporter.setExtraData(TELEPORTER_CLOSE);
             targetTeleporter.updateStatus();
             
         }, 4, TimeUnit.SECONDS);
