@@ -91,29 +91,40 @@ public class PurchaseMessageEvent implements MessageEvent {
                 ClubManager.handlePurchase(player, bundleItem);
                 return;
             }
-            
+
             List<Item> bought = Lists.newArrayList();
 
             for (int i = 0; i < amount; i++) {
-                for (int j = 0; j < item.getAmount(); j++) {
-                    
-                    Item inventoryItem = InventoryDao.newItem(bundleItem.getItemId(), player.getDetails().getId(), extraData);
-                    bought.add(inventoryItem);
 
-                    if (inventoryItem.getDefinition().getInteractionType() == InteractionType.JUKEBOX) {
-                        inventoryItem.setExtraData("0");
-                    }
+                Item inventoryItem = InventoryDao.newItem(bundleItem.getItemId(), player.getDetails().getId(), extraData);
+                bought.add(inventoryItem);
 
-                    if (inventoryItem.getDefinition().getInteractionType() == InteractionType.GATE) {
-                        inventoryItem.setExtraData("0");
-                    }
-
-                    if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
-                        inventoryItem.setExtraData("0");
-                    }
-
-                    player.getInventory().addItem(inventoryItem);
+                if (inventoryItem.getDefinition().getInteractionType() == InteractionType.JUKEBOX) {
+                    inventoryItem.setExtraData("0");
                 }
+
+                if (inventoryItem.getDefinition().getInteractionType() == InteractionType.GATE) {
+                    inventoryItem.setExtraData("0");
+                }
+
+                if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
+                    
+                    Item secondTeleporter = InventoryDao.newItem(bundleItem.getItemId(), player.getDetails().getId(), extraData);
+                    
+                    inventoryItem.setExtraData(String.valueOf(secondTeleporter.getId()));
+                    secondTeleporter.setExtraData(String.valueOf(inventoryItem.getId()));
+                    
+                    bought.add(inventoryItem);
+                    bought.add(secondTeleporter);
+                    
+                    player.getInventory().addItem(secondTeleporter);
+                    
+                    inventoryItem.save();
+                    secondTeleporter.save();
+                    
+                }
+
+                player.getInventory().addItem(inventoryItem);
             }
 
             player.send(new PurchaseNotificationMessageComposer(bundleItem));

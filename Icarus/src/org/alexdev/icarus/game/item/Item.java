@@ -34,6 +34,7 @@ public class Item extends Metadata {
     private ItemType type;
     private ItemSerialise serializer;
     private Item itemUnderneath;
+    private int teleporterId = 0;
 
     /**
      * Wall position variables
@@ -48,8 +49,15 @@ public class Item extends Metadata {
         this.id = (int)id;
         this.userId = userId;
         this.itemId = itemId;
+        
         this.roomId = roomId;
-        this.extraData = extraData;
+        
+        if (extraData.length() > 0) {
+            this.setExtraData(extraData);
+        } else {
+            this.extraData = "";
+        }
+
         this.itemUnderneath = null;
 
         if (this.getDefinition().getType().equals("i")) {
@@ -179,6 +187,14 @@ public class Item extends Metadata {
             }
         }
 
+        if (definition.getInteractionType() == InteractionType.TELEPORT) {
+            if (this.extraData.equals("1")) {
+                return true;
+            } else {
+                return false;
+            }
+        }        
+
         if (definition.allowSit()) {
             return true;
         }
@@ -215,6 +231,8 @@ public class Item extends Metadata {
 
     /**
      * Gets the variables and generates the needed wall position
+     * 
+     * @return {@link String} - the wall position string
      */
     public String getWallPosition() {
 
@@ -225,6 +243,24 @@ public class Item extends Metadata {
         return null;
     }
 
+    /**
+     * Returns a list of items below this current item
+     * 
+     * @return {@link List} - list of items
+     */
+    public List<Item> getItemsBeneath() {
+
+        List<Item> items = Lists.newArrayList();
+
+        Item item = this;
+
+        while ((item = item.getItemBeneath()) != null) {
+            items.add(item);
+        }
+
+        return items;
+    }
+
     public void updateStatus() {
         try {
             this.getRoom().send(new MoveItemMessageComposer(this));
@@ -233,6 +269,14 @@ public class Item extends Metadata {
 
     public int getId() {
         return id;
+    }
+
+    public int getTeleporterId() {
+        return teleporterId;
+    }
+
+    public void setTeleporterId(int teleporterId) {
+        this.teleporterId = teleporterId;
     }
 
     public ItemDefinition getDefinition() {
@@ -271,7 +315,13 @@ public class Item extends Metadata {
         currentHeight += this.position.getZ();
 
         if (!this.getDefinition().allowSit()) {
-            currentHeight += this.getDefinition().getHeight();
+            if (this.getDefinition().getInteractionType() != InteractionType.GATE) {
+                if (this.getDefinition().getInteractionType() != InteractionType.TELEPORT) {
+                    if (this.getDefinition().getInteractionType() != InteractionType.BED) {
+                        currentHeight += this.getDefinition().getHeight();
+                    }
+                }
+            }
         }
 
         return currentHeight;
@@ -346,6 +396,16 @@ public class Item extends Metadata {
     }
 
     public void setExtraData(String extraData) {
+
+        if (this.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
+
+            if (this.teleporterId == 0) {
+                this.teleporterId = Integer.valueOf(extraData);
+            }
+
+            this.extraData = "0";
+        }
+
         this.extraData = extraData;
     }
 
@@ -361,7 +421,7 @@ public class Item extends Metadata {
         return serializer;
     }
 
-    public Item getItemUnderneath() {
+    public Item getItemBeneath() {
         return itemUnderneath;
     }
 

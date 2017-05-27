@@ -51,6 +51,35 @@ public class ItemDao {
         return furni;
 
     }
+    
+    public static Item getItem(int itemID) {
+
+        Item item = null;
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM items WHERE id = " + itemID, sqlConnection);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                item = fill(resultSet);
+            }
+
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return item;
+    }
 
     public static Map<Integer, Item> getRoomItems(int roomId) {
 
@@ -90,6 +119,12 @@ public class ItemDao {
             x = item.getSide() + "," + item.getWidthX() + "," + item.getWidthY();
             y = item.getLengthX() + "," + item.getLengthY();
         }
+        
+        String extraData = item.getExtraData();
+        
+        if (item.getTeleporterId() > 0) {
+            extraData = String.valueOf(item.getTeleporterId());
+        }
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -98,7 +133,7 @@ public class ItemDao {
         try {
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("UPDATE items SET extra_data = ?, x = ?, y = ?, z = ?, rotation = ?, room_id = ? WHERE id = ?", sqlConnection);
-            preparedStatement.setString(1, item.getExtraData());
+            preparedStatement.setString(1, extraData);
             preparedStatement.setString(2, x);
             preparedStatement.setString(3, y);
             preparedStatement.setDouble(4, item.getPosition().getZ());

@@ -51,16 +51,16 @@ public class ItemDefinition {
         this.interactionType = interactionType;
         this.interationModes = interationModes;
         this.vendingIds = vendingIds.isEmpty() ? new String[0] : vendingIds.split(",");
-        
+
         if (adjustableHeights.length() > 0) {
-            
+
             String[] parts = adjustableHeights.split(",");
             this.variableHeight = new double[parts.length];
-            
+
             for (int i = 0; i < parts.length; i++) {
-                    this.variableHeight[i] = Double.parseDouble(parts[i]);
+                this.variableHeight[i] = Double.parseDouble(parts[i]);
             }
-            
+
         } else {
             this.variableHeight = new double[0];
         }
@@ -95,7 +95,25 @@ public class ItemDefinition {
     }
 
     public boolean allowStack() {
-        return canStack;
+
+        if (this.canSit) {
+            return false;
+        }
+
+        if (this.interactionType == InteractionType.GATE) {
+            return false;
+        }
+
+        if (this.interactionType == InteractionType.TELEPORT) {
+            return false;
+
+        }
+        if (this.interactionType == InteractionType.BED) {
+            return false;
+
+        }
+
+        return true;
     }
 
     public boolean allowSit() {
@@ -133,7 +151,7 @@ public class ItemDefinition {
     public boolean isRoller() {
         return interactionType == InteractionType.ROLLER;
     }
-    
+
     public InteractionType getInteractionType() {
         return interactionType;
     }

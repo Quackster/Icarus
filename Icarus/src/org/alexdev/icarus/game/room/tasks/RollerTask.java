@@ -74,8 +74,8 @@ public class RollerTask extends RoomTask {
                             double nextHeight = frontTile.getHeight();
 
                             // If this item is stacked, we maintain its stack height
-                            if (item.getItemUnderneath() != null) {
-                                if (!item.getItemUnderneath().getDefinition().isRoller()) {
+                            if (item.getItemBeneath() != null) {
+                                if (!item.getItemBeneath().getDefinition().isRoller()) {
                                     nextHeight = item.getPosition().getZ();
 
                                     // If the next tile/front tile is not a roller, we need to adjust the sliding so the stacked items
@@ -99,14 +99,11 @@ public class RollerTask extends RoomTask {
 
 
                             room.send(new SlideObjectMessageComposer(item, front, roller.getId(), nextHeight));
-                            //room.getMapping().removeMappedItem(item);
-
+                            
                             item.getPosition().setX(front.getX());
                             item.getPosition().setY(front.getY());
                             item.getPosition().setZ(nextHeight);
                             item.save();
-
-                            //room.getMapping().addMappedItem(item);
                             
                             redoMap = true;
 

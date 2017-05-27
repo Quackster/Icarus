@@ -3,6 +3,7 @@ package org.alexdev.icarus.game.furniture.interactions.types;
 import org.alexdev.icarus.game.furniture.interactions.Interaction;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.room.RoomUser;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.util.Util;
 
 public class DefaultInteractor implements Interaction {
@@ -23,8 +24,8 @@ public class DefaultInteractor implements Interaction {
         item.setExtraData(String.valueOf(current_mode));
         item.updateStatus();
         item.save();
-        
     }
+    
     @Override
     public void onStopWalking(Item item, RoomUser roomUser) {
         

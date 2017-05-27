@@ -1,9 +1,11 @@
 package org.alexdev.icarus.game.furniture.interactions;
 
 import org.alexdev.icarus.game.furniture.interactions.types.AdjustableHeightInteractor;
+import org.alexdev.icarus.game.furniture.interactions.types.BedInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.DefaultInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.DimmerInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.GateInteractor;
+import org.alexdev.icarus.game.furniture.interactions.types.TeleportInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.VendingInteractor;
 
 public enum InteractionType {
@@ -14,7 +16,7 @@ public enum InteractionType {
     ROOMEFFECT(null),
     DIMMER(new DimmerInteractor()),
     TROPHY(null),
-    BED(null),
+    BED(new BedInteractor()),
     SCOREBOARD(null),
     VENDINGMACHINE(new VendingInteractor()),
     ADJUSTABLEHEIGHT(new AdjustableHeightInteractor()),
@@ -24,7 +26,7 @@ public enum InteractionType {
     HABBOWHEEL(null),
     DICE(null),
     BOTTLE(null),
-    TELEPORT(null),
+    TELEPORT(new TeleportInteractor()),
     RENTALS(null),
     PET(null),
     ROLLER(null),

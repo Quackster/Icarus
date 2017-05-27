@@ -422,4 +422,12 @@ public class RoomUser {
         this.isRolling = isRolling;
     }
 
+    public void warpTo(int x, int y, int rotation) {
+        this.position.setX(x);
+        this.position.setY(y);
+        this.position.setZ(this.room.getMapping().getTileHeight(x, y));
+        this.position.setRotation(rotation);
+        this.needsUpdate = true;
+    }
+
 }

@@ -16,6 +16,8 @@ import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RemoveItemMessageComposer;
 
+import com.google.common.base.Stopwatch;
+
 public class RoomMapping {
 
     private Room room;
@@ -28,7 +30,7 @@ public class RoomMapping {
     }
 
     public void regenerateCollisionMaps() {
-
+        
         this.mapSizeX = this.room.getModel().getMapSizeX();
         this.mapSizeY = this.room.getModel().getMapSizeY();
 
@@ -78,7 +80,7 @@ public class RoomMapping {
 
                 item.setItemUnderneath(tile.getHighestItem());
 
-                tile.setHeight(item.getTotalHeight());// - this.room.getModel().getHeight(item.getPosition()));
+                tile.setHeight(item.getTotalHeight());
                 tile.setHighestItem(item);
 
                 for (Position affected : item.getAffectedTiles()) {
@@ -90,7 +92,7 @@ public class RoomMapping {
                     }
 
                     if (affectedTile.getHeight() <= item.getTotalHeight()) {
-                        affectedTile.setHeight(item.getTotalHeight());// - this.room.getModel().getHeight(affected.getX(), affected.getY()));
+                        affectedTile.setHeight(item.getTotalHeight());
                         affectedTile.setHighestItem(item);
 
                     }
@@ -99,7 +101,7 @@ public class RoomMapping {
         }
     }
 
-    public void addMappedItem(Item item) {
+    /*private void addaMappedItem(Item item) {
 
         if (item == null) {
             return;
@@ -114,32 +116,32 @@ public class RoomMapping {
         }
 
         tile.getItems().add(item);
-        item.setItemUnderneath(tile.getHighestItem());
 
-        if (tile.getHighestItem() != null) {
-            Log.println("was highest item: " + tile.getHighestItem().getDefinition().getPublicName());
-        }
-        tile.setHeight(item.getTotalHeight());// - this.room.getModel().getHeight(item.getPosition()));
-        tile.setHighestItem(item);
+        if (tile.getHeight() <= item.getTotalHeight()) {
+            item.setItemUnderneath(tile.getHighestItem());
+            tile.setHighestItem(item);
+            tile.setHeight(item.getTotalHeight());// - this.room.getModel().getHeight(item.getPosition()));
 
-        for (Position affected : item.getAffectedTiles()) {
 
-            RoomTile affectedTile = this.getTile(affected.getX(), affected.getY());
+            for (Position affected : item.getAffectedTiles()) {
 
-            if (tile == null) {
-                continue;
-            }
+                RoomTile affectedTile = this.getTile(affected.getX(), affected.getY());
 
-            if (affectedTile.getHeight() <= item.getTotalHeight()) {
-                affectedTile.setHeight(item.getTotalHeight());// - this.room.getModel().getHeight(affected.getX(), affected.getY()));
-                affectedTile.setHighestItem(item);
+                if (tile == null) {
+                    continue;
+                }
 
+                if (affectedTile.getHeight() <= item.getTotalHeight()) {
+                    affectedTile.setHeight(item.getTotalHeight());// - this.room.getModel().getHeight(affected.getX(), affected.getY()));
+                    affectedTile.setHighestItem(item);
+
+                }
             }
         }
 
     }
 
-    public void removeMappedItem(Item item) {
+    private void removeaMappedItem(Item item) {
 
         if (item == null) {
             return;
@@ -179,7 +181,7 @@ public class RoomMapping {
 
         item.setItemUnderneath(null);
 
-    }
+    }*/
 
     public boolean isValidStep(Entity entity, Position position, Position tmp, boolean isFinalMove) {
 
@@ -236,7 +238,7 @@ public class RoomMapping {
 
         if (item.getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, false);
-            this.addMappedItem(item);
+            this.regenerateCollisionMaps();
         }
 
         this.room.send(new PlaceItemMessageComposer(item));
@@ -248,7 +250,7 @@ public class RoomMapping {
 
         if (item.getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, rotation_only);
-            this.addMappedItem(item);
+            this.regenerateCollisionMaps();
         }
 
         item.updateStatus();
@@ -257,7 +259,7 @@ public class RoomMapping {
 
     public void removeItem(Item item) {
 
-        this.removeMappedItem(item);
+        //this.removeMappedItem(item);
 
         if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
             if (MoodlightDao.hasMoodlightData(item.getId())) {
@@ -273,7 +275,8 @@ public class RoomMapping {
 
         this.room.getItems().remove(item.getId());
         this.room.send(new RemoveItemMessageComposer(item));
-
+        
+        this.regenerateCollisionMaps();
     }
 
     private void handleItemAdjustment(Item item, boolean rotation_only) {
@@ -294,16 +297,11 @@ public class RoomMapping {
 
             if (highestItem != null) {
                 if (highestItem.getDefinition().allowStack()) {
-
-
                     item.getPosition().setZ(this.getTileHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
                 } else {
                     item.getPosition().setZ(highestItem.getPosition().getZ() + zOffset);
                 }
             } else {
-
-                Log.println("[handleItemAdjustment] Item placed: " + item.getDefinition().getPublicName());
-
                 item.getPosition().setZ(this.room.getModel().getHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
             }
         }
