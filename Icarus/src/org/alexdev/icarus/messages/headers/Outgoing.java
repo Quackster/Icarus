@@ -85,5 +85,6 @@ public class Outgoing {
     public static int SlideObjectMessageComposer = 330;
     public static int MoodlightConfigMessageComposer = 1540;
     public static int SubscriptionMessageComposer = 826;
+    public static int UserRightsComposer = 3315;
     
 }

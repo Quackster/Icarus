@@ -11,14 +11,7 @@ public class SubscriptionMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
        
-        if (player.getSubscription().isExpired()) {
-            return;
-        }
-        
-        // testing log
-        Log.println("Subscription not expired");
-
-        player.send(new SubscriptionMessageComposer(player.getSubscription().getDaysLeft(), player.getSubscription().getMonthsLeft()));
+        player.send(new SubscriptionMessageComposer(player));
     }
 
 }

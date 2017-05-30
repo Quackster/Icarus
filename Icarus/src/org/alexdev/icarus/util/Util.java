@@ -26,6 +26,10 @@ public class Util {
         language = locale.get("Locale", "language", String.class);
     }
     
+    public static int getCurrentTimeSeconds() {
+        return (int) (System.currentTimeMillis() / 1000);
+    }
+    
     public static String getLocale(String entry) {
         return locale.get(language, entry, String.class);
     }

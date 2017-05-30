@@ -133,6 +133,10 @@ public class Room {
 
     public boolean hasRights(Player player, boolean ownerCheckOnly) {
 
+        if (player.hasPermission("room_all_rights")) {
+            return true;
+        }
+        
         int userID = player.getDetails().getId();
 
         if (this.data.getOwnerId() == userID) {

@@ -4,6 +4,7 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.room.user.UserChangeComposer;
 import org.alexdev.icarus.messages.outgoing.user.AvatarAspectUpdateComposer;
+import org.alexdev.icarus.messages.outgoing.user.UserObjectMessageComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class ChangeAppearanceMessageEvent implements MessageEvent {
@@ -24,7 +25,7 @@ public class ChangeAppearanceMessageEvent implements MessageEvent {
         player.getDetails().save();
         
         player.send(new AvatarAspectUpdateComposer(figure, gender));
-        
+        player.send(new UserObjectMessageComposer(player.getDetails()));
 
         
         if (player.inRoom()) {

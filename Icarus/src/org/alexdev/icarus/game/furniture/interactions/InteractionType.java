@@ -3,6 +3,7 @@ package org.alexdev.icarus.game.furniture.interactions;
 import org.alexdev.icarus.game.furniture.interactions.types.AdjustableHeightInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.BedInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.DefaultInteractor;
+import org.alexdev.icarus.game.furniture.interactions.types.DiceInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.DimmerInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.GateInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.TeleportInteractor;
@@ -24,7 +25,7 @@ public enum InteractionType {
     ONEWAYGATE(null),
     LOVESHUFFLER(null),
     HABBOWHEEL(null),
-    DICE(null),
+    DICE(new DiceInteractor()),
     BOTTLE(null),
     TELEPORT(new TeleportInteractor()),
     RENTALS(null),
