@@ -10,16 +10,11 @@ import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.log.Log;
 
-public class PlayerDao {
-    
-    public static PlayerDetails getDetails(int userId) {
+public class ClubDao {
 
-        PlayerDetails details = new PlayerDetails(null);
-        Player player = PlayerManager.getById(userId);
+    public static long[] getSubscription(int userId) {
 
-        if (player != null) {
-            details = player.getDetails();
-        } else {
+        long[] subscriptionData = null;
 
             Connection sqlConnection = null;
             PreparedStatement preparedStatement = null;
@@ -29,13 +24,14 @@ public class PlayerDao {
 
                 sqlConnection = Dao.getStorage().getConnection();
                 
-                preparedStatement = Dao.getStorage().prepare("SELECT * FROM users WHERE id = ? LIMIT 1", sqlConnection);
+                preparedStatement = Dao.getStorage().prepare("SELECT * FROM users_subscriptions WHERE user_id = ? LIMIT 1", sqlConnection);
                 preparedStatement.setInt(1, userId);
                 
                 resultSet = preparedStatement.executeQuery();
 
                 if (resultSet.next()) {
-                    fill(details, resultSet);
+                    subscriptionData = new long[] { resultSet.getLong("expire_time"), resultSet.getLong("bought_time") };
+                    
                 }
 
             } catch (Exception e) {
@@ -45,14 +41,11 @@ public class PlayerDao {
                 Storage.closeSilently(preparedStatement);
                 Storage.closeSilently(sqlConnection);
             }
-        }
 
-        return details;
+        return subscriptionData;
     }
-
-    public static boolean login(Player player, String ssoTicket) {
-        
-        boolean success = false;
+    
+    public static void create(int userId, long expireTime, long boughtTime) {
         
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -61,73 +54,10 @@ public class PlayerDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM users WHERE sso_ticket = ? LIMIT 1", sqlConnection);
-            preparedStatement.setString(1, ssoTicket);
-            
-            resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                fill(player.getDetails(), resultSet);
-                success = true;
-            }
-
-        } catch (Exception e) {
-            Log.exception(e);
-        } finally {
-            Storage.closeSilently(resultSet);
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
-        }
-
-        return success;
-    }
-
-    public static int getId(String username) {
-
-        int id = -1;
-        
-        Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-
-            sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT id FROM users WHERE username = ? LIMIT 1", sqlConnection);
-            preparedStatement.setString(1, username);
-            
-            resultSet = preparedStatement.executeQuery();
-            
-            if (resultSet.next()) {
-                id = resultSet.getInt("id");
-            }
-        } catch (Exception e) {
-            Log.exception(e);
-        } finally {
-            Storage.closeSilently(resultSet);
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
-        }
-
-        return id;    
-    }
-
-    public static void save(PlayerDetails details) {
-        
-        Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-
-            sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("UPDATE users SET mission = ?, figure = ?, gender = ?, rank = ?, credits = ? WHERE id = ?", sqlConnection);
-            preparedStatement.setString(1, details.getMission());
-            preparedStatement.setString(2, details.getFigure());
-            preparedStatement.setString(3, details.getGender());
-            preparedStatement.setInt(4, details.getRank());
-            preparedStatement.setInt(5, details.getCredits());
-            preparedStatement.setInt(6, details.getId());
+            preparedStatement = Dao.getStorage().prepare("INSERT INTO users_subscriptions (user_id, expire_time, bought_time) VALUES (?, ?, ?)", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setLong(2, expireTime);
+            preparedStatement.setLong(3, boughtTime);
             preparedStatement.execute();
 
         } catch (Exception e) {
@@ -139,8 +69,50 @@ public class PlayerDao {
         }
     }
     
-    public static PlayerDetails fill(PlayerDetails details, ResultSet row) throws SQLException {
-        details.fill(row.getInt("id"), row.getString("username"), row.getString("mission"),  row.getString("figure"), row.getString("gender"), row.getInt("rank"), row.getInt("credits"));
-        return details;
+    public static void update(int userId, long expireTime, long boughtTime) {
+        
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("UPDATE users_subscriptions SET expire_time = ?, bought_time = ? WHERE user_id = ?", sqlConnection);
+            preparedStatement.setLong(1, expireTime);
+            preparedStatement.setLong(2, boughtTime);
+            preparedStatement.setInt(3, userId);  
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
     }
+
+    public static void delete(int userId) {
+        
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("DELETE FROM users_subscriptions WHERE user_id = ?", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+    
 }

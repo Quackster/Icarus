@@ -1,23 +1,25 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2017 at 06:34 AM
--- Server version: 5.5.25a
--- PHP Version: 5.4.4
+-- Generation Time: Aug 14, 2017 at 12:27 PM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 5.6.31
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `icarusdb`
+-- Database: `icarus`
 --
 
 -- --------------------------------------------------------
@@ -26,7 +28,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `catalog_gift_wrapping`
 --
 
-CREATE TABLE IF NOT EXISTS `catalog_gift_wrapping` (
+CREATE TABLE `catalog_gift_wrapping` (
   `type` enum('new','old') CHARACTER SET utf8mb4 DEFAULT 'new',
   `sprite_id` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -60,8 +62,8 @@ INSERT INTO `catalog_gift_wrapping` (`type`, `sprite_id`) VALUES
 -- Table structure for table `catalog_items`
 --
 
-CREATE TABLE IF NOT EXISTS `catalog_items` (
-  `id` int(100) unsigned NOT NULL,
+CREATE TABLE `catalog_items` (
+  `id` int(100) UNSIGNED NOT NULL,
   `page_id` int(11) NOT NULL,
   `item_ids` varchar(120) CHARACTER SET utf8mb4 NOT NULL,
   `catalog_name` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
@@ -70,15 +72,14 @@ CREATE TABLE IF NOT EXISTS `catalog_items` (
   `cost_snow` int(11) NOT NULL DEFAULT '0',
   `amount` int(11) NOT NULL,
   `vip` enum('0','1','2') CHARACTER SET utf8mb4 NOT NULL DEFAULT '0',
-  `achievement` int(4) unsigned NOT NULL DEFAULT '0',
-  `song_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `achievement` int(4) UNSIGNED NOT NULL DEFAULT '0',
+  `song_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `limited_sells` int(11) NOT NULL DEFAULT '0',
   `limited_stack` int(11) NOT NULL DEFAULT '0',
   `offer_active` enum('0','1') CHARACTER SET utf8mb4 NOT NULL DEFAULT '1',
   `extradata` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
   `badge_id` varchar(50) CHARACTER SET utf8mb4 DEFAULT '',
-  `flat_id` int(11) DEFAULT '-1',
-  PRIMARY KEY (`id`)
+  `flat_id` int(11) DEFAULT '-1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -2643,13 +2644,13 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_ids`, `catalog_name`, `cost_
 (5066, 157, '5066', 'WIRED Negative Condition: Has NO Furni On', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (5067, 157, '5067', 'WIRED Negative Condition: Furnis have NO avatars', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (5068, 155, '5068', 'wf_trg_at_time_long name', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
-(5069, 157, '5069', 'WIRED Condition: User DOESN''T count in Room', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
+(5069, 157, '5069', 'WIRED Condition: User DOESN\'T count in Room', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (5070, 157, '5070', 'wf_cnd_not_wearing_fx name', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (5071, 157, '5071', 'WIRED Condition: User count in Room', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (5072, 157, '5072', 'wf_cnd_not_wearing_b name', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (5073, 157, '5073', 'WIRED Condition: Furni Type Matches', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (5074, 157, '5074', 'WIRED Negative Condition: NOT Group Member', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
-(5075, 157, '5075', 'WIRED Condition: Furni Type DOESN''T Match', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
+(5075, 157, '5075', 'WIRED Condition: Furni Type DOESN\'T Match', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (5076, 156, '5076', 'WIRED Effect: Move Triggering Furni', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (5077, 105, '4715', 'mystics_gblock1', 4, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (5078, 105, '4716', 'mystics_bfloor', 4, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
@@ -2703,7 +2704,7 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_ids`, `catalog_name`, `cost_
 (5750, 81, '5421', 'rare_sage', 10, 0, 0, 1, '0', 0, 0, 0, 0, '0', '', '', -1),
 (5751, 81, '5432', 'runway_oldecamera', 10, 0, 0, 1, '0', 0, 0, 0, 0, '0', '', '', -1),
 (5752, 81, '5429', 'runway_changingrare', 10, 0, 0, 1, '0', 0, 0, 0, 0, '0', '', '', -1),
-(5753, 100, '5431', 'A pot o''gold', 10, 0, 0, 1, '0', 0, 0, 0, 0, '0', '', '', -1),
+(5753, 100, '5431', 'A pot o\'gold', 10, 0, 0, 1, '0', 0, 0, 0, 0, '0', '', '', -1),
 (5754, 100, '5422', 'Leprechaun nest', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (5755, 100, '5423', 'Gnome nest', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (5756, 100, '5430', 'Leprechaun box', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
@@ -3145,7 +3146,7 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_ids`, `catalog_name`, `cost_
 (50403, 45, '4903', 'hween13_sheep', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (50404, 45, '4904', 'hween13_rose', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (50770, 156, '5077', 'WIRED Effect: Toggle Furni to Random State', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
-(50780, 157, '5078', 'WIRED Negative Condition: Furni states DOESN''T match', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
+(50780, 157, '5078', 'WIRED Negative Condition: Furni states DOESN\'T match', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (51231, 129, '2715', 'SynDino_Foun1', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (51232, 129, '2716', 'SynDino_Foun2', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (51233, 129, '2717', 'SynDino_Foun3', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
@@ -3269,7 +3270,7 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_ids`, `catalog_name`, `cost_
 (80383, 110, '2841', 'waasa_chair_wood', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (80384, 110, '2842', 'waasa_aquarium', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (80385, 110, '2843', 'newbie_nest', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
-(82445, 164, '3126', 'E-Chance Token''s', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
+(82445, 164, '3126', 'E-Chance Token\'s', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (82500, 8891, '199', 'throne', 0, 0, 12, 1, '0', 0, 0, 0, 0, '0', '', '', -1),
 (83491, 233, '2844', 'XmasNelly', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (85000, 115, '2847', 'coco_chair', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
@@ -5088,7 +5089,7 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_ids`, `catalog_name`, `cost_
 (6778415, 98, '5327', 'Orange tile', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (6778419, 98, '5326', 'Wheelchair', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (6778420, 98, '5334', 'Brown roof', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
-(7000001, 243, '3958', 'DarÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â GreyÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â MarbleÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â Tiles', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
+(7000001, 243, '3958', 'DarÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â GreyÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â MarbleÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â Tiles', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (7000002, 243, '3959', 'Knight', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (7000003, 243, '3960', 'Blue Pawn', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (7347545, 136, '3971', 'ashtro', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
@@ -5105,7 +5106,7 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_ids`, `catalog_name`, `cost_
 (7897310, 81, '5418', 'runway_changing', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (7897311, 81, '5419', 'runway_fan', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (7897312, 81, '5420', 'Hanging light', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
-(9007111, 199, '3126', 'E-Chance Token''s', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
+(9007111, 199, '3126', 'E-Chance Token\'s', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (9654010, 75, '4985', 'js_bling_bed', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (9654011, 75, '4984', 'js_bling_chair_w', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (9654012, 75, '4988', 'js_bling_fridge', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
@@ -5447,9 +5448,9 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_ids`, `catalog_name`, `cost_
 (71000190, 79, '4100', 'grail_water', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (71000191, 79, '4101', 'grail_nectar', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (71000195, 79, '4105', 'nest_turtle', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
-(71000198, 74, '4108', 'lm_crystal_skull', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1);
+(71000198, 74, '4108', 'lm_crystal_skull', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
+(71000199, 148, '4109', 'lm_bananadrink', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1);
 INSERT INTO `catalog_items` (`id`, `page_id`, `item_ids`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_snow`, `amount`, `vip`, `achievement`, `song_id`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge_id`, `flat_id`) VALUES
-(71000199, 148, '4109', 'lm_bananadrink', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (71000200, 125, '4110', 'ads_mpu_300', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (71000202, 74, '4111', 'lm_jackbox', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (71000203, 79, '4112', 'lm_pond', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
@@ -5867,8 +5868,8 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_ids`, `catalog_name`, `cost_
 -- Table structure for table `catalog_pages`
 --
 
-CREATE TABLE IF NOT EXISTS `catalog_pages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `catalog_pages` (
+  `id` int(11) NOT NULL,
   `parent_id` int(11) NOT NULL DEFAULT '-1',
   `type` enum('DEFAULT','BUNDLE') COLLATE utf8_unicode_ci DEFAULT NULL,
   `extra_data` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -5877,7 +5878,7 @@ CREATE TABLE IF NOT EXISTS `catalog_pages` (
   `icon_image` int(11) NOT NULL DEFAULT '1',
   `visible` enum('0','1') CHARACTER SET utf8mb4 NOT NULL DEFAULT '1',
   `enabled` enum('0','1') CHARACTER SET utf8mb4 NOT NULL DEFAULT '1',
-  `min_rank` int(10) unsigned NOT NULL DEFAULT '1',
+  `min_rank` int(10) UNSIGNED NOT NULL DEFAULT '1',
   `club_only` enum('0','1') CHARACTER SET utf8mb4 NOT NULL DEFAULT '0',
   `order_num` int(11) NOT NULL,
   `page_layout` enum('default_3x3','frontpage4','spaces','recycler','recycler_info','recycler_prizes','trophies','plasto','marketplace','marketplace_own_items','pets','pets2','club_buy','club_gifts','guild_frontpage','spaces_new','guild_custom_furni','bots','petcustomization','roomads','badge_display','guild_forum','frontpage4') CHARACTER SET utf8mb4 NOT NULL DEFAULT 'default_3x3',
@@ -5885,266 +5886,265 @@ CREATE TABLE IF NOT EXISTS `catalog_pages` (
   `vip_only` enum('1','0') CHARACTER SET utf8mb4 NOT NULL DEFAULT '0',
   `page_texts` mediumtext CHARACTER SET utf8mb4 NOT NULL,
   `page_images` mediumtext CHARACTER SET utf8mb4 NOT NULL,
-  `link` varchar(100) CHARACTER SET utf8mb4 DEFAULT 'undefined',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9895651 ;
+  `link` varchar(100) CHARACTER SET utf8mb4 DEFAULT 'undefined'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `catalog_pages`
 --
 
 INSERT INTO `catalog_pages` (`id`, `parent_id`, `type`, `extra_data`, `caption`, `icon_color`, `icon_image`, `visible`, `enabled`, `min_rank`, `club_only`, `order_num`, `page_layout`, `min_sub`, `vip_only`, `page_texts`, `page_images`, `link`) VALUES
-(1, -1, 'DEFAULT', NULL, 'Icarus Catalogue', 1, 0, '1', '1', 1, '0', 1, 'frontpage4', 0, '0', '["PGk+PGI+PGZvbnQgY29sb3I9IiMwRTY2OEMiIHNpemU9IjE2Ij5XaGF0IGNhbiBJIGZpbmQgaW4gdGhlIHNob3A/PC9mb250PjwvYj48L2k+PGJyPjxicj5VcGdyYWRlIHlvdXIgY2xvdGhpbmcgd2l0aCBIYWJibyBDbHViLCBhZG9wdCBhIHBldCBvciBkZWNvcmF0ZSB5b3VyIHJvb20gdGhlIHdheSB5b3UgbGlrZSBpdC4gV2hhdGV2ZXIgeW91IGxpa2UgdG8gZG8gbW9zdCBpbiBIYWJibywgeW91J2xsIGZpbmQgYSB3YXkgdG8gbWFrZSB0aGF0IGV4cGVyaWVuY2UgZXZlbiBiZXR0ZXIgYnkgYnJvd3Npbmcgb3VyIFNob3AuPGJyPjxicj48bGk+Sm9pbiA8YSBocmVmPSJldmVudDpjYXRhbG9nL29wZW4vaGFiYm9fY2x1YiI+SGFiYm8gQ2x1YjwvYT48L2xpPjxsaT48YSBocmVmPSJldmVudDpjYXRhbG9nL29wZW4vc2V0X3BpeGVsbmV3Ij5EZWNvcmF0ZSA8L2E+eW91ciByb29tPC9saT48bGk+QWRvcHQgYSA8YSBocmVmPSJldmVudDpjYXRhbG9nL29wZW4vcGV0X2hvcnNlIj5QZXQ8L2E+LCA8YSBocmVmPSJldmVudDpjYXRhbG9nL29wZW4vYm90cyI+Qm90PC9hPiBvciA8YSBocmVmPSJldmVudDpjYXRhbG9nL29wZW4vbW9uc3Rlcl9wbGFudHNfaW5mbyI+TW9uc3RlcnBsYW50czwvYT48L2xpPjxsaT5NYWtlIHlvdXIgb3duIDxhIGhyZWY9ImV2ZW50OmNhdGFsb2cvb3Blbi9jYXRlZ29yeV93aXJlZCI+V2lyZWQ8L2E+IGdhbWVzIDwvbGk+PGxpPlRyYWRlIGluIG91ciA8YSBocmVmPSJldmVudDpjYXRhbG9nL29wZW4vbWFya2V0cGxhY2Vfb2ZmZXJzIj5NYXJrZXRwbGFjZTwvYT48L2xpPjxicj48aT48Yj48Zm9udCBjb2xvcj0iIzBFNjY4QyIgc2l6ZT0iMTYiPldoZXJlIGNhbiBJIGdldCBjcmVkaXRzPzwvZm9udD48L2I+PC9pPjxicj48YnI+V2UgaGF2ZSBtYW55IG1ldGhvZHMgb2YgcGF5bWVudCBzdWNoIGFzIFNNUywgSG9tZSBQaG9uZSwgUHJlcGFpZCBDYXJkcywgYW5kIENyZWRpdCBDYXJkcy48YnI+PGJyPjxhIGhyZWY9ImV2ZW50OmhhYmJsZXQvb3Blbi9jcmVkaXRzIj5WaXNpdCBvdXIgY3JlZGl0cyBwYWdlIGZvciBtb3JlIGluZm8uPC9hPg==","From everyone here at Habbo!"]', '["catalog_frontpage_headline_shop_GENERAL"]', 'undefined'),
-(2, 9895650, 'DEFAULT', NULL, 'Themed Furni', 5, 196, '1', '0', 1, '0', 7, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en"]', 'undefined'),
-(3, 9895650, 'DEFAULT', NULL, 'Ducket Shop', 5, 178, '1', '0', 1, '0', 150, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en"]', 'undefined'),
-(4, 9895650, 'DEFAULT', NULL, 'Icarus Club', 1, 172, '1', '0', 1, '0', 2, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_club_headline1","catalog_hc_teaser"]', 'undefined'),
-(5, 4, 'DEFAULT', NULL, 'Buy Club', 1, 9, '0', '0', 1, '0', 1, 'default_3x3', 0, '0', '["Habbo Club, purHabbo one of the three options","Click on an item for more information."]', '["habboclub_2","catalog_hc_teaser"]', 'undefined'),
-(6, 4, 'DEFAULT', NULL, 'Club Shop', 1, 172, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '["We''ve got all that exclusive club furniture available for you right here .. but for an exclusive price.","Click on an item for more information."]', '["catalog_header_hc","catalog_hc_teaser"]', 'undefined'),
-(7, 9895650, 'DEFAULT', NULL, 'E-Chance', 8, 123, '0', '0', 1, '0', 170, 'default_3x3', 0, '0', '["Click on an item for more information."]', '[]', 'undefined'),
-(8, 7, 'DEFAULT', NULL, 'E-Chance', 1, 7, '0', '0', 1, '0', 1, 'recycler', 0, '0', '["Become an Eco-warrior","Click on an item for more information."]', '["E-Chance1","ctlg_ecotron_image"]', 'undefined'),
-(9, 7, 'DEFAULT', NULL, 'Rewards', 1, 26, '1', '1', 1, '0', 3, 'recycler_prizes', 0, '0', '["What are the prizes? E-Chance box may contain one of these:","Click on an item for more information."]', '["E-Chance1"]', 'undefined'),
-(10, 7, 'DEFAULT', NULL, 'Instructions', 1, 42, '1', '1', 1, '0', 4, 'recycler_info', 0, '0', '["This is a new E-Chance. Get using credits again... what will you get in return? It''s a surprise! Become a Habbo eco-warrior. No refunds!\\r\\n","Click on an item for more information."]', '["E-Chance1","ctlg_ecotron_box"]', 'undefined'),
-(11, 9895650, 'DEFAULT', NULL, 'Exchange', 1, 146, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["You can exchange your Habbo credits here for Exchange furniture, which you can use in a trade or simply exchange for actual credits.","Click on an item for more information."]', '["catalog_bank_headline1","catalog_bank_teaser"]', 'undefined'),
-(12, -1, 'DEFAULT', NULL, 'Pets Shop', 5, 8, '1', '0', 1, '0', 251, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["Habbo_catalogue"]', 'undefined'),
-(13, 237, 'DEFAULT', NULL, 'Spaces', 1, 55, '1', '1', 1, '0', 16, 'spaces_new', 0, '0', '["Floors, wallpapers and landscapes - get a groovy combination for your room! Use our sample room below to try before you buy! Select your favourite designs and colours and simply click Buy!","Click on an item for more information."]', '["catalog_spaces_headline1"]', 'undefined'),
-(15, 237, 'DEFAULT', NULL, 'Windows', 0, 63, '1', '1', 1, '0', 19, 'default_3x3', 0, '0', '["Let some light in! Our windows come in many unique styles to give an exting look to your ckeyom. Buy landscapes to go with your windows from the ''Spaces'' page!","Click on an item for more information."]', '["ctlg_windows_headline1_en","ctlg_windows_teaser1_en"]', 'undefined'),
-(16, 237, 'DEFAULT', NULL, 'Moodlights', 0, 40, '1', '1', 1, '0', 10, 'default_3x3', 0, '0', '["Our range of moodlights allow you to control the atmosphere and transform your room in just a click. What will your room look like? Click the switch and find out now!","Click on an item for more information."]', '["catalog_dimmers_header_en","dimmers_teaser"]', 'undefined'),
-(17, 239, 'DEFAULT', NULL, 'Christmas', 1, 90, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '["Get yourself into the Christmas spirit with our selection of festive furni! From baubles to Reindeer poo, we''ve got it all!","Click on an item for more information."]', '["catalog_xmas_headline1","xmas2009_catalogue"]', 'undefined'),
-(18, 239, 'DEFAULT', NULL, 'Arctic', 0, 13, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Stay cool (or warm with out campfire!) with and create your own Winter Wonderland or Humble Homeland for your Penguins.","Click on an item for more information."]', '["catalog_arc_header1_en","catalog_arc_teaser1_en"]', 'undefined'),
-(19, 237, 'DEFAULT', NULL, 'Teleporters', 0, 58, '1', '1', 1, '0', 17, 'default_3x3', 0, '0', '["Take your room to a whole new level with our range of space age teleporters! Just buy a pair, put one in each room and voila! You''ll have two linked rooms!","Click on an item for more information."]', '["catalog_doors_headline1","catalog_door_a"]', 'undefined'),
-(20, 237, 'DEFAULT', NULL, 'Mode', 0, 39, '1', '1', 1, '0', 9, 'default_3x3', 0, '0', '["Steely, grey industrial standard metal with a sleek design. The perfect range for a streetwise city dweller.","Click on an item for more information."]', '["catalog_mode_headline1","catalog_mode_teaser1"]', 'undefined'),
-(22, 237, 'DEFAULT', NULL, 'Pura', 0, 48, '1', '1', 1, '0', 13, 'default_3x3', 0, '0', '["The clenest, freshest range. You can almost hear it breath cool and tranquility within your room. Use it to create a haven away from the hetic lifestyle of Habbo Hotel.","Click on an item for more information."]', '["catalog_pura_headline1","catalog_pura_teaser1"]', 'undefined'),
-(23, 237, 'DEFAULT', NULL, 'Area', 0, 14, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '["A chunky and sofisticated line for the down-to-earth, studious Habbo. It''s simplicty is beautful and will add a welcoming charm to every room.","Click on an item for more information."]', '["catalog_area_headline1","catalog_area_teaser1"]', 'undefined'),
-(24, 2, 'DEFAULT', NULL, 'Country', 0, 21, '1', '1', 1, '0', 16, 'default_3x3', 0, '0', '["Lets leave the busy city streets and head over to the wide abyss of golden whear, emerald fields and home grown, organic vegetables. Everything you need to create a farm!","Click on an item for more information."]', '["country_header1_en_001","country_teaser1"]', 'undefined'),
-(25, 237, 'DEFAULT', NULL, 'Lodge', 0, 37, '1', '1', 1, '0', 8, 'default_3x3', 0, '0', '["For that splendid ski-lodge effect with an open fire and whisky on the sidebar. This range is for those who appreicate the true beauty of solid wood.","Click on an item for more information."]', '["catalog_lodge_headline1","catalog_lodge_teaser1"]', 'undefined'),
-(26, 237, 'DEFAULT', NULL, 'Plastic', 0, 46, '1', '1', 1, '0', 12, 'default_3x3', 0, '0', '["Throw on an afro and grab a disco ball! Feel that retro, 1970s vibe? You soon will with this colourful, plastic range! Choose a colour to suit your mood and off you go!","Click on an item for more information."]', '["catalog_plasto_headline1"]', 'undefined'),
-(27, 237, 'DEFAULT', NULL, 'Bathroom', 0, 17, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '["Lets face it.. you can''t live without your bathroom. Give yours guests somewhere to freshen up with our cheeful bathroom collection!","Click on an item for more information."]', '["catalog_bath_headline1","catalog_bath_teaser1"]', 'undefined'),
-(28, 237, 'DEFAULT', NULL, 'Plants', 0, 45, '1', '1', 1, '0', 11, 'default_3x3', 0, '0', '["Every room needs some greenery, dear! Not only do they enhance the air quality, they cheer up a room to make it simply splendid! And what better gift for a friend than an elegant rose..","Click on an item for more information."]', '["catalog_plants_headline1","catalog_plants_teaser1"]', 'undefined'),
-(29, 237, 'DEFAULT', NULL, 'Rugs', 0, 52, '1', '1', 1, '0', 15, 'default_3x3', 0, '0', '["Rugs for all occasions, white for weddings, black for funerals and everything in between! All rugs and non-slip and machine washable. Take your pick!","Click on an item for more information."]', '["catalog_rugs_headline1","catalog_posters_teaser1"]', 'undefined'),
-(30, 237, 'DEFAULT', NULL, 'Gallery', 0, 47, '1', '1', 1, '0', 5, 'default_3x3', 0, '0', '["Adorn your walls with posters, art, plaques and wall hangings. This gallery is bursting with items to suit all tastes, traditional and modern!","Click on an item for more information."]', '["catalog_gallery_headline1","catalog_posters_teaser1"]', 'undefined'),
-(31, 237, 'DEFAULT', NULL, 'Trophies', 0, 60, '1', '1', 1, '0', 18, 'trophies', 0, '0', '["Everyones a winner with Habbo trophies! Now you can reward all your friends with our pre-polished array of trohpies. In bronze, silver and gold. \\r\\nFirst choose your trophy model, then the metal and carefully type your inscription. Don''t worry, we''ll engrave it all with your name and the date.","Click on an item for more information."]', '["catalog_trophies_headline1"]', 'undefined'),
-(32, 237, 'DEFAULT', NULL, 'Accessories', 0, 11, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["However you like to place your essentials, its the finishing touches that really make a room and express your true personality. Don''t forget, like anything else, you can move them all about to suit your mood!","Click on an item for more information."]', '["catalog_extra_headline1","catalog_extra_teaser1"]', 'undefined'),
-(33, 3, 'DEFAULT', NULL, 'Rentals', 0, 44, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '["Hire some cool effects to add an explosive touch to your room. From bubbles to firestarters, you can enhance your room dramatically!","Click on an item for more information."]', '["catalog_pixelrent_headline1_en","catalog_pxl_teaser3_en"]', 'undefined'),
-(34, 237, 'DEFAULT', NULL, 'Iced', 0, 13, '1', '1', 1, '0', 7, 'default_3x3', 0, '0', '["The Iced range, squishy, soft and most definitely cool. Whatever your needs, this stylish range should  cover it!","Click on an item for more information."]', '["catalog_iced_headline1","catalog_iced_teaser1"]', 'undefined'),
-(35, 238, 'DEFAULT', NULL, 'Alhambra', 0, 12, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '["For the cold Arabian nights and hot Arabian days, you''ll need a palace.. and we have just what you need! Green blossom print should cover it just fine!","Click on an item for more information."]', '["catalog_alh_headline1_en","dining_area_illustration"]', 'undefined'),
-(36, 238, 'DEFAULT', NULL, 'Asian', 0, 15, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '["Ting tong! Ching chong? Ting chong ting, ping ping! I mean uh.. with our authentic Chinese furniture, you can make a beautiful oriental room!","Click on an item for more information."]', '["catalog_asian_headline1","catalog_asian_teaser1"]', 'undefined'),
-(37, 238, 'DEFAULT', NULL, 'Bensalem', 0, 18, '1', '1', 1, '0', 4, 'default_3x3', 0, '0', '["Under the seaaaaaaaaa, oh, Under the seaaaaaa! What will your underwater world look like? We have it all here, crabs, HIV and genital warts!","Click on an item for more information."]', '["catalog_lc_headline2_en","catalog_lc_teaser1_en_001"]', 'undefined'),
-(38, 239, 'DEFAULT', NULL, 'Easter', 3, 25, '1', '1', 1, '0', 4, 'default_3x3', 0, '0', '["Little birdies hatching from their eggs, pretty, dainty flowers blooming and cute rabbits bouncy in Spring meadows.. It''s Easter!","Click on an item for more information."]', '["catalog_easter_headline1","catalog_easter_teaser1"]', 'undefined'),
-(39, 2, 'DEFAULT', NULL, 'Executive', 0, 27, '1', '1', 1, '0', 21, 'default_3x3', 0, '0', '["For the ultimate business man, the Executive range with its leather seats and Italian coffee is a dream! How about you try the easy lifestyle?","Click on an item for more information."]', '["catalog_exe_headline1_en","catalog_exe_teaser_en"]', 'undefined'),
-(40, 237, 'DEFAULT', NULL, 'Glass', 0, 29, '1', '1', 1, '0', 6, 'default_3x3', 0, '0', '["You can really open up a space with this stylish glass furniture, just don''t walk into it!","Click on an item for more information."]', '["catalog_glass_headline1","catalog_glass_teaser1"]', 'undefined'),
-(41, 2, 'DEFAULT', NULL, 'Gothic', 0, 30, '1', '1', 1, '0', 25, 'default_3x3', 0, '0', '["As the church bells ring out midnight, you walk through your cobbled hall lit by candles, throw yourself into your medieval throne and paint your nails black. This is what we imagined when we ordered this range!","Click on an item for more information."]', '["catalog_gothic_headline1","catalog_gothic_teaser1"]', 'undefined'),
-(42, 2, 'DEFAULT', NULL, 'Sports', 0, 56, '1', '1', 1, '0', 60, 'default_3x3', 0, '0', '["Sport contains all those vital Olympic pieces from running tracks to basketball courts! 3 2 1 GO!","Click on an item for more information."]', '["sports","catalog_sports_teaser1"]', 'undefined'),
-(43, 2, 'DEFAULT', NULL, 'Grunge', 0, 32, '1', '1', 1, '0', 27, 'default_3x3', 0, '0', '["Sleeping rough? Make the streets a bit more bearable with our collection of homeless furni, Grunge!","Click on an item for more information."]', '["catalog_grunge_headline1","catalog_gru_teaser_en"]', 'undefined'),
-(44, 2, 'DEFAULT', NULL, 'HabboWood', 0, 33, '1', '1', 1, '0', 28, 'default_3x3', 0, '0', '["No flash photography, darling! This range is only for the VIP Hollywood actors!","Click on an item for more information."]', '["habbowood","cine_2011_teaser"]', 'undefined'),
-(45, 239, 'DEFAULT', NULL, 'Halloween', 0, 34, '1', '1', 1, '0', 5, 'default_3x3', 0, '0', '["WooOOOOoooOOoo! Spooky! Don''t wanna be left with this range at night.. who knows what would happen!","Click on an item for more information."]', '["catalog_halloween_headline1","catalog_voodoo_teaser"]', 'undefined'),
-(46, 238, 'DEFAULT', NULL, 'Japan', 0, 36, '1', '1', 1, '0', 6, 'default_3x3', 0, '0', '["We have sushi, tatami and katana''s! I have no idea what the difference is, but I sure know its Japanese! Fulfil your fantasies and buy some today!","Click on an item for more information."]', '["catalog_jap_headline2_en","catalog_jap_teaser3_en"]', 'undefined'),
-(47, 238, 'DEFAULT', NULL, 'Lost Tribe', 0, 38, '1', '1', 1, '0', 7, 'default_3x3', 0, '0', '["Start your own tribal village with our ancient furniture, all carved from hard wearing stone. NOTE: Lava is hot, get an adult to help you.","Click on an item for more information."]', '["losttribe","LT_teaser_en"]', 'undefined'),
-(48, 2, 'DEFAULT', NULL, 'Neon', 0, 41, '1', '1', 1, '0', 42, 'default_3x3', 0, '0', '["New years eve, birthdays and every other day of the year, there''s always an exscuse for a party! So, why don''t you buy some Neon furni!?","Click on an item for more information."]', '["catalog_frontpage_headline2_en","catalog_neon_teaser1_en"]', 'undefined'),
-(49, 2, 'DEFAULT', NULL, 'Relax', 0, 49, '1', '1', 1, '0', 50, 'default_3x3', 0, '0', '["Relax after a busy day in the Welcome Lounge. Light a few candles, and chill out with a good read in a wicker chair. We understand the needs of an Habbo with a hectic lifestyle!","Click on an item for more information."]', '["rela_header_en","rela_teaser_en"]', 'undefined'),
-(50, 2, 'DEFAULT', NULL, 'Romantique', 0, 50, '1', '1', 1, '0', 52, 'default_3x3', 0, '0', '["Found in a French barn, this sweet but sexily romantic range caters to every ladies needs. Just going to powder my nose!","Click on an item for more information."]', '["catalog_romantique_headline1","catalog_rom_teaser_en"]', 'undefined'),
-(51, 2, 'DEFAULT', NULL, 'Science Fiction', 0, 53, '1', '1', 1, '0', 56, 'default_3x3', 0, '0', '["Blipblop blip blip blip.. Oooh.. what''s this button do?.. You can find out exactly what it does with our new Scifi range, batteries included!","Click on an item for more information."]', '["sf_header_en","sf_teaser_en"]', 'undefined'),
-(52, 238, 'DEFAULT', NULL, 'Shalimar', 0, 54, '1', '1', 1, '0', 8, 'default_3x3', 0, '0', '["Everyone loves Bollywood! Want some free credits? Tell Oscar you successfully read the Shalimar page! Tell no one else you found this Easter egg. Watch out for rose petals!","Click on an item for more information."]', '["catalog_shal_header1_en","catalog_shal_teaser_en"]', 'undefined'),
-(53, 239, 'DEFAULT', NULL, 'Summer', 0, 57, '1', '1', 1, '0', 10, 'default_3x3', 0, '0', '["Phwoar! Start up the barbie! This range has everything you need for the perfect summer garden!","Click on an item for more information."]', '["catalog_frontpage_headline2_en","catalog_sum_teaser1_en"]', 'undefined'),
-(54, 2, 'DEFAULT', NULL, 'Love', 0, 62, '1', '1', 1, '0', 37, 'default_3x3', 0, '0', '["Love is in the air once again! Buy your sweetheart a rose or whisper sweet nothings in their ear on a love sofa. Can you feel it? <3","Click on an item for more information."]', '["catalog_love_headline1","catalog_teaser_valquest"]', 'undefined'),
-(55, 238, 'DEFAULT', NULL, 'Greek', 0, 1006, '1', '1', 1, '0', 5, 'default_3x3', 0, '0', '["Be transported back to ancient Greece with a couple of thousand pounds and British Airways. Until then, build your own panthenon with our realist Greek range!","Click on an item for more information."]', '["catalog_frontpage_headline2_en","greek_catateaser"]', 'undefined'),
-(56, 3, 'DEFAULT', NULL, 'Collectables', 0, 71, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '["The Pixel Collectables are the ultimate collectors items, requiring a mammoth 2000 pixels and credits to buy! If you collect all the pieces and manage to put them together in certain ways, you''ll receive a special effect!","Click on an item for more information."]', '["catalog_pixeldeals_headline1_en","catalog_pxl_teaser2_en"]', 'undefined'),
-(58, 121, 'DEFAULT', NULL, 'Trophies ', 1, 60, '1', '1', 1, '0', 0, 'trophies', 0, '0', '["This page contains special trophies available for staff to give as prizes. STAFF CAUGHT GIVING OUT THESE WITH NO REASON WILL BE DEMOTED.","Click on an item for more information."]', '["catalog_trophies_headline1"]', 'undefined'),
-(59, 121, 'DEFAULT', NULL, 'Rares Classic', 1, 300, '1', '1', 1, '0', 320, 'default_3x3', 0, '0', '["This page contains special rares available for staff. STAFF CAUGHT GIVING OUT THESE WITH NO REASON WILL BE DEMOTED.","Click on an item for more information."]', '["catalog_rares_headline1"]', 'undefined'),
-(61, 237, 'DEFAULT', NULL, 'Rollers', 0, 96, '1', '1', 1, '0', 14, 'default_3x3', 0, '0', '["Zoooooooom, Zooooooooooooooooooooooooooom! Was it a plane? Was it a bird!? No, it was Roy on a roller! You can use rollers in games, events or even just to  move a queue along.","Click on an item for more information."]', '["catalog_roller_headline1","catalog_teaser_rollers_en"]', 'undefined'),
-(62, 2, 'DEFAULT', NULL, 'Diner', 0, 204, '1', '1', 1, '0', 18, 'default_3x3', 0, '0', '["Originally from the 50''s this furni has been refurbished and put right into the catalogue! Use this with the Kitchen range for ultimate diner experience!","Click on an item for more information."]', '["diner","catalog_diner_teaser_en"]', 'undefined'),
-(63, 121, 'DEFAULT', NULL, 'Rares Colour', 0, 300, '1', '1', 1, '0', 330, 'default_3x3', 0, '0', '["On this page, we have some lovely rares for you! We''ve kept a few behind for competition and event prizes!","Click on an item for more information."]', '["catalog_rares_headline1"]', 'undefined'),
-(64, 2, 'DEFAULT', NULL, 'Dungeon', 0, 110, '1', '1', 1, '0', 19, 'default_3x3', 0, '0', '["I''ve never read the book, all I know is it has vampires playing basket ball and some heart throb called Edward Cullen, but the furni looks good!","Click on an item for more information."]', '["drago_catalog_header2","drago_catalog_teaser2"]', 'undefined'),
-(65, 9895650, 'DEFAULT', NULL, 'Marketplace', 8, 69, '0', '1', 1, '0', 171, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["marketplace","catalog_limited_teaser_en"]', 'undefined'),
-(66, 65, 'DEFAULT', NULL, 'Offers', 1, 70, '1', '1', 1, '0', 10, 'marketplace', 0, '0', '["Click on an item for more information."]', '["marketplace"]', 'undefined'),
-(67, 65, 'DEFAULT', NULL, 'My Sales', 1, 71, '1', '1', 1, '0', 20, 'marketplace_own_items', 0, '0', '["Click on an item for more information."]', '["marketplace"]', 'undefined'),
-(68, 163, 'DEFAULT', NULL, 'Battle Banzai', 5, 78, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Prepare for Battle Banzai!","Click on an item for more information."]', '["Battlebanzai","catalog_battleBanzai_teaser"]', 'undefined'),
-(69, 3, 'DEFAULT', NULL, 'Hello', 0, 35, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '["Hello Furni is available with Pixels and is perfect if you are decorating your room for the very first time. The Furni is yours to keep and therefore cannot be traded.","Click on an item for more information."]', '["catalog_hello_header1_en","catalog_hello_teaser1_en"]', 'undefined'),
-(70, 3, 'DEFAULT', NULL, 'Special Effects', 0, 61, '1', '1', 1, '0', 4, 'default_3x3', 0, '0', '["Tune your character with cool effects that fit the occasion. Ride the hoverboard and spit on the mic. Effects can be activated from the menu, by clicking on your avatar.","Click on an item for more information."]', '["catalog_pixeleffects_headline1_en","catalog_pxl_teaser1_en"]', 'undefined'),
-(71, 238, 'DEFAULT', NULL, 'Tiki', 0, 59, '1', '1', 1, '0', 9, 'default_3x3', 0, '0', '["Imagine in the scene.. lost on a desert island when you stumble across a small local tribe.. now you can with our Tiki range!","Click on an item for more information."]', '["catalog_tiki_header1_en","tiki_teaser"]', 'undefined'),
-(72, 2, 'DEFAULT', NULL, 'Urban', 0, 26, '1', '1', 1, '0', 66, 'default_3x3', 0, '0', '["New York City styled furni range, Urban is perfect for any street, alleyway or road. Rubbish bins, street lights and benches, all the Urban furniture you need!","Click on an item for more information."]', '["urban_header_en","urban_teaser_en"]', 'undefined'),
-(73, 3, 'DEFAULT', NULL, 'Automobile', 0, 16, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Every Habbo needs a car effect! Not only do they bring a bit of the outside inside, they also enhance the air quality! And what better gift for a friend than a beautiful traffic sign or elegant pile of tires...","Click on an item for more information."]', '["catalog_automobile_header1_en","catalog_automobile_teaser1_en"]', 'undefined'),
-(74, 121, 'DEFAULT', NULL, 'Various Stuff', 0, 300, '1', '1', 1, '0', 390, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en"]', 'undefined'),
-(75, 2, 'DEFAULT', NULL, 'Bling', 0, 92, '1', '1', 1, '0', 11, 'default_3x3', 0, '0', '["Bling, Bling! Flash, Flash! Want to have that real celebrity lifestyle? Well, go somewhere else, all we have here is a tacky range of furni.","Click on an item for more information."]', '["catalog_frontpage_headline2_en","catalog_teaser_bling11"]', 'undefined'),
-(76, 2, 'DEFAULT', NULL, 'Orgie', 51, 284, '1', '1', 1, '0', 45, 'default_3x3', 0, '0', '["The latest range from Ann Summers, the Orgie line. Made of soft, wipe clean plastic, its perfect for any three, four or fivesome!","Click on an item for more information."]', '["orgierange","orgie_teaser"]', 'undefined'),
-(77, 12, 'DEFAULT', NULL, 'Pets Info', 0, 42, '1', '1', 1, '0', 10, 'pets2', 0, '0', '["Pets are inhabitants of Habbo Hotel too, so each pet owner needs to know a bit about them. Look after your pet by looking through our key points below.","Click on an item for more information."]', '["catalog_pet_headline1","ctlg_pet_note"]', 'undefined'),
-(78, 12, 'DEFAULT', NULL, 'Pigs', 0, 67, '1', '1', 1, '0', 11, 'pets', 0, '0', '["These little scamps were destined for the dining table until we struck a deal with a local farmer to rescue their cute pigtails! Adopt your little piglet today, all you need now is a name.","Click on an item for more information."]', '["catalog_pet_headline1"]', 'undefined'),
-(79, 12, 'DEFAULT', NULL, 'Pet Accessories', 0, 43, '1', '1', 1, '0', 999, 'default_3x3', 0, '0', '["This page has everything you need to give your pet the happy life it deserves. We''ve got a huge selection!","Click on an item for more information."]', '["catalog_pet_headline1","ctlg_pet_teaser1"]', 'undefined'),
-(80, 2, 'DEFAULT', NULL, 'Flower Power', 0, 73, '1', '1', 1, '0', 22, 'default_3x3', 0, '0', '["Woah! Far out man... let the petals take control. Lets collaborate on a hippy hideout and plant some seeds! Lucy in the sky with diamonds style eyy?!","Click on an item for more information."]', '["flowerpower","2828998428_1"]', 'undefined'),
-(81, 2, 'DEFAULT', NULL, 'Runway', 0, 74, '1', '1', 1, '0', 54, 'default_3x3', 0, '0', '["Spice up your salon, hair parlour or boutique with our stylish yet practical range! From sewing machines to comfy seating, we''ve got the perfect option for you.","Click on an item for more information."]', '["runway_header_en","runway_teaser_en"]', 'undefined'),
-(82, 239, 'DEFAULT', NULL, 'Wedding', 0, 238, '1', '1', 1, '0', 11, 'default_3x3', 0, '0', '["Habbo just wouldn''tbe the same without a wedding to attend every now and then!","Click on an item for more information."]', '["catalog_header_wedding","catalog_wedding_teaser15"]', 'undefined'),
-(83, 2, 'DEFAULT', NULL, 'School', 1, 130, '1', '1', 1, '0', 55, 'default_3x3', 0, '0', '["Sick of being told what to do? Want to be the boss of someone else for a change? Well now you can with our very own school range!","Click on an item for more information."]', '["ruletheschool_header","catalog_school_teaser"]', 'undefined'),
-(84, 12, 'DEFAULT', NULL, 'Terriers', 0, 66, '1', '1', 1, '0', 14, 'pets', 0, '0', '["Good things come in small packages and Habbo''s Terriers are no exception!","Click on an item for more information."]', '["catalog_pet_headline1"]', 'undefined'),
-(85, 12, 'DEFAULT', NULL, 'Bears', 0, 68, '1', '1', 1, '0', 1, 'pets', 0, '0', '["A large, heavy mammal that walks on the soles of it''s feet, with thick fur and a very short tail. Fall in love with our adorable range of Bears that include the Grizzly and Polar varieties!","Click on an item for more information."]', '["catalog_pet_headline1"]', 'undefined'),
-(86, 12, 'DEFAULT', NULL, 'Cats', 0, 20, '1', '1', 1, '0', 2, 'pets', 0, '0', '["Fluff, whiskers, meows and purrs! You''re about to enter the world of Habbo Cats. These cute little critters make great playmates and will keep you company if you look after them well. Find a new friend from our ever-changing selection.","Click on an item for more information."]', '["catalog_pet_headline1"]', 'undefined'),
-(87, 12, 'DEFAULT', NULL, 'Dogs', 0, 24, '1', '1', 1, '0', 5, 'pets', 0, '0', '["Wet noses, paws, yaps and woofs! You''re about to enter the world of Habbo Dogs. An adorable and faithful servant awaits you with a wagging tail everytime they see you. Find a new friend from our ever-changing selection.","Click on an item for more information."]', '["catalog_pet_headline1"]', 'undefined'),
-(88, 12, 'DEFAULT', NULL, 'Crocodiles', 0, 22, '1', '1', 1, '0', 4, 'pets', 0, '0', '["Scaly skin, growls and snaps! You''re about to enter the world of Habbo Crocs. Security for your room or to scare your friends a trustworthy and surprisingly loving companion can be yours. Find a new friend from our ever-changing selection.","Click on an item for more information."]', '["catalog_pet_headline1"]', 'undefined'),
-(89, 163, 'DEFAULT', NULL, 'Football', 0, 56, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '["This furni range is a must have for any football fanatic!","Click on an item for more information."]', '["WorldCup","worldcup_teaser"]', 'undefined'),
-(90, 2, 'DEFAULT', NULL, 'Prison', 2, 1008, '1', '1', 1, '0', 48, 'default_3x3', 0, '0', '["Hey, he''s escaping! Just kidding, no one''s geting out of these high security cells!","Click on an item for more information."]', '["catalog_header_prison","catalog_prison_teaser15"]', 'undefined'),
-(91, 12, 'DEFAULT', NULL, 'Lions', 1, 76, '1', '1', 1, '0', 8, 'pets', 0, '0', '["Simba, is that you? Oh wait, it''s just one of Habbo''s adorable pet lions! Unlike real ones, these won''t bite your arms off. And hey, now you can tell all those girls that you''re a lion tamer, it''s technically not lying!","Click on an item for more information."]', '["catalog_pet_headline1"]', 'undefined'),
-(92, 12, 'DEFAULT', NULL, 'Rhinos', 1, 77, '1', '1', 1, '0', 12, 'pets', 0, '0', '["Ever thought rhinos could be cute? Neither did we until we saw these pets released!","Click on an item for more information."]', '["catalog_pet_headline1"]', 'undefined'),
-(93, 12, 'DEFAULT', NULL, 'Spiders', 1, 95, '1', '1', 1, '0', 13, 'pets', 0, '0', '["One of the most feared creatures in nature, and perhaps the most misunderstood. The majority of Spiders are predators with sharp fangs that inject venom into their prey- but dont worry, these spiders wont bite you! Maybe...","Click on an item for more information."]', '["catalog_pet_headline1"]', 'undefined'),
-(94, 12, 'DEFAULT', NULL, 'Frogs', 1, 97, '1', '1', 1, '0', 7, 'pets', 0, '0', '["The Frog. Cute, green and slimy! Frogs come in a variety of weird colours and can be found all over the world. Frogs are great jumpers, and make great pets, but are harder to hold onto than a supermodel in a tornado","Click on an item for more information."]', '["catalog_pet_headline1"]', 'undefined'),
-(95, 12, 'DEFAULT', NULL, 'Chicks', 1, 107, '1', '1', 1, '0', 3, 'pets', 0, '0', '["Habbo is full of chicks (the pet kind!) Adopt your new born chicklet now and start training it to perform the Chicken Dance for your friends... it will be a show to remember!","Click on an item for more information."]', '["catalog_pet_headline1"]', 'undefined'),
-(96, 12, 'DEFAULT', NULL, 'Dragons', 1, 109, '1', '1', 1, '0', 6, 'pets', 0, '0', '["Dragons, because who doesn''t want flying, fire-breathing pets with huge taloned claws?","Click on an item for more information."]', '["catalog_pet_headline1"]', 'undefined'),
-(97, 2, 'DEFAULT', NULL, 'Guitars', 1, 301, '1', '1', 1, '0', 5, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_teaser_pinata","ctlg_guitars_teaser"]', 'undefined'),
-(98, 2, 'DEFAULT', NULL, 'Spa', 1, 211, '1', '1', 1, '0', 6, 'default_3x3', 0, '0', '["Spa furniture range, relax while getting a foot rub.","Click on an item for more information."]', '["catalog_header_spa","spa_small_promo"]', 'undefined'),
-(99, 2, 'DEFAULT', NULL, 'Cinema 2013', 1, 33, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '["Shush, I''m watching Avatar!","Click on an item for more information."]', '["cinema_catalogheader","movie_catalog_teaser"]', 'undefined'),
-(100, 121, 'DEFAULT', NULL, 'Miscellaneous', 1, 300, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '["New items that only fit into a miscellaneous catergory","Click on an item for more information."]', '["catalog_header_new","catalog_cltbs_teaser_no"]', 'undefined'),
-(101, 9895650, 'DEFAULT', NULL, 'Builders Club', 1, 193, '1', '0', 1, '0', 11, 'default_3x3', 0, '0', '["Click on an item for more information."]', '[]', 'undefined'),
-(104, 2, 'DEFAULT', NULL, 'Shakespeare', 1, 210, '1', '1', 1, '0', 8, 'default_3x3', 0, '0', '["Shakespeare furni has arrived into this blesseded world.","Click on an item for more information."]', '["catalog_shakespeare_header","catalog_shakespeare_teaser"]', 'undefined'),
-(105, 2, 'DEFAULT', NULL, 'Mystic', 1, 185, '1', '1', 1, '0', 31, 'default_3x3', 0, '0', '["Mystic Furniture range, will you be on the good or bad side?","Click on an item for more information"]', '["header_mystics","teaser_mystics"]', 'undefined'),
-(106, 121, 'DEFAULT', NULL, 'Oriental', 1, 49, '0', '1', 1, '0', 12, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["header_oriental","teaser_oriental"]', 'undefined'),
-(107, 2, 'DEFAULT', NULL, 'Cabana', 1, 211, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Cabana furniture range","Click on an item for more information."]', '["","cabana_teaser"]', 'undefined'),
-(108, 237, 'DEFAULT', NULL, 'Badge Displays', 1, 224, '1', '1', 1, '0', 5, 'badge_display', 0, '0', '["You worked hard to get your badges, right? Now''s the time to show it off, grab a display case and choose your favourite badge to show off!"]', '["catalog_header_badgedisplay"]', 'undefined'),
-(109, 2, 'DEFAULT', NULL, 'Cubie', 1, 100, '1', '1', 1, '0', 17, 'default_3x3', 0, '0', '["The cubie range is stylish, square shaped furniture with a real edge!","Click on an item for more information."]', '["catalog_cubie_header_en","catalog_cubie_teaser"]', 'undefined'),
-(110, 2, 'DEFAULT', NULL, 'Waasa', 1, 103, '1', '1', 1, '0', 69, 'default_3x3', 0, '0', '["Waasa is the perfect furniture for a chilled, laidback room. Especia for students on a budget.","Click on an item for more information."]', '["waasa_catalogue_header","waasa_teaser"]', 'undefined'),
-(111, 2, 'DEFAULT', NULL, 'Kitchen', 1, 43, '1', '1', 1, '0', 33, 'default_3x3', 0, '0', '["Create your dream kitchen with this exquisite range of matured pine and marble furniture.","Click on an item for more information."]', '["catalog_header_kitchen","kitchen_teaser_ch"]', 'undefined'),
-(112, 12, 'DEFAULT', NULL, 'Turtles', 1, 126, '1', '1', 1, '0', 15, 'pets', 0, '0', '["Anything but slow, these guys are ready to ride the waves and swim laps at your beaches!","Click on an item for more information."]', '["catalog_pet_headline1"]', 'undefined'),
-(113, 12, 'DEFAULT', NULL, 'Monkeys', 1, 128, '1', '1', 1, '0', 10, 'pets', 0, '0', '[" Ooh, ooh, aah, aah! Get yourself your very own monkey today!","Click on an item for more information."]', '["catalog_pet_headline1"]', 'undefined'),
-(114, 2, 'DEFAULT', NULL, 'Fish Sources', 1, 18, '1', '1', 1, '0', 22, 'default_3x3', 0, '0', '["Here fishy, fishy, fishy...","Click on an item for more information."]', '["catalog_rares_headl ine1","fish_source_teaser"]', 'undefined'),
-(115, 2, 'DEFAULT', NULL, 'Coco', 1, 127, '1', '1', 1, '0', 15, 'default_3x3', 0, '0', '["Wooden yet comfortable furniture that woldn''t look out of place in a treetop house!","Click on an item for more information."]', '["catalog_teaser_coco","coconew"]', 'undefined'),
-(116, 2, 'DEFAULT', NULL, 'USVA', 0, 129, '1', '1', 1, '0', 67, 'default_3x3', 0, '0', '["You don''t need to be in college to use this furni line!","Click on an item for more information."]', '["catalog_usva_2","catalog_usva_picture"]', 'undefined'),
-(119, 121, 'DEFAULT', NULL, 'One-ways', 1, 300, '1', '1', 1, '0', 360, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en"]', 'undefined'),
-(121, -1, 'DEFAULT', NULL, 'Staff', 10, 300, '1', '0', 6, '0', 300, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en"]', 'undefined'),
-(123, 121, 'DEFAULT', NULL, 'Customs ', 1, 197, '0', '1', 1, '0', 410, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en"]', 'undefined'),
-(125, 121, 'DEFAULT', NULL, 'Adverts +', 1, 300, '1', '1', 1, '0', 370, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en"]', 'undefined'),
-(126, 121, 'DEFAULT', NULL, 'Custom Dinos ', 1, 300, '1', '1', 1, '0', 420, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en"]', 'undefined'),
-(128, 163, 'DEFAULT', NULL, 'Minecraft', 1, 99, '1', '1', 1, '0', 440, 'default_3x3', 0, '0', '["Minecraft Selection, just like the game itself!","Click on an item for more information."]', '["minecraft","minecraft_teaser"]', 'undefined'),
-(129, 121, 'DEFAULT', NULL, 'Fountains', 1, 300, '1', '1', 1, '0', 450, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en"]', 'undefined'),
-(130, 121, 'DEFAULT', NULL, 'Posters', 1, 300, '0', '1', 1, '0', 47, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en"]', 'undefined'),
-(131, 2, 'DEFAULT', NULL, 'Letters', 1, 302, '1', '1', 1, '0', 10, 'default_3x3', 0, '0', '["Here you can buy letters and write whatever you like!","Click on an item for more information."]', '["catalog_frontpage_headline2_en","letters_teaser"]', 'undefined'),
-(132, 121, 'DEFAULT', NULL, 'Custom Pillows', 1, 300, '1', '1', 1, '0', 12, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en"]', 'undefined'),
-(135, 121, 'DEFAULT', NULL, 'Thrones', 1, 300, '1', '1', 1, '0', 60, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en"]', 'undefined'),
-(136, 121, 'DEFAULT', NULL, 'Pokemon', 1, 300, '1', '1', 1, '0', 100, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en"]', 'undefined'),
-(138, 121, 'DEFAULT', NULL, 'Public Furni', 1, 300, '1', '1', 1, '0', 12, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en"]', 'undefined'),
-(140, 121, 'DEFAULT', NULL, 'Wonka', 1, 129, '0', '1', 1, '0', 0, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en"]', 'undefined'),
-(141, 121, 'DEFAULT', NULL, 'Rocket Eggs', 1, 300, '1', '1', 1, '0', 12, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en"]', 'undefined'),
-(146, 2, 'DEFAULT', NULL, 'Igor & Spiderwick', 1, 51, '1', '1', 1, '0', 30, 'default_3x3', 0, '0', '["It''s believed that frankenstein was born in is furni range..","Click on an item for more information."]', '["catalog_frontpage_headline2_en","catalog_limited_teaser_en"]', 'undefined'),
-(147, 2, 'DEFAULT', NULL, 'American Idol', 1, 7166, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Host your own American idol show with these replica furni! Allt hat''s missing is a Randy Jackson lookalike!","Click on an item for more information."]', '["catalogue_header_idol","catalog_teaser_idol"]', 'undefined'),
-(148, 121, 'DEFAULT', NULL, 'Vending Machines', 1, 300, '1', '1', 1, '0', 340, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en","catalog_limited_teaser_en"]', 'undefined'),
-(149, 121, 'DEFAULT', NULL, 'Capri-sun ', 1, 300, '1', '1', 1, '0', 340, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en","catalog_limited_teaser_en"]', 'undefined'),
-(151, 121, 'DEFAULT', NULL, 'Eco Furni ', 1, 300, '1', '1', 1, '0', 12, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en","catalog_limited_teaser_en"]', 'undefined'),
-(153, 238, 'DEFAULT', NULL, 'Egypt', 3, 286, '1', '1', 1, '0', 20, 'default_3x3', 0, '0', '["The perfect furni range for someone that likes deserts!","Click on an item for more information."]', '["catalog_header_ancients","egypt_furni_promos"]', 'undefined'),
-(154, 9895650, 'DEFAULT', NULL, 'Wired', 2, 80, '1', '1', 1, '0', 159, 'pets2', 0, '0', '["Wired Furni gives you endless possibilities! You can use these pieces to make your Furni do almost anything! Stack Triggers, Effects and Conditions to make them WIRED!","How Does It Work?","To get Wired you will need three types of Wired Furni<br /><br />1. Triggers: Things you need to do, to make an Effect happen.<br/><br/>2. Effects: Things that happen, after you activate the Trigger.<br /><br />3. Conditions (optionally): The conditions that need to exist, before the Trigger works.<br /><br />So Trigger + Effect + Condition = Wired!","Each of these can be programmed separately. Stack your Trigger, Effect and Condition on top of each other, and they will work together to transform your room!!"]', '["catalog_wired_header1","ctlg_pic_teaser_wired"]', 'undefined'),
-(155, 154, 'DEFAULT', NULL, 'Triggers', 1, 81, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Wired Triggers: What makes your action happen.","Click on an item for more information."]', '["catalog_wired_header2_en","ctlg_pic_wired_triggers"]', 'undefined'),
-(156, 154, 'DEFAULT', NULL, 'Effects', 1, 82, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '["Wired Effects: What happens when your Wired is triggered.","Click on an item for more information."]', '["catalog_wired_header3_en","ctlg_pic_wired_effects"]', 'undefined'),
-(157, 154, 'DEFAULT', NULL, 'Conditions', 1, 83, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '["Wired Conditions: Your action will only happen if these conditions are met.","Click on an item for more information."]', '["catalog_wired_header4_en","ctlg_pic_wired_conditions"]', 'undefined'),
-(158, 154, 'DEFAULT', NULL, 'Add-Ons', 1, 85, '1', '1', 1, '0', 4, 'default_3x3', 0, '0', '["Wired Add-Ons: Extra furniture for your Wired!","Click on an item for more information."]', '["catalog_wired_header5_en"]', 'undefined'),
-(159, 2, 'DEFAULT', NULL, 'Hospital', 10, 1012, '1', '1', 1, '0', 30, 'default_3x3', 0, '0', '["The new hospital furniture range is here! Buy it now and create your own Hospital!","Click on an item for more information."]', '["virus","catalog_vir_teaser_de1"]', 'undefined'),
-(160, 2, 'DEFAULT', NULL, 'Stray Pixels', 1, 64, '1', '1', 1, '0', 59, 'default_3x3', 0, '0', '["Become the greatest Artist in the whole wide habbo world!","Click on an item for more information."]', '["Stray Pixel","strayart_teaser"]', 'undefined'),
-(161, 239, 'DEFAULT', NULL, 'New Years', 1, 91, '1', '1', 1, '0', 8, 'default_3x3', 0, '0', '["Just the stuff you need to throw an awesome New Year''s party!","Click on an item for more information."]', '["catalog_header_year2011_en","catalog_teaser_year2011"]', 'undefined'),
-(162, 238, 'DEFAULT', NULL, 'Africa', 1, 9347, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["The new African furniture range is here!","Click on an item for more information."]', '["african_header","catalog_africa_teaser15"]', 'undefined'),
-(163, 9895650, 'DEFAULT', NULL, 'Games Shop', 5, 202, '1', '0', 1, '0', 151, 'default_3x3', 0, '0', '["Click on an item for more information."]', '[]', 'undefined'),
-(164, 163, 'DEFAULT', NULL, 'Ice Tag', 1, 86, '1', '1', 1, '0', 5, 'default_3x3', 0, '0', '["Don''t catch a cold!","Click on an item for more information."]', '["arctic","Catalog_Teaser_icetag"]', 'undefined'),
-(165, 163, 'DEFAULT', NULL, 'Freeze!', 1, 87, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '["It might be cold, but it''s still fun to play!","Click on an item for more information."]', '["arctic"]', 'undefined'),
-(166, 2, 'DEFAULT', NULL, 'Twilight', 1, 1003, '1', '1', 1, '0', 65, 'default_3x3', 0, '0', '["The real question is.. Team Edward or Team Jacob?","Click on an item for more information."]', '["catalog_twilight_header_de","Halloween02"]', 'undefined'),
-(167, 2, 'DEFAULT', NULL, 'Kuurna', 1, 44, '1', '1', 1, '0', 34, 'default_3x3', 0, '0', '["Noob furniture is back with style!","Click on an item for more information."]', '["","Kuurna_teaser"]', 'undefined'),
-(168, 2, 'DEFAULT', NULL, 'Anna', 1, 104, '1', '1', 1, '0', 4, 'default_3x3', 0, '0', '["Make the new Anna collection yours now! You know you wanna.","Click on an item for more information."]', '["catalog_anna_header","catalog_anna_teaser"]', 'undefined'),
-(169, 2, 'DEFAULT', NULL, 'Picnic', 1, 3, '1', '1', 1, '0', 45, 'default_3x3', 0, '0', '["Relax and eat some bread with some melting cheese, don''t forget the wine.","Click on an item for more information."]', '["picnic","picnicteaser"]', 'undefined'),
-(170, 2, 'DEFAULT', NULL, 'Mad Money', 1, 98, '1', '1', 1, '0', 38, 'default_3x3', 0, '0', '["Dolla, dolla, bill ya''ll.","Click on an item for more information."]', '["catalog_madmoney_header_en","catalog_madmoney_teaser_en"]', 'undefined'),
-(171, 163, 'DEFAULT', NULL, 'Skateboarding', 1, 140, '1', '1', 1, '0', 58, 'default_3x3', 0, '0', '["Catch some air!","Click on an item for more information."]', '["default_3x3"]', 'undefined'),
-(173, 163, 'DEFAULT', NULL, 'Tiles', 1, 9997, '1', '1', 1, '0', 17, 'default_3x3', 0, '0', '["Tiles!","Click on an item for more information."]', '["bunte_fliesen","color_tiles_teaser"]', 'undefined'),
-(175, 232, 'DEFAULT', NULL, 'Horse Furni', 1, 132, '1', '1', 1, '0', 30, 'default_3x3', 0, '0', '["Get all the accessories for your horses here!","Click on an item for more information."]', '["catalog_horse_header_en","horse_teaser"]', 'undefined'),
-(177, 239, 'DEFAULT', NULL, 'Valentines', 1, 144, '1', '1', 1, '0', 10, 'default_3x3', 0, '0', '["Share the love this valentines with our new range of Valentines furniture!","Click on an item for more information."]', '["catalog_header_val12_en","catalog_teaser_val12_en"]', 'undefined'),
-(179, 2, 'DEFAULT', NULL, 'Mall Furni', 1, 64, '1', '1', 1, '0', 40, 'default_3x3', 0, '0', '[" Lets go to the mall1","Click on an item for more information."]', '["","mall_teaser"]', 'undefined'),
-(180, 2, 'DEFAULT', NULL, 'MTV Studio', 1, 136, '1', '1', 1, '0', 41, 'default_3x3', 0, '0', '["The MTV Studio range lets YOU be your own music producer!","Click on an item for more information."]', '["header_studio","teaser_studio"]', 'undefined'),
-(181, 2, 'DEFAULT', NULL, 'Boutique', 1, 131, '1', '1', 1, '0', 12, 'default_3x3', 0, '0', '["The boutique range is just the thing if you want to own a high end fashion store in Milan, but are on a budget.","Click on an item for more information."]', '["boutique_catalog_01","boutique_catalog_teaser_01"]', 'undefined'),
-(188, 4, 'DEFAULT', NULL, 'Custom Rooms', 1, 125, '1', '1', 1, '0', 10, 'default_3x3', 0, '0', '["This ingenious furni line has been created for you to create your very own custom room layouts!","Click on an item for more information."]', '["catalog_header_roombuilder","catalog_blackhole_teaser"]', 'undefined'),
-(193, 121, 'DEFAULT', NULL, 'LTD Rares', 1, 300, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en"]', 'undefined'),
-(194, 238, 'DEFAULT', NULL, 'Mayan', 1, 171, '1', '1', 1, '0', 7, 'default_3x3', 0, '0', '["Mayan Furniture range.","Click on an item for more information."]', '["mayan_header","catalogue_teaser_mayan"]', 'undefined'),
-(195, 239, 'DEFAULT', NULL, 'Olympics', 1, 162, '1', '1', 1, '0', 9, 'default_3x3', 0, '0', '[" Upset that the Olympics are over? Well now you don''t have to be! Everything you need to create your own Olympics is in this furniture range!","Click on an item for more information."]', '["oLYH","Olympia"]', 'undefined'),
-(196, 2, 'DEFAULT', NULL, 'Jetset', 1, 287, '1', '1', 1, '0', 33, 'default_3x3', 0, '0', '[" Are you ready for the launch of the new Jetset series? we are! Get ready to ride the waves on your yacht or jet ski and just relax in tropical paradise.","Click on an item for more information."]', '["JetSet1","JetSet2"]', 'undefined'),
-(197, 9895650, 'DEFAULT', NULL, 'Limited Edition', 10, 145, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '["Here you can buy the Limited Edition Rares that are currently on Habbo at the moment, Buy them while you can!","Click on an item for more information."]', '["limited_header","ltd1_teaser"]', 'undefined'),
-(199, 7, 'DEFAULT', NULL, 'E-Chance Token', 1, 118, '0', '0', 1, '0', 2, 'default_3x3', 0, '0', '["Buy you E-Chance Tokens here, take a Habbo Chance on a super rare.","Click on an item for more information."]', '["E-Chance1","catalog_limited_teaser_en"]', 'undefined'),
-(201, 2, 'DEFAULT', NULL, 'Habbo Stars', 1, 196, '1', '1', 1, '0', 20, 'default_3x3', 0, '0', '["Have yoalways wanted to be famous? Is singing, dancing, or acting your thing? Well we have the next best thing, Habbo Stars! Get your dancing feet on and make your name shine!","Click on an item for more information."]', '["catalog_frontpage_headline2_en","starsteaser"]', 'undefined'),
-(202, 121, 'DEFAULT', NULL, 'Golden Greek', 1, 300, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en","catalog_limited_teaser_en"]', 'undefined'),
-(204, 121, 'DEFAULT', NULL, 'HC Sofa''s ', 1, 300, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '["Click on an item for more information."]', '[]', 'undefined'),
-(205, 154, 'DEFAULT', NULL, 'SFX items', 1, 4, '1', '1', 1, '0', 58, 'default_3x3', 0, '0', '["Create your own beats and tracks by combining these sound FX in your room. Throw a concert for your friends or even start a band in Habbo!","Click on an item for more information."]', '["catalog_wired_header1","teaser_sfx_2"]', 'undefined'),
-(206, 228, 'DEFAULT', NULL, 'Pixels 4 Coins', 1, 84, '0', '0', 1, '0', 2, 'default_3x3', 0, '0', '["You can exchange your Habbo pixels here for Credits, which you can use in a trade or anything you want.","Click on an item for more information."]', '["catalog_bank_headline1","catalog_bank_teaser"]', 'undefined');
+(1, -1, 'DEFAULT', NULL, 'Icarus Catalogue', 1, 0, '1', '1', 1, '0', 1, 'frontpage4', 0, '0', '[\"PGk+PGI+PGZvbnQgY29sb3I9IiMwRTY2OEMiIHNpemU9IjE2Ij5XaGF0IGNhbiBJIGZpbmQgaW4gdGhlIHNob3A/PC9mb250PjwvYj48L2k+PGJyPjxicj5VcGdyYWRlIHlvdXIgY2xvdGhpbmcgd2l0aCBIYWJibyBDbHViLCBhZG9wdCBhIHBldCBvciBkZWNvcmF0ZSB5b3VyIHJvb20gdGhlIHdheSB5b3UgbGlrZSBpdC4gV2hhdGV2ZXIgeW91IGxpa2UgdG8gZG8gbW9zdCBpbiBIYWJibywgeW91J2xsIGZpbmQgYSB3YXkgdG8gbWFrZSB0aGF0IGV4cGVyaWVuY2UgZXZlbiBiZXR0ZXIgYnkgYnJvd3Npbmcgb3VyIFNob3AuPGJyPjxicj48bGk+Sm9pbiA8YSBocmVmPSJldmVudDpjYXRhbG9nL29wZW4vaGFiYm9fY2x1YiI+SGFiYm8gQ2x1YjwvYT48L2xpPjxsaT48YSBocmVmPSJldmVudDpjYXRhbG9nL29wZW4vc2V0X3BpeGVsbmV3Ij5EZWNvcmF0ZSA8L2E+eW91ciByb29tPC9saT48bGk+QWRvcHQgYSA8YSBocmVmPSJldmVudDpjYXRhbG9nL29wZW4vcGV0X2hvcnNlIj5QZXQ8L2E+LCA8YSBocmVmPSJldmVudDpjYXRhbG9nL29wZW4vYm90cyI+Qm90PC9hPiBvciA8YSBocmVmPSJldmVudDpjYXRhbG9nL29wZW4vbW9uc3Rlcl9wbGFudHNfaW5mbyI+TW9uc3RlcnBsYW50czwvYT48L2xpPjxsaT5NYWtlIHlvdXIgb3duIDxhIGhyZWY9ImV2ZW50OmNhdGFsb2cvb3Blbi9jYXRlZ29yeV93aXJlZCI+V2lyZWQ8L2E+IGdhbWVzIDwvbGk+PGxpPlRyYWRlIGluIG91ciA8YSBocmVmPSJldmVudDpjYXRhbG9nL29wZW4vbWFya2V0cGxhY2Vfb2ZmZXJzIj5NYXJrZXRwbGFjZTwvYT48L2xpPjxicj48aT48Yj48Zm9udCBjb2xvcj0iIzBFNjY4QyIgc2l6ZT0iMTYiPldoZXJlIGNhbiBJIGdldCBjcmVkaXRzPzwvZm9udD48L2I+PC9pPjxicj48YnI+V2UgaGF2ZSBtYW55IG1ldGhvZHMgb2YgcGF5bWVudCBzdWNoIGFzIFNNUywgSG9tZSBQaG9uZSwgUHJlcGFpZCBDYXJkcywgYW5kIENyZWRpdCBDYXJkcy48YnI+PGJyPjxhIGhyZWY9ImV2ZW50OmhhYmJsZXQvb3Blbi9jcmVkaXRzIj5WaXNpdCBvdXIgY3JlZGl0cyBwYWdlIGZvciBtb3JlIGluZm8uPC9hPg==\",\"From everyone here at Habbo!\"]', '[\"catalog_frontpage_headline_shop_GENERAL\"]', 'undefined'),
+(2, 9895650, 'DEFAULT', NULL, 'Themed Furni', 5, 196, '1', '0', 1, '0', 7, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\"]', 'undefined'),
+(3, 9895650, 'DEFAULT', NULL, 'Ducket Shop', 5, 178, '1', '0', 1, '0', 150, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\"]', 'undefined'),
+(4, 9895650, 'DEFAULT', NULL, 'Icarus Club', 1, 172, '1', '0', 1, '0', 2, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_club_headline1\",\"catalog_hc_teaser\"]', 'undefined'),
+(5, 4, 'DEFAULT', NULL, 'Buy Club', 1, 9, '0', '0', 1, '0', 1, 'default_3x3', 0, '0', '[\"Habbo Club, purHabbo one of the three options\",\"Click on an item for more information.\"]', '[\"habboclub_2\",\"catalog_hc_teaser\"]', 'undefined'),
+(6, 4, 'DEFAULT', NULL, 'Club Shop', 1, 172, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '[\"We\'ve got all that exclusive club furniture available for you right here .. but for an exclusive price.\",\"Click on an item for more information.\"]', '[\"catalog_header_hc\",\"catalog_hc_teaser\"]', 'undefined'),
+(7, 9895650, 'DEFAULT', NULL, 'E-Chance', 8, 123, '0', '0', 1, '0', 170, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[]', 'undefined'),
+(8, 7, 'DEFAULT', NULL, 'E-Chance', 1, 7, '0', '0', 1, '0', 1, 'recycler', 0, '0', '[\"Become an Eco-warrior\",\"Click on an item for more information.\"]', '[\"E-Chance1\",\"ctlg_ecotron_image\"]', 'undefined'),
+(9, 7, 'DEFAULT', NULL, 'Rewards', 1, 26, '1', '1', 1, '0', 3, 'recycler_prizes', 0, '0', '[\"What are the prizes? E-Chance box may contain one of these:\",\"Click on an item for more information.\"]', '[\"E-Chance1\"]', 'undefined'),
+(10, 7, 'DEFAULT', NULL, 'Instructions', 1, 42, '1', '1', 1, '0', 4, 'recycler_info', 0, '0', '[\"This is a new E-Chance. Get using credits again... what will you get in return? It\'s a surprise! Become a Habbo eco-warrior. No refunds!\\r\\n\",\"Click on an item for more information.\"]', '[\"E-Chance1\",\"ctlg_ecotron_box\"]', 'undefined'),
+(11, 9895650, 'DEFAULT', NULL, 'Exchange', 1, 146, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"You can exchange your Habbo credits here for Exchange furniture, which you can use in a trade or simply exchange for actual credits.\",\"Click on an item for more information.\"]', '[\"catalog_bank_headline1\",\"catalog_bank_teaser\"]', 'undefined'),
+(12, -1, 'DEFAULT', NULL, 'Pets Shop', 5, 8, '1', '0', 1, '0', 251, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"Habbo_catalogue\"]', 'undefined'),
+(13, 237, 'DEFAULT', NULL, 'Spaces', 1, 55, '1', '1', 1, '0', 16, 'spaces_new', 0, '0', '[\"Floors, wallpapers and landscapes - get a groovy combination for your room! Use our sample room below to try before you buy! Select your favourite designs and colours and simply click Buy!\",\"Click on an item for more information.\"]', '[\"catalog_spaces_headline1\"]', 'undefined'),
+(15, 237, 'DEFAULT', NULL, 'Windows', 0, 63, '1', '1', 1, '0', 19, 'default_3x3', 0, '0', '[\"Let some light in! Our windows come in many unique styles to give an exting look to your ckeyom. Buy landscapes to go with your windows from the \'Spaces\' page!\",\"Click on an item for more information.\"]', '[\"ctlg_windows_headline1_en\",\"ctlg_windows_teaser1_en\"]', 'undefined'),
+(16, 237, 'DEFAULT', NULL, 'Moodlights', 0, 40, '1', '1', 1, '0', 10, 'default_3x3', 0, '0', '[\"Our range of moodlights allow you to control the atmosphere and transform your room in just a click. What will your room look like? Click the switch and find out now!\",\"Click on an item for more information.\"]', '[\"catalog_dimmers_header_en\",\"dimmers_teaser\"]', 'undefined'),
+(17, 239, 'DEFAULT', NULL, 'Christmas', 1, 90, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '[\"Get yourself into the Christmas spirit with our selection of festive furni! From baubles to Reindeer poo, we\'ve got it all!\",\"Click on an item for more information.\"]', '[\"catalog_xmas_headline1\",\"xmas2009_catalogue\"]', 'undefined'),
+(18, 239, 'DEFAULT', NULL, 'Arctic', 0, 13, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Stay cool (or warm with out campfire!) with and create your own Winter Wonderland or Humble Homeland for your Penguins.\",\"Click on an item for more information.\"]', '[\"catalog_arc_header1_en\",\"catalog_arc_teaser1_en\"]', 'undefined'),
+(19, 237, 'DEFAULT', NULL, 'Teleporters', 0, 58, '1', '1', 1, '0', 17, 'default_3x3', 0, '0', '[\"Take your room to a whole new level with our range of space age teleporters! Just buy a pair, put one in each room and voila! You\'ll have two linked rooms!\",\"Click on an item for more information.\"]', '[\"catalog_doors_headline1\",\"catalog_door_a\"]', 'undefined'),
+(20, 237, 'DEFAULT', NULL, 'Mode', 0, 39, '1', '1', 1, '0', 9, 'default_3x3', 0, '0', '[\"Steely, grey industrial standard metal with a sleek design. The perfect range for a streetwise city dweller.\",\"Click on an item for more information.\"]', '[\"catalog_mode_headline1\",\"catalog_mode_teaser1\"]', 'undefined'),
+(22, 237, 'DEFAULT', NULL, 'Pura', 0, 48, '1', '1', 1, '0', 13, 'default_3x3', 0, '0', '[\"The clenest, freshest range. You can almost hear it breath cool and tranquility within your room. Use it to create a haven away from the hetic lifestyle of Habbo Hotel.\",\"Click on an item for more information.\"]', '[\"catalog_pura_headline1\",\"catalog_pura_teaser1\"]', 'undefined'),
+(23, 237, 'DEFAULT', NULL, 'Area', 0, 14, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '[\"A chunky and sofisticated line for the down-to-earth, studious Habbo. It\'s simplicty is beautful and will add a welcoming charm to every room.\",\"Click on an item for more information.\"]', '[\"catalog_area_headline1\",\"catalog_area_teaser1\"]', 'undefined'),
+(24, 2, 'DEFAULT', NULL, 'Country', 0, 21, '1', '1', 1, '0', 16, 'default_3x3', 0, '0', '[\"Lets leave the busy city streets and head over to the wide abyss of golden whear, emerald fields and home grown, organic vegetables. Everything you need to create a farm!\",\"Click on an item for more information.\"]', '[\"country_header1_en_001\",\"country_teaser1\"]', 'undefined'),
+(25, 237, 'DEFAULT', NULL, 'Lodge', 0, 37, '1', '1', 1, '0', 8, 'default_3x3', 0, '0', '[\"For that splendid ski-lodge effect with an open fire and whisky on the sidebar. This range is for those who appreicate the true beauty of solid wood.\",\"Click on an item for more information.\"]', '[\"catalog_lodge_headline1\",\"catalog_lodge_teaser1\"]', 'undefined'),
+(26, 237, 'DEFAULT', NULL, 'Plastic', 0, 46, '1', '1', 1, '0', 12, 'default_3x3', 0, '0', '[\"Throw on an afro and grab a disco ball! Feel that retro, 1970s vibe? You soon will with this colourful, plastic range! Choose a colour to suit your mood and off you go!\",\"Click on an item for more information.\"]', '[\"catalog_plasto_headline1\"]', 'undefined'),
+(27, 237, 'DEFAULT', NULL, 'Bathroom', 0, 17, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '[\"Lets face it.. you can\'t live without your bathroom. Give yours guests somewhere to freshen up with our cheeful bathroom collection!\",\"Click on an item for more information.\"]', '[\"catalog_bath_headline1\",\"catalog_bath_teaser1\"]', 'undefined'),
+(28, 237, 'DEFAULT', NULL, 'Plants', 0, 45, '1', '1', 1, '0', 11, 'default_3x3', 0, '0', '[\"Every room needs some greenery, dear! Not only do they enhance the air quality, they cheer up a room to make it simply splendid! And what better gift for a friend than an elegant rose..\",\"Click on an item for more information.\"]', '[\"catalog_plants_headline1\",\"catalog_plants_teaser1\"]', 'undefined'),
+(29, 237, 'DEFAULT', NULL, 'Rugs', 0, 52, '1', '1', 1, '0', 15, 'default_3x3', 0, '0', '[\"Rugs for all occasions, white for weddings, black for funerals and everything in between! All rugs and non-slip and machine washable. Take your pick!\",\"Click on an item for more information.\"]', '[\"catalog_rugs_headline1\",\"catalog_posters_teaser1\"]', 'undefined'),
+(30, 237, 'DEFAULT', NULL, 'Gallery', 0, 47, '1', '1', 1, '0', 5, 'default_3x3', 0, '0', '[\"Adorn your walls with posters, art, plaques and wall hangings. This gallery is bursting with items to suit all tastes, traditional and modern!\",\"Click on an item for more information.\"]', '[\"catalog_gallery_headline1\",\"catalog_posters_teaser1\"]', 'undefined'),
+(31, 237, 'DEFAULT', NULL, 'Trophies', 0, 60, '1', '1', 1, '0', 18, 'trophies', 0, '0', '[\"Everyones a winner with Habbo trophies! Now you can reward all your friends with our pre-polished array of trohpies. In bronze, silver and gold. \\r\\nFirst choose your trophy model, then the metal and carefully type your inscription. Don\'t worry, we\'ll engrave it all with your name and the date.\",\"Click on an item for more information.\"]', '[\"catalog_trophies_headline1\"]', 'undefined'),
+(32, 237, 'DEFAULT', NULL, 'Accessories', 0, 11, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"However you like to place your essentials, its the finishing touches that really make a room and express your true personality. Don\'t forget, like anything else, you can move them all about to suit your mood!\",\"Click on an item for more information.\"]', '[\"catalog_extra_headline1\",\"catalog_extra_teaser1\"]', 'undefined'),
+(33, 3, 'DEFAULT', NULL, 'Rentals', 0, 44, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '[\"Hire some cool effects to add an explosive touch to your room. From bubbles to firestarters, you can enhance your room dramatically!\",\"Click on an item for more information.\"]', '[\"catalog_pixelrent_headline1_en\",\"catalog_pxl_teaser3_en\"]', 'undefined'),
+(34, 237, 'DEFAULT', NULL, 'Iced', 0, 13, '1', '1', 1, '0', 7, 'default_3x3', 0, '0', '[\"The Iced range, squishy, soft and most definitely cool. Whatever your needs, this stylish range should  cover it!\",\"Click on an item for more information.\"]', '[\"catalog_iced_headline1\",\"catalog_iced_teaser1\"]', 'undefined'),
+(35, 238, 'DEFAULT', NULL, 'Alhambra', 0, 12, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '[\"For the cold Arabian nights and hot Arabian days, you\'ll need a palace.. and we have just what you need! Green blossom print should cover it just fine!\",\"Click on an item for more information.\"]', '[\"catalog_alh_headline1_en\",\"dining_area_illustration\"]', 'undefined'),
+(36, 238, 'DEFAULT', NULL, 'Asian', 0, 15, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '[\"Ting tong! Ching chong? Ting chong ting, ping ping! I mean uh.. with our authentic Chinese furniture, you can make a beautiful oriental room!\",\"Click on an item for more information.\"]', '[\"catalog_asian_headline1\",\"catalog_asian_teaser1\"]', 'undefined'),
+(37, 238, 'DEFAULT', NULL, 'Bensalem', 0, 18, '1', '1', 1, '0', 4, 'default_3x3', 0, '0', '[\"Under the seaaaaaaaaa, oh, Under the seaaaaaa! What will your underwater world look like? We have it all here, crabs, HIV and genital warts!\",\"Click on an item for more information.\"]', '[\"catalog_lc_headline2_en\",\"catalog_lc_teaser1_en_001\"]', 'undefined'),
+(38, 239, 'DEFAULT', NULL, 'Easter', 3, 25, '1', '1', 1, '0', 4, 'default_3x3', 0, '0', '[\"Little birdies hatching from their eggs, pretty, dainty flowers blooming and cute rabbits bouncy in Spring meadows.. It\'s Easter!\",\"Click on an item for more information.\"]', '[\"catalog_easter_headline1\",\"catalog_easter_teaser1\"]', 'undefined'),
+(39, 2, 'DEFAULT', NULL, 'Executive', 0, 27, '1', '1', 1, '0', 21, 'default_3x3', 0, '0', '[\"For the ultimate business man, the Executive range with its leather seats and Italian coffee is a dream! How about you try the easy lifestyle?\",\"Click on an item for more information.\"]', '[\"catalog_exe_headline1_en\",\"catalog_exe_teaser_en\"]', 'undefined'),
+(40, 237, 'DEFAULT', NULL, 'Glass', 0, 29, '1', '1', 1, '0', 6, 'default_3x3', 0, '0', '[\"You can really open up a space with this stylish glass furniture, just don\'t walk into it!\",\"Click on an item for more information.\"]', '[\"catalog_glass_headline1\",\"catalog_glass_teaser1\"]', 'undefined'),
+(41, 2, 'DEFAULT', NULL, 'Gothic', 0, 30, '1', '1', 1, '0', 25, 'default_3x3', 0, '0', '[\"As the church bells ring out midnight, you walk through your cobbled hall lit by candles, throw yourself into your medieval throne and paint your nails black. This is what we imagined when we ordered this range!\",\"Click on an item for more information.\"]', '[\"catalog_gothic_headline1\",\"catalog_gothic_teaser1\"]', 'undefined'),
+(42, 2, 'DEFAULT', NULL, 'Sports', 0, 56, '1', '1', 1, '0', 60, 'default_3x3', 0, '0', '[\"Sport contains all those vital Olympic pieces from running tracks to basketball courts! 3 2 1 GO!\",\"Click on an item for more information.\"]', '[\"sports\",\"catalog_sports_teaser1\"]', 'undefined'),
+(43, 2, 'DEFAULT', NULL, 'Grunge', 0, 32, '1', '1', 1, '0', 27, 'default_3x3', 0, '0', '[\"Sleeping rough? Make the streets a bit more bearable with our collection of homeless furni, Grunge!\",\"Click on an item for more information.\"]', '[\"catalog_grunge_headline1\",\"catalog_gru_teaser_en\"]', 'undefined'),
+(44, 2, 'DEFAULT', NULL, 'HabboWood', 0, 33, '1', '1', 1, '0', 28, 'default_3x3', 0, '0', '[\"No flash photography, darling! This range is only for the VIP Hollywood actors!\",\"Click on an item for more information.\"]', '[\"habbowood\",\"cine_2011_teaser\"]', 'undefined'),
+(45, 239, 'DEFAULT', NULL, 'Halloween', 0, 34, '1', '1', 1, '0', 5, 'default_3x3', 0, '0', '[\"WooOOOOoooOOoo! Spooky! Don\'t wanna be left with this range at night.. who knows what would happen!\",\"Click on an item for more information.\"]', '[\"catalog_halloween_headline1\",\"catalog_voodoo_teaser\"]', 'undefined'),
+(46, 238, 'DEFAULT', NULL, 'Japan', 0, 36, '1', '1', 1, '0', 6, 'default_3x3', 0, '0', '[\"We have sushi, tatami and katana\'s! I have no idea what the difference is, but I sure know its Japanese! Fulfil your fantasies and buy some today!\",\"Click on an item for more information.\"]', '[\"catalog_jap_headline2_en\",\"catalog_jap_teaser3_en\"]', 'undefined'),
+(47, 238, 'DEFAULT', NULL, 'Lost Tribe', 0, 38, '1', '1', 1, '0', 7, 'default_3x3', 0, '0', '[\"Start your own tribal village with our ancient furniture, all carved from hard wearing stone. NOTE: Lava is hot, get an adult to help you.\",\"Click on an item for more information.\"]', '[\"losttribe\",\"LT_teaser_en\"]', 'undefined'),
+(48, 2, 'DEFAULT', NULL, 'Neon', 0, 41, '1', '1', 1, '0', 42, 'default_3x3', 0, '0', '[\"New years eve, birthdays and every other day of the year, there\'s always an exscuse for a party! So, why don\'t you buy some Neon furni!?\",\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"catalog_neon_teaser1_en\"]', 'undefined'),
+(49, 2, 'DEFAULT', NULL, 'Relax', 0, 49, '1', '1', 1, '0', 50, 'default_3x3', 0, '0', '[\"Relax after a busy day in the Welcome Lounge. Light a few candles, and chill out with a good read in a wicker chair. We understand the needs of an Habbo with a hectic lifestyle!\",\"Click on an item for more information.\"]', '[\"rela_header_en\",\"rela_teaser_en\"]', 'undefined'),
+(50, 2, 'DEFAULT', NULL, 'Romantique', 0, 50, '1', '1', 1, '0', 52, 'default_3x3', 0, '0', '[\"Found in a French barn, this sweet but sexily romantic range caters to every ladies needs. Just going to powder my nose!\",\"Click on an item for more information.\"]', '[\"catalog_romantique_headline1\",\"catalog_rom_teaser_en\"]', 'undefined'),
+(51, 2, 'DEFAULT', NULL, 'Science Fiction', 0, 53, '1', '1', 1, '0', 56, 'default_3x3', 0, '0', '[\"Blipblop blip blip blip.. Oooh.. what\'s this button do?.. You can find out exactly what it does with our new Scifi range, batteries included!\",\"Click on an item for more information.\"]', '[\"sf_header_en\",\"sf_teaser_en\"]', 'undefined'),
+(52, 238, 'DEFAULT', NULL, 'Shalimar', 0, 54, '1', '1', 1, '0', 8, 'default_3x3', 0, '0', '[\"Everyone loves Bollywood! Want some free credits? Tell Oscar you successfully read the Shalimar page! Tell no one else you found this Easter egg. Watch out for rose petals!\",\"Click on an item for more information.\"]', '[\"catalog_shal_header1_en\",\"catalog_shal_teaser_en\"]', 'undefined'),
+(53, 239, 'DEFAULT', NULL, 'Summer', 0, 57, '1', '1', 1, '0', 10, 'default_3x3', 0, '0', '[\"Phwoar! Start up the barbie! This range has everything you need for the perfect summer garden!\",\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"catalog_sum_teaser1_en\"]', 'undefined'),
+(54, 2, 'DEFAULT', NULL, 'Love', 0, 62, '1', '1', 1, '0', 37, 'default_3x3', 0, '0', '[\"Love is in the air once again! Buy your sweetheart a rose or whisper sweet nothings in their ear on a love sofa. Can you feel it? <3\",\"Click on an item for more information.\"]', '[\"catalog_love_headline1\",\"catalog_teaser_valquest\"]', 'undefined'),
+(55, 238, 'DEFAULT', NULL, 'Greek', 0, 1006, '1', '1', 1, '0', 5, 'default_3x3', 0, '0', '[\"Be transported back to ancient Greece with a couple of thousand pounds and British Airways. Until then, build your own panthenon with our realist Greek range!\",\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"greek_catateaser\"]', 'undefined'),
+(56, 3, 'DEFAULT', NULL, 'Collectables', 0, 71, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '[\"The Pixel Collectables are the ultimate collectors items, requiring a mammoth 2000 pixels and credits to buy! If you collect all the pieces and manage to put them together in certain ways, you\'ll receive a special effect!\",\"Click on an item for more information.\"]', '[\"catalog_pixeldeals_headline1_en\",\"catalog_pxl_teaser2_en\"]', 'undefined'),
+(58, 121, 'DEFAULT', NULL, 'Trophies ', 1, 60, '1', '1', 1, '0', 0, 'trophies', 0, '0', '[\"This page contains special trophies available for staff to give as prizes. STAFF CAUGHT GIVING OUT THESE WITH NO REASON WILL BE DEMOTED.\",\"Click on an item for more information.\"]', '[\"catalog_trophies_headline1\"]', 'undefined'),
+(59, 121, 'DEFAULT', NULL, 'Rares Classic', 1, 300, '1', '1', 1, '0', 320, 'default_3x3', 0, '0', '[\"This page contains special rares available for staff. STAFF CAUGHT GIVING OUT THESE WITH NO REASON WILL BE DEMOTED.\",\"Click on an item for more information.\"]', '[\"catalog_rares_headline1\"]', 'undefined'),
+(61, 237, 'DEFAULT', NULL, 'Rollers', 0, 96, '1', '1', 1, '0', 14, 'default_3x3', 0, '0', '[\"Zoooooooom, Zooooooooooooooooooooooooooom! Was it a plane? Was it a bird!? No, it was Roy on a roller! You can use rollers in games, events or even just to  move a queue along.\",\"Click on an item for more information.\"]', '[\"catalog_roller_headline1\",\"catalog_teaser_rollers_en\"]', 'undefined'),
+(62, 2, 'DEFAULT', NULL, 'Diner', 0, 204, '1', '1', 1, '0', 18, 'default_3x3', 0, '0', '[\"Originally from the 50\'s this furni has been refurbished and put right into the catalogue! Use this with the Kitchen range for ultimate diner experience!\",\"Click on an item for more information.\"]', '[\"diner\",\"catalog_diner_teaser_en\"]', 'undefined'),
+(63, 121, 'DEFAULT', NULL, 'Rares Colour', 0, 300, '1', '1', 1, '0', 330, 'default_3x3', 0, '0', '[\"On this page, we have some lovely rares for you! We\'ve kept a few behind for competition and event prizes!\",\"Click on an item for more information.\"]', '[\"catalog_rares_headline1\"]', 'undefined'),
+(64, 2, 'DEFAULT', NULL, 'Dungeon', 0, 110, '1', '1', 1, '0', 19, 'default_3x3', 0, '0', '[\"I\'ve never read the book, all I know is it has vampires playing basket ball and some heart throb called Edward Cullen, but the furni looks good!\",\"Click on an item for more information.\"]', '[\"drago_catalog_header2\",\"drago_catalog_teaser2\"]', 'undefined'),
+(65, 9895650, 'DEFAULT', NULL, 'Marketplace', 8, 69, '0', '1', 1, '0', 171, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"marketplace\",\"catalog_limited_teaser_en\"]', 'undefined'),
+(66, 65, 'DEFAULT', NULL, 'Offers', 1, 70, '1', '1', 1, '0', 10, 'marketplace', 0, '0', '[\"Click on an item for more information.\"]', '[\"marketplace\"]', 'undefined'),
+(67, 65, 'DEFAULT', NULL, 'My Sales', 1, 71, '1', '1', 1, '0', 20, 'marketplace_own_items', 0, '0', '[\"Click on an item for more information.\"]', '[\"marketplace\"]', 'undefined'),
+(68, 163, 'DEFAULT', NULL, 'Battle Banzai', 5, 78, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Prepare for Battle Banzai!\",\"Click on an item for more information.\"]', '[\"Battlebanzai\",\"catalog_battleBanzai_teaser\"]', 'undefined'),
+(69, 3, 'DEFAULT', NULL, 'Hello', 0, 35, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '[\"Hello Furni is available with Pixels and is perfect if you are decorating your room for the very first time. The Furni is yours to keep and therefore cannot be traded.\",\"Click on an item for more information.\"]', '[\"catalog_hello_header1_en\",\"catalog_hello_teaser1_en\"]', 'undefined'),
+(70, 3, 'DEFAULT', NULL, 'Special Effects', 0, 61, '1', '1', 1, '0', 4, 'default_3x3', 0, '0', '[\"Tune your character with cool effects that fit the occasion. Ride the hoverboard and spit on the mic. Effects can be activated from the menu, by clicking on your avatar.\",\"Click on an item for more information.\"]', '[\"catalog_pixeleffects_headline1_en\",\"catalog_pxl_teaser1_en\"]', 'undefined'),
+(71, 238, 'DEFAULT', NULL, 'Tiki', 0, 59, '1', '1', 1, '0', 9, 'default_3x3', 0, '0', '[\"Imagine in the scene.. lost on a desert island when you stumble across a small local tribe.. now you can with our Tiki range!\",\"Click on an item for more information.\"]', '[\"catalog_tiki_header1_en\",\"tiki_teaser\"]', 'undefined'),
+(72, 2, 'DEFAULT', NULL, 'Urban', 0, 26, '1', '1', 1, '0', 66, 'default_3x3', 0, '0', '[\"New York City styled furni range, Urban is perfect for any street, alleyway or road. Rubbish bins, street lights and benches, all the Urban furniture you need!\",\"Click on an item for more information.\"]', '[\"urban_header_en\",\"urban_teaser_en\"]', 'undefined'),
+(73, 3, 'DEFAULT', NULL, 'Automobile', 0, 16, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Every Habbo needs a car effect! Not only do they bring a bit of the outside inside, they also enhance the air quality! And what better gift for a friend than a beautiful traffic sign or elegant pile of tires...\",\"Click on an item for more information.\"]', '[\"catalog_automobile_header1_en\",\"catalog_automobile_teaser1_en\"]', 'undefined'),
+(74, 121, 'DEFAULT', NULL, 'Various Stuff', 0, 300, '1', '1', 1, '0', 390, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\"]', 'undefined'),
+(75, 2, 'DEFAULT', NULL, 'Bling', 0, 92, '1', '1', 1, '0', 11, 'default_3x3', 0, '0', '[\"Bling, Bling! Flash, Flash! Want to have that real celebrity lifestyle? Well, go somewhere else, all we have here is a tacky range of furni.\",\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"catalog_teaser_bling11\"]', 'undefined'),
+(76, 2, 'DEFAULT', NULL, 'Orgie', 51, 284, '1', '1', 1, '0', 45, 'default_3x3', 0, '0', '[\"The latest range from Ann Summers, the Orgie line. Made of soft, wipe clean plastic, its perfect for any three, four or fivesome!\",\"Click on an item for more information.\"]', '[\"orgierange\",\"orgie_teaser\"]', 'undefined'),
+(77, 12, 'DEFAULT', NULL, 'Pets Info', 0, 42, '1', '1', 1, '0', 10, 'pets2', 0, '0', '[\"Pets are inhabitants of Habbo Hotel too, so each pet owner needs to know a bit about them. Look after your pet by looking through our key points below.\",\"Click on an item for more information.\"]', '[\"catalog_pet_headline1\",\"ctlg_pet_note\"]', 'undefined'),
+(78, 12, 'DEFAULT', NULL, 'Pigs', 0, 67, '1', '1', 1, '0', 11, 'pets', 0, '0', '[\"These little scamps were destined for the dining table until we struck a deal with a local farmer to rescue their cute pigtails! Adopt your little piglet today, all you need now is a name.\",\"Click on an item for more information.\"]', '[\"catalog_pet_headline1\"]', 'undefined'),
+(79, 12, 'DEFAULT', NULL, 'Pet Accessories', 0, 43, '1', '1', 1, '0', 999, 'default_3x3', 0, '0', '[\"This page has everything you need to give your pet the happy life it deserves. We\'ve got a huge selection!\",\"Click on an item for more information.\"]', '[\"catalog_pet_headline1\",\"ctlg_pet_teaser1\"]', 'undefined'),
+(80, 2, 'DEFAULT', NULL, 'Flower Power', 0, 73, '1', '1', 1, '0', 22, 'default_3x3', 0, '0', '[\"Woah! Far out man... let the petals take control. Lets collaborate on a hippy hideout and plant some seeds! Lucy in the sky with diamonds style eyy?!\",\"Click on an item for more information.\"]', '[\"flowerpower\",\"2828998428_1\"]', 'undefined'),
+(81, 2, 'DEFAULT', NULL, 'Runway', 0, 74, '1', '1', 1, '0', 54, 'default_3x3', 0, '0', '[\"Spice up your salon, hair parlour or boutique with our stylish yet practical range! From sewing machines to comfy seating, we\'ve got the perfect option for you.\",\"Click on an item for more information.\"]', '[\"runway_header_en\",\"runway_teaser_en\"]', 'undefined'),
+(82, 239, 'DEFAULT', NULL, 'Wedding', 0, 238, '1', '1', 1, '0', 11, 'default_3x3', 0, '0', '[\"Habbo just wouldn\'tbe the same without a wedding to attend every now and then!\",\"Click on an item for more information.\"]', '[\"catalog_header_wedding\",\"catalog_wedding_teaser15\"]', 'undefined'),
+(83, 2, 'DEFAULT', NULL, 'School', 1, 130, '1', '1', 1, '0', 55, 'default_3x3', 0, '0', '[\"Sick of being told what to do? Want to be the boss of someone else for a change? Well now you can with our very own school range!\",\"Click on an item for more information.\"]', '[\"ruletheschool_header\",\"catalog_school_teaser\"]', 'undefined'),
+(84, 12, 'DEFAULT', NULL, 'Terriers', 0, 66, '1', '1', 1, '0', 14, 'pets', 0, '0', '[\"Good things come in small packages and Habbo\'s Terriers are no exception!\",\"Click on an item for more information.\"]', '[\"catalog_pet_headline1\"]', 'undefined'),
+(85, 12, 'DEFAULT', NULL, 'Bears', 0, 68, '1', '1', 1, '0', 1, 'pets', 0, '0', '[\"A large, heavy mammal that walks on the soles of it\'s feet, with thick fur and a very short tail. Fall in love with our adorable range of Bears that include the Grizzly and Polar varieties!\",\"Click on an item for more information.\"]', '[\"catalog_pet_headline1\"]', 'undefined'),
+(86, 12, 'DEFAULT', NULL, 'Cats', 0, 20, '1', '1', 1, '0', 2, 'pets', 0, '0', '[\"Fluff, whiskers, meows and purrs! You\'re about to enter the world of Habbo Cats. These cute little critters make great playmates and will keep you company if you look after them well. Find a new friend from our ever-changing selection.\",\"Click on an item for more information.\"]', '[\"catalog_pet_headline1\"]', 'undefined'),
+(87, 12, 'DEFAULT', NULL, 'Dogs', 0, 24, '1', '1', 1, '0', 5, 'pets', 0, '0', '[\"Wet noses, paws, yaps and woofs! You\'re about to enter the world of Habbo Dogs. An adorable and faithful servant awaits you with a wagging tail everytime they see you. Find a new friend from our ever-changing selection.\",\"Click on an item for more information.\"]', '[\"catalog_pet_headline1\"]', 'undefined'),
+(88, 12, 'DEFAULT', NULL, 'Crocodiles', 0, 22, '1', '1', 1, '0', 4, 'pets', 0, '0', '[\"Scaly skin, growls and snaps! You\'re about to enter the world of Habbo Crocs. Security for your room or to scare your friends a trustworthy and surprisingly loving companion can be yours. Find a new friend from our ever-changing selection.\",\"Click on an item for more information.\"]', '[\"catalog_pet_headline1\"]', 'undefined'),
+(89, 163, 'DEFAULT', NULL, 'Football', 0, 56, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '[\"This furni range is a must have for any football fanatic!\",\"Click on an item for more information.\"]', '[\"WorldCup\",\"worldcup_teaser\"]', 'undefined'),
+(90, 2, 'DEFAULT', NULL, 'Prison', 2, 1008, '1', '1', 1, '0', 48, 'default_3x3', 0, '0', '[\"Hey, he\'s escaping! Just kidding, no one\'s geting out of these high security cells!\",\"Click on an item for more information.\"]', '[\"catalog_header_prison\",\"catalog_prison_teaser15\"]', 'undefined'),
+(91, 12, 'DEFAULT', NULL, 'Lions', 1, 76, '1', '1', 1, '0', 8, 'pets', 0, '0', '[\"Simba, is that you? Oh wait, it\'s just one of Habbo\'s adorable pet lions! Unlike real ones, these won\'t bite your arms off. And hey, now you can tell all those girls that you\'re a lion tamer, it\'s technically not lying!\",\"Click on an item for more information.\"]', '[\"catalog_pet_headline1\"]', 'undefined'),
+(92, 12, 'DEFAULT', NULL, 'Rhinos', 1, 77, '1', '1', 1, '0', 12, 'pets', 0, '0', '[\"Ever thought rhinos could be cute? Neither did we until we saw these pets released!\",\"Click on an item for more information.\"]', '[\"catalog_pet_headline1\"]', 'undefined'),
+(93, 12, 'DEFAULT', NULL, 'Spiders', 1, 95, '1', '1', 1, '0', 13, 'pets', 0, '0', '[\"One of the most feared creatures in nature, and perhaps the most misunderstood. The majority of Spiders are predators with sharp fangs that inject venom into their prey- but dont worry, these spiders wont bite you! Maybe...\",\"Click on an item for more information.\"]', '[\"catalog_pet_headline1\"]', 'undefined'),
+(94, 12, 'DEFAULT', NULL, 'Frogs', 1, 97, '1', '1', 1, '0', 7, 'pets', 0, '0', '[\"The Frog. Cute, green and slimy! Frogs come in a variety of weird colours and can be found all over the world. Frogs are great jumpers, and make great pets, but are harder to hold onto than a supermodel in a tornado\",\"Click on an item for more information.\"]', '[\"catalog_pet_headline1\"]', 'undefined'),
+(95, 12, 'DEFAULT', NULL, 'Chicks', 1, 107, '1', '1', 1, '0', 3, 'pets', 0, '0', '[\"Habbo is full of chicks (the pet kind!) Adopt your new born chicklet now and start training it to perform the Chicken Dance for your friends... it will be a show to remember!\",\"Click on an item for more information.\"]', '[\"catalog_pet_headline1\"]', 'undefined'),
+(96, 12, 'DEFAULT', NULL, 'Dragons', 1, 109, '1', '1', 1, '0', 6, 'pets', 0, '0', '[\"Dragons, because who doesn\'t want flying, fire-breathing pets with huge taloned claws?\",\"Click on an item for more information.\"]', '[\"catalog_pet_headline1\"]', 'undefined'),
+(97, 2, 'DEFAULT', NULL, 'Guitars', 1, 301, '1', '1', 1, '0', 5, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_teaser_pinata\",\"ctlg_guitars_teaser\"]', 'undefined'),
+(98, 2, 'DEFAULT', NULL, 'Spa', 1, 211, '1', '1', 1, '0', 6, 'default_3x3', 0, '0', '[\"Spa furniture range, relax while getting a foot rub.\",\"Click on an item for more information.\"]', '[\"catalog_header_spa\",\"spa_small_promo\"]', 'undefined'),
+(99, 2, 'DEFAULT', NULL, 'Cinema 2013', 1, 33, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '[\"Shush, I\'m watching Avatar!\",\"Click on an item for more information.\"]', '[\"cinema_catalogheader\",\"movie_catalog_teaser\"]', 'undefined'),
+(100, 121, 'DEFAULT', NULL, 'Miscellaneous', 1, 300, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '[\"New items that only fit into a miscellaneous catergory\",\"Click on an item for more information.\"]', '[\"catalog_header_new\",\"catalog_cltbs_teaser_no\"]', 'undefined'),
+(101, 9895650, 'DEFAULT', NULL, 'Builders Club', 1, 193, '1', '0', 1, '0', 11, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[]', 'undefined'),
+(104, 2, 'DEFAULT', NULL, 'Shakespeare', 1, 210, '1', '1', 1, '0', 8, 'default_3x3', 0, '0', '[\"Shakespeare furni has arrived into this blesseded world.\",\"Click on an item for more information.\"]', '[\"catalog_shakespeare_header\",\"catalog_shakespeare_teaser\"]', 'undefined'),
+(105, 2, 'DEFAULT', NULL, 'Mystic', 1, 185, '1', '1', 1, '0', 31, 'default_3x3', 0, '0', '[\"Mystic Furniture range, will you be on the good or bad side?\",\"Click on an item for more information\"]', '[\"header_mystics\",\"teaser_mystics\"]', 'undefined'),
+(106, 121, 'DEFAULT', NULL, 'Oriental', 1, 49, '0', '1', 1, '0', 12, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"header_oriental\",\"teaser_oriental\"]', 'undefined'),
+(107, 2, 'DEFAULT', NULL, 'Cabana', 1, 211, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Cabana furniture range\",\"Click on an item for more information.\"]', '[\"\",\"cabana_teaser\"]', 'undefined'),
+(108, 237, 'DEFAULT', NULL, 'Badge Displays', 1, 224, '1', '1', 1, '0', 5, 'badge_display', 0, '0', '[\"You worked hard to get your badges, right? Now\'s the time to show it off, grab a display case and choose your favourite badge to show off!\"]', '[\"catalog_header_badgedisplay\"]', 'undefined'),
+(109, 2, 'DEFAULT', NULL, 'Cubie', 1, 100, '1', '1', 1, '0', 17, 'default_3x3', 0, '0', '[\"The cubie range is stylish, square shaped furniture with a real edge!\",\"Click on an item for more information.\"]', '[\"catalog_cubie_header_en\",\"catalog_cubie_teaser\"]', 'undefined'),
+(110, 2, 'DEFAULT', NULL, 'Waasa', 1, 103, '1', '1', 1, '0', 69, 'default_3x3', 0, '0', '[\"Waasa is the perfect furniture for a chilled, laidback room. Especia for students on a budget.\",\"Click on an item for more information.\"]', '[\"waasa_catalogue_header\",\"waasa_teaser\"]', 'undefined'),
+(111, 2, 'DEFAULT', NULL, 'Kitchen', 1, 43, '1', '1', 1, '0', 33, 'default_3x3', 0, '0', '[\"Create your dream kitchen with this exquisite range of matured pine and marble furniture.\",\"Click on an item for more information.\"]', '[\"catalog_header_kitchen\",\"kitchen_teaser_ch\"]', 'undefined'),
+(112, 12, 'DEFAULT', NULL, 'Turtles', 1, 126, '1', '1', 1, '0', 15, 'pets', 0, '0', '[\"Anything but slow, these guys are ready to ride the waves and swim laps at your beaches!\",\"Click on an item for more information.\"]', '[\"catalog_pet_headline1\"]', 'undefined'),
+(113, 12, 'DEFAULT', NULL, 'Monkeys', 1, 128, '1', '1', 1, '0', 10, 'pets', 0, '0', '[\" Ooh, ooh, aah, aah! Get yourself your very own monkey today!\",\"Click on an item for more information.\"]', '[\"catalog_pet_headline1\"]', 'undefined'),
+(114, 2, 'DEFAULT', NULL, 'Fish Sources', 1, 18, '1', '1', 1, '0', 22, 'default_3x3', 0, '0', '[\"Here fishy, fishy, fishy...\",\"Click on an item for more information.\"]', '[\"catalog_rares_headl ine1\",\"fish_source_teaser\"]', 'undefined'),
+(115, 2, 'DEFAULT', NULL, 'Coco', 1, 127, '1', '1', 1, '0', 15, 'default_3x3', 0, '0', '[\"Wooden yet comfortable furniture that woldn\'t look out of place in a treetop house!\",\"Click on an item for more information.\"]', '[\"catalog_teaser_coco\",\"coconew\"]', 'undefined'),
+(116, 2, 'DEFAULT', NULL, 'USVA', 0, 129, '1', '1', 1, '0', 67, 'default_3x3', 0, '0', '[\"You don\'t need to be in college to use this furni line!\",\"Click on an item for more information.\"]', '[\"catalog_usva_2\",\"catalog_usva_picture\"]', 'undefined'),
+(119, 121, 'DEFAULT', NULL, 'One-ways', 1, 300, '1', '1', 1, '0', 360, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\"]', 'undefined'),
+(121, -1, 'DEFAULT', NULL, 'Staff', 10, 300, '1', '0', 6, '0', 300, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\"]', 'undefined'),
+(123, 121, 'DEFAULT', NULL, 'Customs ', 1, 197, '0', '1', 1, '0', 410, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\"]', 'undefined'),
+(125, 121, 'DEFAULT', NULL, 'Adverts +', 1, 300, '1', '1', 1, '0', 370, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\"]', 'undefined'),
+(126, 121, 'DEFAULT', NULL, 'Custom Dinos ', 1, 300, '1', '1', 1, '0', 420, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\"]', 'undefined'),
+(128, 163, 'DEFAULT', NULL, 'Minecraft', 1, 99, '1', '1', 1, '0', 440, 'default_3x3', 0, '0', '[\"Minecraft Selection, just like the game itself!\",\"Click on an item for more information.\"]', '[\"minecraft\",\"minecraft_teaser\"]', 'undefined'),
+(129, 121, 'DEFAULT', NULL, 'Fountains', 1, 300, '1', '1', 1, '0', 450, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\"]', 'undefined'),
+(130, 121, 'DEFAULT', NULL, 'Posters', 1, 300, '0', '1', 1, '0', 47, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\"]', 'undefined'),
+(131, 2, 'DEFAULT', NULL, 'Letters', 1, 302, '1', '1', 1, '0', 10, 'default_3x3', 0, '0', '[\"Here you can buy letters and write whatever you like!\",\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"letters_teaser\"]', 'undefined'),
+(132, 121, 'DEFAULT', NULL, 'Custom Pillows', 1, 300, '1', '1', 1, '0', 12, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\"]', 'undefined'),
+(135, 121, 'DEFAULT', NULL, 'Thrones', 1, 300, '1', '1', 1, '0', 60, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\"]', 'undefined'),
+(136, 121, 'DEFAULT', NULL, 'Pokemon', 1, 300, '1', '1', 1, '0', 100, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\"]', 'undefined'),
+(138, 121, 'DEFAULT', NULL, 'Public Furni', 1, 300, '1', '1', 1, '0', 12, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\"]', 'undefined'),
+(140, 121, 'DEFAULT', NULL, 'Wonka', 1, 129, '0', '1', 1, '0', 0, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\"]', 'undefined'),
+(141, 121, 'DEFAULT', NULL, 'Rocket Eggs', 1, 300, '1', '1', 1, '0', 12, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\"]', 'undefined'),
+(146, 2, 'DEFAULT', NULL, 'Igor & Spiderwick', 1, 51, '1', '1', 1, '0', 30, 'default_3x3', 0, '0', '[\"It\'s believed that frankenstein was born in is furni range..\",\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"catalog_limited_teaser_en\"]', 'undefined'),
+(147, 2, 'DEFAULT', NULL, 'American Idol', 1, 7166, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Host your own American idol show with these replica furni! Allt hat\'s missing is a Randy Jackson lookalike!\",\"Click on an item for more information.\"]', '[\"catalogue_header_idol\",\"catalog_teaser_idol\"]', 'undefined'),
+(148, 121, 'DEFAULT', NULL, 'Vending Machines', 1, 300, '1', '1', 1, '0', 340, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"catalog_limited_teaser_en\"]', 'undefined'),
+(149, 121, 'DEFAULT', NULL, 'Capri-sun ', 1, 300, '1', '1', 1, '0', 340, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"catalog_limited_teaser_en\"]', 'undefined'),
+(151, 121, 'DEFAULT', NULL, 'Eco Furni ', 1, 300, '1', '1', 1, '0', 12, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"catalog_limited_teaser_en\"]', 'undefined'),
+(153, 238, 'DEFAULT', NULL, 'Egypt', 3, 286, '1', '1', 1, '0', 20, 'default_3x3', 0, '0', '[\"The perfect furni range for someone that likes deserts!\",\"Click on an item for more information.\"]', '[\"catalog_header_ancients\",\"egypt_furni_promos\"]', 'undefined'),
+(154, 9895650, 'DEFAULT', NULL, 'Wired', 2, 80, '1', '1', 1, '0', 159, 'pets2', 0, '0', '[\"Wired Furni gives you endless possibilities! You can use these pieces to make your Furni do almost anything! Stack Triggers, Effects and Conditions to make them WIRED!\",\"How Does It Work?\",\"To get Wired you will need three types of Wired Furni<br /><br />1. Triggers: Things you need to do, to make an Effect happen.<br/><br/>2. Effects: Things that happen, after you activate the Trigger.<br /><br />3. Conditions (optionally): The conditions that need to exist, before the Trigger works.<br /><br />So Trigger + Effect + Condition = Wired!\",\"Each of these can be programmed separately. Stack your Trigger, Effect and Condition on top of each other, and they will work together to transform your room!!\"]', '[\"catalog_wired_header1\",\"ctlg_pic_teaser_wired\"]', 'undefined'),
+(155, 154, 'DEFAULT', NULL, 'Triggers', 1, 81, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Wired Triggers: What makes your action happen.\",\"Click on an item for more information.\"]', '[\"catalog_wired_header2_en\",\"ctlg_pic_wired_triggers\"]', 'undefined'),
+(156, 154, 'DEFAULT', NULL, 'Effects', 1, 82, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '[\"Wired Effects: What happens when your Wired is triggered.\",\"Click on an item for more information.\"]', '[\"catalog_wired_header3_en\",\"ctlg_pic_wired_effects\"]', 'undefined'),
+(157, 154, 'DEFAULT', NULL, 'Conditions', 1, 83, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '[\"Wired Conditions: Your action will only happen if these conditions are met.\",\"Click on an item for more information.\"]', '[\"catalog_wired_header4_en\",\"ctlg_pic_wired_conditions\"]', 'undefined'),
+(158, 154, 'DEFAULT', NULL, 'Add-Ons', 1, 85, '1', '1', 1, '0', 4, 'default_3x3', 0, '0', '[\"Wired Add-Ons: Extra furniture for your Wired!\",\"Click on an item for more information.\"]', '[\"catalog_wired_header5_en\"]', 'undefined'),
+(159, 2, 'DEFAULT', NULL, 'Hospital', 10, 1012, '1', '1', 1, '0', 30, 'default_3x3', 0, '0', '[\"The new hospital furniture range is here! Buy it now and create your own Hospital!\",\"Click on an item for more information.\"]', '[\"virus\",\"catalog_vir_teaser_de1\"]', 'undefined'),
+(160, 2, 'DEFAULT', NULL, 'Stray Pixels', 1, 64, '1', '1', 1, '0', 59, 'default_3x3', 0, '0', '[\"Become the greatest Artist in the whole wide habbo world!\",\"Click on an item for more information.\"]', '[\"Stray Pixel\",\"strayart_teaser\"]', 'undefined'),
+(161, 239, 'DEFAULT', NULL, 'New Years', 1, 91, '1', '1', 1, '0', 8, 'default_3x3', 0, '0', '[\"Just the stuff you need to throw an awesome New Year\'s party!\",\"Click on an item for more information.\"]', '[\"catalog_header_year2011_en\",\"catalog_teaser_year2011\"]', 'undefined'),
+(162, 238, 'DEFAULT', NULL, 'Africa', 1, 9347, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"The new African furniture range is here!\",\"Click on an item for more information.\"]', '[\"african_header\",\"catalog_africa_teaser15\"]', 'undefined'),
+(163, 9895650, 'DEFAULT', NULL, 'Games Shop', 5, 202, '1', '0', 1, '0', 151, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[]', 'undefined'),
+(164, 163, 'DEFAULT', NULL, 'Ice Tag', 1, 86, '1', '1', 1, '0', 5, 'default_3x3', 0, '0', '[\"Don\'t catch a cold!\",\"Click on an item for more information.\"]', '[\"arctic\",\"Catalog_Teaser_icetag\"]', 'undefined'),
+(165, 163, 'DEFAULT', NULL, 'Freeze!', 1, 87, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '[\"It might be cold, but it\'s still fun to play!\",\"Click on an item for more information.\"]', '[\"arctic\"]', 'undefined'),
+(166, 2, 'DEFAULT', NULL, 'Twilight', 1, 1003, '1', '1', 1, '0', 65, 'default_3x3', 0, '0', '[\"The real question is.. Team Edward or Team Jacob?\",\"Click on an item for more information.\"]', '[\"catalog_twilight_header_de\",\"Halloween02\"]', 'undefined'),
+(167, 2, 'DEFAULT', NULL, 'Kuurna', 1, 44, '1', '1', 1, '0', 34, 'default_3x3', 0, '0', '[\"Noob furniture is back with style!\",\"Click on an item for more information.\"]', '[\"\",\"Kuurna_teaser\"]', 'undefined'),
+(168, 2, 'DEFAULT', NULL, 'Anna', 1, 104, '1', '1', 1, '0', 4, 'default_3x3', 0, '0', '[\"Make the new Anna collection yours now! You know you wanna.\",\"Click on an item for more information.\"]', '[\"catalog_anna_header\",\"catalog_anna_teaser\"]', 'undefined'),
+(169, 2, 'DEFAULT', NULL, 'Picnic', 1, 3, '1', '1', 1, '0', 45, 'default_3x3', 0, '0', '[\"Relax and eat some bread with some melting cheese, don\'t forget the wine.\",\"Click on an item for more information.\"]', '[\"picnic\",\"picnicteaser\"]', 'undefined'),
+(170, 2, 'DEFAULT', NULL, 'Mad Money', 1, 98, '1', '1', 1, '0', 38, 'default_3x3', 0, '0', '[\"Dolla, dolla, bill ya\'ll.\",\"Click on an item for more information.\"]', '[\"catalog_madmoney_header_en\",\"catalog_madmoney_teaser_en\"]', 'undefined'),
+(171, 163, 'DEFAULT', NULL, 'Skateboarding', 1, 140, '1', '1', 1, '0', 58, 'default_3x3', 0, '0', '[\"Catch some air!\",\"Click on an item for more information.\"]', '[\"default_3x3\"]', 'undefined'),
+(173, 163, 'DEFAULT', NULL, 'Tiles', 1, 9997, '1', '1', 1, '0', 17, 'default_3x3', 0, '0', '[\"Tiles!\",\"Click on an item for more information.\"]', '[\"bunte_fliesen\",\"color_tiles_teaser\"]', 'undefined'),
+(175, 232, 'DEFAULT', NULL, 'Horse Furni', 1, 132, '1', '1', 1, '0', 30, 'default_3x3', 0, '0', '[\"Get all the accessories for your horses here!\",\"Click on an item for more information.\"]', '[\"catalog_horse_header_en\",\"horse_teaser\"]', 'undefined'),
+(177, 239, 'DEFAULT', NULL, 'Valentines', 1, 144, '1', '1', 1, '0', 10, 'default_3x3', 0, '0', '[\"Share the love this valentines with our new range of Valentines furniture!\",\"Click on an item for more information.\"]', '[\"catalog_header_val12_en\",\"catalog_teaser_val12_en\"]', 'undefined'),
+(179, 2, 'DEFAULT', NULL, 'Mall Furni', 1, 64, '1', '1', 1, '0', 40, 'default_3x3', 0, '0', '[\" Lets go to the mall1\",\"Click on an item for more information.\"]', '[\"\",\"mall_teaser\"]', 'undefined'),
+(180, 2, 'DEFAULT', NULL, 'MTV Studio', 1, 136, '1', '1', 1, '0', 41, 'default_3x3', 0, '0', '[\"The MTV Studio range lets YOU be your own music producer!\",\"Click on an item for more information.\"]', '[\"header_studio\",\"teaser_studio\"]', 'undefined'),
+(181, 2, 'DEFAULT', NULL, 'Boutique', 1, 131, '1', '1', 1, '0', 12, 'default_3x3', 0, '0', '[\"The boutique range is just the thing if you want to own a high end fashion store in Milan, but are on a budget.\",\"Click on an item for more information.\"]', '[\"boutique_catalog_01\",\"boutique_catalog_teaser_01\"]', 'undefined'),
+(188, 4, 'DEFAULT', NULL, 'Custom Rooms', 1, 125, '1', '1', 1, '0', 10, 'default_3x3', 0, '0', '[\"This ingenious furni line has been created for you to create your very own custom room layouts!\",\"Click on an item for more information.\"]', '[\"catalog_header_roombuilder\",\"catalog_blackhole_teaser\"]', 'undefined'),
+(193, 121, 'DEFAULT', NULL, 'LTD Rares', 1, 300, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\"]', 'undefined'),
+(194, 238, 'DEFAULT', NULL, 'Mayan', 1, 171, '1', '1', 1, '0', 7, 'default_3x3', 0, '0', '[\"Mayan Furniture range.\",\"Click on an item for more information.\"]', '[\"mayan_header\",\"catalogue_teaser_mayan\"]', 'undefined'),
+(195, 239, 'DEFAULT', NULL, 'Olympics', 1, 162, '1', '1', 1, '0', 9, 'default_3x3', 0, '0', '[\" Upset that the Olympics are over? Well now you don\'t have to be! Everything you need to create your own Olympics is in this furniture range!\",\"Click on an item for more information.\"]', '[\"oLYH\",\"Olympia\"]', 'undefined'),
+(196, 2, 'DEFAULT', NULL, 'Jetset', 1, 287, '1', '1', 1, '0', 33, 'default_3x3', 0, '0', '[\" Are you ready for the launch of the new Jetset series? we are! Get ready to ride the waves on your yacht or jet ski and just relax in tropical paradise.\",\"Click on an item for more information.\"]', '[\"JetSet1\",\"JetSet2\"]', 'undefined'),
+(197, 9895650, 'DEFAULT', NULL, 'Limited Edition', 10, 145, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '[\"Here you can buy the Limited Edition Rares that are currently on Habbo at the moment, Buy them while you can!\",\"Click on an item for more information.\"]', '[\"limited_header\",\"ltd1_teaser\"]', 'undefined'),
+(199, 7, 'DEFAULT', NULL, 'E-Chance Token', 1, 118, '0', '0', 1, '0', 2, 'default_3x3', 0, '0', '[\"Buy you E-Chance Tokens here, take a Habbo Chance on a super rare.\",\"Click on an item for more information.\"]', '[\"E-Chance1\",\"catalog_limited_teaser_en\"]', 'undefined');
 INSERT INTO `catalog_pages` (`id`, `parent_id`, `type`, `extra_data`, `caption`, `icon_color`, `icon_image`, `visible`, `enabled`, `min_rank`, `club_only`, `order_num`, `page_layout`, `min_sub`, `vip_only`, `page_texts`, `page_images`, `link`) VALUES
-(208, 121, 'DEFAULT', NULL, 'Presents', 1, 300, '0', '1', 1, '0', 45, 'default_3x3', 0, '0', '["Click on an item for more information."]', '[" catalog_frontpage_headline2_en"," catalog_limited_teaser_en"]', 'undefined'),
-(210, 239, 'DEFAULT', NULL, 'Christmas 2012', 1, 170, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '["Get yourself into the Christmas spirit with our selection of festive furni! From baubles to Reindeer poo, we''ve got it all!","Click on an item for more information."]', '["catalog_xmas_headline1","xmas2009_catalogue"]', 'undefined'),
-(212, 121, 'DEFAULT', NULL, 'Screens', 1, 300, '1', '1', 1, '0', 12, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en","catalog_limited_teaser_en"]', 'undefined'),
-(213, 121, 'DEFAULT', NULL, 'Dragons', 1, 300, '1', '1', 1, '0', 20, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en","catalog_limited_teaser_en"]', 'undefined'),
-(214, 121, 'DEFAULT', NULL, 'RedF Drags', 1, 300, '1', '1', 1, '0', 20, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en","catalog_limited_teaser_en"]', 'undefined'),
-(215, 121, 'DEFAULT', NULL, 'WhiteF Drags', 1, 300, '1', '1', 1, '0', 20, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en","catalog_limited_teaser_en"]', 'undefined'),
-(216, 121, 'DEFAULT', NULL, 'PinkF Drags', 1, 300, '1', '1', 1, '0', 20, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en","catalog_limited_teaser_en"]', 'undefined'),
-(217, 121, 'DEFAULT', NULL, 'GrenF Drags', 1, 300, '1', '1', 1, '0', 20, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en","catalog_limited_teaser_en"]', 'undefined'),
-(218, 121, 'DEFAULT', NULL, 'BlueF Drags', 1, 300, '0', '1', 1, '0', 20, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en","catalog_limited_teaser_en"]', 'undefined'),
-(219, 121, 'DEFAULT', NULL, 'RaibF Drags', 1, 300, '1', '1', 1, '0', 20, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en","catalog_limited_teaser_en"]', 'undefined'),
-(220, 121, 'DEFAULT', NULL, 'Drag Recolours', 1, 300, '1', '1', 1, '0', 21, 'default_3x3', 0, '0', '["Click on an item for more information."]', '["catalog_frontpage_headline2_en","catalog_limited_teaser_en"]', 'undefined'),
-(225, 9895650, 'DEFAULT', NULL, 'Groups', 4, 61, '1', '1', 1, '0', 161, 'guild_frontpage', 0, '0', '["Habbo Groups are a great way to stay in touch with your friends and share your interests with others. Each Group has a homeroom that can be decorated by other Group members.","* Get toether with people you get together with!\\n* Co-Op room decorating for group members!\\n* Show off your group badge!\\n* Get some neat furni in your group''s colors!","What''s So Great About Habbo Groups?"]', '["catalog_groups_en","groups_teaser_custom"]', 'undefined'),
-(226, 225, 'DEFAULT', NULL, 'Group Furni', 1, 61, '1', '1', 1, '0', 0, 'guild_custom_furni', 0, '0', '["Click on an item for more information."]', '["catalog_groups_en"]', 'undefined'),
-(228, 9895650, 'DEFAULT', NULL, 'Habbo Exchange', 3, 98, '0', '0', 1, '0', 10, 'default_3x3', 0, '0', '["Click on an item for more information."]', '[]', 'undefined'),
-(229, 2, 'DEFAULT', NULL, 'Steampunk', 1, 180, '1', '1', 1, '0', 59, 'default_3x3', 0, '0', '["Hang out with Donnie when you these furni!","Click on an item for more information."]', '["catalog_header_steampunk","catalog_teaser_steampunk"]', 'undefined'),
-(231, 2, 'DEFAULT', NULL, 'Base', 1, 179, '1', '1', 1, '0', 7, 'default_3x3', 0, '0', '["If you''re into simple furniture, these furni are for you!","Click on an item for more information."]', '["catalog_header_base","base_rentable_teaser"]', 'undefined'),
-(232, 12, 'DEFAULT', NULL, 'Pet Horse', 1, 132, '1', '1', 1, '0', 250, 'pets', 0, '0', '["Ride in style with our new and unique horse, feed it and ride it like a steam train.","","Pick a name:","Pick a race:"]', '["catalog_horse_header2_en"]', 'undefined'),
-(233, 121, 'DEFAULT', NULL, 'Staff Customs', 1, 300, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '["Click on an item for more information."]', '[]', 'undefined'),
-(234, 197, 'DEFAULT', NULL, 'Sold Out!', 1, 145, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '["Sorry, you can''t buy these anymore!","Click on an item for more information."]', '["limited_header_sold","limited_sold_promo"]', 'undefined'),
-(235, 9895650, 'DEFAULT', NULL, 'BOTs', 1, 65, '1', '1', 1, '0', 100, 'default_3x3', 0, '0', '["They walk, they talk, and they make the perfect addition to any room!","Choose a bot of your fancy! You can customise your bot once its in your room"]', '["bots","bots"]', 'undefined'),
-(237, 9895650, 'DEFAULT', NULL, 'Regular Furni', 1, 196, '1', '0', 1, '0', 6, 'default_3x3', 0, '0', '["Click on an item for more information."]', '[]', 'undefined'),
-(238, 9895650, 'DEFAULT', NULL, 'Cultural Furni', 1, 196, '1', '0', 1, '0', 8, 'default_3x3', 0, '0', '["Click on an item for more information."]', '[]', 'undefined'),
-(239, 9895650, 'DEFAULT', NULL, 'Seasonal Furni', 1, 196, '1', '0', 1, '0', 9, 'default_3x3', 0, '0', '["Click on an item for more information."]', '[]', 'undefined'),
-(240, 2, 'DEFAULT', NULL, 'Camping', 1, 186, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '["Sleeping like a baby in those tents!","Click on an item for more information."]', '["catalog_header_tents","catalog_teaser_tents"]', 'undefined'),
-(241, 239, 'DEFAULT', NULL, 'Easter 2014', 1, 783, '1', '1', 1, '0', 4, 'default_3x3', 0, '0', '["Find the chocolate eggs.","Click on an item for more information."]', '["catalog_header_easter14_001","catalog_lagomorph_teaser"]', 'undefined'),
-(242, 9895650, 'DEFAULT', NULL, 'Music Shop', 1, 4, '1', '1', 1, '0', 164, 'default_3x3', 0, '0', '["Who''s ready to play classy tunes in their room?","Click on an item for more information."]', '["trax","music_teaser"]', 'undefined'),
+(201, 2, 'DEFAULT', NULL, 'Habbo Stars', 1, 196, '1', '1', 1, '0', 20, 'default_3x3', 0, '0', '[\"Have yoalways wanted to be famous? Is singing, dancing, or acting your thing? Well we have the next best thing, Habbo Stars! Get your dancing feet on and make your name shine!\",\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"starsteaser\"]', 'undefined'),
+(202, 121, 'DEFAULT', NULL, 'Golden Greek', 1, 300, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"catalog_limited_teaser_en\"]', 'undefined'),
+(204, 121, 'DEFAULT', NULL, 'HC Sofa\'s ', 1, 300, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[]', 'undefined'),
+(205, 154, 'DEFAULT', NULL, 'SFX items', 1, 4, '1', '1', 1, '0', 58, 'default_3x3', 0, '0', '[\"Create your own beats and tracks by combining these sound FX in your room. Throw a concert for your friends or even start a band in Habbo!\",\"Click on an item for more information.\"]', '[\"catalog_wired_header1\",\"teaser_sfx_2\"]', 'undefined'),
+(206, 228, 'DEFAULT', NULL, 'Pixels 4 Coins', 1, 84, '0', '0', 1, '0', 2, 'default_3x3', 0, '0', '[\"You can exchange your Habbo pixels here for Credits, which you can use in a trade or anything you want.\",\"Click on an item for more information.\"]', '[\"catalog_bank_headline1\",\"catalog_bank_teaser\"]', 'undefined'),
+(208, 121, 'DEFAULT', NULL, 'Presents', 1, 300, '0', '1', 1, '0', 45, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\" catalog_frontpage_headline2_en\",\" catalog_limited_teaser_en\"]', 'undefined'),
+(210, 239, 'DEFAULT', NULL, 'Christmas 2012', 1, 170, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '[\"Get yourself into the Christmas spirit with our selection of festive furni! From baubles to Reindeer poo, we\'ve got it all!\",\"Click on an item for more information.\"]', '[\"catalog_xmas_headline1\",\"xmas2009_catalogue\"]', 'undefined'),
+(212, 121, 'DEFAULT', NULL, 'Screens', 1, 300, '1', '1', 1, '0', 12, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"catalog_limited_teaser_en\"]', 'undefined'),
+(213, 121, 'DEFAULT', NULL, 'Dragons', 1, 300, '1', '1', 1, '0', 20, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"catalog_limited_teaser_en\"]', 'undefined'),
+(214, 121, 'DEFAULT', NULL, 'RedF Drags', 1, 300, '1', '1', 1, '0', 20, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"catalog_limited_teaser_en\"]', 'undefined'),
+(215, 121, 'DEFAULT', NULL, 'WhiteF Drags', 1, 300, '1', '1', 1, '0', 20, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"catalog_limited_teaser_en\"]', 'undefined'),
+(216, 121, 'DEFAULT', NULL, 'PinkF Drags', 1, 300, '1', '1', 1, '0', 20, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"catalog_limited_teaser_en\"]', 'undefined'),
+(217, 121, 'DEFAULT', NULL, 'GrenF Drags', 1, 300, '1', '1', 1, '0', 20, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"catalog_limited_teaser_en\"]', 'undefined'),
+(218, 121, 'DEFAULT', NULL, 'BlueF Drags', 1, 300, '0', '1', 1, '0', 20, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"catalog_limited_teaser_en\"]', 'undefined'),
+(219, 121, 'DEFAULT', NULL, 'RaibF Drags', 1, 300, '1', '1', 1, '0', 20, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"catalog_limited_teaser_en\"]', 'undefined'),
+(220, 121, 'DEFAULT', NULL, 'Drag Recolours', 1, 300, '1', '1', 1, '0', 21, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_frontpage_headline2_en\",\"catalog_limited_teaser_en\"]', 'undefined'),
+(225, 9895650, 'DEFAULT', NULL, 'Groups', 4, 61, '1', '1', 1, '0', 161, 'guild_frontpage', 0, '0', '[\"Habbo Groups are a great way to stay in touch with your friends and share your interests with others. Each Group has a homeroom that can be decorated by other Group members.\",\"* Get toether with people you get together with!\\n* Co-Op room decorating for group members!\\n* Show off your group badge!\\n* Get some neat furni in your group\'s colors!\",\"What\'s So Great About Habbo Groups?\"]', '[\"catalog_groups_en\",\"groups_teaser_custom\"]', 'undefined'),
+(226, 225, 'DEFAULT', NULL, 'Group Furni', 1, 61, '1', '1', 1, '0', 0, 'guild_custom_furni', 0, '0', '[\"Click on an item for more information.\"]', '[\"catalog_groups_en\"]', 'undefined'),
+(228, 9895650, 'DEFAULT', NULL, 'Habbo Exchange', 3, 98, '0', '0', 1, '0', 10, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[]', 'undefined'),
+(229, 2, 'DEFAULT', NULL, 'Steampunk', 1, 180, '1', '1', 1, '0', 59, 'default_3x3', 0, '0', '[\"Hang out with Donnie when you these furni!\",\"Click on an item for more information.\"]', '[\"catalog_header_steampunk\",\"catalog_teaser_steampunk\"]', 'undefined'),
+(231, 2, 'DEFAULT', NULL, 'Base', 1, 179, '1', '1', 1, '0', 7, 'default_3x3', 0, '0', '[\"If you\'re into simple furniture, these furni are for you!\",\"Click on an item for more information.\"]', '[\"catalog_header_base\",\"base_rentable_teaser\"]', 'undefined'),
+(232, 12, 'DEFAULT', NULL, 'Pet Horse', 1, 132, '1', '1', 1, '0', 250, 'pets', 0, '0', '[\"Ride in style with our new and unique horse, feed it and ride it like a steam train.\",\"\",\"Pick a name:\",\"Pick a race:\"]', '[\"catalog_horse_header2_en\"]', 'undefined'),
+(233, 121, 'DEFAULT', NULL, 'Staff Customs', 1, 300, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[]', 'undefined'),
+(234, 197, 'DEFAULT', NULL, 'Sold Out!', 1, 145, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '[\"Sorry, you can\'t buy these anymore!\",\"Click on an item for more information.\"]', '[\"limited_header_sold\",\"limited_sold_promo\"]', 'undefined'),
+(235, 9895650, 'DEFAULT', NULL, 'BOTs', 1, 65, '1', '1', 1, '0', 100, 'default_3x3', 0, '0', '[\"They walk, they talk, and they make the perfect addition to any room!\",\"Choose a bot of your fancy! You can customise your bot once its in your room\"]', '[\"bots\",\"bots\"]', 'undefined'),
+(237, 9895650, 'DEFAULT', NULL, 'Regular Furni', 1, 196, '1', '0', 1, '0', 6, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[]', 'undefined'),
+(238, 9895650, 'DEFAULT', NULL, 'Cultural Furni', 1, 196, '1', '0', 1, '0', 8, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[]', 'undefined'),
+(239, 9895650, 'DEFAULT', NULL, 'Seasonal Furni', 1, 196, '1', '0', 1, '0', 9, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[]', 'undefined'),
+(240, 2, 'DEFAULT', NULL, 'Camping', 1, 186, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '[\"Sleeping like a baby in those tents!\",\"Click on an item for more information.\"]', '[\"catalog_header_tents\",\"catalog_teaser_tents\"]', 'undefined'),
+(241, 239, 'DEFAULT', NULL, 'Easter 2014', 1, 783, '1', '1', 1, '0', 4, 'default_3x3', 0, '0', '[\"Find the chocolate eggs.\",\"Click on an item for more information.\"]', '[\"catalog_header_easter14_001\",\"catalog_lagomorph_teaser\"]', 'undefined'),
+(242, 9895650, 'DEFAULT', NULL, 'Music Shop', 1, 4, '1', '1', 1, '0', 164, 'default_3x3', 0, '0', '[\"Who\'s ready to play classy tunes in their room?\",\"Click on an item for more information.\"]', '[\"trax\",\"music_teaser\"]', 'undefined'),
 (243, 121, 'DEFAULT', NULL, 'Broken', 1, 300, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '[]', '[]', 'undefined'),
-(300, 2, 'DEFAULT', NULL, 'Paris', 1, 256, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Eat some snails and enjoy the fresh air while viewing the Eiffle tower!","Click on an item for more information."]', '["paris_header","paris_teaser"]', 'undefined'),
-(301, 232, 'DEFAULT', NULL, 'Dye''s', 1, 133, '1', '1', 1, '0', 4, 'default_3x3', 0, '0', '["Here you have an option to buy dye''s for your horse, you can customize your horse to make it look evil or cute","Click on an item for more information."]', '["catalog_horse_header2_en","dyes_teaser"]', 'undefined'),
-(303, 239, 'DEFAULT', NULL, 'Christmas 2014', 1, 260, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '["Get yourself into the Christmas spirit with our selection of festive furni! From baubles to Reindeer poo, we''ve got it all!"]', '["catalog_xmas_headline1","xmas2009_catalogue"]', 'undefined'),
-(304, 2, 'DEFAULT', NULL, 'Attic', 1, 242, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["From squeaky floor boards to ancient furniture, the Attic 2015 furniture is now here!","Click on an item for more information."]', '["attic15_catalog_header","attic15_catalog_teaser"]', 'undefined'),
-(305, 239, 'DEFAULT', NULL, 'Valentines 2015', 1, 243, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Love is in the air once again! Buy your sweetheart a rose or whisper sweet nothings in their ear on a love sofa.","Click on an item for more information."]', '["val15_cata_header","val15_generic_small_promo2"]', 'undefined'),
-(306, 2, 'DEFAULT', NULL, 'Cyberpunk', 1, 254, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Light-filled cityscapes and brightly lit skyscrapers looming overhead... This is the dark, dark furni line of the future. The future is called CyberPunk.","Click on an item for more information."]', '["catalog_header_cpunk15","catalog_teaser_cyberpunk"]', 'undefined'),
-(307, 2, 'DEFAULT', NULL, 'Infobus', 1, 9992, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["The Infobus furniture range.","Click on an item for more information."]', '["infobus_header","infobus_teaser"]', 'undefined'),
-(308, 239, 'DEFAULT', NULL, 'Easter 2015', 1, 255, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Hunt for those chocolate eggs!","Click on an item for more information."]', '["catalogus_candyland2","catalogus_candyland_teaser"]', 'undefined'),
-(309, 2, 'DEFAULT', NULL, 'Jurassic Park', 1, 9993, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Those days when they ruled the earth until hell came, watch out for T-rex!","Click on an item for more information."]', '["jurassic15_catalog_header","dino_teaser"]', 'undefined'),
-(310, 2, 'DEFAULT', NULL, 'Pirates', 1, 190, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["I I Captain, I can''t hear you, SPONGEBOB SQUARE PANTS!","Click on an item for more information."]', '["catalog_header_pirate","pirate_captain"]', 'undefined'),
-(311, 239, 'DEFAULT', NULL, 'Christmas 2015', 1, 9994, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Season''s greetings! Brand New Bavarian Christmas furni is now live!","Click on an item for more information."]', '["ctlg_xmas_header","ctlg_xmas15_teaser"]', 'undefined'),
-(312, 239, 'DEFAULT', NULL, 'Halloween 2015', 1, 9995, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Darkness and evil is spreading through the hotel and you''re one of the ONLY Habbos that can fight the bad energy! Dodge Evil Frank, avoid dark shadowy places and make it your mission to save Habzam Hotel from complete and Total Annihilation!","Click on an item for more information."]', '["catalog_header_hw15","catalog_teaser_hw15"]', 'undefined'),
-(313, 239, 'DEFAULT', NULL, 'Arctic 2015', 1, 9996, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Artic furniture, the pure gold and its damn cold","Click on an item for more information."]', '["","artic15_teaser"]', 'undefined'),
-(314, 239, 'DEFAULT', NULL, 'New Years 15/16', 1, 2014, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[" Happy New Year, here you will find 2015 and 2016 new years furniture!","Click on an item for more information."]', '["2015_header","newyear15_teaser"]', 'undefined'),
-(315, 239, 'DEFAULT', NULL, 'Valentines 2016', 1, 62, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Love is in the air once again! Buy your sweetheart a rose or a whisper sweet nothings in their eat on a love sofa.","Click on an item for more information."]', '["","val15_teaser"]', 'undefined'),
+(300, 2, 'DEFAULT', NULL, 'Paris', 1, 256, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Eat some snails and enjoy the fresh air while viewing the Eiffle tower!\",\"Click on an item for more information.\"]', '[\"paris_header\",\"paris_teaser\"]', 'undefined'),
+(301, 232, 'DEFAULT', NULL, 'Dye\'s', 1, 133, '1', '1', 1, '0', 4, 'default_3x3', 0, '0', '[\"Here you have an option to buy dye\'s for your horse, you can customize your horse to make it look evil or cute\",\"Click on an item for more information.\"]', '[\"catalog_horse_header2_en\",\"dyes_teaser\"]', 'undefined'),
+(303, 239, 'DEFAULT', NULL, 'Christmas 2014', 1, 260, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '[\"Get yourself into the Christmas spirit with our selection of festive furni! From baubles to Reindeer poo, we\'ve got it all!\"]', '[\"catalog_xmas_headline1\",\"xmas2009_catalogue\"]', 'undefined'),
+(304, 2, 'DEFAULT', NULL, 'Attic', 1, 242, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"From squeaky floor boards to ancient furniture, the Attic 2015 furniture is now here!\",\"Click on an item for more information.\"]', '[\"attic15_catalog_header\",\"attic15_catalog_teaser\"]', 'undefined'),
+(305, 239, 'DEFAULT', NULL, 'Valentines 2015', 1, 243, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Love is in the air once again! Buy your sweetheart a rose or whisper sweet nothings in their ear on a love sofa.\",\"Click on an item for more information.\"]', '[\"val15_cata_header\",\"val15_generic_small_promo2\"]', 'undefined'),
+(306, 2, 'DEFAULT', NULL, 'Cyberpunk', 1, 254, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Light-filled cityscapes and brightly lit skyscrapers looming overhead... This is the dark, dark furni line of the future. The future is called CyberPunk.\",\"Click on an item for more information.\"]', '[\"catalog_header_cpunk15\",\"catalog_teaser_cyberpunk\"]', 'undefined'),
+(307, 2, 'DEFAULT', NULL, 'Infobus', 1, 9992, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"The Infobus furniture range.\",\"Click on an item for more information.\"]', '[\"infobus_header\",\"infobus_teaser\"]', 'undefined'),
+(308, 239, 'DEFAULT', NULL, 'Easter 2015', 1, 255, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Hunt for those chocolate eggs!\",\"Click on an item for more information.\"]', '[\"catalogus_candyland2\",\"catalogus_candyland_teaser\"]', 'undefined'),
+(309, 2, 'DEFAULT', NULL, 'Jurassic Park', 1, 9993, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Those days when they ruled the earth until hell came, watch out for T-rex!\",\"Click on an item for more information.\"]', '[\"jurassic15_catalog_header\",\"dino_teaser\"]', 'undefined'),
+(310, 2, 'DEFAULT', NULL, 'Pirates', 1, 190, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"I I Captain, I can\'t hear you, SPONGEBOB SQUARE PANTS!\",\"Click on an item for more information.\"]', '[\"catalog_header_pirate\",\"pirate_captain\"]', 'undefined'),
+(311, 239, 'DEFAULT', NULL, 'Christmas 2015', 1, 9994, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Season\'s greetings! Brand New Bavarian Christmas furni is now live!\",\"Click on an item for more information.\"]', '[\"ctlg_xmas_header\",\"ctlg_xmas15_teaser\"]', 'undefined'),
+(312, 239, 'DEFAULT', NULL, 'Halloween 2015', 1, 9995, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Darkness and evil is spreading through the hotel and you\'re one of the ONLY Habbos that can fight the bad energy! Dodge Evil Frank, avoid dark shadowy places and make it your mission to save Habzam Hotel from complete and Total Annihilation!\",\"Click on an item for more information.\"]', '[\"catalog_header_hw15\",\"catalog_teaser_hw15\"]', 'undefined'),
+(313, 239, 'DEFAULT', NULL, 'Arctic 2015', 1, 9996, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Artic furniture, the pure gold and its damn cold\",\"Click on an item for more information.\"]', '[\"\",\"artic15_teaser\"]', 'undefined'),
+(314, 239, 'DEFAULT', NULL, 'New Years 15/16', 1, 2014, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\" Happy New Year, here you will find 2015 and 2016 new years furniture!\",\"Click on an item for more information.\"]', '[\"2015_header\",\"newyear15_teaser\"]', 'undefined'),
+(315, 239, 'DEFAULT', NULL, 'Valentines 2016', 1, 62, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Love is in the air once again! Buy your sweetheart a rose or a whisper sweet nothings in their eat on a love sofa.\",\"Click on an item for more information.\"]', '[\"\",\"val15_teaser\"]', 'undefined'),
 (316, 121, 'DEFAULT', NULL, 'Custom Dragons', 1, 300, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '', '', 'undefined'),
-(317, 232, 'DEFAULT', NULL, 'Saddles', 1, 135, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Here you can buy saddles for your horse, saddles are required to ride the horse.","Click on an item for more information."]', '["catalog_horse_header2_en","saddles_teaser"]', 'undefined'),
-(318, 232, 'DEFAULT', NULL, 'Hair Styles', 1, 132, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '["Here you can customize your horse''s hair style, make it look sexy or evil.","Click on an item for more information."]', '["catalog_horse_header_en","hairstyles_horse_teaser"]', 'undefined'),
-(319, 319, 'DEFAULT', NULL, 'Lava', 1, 193, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(320, 320, 'DEFAULT', NULL, 'Large Blocks', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(321, 101, 'DEFAULT', NULL, 'Brick', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(322, 101, 'DEFAULT', NULL, 'Marble', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(323, 101, 'DEFAULT', NULL, 'Wool Blocks', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(324, 101, 'DEFAULT', NULL, 'Stone', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(325, 101, 'DEFAULT', NULL, 'Metal Crate', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(326, 101, 'DEFAULT', NULL, 'Grass', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(327, 101, 'DEFAULT', NULL, 'Metal Grip', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(328, 101, 'DEFAULT', NULL, 'Glass Blocks', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(329, 101, 'DEFAULT', NULL, 'Round', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(330, 101, 'DEFAULT', NULL, 'Sand', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(331, 101, 'DEFAULT', NULL, 'Small', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(332, 101, 'DEFAULT', NULL, 'Art Deco', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(333, 101, 'DEFAULT', NULL, 'Industrial', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(334, 101, 'DEFAULT', NULL, 'Water', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(335, 101, 'DEFAULT', NULL, 'Tile', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(336, 101, 'DEFAULT', NULL, 'Terra', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(337, 101, 'DEFAULT', NULL, 'Flower Hedge', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(338, 101, 'DEFAULT', NULL, 'Cylinder', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Builders Club section, build your dream room!","Click on an item for more information."]', '["block_header","teaser_blocks"]', 'undefined'),
-(339, 2, 'DEFAULT', NULL, 'SuperHeroes', 1, 303, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '["Become a hero and save the world from danger, gotta be on the 24 hour shift though!","Click on an item for more information."]', '["catalog_heroesch_smash","superheroes_teaser"]', 'undefined'),
-(2370, 2, 'DEFAULT', NULL, 'Wild West', 1, 229, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '["The wild west has made it.. Can you be the last out law? Create the ultimate wild west themed room with these latest items!","Click on an item for more information."]', '["catalog_header_wwest","catalog_teaser_wildwest"]', 'undefined'),
-(8541, 2, 'DEFAULT', NULL, 'Palooza', 1, 227, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '["Don''t eat before riding the rollercoaster or you will be sorry!","Click on an item for more information."]', '["catalog_header_palooza","catalog_teaser_palooza"]', 'undefined'),
-(8542, 2, 'DEFAULT', NULL, 'Vikings', 1, 208, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '["Ready for the one of the oldest Habbo battles? Get your viking helmet on now soldier! Find all your viking items here!","Click on an item for more information."]', '["vikings_catalog_header","catalog_teaser_vikings"]', 'undefined'),
-(8884, 121, 'DEFAULT', NULL, 'Skrillex Customs', 1, 300, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '["Click on an item for more information."]', '[]', 'undefined'),
-(8888, 12, 'DEFAULT', NULL, 'Monster Plant', 1, 132, '1', '1', 1, '0', 7, 'pets', 0, '0', '["Get your very own horse that you can ride today!","Click on an item for more information."]', '["catalog_horse_header2_en"]', 'undefined'),
+(317, 232, 'DEFAULT', NULL, 'Saddles', 1, 135, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Here you can buy saddles for your horse, saddles are required to ride the horse.\",\"Click on an item for more information.\"]', '[\"catalog_horse_header2_en\",\"saddles_teaser\"]', 'undefined'),
+(318, 232, 'DEFAULT', NULL, 'Hair Styles', 1, 132, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '[\"Here you can customize your horse\'s hair style, make it look sexy or evil.\",\"Click on an item for more information.\"]', '[\"catalog_horse_header_en\",\"hairstyles_horse_teaser\"]', 'undefined'),
+(319, 319, 'DEFAULT', NULL, 'Lava', 1, 193, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(320, 320, 'DEFAULT', NULL, 'Large Blocks', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(321, 101, 'DEFAULT', NULL, 'Brick', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(322, 101, 'DEFAULT', NULL, 'Marble', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(323, 101, 'DEFAULT', NULL, 'Wool Blocks', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(324, 101, 'DEFAULT', NULL, 'Stone', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(325, 101, 'DEFAULT', NULL, 'Metal Crate', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(326, 101, 'DEFAULT', NULL, 'Grass', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(327, 101, 'DEFAULT', NULL, 'Metal Grip', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(328, 101, 'DEFAULT', NULL, 'Glass Blocks', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(329, 101, 'DEFAULT', NULL, 'Round', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(330, 101, 'DEFAULT', NULL, 'Sand', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(331, 101, 'DEFAULT', NULL, 'Small', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(332, 101, 'DEFAULT', NULL, 'Art Deco', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(333, 101, 'DEFAULT', NULL, 'Industrial', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(334, 101, 'DEFAULT', NULL, 'Water', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(335, 101, 'DEFAULT', NULL, 'Tile', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(336, 101, 'DEFAULT', NULL, 'Terra', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(337, 101, 'DEFAULT', NULL, 'Flower Hedge', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(338, 101, 'DEFAULT', NULL, 'Cylinder', 1, 193, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Builders Club section, build your dream room!\",\"Click on an item for more information.\"]', '[\"block_header\",\"teaser_blocks\"]', 'undefined'),
+(339, 2, 'DEFAULT', NULL, 'SuperHeroes', 1, 303, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '[\"Become a hero and save the world from danger, gotta be on the 24 hour shift though!\",\"Click on an item for more information.\"]', '[\"catalog_heroesch_smash\",\"superheroes_teaser\"]', 'undefined'),
+(2370, 2, 'DEFAULT', NULL, 'Wild West', 1, 229, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '[\"The wild west has made it.. Can you be the last out law? Create the ultimate wild west themed room with these latest items!\",\"Click on an item for more information.\"]', '[\"catalog_header_wwest\",\"catalog_teaser_wildwest\"]', 'undefined'),
+(8541, 2, 'DEFAULT', NULL, 'Palooza', 1, 227, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '[\"Don\'t eat before riding the rollercoaster or you will be sorry!\",\"Click on an item for more information.\"]', '[\"catalog_header_palooza\",\"catalog_teaser_palooza\"]', 'undefined'),
+(8542, 2, 'DEFAULT', NULL, 'Vikings', 1, 208, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '[\"Ready for the one of the oldest Habbo battles? Get your viking helmet on now soldier! Find all your viking items here!\",\"Click on an item for more information.\"]', '[\"vikings_catalog_header\",\"catalog_teaser_vikings\"]', 'undefined'),
+(8884, 121, 'DEFAULT', NULL, 'Skrillex Customs', 1, 300, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', '[\"Click on an item for more information.\"]', '[]', 'undefined'),
+(8888, 12, 'DEFAULT', NULL, 'Monster Plant', 1, 132, '1', '1', 1, '0', 7, 'pets', 0, '0', '[\"Get your very own horse that you can ride today!\",\"Click on an item for more information.\"]', '[\"catalog_horse_header2_en\"]', 'undefined'),
 (8890, 121, 'DEFAULT', NULL, 'Custom Typos', 1, 300, '1', '1', 1, '0', 0, 'default_3x3', 0, '0', '[]', '[]', 'undefined'),
-(8891, 9895650, 'DEFAULT', NULL, 'Diamonds Shop', 1, 92, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '["The Diamonds store lets users buy unique rares that can be purchased with diamonds.","Click on an item for more information."]', '["catalog_header_hc","catalog_teaser_diamonds"]', 'undefined'),
-(8898, 2, 'DEFAULT', NULL, 'University', 1, 230, '1', '1', 1, '0', 9, 'default_3x3', 0, '0', '["Gotta learn or you wont get anywhere in life!","Click on an items for more informtation."]', '["catalog_header_en_backtoschool2013_global","catalog_teaser_backtoschool"]', 'undefined'),
-(9096, 225, 'DEFAULT', NULL, 'Group Forums', 4, 207, '1', '1', 1, '0', 161, 'guild_forum', 0, '0', '[  \r\n   "Group forums are here!",\r\n   "<b><font color=\\"#0E668C\\" size=\\"16\\">What are Group Forums?<\\/font></b><br><br>Forums allow you to effortlessly post, comment and discuss topics freely, without even leaving the Hotel!<br><br><b><i><font color=\\"#0E668C\\" size=\\"16\\">Who can start a forum?<\\/font></i></b><br><br>Only a group owner can start a forum for their group.<br><br><b><i><font color=\\"#0E668C\\" size=\\"16\\">Do I need a Forum Terminal?<\\/font></i></b><br><br>Yes - In order to start a Group Froum the group owner must first purchase a forum terminal for the group.<br><br>Find out more about Group Forums here.<br><br>Please note, we will continue to add more functionalities to this feature in the near future."\r\n]', '["catalog_groups_en"]', 'undefined'),
+(8891, 9895650, 'DEFAULT', NULL, 'Diamonds Shop', 1, 92, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '[\"The Diamonds store lets users buy unique rares that can be purchased with diamonds.\",\"Click on an item for more information.\"]', '[\"catalog_header_hc\",\"catalog_teaser_diamonds\"]', 'undefined'),
+(8898, 2, 'DEFAULT', NULL, 'University', 1, 230, '1', '1', 1, '0', 9, 'default_3x3', 0, '0', '[\"Gotta learn or you wont get anywhere in life!\",\"Click on an items for more informtation.\"]', '[\"catalog_header_en_backtoschool2013_global\",\"catalog_teaser_backtoschool\"]', 'undefined'),
+(9096, 225, 'DEFAULT', NULL, 'Group Forums', 4, 207, '1', '1', 1, '0', 161, 'guild_forum', 0, '0', '[  \r\n   \"Group forums are here!\",\r\n   \"<b><font color=\\\"#0E668C\\\" size=\\\"16\\\">What are Group Forums?<\\/font></b><br><br>Forums allow you to effortlessly post, comment and discuss topics freely, without even leaving the Hotel!<br><br><b><i><font color=\\\"#0E668C\\\" size=\\\"16\\\">Who can start a forum?<\\/font></i></b><br><br>Only a group owner can start a forum for their group.<br><br><b><i><font color=\\\"#0E668C\\\" size=\\\"16\\\">Do I need a Forum Terminal?<\\/font></i></b><br><br>Yes - In order to start a Group Froum the group owner must first purchase a forum terminal for the group.<br><br>Find out more about Group Forums here.<br><br>Please note, we will continue to add more functionalities to this feature in the near future.\"\r\n]', '[\"catalog_groups_en\"]', 'undefined'),
 (9998, 9895647, 'DEFAULT', NULL, 'Badge Shop', 1, 2556, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '', '', 'undefined'),
-(57578, 2, 'DEFAULT', NULL, 'Military', 1, 257, '1', '1', 1, '0', 9, 'default_3x3', 0, '0', '["You have enemies? Good. That means you''ve stood up for something, sometime in your life. ","Click on an item for more information."]', '["army_header","army_teaser"]', 'undefined'),
-(57579, 2, 'DEFAULT', NULL, 'Kitchen 2015', 1, 269, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '["Make your dream kitchen, just remember to clean the dishes!","Click on an item for more information."]', '["kitchen15_header","kitchen15_teaser"]', 'undefined'),
-(85585, 9999, 'DEFAULT', NULL, 'Comet Catalogue', 1, 2554, '1', '1', 1, '0', 1, 'recycler_info', 0, '0', '["<i><b><font color=\\"#0E668C\\" size=\\"16\\">What can I find in the shop?<\\/font><\\/b><\\/i><br><br>Upgrade your clothing with Habbo Club, adopt a pet or decorate your room the way you like it. Whatever you like to do most in Habbo, you''ll find a way to make that experience even better by browsing our Shop.<br><br><li>Join <a href=\\"event:catalog\\/open\\/habbo_club\\">Habbo Club<\\/a><\\/li><li><a href=\\"event:catalog\\/open\\/set_pixelnew\\">Decorate <\\/a>your room<\\/li><li>Adopt a <a href=\\"event:catalog\\/open\\/pet_horse\\">Pet<\\/a>, <a href=\\"event:catalog\\/open\\/bots\\">Bot<\\/a> or <a href=\\"event:catalog\\/open\\/monster_plants_info\\">Monsterplants<\\/a><\\/li><li>Make your own <a href=\\"event:catalog\\/open\\/category_wired\\">Wired<\\/a> games <\\/li><li>Trade in our <a href=\\"event:catalog\\/open\\/marketplace_offers\\">Marketplace<\\/a><\\/li><br><i><b><font color=\\"#0E668C\\" size=\\"16\\">Where can I get credits?<\\/font><\\/b><\\/i><br><br>We have many methods of payment such as SMS, Home Phone, Prepaid Cards, and Credit Cards.<br><br><a href=\\"event:habblet\\/open\\/credits\\">Visit our credits page for more info.<\\/a>","Reedem a voucher code here."]', '["catalog_frontpage_headline_shop_GENERAL","frontpage_teaser"]', 'undefined'),
+(57578, 2, 'DEFAULT', NULL, 'Military', 1, 257, '1', '1', 1, '0', 9, 'default_3x3', 0, '0', '[\"You have enemies? Good. That means you\'ve stood up for something, sometime in your life. \",\"Click on an item for more information.\"]', '[\"army_header\",\"army_teaser\"]', 'undefined'),
+(57579, 2, 'DEFAULT', NULL, 'Kitchen 2015', 1, 269, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Make your dream kitchen, just remember to clean the dishes!\",\"Click on an item for more information.\"]', '[\"kitchen15_header\",\"kitchen15_teaser\"]', 'undefined'),
+(85585, 9999, 'DEFAULT', NULL, 'Comet Catalogue', 1, 2554, '1', '1', 1, '0', 1, 'recycler_info', 0, '0', '[\"<i><b><font color=\\\"#0E668C\\\" size=\\\"16\\\">What can I find in the shop?<\\/font><\\/b><\\/i><br><br>Upgrade your clothing with Habbo Club, adopt a pet or decorate your room the way you like it. Whatever you like to do most in Habbo, you\'ll find a way to make that experience even better by browsing our Shop.<br><br><li>Join <a href=\\\"event:catalog\\/open\\/habbo_club\\\">Habbo Club<\\/a><\\/li><li><a href=\\\"event:catalog\\/open\\/set_pixelnew\\\">Decorate <\\/a>your room<\\/li><li>Adopt a <a href=\\\"event:catalog\\/open\\/pet_horse\\\">Pet<\\/a>, <a href=\\\"event:catalog\\/open\\/bots\\\">Bot<\\/a> or <a href=\\\"event:catalog\\/open\\/monster_plants_info\\\">Monsterplants<\\/a><\\/li><li>Make your own <a href=\\\"event:catalog\\/open\\/category_wired\\\">Wired<\\/a> games <\\/li><li>Trade in our <a href=\\\"event:catalog\\/open\\/marketplace_offers\\\">Marketplace<\\/a><\\/li><br><i><b><font color=\\\"#0E668C\\\" size=\\\"16\\\">Where can I get credits?<\\/font><\\/b><\\/i><br><br>We have many methods of payment such as SMS, Home Phone, Prepaid Cards, and Credit Cards.<br><br><a href=\\\"event:habblet\\/open\\/credits\\\">Visit our credits page for more info.<\\/a>\",\"Reedem a voucher code here.\"]', '[\"catalog_frontpage_headline_shop_GENERAL\",\"frontpage_teaser\"]', 'undefined'),
 (9895647, 0, 'DEFAULT', NULL, 'Badges', 1, 2556, '1', '1', 1, '0', 10, 'default_3x3', 0, '0', '', '', 'undefined'),
-(9895648, 3, 'DEFAULT', NULL, 'Promote Room', 1, 2555, '1', '1', 1, '0', 1, 'roomads', 0, '0', '', '["events_header"]', 'undefined'),
-(9895649, 9895646, 'DEFAULT', NULL, 'Room Addons', 1, 64, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '', '["events_header"]', 'undefined'),
-(9895650, -1, 'DEFAULT', NULL, 'Furni', 1, 0, '1', '1', 1, '0', 1, '', 0, '0', '["test","From everyone here at Habbo!"]', '["catalog_frontpage_headline_shop_GENERAL"]', 'undefined');
+(9895648, 3, 'DEFAULT', NULL, 'Promote Room', 1, 2555, '1', '1', 1, '0', 1, 'roomads', 0, '0', '', '[\"events_header\"]', 'undefined'),
+(9895649, 9895646, 'DEFAULT', NULL, 'Room Addons', 1, 64, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '', '[\"events_header\"]', 'undefined'),
+(9895650, -1, 'DEFAULT', NULL, 'Furni', 1, 0, '1', '1', 1, '0', 1, '', 0, '0', '[\"test\",\"From everyone here at Habbo!\"]', '[\"catalog_frontpage_headline_shop_GENERAL\"]', 'undefined');
 
 -- --------------------------------------------------------
 
@@ -6152,8 +6152,8 @@ INSERT INTO `catalog_pages` (`id`, `parent_id`, `type`, `extra_data`, `caption`,
 -- Table structure for table `furniture`
 --
 
-CREATE TABLE IF NOT EXISTS `furniture` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `furniture` (
+  `id` int(11) UNSIGNED NOT NULL,
   `public_name` varchar(100) CHARACTER SET utf8mb4 NOT NULL COMMENT 'temp only',
   `item_name` varchar(100) CHARACTER SET utf8mb4 NOT NULL,
   `type` enum('s','i','e','h','r','v') CHARACTER SET utf8mb4 NOT NULL DEFAULT 's',
@@ -6178,9 +6178,8 @@ CREATE TABLE IF NOT EXISTS `furniture` (
   `song_id` int(11) NOT NULL DEFAULT '0',
   `requires_rights` enum('1','0') CHARACTER SET utf8mb4 NOT NULL DEFAULT '1',
   `variable_heights` varchar(100) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
-  `is_arrow` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=757369158 ;
+  `is_arrow` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `furniture`
@@ -6383,7 +6382,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (194, 'White Candles', 'wcandleset', 's', 1, 1, '1', '0', '0', '0', 224, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (195, 'Red Candles', 'rcandleset', 's', 1, 1, '1', '0', '0', '0', 225, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (196, 'Cupid Statue', 'statue', 's', 1, 1, '1', '0', '0', '0', 226, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(197, 'Valentine''s Duck', 'valeduck', 's', 1, 1, '1', '0', '0', '0', 228, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(197, 'Valentine\'s Duck', 'valeduck', 's', 1, 1, '1', '0', '0', '0', 228, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (198, 'Heart Sofa', 'heartsofa', 's', 2, 1, '1', '0', '1', '0', 229, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (199, 'Throne', 'throne', 's', 1, 1, '1', '1', '1', '0', 230, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (200, 'Russian Samovar', 'samovar', 's', 1, 1, '1', '0', '0', '0', 231, '0', '1', '1', '1', '1', 'vendingmachine', 1, '1', 0, '0', -1, 0, '1', '', NULL),
@@ -6435,9 +6434,9 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (246, 'Tubmaster', 'hcamme', 's', 1, 2, '1', '0', '1', '0', 288, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (247, 'Golden Elephant', 'rare_elephant_statue', 's', 1, 1, '0.01', '1', '0', '0', 290, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (248, 'Granite Fountain', 'rare_fountain', 's', 1, 1, '0.01', '1', '0', '0', 291, '0', '1', '1', '1', '1', 'default', 3, '0', 0, '0', -1, 0, '1', '', NULL),
-(249, 'Speaker''s Corner', 'rare_stand', 's', 1, 1, '1', '0', '1', '0', 292, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(249, 'Speaker\'s Corner', 'rare_stand', 's', 1, 1, '1', '0', '1', '0', 292, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (250, 'Habbo Globe', 'rare_globe', 's', 1, 1, '1', '0', '0', '0', 293, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(251, 'Crusoe''s Hammock', 'rare_hammock', 's', 1, 3, '1.8', '0', '0', '0', 294, '0', '1', '1', '1', '1', 'bed', 1, '0', 0, '0', -1, 0, '1', '', NULL),
+(251, 'Crusoe\'s Hammock', 'rare_hammock', 's', 1, 3, '1.8', '0', '0', '0', 294, '0', '1', '1', '1', '1', 'bed', 1, '0', 0, '0', -1, 0, '1', '', NULL),
 (252, 'Silver Elephant', 'rare_elephant_statue*1', 's', 1, 1, '0.01', '1', '0', '0', 295, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (253, 'Bronze Elephant', 'rare_elephant_statue*2', 's', 1, 1, '0.01', '1', '0', '0', 296, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (254, 'Grey Fountain', 'rare_fountain*1', 's', 1, 1, '0.01', '1', '0', '0', 297, '0', '1', '1', '1', '1', 'default', 3, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -6550,7 +6549,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (360, 'A Snow Drift', 'pillow*0', 's', 1, 1, '1', '1', '1', '0', 1581, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (361, 'Pink Giant Pillow', 'pillow*1', 's', 1, 1, '1', '1', '1', '0', 1582, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (362, 'Festive Red Pillow', 'pillow*2', 's', 1, 1, '1', '1', '1', '0', 1583, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(363, 'Bonnie Blonde''s Pillow', 'pillow*7', 's', 1, 1, '1', '1', '1', '0', 1584, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(363, 'Bonnie Blonde\'s Pillow', 'pillow*7', 's', 1, 1, '1', '1', '1', '0', 1584, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (364, 'Green Giant Pillow', 'pillow*9', 's', 1, 1, '1', '1', '1', '0', 1585, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (365, 'Golden Giant Pillow', 'pillow*4', 's', 1, 1, '1', '1', '1', '0', 1586, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (366, 'Blue Giant Pillow', 'pillow*6', 's', 1, 1, '1', '1', '1', '0', 1587, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -7047,7 +7046,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (856, 'Water Garden', 'rclr_garden', 's', 1, 3, '0.01', '1', '0', '0', 2458, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (857, 'Palm Chair', 'rclr_chair', 's', 1, 1, '1', '0', '1', '0', 2562, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (858, 'Moshy Metal', 'sound_set_28', 's', 1, 1, '0.01', '1', '0', '0', 2496, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(859, 'Rasta.Claus''s Pack', 'sound_set_27', 's', 1, 1, '0.01', '1', '0', '0', 2549, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(859, 'Rasta.Claus\'s Pack', 'sound_set_27', 's', 1, 1, '0.01', '1', '0', '0', 2549, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (860, 'Bhangra Mangra', 'sound_set_26', 's', 1, 1, '0.01', '1', '0', '0', 2508, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (861, '', 'sound_set_25', 's', 1, 1, '0.01', '1', '0', '0', 2470, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (862, '', 'sound_set_24', 's', 1, 1, '0.01', '1', '0', '0', 2492, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -7217,12 +7216,12 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (1025, 'Snow Castle Gate', 'xmas_cstl_gate', 's', 2, 1, '0.01', '1', '0', '1', 2636, '0', '1', '0', '1', '1', 'gate', 2, '0', 0, '0', -1, 0, '1', '', NULL),
 (1026, 'Snowy Christmas Tree', 'tree7', 's', 1, 1, '1', '0', '0', '0', 2653, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1027, 'Flashy Christmas tree', 'tree6', 's', 1, 1, '1', '0', '0', '0', 2638, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(1028, 'Rudolph''s Loops', 'sound_set_54', 's', 1, 1, '0.01', '1', '0', '0', 2649, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(1028, 'Rudolph\'s Loops', 'sound_set_54', 's', 1, 1, '0.01', '1', '0', '0', 2649, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1029, 'Oh Holy Habbo', 'sound_set_53', 's', 1, 1, '0.01', '1', '0', '0', 2652, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1030, 'postbank Safe', 'safe_silo_pb', 's', 1, 1, '0.01', '1', '0', '0', 2642, '0', '1', '0', '1', '1', 'vendingmachine', 4, '17', 0, '0', -1, 0, '1', '', NULL),
 (1031, 'Snowy Maze Gate', 'plant_mazegate_snow', 's', 2, 1, '0.01', '1', '0', '0', 2640, '0', '1', '0', '1', '1', 'gate', 2, '0', 0, '0', -1, 0, '1', '', NULL),
 (1032, 'Snowy Maze Shrubbery', 'plant_maze_snow', 's', 2, 1, '0.01', '1', '0', '0', 2635, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(1033, 'Santa''s Sleigh', 'christmas_sleigh', 's', 2, 2, '1', '0', '1', '0', 2648, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(1033, 'Santa\'s Sleigh', 'christmas_sleigh', 's', 2, 2, '1', '0', '1', '0', 2648, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1034, 'Reindeer', 'christmas_reindeer', 's', 1, 2, '1', '0', '0', '0', 2637, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1035, 'Reindeer Droppings', 'christmas_poop', 's', 1, 1, '1', '0', '0', '0', 2654, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1036, 'Bar', 'exe_bardesk', 's', 1, 1, '1', '1', '0', '0', 2643, '0', '1', '0', '1', '1', 'default', 2, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -7330,7 +7329,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (1138, 'Blue Katana', 'jp_katana2', 's', 1, 1, '1', '0', '0', '0', 2747, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1139, 'Red Katana', 'jp_katana1', 's', 1, 1, '1', '0', '0', '0', 2751, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1140, 'Tiki Waterfall', 'tiki_waterfall', 's', 3, 2, '1', '0', '0', '0', 2757, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(1141, 'Tiki Tray with Pig''s Head', 'tiki_tray4', 's', 1, 1, '1', '0', '0', '0', 2765, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(1141, 'Tiki Tray with Pig\'s Head', 'tiki_tray4', 's', 1, 1, '1', '0', '0', '0', 2765, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1142, 'Tiki Tray with Fish', 'tiki_tray3', 's', 1, 1, '1', '0', '0', '0', 2753, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1143, 'Tiki Tray with Pineapple', 'tiki_tray2', 's', 1, 1, '1', '0', '0', '0', 2768, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1144, 'Tiki Tray with Fruit', 'tiki_tray1', 's', 1, 1, '1', '0', '0', '0', 2755, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -7761,7 +7760,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (1568, 'Navigation Console', 'SF_panel3', 's', 1, 1, '0.01', '1', '0', '0', 3208, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1569, 'Spaceship Floor Dark', 'SF_floor_2', 's', 2, 2, '0.01', '1', '0', '1', 3211, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1570, 'Spaceship Lamp', 'SF_lamp', 's', 1, 1, '0.01', '1', '0', '1', 3224, '0', '1', '0', '1', '1', 'gate', 1, '0', 0, '0', -1, 0, '1', '', NULL),
-(1571, 'Captain''s Chair', 'SF_chair_red', 's', 1, 1, '1', '1', '1', '0', 3223, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(1571, 'Captain\'s Chair', 'SF_chair_red', 's', 1, 1, '1', '1', '1', '0', 3223, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1572, 'Transparent Floor', 'sf_floor', 's', 2, 4, '0.01', '1', '0', '1', 3213, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1573, 'Spaceship Roof', 'sf_roof', 's', 2, 4, '0.01', '1', '0', '1', 3203, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1574, 'Light Pole', 'sf_stick', 's', 1, 1, '1', '0', '0', '0', 3206, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -7801,7 +7800,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (1608, 'Kitchen Work Table', 'ktchn_desk', 's', 2, 1, '0.01', '1', '0', '0', 3260, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1609, 'Trash Can', 'ktchn_trash', 's', 1, 1, '1', '0', '0', '0', 3264, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1610, 'Kitchen Counter Large', 'ktchn_countr_2', 's', 2, 1, '0.01', '1', '0', '0', 3253, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(1611, 'Butcher''s Block', 'ktchn_bBlock', 's', 1, 1, '1', '0', '0', '0', 3255, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(1611, 'Butcher\'s Block', 'ktchn_bBlock', 's', 1, 1, '1', '0', '0', '0', 3255, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1612, 'Kitchen Wall Divider', 'ktchn_dvdr', 's', 2, 1, '1', '0', '0', '0', 3259, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1613, 'Kitchen Inspector', 'ktchn_inspctr', 's', 1, 1, '0.01', '1', '0', '0', 3250, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1614, 'Kitchen Fridge', 'ktchn_fridge', 's', 1, 1, '0.01', '1', '0', '0', 3249, '0', '1', '0', '1', '1', 'vendingmachine', 4, '3,36,38,37', 0, '0', -1, 0, '1', '', NULL),
@@ -7873,12 +7872,12 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (1679, 'X-Ray light', 'hw_08_xray', 'i', 0, 0, '1', '0', '0', '0', 4060, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1680, 'Gothic fountain', 'gothicfountain2', 'i', 0, 0, '1', '0', '0', '0', 4065, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1681, 'TBD Central Musical TV', 'ads_cmusic', 'i', 0, 0, '1', '0', '0', '0', 4067, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(1682, 'Guys'' Bathrooom Sign', 'party_wc_boy', 'i', 0, 0, '1', '0', '0', '0', 4070, '0', '1', '0', '1', '1', 'default', 2, '0', 0, '0', -1, 0, '1', '', NULL),
+(1682, 'Guys\' Bathrooom Sign', 'party_wc_boy', 'i', 0, 0, '1', '0', '0', '0', 4070, '0', '1', '0', '1', '1', 'default', 2, '0', 0, '0', -1, 0, '1', '', NULL),
 (1683, 'LED Wall Poster', 'party_led', 'i', 0, 0, '1', '0', '0', '0', 4066, '0', '1', '0', '1', '1', 'default', 5, '0', 0, '0', -1, 0, '1', '', NULL),
 (1684, 'Heart Light', 'party_neon5', 'i', 0, 0, '1', '0', '0', '0', 4074, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1685, 'Neon Left Arrow', 'party_neon1', 'i', 0, 0, '1', '0', '0', '0', 4069, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1686, 'Neon Right Arrow', 'party_neon2', 'i', 0, 0, '1', '0', '0', '0', 4073, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(1687, 'Girls'' Bathrooom Sign', 'party_wc_girl', 'i', 0, 0, '1', '0', '0', '0', 4068, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(1687, 'Girls\' Bathrooom Sign', 'party_wc_girl', 'i', 0, 0, '1', '0', '0', '0', 4068, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1688, 'Flamingo Light', 'party_neon3', 'i', 0, 0, '1', '0', '0', '0', 4075, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1689, 'Bar Shelf', 'party_shelf', 'i', 0, 0, '1', '0', '0', '0', 4071, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1690, 'Neon Skull Light', 'party_neon4', 'i', 0, 0, '1', '0', '0', '0', 4072, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -8065,7 +8064,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (1871, 'Guillotine', 'hween12_guillotine', 's', 1, 3, '1.8', '0', '0', '0', 4738, '0', '1', '0', '1', '1', 'bed', 3, '0', 0, '0', -1, 0, '1', '', NULL),
 (1872, 'Ghost Train Right Corner', 'hween12_track_crr', 's', 1, 1, '0.3', '0', '0', '1', 4739, '0', '1', '0', '1', '1', 'roller', 1, '0', 0, '0', -1, 0, '1', '', NULL),
 (1873, 'Moon Light', 'hween12_moon', 's', 1, 1, '0.01', '1', '0', '1', 4740, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(1874, 'Executioner''s Coffin', 'hween12_coffin', 's', 1, 2, '1', '0', '0', '1', 4741, '0', '1', '0', '1', '1', 'pressure_pad', 1, '0', 0, '0', -1, 0, '1', '', NULL),
+(1874, 'Executioner\'s Coffin', 'hween12_coffin', 's', 1, 2, '1', '0', '0', '1', 4741, '0', '1', '0', '1', '1', 'pressure_pad', 1, '0', 0, '0', -1, 0, '1', '', NULL),
 (1875, 'Lantern', 'hween12_lantern', 's', 1, 2, '1', '0', '0', '0', 4742, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1876, 'Magic Mirror', 'hween12_mirror', 's', 1, 1, '1', '0', '0', '1', 4743, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (1877, 'Cannon', 'cannon', 's', 1, 2, '1', '0', '0', '0', 4744, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -8245,7 +8244,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (2050, 'Aquamarine Bookcase', 'shelves_norja*4', 's', 1, 1, '1', '0', '0', '0', 1795, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2051, 'Black Double Bed', 'bed_polyfon*2', 's', 2, 3, '1.8', '0', '0', '0', 1895, '0', '1', '0', '1', '1', 'bed', 1, '0', 0, '0', -1, 0, '1', '', NULL),
 (2052, 'Blue Angle', 'divider_nor5*6', 's', 1, 1, '1', '0', '0', '0', 1995, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(2053, 'Valentine''s cauldron', 'val_cauldron', 's', 1, 1, '1', '0', '0', '0', 2103, '0', '1', '0', '1', '1', 'vendingmachine', 4, '25', 0, '0', -1, 0, '1', '', NULL),
+(2053, 'Valentine\'s cauldron', 'val_cauldron', 's', 1, 1, '1', '0', '0', '0', 2103, '0', '1', '0', '1', '1', 'vendingmachine', 4, '25', 0, '0', -1, 0, '1', '', NULL),
 (2054, 'Aquamarine Square Module', 'pura_mdl5*1', 's', 1, 1, '1', '0', '1', '0', 2509, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2055, 'Aquamarine One Way Gate', 'one_way_door*1', 's', 1, 1, '1', '0', '0', '0', 2597, '0', '1', '0', '1', '1', 'onewaygate', 2, '0', 0, '0', -1, 0, '1', '', NULL),
 (2056, 'Executive Globe', 'exe_globe', 's', 1, 1, '1', '0', '0', '0', 2672, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -8777,7 +8776,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (2581, 'Mixing Desk', 'studio_mixingdesk', 's', 5, 1, '1', '0', '0', '0', 4088, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2582, 'Studio Camera', 'studio_camera', 's', 1, 1, '1', '0', '0', '0', 4089, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2583, 'Stage Screen', 'studio_tv', 's', 1, 1, '1', '0', '0', '1', 4090, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(2584, 'Red''n''Blue Stage Lights', 'studio_lights3', 's', 1, 1, '1', '0', '0', '1', 4091, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(2584, 'Red\'n\'Blue Stage Lights', 'studio_lights3', 's', 1, 1, '1', '0', '0', '1', 4091, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2585, 'Rainbow Stage Lights', 'studio_lights2', 's', 1, 1, '1', '0', '0', '1', 4092, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL);
 INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `length`, `stack_height`, `can_stack`, `can_sit`, `is_walkable`, `sprite_id`, `allow_recycle`, `allow_trade`, `allow_marketplace_sell`, `allow_gift`, `allow_inventory_stack`, `interaction_type`, `interaction_modes_count`, `vending_ids`, `effectid`, `height_adjustable`, `flat_id`, `song_id`, `requires_rights`, `variable_heights`, `is_arrow`) VALUES
 (2586, 'Set of Drums', 'studio_drums', 's', 3, 1, '1', '0', '0', '0', 4093, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -8904,7 +8903,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (2707, 'Castle Floor', 'xmas12_cfloor', 's', 1, 1, '0.01', '1', '0', '1', 4819, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2708, 'Aurora Borealis Room Background', 'roombg_aurora', 's', 1, 1, '0.01', '1', '0', '1', 4822, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2709, 'Decorated Medieval Floor', 'xmas12_floortile2', 's', 2, 2, '0.01', '1', '0', '1', 4818, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(2710, 'Santa''s Workbench', 'xmas12_worktable', 's', 1, 2, '0.01', '1', '0', '0', 4820, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(2710, 'Santa\'s Workbench', 'xmas12_worktable', 's', 1, 2, '0.01', '1', '0', '0', 4820, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2711, 'blue_dragon', 'blue_dragon', 's', 1, 1, '0.01', '1', '0', '0', 48336, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2712, 'yelo_dragon', 'yelo_dragon', 's', 1, 1, '0.01', '1', '0', '0', 48337, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2713, 'nems_dragon', 'nems_dragon', 's', 1, 1, '0.01', '1', '0', '0', 48338, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -9229,7 +9228,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (3031, 'Habbo_Mem_St1', 'Habbo_Mem_St1', 's', 1, 1, '0.01', '1', '0', '0', 95001, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (3032, 'Habbo_Mem_St2', 'Habbo_Mem_St2', 's', 1, 1, '0.01', '1', '0', '0', 95002, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (3033, 'Habbo_Mem_St3', 'Habbo_Mem_St3', 's', 1, 1, '0.01', '1', '0', '0', 95003, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(3034, 'It''s better out than in!', 'Lava', 's', 0, 0, '1', '0', '0', '0', 3021, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(3034, 'It\'s better out than in!', 'Lava', 's', 0, 0, '1', '0', '0', '0', 3021, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (3035, 'ads_grefusa_surfb name', 'ads_grefusa_surfb', 'i', 0, 0, '1', '0', '0', '0', 4337, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (3036, 'ads_pepsi0 name', 'ads_pepsi0', 's', 1, 1, '1', '0', '0', '0', 3554, '0', '1', '1', '1', '1', 'vendingmachine', 1, '55', 0, '0', -1, 0, '1', '', NULL),
 (3037, 'Pink Buoy Line', 'bw_fnc_p', 's', 1, 2, '0.01', '1', '0', '0', 3569, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -9569,7 +9568,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (3370, 'World Map', 'steampunk_map', 'i', 0, 0, '0.01', '1', '0', '0', 4503, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (3371, 'Steampunk Pillar', 'steampunk_pillar_1', 's', 1, 1, '0.01', '1', '0', '1', 4949, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (3372, 'Steampunk Pillar', 'steampunk_pillar_2', 's', 1, 1, '1', '0', '0', '0', 4951, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(3373, 'Donnie Santini''s Helmet', 'steampunk_rack', 's', 1, 1, '0.01', '1', '0', '0', 4950, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(3373, 'Donnie Santini\'s Helmet', 'steampunk_rack', 's', 1, 1, '0.01', '1', '0', '0', 4950, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (3374, 'Steampunk Sofa', 'steampunk_sofachair', 's', 1, 1, '1', '1', '1', '0', 4954, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (3375, 'Steampunk Table', 'steampunk_table_1', 's', 1, 2, '0.01', '1', '0', '1', 4948, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (3376, 'Steampunk Table', 'steampunk_table_2', 's', 2, 2, '0.01', '1', '0', '1', 4957, '0', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -9926,8 +9925,8 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (3733, 'RedF Dragon', 'RedF_dragonlamp*8', 's', 1, 1, '1', '1', '0', '0', 3550053, '0', '1', '0', '1', '1', 'default', 2, '0', 0, '0', -1, 0, '1', '', NULL),
 (3734, 'RedF Dragon', 'RedF_dragonlamp*9', 's', 1, 1, '1', '1', '0', '0', 3550054, '0', '1', '0', '1', '1', 'default', 2, '0', 0, '0', -1, 0, '1', '', NULL),
 (3735, 'Doormat', 'despicableme_desc', 'e', 1, 1, '0.01', '1', '0', '0', 32, '0', '0', '0', '0', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(3736, 'High Lion''s Nest', 'nest_lion', 's', 1, 1, '1', '0', '0', '1', 3601, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(3737, 'Low Lion''s Nest', 'nest_lion2', 's', 1, 1, '0.01', '1', '0', '1', 3587, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(3736, 'High Lion\'s Nest', 'nest_lion', 's', 1, 1, '1', '0', '0', '1', 3601, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(3737, 'Low Lion\'s Nest', 'nest_lion2', 's', 1, 1, '0.01', '1', '0', '1', 3587, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (3738, 'Rhino Nest', 'nest_rhino', 's', 1, 1, '0.1', '1', '0', '1', 3597, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '1', -1, 0, '1', '', NULL),
 (3739, 'Chocolate Gazelle', 'petfood14', 's', 1, 1, '1', '0', '0', '1', 3599, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (3740, 'Hay', 'petfood15', 's', 1, 1, '0.01', '1', '0', '1', 3583, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -10257,7 +10256,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (4063, 'Frozen Pillar', 'qt_xm10_icepillar', 's', 1, 1, '0.01', '1', '0', '0', 3737, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4064, 'Popsicles', 'petfood16', 's', 1, 1, '0.01', '1', '0', '1', 3744, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4065, 'Mystery Ball', 'xmas10_surprise', 's', 1, 1, '0.01', '1', '0', '1', 3751, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(4066, 'Santa''s Fireplace Teleport', 'xmas10_fireplace', 's', 1, 1, '0.01', '1', '0', '0', 3752, '0', '1', '0', '1', '1', 'teleport', 1, '0', 0, '0', -1, 0, '1', '', NULL),
+(4066, 'Santa\'s Fireplace Teleport', 'xmas10_fireplace', 's', 1, 1, '0.01', '1', '0', '0', 3752, '0', '1', '0', '1', '1', 'teleport', 1, '0', 0, '0', -1, 0, '1', '', NULL),
 (4067, 'Freeze Geyser', 'es_geysir', 's', 1, 1, '0.01', '1', '0', '1', 3753, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4069, 'Woah Nelly!', 'qt_xm10_iceelephant', 's', 1, 1, '0.01', '1', '0', '0', 3755, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4070, 'Blue Freeze Scoreboard', 'es_score_b', 's', 1, 1, '0.01', '1', '0', '0', 3756, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -10287,7 +10286,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (4094, 'Egg Tag Pole', 'easter11_tag', 's', 1, 1, '0.01', '1', '0', '0', 3914, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4095, 'Room Background', 'ads_background', 's', 1, 1, '0.01', '1', '0', '1', 3996, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4096, 'race_trophy', 'race_trophy', 's', 1, 1, '0.01', '1', '0', '0', 3998, '0', '1', '0', '1', '1', 'trophy', 1, '0', 0, '0', -1, 0, '1', '', NULL),
-(4097, 'Po''s Kung Fu Kick Statue', 'ads_kfp2statue', 's', 1, 1, '0.01', '1', '0', '0', 3999, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(4097, 'Po\'s Kung Fu Kick Statue', 'ads_kfp2statue', 's', 1, 1, '0.01', '1', '0', '0', 3999, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4098, 'Dragon Treasure Nest', 'nest_dragon', 's', 1, 1, '0.01', '1', '0', '1', 4001, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4099, 'Burnt tree', 'ashtree', 's', 1, 1, '0.01', '1', '0', '1', 4002, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4100, 'Grail of Water', 'grail_water', 's', 1, 1, '0.01', '1', '0', '1', 4003, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -10740,8 +10739,8 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (4601, 'Double Bass SFX', 'sfx_bass_dbl', 's', 1, 1, '0.01', '1', '0', '0', 4801, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4602, 'Strange Echoes SFX', 'sfx_strange_echoes_1', 's', 1, 1, '0.01', '1', '0', '0', 4802, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4603, 'Strange Echoes III SFX', 'sfx_strange_echoes_3', 's', 1, 1, '0.01', '1', '0', '0', 4803, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(4604, 'New Year''s Resolution 2013', 'ny2013_res', 's', 1, 1, '0.01', '1', '0', '0', 4831, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(4605, 'New Year''s Resolution 2013', 'ny2013_extrares', 's', 1, 1, '0.01', '1', '0', '0', 4832, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(4604, 'New Year\'s Resolution 2013', 'ny2013_res', 's', 1, 1, '0.01', '1', '0', '0', 4831, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(4605, 'New Year\'s Resolution 2013', 'ny2013_extrares', 's', 1, 1, '0.01', '1', '0', '0', 4832, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4606, 'Mayan Clock', 'ny2013_clock', 's', 1, 1, '0.01', '1', '0', '0', 4843, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4607, 'Mayan Cup', 'ny2013_cup', 's', 1, 1, '0.01', '1', '0', '0', 4844, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4608, 'prizetrophy_cake_g', 'prizetrophy_cake*1', 's', 1, 1, '0.01', '1', '0', '0', 4855, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -10870,7 +10869,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (4731, 'Bad Side Table', 'mystics_btable', 's', 3, 1, '0.01', '1', '0', '0', 5090, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4732, 'Holo Nelly', 'holo_nelly', 's', 1, 1, '0.01', '1', '0', '0', 5106, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4733, 'ads_woz_mpu name', 'ads_woz_mpu', 's', 1, 1, '0.01', '1', '0', '1', 5107, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(4734, 'Now that''s smooth.', 'diner_bardesk_corner*10', 's', 1, 1, '0.01', '1', '0', '0', 5108, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(4734, 'Now that\'s smooth.', 'diner_bardesk_corner*10', 's', 1, 1, '0.01', '1', '0', '0', 5108, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4735, 'Mint Gate', 'diner_bardesk_gate*10', 's', 1, 1, '0.01', '1', '0', '0', 5109, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4736, 'Mint Sofa', 'diner_sofa_1*10', 's', 1, 1, '1', '1', '1', '0', 5110, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4737, 'Mint Bar', 'diner_bardesk*10', 's', 1, 1, '0.01', '1', '0', '0', 5111, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -11027,7 +11026,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (4947, 'Throne of Thorns', 'hween13_throne', 's', 1, 1, '1', '1', '1', '0', 5321, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4948, 'yttv2n name', 'yttv2n', 's', 3, 2, '0.01', '1', '0', '0', 5322, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4949, 'Cinema Teleport', 'cine_teleport4', 's', 1, 1, '0.01', '1', '0', '0', 5323, '1', '1', '1', '1', '1', 'teleport', 2, '0', 0, '0', -1, 0, '1', '', NULL),
-(4950, 'Director''s Chair', 'cine_starchair', 's', 1, 1, '1', '1', '1', '0', 5324, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(4950, 'Director\'s Chair', 'cine_starchair', 's', 1, 1, '1', '1', '1', '0', 5324, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4951, 'Cine Pillar Light', 'cine_pillarlight', 's', 2, 1, '0.01', '1', '0', '0', 5325, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (4952, 'Cinema Teleport', 'cine_teleport2', 's', 1, 1, '0.01', '1', '0', '0', 5326, '1', '1', '1', '1', '1', 'teleport', 2, '0', 0, '0', -1, 0, '1', '', NULL),
 (4953, 'Big Popcorn', 'cine_bigcorn', 's', 1, 1, '1', '1', '0', '0', 5327, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL);
@@ -11147,16 +11146,16 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (5066, 'WIRED Negative Condition: Has NO Furni On', 'wf_cnd_not_furni_on', 's', 1, 1, '0.01', '1', '0', '1', 5440, '1', '1', '1', '1', '1', 'wired', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5067, 'WIRED Negative Condition: Furnis have NO avatars', 'wf_cnd_not_hv_avtrs', 's', 1, 1, '0.01', '1', '0', '1', 5441, '1', '1', '1', '1', '1', 'wf_cnd_not_hv_avtrs', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5068, 'wf_trg_at_time_long name', 'wf_trg_at_time_long', 's', 1, 1, '0.01', '1', '0', '1', 5442, '1', '1', '1', '1', '1', 'wired', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(5069, 'WIRED Condition: User DOESN''T count in Room', 'wf_cnd_not_user_count', 's', 1, 1, '0.5', '1', '0', '0', 5443, '1', '1', '1', '1', '1', 'wf_cnd_not_user_count', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(5069, 'WIRED Condition: User DOESN\'T count in Room', 'wf_cnd_not_user_count', 's', 1, 1, '0.5', '1', '0', '0', 5443, '1', '1', '1', '1', '1', 'wf_cnd_not_user_count', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5070, 'wf_cnd_not_wearing_fx name', 'wf_cnd_not_wearing_fx', 's', 1, 1, '0.01', '1', '0', '1', 5444, '1', '1', '1', '1', '1', '', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5071, 'WIRED Condition: User count in Room', 'wf_cnd_user_count_in', 's', 1, 1, '0.5', '1', '0', '0', 5445, '1', '1', '1', '1', '1', 'wf_cnd_user_count_in', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5072, 'wf_cnd_not_wearing_b name', 'wf_cnd_not_wearing_b', 's', 1, 1, '0.01', '1', '0', '1', 5446, '1', '1', '1', '1', '1', '', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5073, 'WIRED Condition: Furni Type Matches', 'wf_cnd_stuff_is', 's', 1, 1, '0.5', '1', '0', '0', 5447, '1', '1', '1', '1', '1', 'wired', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5074, 'WIRED Negative Condition: NOT Group Member', 'wf_cnd_not_in_group', 's', 1, 1, '0.01', '1', '0', '1', 5448, '1', '1', '1', '1', '1', 'wf_cnd_not_in_group', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(5075, 'WIRED Condition: Furni Type DOESN''T Match', 'wf_cnd_not_stuff_is', 's', 1, 1, '0.5', '1', '0', '0', 5449, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(5075, 'WIRED Condition: Furni Type DOESN\'T Match', 'wf_cnd_not_stuff_is', 's', 1, 1, '0.5', '1', '0', '0', 5449, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5076, 'WIRED Effect: Move Triggering Furni', 'wf_act_move_furni_to', 's', 1, 1, '0.5', '1', '0', '0', 5450, '1', '1', '1', '1', '1', 'wired', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5077, 'WIRED Effect: Toggle Furni to Random State', 'wf_act_toggle_to_rnd', 's', 1, 1, '0.5', '1', '0', '0', 5451, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(5078, 'WIRED Negative Condition: Furni states DOESN''T match', 'wf_cnd_not_match_snap', 's', 1, 1, '0.01', '1', '0', '1', 5452, '1', '1', '1', '1', '1', 'wf_cnd_not_match_snap', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(5078, 'WIRED Negative Condition: Furni states DOESN\'T match', 'wf_cnd_not_match_snap', 's', 1, 1, '0.01', '1', '0', '1', 5452, '1', '1', '1', '1', '1', 'wf_cnd_not_match_snap', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5079, 'crystal_dragon name', 'crystal_dragon', 's', 1, 1, '0.01', '1', '0', '0', 5453, '1', '1', '1', '1', '1', 'default', 2, '0', 0, '0', -1, 0, '1', '', NULL),
 (5080, 'crystal_throne name', 'crystal_throne', 's', 1, 1, '1', '1', '1', '0', 5454, '1', '1', '1', '1', '1', 'default', 2, '0', 0, '0', -1, 0, '1', '', NULL),
 (5081, 'Pearl Dragon Egg', 'white_dino_egg', 's', 1, 1, '0.01', '1', '0', '0', 5455, '1', '1', '1', '1', '1', 'default', 2, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -11194,7 +11193,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (5113, 'Large Block 7', 'bc_block_1*7', 's', 1, 1, '1', '1', '0', '1', 5487, '1', '1', '1', '1', '1', 'adjustable_height', 5, '0', 0, '0', -1, 0, '1', '1.00,0.70,0.50,0.20,0.01', NULL),
 (5114, 'Large Block 8', 'bc_block_1*14', 's', 1, 1, '1', '1', '0', '1', 5488, '1', '1', '1', '1', '1', 'adjustable_height', 5, '0', 0, '0', -1, 0, '1', '1.00,0.70,0.50,0.20,0.01', NULL),
 (5115, 'Large Block 9', 'bc_block_1*9', 's', 1, 1, '1', '1', '0', '1', 5489, '1', '1', '1', '1', '1', 'adjustable_height', 5, '0', 0, '0', -1, 0, '1', '1.00,0.70,0.50,0.20,0.01', NULL),
-(5116, 'Carpenter''s Carpet', 'xmas13_rug', 's', 2, 3, '0.01', '1', '0', '1', 5490, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(5116, 'Carpenter\'s Carpet', 'xmas13_rug', 's', 2, 3, '0.01', '1', '0', '1', 5490, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5117, 'Mahogany Shelves', 'xmas13_shelves', 's', 2, 1, '0.01', '1', '0', '0', 5491, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5118, 'Wrapping Paper Pillar', 'xmas13_pillar', 's', 1, 1, '0.01', '1', '0', '0', 5492, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5119, 'Wooden Horse', 'xmas13_toyhorse', 's', 1, 1, '0.01', '1', '0', '0', 5493, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -11232,7 +11231,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (5151, 'Jack in the Box', 'xmas13_jack', 's', 1, 1, '0.01', '1', '0', '0', 5525, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5152, '2014 LTD Rare', 'xmas13_throne', 's', 1, 1, '1', '1', '1', '0', 5526, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5153, 'Toolset', 'xmas13_toolbox', 's', 1, 1, '0.01', '1', '0', '0', 5527, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(5154, 'Santa''s Workdesk', 'xmas13_workdesk', 's', 2, 1, '0.01', '1', '0', '0', 5528, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(5154, 'Santa\'s Workdesk', 'xmas13_workdesk', 's', 2, 1, '0.01', '1', '0', '0', 5528, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5155, 'Robot Dinosaur', 'xmas13_robotdino', 's', 1, 2, '0.01', '1', '0', '0', 5529, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5156, 'Gnome in a Box', 'gnome_box', 's', 1, 1, '0.01', '1', '0', '0', 5530, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5157, 'Diamond Duck', 'CF_750_duck', 's', 1, 1, '0.01', '1', '0', '0', 5531, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -11451,7 +11450,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (5369, 'Moose Head', 'xmas11_hd1', 'i', 0, 0, '0.01', '1', '0', '0', 4440, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5370, 'Deer Head', 'xmas11_hd6', 'i', 0, 0, '0.01', '1', '0', '0', 4441, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5371, 'Alvin 3 Surfboard', 'ads_alvinsurf', 'i', 0, 0, '0.01', '1', '0', '0', 4442, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(5372, 'Cuckoo''s Clock', 'xmas11_cuckoo', 'i', 0, 0, '0.01', '1', '0', '0', 4443, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(5372, 'Cuckoo\'s Clock', 'xmas11_cuckoo', 'i', 0, 0, '0.01', '1', '0', '0', 4443, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5373, 'ads_m6_wall name', 'ads_m6_wall', 'i', 0, 0, '0.01', '1', '0', '0', 4444, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5374, '2012 Countdown Sign', 'year2012', 'i', 0, 0, '0.01', '1', '0', '0', 4445, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (5375, 'flag_denmark name', 'flag_denmark', 'i', 0, 0, '0.01', '1', '0', '0', 4447, '1', '1', '1', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -12572,8 +12571,8 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 -- Table structure for table `items`
 --
 
-CREATE TABLE IF NOT EXISTS `items` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `items` (
+  `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `owner_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
@@ -12582,9 +12581,8 @@ CREATE TABLE IF NOT EXISTS `items` (
   `y` varchar(50) DEFAULT '0',
   `z` double NOT NULL DEFAULT '0',
   `rotation` int(11) NOT NULL DEFAULT '0',
-  `extra_data` varchar(250) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+  `extra_data` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `items`
@@ -12593,12 +12591,14 @@ CREATE TABLE IF NOT EXISTS `items` (
 INSERT INTO `items` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`, `y`, `z`, `rotation`, `extra_data`) VALUES
 (1, 5, 5, 2801, 9, '1', '7', 0.001, 0, '0'),
 (2, 5, 5, 5166, 10, '7', '13', 0.001, 0, '2'),
-(3, 5, 5, 5174, 0, '-1', '-1', 0.001, 0, '0'),
+(3, 5, 5, 5174, 9, '4', '5', 0.01, 0, '0'),
 (4, 5, 5, 1578, 9, '4', '7', 0.001, 0, ''),
 (5, 5, 5, 1316, 10, '10', '3', 0.001, 0, ''),
 (6, 5, 5, 1322, 10, '10', '4', 0.802, 2, ''),
 (7, 5, 5, 1698, 0, 'l,6,3', '9,40', 0, 0, ''),
-(8, 5, 5, 2755, 0, '-1', '-1', 0.001, 0, '1');
+(8, 5, 5, 2755, 0, '4', '5', 1.02, 0, '1'),
+(9, 5, 5, 1036, 9, '7', '6', 0.01, 2, '1'),
+(10, 5, 5, 1037, 9, '7', '6', 1.02, 0, '');
 
 -- --------------------------------------------------------
 
@@ -12606,12 +12606,11 @@ INSERT INTO `items` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`, `y`
 -- Table structure for table `messenger_friendships`
 --
 
-CREATE TABLE IF NOT EXISTS `messenger_friendships` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `messenger_friendships` (
+  `id` int(11) NOT NULL,
   `sender` int(11) NOT NULL,
-  `receiver` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `receiver` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `messenger_friendships`
@@ -12626,15 +12625,14 @@ INSERT INTO `messenger_friendships` (`id`, `sender`, `receiver`) VALUES
 -- Table structure for table `messenger_messages`
 --
 
-CREATE TABLE IF NOT EXISTS `messenger_messages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `messenger_messages` (
+  `id` int(11) NOT NULL,
   `to_id` int(11) NOT NULL,
   `from_id` int(11) NOT NULL,
   `time_sent` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `unread` tinyint(1) NOT NULL,
-  `message` varchar(300) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `message` varchar(300) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -12642,12 +12640,11 @@ CREATE TABLE IF NOT EXISTS `messenger_messages` (
 -- Table structure for table `messenger_requests`
 --
 
-CREATE TABLE IF NOT EXISTS `messenger_requests` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `messenger_requests` (
+  `id` int(11) NOT NULL,
   `from_id` int(11) NOT NULL,
-  `to_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `to_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -12655,12 +12652,11 @@ CREATE TABLE IF NOT EXISTS `messenger_requests` (
 -- Table structure for table `navigator_categories`
 --
 
-CREATE TABLE IF NOT EXISTS `navigator_categories` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `navigator_categories` (
+  `id` int(11) NOT NULL,
   `title` varchar(50) NOT NULL,
-  `min_rank` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+  `min_rank` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `navigator_categories`
@@ -12678,7 +12674,7 @@ INSERT INTO `navigator_categories` (`id`, `title`, `min_rank`) VALUES
 (11, 'Club & Group Rooms', 1),
 (12, 'Restaurant, Bar & Night Club Rooms', 1),
 (13, 'Themed & RPG Rooms', 1),
-(14, 'Staff Rooms"', 5);
+(14, 'Staff Rooms\"', 5);
 
 -- --------------------------------------------------------
 
@@ -12686,17 +12682,16 @@ INSERT INTO `navigator_categories` (`id`, `title`, `min_rank`) VALUES
 -- Table structure for table `navigator_tabs`
 --
 
-CREATE TABLE IF NOT EXISTS `navigator_tabs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `navigator_tabs` (
+  `id` int(11) NOT NULL,
   `child_id` int(11) NOT NULL DEFAULT '-1',
   `tab_name` varchar(50) NOT NULL,
   `title` varchar(50) NOT NULL DEFAULT '',
   `button_type` int(11) NOT NULL DEFAULT '1',
   `closed` tinyint(1) NOT NULL DEFAULT '1',
   `thumbnail` tinyint(1) NOT NULL DEFAULT '0',
-  `room_populator` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+  `room_populator` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `navigator_tabs`
@@ -12723,8 +12718,8 @@ INSERT INTO `navigator_tabs` (`id`, `child_id`, `tab_name`, `title`, `button_typ
 -- Table structure for table `rooms`
 --
 
-CREATE TABLE IF NOT EXISTS `rooms` (
-  `id` int(100) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rooms` (
+  `id` int(100) NOT NULL,
   `name` varchar(75) NOT NULL,
   `room_type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 = private room, 1 = public',
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -12757,9 +12752,8 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `chat_distance` int(11) NOT NULL DEFAULT '30',
   `who_can_mute` int(11) NOT NULL DEFAULT '0',
   `who_can_kick` int(11) NOT NULL DEFAULT '0',
-  `who_can_ban` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+  `who_can_ban` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rooms`
@@ -12779,14 +12773,13 @@ INSERT INTO `rooms` (`id`, `name`, `room_type`, `date_created`, `owner_id`, `gro
 -- Table structure for table `rooms_newbie`
 --
 
-CREATE TABLE IF NOT EXISTS `rooms_newbie` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `rooms_newbie` (
+  `id` int(11) NOT NULL,
   `model` varchar(150) NOT NULL,
   `wallpaper` varchar(150) NOT NULL DEFAULT '0',
   `floor` varchar(5) NOT NULL DEFAULT '0',
-  `items` longtext NOT NULL,
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+  `items` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `rooms_newbie`
@@ -12806,18 +12799,15 @@ INSERT INTO `rooms_newbie` (`id`, `model`, `wallpaper`, `floor`, `items`) VALUES
 -- Table structure for table `room_items_moodlight`
 --
 
-CREATE TABLE IF NOT EXISTS `room_items_moodlight` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `item_id` int(10) unsigned NOT NULL,
+CREATE TABLE `room_items_moodlight` (
+  `id` int(11) NOT NULL,
+  `item_id` int(10) UNSIGNED NOT NULL,
   `enabled` tinyint(1) NOT NULL DEFAULT '0',
   `current_preset` int(11) NOT NULL,
   `preset_one` text NOT NULL,
   `preset_two` text NOT NULL,
-  `preset_three` text NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `item_id` (`item_id`),
-  KEY `enabled` (`enabled`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+  `preset_three` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `room_items_moodlight`
@@ -12833,7 +12823,7 @@ INSERT INTO `room_items_moodlight` (`id`, `item_id`, `enabled`, `current_preset`
 -- Table structure for table `room_models`
 --
 
-CREATE TABLE IF NOT EXISTS `room_models` (
+CREATE TABLE `room_models` (
   `id` varchar(100) NOT NULL,
   `door_x` int(11) NOT NULL,
   `door_y` int(11) NOT NULL,
@@ -12841,8 +12831,7 @@ CREATE TABLE IF NOT EXISTS `room_models` (
   `door_dir` int(4) NOT NULL DEFAULT '2',
   `heightmap` text NOT NULL,
   `public_items` text NOT NULL,
-  `club_only` enum('0','1') NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  `club_only` enum('0','1') NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -12892,12 +12881,11 @@ INSERT INTO `room_models` (`id`, `door_x`, `door_y`, `door_z`, `door_dir`, `heig
 -- Table structure for table `room_rights`
 --
 
-CREATE TABLE IF NOT EXISTS `room_rights` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `room_rights` (
+  `id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `room_rights`
@@ -12912,8 +12900,8 @@ INSERT INTO `room_rights` (`id`, `room_id`, `user_id`) VALUES
 -- Table structure for table `site_articles`
 --
 
-CREATE TABLE IF NOT EXISTS `site_articles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `site_articles` (
+  `id` int(11) NOT NULL,
   `article_name` varchar(64) DEFAULT 'Undefined Title',
   `article_author` varchar(64) DEFAULT 'Undefined User',
   `article_story` text,
@@ -12921,9 +12909,8 @@ CREATE TABLE IF NOT EXISTS `site_articles` (
   `article_topstory` varchar(500) DEFAULT '300x187_TS_xantial',
   `article_when` int(11) DEFAULT '0',
   `views` int(11) DEFAULT '0',
-  `article_date` varchar(100) DEFAULT '5th March 2013',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `article_date` varchar(100) DEFAULT '5th March 2013'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `site_articles`
@@ -12939,12 +12926,10 @@ INSERT INTO `site_articles` (`id`, `article_name`, `article_author`, `article_st
 -- Table structure for table `site_config`
 --
 
-CREATE TABLE IF NOT EXISTS `site_config` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `maintenance` enum('0','1') NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `maintaince` (`maintenance`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+CREATE TABLE `site_config` (
+  `id` int(11) NOT NULL,
+  `maintenance` enum('0','1') NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `site_config`
@@ -12959,20 +12944,19 @@ INSERT INTO `site_config` (`id`, `maintenance`) VALUES
 -- Table structure for table `site_housekeeping_notes`
 --
 
-CREATE TABLE IF NOT EXISTS `site_housekeeping_notes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `site_housekeeping_notes` (
+  `id` int(11) NOT NULL,
   `user_id` int(10) NOT NULL,
-  `note` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `note` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `site_housekeeping_notes`
 --
 
 INSERT INTO `site_housekeeping_notes` (`id`, `user_id`, `note`) VALUES
-(1, 1, 'Put something herwdwdqe that you think you might forget, I''ll be here forever!'),
-(2, 4, 'Put something here that you think you might forget, I''ll be here forever!');
+(1, 1, 'Put something herwdwdqe that you think you might forget, I\'ll be here forever!'),
+(2, 4, 'Put something here that you think you might forget, I\'ll be here forever!');
 
 -- --------------------------------------------------------
 
@@ -12980,12 +12964,11 @@ INSERT INTO `site_housekeeping_notes` (`id`, `user_id`, `note`) VALUES
 -- Table structure for table `site_refs`
 --
 
-CREATE TABLE IF NOT EXISTS `site_refs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `site_refs` (
+  `id` int(11) NOT NULL,
   `ref` varchar(50) DEFAULT '',
-  `ip_address` varchar(50) DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `ip_address` varchar(50) DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -12993,8 +12976,8 @@ CREATE TABLE IF NOT EXISTS `site_refs` (
 -- Table structure for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(256) DEFAULT NULL,
   `rank` tinyint(1) NOT NULL DEFAULT '1',
@@ -13005,9 +12988,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `mission` varchar(50) NOT NULL DEFAULT '',
   `gender` char(1) NOT NULL DEFAULT 'M',
   `figure` varchar(200) NOT NULL DEFAULT 'ch-210-66.lg-270-82.hd-180-1.sh-290-80.hr-100-45',
-  `credits` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+  `credits` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -13016,6 +12998,241 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `username`, `password`, `rank`, `join_date`, `last_online`, `sso_ticket`, `email`, `mission`, `gender`, `figure`, `credits`) VALUES
 (2, 'MemeMaster', NULL, 7, 44324323, 1490046606, '321', NULL, 'eating more cake, k?', 'M', 'ch-3111-88-91.hd-180-1.lg-285-82.ea-1406-1408.ha-1008-64.hr-125-45.sh-3068-1408-1408', 400),
 (5, 'Alex', 'bf070b42503c652ba6f0494adf55c57951c9cd5a', 1, 1489384512, 1491544401, '123', 'we3rejfpef3@cefc.com', 'Icarus alpha tester', 'M', 'hd-180-1.cc-3280-64-1408.lg-270-64.ha-1018-64.sh-290-64.hr-155-45.ch-875-64-1408', 5000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_subscriptions`
+--
+
+CREATE TABLE `users_subscriptions` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `bought_time` bigint(11) NOT NULL DEFAULT '0',
+  `expire_time` bigint(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `catalog_items`
+--
+ALTER TABLE `catalog_items`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `catalog_pages`
+--
+ALTER TABLE `catalog_pages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `furniture`
+--
+ALTER TABLE `furniture`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `items`
+--
+ALTER TABLE `items`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `messenger_friendships`
+--
+ALTER TABLE `messenger_friendships`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `messenger_messages`
+--
+ALTER TABLE `messenger_messages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `messenger_requests`
+--
+ALTER TABLE `messenger_requests`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `navigator_categories`
+--
+ALTER TABLE `navigator_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `navigator_tabs`
+--
+ALTER TABLE `navigator_tabs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `rooms`
+--
+ALTER TABLE `rooms`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `rooms_newbie`
+--
+ALTER TABLE `rooms_newbie`
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `room_items_moodlight`
+--
+ALTER TABLE `room_items_moodlight`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `item_id` (`item_id`),
+  ADD KEY `enabled` (`enabled`);
+
+--
+-- Indexes for table `room_models`
+--
+ALTER TABLE `room_models`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `room_rights`
+--
+ALTER TABLE `room_rights`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `site_articles`
+--
+ALTER TABLE `site_articles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `site_config`
+--
+ALTER TABLE `site_config`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `maintaince` (`maintenance`);
+
+--
+-- Indexes for table `site_housekeeping_notes`
+--
+ALTER TABLE `site_housekeeping_notes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `site_refs`
+--
+ALTER TABLE `site_refs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users_subscriptions`
+--
+ALTER TABLE `users_subscriptions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `catalog_pages`
+--
+ALTER TABLE `catalog_pages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9895651;
+--
+-- AUTO_INCREMENT for table `furniture`
+--
+ALTER TABLE `furniture`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=757369158;
+--
+-- AUTO_INCREMENT for table `items`
+--
+ALTER TABLE `items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `messenger_friendships`
+--
+ALTER TABLE `messenger_friendships`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `messenger_messages`
+--
+ALTER TABLE `messenger_messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `messenger_requests`
+--
+ALTER TABLE `messenger_requests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `navigator_categories`
+--
+ALTER TABLE `navigator_categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT for table `navigator_tabs`
+--
+ALTER TABLE `navigator_tabs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT for table `rooms`
+--
+ALTER TABLE `rooms`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT for table `rooms_newbie`
+--
+ALTER TABLE `rooms_newbie`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `room_items_moodlight`
+--
+ALTER TABLE `room_items_moodlight`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `room_rights`
+--
+ALTER TABLE `room_rights`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `site_articles`
+--
+ALTER TABLE `site_articles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `site_config`
+--
+ALTER TABLE `site_config`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `site_housekeeping_notes`
+--
+ALTER TABLE `site_housekeeping_notes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `site_refs`
+--
+ALTER TABLE `site_refs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `users_subscriptions`
+--
+ALTER TABLE `users_subscriptions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

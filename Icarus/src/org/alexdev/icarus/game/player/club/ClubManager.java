@@ -2,6 +2,7 @@ package org.alexdev.icarus.game.player.club;
 
 import java.util.concurrent.TimeUnit;
 
+import org.alexdev.icarus.dao.mysql.ClubDao;
 import org.alexdev.icarus.game.catalogue.CatalogueBundledItem;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.log.Log;
@@ -37,18 +38,22 @@ public class ClubManager {
         long currentTime = Util.getCurrentTimeSeconds();
         long newExpireTime = TimeUnit.DAYS.toSeconds(daysPurchased);
         
-        if (player.getSubscription().isExpired()) {
-            newExpireTime += currentTime;
+        if (player.getSubscription().hasSubscription()) {
+        	newExpireTime += player.getSubscription().getExpireTime();
+            ClubDao.update(player.getDetails().getId(), newExpireTime, currentTime);
         } else {
-            newExpireTime += player.getSubscription().getExpireTime();
+            newExpireTime += currentTime;
+            ClubDao.create(player.getDetails().getId(), newExpireTime, currentTime);
         }
    
-        player.getSubscription().update(newExpireTime, currentTime);
+        
+        player.getSubscription().update(player.getDetails().getId(), newExpireTime, currentTime);
+       
      
         Log.println("Difference: " + player.getSubscription().getDifference());
         
         player.send(new SubscriptionMessageComposer(player));
-        player.send(new UserRightsComposer(player.getSubscription().isExpired(), player.getDetails().getRank()));
+        player.send(new UserRightsComposer(player.getSubscription().hasSubscription(), player.getDetails().getRank()));
         
         Log.println("Days of Habbo Club purchased: " + daysPurchased);
     }

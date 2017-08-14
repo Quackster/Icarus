@@ -46,7 +46,6 @@ public class AuthenticateMessageEvent implements MessageEvent {
         player.send(new UniqueMachineIDMessageComposer(player.getMachineId()));
         player.send(new AuthenticationOKMessageComposer());
         player.send(new HomeRoomMessageComposer(2, false));
-        player.send(new UserRightsComposer(player.getSubscription().isExpired(), player.getDetails().getRank()));
         player.send(new LandingWidgetMessageComposer());
         player.send(new AvailabilityMessageComposer());
         

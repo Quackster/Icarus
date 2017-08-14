@@ -2,49 +2,66 @@ package org.alexdev.icarus.game.player.club;
 
 import java.util.Calendar;
 
+import org.alexdev.icarus.dao.mysql.ClubDao;
 import org.alexdev.icarus.util.Util;
 
 public class ClubSubscription {
 
     private long expireTime;
     private long boughtTime;
-    private Calendar calendar;
-    private boolean hasClub;
     private long difference;
+    private int userId;
 
     public ClubSubscription() {
-        this.update(0, 0);
+    	this.userId = -1;
     }
-    
-    public void update(long expireTime, long boughtTime) {
-        
+
+    public void update(int userId, long expireTime, long boughtTime) {
+        this.userId = userId;
         this.expireTime = expireTime;
         this.boughtTime = boughtTime;
-            
-        if (this.expireTime > 0) {
-            this.hasClub = true;        
-            this.difference = this.expireTime - Util.getCurrentTimeSeconds();
-        } else {
-            this.hasClub = false;
-        }
-        
-        this.calendar = Calendar.getInstance();
-        this.calendar.setTimeInMillis(this.expireTime * 1000); 
 
+        if (this.expireTime > 0) {
+            if (!this.hasSubscription()) {
+
+                ClubDao.delete(this.userId);
+
+                this.expireTime = 0;
+                this.boughtTime = 0;
+
+                return;
+
+            }
+        }
+       
+        this.difference = this.expireTime - Util.getCurrentTimeSeconds();
     }
 
-    public boolean isExpired() {
-        return this.hasClub == false;
+    public boolean hasSubscription() {
+    	
+    	if (this.userId == -1) {
+    		return false;
+    	}
+    	
+    	if (Util.getCurrentTimeSeconds() >= this.expireTime) {
+    		return false;
+    	}
+    	
+    	if (this.boughtTime == 0) {
+    		return false;
+    	}
+    	
+    	return true;
     }
 
     public int getDaysLeft() {
 
-        if (hasClub) {
+        if (this.hasSubscription()) {
 
             int result = (int) (this.difference  % (86400 * 30)) / 86400;
 
             if (result < 0) {
-                result = 0;
+                result = 0; 
             }
 
             return result;
@@ -55,7 +72,7 @@ public class ClubSubscription {
 
     public int getMonthsLeft() {
 
-        if (hasClub) {
+    	if (this.hasSubscription()) {
 
             int result = (int) (this.difference / (60 * 60 * 24 * 30));
 
@@ -71,7 +88,7 @@ public class ClubSubscription {
 
     public int getYearsLeft() {
 
-        if (hasClub) {
+    	if (this.hasSubscription()) {
 
             int result = (int) (this.difference / (60 * 60 * 24 * 365));
 
@@ -99,10 +116,6 @@ public class ClubSubscription {
 
     public void setBoughtTime(long boughtTime) {
         this.boughtTime = boughtTime;
-    }
-
-    public Calendar getCalendar() {
-        return calendar;
     }
 
     public long getDifference() {

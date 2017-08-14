@@ -18,7 +18,7 @@ public class SubscriptionMessageComposer extends OutgoingMessageComposer {
         this.response.init(Outgoing.SubscriptionMessageComposer);
         this.response.writeString("habbo_club");
 
-        if (player.getSubscription().isExpired()) {
+        if (!this.player.getSubscription().hasSubscription()) {
             this.response.writeInt(0);
             this.response.writeInt(7);
             this.response.writeInt(0);
@@ -35,7 +35,7 @@ public class SubscriptionMessageComposer extends OutgoingMessageComposer {
         this.response.writeInt(0);
         this.response.writeInt(0);
 
-        if (player.getSubscription().isExpired()) {
+        if (!this.player.getSubscription().hasSubscription()) {
             this.response.writeInt(0);
         } else {
             this.response.writeInt((int) (player.getSubscription().getDifference()));
