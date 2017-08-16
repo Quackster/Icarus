@@ -7,8 +7,6 @@ import org.alexdev.icarus.game.catalogue.CatalogueBundledItem;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessageComposer;
-import org.alexdev.icarus.messages.outgoing.user.SubscriptionMessageComposer;
-import org.alexdev.icarus.messages.outgoing.user.UserRightsComposer;
 import org.alexdev.icarus.util.Util;
 
 public class ClubManager {
@@ -33,6 +31,7 @@ public class ClubManager {
         purchaseDays(player, daysPurchased);
     }
     
+
     public static void purchaseDays(Player player, int daysPurchased) {
 
         long currentTime = Util.getCurrentTimeSeconds();
@@ -46,16 +45,8 @@ public class ClubManager {
             ClubDao.create(player.getDetails().getId(), newExpireTime, currentTime);
         }
    
-        
         player.getSubscription().update(player.getDetails().getId(), newExpireTime, currentTime);
-       
-     
-        Log.println("Difference: " + player.getSubscription().getDifference());
-        
-        player.send(new SubscriptionMessageComposer(player));
-        player.send(new UserRightsComposer(player.getSubscription().hasSubscription(), player.getDetails().getRank()));
-        
-        Log.println("Days of Habbo Club purchased: " + daysPurchased);
+        player.getSubscription().sendSubscriptionStatus();
     }
 
 }

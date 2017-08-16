@@ -12,11 +12,8 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.model.RoomTile;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RemoveItemMessageComposer;
-
-import com.google.common.base.Stopwatch;
 
 public class RoomMapping {
 

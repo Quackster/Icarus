@@ -23,51 +23,7 @@ public class EnterRoomMessageEvent implements MessageEvent {
             return;
         }
         
-        if (player.inRoom()) {
-            player.getRoom().leaveRoom(player, false);
-        }
-
-        String pass = request.readString();
-        
-        boolean isOwner = room.hasRights(player, true);
-        player.send(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
-
-        if (room.getData().getUsersNow() >= room.getData().getUsersMax()) {
-
-            if (!player.getDetails().hasFuse("user_enter_full_rooms") && player.getDetails().getId() != room.getData().getOwnerId()) {
-
-                player.send(new RoomEnterErrorMessageComposer(1));
-                //player.send(new HotelViewMessageComposer());
-                return;
-            }
-        }
-
-        if (room.getData().getState().getStateCode() > 0 && !room.hasRights(player, false)) {
-            if (room.getData().getState() == RoomState.DOORBELL) {
-
-                if (room.getPlayers().size() > 0) {
-                    //player.send(new HotelViewMessageComposer());
-                    player.send(new GenericDoorbellMessageComposer(1));
-                    room.send(new GenericDoorbellMessageComposer(player.getDetails().getUsername()), true);
-                } else {
-
-                    player.send(new GenericNoAnswerDoorbellMessageComposer());
-                    //player.send(new HotelViewMessageComposer());
-                }
-
-                return;
-            }
-
-            if (room.getData().getState() == RoomState.PASSWORD) {
-                if (!pass.equals(room.getData().getPassword())) {
-                    player.send(new GenericErrorMessageComposer(-100002));
-                    //player.send(new HotelViewMessageComposer());
-                    return;
-                }
-            }
-        }
-        
-        room.loadRoom(player);
+        room.loadRoom(player, request.readString());
     }
 
 }

@@ -19,6 +19,6 @@ public class DoorbellEnterMessageEvent implements MessageEvent {
             return;
         }
         
-        room.loadRoom(player);
+        room.loadRoom(player, "");
     }
 }

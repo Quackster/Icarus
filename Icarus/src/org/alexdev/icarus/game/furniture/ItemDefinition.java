@@ -1,7 +1,6 @@
 package org.alexdev.icarus.game.furniture;
 
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.util.Util;
 
 public class ItemDefinition {
@@ -13,7 +12,7 @@ public class ItemDefinition {
     private int width;
     private int length;
     private double height;
-    private boolean canStack;
+    //private boolean canStack;
     private boolean canSit;
     private boolean isWalkable;
     private int spriteId;
@@ -39,7 +38,7 @@ public class ItemDefinition {
         this.width = width;
         this.length = length;
         this.height = stackHeight;
-        this.canStack = canStack;
+        //this.canStack = canStack;
         this.canSit = canSit;
         this.isWalkable = isWalkable;
         this.spriteId = spriteId;

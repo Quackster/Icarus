@@ -3,17 +3,13 @@ package org.alexdev.icarus.messages.incoming.handshake;
 import org.alexdev.icarus.dao.mysql.PlayerDao;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
-import org.alexdev.icarus.game.player.club.ClubManager;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.handshake.AuthenticationOKMessageComposer;
 import org.alexdev.icarus.messages.outgoing.handshake.AvailabilityMessageComposer;
 import org.alexdev.icarus.messages.outgoing.handshake.UniqueMachineIDMessageComposer;
 import org.alexdev.icarus.messages.outgoing.user.HomeRoomMessageComposer;
 import org.alexdev.icarus.messages.outgoing.user.LandingWidgetMessageComposer;
-import org.alexdev.icarus.messages.outgoing.user.UserRightsComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-import org.alexdev.icarus.util.Util;
 
 public class AuthenticateMessageEvent implements MessageEvent {
 

@@ -3,11 +3,6 @@ package org.alexdev.icarus.dao.mysql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import org.alexdev.icarus.game.player.PlayerDetails;
-import org.alexdev.icarus.game.player.PlayerManager;
-import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.log.Log;
 
 public class ClubDao {

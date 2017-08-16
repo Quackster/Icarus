@@ -10,8 +10,7 @@ public class DiceInteractor  implements Interaction {
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {
 
-        
-        int modes = item.getDefinition().getInterationModes();
+        //int modes = item.getDefinition().getInterationModes();
         int current_mode = Util.getRandom().nextInt(6 + 1);
         
         item.setExtraData(String.valueOf(current_mode));

@@ -1,8 +1,6 @@
 package org.alexdev.icarus.game.player;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.entity.Entity;
@@ -32,7 +30,7 @@ public class Player extends Entity {
         this.roomUser = new RoomUser(this);
         this.messenger = new Messenger(this);
         this.inventory = new Inventory(this);
-        this.subscription = new ClubSubscription();
+        this.subscription = new ClubSubscription(this);
     }
 
     public boolean hasPermission(String permission) {

@@ -47,7 +47,7 @@ public class SendPerkAllowancesMessageComposer extends OutgoingMessageComposer {
         response.writeBool(false);
         response.writeString("CAMERA");
         response.writeString(""); // ??
-        response.writeBool(false);
+        response.writeBool(true);
         response.writeString("NAVIGATOR_PHASE_TWO_2014");
         response.writeString(""); // ??
         response.writeBool(true);
