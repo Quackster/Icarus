@@ -262,6 +262,11 @@ public class Item extends Metadata {
     }
 
     public void updateStatus() {
+    	
+    	if (this.getRoom() == null) {
+    		return;
+    	}
+    	
         try {
             this.getRoom().send(new MoveItemMessageComposer(this));
         } catch (Exception e) { e.printStackTrace(); }

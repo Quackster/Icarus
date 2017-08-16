@@ -66,8 +66,15 @@ public class TeleportInteractor implements Interaction {
 			item.setExtraData(TELEPORTER_CLOSE);
 			item.updateStatus();
 
-			targetTeleporter.setExtraData(TELEPORTER_EFFECTS);
-			targetTeleporter.updateStatus();
+			if (targetTeleporter.getRoomId() == item.getRoomId()) {
+				targetTeleporter.setExtraData(TELEPORTER_EFFECTS);
+				targetTeleporter.updateStatus();
+			} else {
+				if (roomUser.getRoom().getItem(item.getTeleporterId()) != null) {
+					roomUser.getRoom().getItem(item.getTeleporterId()).setExtraData(TELEPORTER_EFFECTS);
+					roomUser.getRoom().getItem(item.getTeleporterId()).updateStatus();
+				}
+			}
 
 		}, 2, TimeUnit.SECONDS);
 
@@ -85,8 +92,10 @@ public class TeleportInteractor implements Interaction {
 				targetTeleporter.setExtraData(TELEPORTER_OPEN);
 				targetTeleporter.updateStatus();
 			} else {
-				roomUser.getRoom().getItem(item.getTeleporterId()).setExtraData(TELEPORTER_OPEN);
-				roomUser.getRoom().getItem(item.getTeleporterId()).updateStatus();
+				if (roomUser.getRoom().getItem(item.getTeleporterId()) != null) {
+					roomUser.getRoom().getItem(item.getTeleporterId()).setExtraData(TELEPORTER_OPEN);
+					roomUser.getRoom().getItem(item.getTeleporterId()).updateStatus();
+				}
 			}
 
 		}, 3, TimeUnit.SECONDS);
@@ -95,7 +104,7 @@ public class TeleportInteractor implements Interaction {
 		RoomManager.getScheduler().schedule(() -> {
 			roomUser.walkTo(targetTeleporter.getPosition().getSquareInFront().getX(), targetTeleporter.getPosition().getSquareInFront().getY());
 		}, 3500, TimeUnit.MILLISECONDS);
-		
+
 		// Close the teleporter
 		RoomManager.getScheduler().schedule(() -> {
 
@@ -103,8 +112,10 @@ public class TeleportInteractor implements Interaction {
 				targetTeleporter.setExtraData(TELEPORTER_CLOSE);
 				targetTeleporter.updateStatus();
 			} else {
-				roomUser.getRoom().getItem(item.getTeleporterId()).setExtraData(TELEPORTER_CLOSE);
-				roomUser.getRoom().getItem(item.getTeleporterId()).updateStatus();
+				if (roomUser.getRoom().getItem(item.getTeleporterId()) != null) {
+					roomUser.getRoom().getItem(item.getTeleporterId()).setExtraData(TELEPORTER_CLOSE);
+					roomUser.getRoom().getItem(item.getTeleporterId()).updateStatus();
+				}
 			}
 
 		}, 4, TimeUnit.SECONDS);
