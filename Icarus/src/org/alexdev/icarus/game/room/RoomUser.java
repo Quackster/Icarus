@@ -33,6 +33,8 @@ public class RoomUser {
 
     private boolean isWalking;
     private boolean needsUpdate;
+    private boolean isTeleporting;
+    private int teleportRoomId;
 
     private long chatFloodTimer;
     private int chatCount;
@@ -429,5 +431,29 @@ public class RoomUser {
         this.position.setRotation(rotation);
         this.needsUpdate = true;
     }
+
+	public boolean isNeedsUpdate() {
+		return needsUpdate;
+	}
+
+	public void setNeedsUpdate(boolean needsUpdate) {
+		this.needsUpdate = needsUpdate;
+	}
+
+	public boolean isTeleporting() {
+		return isTeleporting;
+	}
+
+	public void setTeleporting(boolean isTeleporting) {
+		this.isTeleporting = isTeleporting;
+	}
+
+	public int getTeleportRoomId() {
+		return teleportRoomId;
+	}
+
+	public void setTeleportRoomId(int teleportRoomId) {
+		this.teleportRoomId = teleportRoomId;
+	}
 
 }

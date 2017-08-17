@@ -66,15 +66,8 @@ public class TeleportInteractor implements Interaction {
 			item.setExtraData(TELEPORTER_CLOSE);
 			item.updateStatus();
 
-			if (targetTeleporter.getRoomId() == item.getRoomId()) {
-				targetTeleporter.setExtraData(TELEPORTER_EFFECTS);
-				targetTeleporter.updateStatus();
-			} else {
-				if (roomUser.getRoom().getItem(item.getTeleporterId()) != null) {
-					roomUser.getRoom().getItem(item.getTeleporterId()).setExtraData(TELEPORTER_EFFECTS);
-					roomUser.getRoom().getItem(item.getTeleporterId()).updateStatus();
-				}
-			}
+			targetTeleporter.setExtraData(TELEPORTER_EFFECTS);
+			targetTeleporter.updateStatus();
 
 		}, 2, TimeUnit.SECONDS);
 
@@ -83,6 +76,12 @@ public class TeleportInteractor implements Interaction {
 		RoomManager.getScheduler().schedule(() -> {
 
 			if (targetTeleporter.getRoomId() != item.getRoomId()) {
+				
+				roomUser.setTeleporting(true);
+				roomUser.setTeleportRoomId(targetTeleporter.getRoomId());
+				
+				Log.println("cross-room teleport");
+				
 				targetTeleporter.getRoom().loadRoom((Player) roomUser.getEntity(), "", targetTeleporter.getPosition().getX(), targetTeleporter.getPosition().getY(), targetTeleporter.getPosition().getRotation());
 			} else {
 				roomUser.warpTo(targetTeleporter.getPosition().getX(), targetTeleporter.getPosition().getY(), targetTeleporter.getPosition().getRotation());
@@ -92,10 +91,8 @@ public class TeleportInteractor implements Interaction {
 				targetTeleporter.setExtraData(TELEPORTER_OPEN);
 				targetTeleporter.updateStatus();
 			} else {
-				if (roomUser.getRoom().getItem(item.getTeleporterId()) != null) {
-					roomUser.getRoom().getItem(item.getTeleporterId()).setExtraData(TELEPORTER_OPEN);
-					roomUser.getRoom().getItem(item.getTeleporterId()).updateStatus();
-				}
+				roomUser.getRoom().getItem(item.getTeleporterId()).setExtraData(TELEPORTER_OPEN);
+				roomUser.getRoom().getItem(item.getTeleporterId()).updateStatus();
 			}
 
 		}, 3, TimeUnit.SECONDS);
@@ -112,10 +109,8 @@ public class TeleportInteractor implements Interaction {
 				targetTeleporter.setExtraData(TELEPORTER_CLOSE);
 				targetTeleporter.updateStatus();
 			} else {
-				if (roomUser.getRoom().getItem(item.getTeleporterId()) != null) {
-					roomUser.getRoom().getItem(item.getTeleporterId()).setExtraData(TELEPORTER_CLOSE);
-					roomUser.getRoom().getItem(item.getTeleporterId()).updateStatus();
-				}
+				roomUser.getRoom().getItem(item.getTeleporterId()).setExtraData(TELEPORTER_CLOSE);
+				roomUser.getRoom().getItem(item.getTeleporterId()).updateStatus();
 			}
 
 		}, 4, TimeUnit.SECONDS);

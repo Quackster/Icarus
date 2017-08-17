@@ -18,6 +18,7 @@ import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.game.room.settings.RoomState;
 import org.alexdev.icarus.game.room.settings.RoomType;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.ChatOptionsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.FloorMapMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.HasOwnerRightsMessageComposer;
@@ -70,47 +71,50 @@ public class Room {
 	public void loadRoom(Player player, String pass) {
 		this.loadRoom(player, pass, this.getModel().getDoorX(), this.getModel().getDoorY(), this.getModel().getDoorRot());
 	}
-	
+
 	public void loadRoom(Player player, String pass, int x, int y, int rotation) {
 
 		if (player.inRoom()) {
 			player.getRoom().leaveRoom(player, false);
 		}
-		
+
 		boolean isOwner = this.hasRights(player, true);
-		player.send(new RoomOwnerRightsComposer(this.data.getId(), isOwner));
-
+	
 		if (this.data.getUsersNow() >= this.data.getUsersMax()) {
-
 			if (!player.getDetails().hasFuse("user_enter_full_rooms") && player.getDetails().getId() != this.data.getOwnerId()) {
-
 				player.send(new RoomEnterErrorMessageComposer(1));
-				//player.send(new HotelViewMessageComposer());
 				return;
 			}
 		}
 
-		if (this.data.getState().getStateCode() > 0 && !this.hasRights(player, false)) {
-			if (this.data.getState() == RoomState.DOORBELL) {
+		if (player.getRoomUser().isTeleporting()) {
+			if (player.getRoomUser().getTeleportRoomId() != this.data.getId()) {
+				this.leaveRoom(player, true);
+			} else {
+				player.getRoomUser().setTeleporting(false);
+				player.getRoomUser().setTeleportRoomId(0);
+			}
+		}
+		else {
+			
+			if (this.data.getState().getStateCode() > 0 && !this.hasRights(player, false)) {
+				if (this.data.getState() == RoomState.DOORBELL) {
 
-				if (this.getPlayers().size() > 0) {
-					//player.send(new HotelViewMessageComposer());
-					player.send(new GenericDoorbellMessageComposer(1));
-					this.send(new GenericDoorbellMessageComposer(player.getDetails().getUsername()), true);
-				} else {
+					if (this.getPlayers().size() > 0) {
+						player.send(new GenericDoorbellMessageComposer(1));
+						this.send(new GenericDoorbellMessageComposer(player.getDetails().getUsername()), true);
+					} else {
+						player.send(new GenericNoAnswerDoorbellMessageComposer());
+					}
 
-					player.send(new GenericNoAnswerDoorbellMessageComposer());
-					//player.send(new HotelViewMessageComposer());
+					return;
 				}
 
-				return;
-			}
-
-			if (this.data.getState() == RoomState.PASSWORD) {
-				if (!pass.equals(this.data.getPassword())) {
-					player.send(new GenericErrorMessageComposer(-100002));
-					//player.send(new HotelViewMessageComposer());
-					return;
+				if (this.data.getState() == RoomState.PASSWORD) {
+					if (!pass.equals(this.data.getPassword())) {
+						player.send(new GenericErrorMessageComposer(-100002));
+						return;
+					}
 				}
 			}
 		}
@@ -135,8 +139,10 @@ public class Room {
 		}
 
 		player.send(new RoomSpacesMessageComposer("landscape", this.data.getLandscape()));
+		player.send(new RoomOwnerRightsComposer(this.data.getId(), isOwner));
 
 		if (roomUser.getRoom().hasRights(player, true)) {
+			
 			player.send(new RoomRightsLevelMessageComposer(4));
 			player.send(new HasOwnerRightsMessageComposer());
 
@@ -160,6 +166,49 @@ public class Room {
 			this.firstEntry();
 		}
 	}
+	
+	public void loadMapData(Player player) {
+
+
+		player.send(new HeightMapMessageComposer(this, this.getModel().getMapSizeX(), this.getModel().getMapSizeY()));
+		player.send(new FloorMapMessageComposer(this));
+
+		this.send(new UserDisplayMessageComposer(player));
+		this.send(new UserStatusMessageComposer(player));
+
+		if (!this.getEntities().contains(player)) {
+			this.getEntities().add(player);
+			this.getData().updateUsersNow();
+		}
+
+		player.send(new UserDisplayMessageComposer(this.getEntities()));
+		player.send(new UserStatusMessageComposer(this.getEntities()));
+
+		for (Player players : this.getPlayers()) {
+			if (players.getRoomUser().isDancing()) {
+				player.send(new DanceMessageComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getDanceId()));
+			}
+
+			if (players.getRoomUser().getCarryItem() > 0) {
+				player.send(new CarryObjectComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getCarryItem())); 
+			}
+		}
+
+		if (this.hasRights(player, false)) {
+			player.getRoomUser().setStatus("flatctrl", " 1", true, -1);
+		}        
+
+		player.send(new RoomDataMessageComposer(this, player, true, true));
+
+		player.send(new ChatOptionsMessageComposer(this));
+		player.send(new WallOptionsMessageComposer(this.getData().isHideWall(), this.getData().getWallThickness(), this.getData().getFloorThickness()));
+
+		player.send(new FloorItemsMessageComposer(this.getFloorItems()));
+		player.send(new WallItemsMessageComposer(this.getWallItems()));
+
+		player.getMessenger().sendStatus(false);
+
+	}
 
 	private void firstEntry() {
 
@@ -174,7 +223,7 @@ public class Room {
 	public void leaveRoom(Player player, boolean hotelView) {
 
 		if (hotelView) {;
-		player.send(new HotelViewMessageComposer());
+			player.send(new HotelViewMessageComposer());
 		}
 
 		if (this.entities != null) {
@@ -256,7 +305,6 @@ public class Room {
 		}
 	}
 
-
 	public void send(OutgoingMessageComposer response) {
 
 
@@ -316,7 +364,7 @@ public class Room {
 		if (this.items.containsKey(itemId)) {
 			return this.items.get(itemId);
 		}
-		
+
 		return ItemDao.getItem(itemId);
 	}
 
@@ -343,49 +391,4 @@ public class Room {
 		this.privateId = this.privateId + 1;
 		return this.privateId;
 	}
-
-	public void loadMapData(Player player) {
-		
-
-        player.send(new HeightMapMessageComposer(this, this.getModel().getMapSizeX(), this.getModel().getMapSizeY()));
-        player.send(new FloorMapMessageComposer(this));
-
-        this.send(new UserDisplayMessageComposer(player));
-        this.send(new UserStatusMessageComposer(player));
-
-        if (!this.getEntities().contains(player)) {
-            this.getEntities().add(player);
-            this.getData().updateUsersNow();
-        }
-
-        player.send(new UserDisplayMessageComposer(this.getEntities()));
-        player.send(new UserStatusMessageComposer(this.getEntities()));
-
-        for (Player players : this.getPlayers()) {
-            if (players.getRoomUser().isDancing()) {
-                player.send(new DanceMessageComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getDanceId()));
-            }
-            
-            if (players.getRoomUser().getCarryItem() > 0) {
-                player.send(new CarryObjectComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getCarryItem())); 
-            }
-        }
-
-        if (this.hasRights(player, false)) {
-            player.getRoomUser().setStatus("flatctrl", " 1", true, -1);
-        }        
-
-        player.send(new RoomDataMessageComposer(this, player, true, true));
-
-        player.send(new ChatOptionsMessageComposer(this));
-        player.send(new WallOptionsMessageComposer(this.getData().isHideWall(), this.getData().getWallThickness(), this.getData().getFloorThickness()));
-
-        player.send(new FloorItemsMessageComposer(this.getFloorItems()));
-        player.send(new WallItemsMessageComposer(this.getWallItems()));
-        
-        player.getMessenger().sendStatus(false);
-		
-	}
-
-
 }

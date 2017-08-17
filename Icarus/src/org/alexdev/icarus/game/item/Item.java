@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.ItemDao;
 import org.alexdev.icarus.dao.mysql.MoodlightDao;
+import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.furniture.ItemManager;
@@ -393,7 +394,14 @@ public class Item extends Metadata {
     }
 
     public Room getRoom() {
-        return RoomManager.find(this.roomId);
+        
+    	Room room = RoomManager.find(this.roomId);
+    	
+    	if (room == null) {
+    		room = RoomDao.getRoom(this.roomId, true);
+    	}
+    	
+    	return room;
     }
 
     public String getExtraData() {
