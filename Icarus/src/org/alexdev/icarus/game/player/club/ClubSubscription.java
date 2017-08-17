@@ -2,6 +2,7 @@ package org.alexdev.icarus.game.player.club;
 
 import org.alexdev.icarus.dao.mysql.ClubDao;
 import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.user.SubscriptionMessageComposer;
 import org.alexdev.icarus.messages.outgoing.user.UserRightsComposer;
 import org.alexdev.icarus.util.Util;
@@ -119,6 +120,12 @@ public class ClubSubscription {
     }
 
 	public void sendSubscriptionStatus() {
+		
+		if (this.player.getSubscription().hasSubscription()) {
+			
+			Log.println("subscription omg");
+		}
+		
         this.player.send(new SubscriptionMessageComposer(this.player));
         this.player.send(new UserRightsComposer(this.player.getSubscription().hasSubscription(), this.player.getDetails().getRank()));
 	}
