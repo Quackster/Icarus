@@ -2,7 +2,6 @@ package org.alexdev.icarus.game.furniture.interactions.types;
 
 import java.util.concurrent.TimeUnit;
 
-import org.alexdev.icarus.dao.mysql.ItemDao;
 import org.alexdev.icarus.game.furniture.interactions.Interaction;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pathfinder.Position;
