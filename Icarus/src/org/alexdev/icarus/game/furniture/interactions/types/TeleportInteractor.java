@@ -8,7 +8,6 @@ import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.RoomUser;
-import org.alexdev.icarus.log.Log;
 
 public class TeleportInteractor implements Interaction {
 
@@ -74,13 +73,10 @@ public class TeleportInteractor implements Interaction {
 		// Open up new teleporter and walk out of it
 		RoomManager.getScheduler().schedule(() -> {
 
-			if (targetTeleporter.getRoomId() != item.getRoomId()) {
-				
+			if (targetTeleporter.getRoomId() != item.getRoomId()) {				
 				roomUser.setTeleporting(true);
 				roomUser.setTeleportRoomId(targetTeleporter.getRoomId());
-				
-				Log.println("cross-room teleport");
-				
+	
 				targetTeleporter.getRoom().loadRoom((Player) roomUser.getEntity(), "", targetTeleporter.getPosition().getX(), targetTeleporter.getPosition().getY(), targetTeleporter.getPosition().getRotation());
 			} else {
 				roomUser.warpTo(targetTeleporter.getPosition().getX(), targetTeleporter.getPosition().getY(), targetTeleporter.getPosition().getRotation());

@@ -11,7 +11,6 @@ import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.log.DateTime;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.TalkMessageComposer;
@@ -199,13 +198,6 @@ public class RoomUser {
             return;
         }
 
-        Item item = this.room.getMapping().getHighestItem(X, Y);
-        
-        if (item != null) {
-            Log.println("ITEM: " + item.getId() + " - " + item.getDefinition().getPublicName() + " - " + item.getPosition().getZ() + " - " + item.getTotalHeight());
-        }
-        
-        
         if (!this.room.getMapping().isTileWalkable(this.entity, X, Y)) {
             return;
         }

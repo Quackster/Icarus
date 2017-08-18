@@ -5,7 +5,6 @@ import java.util.concurrent.TimeUnit;
 import org.alexdev.icarus.dao.mysql.ClubDao;
 import org.alexdev.icarus.game.catalogue.CatalogueBundledItem;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessageComposer;
 import org.alexdev.icarus.util.Util;
 
@@ -15,8 +14,6 @@ public class ClubManager {
         
         int daysPurchased = 30;
         String catalogueName = bundleItem.getCatalogueItem().getCatalogueName();
-        
-        Log.println(catalogueName);
         
         if (catalogueName.equals("DEAL_HC_2")) {
             daysPurchased = daysPurchased * 3;
