@@ -17,12 +17,9 @@ public class RoomThumbnailMessageEvent implements MessageEvent {
         //byte[] buffer = new byte[bytes.length * 3];
 
         try {
-            
 
             byte[] msg = request.getRawMessage();
-            
-            Log.println(new String(msg));
-                
+     
             FileOutputStream fos = new FileOutputStream("pathname.png");
             fos.write(msg);
             fos.close();
