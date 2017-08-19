@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 14, 2017 at 12:27 PM
+-- Generation Time: Aug 19, 2017 at 07:13 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -12589,16 +12589,74 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`, `y`, `z`, `rotation`, `extra_data`) VALUES
-(1, 5, 5, 2801, 9, '1', '7', 0.001, 0, '0'),
-(2, 5, 5, 5166, 10, '7', '13', 0.001, 0, '2'),
-(3, 5, 5, 5174, 9, '4', '5', 0.01, 0, '0'),
-(4, 5, 5, 1578, 9, '4', '7', 0.001, 0, ''),
-(5, 5, 5, 1316, 10, '10', '3', 0.001, 0, ''),
-(6, 5, 5, 1322, 10, '10', '4', 0.802, 2, ''),
-(7, 5, 5, 1698, 0, 'l,6,3', '9,40', 0, 0, ''),
-(8, 5, 5, 2755, 0, '4', '5', 1.02, 0, '1'),
-(9, 5, 5, 1036, 9, '7', '6', 0.01, 2, '1'),
-(10, 5, 5, 1037, 9, '7', '6', 1.02, 0, '');
+(1, 5, 5, 2801, 15, '8', '2', 0.01, 0, '0'),
+(2, 5, 5, 5166, 0, '7', '13', 0.001, 0, '2'),
+(3, 5, 5, 5174, 15, '5', '5', 0.01, 0, '0'),
+(4, 5, 5, 1578, 15, '2', '8', 0.01, 0, ''),
+(5, 5, 5, 1316, 0, '10', '3', 0.001, 0, ''),
+(6, 5, 5, 1322, 0, '10', '4', 0.802, 2, ''),
+(7, 5, 5, 1698, 15, 'r,2,4', '9,28', 0, 0, ''),
+(8, 5, 5, 2755, 15, '1', '10', 0.01, 0, '1'),
+(9, 5, 5, 1036, 15, '6', '2', 0.01, 0, '1'),
+(10, 5, 5, 1037, 15, '3', '6', 0.01, 0, '1'),
+(11, 5, 5, 175, 10, '2', '8', 1.01, 2, '12'),
+(12, 5, 5, 175, 15, '6', '3', 0.01, 2, '11'),
+(13, 5, 5, 2045, 6, 'r,3,0', '1,28', 0, 0, '3'),
+(14, 5, 5, 2045, 6, 'r,1,0', '15,35', 0, 0, '0'),
+(15, 5, 5, 2045, 6, 'r,5,0', '1,28', 0, 0, '1'),
+(16, 5, 5, 2045, 6, 'l,0,7', '15,28', 0, 0, '2'),
+(17, 5, 5, 2038, 6, '4', '1', 0.03, 4, '2'),
+(18, 5, 5, 2038, 6, '3', '1', 0.01, 4, '0'),
+(19, 5, 5, 2038, 6, '1', '1', 0.01, 4, '1'),
+(20, 5, 5, 1989, 6, '3', '6', 0.01, 0, ''),
+(21, 5, 5, 2040, 6, '1', '4', 0.01, 2, '2'),
+(22, 5, 5, 2043, 6, '1', '5', 0.01, 0, ''),
+(23, 5, 5, 2041, 6, '5', '1', 0.05, 0, '1'),
+(25, 5, 5, 2045, 6, 'l,0,1', '1,35', 0, 0, ''),
+(26, 5, 5, 2045, 6, 'l,0,2', '6,32', 0, 0, ''),
+(27, 5, 5, 2045, 6, 'l,0,4', '13,28', 0, 0, '1'),
+(28, 5, 5, 2045, 6, 'l,0,5', '15,28', 0, 0, ''),
+(29, 5, 5, 4954, 14, '4', '7', 0.01, 2, '30'),
+(30, 5, 5, 4954, 15, '5', '2', 0.01, 0, '29'),
+(33, 5, 5, 1653, 9, 'l,4,2', '2,36', 0, 0, '2'),
+(34, 5, 5, 1653, 9, 'l,0,8', '9,31', 0, 0, '1'),
+(35, 5, 5, 169, 9, '10', '1', 0.01, 4, ''),
+(36, 5, 5, 174, 9, '9', '1', 0.01, 4, ''),
+(37, 5, 5, 172, 9, '7', '1', 0.01, 0, '1'),
+(38, 5, 5, 883, 15, '10', '5', 0.02, 0, ''),
+(39, 5, 5, 883, 15, '10', '5', 0.01, 0, ''),
+(40, 5, 5, 883, 15, '10', '6', 0.01, 0, ''),
+(41, 5, 5, 883, 15, '10', '7', 0.01, 0, ''),
+(42, 5, 5, 883, 15, '10', '8', 0.01, 0, ''),
+(43, 5, 5, 883, 15, '9', '9', 0.01, 0, ''),
+(44, 5, 5, 883, 15, '8', '9', 0.01, 0, ''),
+(45, 5, 5, 883, 15, '6', '8', 0.01, 0, ''),
+(46, 5, 5, 883, 15, '4', '7', 0.01, 0, ''),
+(47, 5, 5, 883, 15, '2', '7', 0.01, 0, ''),
+(48, 5, 5, 892, 15, '8', '7', 0.01, 0, ''),
+(49, 5, 5, 892, 15, '5', '7', 0.01, 0, ''),
+(50, 5, 5, 892, 15, '6', '9', 0.01, 0, ''),
+(51, 5, 5, 892, 15, '5', '10', 0.01, 0, ''),
+(52, 5, 5, 910, 9, '1', '7', 0.01, 2, ''),
+(53, 5, 5, 910, 15, '7', '5', 0.01, 0, ''),
+(54, 5, 5, 910, 15, '4', '8', 0.01, 0, ''),
+(55, 5, 5, 910, 9, '5', '2', 0.01, 2, ''),
+(56, 5, 5, 919, 9, '5', '4', 0.01, 2, ''),
+(57, 5, 5, 919, 9, '1', '10', 0.01, 2, ''),
+(58, 5, 5, 104, 15, '1', '9', 0.01, 0, ''),
+(59, 5, 5, 150, 9, '5', '5', 0.01, 0, ''),
+(60, 5, 5, 201, 9, '5', '1', 0.01, 2, ''),
+(61, 5, 5, 139, 9, '1', '6', 0.01, 0, ''),
+(62, 5, 5, 100, 9, '3', '7', 0.01, 2, ''),
+(63, 5, 5, 17, 9, '1', '5', 0.01, 0, ''),
+(64, 5, 5, 118, 9, '7', '4', 0.01, 2, ''),
+(65, 5, 5, 155, 9, '8', '4', 0.03, 4, ''),
+(66, 5, 5, 102, 9, '5', '7', 0.03, 0, ''),
+(67, 5, 5, 901, 9, '1', '9', 0.01, 2, ''),
+(68, 5, 5, 901, 9, '1', '8', 0.01, 2, '1'),
+(69, 5, 5, 901, 9, '5', '3', 0.01, 2, ''),
+(70, 5, 5, 176, 9, '8', '1', 0.01, 4, '71'),
+(71, 5, 5, 176, 18, '3', '9', 0.01, 2, '70');
 
 -- --------------------------------------------------------
 
@@ -12761,11 +12819,10 @@ CREATE TABLE `rooms` (
 
 INSERT INTO `rooms` (`id`, `name`, `room_type`, `date_created`, `owner_id`, `group_id`, `thumbnail`, `description`, `password`, `users_now`, `users_max`, `model`, `wallpaper`, `floor`, `outside`, `tags`, `trade_state`, `state`, `score`, `category`, `allow_pets`, `allow_pets_eat`, `allow_walkthrough`, `hidewall`, `wall_thickness`, `floor_thickness`, `chat_mode`, `chat_size`, `chat_speed`, `chat_flood`, `chat_distance`, `who_can_mute`, `who_can_kick`, `who_can_ban`) VALUES
 (5, 'Hotel Lobby', 1, '2017-03-20 20:15:27', -1, 0, 'thumbnails/picture1.png', '', '', 0, 25, 'model_n', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 100, 0, 0, 0),
-(6, 'Chill Lounge', 1, '2017-03-20 20:19:36', -1, 0, 'thumbnails/picture2.png', '', '', 0, 25, 'model_newbie', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 100, 0, 0, 0),
-(9, 'The Office', 0, '2017-03-22 04:28:10', 5, 0, NULL, '', '', 0, 30, 'model_b', '111', '401', '1.4', '', 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
-(10, 'stairs |', 0, '2017-03-23 09:38:33', 5, 0, NULL, '', '', 0, 10, 'model_g', '216', '608', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0),
-(14, 'test', 0, '2017-05-11 18:43:04', 2, 0, NULL, '', '', 0, 1, 'model_a', '0', '0', '0', '', 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
-(15, 'test', 0, '2017-05-12 20:54:02', 5, 0, NULL, '', '', 0, 10, 'model_b', '0', '0', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 30, 0, 0, 0);
+(6, 'Chill Lounge', 1, '2017-03-20 20:19:36', -1, 0, 'thumbnails/picture2.png', '', '', 0, 25, 'model_newbie', '0', '401', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 100, 0, 0, 0),
+(9, 'The Living Room', 0, '2017-03-22 04:28:10', 5, 0, NULL, '', '', 0, 30, 'model_b', '207', '207', '1.4', '', 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
+(14, 'test', 0, '2017-05-11 18:43:04', 2, 0, NULL, '', '', 0, 15, 'model_a', '0', '0', '0', '', 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
+(18, 'Secondary Room', 0, '2017-08-18 18:32:55', 5, 0, NULL, '', '', 0, 25, 'model_h', '0', '0', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 30, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -12792,6 +12849,29 @@ INSERT INTO `rooms_newbie` (`id`, `model`, `wallpaper`, `floor`, `items`) VALUES
 (4, 'model_newbie', '1801', '110', '1650;r,3,0 5,35|1051;3;4;0|1057;3;6;0|1057;3;2;4'),
 (5, 'model_newbie', '503', '104', '1650;r,3,0 5,35|1052;3;5;2|1058;2;3;4|1058;4;3;4'),
 (6, 'model_newbie', '604', '107', '1650;r,3,0 5,35|1053;3;4;0|1059;3;6;0|1059;2;6;0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `room_chatlogs`
+--
+
+CREATE TABLE `room_chatlogs` (
+  `id` int(11) NOT NULL,
+  `user` varchar(50) NOT NULL,
+  `room_id` int(11) NOT NULL,
+  `timestamp` bigint(20) NOT NULL,
+  `message_type` tinyint(1) NOT NULL,
+  `message` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `room_chatlogs`
+--
+
+INSERT INTO `room_chatlogs` (`id`, `user`, `room_id`, `timestamp`, `message_type`, `message`) VALUES
+(3608, 'Alex', 9, 1503118033, 0, 'xd'),
+(3609, 'Alex', 9, 1503118053, 0, 'xdd');
 
 -- --------------------------------------------------------
 
@@ -12997,7 +13077,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `rank`, `join_date`, `last_online`, `sso_ticket`, `email`, `mission`, `gender`, `figure`, `credits`) VALUES
 (2, 'MemeMaster', NULL, 7, 44324323, 1490046606, '321', NULL, 'eating more cake, k?', 'M', 'ch-3111-88-91.hd-180-1.lg-285-82.ea-1406-1408.ha-1008-64.hr-125-45.sh-3068-1408-1408', 400),
-(5, 'Alex', 'bf070b42503c652ba6f0494adf55c57951c9cd5a', 1, 1489384512, 1491544401, '123', 'we3rejfpef3@cefc.com', 'Icarus alpha tester', 'M', 'hd-180-1.cc-3280-64-1408.lg-270-64.ha-1018-64.sh-290-64.hr-155-45.ch-875-64-1408', 5000);
+(5, 'Alex', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 1, 1489384512, 1491544401, 'sso-icarus-t9KyuhlB1I-miEpu4-5y61UKZAbm', 'we3rejfpef3@cefc.com', 'Icarus alpha tester', 'M', 'lg-270-90.cc-3075-90.ch-3030-1408.sh-290-64.hr-3260-45.ca-3187-79.ha-3291-73.hd-209-1', 4995);
 
 -- --------------------------------------------------------
 
@@ -13011,6 +13091,13 @@ CREATE TABLE `users_subscriptions` (
   `bought_time` bigint(11) NOT NULL DEFAULT '0',
   `expire_time` bigint(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users_subscriptions`
+--
+
+INSERT INTO `users_subscriptions` (`id`, `user_id`, `bought_time`, `expire_time`) VALUES
+(1, 5, 1502983975, 1505575975);
 
 --
 -- Indexes for dumped tables
@@ -13081,6 +13168,12 @@ ALTER TABLE `rooms`
 --
 ALTER TABLE `rooms_newbie`
   ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `room_chatlogs`
+--
+ALTER TABLE `room_chatlogs`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `room_items_moodlight`
@@ -13157,7 +13250,7 @@ ALTER TABLE `furniture`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 --
 -- AUTO_INCREMENT for table `messenger_friendships`
 --
@@ -13187,12 +13280,17 @@ ALTER TABLE `navigator_tabs`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `rooms_newbie`
 --
 ALTER TABLE `rooms_newbie`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `room_chatlogs`
+--
+ALTER TABLE `room_chatlogs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3610;
 --
 -- AUTO_INCREMENT for table `room_items_moodlight`
 --
@@ -13232,7 +13330,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users_subscriptions`
 --
 ALTER TABLE `users_subscriptions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -15,6 +15,7 @@ import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.game.room.settings.RoomType;
 import org.alexdev.icarus.log.Log;
+import org.alexdev.icarus.util.Util;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -302,6 +303,41 @@ public class RoomDao {
 
     public static RoomModel getModel(String model) {
         return roomModels.get(model);
+    }
+    
+    public static void saveChatlog(Player chatter, int roomID, String chatType, String message) {
+    	
+		Connection sqlConnection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+
+			sqlConnection = Dao.getStorage().getConnection();
+
+			preparedStatement = Dao.getStorage().prepare("INSERT INTO room_chatlogs (user, room_id, timestamp, message_type, message) VALUES (?, ?, ?, ?, ?)", sqlConnection);
+			preparedStatement.setString(1, chatter.getDetails().getUsername());
+			preparedStatement.setInt(2, roomID);
+			preparedStatement.setLong(3, Util.getCurrentTimeSeconds());
+			
+			if (chatType.equals("CHAT")) {
+				preparedStatement.setInt(4, 0);
+			} else if (chatType.equals("SHOUT")) {
+				preparedStatement.setInt(4, 1);
+			} else {
+				preparedStatement.setInt(4, 2);
+			}
+			
+			preparedStatement.setString(5, message);
+			preparedStatement.execute();
+
+		} catch (SQLException e) {
+			Log.exception(e);
+		} finally {
+			Storage.closeSilently(resultSet);
+			Storage.closeSilently(preparedStatement);
+			Storage.closeSilently(sqlConnection);
+		}
     }
 
     public static Room fill(ResultSet row) throws SQLException {

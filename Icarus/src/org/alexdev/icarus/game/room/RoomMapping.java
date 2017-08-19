@@ -192,7 +192,7 @@ public class RoomMapping {
         
         
         Item currentItem = this.getHighestItem(current.getX(), current.getY());
-        Item nextItem = this.getHighestItem(neighbour.getX(), neighbour.getY());
+        //Item nextItem = this.getHighestItem(neighbour.getX(), neighbour.getY());
         
         if (!current.isMatch(this.room.getModel().getDoorPosition())) {
 

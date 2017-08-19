@@ -81,7 +81,6 @@ public class Item extends Metadata {
 
         if (this.type == ItemType.WALL) {
             if (this.roomId > 0) {
-                Log.println("PARSE WALL ITEM");
                 this.parseWallPosition(x + " " + y);
             }
 

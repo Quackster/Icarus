@@ -44,9 +44,7 @@ public class TalkMessageComposer extends OutgoingMessageComposer {
         response.writeString(this.message);
         response.writeInt(0);
         response.writeInt(this.textColour);
-        response.writeInt(0);// links count (foreach string string bool)
+        response.writeInt(0);
         response.writeInt(this.count);
-
     }
-
 }
