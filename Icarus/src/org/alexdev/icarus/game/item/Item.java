@@ -129,6 +129,11 @@ public class Item extends Metadata {
                     }
 
                     affected_players.add(entity);
+                    
+                // Extra check if a furniture is on a rug... sometimes it bugs up ;)
+                } else if (hasEntityCollision(entity.getRoomUser().getPosition().getX(), entity.getRoomUser().getPosition().getY())) {
+                    entity.getRoomUser().setCurrentItem(this);
+                    affected_players.add(entity);
                 }
             }
 
