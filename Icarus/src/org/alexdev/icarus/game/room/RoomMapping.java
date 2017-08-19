@@ -180,15 +180,40 @@ public class RoomMapping {
 
     }*/
 
-    public boolean isValidStep(Entity entity, Position position, Position tmp, boolean isFinalMove) {
+    public boolean isValidStep(Entity entity, Position current, Position neighbour, boolean isFinalMove) {
 
-        if (!this.isTileWalkable(entity, position.getX(), position.getY())) {
+        if (!this.isTileWalkable(entity, current.getX(), current.getY())) {
             return false;
         }
 
-        if (!this.isTileWalkable(entity, tmp.getX(), tmp.getY())) {
+        if (!this.isTileWalkable(entity, neighbour.getX(), neighbour.getY())) {
             return false;
         }
+        
+        
+        Item currentItem = this.getHighestItem(current.getX(), current.getY());
+        Item nextItem = this.getHighestItem(neighbour.getX(), neighbour.getY());
+        
+        if (!current.isMatch(this.room.getModel().getDoorPosition())) {
+
+            if (!this.isTileWalkable(entity, current.getX(), current.getY())) {
+                return false;
+            }
+
+            if (!current.isMatch(entity.getRoomUser().getPosition())) {
+                if (currentItem != null) {
+                    if (!isFinalMove) {
+                        return currentItem.getDefinition().isWalkable() && !currentItem.getDefinition().allowSit() && currentItem.getDefinition().getInteractionType() != InteractionType.BED;
+                    }
+
+                    if (isFinalMove) {
+                        return currentItem.canWalk();
+
+                    }
+                }
+            }
+        }
+
 
 
         return true;
@@ -240,6 +265,7 @@ public class RoomMapping {
 
         this.room.send(new PlaceItemMessageComposer(item));
 
+        item.updateEntities();
         item.save();
     }
 
@@ -250,13 +276,16 @@ public class RoomMapping {
             this.regenerateCollisionMaps();
         }
 
-        item.updateStatus();
+        item.updateEntities();
         item.save();
     }
 
     public void removeItem(Item item) {
 
         //this.removeMappedItem(item);
+    	
+    	item.getPosition().setX(-1);
+    	item.getPosition().setY(-1);
 
         if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
             if (MoodlightDao.hasMoodlightData(item.getId())) {
@@ -302,8 +331,8 @@ public class RoomMapping {
                 item.getPosition().setZ(this.room.getModel().getHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
             }
         }
-
-        item.updateEntities();
+        
+        item.updateStatus();
     }
 
     public double getTileHeight(int x, int y) {

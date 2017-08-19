@@ -60,6 +60,13 @@ public class RoomUser {
         this.next = null;
         this.isWalking = false;
 
+        this.updateCurrentItem();
+        
+        this.needsUpdate = true;
+    }
+    
+    public boolean updateCurrentItem() {
+    	
         Item item = this.room.getMapping().getHighestItem(this.position.getX(), this.position.getY());
 
         boolean no_current_item = false;
@@ -77,9 +84,10 @@ public class RoomUser {
 
         if (no_current_item) {
             this.currentItem = null;
+            return false;
         }
         
-        this.needsUpdate = true;
+        return true;
     }
 
     public void triggerCurrentItem() {

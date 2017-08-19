@@ -33,8 +33,9 @@ public class Icarus {
             createConfig();
             Log.startup();
 
-            serverIP = Util.getConfiguration().get("Server", "server.ip", String.class);
-
+            rawConfigIP = Util.getConfiguration().get("Server", "server.ip", String.class);
+            serverIP = rawConfigIP;
+            
             if (!isValidIpAddress(rawConfigIP)) {
                 serverIP = InetAddress.getByName(rawConfigIP).getHostAddress();
             }
