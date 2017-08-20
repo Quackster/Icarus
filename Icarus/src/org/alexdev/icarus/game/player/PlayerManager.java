@@ -1,15 +1,19 @@
 package org.alexdev.icarus.game.player;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.alexdev.icarus.dao.mysql.PlayerDao;
+import org.alexdev.icarus.game.moderation.Permission;
 
 public class PlayerManager {
 
-    private static ConcurrentHashMap<Integer, Player> players;
-    
-    static {
-        players = new ConcurrentHashMap<Integer, Player>();
+	private static ConcurrentHashMap<Integer, Player> players;
+	private static List<Permission> permissions;
+
+	static {
+		players = new ConcurrentHashMap<Integer, Player>();
+		permissions = PlayerDao.getPermissions();
     }
 
     public static Player getById(int userId) {
@@ -54,8 +58,28 @@ public class PlayerManager {
         return false;
     }
     
-    
-    public static ConcurrentHashMap<Integer, Player> getPlayers() {
+	public static boolean hasPermission(int rank, String perm) {
+		
+		for (Permission permission  : permissions) {
+
+			if (permission.getPermission().equals(perm)) {
+
+				if (permission.isInheritable()) {
+					if (rank >= permission.getRank()) {
+						return true;
+					}
+				} else {
+					if (rank == permission.getRank()) {
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	public static ConcurrentHashMap<Integer, Player> getPlayers() {
         return players;
     }
 }

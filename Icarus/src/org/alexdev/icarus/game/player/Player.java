@@ -34,8 +34,9 @@ public class Player extends Entity {
     }
 
     public boolean hasPermission(String permission) {
-        return true;
-    }
+    		return PlayerManager.hasPermission(this.details.getRank(), permission);
+    	}
+
 
     public void login() {
         
