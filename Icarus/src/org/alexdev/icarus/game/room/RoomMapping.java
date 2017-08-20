@@ -294,15 +294,18 @@ public class RoomMapping {
 
             item.setExtraData("");
         }
-
+        
+        this.room.getItems().remove(item.getId());
+        this.regenerateCollisionMaps();
+        
         item.updateEntities();
         item.setRoomId(0);
         item.save();
 
-        this.room.getItems().remove(item.getId());
+       
         this.room.send(new RemoveItemMessageComposer(item));
         
-        this.regenerateCollisionMaps();
+        
     }
 
     private void handleItemAdjustment(Item item, boolean rotation_only) {

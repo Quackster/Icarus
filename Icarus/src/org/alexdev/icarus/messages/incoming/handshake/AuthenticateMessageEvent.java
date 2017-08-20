@@ -45,6 +45,7 @@ public class AuthenticateMessageEvent implements MessageEvent {
         player.send(new LandingWidgetMessageComposer());
         player.send(new AvailabilityMessageComposer());
         
+        
         //ClubManager.purchaseDays(player, 31);
         
         player.login();

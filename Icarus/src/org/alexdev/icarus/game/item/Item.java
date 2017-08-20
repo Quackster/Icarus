@@ -145,7 +145,7 @@ public class Item extends Metadata {
 
         // Trigger item update for affected players
         for (Entity entity : affected_players) {
-            entity.getRoomUser().triggerCurrentItem();
+        	entity.getRoomUser().triggerCurrentItem();
         }
     }
 

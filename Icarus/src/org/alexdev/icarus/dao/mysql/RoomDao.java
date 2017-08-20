@@ -189,7 +189,7 @@ public class RoomDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                rooms.add(resultSet.getInt("user_id"));
+                rooms.add(Integer.valueOf(resultSet.getInt("user_id")));
             }
 
         } catch (Exception e) {

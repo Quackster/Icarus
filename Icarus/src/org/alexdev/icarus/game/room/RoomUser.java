@@ -103,7 +103,8 @@ public class RoomUser {
 				handler.onStopWalking(this.currentItem, this);
 			}
 		}
-
+		
+		this.position.setZ(this.room.getMapping().getTile(this.position.getX(), this.position.getY()).getHeight());
 		this.needsUpdate = true;
 	}
 
