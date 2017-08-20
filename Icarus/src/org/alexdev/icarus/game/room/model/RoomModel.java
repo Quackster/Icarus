@@ -31,10 +31,8 @@ public class RoomModel
     private String floorMap;
     private String[][] squareChar;
     
-    private int doorX;
-    private int doorY;
-    private int doorZ;
-    private int doorRot;
+    private Position doorLocation;
+    
     private int mapSizeX;
     private int mapSizeY;
     
@@ -45,11 +43,10 @@ public class RoomModel
         
         this.name = name;
         this.heightmap = heightmap;
-        this.doorX = doorX;
-        this.doorY = doorY;
-        this.doorZ = doorZ;
-        this.doorRot = doorRot;
-
+        
+        this.doorLocation = new Position(doorX, doorY, doorZ);
+        this.doorLocation.setRotation(doorRot);
+        
         String[] temporary = heightmap.split(Character.toString((char)13));
 
         this.mapSizeX = temporary[0].length();
@@ -67,21 +64,19 @@ public class RoomModel
 
             for (int x = 0; x < mapSizeX; x++) {
                 
-                String square = temporary[y].substring(x,x + 1).trim().toLowerCase();
+                String square = temporary[y].substring(x, x + 1).trim().toLowerCase();
 
                 if (square.equals("x"))    {
                     squares[x][y] = CLOSED;
                     
                 } else if(isNumeric(square)) {
-                    
                     squares[x][y] = OPEN;
                     squareHeight[x][y] = Double.parseDouble(square);
                 }
                 
-                
-                if (this.doorX == x && this.doorY == y) {
+                if (this.doorLocation.getX() == x && this.doorLocation.getY() == y) {
                     squares[x][y] = OPEN;
-                    squareHeight[x][y] = Double.parseDouble(this.doorZ + "");
+                    squareHeight[x][y] = Double.parseDouble(this.doorLocation.getZ() + "");
                 }
                 
                 squareChar[x][y] = square;
@@ -96,8 +91,8 @@ public class RoomModel
 
                 try {
 
-                    if (j == this.getDoorX() && i == this.getDoorY())    {
-                        stringBuilder.append(this.getDoorZ());
+                    if (j == this.doorLocation.getX() && i == this.doorLocation.getY())    {
+                        stringBuilder.append((int)this.getDoorLocation().getZ());
                     } else {
 
                         stringBuilder.append(this.getSquareChar()[j][i].toString());
@@ -117,7 +112,6 @@ public class RoomModel
     public double getHeight(Position point) {
         return squareHeight[point.getX()][point.getY()];
     }
-    
     
     public String getHeightMap() {
         return heightmap;
@@ -161,20 +155,8 @@ public class RoomModel
         return name;
     }
     
-    public int getDoorX() {
-        return doorX;
-    }
-    
-    public int getDoorY() {
-        return doorY;
-    }
-    
-    public int getDoorZ() {
-        return doorZ;
-    }
-    
-    public int getDoorRot() {
-        return doorRot;
+    public Position getDoorLocation() {
+    	return doorLocation;
     }
     
     public int getMapSizeX() {
@@ -195,9 +177,5 @@ public class RoomModel
 
     public String[][] getSquareChar() {
         return squareChar;
-    }
-
-    public Position getDoorPosition() {
-        return new Position(this.doorX, this.doorY, this.doorZ);
     }
 }

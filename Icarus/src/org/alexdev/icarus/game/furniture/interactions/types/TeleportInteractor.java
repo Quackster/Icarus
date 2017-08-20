@@ -41,8 +41,8 @@ public class TeleportInteractor implements Interaction {
 		int newRotation = item.getPosition().getRotation() - 4;
 
 		if (roomUser.getPosition().getRotation() != newRotation) {
-			roomUser.getPosition().setRotation(newRotation);
-			roomUser.setNeedUpdate(true);
+			//roomUser.getPosition().setRotation(newRotation);
+			//roomUser.setNeedUpdate(true);
 		}
 
 		item.setExtraData(TELEPORTER_OPEN);

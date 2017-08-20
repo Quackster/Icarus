@@ -17,6 +17,7 @@ import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.game.room.settings.RoomState;
 import org.alexdev.icarus.game.room.settings.RoomType;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.ChatOptionsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.FloorMapMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.HasOwnerRightsMessageComposer;
@@ -67,7 +68,11 @@ public class Room {
 	}
 
 	public void loadRoom(Player player, String pass) {
-		this.loadRoom(player, pass, this.getModel().getDoorX(), this.getModel().getDoorY(), this.getModel().getDoorRot());
+		
+		this.loadRoom(player, pass, 
+				this.getModel().getDoorLocation().getX(), 
+				this.getModel().getDoorLocation().getY(), 
+				this.getModel().getDoorLocation().getRotation());
 	}
 
 	public void loadRoom(Player player, String pass, int x, int y, int rotation) {
@@ -139,12 +144,10 @@ public class Room {
 		player.send(new RoomSpacesMessageComposer("landscape", this.data.getLandscape()));
 		player.send(new RoomOwnerRightsComposer(this.data.getId(), isOwner));
 
-		if (roomUser.getRoom().hasRights(player, true)) {
-			
+		if (roomUser.getRoom().hasRights(player, true)) {	
 			player.send(new RoomRightsLevelMessageComposer(4));
 			player.send(new HasOwnerRightsMessageComposer());
-
-
+			
 		} else if (roomUser.getRoom().hasRights(player, false)) {
 			player.send(new RoomRightsLevelMessageComposer(1));
 
@@ -158,7 +161,7 @@ public class Room {
 		roomUser.getPosition().setX(x);
 		roomUser.getPosition().setY(y);
 		roomUser.getPosition().setZ(this.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
-		roomUser.getPosition().setRotation(this.getModel().getDoorRot());
+		roomUser.getPosition().setRotation(this.getModel().getDoorLocation().getRotation());
 
 		if (!(this.getPlayers().size() > 0)) {
 			this.firstEntry();

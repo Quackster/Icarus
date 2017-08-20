@@ -127,9 +127,13 @@ public class RollerTask extends RoomTask {
                             Position front = roller.getPosition().getSquareInFront();
                             double nextHeight = this.room.getMapping().getTile(front.getX(), front.getY()).getHeight();
 
-                            if (!this.room.getMapping().isTileWalkable(entity, front.getX(), front.getY())) {
+                            if (!this.room.getMapping().isValidStep(entity, entity.getRoomUser().getPosition(), front, false)) {
                                 continue;
                             }
+                            
+                            /*if (!this.room.getMapping().isTileWalkable(entity, front.getX(), front.getY())) {
+                                continue;
+                            }*/
 
                             room.send(new SlideObjectMessageComposer(entity, front, roller.getId(), nextHeight));
 

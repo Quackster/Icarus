@@ -5,6 +5,7 @@ import java.util.List;
 import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.room.settings.RoomState;
 import org.alexdev.icarus.game.room.settings.RoomType;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.server.api.messages.Response;
 
 public class RoomData {
