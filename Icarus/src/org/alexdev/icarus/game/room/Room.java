@@ -17,7 +17,6 @@ import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.game.room.settings.RoomState;
 import org.alexdev.icarus.game.room.settings.RoomType;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.ChatOptionsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.FloorMapMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.HasOwnerRightsMessageComposer;
@@ -60,6 +59,7 @@ public class Room {
 
 
 	public Room() {
+		
 		this.data = new RoomData(this);
 		this.mapping = new RoomMapping(this);
 
@@ -144,7 +144,7 @@ public class Room {
 		player.send(new RoomSpacesMessageComposer("landscape", this.data.getLandscape()));
 		player.send(new RoomOwnerRightsComposer(this.data.getId(), isOwner));
 
-		if (roomUser.getRoom().hasRights(player, true)) {	
+		if (roomUser.getRoom().hasRights(player, true)) {
 			player.send(new RoomRightsLevelMessageComposer(4));
 			player.send(new HasOwnerRightsMessageComposer());
 			
@@ -164,12 +164,16 @@ public class Room {
 		roomUser.getPosition().setRotation(this.getModel().getDoorLocation().getRotation());
 
 		if (!(this.getPlayers().size() > 0)) {
-			this.firstEntry();
+
+			this.items = ItemDao.getRoomItems(this.getData().getId());
+			this.mapping.regenerateCollisionMaps();
+
+			this.scheduler = new RoomScheduler(this);
+			this.scheduler.scheduleTasks();
 		}
 	}
 	
 	public void loadMapData(Player player) {
-
 
 		player.send(new HeightMapMessageComposer(this, this.getModel().getMapSizeX(), this.getModel().getMapSizeY()));
 		player.send(new FloorMapMessageComposer(this));
@@ -210,16 +214,6 @@ public class Room {
 		player.getMessenger().sendStatus(false);
 
 	}
-
-	private void firstEntry() {
-
-		this.items = ItemDao.getRoomItems(this.getData().getId());
-		this.mapping.regenerateCollisionMaps();
-
-		this.scheduler = new RoomScheduler(this);
-		this.scheduler.scheduleTasks();
-	}
-
 
 	public void leaveRoom(Player player, boolean hotelView) {
 
@@ -308,7 +302,6 @@ public class Room {
 
 	public void send(OutgoingMessageComposer response) {
 
-
 		for (Player player : this.getPlayers()) {
 			player.send(response);
 		}
@@ -339,22 +332,30 @@ public class Room {
 	}
 
 	public Item[] getFloorItems() {
-		List<Item> floorItems = items.values().stream().filter(item -> item.getType() == ItemType.FLOOR).collect(Collectors.toList());
+		
+		List<Item> floorItems = items.values().stream()
+				.filter(item -> item.getType() == ItemType.FLOOR)
+				.collect(Collectors.toList());
+		
 		return floorItems.toArray(new Item[floorItems.size()]);
 	}
 
 	public Item[] getWallItems() {
-		List<Item> wallItems = items.values().stream().filter(item -> item.getType() == ItemType.WALL).collect(Collectors.toList());
+		
+		List<Item> wallItems = items.values().stream()
+				.filter(item -> item.getType() == ItemType.WALL)
+				.collect(Collectors.toList());
+		
 		return wallItems.toArray(new Item[wallItems.size()]);
 	}
 
-	public Map<Integer, Item> getItems() {
-		return this.items;
-	}  
-
 	public List<Item> getItems(InteractionType interactionType) {
+		
 		try {
-			return items.values().stream().filter(item -> item.getDefinition().getInteractionType() == interactionType).collect(Collectors.toList());
+			return items.values().stream()
+					.filter(item -> item.getDefinition().getInteractionType() == interactionType)
+					.collect(Collectors.toList());
+			
 		} catch (Exception e) {
 			return Lists.newArrayList();
 		}
@@ -368,7 +369,11 @@ public class Room {
 
 		return ItemDao.getItem(itemId);
 	}
-
+	
+	public Map<Integer, Item> getItems() {
+		return this.items;
+	}
+	
 	public List<Entity> getEntities() {
 		return entities;
 	}

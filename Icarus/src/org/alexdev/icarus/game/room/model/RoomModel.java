@@ -55,7 +55,6 @@ public class RoomModel
         this.squareHeight = new double[mapSizeX][mapSizeY];
         this.squareChar = new String[mapSizeX][mapSizeY];
 
-
         for (int y = 0; y < mapSizeY; y++) {
             
             if (y > 0) {
@@ -102,6 +101,7 @@ public class RoomModel
                     stringBuilder.append("0");
                 }
             }
+            
             stringBuilder.append((char)13);
         }
         

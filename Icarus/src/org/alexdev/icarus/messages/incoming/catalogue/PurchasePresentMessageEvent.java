@@ -18,7 +18,7 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 import com.google.common.collect.Lists;
 
-public class PurchaseMessageEvent implements MessageEvent {
+public class PurchasePresentMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
@@ -43,7 +43,7 @@ public class PurchaseMessageEvent implements MessageEvent {
 
     private void purchase(Player player, CatalogueItem item, String extraData, int amount) {
 
-        if (amount > 100) {
+        if (amount > 99) {
             amount = 1;
         }
 
@@ -91,12 +91,11 @@ public class PurchaseMessageEvent implements MessageEvent {
                 ClubManager.handlePurchase(player, bundleItem, amount);
                 return;
             }
-            
+
             List<Item> bought = Lists.newArrayList();
 
             for (int i = 0; i < amount; i++) {
 
-            	
                 Item inventoryItem = InventoryDao.newItem(bundleItem.getItemId(), player.getDetails().getId(), extraData);
                 bought.add(inventoryItem);
 

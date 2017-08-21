@@ -6,22 +6,23 @@ import java.util.List;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.game.room.RoomTask;
 import org.alexdev.icarus.game.room.RoomUser;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 import org.alexdev.icarus.util.Util;
 
-public class EntityStatusTask implements Runnable {
+public class MovementTask  extends RoomTask {
 
     private Room room;
 
-    public EntityStatusTask(Room room) {
+    public MovementTask(Room room) {
         this.room = room;
     }
 
     @Override
-    public void run() {
+    public void execute() {
 
         try {
 
