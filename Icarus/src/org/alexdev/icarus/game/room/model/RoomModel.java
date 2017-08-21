@@ -68,9 +68,13 @@ public class RoomModel
                 if (square.equals("x"))    {
                     squares[x][y] = CLOSED;
                     
-                } else if(isNumeric(square)) {
+                } else if (isNumeric(square)) {
                     squares[x][y] = OPEN;
                     squareHeight[x][y] = Double.parseDouble(square);
+                    
+                } else if (isLetter(square)) {
+                    squares[x][y] = OPEN;
+                    squareHeight[x][y] = parse(square.charAt(0));
                 }
                 
                 if (this.doorLocation.getX() == x && this.doorLocation.getY() == y) {
@@ -130,6 +134,72 @@ public class RoomModel
             return false;
         }
     }
+    
+	public static short parse(char input) {
+		
+		switch (input) {
+		
+		case 'a':
+			return 10;
+		case 'b':
+			return 11;
+		case 'c':
+			return 12;
+		case 'd':
+			return 13;
+		case 'e':
+			return 14;
+		case 'f':
+			return 15;
+		case 'g':
+			return 16;
+		case 'h':
+			return 17;
+		case 'i':
+			return 18;
+		case 'j':
+			return 19;
+		case 'k':
+			return 20;
+		case 'l':
+			return 21;
+		case 'm':
+			return 22;
+		case 'n':
+			return 23;
+		case 'o':
+			return 24;
+		case 'p':
+			return 25;
+		case 'q':
+			return 26;
+		case 'r':
+			return 27;
+		case 's':
+			return 28;
+		case 't':
+			return 29;
+		case 'u':
+			return 30;
+		case 'v':
+			return 31;
+		case 'w':
+			return 32;
+
+		default:
+			return -1;
+		}
+	}
+
+	private boolean isLetter(String input) {
+
+		try {
+			Character.isLetter(input.charAt(0));
+			return true;
+		} catch (Exception e) {	}
+
+		return false;
+	}
     
     public boolean invalidXYCoords(int x, int y) {
         if (x >= this.mapSizeX) {
