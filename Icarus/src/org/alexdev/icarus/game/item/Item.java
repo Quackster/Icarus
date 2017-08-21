@@ -9,8 +9,6 @@ import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.furniture.ItemManager;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
-import org.alexdev.icarus.game.item.serialise.FloorItemSerialise;
-import org.alexdev.icarus.game.item.serialise.WallItemSerialise;
 import org.alexdev.icarus.game.pathfinder.AffectedTile;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.PlayerDetails;
@@ -33,7 +31,6 @@ public class Item extends Metadata {
     private Position position;
     private String extraData;
     private ItemType type;
-    private ItemSerialise serializer;
     private Item itemUnderneath;
     private int teleporterId = 0;
 
@@ -76,15 +73,12 @@ public class Item extends Metadata {
             this.position.setY(Integer.parseInt(y));
             this.position.setZ(z);
             this.position.setRotation(rotation);
-            this.serializer = new FloorItemSerialise(this);
         }
 
         if (this.type == ItemType.WALL) {
             if (this.roomId > 0) {
                 this.parseWallPosition(x + " " + y);
             }
-
-            this.serializer = new WallItemSerialise(this);
         }
     }
 
@@ -432,10 +426,6 @@ public class Item extends Metadata {
 
     public Position getPosition() {
         return this.position;
-    }
-
-    public ItemSerialise getSerializer() {
-        return serializer;
     }
 
     public Item getItemBeneath() {

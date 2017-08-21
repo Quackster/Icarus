@@ -88,5 +88,6 @@ public class Outgoing {
     public static int UserRightsComposer = 3315;
     public static int BubbleAlertComposer = 3152;
 	public static int GiftingSettingsComposer = 766;
+	public static int PresentDeliverErrorMessageComposer = 1971;
     
 }

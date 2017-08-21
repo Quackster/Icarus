@@ -99,7 +99,7 @@ public class PurchaseMessageEvent implements MessageEvent {
             	
                 Item inventoryItem = InventoryDao.newItem(bundleItem.getItemId(), player.getDetails().getId(), extraData);
                 bought.add(inventoryItem);
-
+                
                 if (inventoryItem.getDefinition().getInteractionType() == InteractionType.JUKEBOX) {
                     inventoryItem.setExtraData("0");
                 }

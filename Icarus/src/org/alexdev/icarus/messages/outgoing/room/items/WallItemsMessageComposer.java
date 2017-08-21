@@ -1,8 +1,10 @@
 package org.alexdev.icarus.messages.outgoing.room.items;
 
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.ItemMetaDataUtil;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.util.Util;
 
 public class WallItemsMessageComposer extends OutgoingMessageComposer {
 
@@ -24,8 +26,15 @@ public class WallItemsMessageComposer extends OutgoingMessageComposer {
         }
 
         response.writeInt(this.items.length);
+        
         for (Item wallItem : this.items) {
-            wallItem.getSerializer().serialiseItem(response);
+            response.writeString(wallItem.getId() + "");
+            response.writeInt(wallItem.getDefinition().getSpriteId());
+            response.writeString(wallItem.getWallPosition());
+            response.writeString(wallItem.getExtraData());
+            response.writeInt(-1);
+            response.writeInt(wallItem.getDefinition().getInterationModes() > 0 ? 1 : 0);
+            response.writeInt(wallItem.getUserId());
         }
     }
 
