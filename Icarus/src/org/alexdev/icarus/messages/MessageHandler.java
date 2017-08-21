@@ -5,7 +5,9 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.headers.Incoming;
 import org.alexdev.icarus.messages.incoming.catalogue.CatalogueMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.CataloguePageMessageEvent;
+import org.alexdev.icarus.messages.incoming.catalogue.GiftingSettingsMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.PurchaseMessageEvent;
+import org.alexdev.icarus.messages.incoming.catalogue.PurchasePresentMessageEvent;
 import org.alexdev.icarus.messages.incoming.handshake.*;
 import org.alexdev.icarus.messages.incoming.messenger.*;
 import org.alexdev.icarus.messages.incoming.misc.*;
@@ -112,6 +114,8 @@ public class MessageHandler {
         this.messages.put(Incoming.CatalogueTabMessageEvent, new CatalogueMessageEvent());
         this.messages.put(Incoming.CataloguePageMessageEvent, new CataloguePageMessageEvent());
         this.messages.put(Incoming.PurchaseObjectMessageEvent, new PurchaseMessageEvent());
+        this.messages.put(Incoming.PurchasePresentMessageEvent, new PurchasePresentMessageEvent());
+        this.messages.put(Incoming.GiftingSettingsMessageEvent, new GiftingSettingsMessageEvent());
     }
     
 

@@ -33,18 +33,12 @@ public class Player extends Entity {
         this.subscription = new ClubSubscription(this);
     }
 
-    public boolean hasPermission(String permission) {
-    		return PlayerManager.hasPermission(this.details.getRank(), permission);
-    	}
-
+	public boolean hasPermission(String permission) {
+		return PlayerManager.hasPermission(this.details.getRank(), permission);
+	}
 
     public void login() {
-        
-        // Load all the rooms the player owns
-        // Items and pets and other shit are only loaded when player enters the specific room
         RoomDao.getPlayerRooms(this.details, true);
-
-        // Load their inventory data
         this.inventory.init();
     }
     
