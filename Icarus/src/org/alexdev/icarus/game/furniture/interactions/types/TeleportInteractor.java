@@ -49,7 +49,8 @@ public class TeleportInteractor implements Interaction {
 		item.updateStatus();
 
 		roomUser.walkTo(item.getPosition().getX(), item.getPosition().getY());
-
+		roomUser.setWalkingAllowed(false);
+		
 		Item targetTeleporter = roomUser.getRoom().getItem(item.getTeleporterId());
 
 		// Do teleporter flashing effects for the teleporter they hopped into
@@ -94,6 +95,7 @@ public class TeleportInteractor implements Interaction {
 
 		// Leave the teleporter
 		RoomManager.getScheduler().schedule(() -> {
+			roomUser.setWalkingAllowed(true);
 			roomUser.walkTo(targetTeleporter.getPosition().getSquareInFront().getX(), targetTeleporter.getPosition().getSquareInFront().getY());
 		}, 3500, TimeUnit.MILLISECONDS);
 

@@ -48,6 +48,7 @@ public class RoomUser {
 	private int carryTimer;
 	private int carryItem;
 	private boolean isRolling;
+	private boolean isWalkingAllowed;
 
 	public RoomUser(Entity entity) {
 		this.dispose();
@@ -219,6 +220,10 @@ public class RoomUser {
 		if (this.position.isMatch(new Position(X, Y))) {
 			return;
 		}
+		
+		if (!this.isWalkingAllowed) {
+			return;
+		}
 
 		this.goal.setX(X);
 		this.goal.setY(Y);
@@ -284,6 +289,7 @@ public class RoomUser {
 		this.needsUpdate = false;
 		this.isRolling = false;
 		this.isWalking = false;
+		this.isWalkingAllowed = true;
 
 	}
 
@@ -461,6 +467,14 @@ public class RoomUser {
 
 	public void setTeleportRoomId(int teleportRoomId) {
 		this.teleportRoomId = teleportRoomId;
+	}
+
+	public boolean isWalkingAllowed() {
+		return isWalkingAllowed;
+	}
+
+	public void setWalkingAllowed(boolean isWalkingAllowed) {
+		this.isWalkingAllowed = isWalkingAllowed;
 	}
 
 }
