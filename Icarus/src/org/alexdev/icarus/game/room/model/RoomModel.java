@@ -20,125 +20,136 @@
 package org.alexdev.icarus.game.room.model;
 
 import org.alexdev.icarus.game.pathfinder.Position;
+import org.alexdev.icarus.log.Log;
 
 public class RoomModel 
 {
-    public final static int OPEN = 0;
-    public final static int CLOSED = 1;
-    
-    private String name;
-    private String heightmap;
-    private String floorMap;
-    private String[][] squareChar;
-    
-    private Position doorLocation;
-    
-    private int mapSizeX;
-    private int mapSizeY;
-    
-    private int[][] squares;
-    private double[][] squareHeight;
+	public final static int OPEN = 0;
+	public final static int CLOSED = 1;
 
-    public RoomModel(String name, String heightmap, int doorX, int doorY, int doorZ, int doorRot) {
-        
-        this.name = name;
-        this.heightmap = heightmap;
-        
-        this.doorLocation = new Position(doorX, doorY, doorZ);
-        this.doorLocation.setRotation(doorRot);
-        
-        String[] temporary = heightmap.split(Character.toString((char)13));
+	private String name;
+	private String heightmap;
 
-        this.mapSizeX = temporary[0].length();
-        this.mapSizeY = temporary.length;
-        this.squares = new int[mapSizeX][mapSizeY];
-        this.squareHeight = new double[mapSizeX][mapSizeY];
-        this.squareChar = new String[mapSizeX][mapSizeY];
+	private Position doorLocation;
 
-        for (int y = 0; y < mapSizeY; y++) {
-            
-            if (y > 0) {
-                temporary[y] = temporary[y].substring(1);
-            }
+	private int mapSizeX;
+	private int mapSizeY;
 
-            for (int x = 0; x < mapSizeX; x++) {
-                
-                String square = temporary[y].substring(x, x + 1).trim().toLowerCase();
+	private int[][] squares;
+	private double[][] squareHeight;
+	
+	private String relativeHeightmap;
 
-                if (square.equals("x"))    {
-                    squares[x][y] = CLOSED;
-                    
-                } else if (isNumeric(square)) {
-                    squares[x][y] = OPEN;
-                    squareHeight[x][y] = Double.parseDouble(square);
-                    
-                } else if (isLetter(square)) {
-                    squares[x][y] = OPEN;
-                    squareHeight[x][y] = parse(square.charAt(0));
-                }
-                
-                if (this.doorLocation.getX() == x && this.doorLocation.getY() == y) {
-                    squares[x][y] = OPEN;
-                    squareHeight[x][y] = Double.parseDouble(this.doorLocation.getZ() + "");
-                }
-                
-                squareChar[x][y] = square;
+	public RoomModel(String name, String heightmap, int doorX, int doorY, int doorZ, int doorRot) {
 
-            }
-        }
-        
-        StringBuilder stringBuilder = new StringBuilder();
+		this.name = name;
+		this.heightmap = heightmap;
 
-        for (int i = 0; i < this.getMapSizeY(); i++) {
-            for (int j = 0; j < this.getMapSizeX(); j++) {
+		this.doorLocation = new Position(doorX, doorY, doorZ);
+		this.doorLocation.setRotation(doorRot);
 
-                try {
+		String[] temporary = heightmap.split("\\{13}");
 
-                    if (j == this.doorLocation.getX() && i == this.doorLocation.getY())    {
-                        stringBuilder.append((int)this.getDoorLocation().getZ());
-                    } else {
+		this.mapSizeX = temporary[0].length();
+		this.mapSizeY = temporary.length;
+		this.squares = new int[mapSizeX][mapSizeY];
+		this.squareHeight = new double[mapSizeX][mapSizeY];
 
-                        stringBuilder.append(this.getSquareChar()[j][i].toString());
-                    }
-                }
-                catch (Exception e) {
-                    stringBuilder.append("0");
-                }
-            }
-            
-            stringBuilder.append((char)13);
-        }
-        
-        this.floorMap = stringBuilder.toString();
+		for (int y = 0; y < mapSizeY; y++) {
 
-    }
-    
-    public double getHeight(Position point) {
-        return squareHeight[point.getX()][point.getY()];
-    }
-    
-    public String getHeightMap() {
-        return heightmap;
-    }
-    
-    public String getFloorMap() {
-        return floorMap;
-    }
+			String line = temporary[y];
+				
+			line = line.replace(Character.toString((char)10), "");
+			line = line.replace(Character.toString((char)13), "");
+			
+			int x = 0;
 
-    private boolean isNumeric(String input) {
-        
-        try {
-            Integer.parseInt(input);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-    
-	public static short parse(char input) {
-		
+			for (char square : line.toCharArray()) {
+
+				if (square == 'x') {
+					this.squares[x][y] = CLOSED;
+				} else {
+
+					this.squares[x][y] = OPEN;
+					this.squareHeight[x][y] = parse(square);
+				}
+				
+				if (x == this.doorLocation.getX() && y == this.doorLocation.getY()) {
+					this.squares[x][y] = OPEN; 
+					this.squareHeight[x][y] = this.doorLocation.getZ();
+				}
+
+				x++;
+			}
+		}
+
+		this.generateRelativeHeightmap();
+	}
+
+	private void generateRelativeHeightmap() {
+
+		StringBuilder relativeMap = new StringBuilder();
+
+		for (int y = 0; y < mapSizeY; y++) {
+			for (int x = 0; x < mapSizeX; x++) {
+
+				if (x == this.doorLocation.getX() && y == this.doorLocation.getY()) {
+
+					if (this.doorLocation.getZ() > 9) {
+						relativeMap.append((char)(87 + this.doorLocation.getZ()));
+					} else {
+						relativeMap.append((int)this.doorLocation.getZ());
+					}
+					
+					continue;
+				}
+
+				if (this.squares[x][y] == CLOSED) {
+					relativeMap.append('x');
+					continue;
+				}
+
+				double height = this.squareHeight[x][y];
+
+				if (height > 9) {
+					relativeMap.append((char)(87 + height));
+				} else {
+					relativeMap.append((int)height);
+				}
+				
+				this.squares[x][y] = OPEN;
+
+			}
+
+			relativeMap.append(Character.toString((char)13));
+		}
+
+		this.relativeHeightmap = relativeMap.toString();
+	}
+
+	public static double parse(char input) {
+
 		switch (input) {
-		
+		case '0':
+			return 0;
+		case '1':
+			return 1;
+		case '2':
+			return 2;
+		case '3':
+			return 3;
+		case '4':
+			return 4;
+		case '5':
+			return 5;
+		case '6':
+			return 6;
+		case '7':
+			return 7;
+		case '8':
+			return 8;
+		case '9':
+			return 9;
 		case 'a':
 			return 10;
 		case 'b':
@@ -191,61 +202,63 @@ public class RoomModel
 		}
 	}
 
-	private boolean isLetter(String input) {
+	public double getHeight(Position point) {
+		return squareHeight[point.getX()][point.getY()];
+	}
 
-		try {
-			Character.isLetter(input.charAt(0));
+	public String getHeightMap() {
+		return heightmap;
+	}
+
+	public boolean invalidXYCoords(int x, int y) {
+		if (x >= this.mapSizeX) {
 			return true;
-		} catch (Exception e) {	}
+		}
+
+		if (y >= this.mapSizeY) {
+			return true;
+		}
+
+		if (x < 0) {
+			return true;
+		}
+
+		if (y < 0) {
+			return true;
+		}
 
 		return false;
 	}
-    
-    public boolean invalidXYCoords(int x, int y) {
-        if (x >= this.mapSizeX) {
-            return true;
-        }
 
-        if (y >= this.mapSizeY) {
-            return true;
-        }
+	public String getName() {
+		return name;
+	}
 
-        if (x < 0) {
-            return true;
-        }
+	public Position getDoorLocation() {
+		return doorLocation;
+	}
 
-        if (y < 0) {
-            return true;
-        }
-        
-        return false;
-    }
-    
-    public String getName() {
-        return name;
-    }
-    
-    public Position getDoorLocation() {
-    	return doorLocation;
-    }
-    
-    public int getMapSizeX() {
-        return mapSizeX;
-    }
-    
-    public int getMapSizeY() {
-        return mapSizeY;
-    }
-    
-    public double getHeight(int x, int y) {
-        return squareHeight[x][y];
-    }
-    
-    public boolean isBlocked(int x, int y) {
-        return squares[x][y] == RoomModel.CLOSED;
-    }
+	public int getMapSizeX() {
+		return mapSizeX;
+	}
 
-    public String[][] getSquareChar() {
-        return squareChar;
-    }
+	public int getMapSizeY() {
+		return mapSizeY;
+	}
+
+	public double getHeight(int x, int y) {
+		return squareHeight[x][y];
+	}
+
+	public boolean isBlocked(int x, int y) {
+		return squares[x][y] == RoomModel.CLOSED;
+	}
+
+	public String getRelativeHeightmap() {
+		return relativeHeightmap;
+	}
+
+	public void setRelativeHeightmap(String relativeHeightmap) {
+		this.relativeHeightmap = relativeHeightmap;
+	}
 }

@@ -17,6 +17,7 @@ import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.game.room.settings.RoomState;
 import org.alexdev.icarus.game.room.settings.RoomType;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.ChatOptionsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.FloorMapMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.HasOwnerRightsMessageComposer;
@@ -68,6 +69,16 @@ public class Room {
 	}
 
 	public void loadRoom(Player player, String pass) {
+
+		if (this.getModel() == null) {
+			Log.println("The specified room model (" + this.data.getModel() + ") does not exist.");
+			return;
+		}
+		
+		if (this.getModel().getDoorLocation() == null) {
+			Log.println("Failed to load door configuration.");
+			return;
+		}
 		
 		this.loadRoom(player, pass, 
 				this.getModel().getDoorLocation().getX(), 
@@ -175,7 +186,7 @@ public class Room {
 	
 	public void loadMapData(Player player) {
 
-		player.send(new HeightMapMessageComposer(this, this.getModel().getMapSizeX(), this.getModel().getMapSizeY()));
+		player.send(new HeightMapMessageComposer(this));
 		player.send(new FloorMapMessageComposer(this));
 
 		this.send(new UserDisplayMessageComposer(player));
