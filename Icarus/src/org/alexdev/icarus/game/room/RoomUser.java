@@ -283,6 +283,7 @@ public class RoomUser {
 
 		this.needsUpdate = false;
 		this.isRolling = false;
+		this.isWalking = false;
 
 	}
 
