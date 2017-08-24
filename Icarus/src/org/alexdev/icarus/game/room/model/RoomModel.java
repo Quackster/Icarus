@@ -261,4 +261,8 @@ public class RoomModel
 	public void setRelativeHeightmap(String relativeHeightmap) {
 		this.relativeHeightmap = relativeHeightmap;
 	}
+
+	public int getWallHeight() {
+		return -1;
+	}
 }

@@ -54,6 +54,7 @@ public class Room {
 	private RoomData data;
 	private RoomScheduler scheduler;
 	private RoomMapping mapping;
+	private RoomModel model;
 
 	private List<Entity> entities; 
 	private Map<Integer, Item> items;
@@ -394,6 +395,15 @@ public class Room {
 	}
 
 	public RoomModel getModel() {
+		
+		if (this.data.getModel().startsWith("dynamic_model")) {
+			if (this.model == null) {
+				this.model = RoomDao.getCustomModel(this.data.getId());
+			}
+			
+			return model;
+		}
+		
 		return RoomDao.getModel(this.data.getModel());
 	}
 
@@ -407,5 +417,9 @@ public class Room {
 	public int getVirtualId() {
 		this.privateId = this.privateId + 1;
 		return this.privateId;
+	}
+
+	public void setModel(RoomModel model) {
+		this.model = model;
 	}
 }

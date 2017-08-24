@@ -89,5 +89,8 @@ public class Outgoing {
     public static int BubbleAlertComposer = 3152;
 	public static int GiftingSettingsComposer = 766;
 	public static int PresentDeliverErrorMessageComposer = 1971;
+	public static int FloorPlanFloorMapMessageComposer = 1855;
+	public static int FloorPlanSendDoorMessageComposer = 1685;
+	public static int FloorPlanRoomVisualComposer = 3003;
     
 }

@@ -60,5 +60,7 @@ public class Incoming {
     public static Integer SubscriptionMessageEvent = 2749;
 	public static Integer GiftingSettingsMessageEvent = 1570;
 	public static Integer PurchasePresentMessageEvent = 1555;
+	public static Integer SaveFloorPlanMessageEvent = 1936;
+	public static Integer FloorPlanPropertiesMessageEvent = 2478;
     
 }

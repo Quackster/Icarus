@@ -108,6 +108,8 @@ public class MessageHandler {
         this.messages.put(Incoming.DeleteRoomMessageEvent, new DeleteRoomMessageEvent());
         this.messages.put(Incoming.RoomThumbnailMessageEvent, new RoomThumbnailMessageEvent());
         this.messages.put(Incoming.RoomCameraMessageEvent, new RoomThumbnailMessageEvent());
+        this.messages.put(Incoming.FloorPlanPropertiesMessageEvent, new FloorPlanPropertiesMessageEvent());
+        this.messages.put(Incoming.SaveFloorPlanMessageEvent, new SaveFloorPlanMessageEvent());
     }
     
     private void registerCataloguePackets() {
