@@ -430,4 +430,9 @@ public class RoomData {
     public void setTags(String[] tags) {
         this.tags = tags;
     }
+
+	public void setWallHeight(int wallHeight) {
+		// TODO Auto-generated method stub
+		
+	}
 }

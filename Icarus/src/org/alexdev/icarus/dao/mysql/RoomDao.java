@@ -392,7 +392,7 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("INSERT INTO room_models_dynamic (door_x, door_y, door_z, door_dir, heightmap, wall_height) VALUS (?, ?, ?, ?, ?, ?, ?)", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("INSERT INTO room_models_dynamic (id, door_x, door_y, door_z, door_dir, heightmap, wall_height) VALUES (?, ?, ?, ?, ?, ?, ?)", sqlConnection);
             preparedStatement.setString(1, "dynamic_model_" + roomId);
             preparedStatement.setInt(2, model.getDoorLocation().getX());
             preparedStatement.setInt(3, model.getDoorLocation().getY());
