@@ -39,17 +39,11 @@ public class SaveFloorPlanMessageEvent implements MessageEvent {
         double doorZ = -1;
         
         try {
-        	
         	doorZ = RoomModel.parse(modelData[doorY].charAt(doorX));
-        	
-        	Log.println("DEBUG: " + doorZ + " // " + Character.toString(modelData[doorX].charAt(doorY)));
-        	
         } catch (Exception e) {
         	e.printStackTrace();
         	return;
         }
-        
-        Log.println("HEIGHTMAP: " + heightmap);
         
         int doorRotation = reader.readInt();
         int wallThickness = reader.readInt();
@@ -64,6 +58,8 @@ public class SaveFloorPlanMessageEvent implements MessageEvent {
 		room.getData().setWallThickness(wallThickness);
 		room.getData().setFloorThickness(floorThickness);
 		room.getData().setWallHeight(wallHeight);
+		room.getData().setModel("dynamic_model_" + room.getData().getId());
+		room.save();
 		
 		List<Player> connectedPlayers = new ArrayList<>();
 		
