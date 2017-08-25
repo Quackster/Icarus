@@ -92,5 +92,7 @@ public class Outgoing {
 	public static int FloorPlanFloorMapMessageComposer = 1855;
 	public static int FloorPlanSendDoorMessageComposer = 1685;
 	public static int FloorPlanRoomVisualComposer = 3003;
+	public static int RoomForwardComposer = 3289;
+	public static int NavigatorPreferencesComposer = 3617;
     
 }

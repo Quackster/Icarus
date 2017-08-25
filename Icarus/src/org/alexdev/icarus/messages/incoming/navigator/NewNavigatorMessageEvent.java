@@ -6,6 +6,7 @@ import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.navigator.FlatCategoriesMessageComposer;
 import org.alexdev.icarus.messages.outgoing.navigator.NavigatorCategories;
 import org.alexdev.icarus.messages.outgoing.navigator.NavigatorMetaDataComposer;
+import org.alexdev.icarus.messages.outgoing.navigator.NavigatorPreferencesComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class NewNavigatorMessageEvent implements MessageEvent {
@@ -38,6 +39,7 @@ public class NewNavigatorMessageEvent implements MessageEvent {
         player.send(new NavigatorMetaDataComposer(NavigatorManager.getParentTabs()));
         player.send(new FlatCategoriesMessageComposer(NavigatorManager.getCategories()));
         player.send(new NavigatorCategories(NavigatorManager.getCategories()));
+        player.send(new NavigatorPreferencesComposer());
 
     }
 

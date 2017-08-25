@@ -1,4 +1,4 @@
-package org.alexdev.icarus.messages.incoming.room;
+package org.alexdev.icarus.messages.incoming.room.floorplan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class SaveFloorPlanMessageEvent implements MessageEvent {
         }
         
         for (Player user : connectedPlayers) {
-        	room.loadRoom(user, room.getData().getPassword());
+        	room.forwardRoom(user);
         }
 		
 	}

@@ -13,6 +13,8 @@ import org.alexdev.icarus.messages.incoming.messenger.*;
 import org.alexdev.icarus.messages.incoming.misc.*;
 import org.alexdev.icarus.messages.incoming.navigator.*;
 import org.alexdev.icarus.messages.incoming.room.*;
+import org.alexdev.icarus.messages.incoming.room.floorplan.FloorPlanPropertiesMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.floorplan.SaveFloorPlanMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.ApplyDecorationMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.InteractItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.InventoryMessageEvent;

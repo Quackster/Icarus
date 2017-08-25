@@ -1,4 +1,4 @@
-package org.alexdev.icarus.messages.incoming.room;
+package org.alexdev.icarus.messages.incoming.room.floorplan;
 
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;

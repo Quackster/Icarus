@@ -422,4 +422,9 @@ public class Room {
 	public void setModel(RoomModel model) {
 		this.model = model;
 	}
+
+	public void forwardRoom(Player user) {
+		user.send(new RoomForwardComposer(this.data.getId()));
+		
+	}
 }
