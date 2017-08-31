@@ -1,12 +1,11 @@
-package org.alexdev.icarus.game.navigator.populator;
+package org.alexdev.icarus.game.navigator;
 
 import java.util.List;
 
-import org.alexdev.icarus.game.navigator.NavigatorTab;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 
-public abstract class RoomPopulator {
+public abstract class NavigatorRoomPopulator {
 
     private NavigatorTab navigatorTab;
     

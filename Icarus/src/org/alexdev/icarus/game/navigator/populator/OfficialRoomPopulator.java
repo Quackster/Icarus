@@ -3,11 +3,12 @@ package org.alexdev.icarus.game.navigator.populator;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.alexdev.icarus.game.navigator.NavigatorRoomPopulator;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 
-public class OfficialRoomPopulator  extends RoomPopulator {
+public class OfficialRoomPopulator  extends NavigatorRoomPopulator {
     
     @Override
     public List<Room> generateListing(boolean limit, Player player) {
