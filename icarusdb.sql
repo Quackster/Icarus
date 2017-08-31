@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 24, 2017 at 07:36 PM
+-- Generation Time: Aug 31, 2017 at 04:11 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -3664,7 +3664,7 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_ids`, `catalog_name`, `cost_
 (155396, 243, '3243', 'Irish egg', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (155401, 243, '3244', 'leahicm', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (155406, 243, '3246', 'Ronald Trophy', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
-(156151, 9998, '-1', 'Test Badge', 1000, 250, 0, 1, '0', 0, 0, 0, 0, '0', '', 'BR161', -1),
+(156151, 9895648, '-1', 'room_ad_plus_badge', 0, 15, 0, 1, '0', 0, 0, 0, 0, '0', '', 'RADZZ', -1),
 (199868, 53, '3247', 'qt_sum11_ictrolley', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (199869, 53, '3248', 'qt_sum11_platfrm', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
 (199870, 53, '3249', 'qt_sum11_shell3', 5, 0, 0, 1, '0', 0, 0, 0, 0, '1', '', '', -1),
@@ -6142,7 +6142,7 @@ INSERT INTO `catalog_pages` (`id`, `parent_id`, `type`, `extra_data`, `caption`,
 (57579, 2, 'DEFAULT', NULL, 'Kitchen 2015', 1, 269, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Make your dream kitchen, just remember to clean the dishes!\",\"Click on an item for more information.\"]', '[\"kitchen15_header\",\"kitchen15_teaser\"]', 'undefined'),
 (85585, 9999, 'DEFAULT', NULL, 'Comet Catalogue', 1, 2554, '1', '1', 1, '0', 1, 'recycler_info', 0, '0', '[\"<i><b><font color=\\\"#0E668C\\\" size=\\\"16\\\">What can I find in the shop?<\\/font><\\/b><\\/i><br><br>Upgrade your clothing with Habbo Club, adopt a pet or decorate your room the way you like it. Whatever you like to do most in Habbo, you\'ll find a way to make that experience even better by browsing our Shop.<br><br><li>Join <a href=\\\"event:catalog\\/open\\/habbo_club\\\">Habbo Club<\\/a><\\/li><li><a href=\\\"event:catalog\\/open\\/set_pixelnew\\\">Decorate <\\/a>your room<\\/li><li>Adopt a <a href=\\\"event:catalog\\/open\\/pet_horse\\\">Pet<\\/a>, <a href=\\\"event:catalog\\/open\\/bots\\\">Bot<\\/a> or <a href=\\\"event:catalog\\/open\\/monster_plants_info\\\">Monsterplants<\\/a><\\/li><li>Make your own <a href=\\\"event:catalog\\/open\\/category_wired\\\">Wired<\\/a> games <\\/li><li>Trade in our <a href=\\\"event:catalog\\/open\\/marketplace_offers\\\">Marketplace<\\/a><\\/li><br><i><b><font color=\\\"#0E668C\\\" size=\\\"16\\\">Where can I get credits?<\\/font><\\/b><\\/i><br><br>We have many methods of payment such as SMS, Home Phone, Prepaid Cards, and Credit Cards.<br><br><a href=\\\"event:habblet\\/open\\/credits\\\">Visit our credits page for more info.<\\/a>\",\"Reedem a voucher code here.\"]', '[\"catalog_frontpage_headline_shop_GENERAL\",\"frontpage_teaser\"]', 'undefined'),
 (9895647, 0, 'DEFAULT', NULL, 'Badges', 1, 2556, '1', '1', 1, '0', 10, 'default_3x3', 0, '0', '', '', 'undefined'),
-(9895648, 3, 'DEFAULT', NULL, 'Promote Room', 1, 2555, '1', '1', 1, '0', 1, 'roomads', 0, '0', '', '[\"events_header\"]', 'undefined'),
+(9895648, 3, 'DEFAULT', NULL, 'Room Event', 1, 55, '1', '1', 1, '0', 1, 'roomads', 0, '0', '', '[\"event_header\"]', 'room_ad'),
 (9895649, 9895646, 'DEFAULT', NULL, 'Room Addons', 1, 64, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '', '[\"events_header\"]', 'undefined'),
 (9895650, -1, 'DEFAULT', NULL, 'Furni', 1, 0, '1', '1', 1, '0', 1, '', 0, '0', '[\"test\",\"From everyone here at Habbo!\"]', '[\"catalog_frontpage_headline_shop_GENERAL\"]', 'undefined');
 
@@ -12645,7 +12645,7 @@ INSERT INTO `items` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`, `y`
 (61, 5, 5, 139, 9, '1', '6', 0.01, 0, ''),
 (62, 5, 5, 100, 9, '3', '7', 0.01, 2, '3'),
 (63, 5, 5, 17, 9, '1', '5', 0.01, 0, ''),
-(64, 5, 5, 118, 9, '7', '4', 0.01, 2, '1'),
+(64, 5, 5, 118, 9, '7', '3', 0.01, 2, '1'),
 (65, 5, 5, 155, 9, '8', '4', 0.03, 4, '1'),
 (66, 5, 5, 102, 9, '5', '7', 0.03, 0, ''),
 (67, 5, 5, 901, 9, '1', '9', 0.01, 2, ''),
@@ -12770,8 +12770,8 @@ INSERT INTO `items` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`, `y`
 (799, 5, 5, 1729, 5, 'l,0,5', '7,34', 0, 0, ''),
 (818, 5, 5, 1521, 5, '16', '13', 0.03, 2, '1'),
 (819, 5, 5, 1521, 5, '4', '10', 0.03, 0, ''),
-(839, 5, 5, 1484, 5, '3', '13', 0.03, 0, ''),
-(859, 5, 5, 1483, 5, '5', '17', 0.03, 2, ''),
+(839, 5, 5, 1484, 5, '3', '13', 0.03, 2, ''),
+(859, 5, 5, 1483, 5, '3', '19', 0.03, 2, ''),
 (864, 5, 5, 2798, 5, 'l,0,19', '4,31', 0, 0, ''),
 (865, 5, 5, 2798, 5, 'l,0,17', '10,28', 0, 0, ''),
 (866, 5, 5, 2798, 5, 'l,0,15', '14,26', 0, 0, ''),
@@ -12784,7 +12784,132 @@ INSERT INTO `items` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`, `y`
 (882, 5, 5, 2632, 5, '19', '8', 0.03, 0, ''),
 (883, 5, 5, 2633, 5, '17', '9', 0.03, 0, ''),
 (884, 5, 5, 1501, 5, '11', '3', 0.03, 6, ''),
-(885, 5, 5, 1500, 5, '2', '7', 0.02, 0, '1');
+(885, 5, 5, 1500, 5, '2', '7', 0.02, 0, '1'),
+(886, 5, 5, 981, 0, '-1', '-1', 0.01, 2, ''),
+(887, 5, 5, 669, 0, '-1', '-1', 0.03, 0, ''),
+(888, 5, 5, 267, 0, '-1', '-1', 0.03, 0, ''),
+(889, 5, 5, 1992, 0, '0', '0', 0, 0, ''),
+(890, 5, 5, 1036, 0, '-1', '-1', 0.03, 0, ''),
+(891, 5, 5, 882, 0, '-1', '-1', 0.01, 2, ''),
+(892, 5, 5, 882, 0, '-1', '-1', 0.01, 0, ''),
+(893, 5, 5, 882, 0, '-1', '-1', 0.03, 0, ''),
+(894, 5, 5, 882, 0, '-1', '-1', 0.03, 0, ''),
+(895, 5, 5, 882, 0, '-1', '-1', 0.03, 0, ''),
+(896, 5, 5, 882, 0, '0', '0', 0, 0, ''),
+(897, 5, 5, 882, 0, '0', '0', 0, 0, ''),
+(898, 5, 5, 882, 0, '-1', '-1', 0.03, 0, ''),
+(899, 5, 5, 882, 0, '-1', '-1', 0.03, 0, ''),
+(900, 5, 5, 882, 0, '-1', '-1', 0.01, 0, ''),
+(901, 5, 5, 5295, 18, '5', '8', 2.03, 0, ''),
+(902, 5, 5, 5295, 18, '5', '8', 1.02, 0, ''),
+(903, 5, 5, 5295, 18, '5', '7', 4.049999999999999, 0, ''),
+(904, 5, 5, 5295, 18, '5', '6', 3.0299999999999994, 0, ''),
+(905, 5, 5, 5295, 18, '5', '3', 1.01, 0, '1'),
+(906, 5, 5, 5295, 18, '5', '7', 2.03, 0, ''),
+(907, 5, 5, 5295, 18, '5', '2', 4.039999999999999, 0, ''),
+(908, 5, 5, 5295, 0, '-1', '-1', 0.01, 0, ''),
+(909, 5, 5, 5295, 18, '5', '7', 0.01, 0, ''),
+(910, 5, 5, 5295, 18, '5', '7', 1.02, 0, ''),
+(911, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(912, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(913, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(914, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(915, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(916, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(917, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(918, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(919, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(920, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(921, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(922, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(923, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(924, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(925, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(926, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(927, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(928, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(929, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(930, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(931, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(932, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(933, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(934, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(935, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(936, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(937, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(938, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(939, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(940, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(941, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(942, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(943, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(944, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(945, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(946, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(947, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(948, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(949, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(950, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(951, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(952, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(953, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(954, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(955, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(956, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(957, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(958, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(959, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(960, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(961, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(962, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(963, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(964, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(965, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(966, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(967, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(968, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(969, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(970, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(971, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(972, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(973, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(974, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(975, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(976, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(977, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(978, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(979, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(980, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(981, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(982, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(983, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(984, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(985, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(986, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(987, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(988, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(989, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(990, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(991, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(992, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(993, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(994, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(995, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(996, 5, 5, 5295, 0, '0', '0', 0, 0, ''),
+(997, 5, 5, 5295, 18, '5', '6', 1.01, 0, '1'),
+(998, 5, 5, 5295, 18, '5', '8', 0.01, 0, ''),
+(999, 5, 5, 5295, 18, '5', '2', 2.0199999999999996, 0, ''),
+(1000, 5, 5, 5295, 18, '5', '3', 4.039999999999999, 0, ''),
+(1001, 5, 5, 5295, 18, '5', '2', 1.01, 0, '2'),
+(1002, 5, 5, 5295, 18, '5', '8', 3.0399999999999996, 0, ''),
+(1003, 5, 5, 5295, 18, '5', '7', 3.0399999999999996, 0, ''),
+(1004, 5, 5, 5295, 18, '5', '8', 4.049999999999999, 0, ''),
+(1005, 5, 5, 5295, 18, '5', '6', 2.0199999999999996, 0, ''),
+(1006, 5, 5, 5295, 18, '5', '6', 4.039999999999999, 0, ''),
+(1007, 5, 5, 5295, 18, '5', '3', 2.0199999999999996, 0, ''),
+(1008, 5, 5, 5295, 18, '5', '3', 3.0299999999999994, 0, ''),
+(1009, 5, 5, 5295, 18, '5', '2', 3.0299999999999994, 0, ''),
+(1010, 5, 5, 5295, 0, '-1', '-1', 1.02, 0, '');
 
 -- --------------------------------------------------------
 
@@ -12947,11 +13072,10 @@ CREATE TABLE `rooms` (
 
 INSERT INTO `rooms` (`id`, `name`, `room_type`, `date_created`, `owner_id`, `group_id`, `thumbnail`, `description`, `password`, `users_now`, `users_max`, `model`, `wallpaper`, `floor`, `outside`, `tags`, `trade_state`, `state`, `score`, `category`, `allow_pets`, `allow_pets_eat`, `allow_walkthrough`, `hidewall`, `wall_thickness`, `floor_thickness`, `chat_mode`, `chat_size`, `chat_speed`, `chat_flood`, `chat_distance`, `who_can_mute`, `who_can_kick`, `who_can_ban`) VALUES
 (5, 'Hotel Lobby', 1, '2017-03-20 20:15:27', -1, 0, 'thumbnails/picture1.png', '', '', 0, 25, 'model_n', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 100, 0, 0, 0),
-(6, 'Chill Lounge', 1, '2017-03-20 20:19:36', -1, 0, 'thumbnails/picture2.png', '', '', 0, 25, 'model_newbie', '0', '401', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 100, 0, 0, 0),
+(6, 'Chill Lounge', 1, '2017-03-20 20:19:36', -1, 0, 'thumbnails/picture2.png', '', '', 0, 25, 'dynamic_model_6', '0', '401', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 100, 0, 0, 0),
 (9, 'The Living Room', 0, '2017-03-22 04:28:10', 5, 0, NULL, '', '', 0, 30, 'model_b', '101', '207', '1.4', '', 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
-(14, 'test1337', 0, '2017-05-11 18:43:04', 2, 0, NULL, '', '', 0, 15, 'dynamic_model_1', '0', '0', '0', '', 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
-(18, 'Secondary Room', 0, '2017-08-18 18:32:55', 5, 0, NULL, '', '', 0, 25, 'model_h', '703', '406', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
-(26, 'wfewwefewf', 0, '2017-08-22 13:07:43', 5, 0, NULL, '', '', 0, 10, 'model_b', '0', '0', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 30, 0, 0, 0);
+(14, 'test1337', 0, '2017-05-11 18:43:04', 2, 0, NULL, '', '', 0, 15, 'dynamic_model_14', '0', '0', '0', '', 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
+(18, 'Secondary Room', 0, '2017-08-18 18:32:55', 5, 0, NULL, '', '', 0, 25, 'model_h', '703', '406', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -13114,8 +13238,8 @@ CREATE TABLE `room_models_dynamic` (
 --
 
 INSERT INTO `room_models_dynamic` (`id`, `door_x`, `door_y`, `door_z`, `door_dir`, `heightmap`, `wall_height`) VALUES
-('dynamic_model_14', 6, 6, 8, 4, 'xxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxx88888888xxxxxxxxx{13}xxxxxx888888888xxxxxxxxx{13}xxxxxxx88888888xxxxxxxxx{13}xxxxxxx88888888xxxxxxxxx{13}xxxxxxx88888888xxxxxxxxx{13}xxxxxxx88888888xxxxxxxxx{13}xxxxxxx88888888xxxxxxxxx{13}xxxxxxx88888888xxxxxxxxx{13}xxxxxxx88888888xxxxxxxxx{13}xxxxxxx88888888xxxxxxxxx{13}xxxxxxx77777777xxxxxxxxx{13}xxxxxxx66666666xxxxxxxxx{13}xxxxxxx55555555xxxxxxxxx{13}xxxxxxx44444444xxxxxxxxx{13}xxxxxxx33444433xxxxxxxxx{13}xxxxxxx22444422xxxxxxxxx{13}xxxxxxx11444411xxxxxxxxx{13}xxxxxxx00000000xxxxxxxxx{13}xxxxxxx00000000xxxxxxxxx{13}xxxxxxx00000000xxxxxxxxx{13}xxxxxxx00000000xxxxxxxxx{13}xxxxxxx00000000xxxxxxxxx{13}xxxxxxx00000000xxxxxxxxx{13}xxxxxxx00000000xxxxxxxxx{13}xxxxxxx00000000xxxxxxxxx{13}xxxxxxx00000000xxxxxxxxx', -1),
-('dynamic_model_26', 0, 6, 0, 2, 'xxxxxxxxxxxx{13}xxxxx0000000{13}xxxxx0000000{13}xxxxxx000000{13}xxxxx0x00000{13}x0000x0x0000{13}000000x0x000{13}x000000x0x00{13}x0000000x0x0{13}x00000000x0x{13}x000000000x0{13}xxxxxxxxxxxx{13}xxxxxxxxxxxx{13}xxxxxxxxxxxx{13}xxxxxxxxxxxx{13}xxxxxxxxxxxx', -1);
+('dynamic_model_14', 6, 6, 8, 4, 'xxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxx88888888xxxxxxxxx{13}xxxxxx888888888xxxxxxxxx{13}xxxxxxx88xx8888xxxxxxxxx{13}xxxxxxx88xx8888xxxxxxxxx{13}xxxxxxx88888888xxxxxxxxx{13}xxxxxxx88888888xxxxxxxxx{13}xxxxxxx88888888xxxxxxxxx{13}xxxxxxx88888888xxxxxxxxx{13}xxxxxxx88888888xxxxxxxxx{13}xxxxxxx88888888xxxxxxxxx{13}xxxxxxx77777777xxxxxxxxx{13}xxxxxxx66666666xxxxxxxxx{13}xxxxxxx55555555xxxxxxxxx{13}xxxxxxx44444444xxxxxxxxx{13}xxxxxxx33444433xxxxxxxxx{13}xxxxxxx22444422xxxxxxxxx{13}xxxxxxx11444411xxxxxxxxx{13}xxxxxxx00000000xxxxxxxxx{13}xxxxxxx00000000xxxxxxxxx{13}xxxxxxx00000000xxxxxxxxx{13}xxxxxxx00000000xxxxxxxxx{13}xxxxxxx00000000xxxxxxxxx{13}xxxxxxx00000000xxxxxxxxx{13}xxxxxxx00000000xxxxxxxxx{13}xxxxxxx00000000xxxxxxxxx{13}xxxxxxx00000000xxxxxxxxx', -1),
+('dynamic_model_6', 0, 3, 0, 2, 'xxxxxxxxxxxx{13}x00000xxxxxx{13}x00000xxxxxx{13}000000xxxxxx{13}x00000xxxxxx{13}x00000xxxxxx{13}x00000xxxxxx{13}x00000xxxxxx{13}xxxxxxxxxxxx', -1);
 
 -- --------------------------------------------------------
 
@@ -13239,7 +13363,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `rank`, `join_date`, `last_online`, `sso_ticket`, `email`, `mission`, `gender`, `figure`, `credits`) VALUES
 (2, 'MemeMaster', NULL, 7, 44324323, 1490046606, '321', NULL, 'eating more cake, k?', 'M', 'ch-3111-88-91.hd-180-1.lg-285-82.ea-1406-1408.ha-1008-64.hr-125-45.sh-3068-1408-1408', 400),
-(5, 'Alex', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 7, 1489384512, 1491544401, 'sso-icarus-bYRe7SAwvB-E0MzPL-7LWdVfPgEm', 'we3rejfpef3@cefc.com', 'Icarus alpha tester', 'M', 'lg-270-90.cc-3075-90.ch-3030-1408.sh-290-64.hr-3260-45.ca-3187-79.ha-3291-73.hd-209-1', 4995);
+(5, 'Alex', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 7, 1489384512, 1491544401, 'sso-icarus-Nd618IXuOG-b7fXcK-ZkDOc6Ys1v', 'we3rejfpef3@cefc.com', 'Icarus alpha tester', 'M', 'lg-270-90.cc-3075-90.ch-3030-1408.sh-290-64.hr-3260-45.ca-3187-79.ha-3291-73.hd-209-1', 4995);
 
 -- --------------------------------------------------------
 
@@ -13449,7 +13573,7 @@ ALTER TABLE `furniture`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=898;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1011;
 --
 -- AUTO_INCREMENT for table `messenger_friendships`
 --
@@ -13479,7 +13603,7 @@ ALTER TABLE `navigator_tabs`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `rooms_newbie`
 --
