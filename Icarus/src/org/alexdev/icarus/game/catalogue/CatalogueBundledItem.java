@@ -40,7 +40,6 @@ public class CatalogueBundledItem {
     }
 
 	public void createBadgeDefinition() {
-		this.overrideDefinition = new ItemDefinition(this.catalogueItem.getCatalogueName(), "b");
 	}
 
 
