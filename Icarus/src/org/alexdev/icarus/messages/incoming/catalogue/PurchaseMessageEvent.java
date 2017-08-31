@@ -97,7 +97,7 @@ public class PurchaseMessageEvent implements MessageEvent {
             for (int i = 0; i < amount; i++) {
 
             	
-                Item inventoryItem = InventoryDao.newItem(bundleItem.getItemId(), player.getDetails().getId(), extraData);
+                Item inventoryItem = InventoryDao.newItem(bundleItem.getItemDefinition().getId(), player.getDetails().getId(), extraData);
                 bought.add(inventoryItem);
                 
                 if (inventoryItem.getDefinition().getInteractionType() == InteractionType.JUKEBOX) {
@@ -110,7 +110,7 @@ public class PurchaseMessageEvent implements MessageEvent {
 
                 if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
                     
-                    Item secondTeleporter = InventoryDao.newItem(bundleItem.getItemId(), player.getDetails().getId(), extraData);
+                    Item secondTeleporter = InventoryDao.newItem(bundleItem.getItemDefinition().getId(), player.getDetails().getId(), extraData);
                     
                     inventoryItem.setExtraData(String.valueOf(secondTeleporter.getId()));
                     secondTeleporter.setExtraData(String.valueOf(inventoryItem.getId()));

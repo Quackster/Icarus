@@ -96,5 +96,6 @@ public class Outgoing {
 	public static int NavigatorPreferencesComposer = 3617;
 	public static int AvailablePromotionRoomsComposer = 442;
 	public static int NavigatorPromoteCategoriesComposer = 1265;
+	public static int ActivityPointsComposer = 3318;
     
 }

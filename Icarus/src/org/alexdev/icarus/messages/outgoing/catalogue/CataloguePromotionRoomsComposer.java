@@ -25,7 +25,7 @@ public class CataloguePromotionRoomsComposer extends OutgoingMessageComposer {
 			
 			this.response.writeInt(room.getData().getId());
 			this.response.writeString(room.getData().getName());
-			this.response.writeBool(true);
+			this.response.writeBool(false);
 		}
 	}
 

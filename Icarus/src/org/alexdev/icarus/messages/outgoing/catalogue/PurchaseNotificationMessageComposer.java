@@ -17,7 +17,7 @@ public class PurchaseNotificationMessageComposer extends OutgoingMessageComposer
     @Override
     public void write() {
         
-        ItemDefinition definition = ItemManager.getFurnitureById(item.getItemId());
+        ItemDefinition definition = item.getItemDefinition();
         
         response.init(Outgoing.PurchaseNotificationMessageComposer);
         response.writeInt(definition.getId());
