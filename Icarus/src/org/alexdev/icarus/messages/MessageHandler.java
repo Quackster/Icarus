@@ -3,13 +3,13 @@ package org.alexdev.icarus.messages;
 import java.util.HashMap;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.headers.Incoming;
-import org.alexdev.icarus.messages.incoming.catalogue.CataloguePromotionRoomsMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.CatalogueMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.CataloguePageMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.GiftingSettingsMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.PromotableRoomsMessageEvent;
-import org.alexdev.icarus.messages.incoming.catalogue.PurchaseMessageEvent;
+import org.alexdev.icarus.messages.incoming.catalogue.PurchaseItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.PurchasePresentMessageEvent;
+import org.alexdev.icarus.messages.incoming.catalogue.PurchaseRoomPromotionMessageEvent;
 import org.alexdev.icarus.messages.incoming.handshake.*;
 import org.alexdev.icarus.messages.incoming.messenger.*;
 import org.alexdev.icarus.messages.incoming.misc.*;
@@ -115,16 +115,17 @@ public class MessageHandler {
         this.messages.put(Incoming.RoomCameraMessageEvent, new RoomThumbnailMessageEvent());
         this.messages.put(Incoming.FloorPlanPropertiesMessageEvent, new FloorPlanPropertiesMessageEvent());
         this.messages.put(Incoming.SaveFloorPlanMessageEvent, new SaveFloorPlanMessageEvent());
+        this.messages.put(Incoming.EditRoomPromotionMessageEvent, new EditRoomPromotionMessageEvent());
     }
     
     private void registerCataloguePackets() {
         this.messages.put(Incoming.CatalogueTabMessageEvent, new CatalogueMessageEvent());
         this.messages.put(Incoming.CataloguePageMessageEvent, new CataloguePageMessageEvent());
-        this.messages.put(Incoming.PurchaseObjectMessageEvent, new PurchaseMessageEvent());
+        this.messages.put(Incoming.PurchaseObjectMessageEvent, new PurchaseItemMessageEvent());
         this.messages.put(Incoming.PurchasePresentMessageEvent, new PurchasePresentMessageEvent());
         this.messages.put(Incoming.GiftingSettingsMessageEvent, new GiftingSettingsMessageEvent());
-        this.messages.put(Incoming.CataloguePromotionRoomsMessageEvent, new CataloguePromotionRoomsMessageEvent());
         this.messages.put(Incoming.PromotableRoomsMessageEvent, new PromotableRoomsMessageEvent());
+        this.messages.put(Incoming.PurchaseRoomPromotionMessageEvent, new PurchaseRoomPromotionMessageEvent());
     }
     
 

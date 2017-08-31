@@ -18,7 +18,7 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 import com.google.common.collect.Lists;
 
-public class PurchaseMessageEvent implements MessageEvent {
+public class PurchaseItemMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {

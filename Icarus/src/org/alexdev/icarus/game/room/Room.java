@@ -3,6 +3,7 @@ package org.alexdev.icarus.game.room;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import org.alexdev.icarus.dao.mysql.ItemDao;
@@ -18,6 +19,7 @@ import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.game.room.settings.RoomState;
 import org.alexdev.icarus.game.room.settings.RoomType;
 import org.alexdev.icarus.log.Log;
+import org.alexdev.icarus.messages.incoming.room.RoomPromotionMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.ChatOptionsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.FloorMapMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.HasOwnerRightsMessageComposer;
@@ -49,12 +51,12 @@ import com.google.common.collect.Maps;
 
 public class Room {
 
-	private int privateId = -1;
-
+	private AtomicInteger privateId = new AtomicInteger(-1);
 	private RoomData data;
 	private RoomScheduler scheduler;
 	private RoomMapping mapping;
 	private RoomModel model;
+	private RoomPromotion promotion;
 
 	private List<Entity> entities; 
 	private Map<Integer, Item> items;
@@ -169,7 +171,7 @@ public class Room {
 
 		player.send(new PrepareRoomMessageComposer(this));
 
-		roomUser.setVirtualId(this.getVirtualId());
+		roomUser.setVirtualId(this.privateId.incrementAndGet());
 		roomUser.getPosition().setX(x);
 		roomUser.getPosition().setY(y);
 		roomUser.getPosition().setZ(this.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
@@ -220,6 +222,8 @@ public class Room {
 		player.send(new ChatOptionsMessageComposer(this));
 		player.send(new WallOptionsMessageComposer(this.getData().isHideWall(), this.getData().getWallThickness(), this.getData().getFloorThickness()));
 
+		player.send(new RoomPromotionMessageComposer(this));
+		
 		player.send(new FloorItemsMessageComposer(this.getFloorItems()));
 		player.send(new WallItemsMessageComposer(this.getWallItems()));
 
@@ -299,7 +303,7 @@ public class Room {
 			this.entities.clear();
 		}
 
-		this.privateId = -1;
+		this.privateId.set(-1);
 	}
 
 	public void send(OutgoingMessageComposer response, boolean checkRights) {
@@ -414,10 +418,6 @@ public class Room {
 	public void save() {
 		RoomDao.updateRoom(this);
 	}
-	public int getVirtualId() {
-		this.privateId = this.privateId + 1;
-		return this.privateId;
-	}
 
 	public void setModel(RoomModel model) {
 		this.model = model;
@@ -425,6 +425,21 @@ public class Room {
 
 	public void forwardRoom(Player user) {
 		user.send(new RoomForwardComposer(this.data.getId()));
-		
+	}
+	
+	public void createPromotion(String promotionName, String promotionDescription) {
+		this.promotion = new RoomPromotion(promotionName, promotionDescription);
+	}
+	
+	public void endPromotion() {
+		this.promotion = null;
+	}
+	
+	public boolean hasPromotion() {
+		return this.promotion != null;
+	}
+	
+	public RoomPromotion getPromotion() {
+		return this.promotion;
 	}
 }

@@ -2,6 +2,8 @@ package org.alexdev.icarus.game.room;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.game.room.settings.RoomState;
@@ -115,28 +117,42 @@ public class RoomData {
             response.writeString(tag);
         }
         
-        int enumType = enterRoom ? 32 : 0;
+        AtomicInteger roomListingType = new AtomicInteger(enterRoom ? 32 : 0);
         
         if (this.thumbnail != null) {
             if (this.thumbnail.length() > 0) {
-                enumType += 1;
+                roomListingType.getAndAdd(1);
             }
         }
         
         if (this.roomType == RoomType.PRIVATE) {
-            enumType += 8;
+        	roomListingType.getAndAdd(8);
         }
 
         if (this.allowPets) { 
-            enumType += 16;
+        	roomListingType.getAndAdd(16);
         }
+        
+        if (this.room.getPromotion() != null) {
+        	roomListingType.getAndAdd(4);
+        }
+        
+        /*if (this.room.getGroup() != null) {
+        	enumType += 2;
+        }*/
 
-        response.writeInt(enumType);
+        response.writeInt(roomListingType.get());
         
         if (this.thumbnail != null) {
             if (this.thumbnail.length() > 0) {
                 response.writeString(this.thumbnail);
             }
+        }
+        
+        if (this.room.getPromotion() != null) {
+        	response.writeString(this.room.getPromotion().getPromotionName());
+        	response.writeString(this.room.getPromotion().getPromotionDescription());
+        	response.writeInt(this.room.getPromotion().getMinutesLeft());
         }
     }
     
