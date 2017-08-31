@@ -30,7 +30,7 @@ public class CatalogueDao {
             while (resultSet.next()) {
 
                 CatalogueTab tab = new CatalogueTab(resultSet.getInt("id"), resultSet.getInt("parent_id"), resultSet.getString("caption"), 
-                        resultSet.getInt("icon_color"), resultSet.getInt("icon_image"), true, resultSet.getInt("min_rank"));
+                        resultSet.getInt("icon_color"), resultSet.getInt("icon_image"), true, resultSet.getInt("min_rank"), resultSet.getString("link"));
 
                 tabs.add(tab);
             }

@@ -6,6 +6,7 @@ import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.catalogue.CatalogueTab;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.MessageEvent;
+import org.alexdev.icarus.messages.outgoing.catalogue.CataloguePromotionRoomsComposer;
 import org.alexdev.icarus.messages.outgoing.catalogue.CatalogueTabMessageComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
@@ -27,6 +28,7 @@ public class CatalogueMessageEvent implements MessageEvent {
         }
         
         player.send(new CatalogueTabMessageComposer(type, parentTabs));
+        player.send(new CataloguePromotionRoomsComposer(player.getRooms()));
     }
 
 }

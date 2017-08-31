@@ -94,5 +94,7 @@ public class Outgoing {
 	public static int FloorPlanRoomVisualComposer = 3003;
 	public static int RoomForwardComposer = 3289;
 	public static int NavigatorPreferencesComposer = 3617;
+	public static int AvailablePromotionRoomsComposer = 442;
+	public static int NavigatorPromoteCategoriesComposer = 1265;
     
 }

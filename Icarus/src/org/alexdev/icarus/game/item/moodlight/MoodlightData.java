@@ -26,6 +26,7 @@ public class MoodlightData {
     }
     
     public String generateExtraData() {
+    	
         MoodlightPreset preset = this.presets.get(this.currentPreset - 1);
         
         StringBuilder builder = new StringBuilder();
@@ -38,6 +39,7 @@ public class MoodlightData {
         builder.append(preset.getColorCode());
         builder.append(",");
         builder.append(preset.getColorIntensity());
+        
         return builder.toString();
     }
     

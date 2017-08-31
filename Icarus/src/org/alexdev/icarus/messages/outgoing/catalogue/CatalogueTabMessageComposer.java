@@ -41,11 +41,10 @@ public class CatalogueTabMessageComposer extends OutgoingMessageComposer {
 
         response.writeBool(tab.isEnabled());
         response.writeInt(tab.getIconImage());
-        response.writeInt(tab.getId() == -1 ? -1 : tab.getId());
-        response.writeString(tab.getCaption().toLowerCase());
-
+        response.writeInt(tab.getId());
+        response.writeString(tab.getLink().equals("undefined") ? tab.getCaption().toLowerCase().replaceAll("[^A-Za-z0-9]", "").replace(" ", "_") : tab.getLink());
         response.writeString(tab.getCaption());
-        response.writeInt(0); // TODO: flat offers
+        response.writeInt(0);
     }
 
     void recursiveCatalogueIndex(CatalogueTab tab, Response response)  {

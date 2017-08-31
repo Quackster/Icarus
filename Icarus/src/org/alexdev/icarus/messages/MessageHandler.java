@@ -3,9 +3,11 @@ package org.alexdev.icarus.messages;
 import java.util.HashMap;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.headers.Incoming;
+import org.alexdev.icarus.messages.incoming.catalogue.CataloguePromotionRoomsMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.CatalogueMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.CataloguePageMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.GiftingSettingsMessageEvent;
+import org.alexdev.icarus.messages.incoming.catalogue.PromotableRoomsMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.PurchaseMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.PurchasePresentMessageEvent;
 import org.alexdev.icarus.messages.incoming.handshake.*;
@@ -82,6 +84,7 @@ public class MessageHandler {
     
     private void registerNavigatorPackets() {
         this.messages.put(Incoming.NewNavigatorMessageEvent, new NewNavigatorMessageEvent());
+        this.messages.put(Incoming.NavigatorPromoteRoomCategories, new NavigatorPromoteCategoriesMessageEvent());
         this.messages.put(Incoming.SearchNewNavigatorEvent, new SearchNewNavigatorEvent());
         this.messages.put(Incoming.CreateRoomMessageEvent, new CreateRoomMessageEvent());
         this.messages.put(Incoming.CanCreateRoomMessageEvent, new CanCreateRoomMessageEvent());
@@ -120,6 +123,8 @@ public class MessageHandler {
         this.messages.put(Incoming.PurchaseObjectMessageEvent, new PurchaseMessageEvent());
         this.messages.put(Incoming.PurchasePresentMessageEvent, new PurchasePresentMessageEvent());
         this.messages.put(Incoming.GiftingSettingsMessageEvent, new GiftingSettingsMessageEvent());
+        this.messages.put(Incoming.CataloguePromotionRoomsMessageEvent, new CataloguePromotionRoomsMessageEvent());
+        this.messages.put(Incoming.PromotableRoomsMessageEvent, new PromotableRoomsMessageEvent());
     }
     
 
