@@ -35,7 +35,7 @@ public class SaveMoodlightPresetMessageEvent implements MessageEvent {
         
         for (Item item : items) {
             moodlight = item;
-            continue;
+            break;
         }
 
         if (moodlight == null) {
