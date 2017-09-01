@@ -1,6 +1,7 @@
 package org.alexdev.icarus.game.navigator.populator;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.alexdev.icarus.game.navigator.NavigatorRoomPopulator;
@@ -14,8 +15,9 @@ public class PopularPopulator extends NavigatorRoomPopulator {
     @Override
     public List<Room> generateListing(boolean limit, Player player) {
 
-        List<Room> loadedRooms = RoomManager.getLoadedRooms();
-        List<Room> activeRooms = loadedRooms.stream().filter(r -> r.getData().getUsersNow() > 0 && r.getData().getRoomType() == RoomType.PRIVATE).collect(Collectors.toList());
+        Map<Integer, Room> loadedRooms = RoomManager.getRooms();
+        
+        List<Room> activeRooms = loadedRooms.values().stream().filter(r -> r.getData().getUsersNow() > 0 && r.getData().getRoomType() == RoomType.PRIVATE).collect(Collectors.toList());
         
         activeRooms.sort((room1, room2)
         ->room2.getData().getUsersNow()

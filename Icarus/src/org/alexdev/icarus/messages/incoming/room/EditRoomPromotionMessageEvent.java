@@ -28,7 +28,12 @@ public class EditRoomPromotionMessageEvent implements MessageEvent {
 			return;
 		}
 		
-		eventRoom.createPromotion(promotionName, promotionDescription);
+		if (eventRoom.getPromotion() == null) {
+			return;
+		}
+		
+		eventRoom.getPromotion().setPromotionName(promotionName);
+		eventRoom.getPromotion().setPromotionDescription(promotionDescription);
 		eventRoom.send(new RoomPromotionMessageComposer(eventRoom));
 
 	}

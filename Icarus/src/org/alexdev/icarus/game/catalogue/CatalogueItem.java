@@ -6,7 +6,6 @@ import org.alexdev.icarus.log.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.alexdev.icarus.game.furniture.ItemManager;
 import org.alexdev.icarus.server.api.messages.Response;
 
 import com.google.common.collect.Lists;

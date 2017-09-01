@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 
 import org.alexdev.icarus.dao.mysql.Dao;
+import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.furniture.ItemManager;
 import org.alexdev.icarus.game.navigator.NavigatorManager;
@@ -56,6 +57,7 @@ public class Icarus {
             NavigatorManager.load();
             ItemManager.load();
             CatalogueManager.load();
+            GameScheduler.load();
             
             
             Log.println("Settting up server");

@@ -15,6 +15,7 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
+import org.alexdev.icarus.game.room.model.RoomMapping;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.game.room.settings.RoomState;
 import org.alexdev.icarus.game.room.settings.RoomType;
@@ -42,6 +43,7 @@ import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.HotelViewMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RemoveUserMessageComposer;
+import org.alexdev.icarus.messages.outgoing.room.user.RoomForwardComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserDisplayMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
@@ -277,7 +279,7 @@ public class Room {
 
 			this.cleanupRoomData();
 
-			RoomManager.getLoadedRooms().remove(this);
+			RoomManager.getRooms().remove(this.getData().getId());
 
 		} else {
 
@@ -288,7 +290,7 @@ public class Room {
 			this.cleanupRoomData();
 
 			if (PlayerManager.getById(this.data.getOwnerId()) == null && this.data.getRoomType() == RoomType.PRIVATE) { 
-				RoomManager.getLoadedRooms().remove(this);
+				RoomManager.getRooms().remove(this.getData().getId());
 			}
 		}
 	}
@@ -428,11 +430,13 @@ public class Room {
 	}
 	
 	public void createPromotion(String promotionName, String promotionDescription) {
-		this.promotion = new RoomPromotion(promotionName, promotionDescription);
+		this.promotion = new RoomPromotion(this, promotionName, promotionDescription);
+		RoomManager.getPromotedRooms().put(this.data.getId(), this);
 	}
 	
 	public void endPromotion() {
 		this.promotion = null;
+		RoomManager.getPromotedRooms().remove(this.data.getId());
 	}
 	
 	public boolean hasPromotion() {

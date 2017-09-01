@@ -1,4 +1,4 @@
-package org.alexdev.icarus.game.room;
+package org.alexdev.icarus.messages.outgoing.room.user;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;

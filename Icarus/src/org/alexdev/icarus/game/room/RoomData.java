@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.alexdev.icarus.dao.mysql.RoomDao;
-import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.game.room.settings.RoomState;
 import org.alexdev.icarus.game.room.settings.RoomType;
 import org.alexdev.icarus.server.api.messages.Response;
@@ -152,7 +151,7 @@ public class RoomData {
         if (this.room.getPromotion() != null) {
         	response.writeString(this.room.getPromotion().getPromotionName());
         	response.writeString(this.room.getPromotion().getPromotionDescription());
-        	response.writeInt(this.room.getPromotion().getMinutesLeft());
+        	response.writeInt(this.room.getPromotion().getPromotionMinutesLeft().get());
         }
     }
     

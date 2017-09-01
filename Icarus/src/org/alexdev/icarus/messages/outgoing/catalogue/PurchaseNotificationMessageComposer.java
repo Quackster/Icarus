@@ -1,7 +1,6 @@
 package org.alexdev.icarus.messages.outgoing.catalogue;
 
 import org.alexdev.icarus.game.catalogue.CatalogueBundledItem;
-import org.alexdev.icarus.game.furniture.ItemManager;
 import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
