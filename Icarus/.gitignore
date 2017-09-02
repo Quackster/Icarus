@@ -7,7 +7,6 @@ Icarus.jar
 run.bat
 icarus.sql
 /Icarus_jars/*
-/plugins/*
 /lib/*
 /extensions/*
 /log/*
