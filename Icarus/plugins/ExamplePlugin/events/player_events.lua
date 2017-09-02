@@ -7,21 +7,18 @@
 	return: Boolean - event cancelled state
 --]]
 function onPlayerLoginEvent(player)
-
 	player:sendMessage("Welcome to Icarus Hotel!\r\rThis is a alpha!");
-	return false
+	log:println("Player login event called")
+	return false -- will do nothing for logged in event, see PlayerTryLoginEvent instead
 end
 
 --[[
-	Room enter event called when the user has entered a room
+	Login event called when the user has successfully disconnnected
+	hotel packets were sent
 	
-	param: 
-			Player 	- person who logged in
-			Room 	- the room they entered
-			
-	return: Boolean - event cancelled state
+	param: Player 	- person who disconnected
 --]]
-function onRoomEnterEvent(player, room)
-
-	return false
+function onPlayerDisconnectEvent(player)
+	log:println("Player disconnect event called")
+	return false -- will do nothing upon disconnection
 end

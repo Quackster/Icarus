@@ -26,6 +26,7 @@ public class RoomUser {
 	private int virtualId;
 	private int lastChatId;
 	private int danceId;
+	private int roomRequestedId;
 
 	private Position position;
 	private Position goal;
@@ -289,6 +290,7 @@ public class RoomUser {
 		this.goal = new Position(0, 0, 0);
 
 		this.lastChatId = 0;
+		this.roomRequestedId = -1;
 		this.virtualId = -1;
 		this.danceId = 0;
 		this.lookResetTime = -1;
@@ -484,6 +486,14 @@ public class RoomUser {
 
 	public void setWalkingAllowed(boolean isWalkingAllowed) {
 		this.isWalkingAllowed = isWalkingAllowed;
+	}
+
+	public int getRequestedRoomId() {
+		return roomRequestedId;
+	}
+
+	public void setRequestedRoomId(int roomRequestedId) {
+		this.roomRequestedId = roomRequestedId;
 	}
 
 }

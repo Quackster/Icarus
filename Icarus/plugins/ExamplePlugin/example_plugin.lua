@@ -1,16 +1,20 @@
 plugin_details = {
-	name = "PluginTest",
+	name = "ExamplePlugin",
 	author = "Quackster",
 	path = "plugins/ExamplePlugin"
 }
 
 event_register = {
 	"PLAYER_LOGIN_EVENT",
-	"ROOM_ENTER_EVENT"
+	"PLAYER_DISCONNECT_EVENT",
+	"ROOM_REQUEST_ENTER_EVENT",
+	"ROOM_ENTER_EVENT",
+	"ROOM_LEAVE_EVENT"
 }
 
 event_files = {
-	"player_events.lua"
+	"player_events.lua",
+	"room_events.lua"
 }
 
 --[[
@@ -29,7 +33,7 @@ end
 
 
 -- Load all event .lua files
--- If you delete this code, it won't work
+-- If you delete this code, ABSOLUTELY NO events will work
 
 for i, file in ipairs(event_files) do
 	dofile (string.format('%s/events/%s', plugin_details.path, file))

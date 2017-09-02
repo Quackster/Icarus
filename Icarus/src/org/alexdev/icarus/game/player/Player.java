@@ -7,12 +7,16 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.inventory.Inventory;
 import org.alexdev.icarus.game.messenger.Messenger;
 import org.alexdev.icarus.game.player.club.ClubSubscription;
+import org.alexdev.icarus.game.plugins.PluginEvent;
+import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.RoomUser;
 import org.alexdev.icarus.messages.outgoing.user.BroadcastMessageAlertComposer;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.IPlayerNetwork;
+import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
 public class Player extends Entity {
 
@@ -57,6 +61,9 @@ public class Player extends Entity {
             if (this.roomUser.getRoom() != null) {
                 this.roomUser.getRoom().leaveRoom(this, false);
             }
+            
+            // Call player disconnect event with Player parameter
+        	PluginManager.callEvent(PluginEvent.PLAYER_DISCONNECT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this) });
 
             List<Room> rooms = RoomManager.getPlayerRooms(this.details.getId());
 

@@ -4,8 +4,10 @@ public enum PluginEvent {
 
 	// Player events
 	PLAYER_LOGIN_EVENT("onPlayerLoginEvent"),
+	PLAYER_DISCONNECT_EVENT("onPlayerDisconnectEvent"),
 	
 	// Room events
+	ROOM_REQUEST_ENTER_EVENT("onRoomRequestEvent"),
 	ROOM_ENTER_EVENT("onRoomEnterEvent"),
 	ROOM_LEAVE_EVENT("onRoomLeaveEvent"),
 	

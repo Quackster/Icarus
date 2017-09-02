@@ -1,3 +1,3 @@
 plugins = {
-	"plugins/ExamplePlugin/plugin_player_login.lua"
+	"plugins/ExamplePlugin/example_plugin.lua"
 }

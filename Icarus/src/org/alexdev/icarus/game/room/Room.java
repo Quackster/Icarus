@@ -245,12 +245,20 @@ public class Room {
 		LuaValue chunk = globals.load("player:getRoomUser():chat(\"I have just entered \" .. room:getData():getName())");
 		chunk.call();*/
 		
-		PluginManager.callEvent(PluginEvent.ROOM_ENTER_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
+		boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_ENTER_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
+		
+		if (isCancelled) {
+			this.leaveRoom(player, true);
+		}
 	}
 
 	public void leaveRoom(Player player, boolean hotelView) {
 
-		PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
+		boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
+		
+		if (isCancelled) {
+			return;
+		}
 		
 		if (hotelView) {;
 			player.send(new HotelViewMessageComposer());

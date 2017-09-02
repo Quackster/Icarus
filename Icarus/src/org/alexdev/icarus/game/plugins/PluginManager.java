@@ -17,13 +17,16 @@ import com.google.common.collect.Maps;
 
 public class PluginManager {
 
-	private static Map<PluginEvent, List<Plugin>> registeredPlugins;
+	private static List<Plugin> plugins;
+	private static Map<PluginEvent, List<Plugin>> registeredPluginEvents;
 
 	public static void load() {
-		registeredPlugins = Maps.newConcurrentMap();
+		
+		plugins = Lists.newArrayList();
+		registeredPluginEvents = Maps.newConcurrentMap();
 		
 		for (PluginEvent event : PluginEvent.values()) {
-			registeredPlugins.put(event, Lists.newArrayList());
+			registeredPluginEvents.put(event, Lists.newArrayList());
 		}
 		
 		getPluginFiles();
@@ -55,7 +58,7 @@ public class PluginManager {
 			loadPlugin(value.toString());
 		}
 		
-		Log.println("Loaded " + registeredPlugins.size() + " plugin(s)!");
+		Log.println("Loaded " + plugins.size() + " plugin(s)!");
 	}
 
 	private static void loadPlugin(String path) {
@@ -86,24 +89,26 @@ public class PluginManager {
 				details.get("name").toString(), 
 				details.get("author").toString(),
 				globals);
+		
+		plugins.add(plugin);
 
 		LuaValue pluginEnable = globals.get("onEnable");
 		pluginEnable.invoke(CoerceJavaToLua.coerce(plugin));
 		
 		for (int i = 0; i < events.len().toint(); i++) {
 			PluginEvent event = PluginEvent.valueOf(events.get(i + 1).toString());
-			registeredPlugins.get(event).add(plugin);
+			registeredPluginEvents.get(event).add(plugin);
 		}
 
 	}
 	
 	public static boolean callEvent(PluginEvent event, LuaValue[] values) {
 		
-		if (!registeredPlugins.containsKey(event)) {
+		if (!registeredPluginEvents.containsKey(event)) {
 			return false;
 		}
 		
-		for (Plugin plugin : registeredPlugins.get(event)) {
+		for (Plugin plugin : registeredPluginEvents.get(event)) {
 			
 			LuaValue calledEvent = plugin.getGlobals().get(event.getFunctionName());
 			Varargs variableArgs = calledEvent.invoke(LuaValue.varargsOf(values));
