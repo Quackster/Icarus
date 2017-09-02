@@ -243,7 +243,7 @@ public class Room {
 		globals.set("player", CoerceJavaToLua.coerce(player));
 		globals.set("room", CoerceJavaToLua.coerce(this));
 
-		LuaValue chunk = globals.load("player:getRoomUser():chat(\"I have just entered\" .. room:getData():getName())");
+		LuaValue chunk = globals.load("player:getRoomUser():chat(\"I have just entered \" .. room:getData():getName())");
 		chunk.call();
 	}
 
@@ -292,7 +292,6 @@ public class Room {
 		if (forceDisposal) {
 
 			this.cleanupRoomData();
-
 			RoomManager.getRooms().remove(this.getData().getId());
 
 		} else {

@@ -10,6 +10,7 @@ import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.furniture.ItemManager;
 import org.alexdev.icarus.game.navigator.NavigatorManager;
+import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.server.api.IServerHandler;
@@ -57,52 +58,17 @@ public class Icarus {
             server.setPort(serverPort);
 
             Log.println("Setting up game");
-            
+
             RoomManager.load();
             NavigatorManager.load();
             ItemManager.load();
             CatalogueManager.load();
             GameScheduler.load();
+            PluginManager.load();
             
-            /*Globals globals = JsePlatform.standardGlobals();
-
-            LuaValue test = CoerceJavaToLua.coerce(new MyClass());
-            globals.set("obj", test);
-            
-            LuaValue chunk = globals.load("obj:test()");
-            chunk.call();*/
-            
-            /*Globals globals = JsePlatform.standardGlobals();
-
-            LuaValue test = CoerceJavaToLua.coerce(new MyClass());
-            globals.set("obj", test);
-            
-            LuaValue chunk = globals.load("test = {\"test\", \"test2\"}");
-            chunk.call();
-            
-            LuaValue tableValue = globals.get("test");
-            
-            if (tableValue.istable()) {
-            	
-            	LuaTable table = (LuaTable) tableValue;
-            	Log.println("Amount of items: " + table.len());
-            	
-            	for (int i = 0; i < table.len().toint(); i++) {
-            		
-            		LuaValue value = table.get(i + 1);
-            		
-            		Log.println("Value " + i + ": " + value.toString()); 
-            		
-            	}
-            	
-            } else {
-            	
-            	Log.println("Amount of items in non-table: " + tableValue.checkint());
-            	
-            }*/
-            
+Log.println();
             Log.println("Settting up server");
-            Log.println();
+            
             
             if (server.listenSocket()) {
                 Log.println("Server is listening on " + serverIP + ":" + serverPort);
