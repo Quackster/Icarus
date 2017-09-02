@@ -253,6 +253,8 @@ public class Room {
 
 	public void leaveRoom(Player player, boolean hotelView) {
 
+		PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
+		
 		if (hotelView) {;
 			player.send(new HotelViewMessageComposer());
 		}
@@ -434,6 +436,7 @@ public class Room {
 	public RoomModel getModel() {
 		
 		if (this.data.getModel().startsWith("dynamic_model")) {
+			
 			if (this.model == null) {
 				this.model = RoomDao.getCustomModel(this.data.getId());
 			}

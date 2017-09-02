@@ -73,7 +73,7 @@ public class PluginManager {
 
 		}
 
-		LuaValue eventsValue = globals.get("events");
+		LuaValue eventsValue = globals.get("event_register");
 
 		if (!eventsValue.istable()) {
 			return;

@@ -6,7 +6,12 @@ public enum PluginEvent {
 	PLAYER_LOGIN_EVENT("onPlayerLoginEvent"),
 	
 	// Room events
-	ROOM_ENTER_EVENT("onRoomEnterEvent");
+	ROOM_ENTER_EVENT("onRoomEnterEvent"),
+	ROOM_LEAVE_EVENT("onRoomLeaveEvent"),
+	
+	// Item events
+	FLOOR_ITEM_INTERACT_EVENT("onInteractFloorItemEvent"),
+	WALL_ITEM_INTERACT_EVENT("onInteractWallItemEvent");
 	
 	private String functionName;
 	
