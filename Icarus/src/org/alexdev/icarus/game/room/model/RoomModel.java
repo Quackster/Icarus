@@ -20,10 +20,9 @@
 package org.alexdev.icarus.game.room.model;
 
 import org.alexdev.icarus.game.pathfinder.Position;
-import org.alexdev.icarus.log.Log;
 
-public class RoomModel 
-{
+public class RoomModel {
+	
 	public final static int OPEN = 0;
 	public final static int CLOSED = 1;
 

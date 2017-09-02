@@ -13,10 +13,6 @@ import org.alexdev.icarus.game.room.RoomUser;
 import org.alexdev.icarus.messages.outgoing.user.BroadcastMessageAlertComposer;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 import org.alexdev.icarus.server.api.IPlayerNetwork;
-import org.luaj.vm2.Globals;
-import org.luaj.vm2.LuaValue;
-import org.luaj.vm2.lib.jse.CoerceJavaToLua;
-import org.luaj.vm2.lib.jse.JsePlatform;
 
 public class Player extends Entity {
 

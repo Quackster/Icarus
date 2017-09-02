@@ -2,23 +2,14 @@ package org.alexdev.icarus.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.security.CodeSource;
 import java.security.SecureRandom;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
 import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 import org.alexdev.icarus.Icarus;
-import org.alexdev.icarus.log.Log;
 import org.ini4j.InvalidFileFormatException;
 import org.ini4j.Wini;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 public class Util {

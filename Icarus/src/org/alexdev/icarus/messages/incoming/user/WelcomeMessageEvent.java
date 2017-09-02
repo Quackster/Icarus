@@ -1,18 +1,12 @@
 package org.alexdev.icarus.messages.incoming.user;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
-import org.luaj.vm2.lib.jse.JsePlatform;
 
 public class WelcomeMessageEvent implements MessageEvent {
 

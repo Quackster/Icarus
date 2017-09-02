@@ -2,8 +2,6 @@ package org.alexdev.icarus.game.room;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.alexdev.icarus.log.Log;
-
 public class RoomPromotion {
 	
 	private String promotionName;

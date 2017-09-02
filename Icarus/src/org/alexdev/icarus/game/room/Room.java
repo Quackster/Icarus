@@ -50,11 +50,8 @@ import org.alexdev.icarus.messages.outgoing.room.user.RoomForwardComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserDisplayMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
-import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
-import org.luaj.vm2.lib.jse.JsePlatform;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 

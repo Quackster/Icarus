@@ -6,7 +6,6 @@ import java.util.Map;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.util.Util;
 import org.luaj.vm2.Globals;
-import org.luaj.vm2.LuaFunction;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
@@ -90,8 +89,7 @@ public class PluginManager {
 
 		LuaValue pluginEnable = globals.get("onEnable");
 		pluginEnable.invoke(CoerceJavaToLua.coerce(plugin));
-		//pluginEnable.invoke(LuaValue.varargsOf(new LuaValue[] { CoerceJavaToLua.coerce(plugin), LuaValue.valueOf("testing value") }));
-
+		
 		for (int i = 0; i < events.len().toint(); i++) {
 			PluginEvent event = PluginEvent.valueOf(events.get(i + 1).toString());
 			registeredPlugins.get(event).add(plugin);
@@ -99,10 +97,10 @@ public class PluginManager {
 
 	}
 	
-	public static void callEvent(PluginEvent event, LuaValue[] values) {
+	public static boolean callEvent(PluginEvent event, LuaValue[] values) {
 		
 		if (!registeredPlugins.containsKey(event)) {
-			return;
+			return false;
 		}
 		
 		for (Plugin plugin : registeredPlugins.get(event)) {
@@ -110,9 +108,14 @@ public class PluginManager {
 			LuaValue calledEvent = plugin.getGlobals().get(event.getFunctionName());
 			Varargs variableArgs = calledEvent.invoke(LuaValue.varargsOf(values));
 			
-			//boolean isCancelled = variableArgs.arg1().toboolean();
+			boolean isCancelled = variableArgs.arg1().toboolean();
 			
+			if (isCancelled) {
+				return true;
+			}
 		}
+		
+		return false;
 	}
 
 	private static void registerGlobalVariables(Globals globals) {

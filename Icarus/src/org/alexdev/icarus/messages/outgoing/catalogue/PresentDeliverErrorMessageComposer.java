@@ -15,7 +15,9 @@ public class PresentDeliverErrorMessageComposer extends OutgoingMessageComposer 
 
 	@Override
 	public void write() {
-		response.init(Outgoing.PresentDeliverErrorMessageComposer);
+		this.response.init(Outgoing.PresentDeliverErrorMessageComposer);
+		this.response.writeInt(this.creditsError);
+		this.response.writeInt(this.ducketError);
 	}
 
 }

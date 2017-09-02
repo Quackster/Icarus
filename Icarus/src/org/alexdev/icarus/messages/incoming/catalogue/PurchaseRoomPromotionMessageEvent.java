@@ -2,7 +2,6 @@ package org.alexdev.icarus.messages.incoming.catalogue;
 
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.incoming.room.RoomPromotionMessageComposer;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessageComposer;

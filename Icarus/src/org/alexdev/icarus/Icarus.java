@@ -15,11 +15,6 @@ import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.server.api.IServerHandler;
 import org.alexdev.icarus.util.Util;
-import org.luaj.vm2.Globals;
-import org.luaj.vm2.LuaTable;
-import org.luaj.vm2.LuaValue;
-import org.luaj.vm2.lib.jse.CoerceJavaToLua;
-import org.luaj.vm2.lib.jse.JsePlatform;
 
 public class Icarus {
 
