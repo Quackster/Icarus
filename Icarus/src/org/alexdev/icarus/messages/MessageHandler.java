@@ -1,6 +1,8 @@
 package org.alexdev.icarus.messages;
 
 import java.util.HashMap;
+import java.util.List;
+
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.headers.Incoming;
 import org.alexdev.icarus.messages.incoming.catalogue.CatalogueMessageEvent;
@@ -30,12 +32,13 @@ import org.alexdev.icarus.messages.incoming.room.user.*;
 import org.alexdev.icarus.messages.incoming.user.*;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 public class MessageHandler {
 
     //private List<IncomingMessageParser> parsers;
-    private HashMap<Integer, MessageEvent> messages;
+    private HashMap<Integer, List<MessageEvent>> messages;
 
     public MessageHandler() {
         //this.parsers = Lists.newArrayList();
@@ -58,100 +61,114 @@ public class MessageHandler {
     }
 
     private void registerHandshakePackets() {
-        this.messages.put(Incoming.VersionCheckMessageEvent, new VersionCheckMessageEvent());
-        this.messages.put(Incoming.UniqueIDMessageEvent, new UniqueIDMessageEvent());
-        this.messages.put(Incoming.AuthenticateMessageEvent, new AuthenticateMessageEvent());
+        this.registerEvent(Incoming.VersionCheckMessageEvent, new VersionCheckMessageEvent());
+        this.registerEvent(Incoming.UniqueIDMessageEvent, new UniqueIDMessageEvent());
+        this.registerEvent(Incoming.AuthenticateMessageEvent, new AuthenticateMessageEvent());
     }
     
     private void registerUserPackets() {
-        this.messages.put(Incoming.InfoRetrieveMessageEvent, new InfoRetrieveMessageEvent());
-        this.messages.put(Incoming.CurrencyBalanceMessageEvent, new CurrencyBalanceMessageEvent());
-        this.messages.put(Incoming.ChangeAppearanceMessageEvent, new ChangeAppearanceMessageEvent());
-        this.messages.put(Incoming.SubscriptionMessageEvent, new SubscriptionMessageEvent());
+        this.registerEvent(Incoming.InfoRetrieveMessageEvent, new InfoRetrieveMessageEvent());
+        this.registerEvent(Incoming.CurrencyBalanceMessageEvent, new CurrencyBalanceMessageEvent());
+        this.registerEvent(Incoming.ChangeAppearanceMessageEvent, new ChangeAppearanceMessageEvent());
+        this.registerEvent(Incoming.SubscriptionMessageEvent, new SubscriptionMessageEvent());
+        this.registerEvent(Incoming.WelcomeMessageEvent, new WelcomeMessageEvent());
     }
     
     private void registerMessenger() {
-        this.messages.put(Incoming.MessengerInitMessageEvent, new MessengerInitMessageEvent());
-        this.messages.put(Incoming.MessengerSearchMessageEvent, new MessengerSearchMessageEvent());
-        this.messages.put(Incoming.MessengerRequestMessageEvent, new MessengerRequestMessageEvent());
-        this.messages.put(Incoming.MessengerAcceptMessageEvent, new MessengerAcceptMessageEvent());
-        this.messages.put(Incoming.MessengerDeclineMessageEvent, new MessengerDeclineMessageEvent());
-        this.messages.put(Incoming.MessengerDeleteFriendMessageEvent, new MessengerDeleteFriendMessageEvent());
-        this.messages.put(Incoming.MessengerTalkMessageEvent, new MessengerTalkMessageEvent());
-        this.messages.put(Incoming.MessengerUpdateMessageEvent, new MessengerUpdateMessageEvent());
-        this.messages.put(Incoming.FollowFriendMessageEvent, new FollowFriendMessageEvent());
+        this.registerEvent(Incoming.MessengerInitMessageEvent, new MessengerInitMessageEvent());
+        this.registerEvent(Incoming.MessengerSearchMessageEvent, new MessengerSearchMessageEvent());
+        this.registerEvent(Incoming.MessengerRequestMessageEvent, new MessengerRequestMessageEvent());
+        this.registerEvent(Incoming.MessengerAcceptMessageEvent, new MessengerAcceptMessageEvent());
+        this.registerEvent(Incoming.MessengerDeclineMessageEvent, new MessengerDeclineMessageEvent());
+        this.registerEvent(Incoming.MessengerDeleteFriendMessageEvent, new MessengerDeleteFriendMessageEvent());
+        this.registerEvent(Incoming.MessengerTalkMessageEvent, new MessengerTalkMessageEvent());
+        this.registerEvent(Incoming.MessengerUpdateMessageEvent, new MessengerUpdateMessageEvent());
+        this.registerEvent(Incoming.FollowFriendMessageEvent, new FollowFriendMessageEvent());
     }
     
     private void registerNavigatorPackets() {
-        this.messages.put(Incoming.NewNavigatorMessageEvent, new NewNavigatorMessageEvent());
-        this.messages.put(Incoming.NavigatorPromoteRoomCategories, new NavigatorPromoteCategoriesMessageEvent());
-        this.messages.put(Incoming.SearchNewNavigatorEvent, new SearchNewNavigatorEvent());
-        this.messages.put(Incoming.CreateRoomMessageEvent, new CreateRoomMessageEvent());
-        this.messages.put(Incoming.CanCreateRoomMessageEvent, new CanCreateRoomMessageEvent());
+        this.registerEvent(Incoming.NewNavigatorMessageEvent, new NewNavigatorMessageEvent());
+        this.registerEvent(Incoming.NavigatorPromoteRoomCategories, new NavigatorPromoteCategoriesMessageEvent());
+        this.registerEvent(Incoming.SearchNewNavigatorEvent, new SearchNewNavigatorEvent());
+        this.registerEvent(Incoming.CreateRoomMessageEvent, new CreateRoomMessageEvent());
+        this.registerEvent(Incoming.CanCreateRoomMessageEvent, new CanCreateRoomMessageEvent());
     }
 
     private void registerMiscPackets() {
-        this.messages.put(Incoming.EventLogMessageEvent, new EventLogMessageEvent());
-        this.messages.put(Incoming.LatencyTestMessageEvent, new LatencyTestMessageEvent());
+        this.registerEvent(Incoming.EventLogMessageEvent, new EventLogMessageEvent());
+        this.registerEvent(Incoming.LatencyTestMessageEvent, new LatencyTestMessageEvent());
     }
     
     private void registerRoomPackets() {
-        this.messages.put(Incoming.RoomInfoMessageEvent, new RoomInfoMessageEvent());
-        this.messages.put(Incoming.EnterRoomMessageEvent, new EnterRoomMessageEvent());
-        this.messages.put(Incoming.HeightMapMessageEvent, new HeightmapMessageEvent());
-        this.messages.put(Incoming.UserWalkMessageEvent, new UserWalkMessageEvent());
-        this.messages.put(Incoming.LeaveRoomMessageEvent, new LeaveRoomMessageEvent());
-        this.messages.put(Incoming.ChatMessageEvent, new ChatMessageEvent());
-        this.messages.put(Incoming.ShoutMessageEvent, new ShoutMessageEvent());
-        this.messages.put(Incoming.DanceMessageEvent, new DanceMessageEvent());
-        this.messages.put(Incoming.StartTypingMessageEvent, new TypingStatusMessageEvent());
-        this.messages.put(Incoming.StopTypingMessageEvent, new TypingStatusMessageEvent());
-        this.messages.put(Incoming.AnswerDoorbellMessageEvent, new DoorbellAnswerMessageEvent());
-        this.messages.put(Incoming.EnterDoorbellMessageEvent, new DoorbellEnterMessageEvent());
-        this.messages.put(Incoming.RoomEditInfoMessageEvent, new RoomSettingsDataMessageEvent());
-        this.messages.put(Incoming.SaveRoomMessageEvent, new SaveRoomMessageEvent());
-        this.messages.put(Incoming.DeleteRoomMessageEvent, new DeleteRoomMessageEvent());
-        this.messages.put(Incoming.RoomThumbnailMessageEvent, new RoomThumbnailMessageEvent());
-        this.messages.put(Incoming.RoomCameraMessageEvent, new RoomThumbnailMessageEvent());
-        this.messages.put(Incoming.FloorPlanPropertiesMessageEvent, new FloorPlanPropertiesMessageEvent());
-        this.messages.put(Incoming.SaveFloorPlanMessageEvent, new SaveFloorPlanMessageEvent());
-        this.messages.put(Incoming.EditRoomPromotionMessageEvent, new EditRoomPromotionMessageEvent());
+        this.registerEvent(Incoming.RoomInfoMessageEvent, new RoomInfoMessageEvent());
+        this.registerEvent(Incoming.EnterRoomMessageEvent, new EnterRoomMessageEvent());
+        this.registerEvent(Incoming.HeightMapMessageEvent, new HeightmapMessageEvent());
+        this.registerEvent(Incoming.UserWalkMessageEvent, new UserWalkMessageEvent());
+        this.registerEvent(Incoming.LeaveRoomMessageEvent, new LeaveRoomMessageEvent());
+        this.registerEvent(Incoming.ChatMessageEvent, new ChatMessageEvent());
+        this.registerEvent(Incoming.ShoutMessageEvent, new ShoutMessageEvent());
+        this.registerEvent(Incoming.DanceMessageEvent, new DanceMessageEvent());
+        this.registerEvent(Incoming.StartTypingMessageEvent, new TypingStatusMessageEvent());
+        this.registerEvent(Incoming.StopTypingMessageEvent, new TypingStatusMessageEvent());
+        this.registerEvent(Incoming.AnswerDoorbellMessageEvent, new DoorbellAnswerMessageEvent());
+        this.registerEvent(Incoming.EnterDoorbellMessageEvent, new DoorbellEnterMessageEvent());
+        this.registerEvent(Incoming.RoomEditInfoMessageEvent, new RoomSettingsDataMessageEvent());
+        this.registerEvent(Incoming.SaveRoomMessageEvent, new SaveRoomMessageEvent());
+        this.registerEvent(Incoming.DeleteRoomMessageEvent, new DeleteRoomMessageEvent());
+        this.registerEvent(Incoming.RoomThumbnailMessageEvent, new RoomThumbnailMessageEvent());
+        this.registerEvent(Incoming.RoomCameraMessageEvent, new RoomThumbnailMessageEvent());
+        this.registerEvent(Incoming.FloorPlanPropertiesMessageEvent, new FloorPlanPropertiesMessageEvent());
+        this.registerEvent(Incoming.SaveFloorPlanMessageEvent, new SaveFloorPlanMessageEvent());
+        this.registerEvent(Incoming.EditRoomPromotionMessageEvent, new EditRoomPromotionMessageEvent());
     }
     
     private void registerCataloguePackets() {
-        this.messages.put(Incoming.CatalogueTabMessageEvent, new CatalogueMessageEvent());
-        this.messages.put(Incoming.CataloguePageMessageEvent, new CataloguePageMessageEvent());
-        this.messages.put(Incoming.PurchaseObjectMessageEvent, new PurchaseItemMessageEvent());
-        this.messages.put(Incoming.PurchasePresentMessageEvent, new PurchasePresentMessageEvent());
-        this.messages.put(Incoming.GiftingSettingsMessageEvent, new GiftingSettingsMessageEvent());
-        this.messages.put(Incoming.PromotableRoomsMessageEvent, new PromotableRoomsMessageEvent());
-        this.messages.put(Incoming.PurchaseRoomPromotionMessageEvent, new PurchaseRoomPromotionMessageEvent());
+        this.registerEvent(Incoming.CatalogueTabMessageEvent, new CatalogueMessageEvent());
+        this.registerEvent(Incoming.CataloguePageMessageEvent, new CataloguePageMessageEvent());
+        this.registerEvent(Incoming.PurchaseObjectMessageEvent, new PurchaseItemMessageEvent());
+        this.registerEvent(Incoming.PurchasePresentMessageEvent, new PurchasePresentMessageEvent());
+        this.registerEvent(Incoming.GiftingSettingsMessageEvent, new GiftingSettingsMessageEvent());
+        this.registerEvent(Incoming.PromotableRoomsMessageEvent, new PromotableRoomsMessageEvent());
+        this.registerEvent(Incoming.PurchaseRoomPromotionMessageEvent, new PurchaseRoomPromotionMessageEvent());
     }
     
 
     private void registerItemPackets() {
-        this.messages.put(Incoming.InventoryMessageEvent, new InventoryMessageEvent());
-        this.messages.put(Incoming.PlaceItemMessageEvent, new PlaceItemMessageEvent());
-        this.messages.put(Incoming.MoveItemMessageEvent, new MoveItemMessageEvent());
-        this.messages.put(Incoming.PickupItemMessageEvent, new PickupItemMessageEvent());
-        this.messages.put(Incoming.ApplyDecorationMessageEvent, new ApplyDecorationMessageEvent());
-        this.messages.put(Incoming.MoveWallItemMessageEvent, new MoveItemMessageEvent());
-        this.messages.put(Incoming.InteractFloorItemMessageEvent, new InteractItemMessageEvent());
-        this.messages.put(Incoming.InteractWallItemMessageEvent, new InteractItemMessageEvent());
-        this.messages.put(Incoming.DropItemMessageEvent, new DropItemMessageEvent());
-        this.messages.put(Incoming.MoodlightInteractMessageEvent, new MoodlightInteractMessageEvent());
-        this.messages.put(Incoming.ToggleMoodlightMessageEvent, new ToggleMoodlightMessageEvent());
-        this.messages.put(Incoming.SaveMoodlightPresetMessageEvent, new SaveMoodlightPresetMessageEvent());
+        this.registerEvent(Incoming.InventoryMessageEvent, new InventoryMessageEvent());
+        this.registerEvent(Incoming.PlaceItemMessageEvent, new PlaceItemMessageEvent());
+        this.registerEvent(Incoming.MoveItemMessageEvent, new MoveItemMessageEvent());
+        this.registerEvent(Incoming.PickupItemMessageEvent, new PickupItemMessageEvent());
+        this.registerEvent(Incoming.ApplyDecorationMessageEvent, new ApplyDecorationMessageEvent());
+        this.registerEvent(Incoming.MoveWallItemMessageEvent, new MoveItemMessageEvent());
+        this.registerEvent(Incoming.InteractFloorItemMessageEvent, new InteractItemMessageEvent());
+        this.registerEvent(Incoming.InteractWallItemMessageEvent, new InteractItemMessageEvent());
+        this.registerEvent(Incoming.DropItemMessageEvent, new DropItemMessageEvent());
+        this.registerEvent(Incoming.MoodlightInteractMessageEvent, new MoodlightInteractMessageEvent());
+        this.registerEvent(Incoming.ToggleMoodlightMessageEvent, new ToggleMoodlightMessageEvent());
+        this.registerEvent(Incoming.SaveMoodlightPresetMessageEvent, new SaveMoodlightPresetMessageEvent());
     }
 
 
-    public void handleRequest(Player player, ClientMessage message) {
-        if (messages.containsKey(message.getMessageId())) {
-            messages.get(message.getMessageId()).handle(player, message);
+    private void registerEvent(Integer header, MessageEvent messageEvent) {
+    	
+    	if (!this.messages.containsKey(header)) {
+    		this.messages.put(header, Lists.newArrayList());
+    	}
+		
+    	this.messages.get(header).add(messageEvent);
+	}
+
+	public void handleRequest(Player player, ClientMessage message) {
+		
+        if (this.messages.containsKey(message.getMessageId())) {
+        	
+        	for (MessageEvent event : this.messages.get(message.getMessageId())) {
+        		event.handle(player, message);
+        	}
         }
     }
 
-    public HashMap<Integer, MessageEvent> getMessages() {
+    public HashMap<Integer, List<MessageEvent>> getMessages() {
         return messages;
     }
 

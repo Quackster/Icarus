@@ -126,6 +126,14 @@ public class RoomUser {
 
 		this.statuses.put(key, value);
 	}
+	
+	public void chat(String message) {
+		this.chat(message, this.lastChatId, 1, false, false);
+	}
+	
+	public void shout(String message) {
+		this.chat(message, this.lastChatId, 1, true, false);
+	}
 
 	public void chat(String message, int bubble, int count, boolean shout, boolean spamCheck) {
 
@@ -157,8 +165,9 @@ public class RoomUser {
 		if (player != null) {
 			RoomDao.saveChatlog(player, this.room.getData().getId(), shout ? "SHOUT" : "CHAT", message);
 		}
-
-		this.room.send(new TalkMessageComposer(this, shout, message, count, bubble));
+		
+		this.lastChatId = bubble;
+		this.room.send(new TalkMessageComposer(this, shout, message, this.lastChatId, bubble));
 
 		for (Player person : this.room.getPlayers()) {
 

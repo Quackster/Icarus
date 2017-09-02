@@ -42,7 +42,7 @@ public class PlaceItemMessageEvent implements MessageEvent {
             List<Item> items = player.getRoom().getItems(InteractionType.DIMMER);
             
             if (items.size() > 0) {
-                player.sendAlert(Util.getLocale("one.roller.per.room"));
+                player.sendMessage(Util.getLocale("one.dimmer.per.room"));
                 return;
             }
         }

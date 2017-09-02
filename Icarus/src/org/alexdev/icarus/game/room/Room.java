@@ -11,6 +11,7 @@ import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
+import org.alexdev.icarus.game.furniture.interactions.types.TeleportInteractor;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.player.Player;
@@ -47,6 +48,10 @@ import org.alexdev.icarus.messages.outgoing.room.user.RoomForwardComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserDisplayMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.luaj.vm2.Globals;
+import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.lib.jse.CoerceJavaToLua;
+import org.luaj.vm2.lib.jse.JsePlatform;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -226,11 +231,20 @@ public class Room {
 
 		player.send(new RoomPromotionMessageComposer(this));
 		
+		// Sometimes, if the room ID is considerably low or some shit, the teleporters will flash, here's a hacky lil bug to stop that.
+		this.fixFlashingTeleporters();
+		
 		player.send(new FloorItemsMessageComposer(this.getFloorItems()));
 		player.send(new WallItemsMessageComposer(this.getWallItems()));
 
 		player.getMessenger().sendStatus(false);
 
+		Globals globals = JsePlatform.standardGlobals();
+		globals.set("player", CoerceJavaToLua.coerce(player));
+		globals.set("room", CoerceJavaToLua.coerce(this));
+
+		LuaValue chunk = globals.load("player:getRoomUser():chat(\"I have just entered\" .. room:getData():getName())");
+		chunk.call();
 	}
 
 	public void leaveRoom(Player player, boolean hotelView) {
@@ -295,6 +309,20 @@ public class Room {
 		}
 	}
 
+
+	/**
+	 * Sometimes the teleporters will glitch out when placed, due to whatever reason and they will flash
+	 * or either have their door open (presumably because of low room ID numbers - like room ID 1 or 2)
+	 * 
+	 * This will fix that issue.
+	 */
+	private void fixFlashingTeleporters() {
+		for (Item item : this.getItems(InteractionType.TELEPORT)) {
+			item.setExtraData(TeleportInteractor.TELEPORTER_CLOSE);
+		}
+		
+	}
+	
 	private void cleanupRoomData() {
 
 		if (this.scheduler != null) {

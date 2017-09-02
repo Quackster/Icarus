@@ -14,6 +14,11 @@ import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.server.api.IServerHandler;
 import org.alexdev.icarus.util.Util;
+import org.luaj.vm2.Globals;
+import org.luaj.vm2.LuaTable;
+import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.lib.jse.CoerceJavaToLua;
+import org.luaj.vm2.lib.jse.JsePlatform;
 
 public class Icarus {
 
@@ -59,6 +64,42 @@ public class Icarus {
             CatalogueManager.load();
             GameScheduler.load();
             
+            /*Globals globals = JsePlatform.standardGlobals();
+
+            LuaValue test = CoerceJavaToLua.coerce(new MyClass());
+            globals.set("obj", test);
+            
+            LuaValue chunk = globals.load("obj:test()");
+            chunk.call();*/
+            
+            /*Globals globals = JsePlatform.standardGlobals();
+
+            LuaValue test = CoerceJavaToLua.coerce(new MyClass());
+            globals.set("obj", test);
+            
+            LuaValue chunk = globals.load("test = {\"test\", \"test2\"}");
+            chunk.call();
+            
+            LuaValue tableValue = globals.get("test");
+            
+            if (tableValue.istable()) {
+            	
+            	LuaTable table = (LuaTable) tableValue;
+            	Log.println("Amount of items: " + table.len());
+            	
+            	for (int i = 0; i < table.len().toint(); i++) {
+            		
+            		LuaValue value = table.get(i + 1);
+            		
+            		Log.println("Value " + i + ": " + value.toString()); 
+            		
+            	}
+            	
+            } else {
+            	
+            	Log.println("Amount of items in non-table: " + tableValue.checkint());
+            	
+            }*/
             
             Log.println("Settting up server");
             Log.println();
@@ -195,7 +236,7 @@ public class Icarus {
         writer.println("language=English");
         writer.println();
         writer.println("[English]");
-        writer.println("one.roller.per.room=You can only have one roller per room!");
+        writer.println("one.dimmer.per.room=You can only have one dimmer per room!");
         writer.println();
     }
 

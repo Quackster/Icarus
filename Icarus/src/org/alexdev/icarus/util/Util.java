@@ -39,13 +39,23 @@ public class Util {
     }
     
     public static String filterInput(String input) {
-        
         input = input.replace((char)10, ' ');
         input = input.replace((char)11, ' ');
         input = input.replace((char)12, ' ');
         input = input.replace((char)13, ' ');
         input = input.replace((char)14, ' ');
+        
         return input;
+    }
+    
+    public static boolean isNumber(Object object) {
+       
+        try {
+            Integer.valueOf(object.toString());
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
     
     public static Wini getConfiguration() {
@@ -59,17 +69,7 @@ public class Util {
     public static Wini getGameConfig() {
         return habboConfig;
     }
-
-    public static boolean isNumber(Object object) {
-       
-        try {
-            Integer.valueOf(object.toString());
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
+    
     public static DecimalFormat getDecimalFormatter() {
         return decimalFormatter;
     }
