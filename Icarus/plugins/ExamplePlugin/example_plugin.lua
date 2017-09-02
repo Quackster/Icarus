@@ -5,16 +5,24 @@ plugin_details = {
 }
 
 event_register = {
+	-- Player events
 	"PLAYER_LOGIN_EVENT",
 	"PLAYER_DISCONNECT_EVENT",
+	
+	-- Room events
 	"ROOM_REQUEST_ENTER_EVENT",
 	"ROOM_ENTER_EVENT",
-	"ROOM_LEAVE_EVENT"
+	"ROOM_LEAVE_EVENT",
+	
+	-- Item events
+	"WALL_ITEM_INTERACT_EVENT",
+	"FLOOR_ITEM_INTERACT_EVENT"
 }
 
 event_files = {
 	"player_events.lua",
-	"room_events.lua"
+	"room_events.lua",
+	"item_events.lua"
 }
 
 --[[

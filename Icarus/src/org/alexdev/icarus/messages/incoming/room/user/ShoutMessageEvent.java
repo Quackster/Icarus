@@ -23,7 +23,7 @@ public class ShoutMessageEvent implements MessageEvent {
             return;
         }
         
-        roomUser.chat(request.readString(), request.readInt(),  request.readInt(), true, true);
+        roomUser.chat(request.readString(), request.readInt(),  request.readInt(), true, true, false);
     }
 
 }

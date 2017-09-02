@@ -8,6 +8,7 @@ import java.net.InetAddress;
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
+import org.alexdev.icarus.game.commands.CommandManager;
 import org.alexdev.icarus.game.furniture.ItemManager;
 import org.alexdev.icarus.game.navigator.NavigatorManager;
 import org.alexdev.icarus.game.plugins.PluginManager;
@@ -60,6 +61,7 @@ public class Icarus {
             CatalogueManager.load();
             GameScheduler.load();
             PluginManager.load();
+            CommandManager.load();
             Util.createComposerLookup();
  
             Log.println();

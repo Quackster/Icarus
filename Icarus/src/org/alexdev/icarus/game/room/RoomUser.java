@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import org.alexdev.icarus.dao.mysql.RoomDao;
+import org.alexdev.icarus.game.commands.CommandManager;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.furniture.interactions.Interaction;
 import org.alexdev.icarus.game.item.Item;
@@ -105,7 +106,7 @@ public class RoomUser {
 				handler.onStopWalking(this.currentItem, this);
 			}
 		}
-		
+
 		this.position.setZ(this.room.getMapping().getTile(this.position.getX(), this.position.getY()).getHeight());
 		this.needsUpdate = true;
 	}
@@ -127,16 +128,24 @@ public class RoomUser {
 
 		this.statuses.put(key, value);
 	}
-	
+
 	public void chat(String message) {
-		this.chat(message, this.lastChatId, 1, false, false);
-	}
-	
-	public void shout(String message) {
-		this.chat(message, this.lastChatId, 1, true, false);
+		this.chat(message, this.lastChatId, 1, false, false, false);
 	}
 
-	public void chat(String message, int bubble, int count, boolean shout, boolean spamCheck) {
+	public void shout(String message) {
+		this.chat(message, this.lastChatId, 1, true, false, false);
+	}
+	
+	public void chatSelf(String message) {
+		this.chat(message, this.lastChatId, 1, false, false, true);
+	}
+
+	public void shoutSelf(String message) {
+		this.chat(message, this.lastChatId, 1, true, false, true);
+	}
+
+	public void chat(String message, int bubble, int count, boolean shout, boolean spamCheck, boolean self) {
 
 		boolean isStaff = false;
 		Player player = null;
@@ -147,7 +156,7 @@ public class RoomUser {
 			isStaff = player.getDetails().hasFuse("moderator");
 		}
 
-		if (spamCheck) {
+		if (spamCheck && !self) {
 			if (DateTime.getTimeSeconds() < this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
 
 				if (!isStaff) {
@@ -166,9 +175,14 @@ public class RoomUser {
 		if (player != null) {
 			RoomDao.saveChatlog(player, this.room.getData().getId(), shout ? "SHOUT" : "CHAT", message);
 		}
-		
+
 		this.lastChatId = bubble;
-		this.room.send(new TalkMessageComposer(this, shout, message, this.lastChatId, bubble));
+
+		if (CommandManager.hasCommand(message)) {
+			CommandManager.invokeCommand(player, message);
+		} else {
+			this.room.send(new TalkMessageComposer(this, shout, message, this.lastChatId, bubble));
+		}
 
 		for (Player person : this.room.getPlayers()) {
 
@@ -179,7 +193,7 @@ public class RoomUser {
 			person.getRoomUser().lookTowards(this.entity.getRoomUser().getPosition());
 		}
 
-		if (spamCheck) {
+		if (spamCheck && !self) {
 			if (!player.getDetails().hasFuse("moderator")) {
 
 				if (DateTime.getTimeSeconds() > this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
@@ -230,7 +244,7 @@ public class RoomUser {
 		if (this.position.isMatch(new Position(X, Y))) {
 			return;
 		}
-		
+
 		if (!this.isWalkingAllowed) {
 			return;
 		}
