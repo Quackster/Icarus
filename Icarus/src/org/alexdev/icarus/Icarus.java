@@ -65,8 +65,9 @@ public class Icarus {
             CatalogueManager.load();
             GameScheduler.load();
             PluginManager.load();
-            
-Log.println();
+            Util.createComposerLookup();
+ 
+            Log.println();
             Log.println("Settting up server");
             
             

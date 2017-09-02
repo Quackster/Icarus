@@ -39,14 +39,17 @@ public class MessageHandler {
 
     //private List<IncomingMessageParser> parsers;
     private HashMap<Integer, List<MessageEvent>> messages;
+    private List<String> composerPackages;
 
     public MessageHandler() {
         //this.parsers = Lists.newArrayList();
         this.messages = Maps.newHashMap();
+        this.composerPackages = Lists.newArrayList();
         this.register();
+        this.registerComposerPackages();
     }
     
-    public void register() {
+	public void register() {
         
         this.messages.clear();
         
@@ -147,7 +150,19 @@ public class MessageHandler {
         this.registerEvent(Incoming.ToggleMoodlightMessageEvent, new ToggleMoodlightMessageEvent());
         this.registerEvent(Incoming.SaveMoodlightPresetMessageEvent, new SaveMoodlightPresetMessageEvent());
     }
-
+    
+    private void registerComposerPackages() {
+ 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.catalogue");
+ 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.handshake");
+ 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.item");
+ 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.messenger");
+ 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.navigator");
+ 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room");
+ 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.floorplan");
+ 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.items");
+ 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.notify");
+ 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.user");
+ 	}
 
     private void registerEvent(Integer header, MessageEvent messageEvent) {
     	
@@ -161,7 +176,7 @@ public class MessageHandler {
 	public void handleRequest(Player player, ClientMessage message) {
 		
         if (this.messages.containsKey(message.getMessageId())) {
-        	
+
         	for (MessageEvent event : this.messages.get(message.getMessageId())) {
         		event.handle(player, message);
         	}
@@ -171,6 +186,10 @@ public class MessageHandler {
     public HashMap<Integer, List<MessageEvent>> getMessages() {
         return messages;
     }
+
+	public List<String> getComposerPackages() {
+		return composerPackages;
+	}
 
 }
 

@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
 import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.game.plugins.PluginEvent;
+import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
@@ -17,16 +19,17 @@ public class WelcomeMessageEvent implements MessageEvent {
 	@Override
 	public void handle(Player player, ClientMessage reader) {
 
-		Globals globals = JsePlatform.standardGlobals();
+		/*Globals globals = JsePlatform.standardGlobals();
 		globals.set("session", CoerceJavaToLua.coerce(player));
 
 		StringBuilder welcomeMessage = new StringBuilder();
 		welcomeMessage.append("Welcome to Icarus Hotel\n\n");
 		welcomeMessage.append("This server is currently in alpha stage, some features may still be added, removed, or changed!");
 
-		//LuaValue chunk = globals.load("session:sendMessage([[" + welcomeMessage.toString() + "]])");
-		LuaValue chunk = globals.load("print(session:getDetails():getUsername())");
-		chunk.call();
+		LuaValue chunk = globals.load("session:sendMessage([[" + welcomeMessage.toString() + "]])");
+		chunk.call();*/
+		
+		PluginManager.callEvent(PluginEvent.PLAYER_LOGIN_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player) });
 
 	}
 

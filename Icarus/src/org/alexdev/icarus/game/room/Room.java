@@ -16,6 +16,8 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
+import org.alexdev.icarus.game.plugins.PluginEvent;
+import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.model.RoomMapping;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.game.room.settings.RoomState;
@@ -239,12 +241,14 @@ public class Room {
 
 		player.getMessenger().sendStatus(false);
 
-		Globals globals = JsePlatform.standardGlobals();
+		/*Globals globals = JsePlatform.standardGlobals();
 		globals.set("player", CoerceJavaToLua.coerce(player));
 		globals.set("room", CoerceJavaToLua.coerce(this));
 
 		LuaValue chunk = globals.load("player:getRoomUser():chat(\"I have just entered \" .. room:getData():getName())");
-		chunk.call();
+		chunk.call();*/
+		
+		PluginManager.callEvent(PluginEvent.ROOM_ENTER_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
 	}
 
 	public void leaveRoom(Player player, boolean hotelView) {
