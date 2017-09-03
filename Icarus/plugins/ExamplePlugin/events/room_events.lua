@@ -29,6 +29,7 @@ end
 
 --[[
 	Room enter event called when the user has entered a room
+	Called when a user has truly entered the room
 	
 	param: 
 			Player 	- person who entered room
@@ -43,6 +44,7 @@ end
 
 --[[
 	Room leave event called when the user has left a room
+	Called when a user has truly left the room
 	
 	param: 
 			Player 	- person who left room
