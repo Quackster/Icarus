@@ -2,7 +2,6 @@ package org.alexdev.icarus.game.player;
 
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import org.alexdev.icarus.dao.mysql.PlayerDao;

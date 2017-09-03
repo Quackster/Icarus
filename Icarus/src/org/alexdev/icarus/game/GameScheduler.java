@@ -29,12 +29,10 @@ public class GameScheduler implements Runnable {
 		// If this task has ticked for an entire minute...
 		if (tickRate.get() % 60 == 0) {
 			
-			for (Room room : RoomManager.getPromotedRooms())) {
+			for (Room room : RoomManager.getPromotedRooms()) {
 				room.getPromotion().performCycle();
 			}
 		}
-		
-		
 	}
 
 	public static ScheduledExecutorService getScheduler() {

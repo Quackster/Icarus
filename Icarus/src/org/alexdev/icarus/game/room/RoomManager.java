@@ -1,6 +1,5 @@
 package org.alexdev.icarus.game.room;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,8 +9,6 @@ import java.util.stream.Collectors;
 import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.room.settings.RoomType;
-import org.luaj.vm2.LuaValue;
-import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
 public class RoomManager {
 

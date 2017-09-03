@@ -1,7 +1,6 @@
 package org.alexdev.icarus.game.navigator.populator;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.alexdev.icarus.game.navigator.NavigatorRoomPopulator;

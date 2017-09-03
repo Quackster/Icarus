@@ -39,10 +39,6 @@ function onEnable(plugin)
 	
 end
 
-
--- scheduler:runTaskLater(5, test)
-
-
 -- Load all event .lua files
 -- If you delete this code, ABSOLUTELY NO events will work
 
