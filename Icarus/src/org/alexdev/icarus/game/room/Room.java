@@ -303,7 +303,7 @@ public class Room {
 		if (forceDisposal) {
 
 			this.cleanupRoomData();
-			RoomManager.remove(this.getData().getId());
+			RoomManager.removeRoom(this.getData().getId());
 
 		} else {
 
@@ -314,7 +314,7 @@ public class Room {
 			this.cleanupRoomData();
 
 			if (PlayerManager.getById(this.data.getOwnerId()) == null && this.data.getRoomType() == RoomType.PRIVATE) { 
-				RoomManager.remove(this.getData().getId());
+				RoomManager.removeRoom(this.getData().getId());
 			}
 		}
 	}
@@ -470,12 +470,12 @@ public class Room {
 	
 	public void createPromotion(String promotionName, String promotionDescription) {
 		this.promotion = new RoomPromotion(this, promotionName, promotionDescription);
-		RoomManager.getPromotedRooms().put(this.data.getId(), this);
+		RoomManager.addPromotedRoom(this.data.getId(), this);
 	}
 	
 	public void endPromotion() {
 		this.promotion = null;
-		RoomManager.getPromotedRooms().remove(this.data.getId());
+		RoomManager.removePromotedRoom(this.data.getId());
 	}
 	
 	public boolean hasPromotion() {

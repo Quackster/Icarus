@@ -84,7 +84,7 @@ public class RoomDao {
                 rooms.add(room);
 
                 if (storeInMemory) {
-                    RoomManager.add(room);
+                    RoomManager.addRoom(room);
                 }
             }
 
@@ -126,7 +126,7 @@ public class RoomDao {
                 rooms.add(room);
 
                 if (storeInMemory) {
-                    RoomManager.add(room);
+                    RoomManager.addRoom(room);
                 }
             }
 
@@ -165,7 +165,7 @@ public class RoomDao {
                 }
 
                 if (storeInMemory) {
-                    RoomManager.add(room);
+                    RoomManager.addRoom(room);
                 }
             }
 

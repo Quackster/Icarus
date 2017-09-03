@@ -31,7 +31,7 @@ public class RoomManager {
         RoomDao.getPublicRooms(true);
     }
 
-    public static void add(Room room) {
+    public static void addRoom(Room room) {
 
         if (rooms.containsKey(room.getData().getId())) {
         	return;
@@ -40,8 +40,27 @@ public class RoomManager {
         rooms.put(room.getData().getId(), room);
     }
     
-    public static void remove(int id) {
+
+	public static void addPromotedRoom(int id, Room room) {
+
+        if (promotedRooms.containsKey(room.getData().getId())) {
+        	return;
+        }
+
+        promotedRooms.put(room.getData().getId(), room);
+	}
+    
+    public static void removeRoom(int id) {
+    	
 		rooms.remove(id);
+		
+		if (promotedRooms.containsKey(id)) {
+			removePromotedRoom(id);
+		}
+	}
+    
+    public static void removePromotedRoom(int id) {
+    	promotedRooms.remove(id);
 	}
     	
     public static List<Room> getPublicRooms() {
@@ -71,10 +90,10 @@ public class RoomManager {
 
     public static List<Room> getRooms() {
         return rooms.values().stream().filter(room -> room != null).collect(Collectors.toList());
-    }
+	}
     
-    public static Map<Integer, Room> getPromotedRooms() {
-		return promotedRooms;
+    public static List<Room> getPromotedRooms() {
+		return promotedRooms.values().stream().filter(room -> room != null).collect(Collectors.toList());
 	}
 
 	public static ScheduledExecutorService getScheduler() {
