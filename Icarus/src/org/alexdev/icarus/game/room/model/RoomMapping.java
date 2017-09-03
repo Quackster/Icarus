@@ -46,7 +46,7 @@ public class RoomMapping {
 			this.tiles[entity.getRoomUser().getPosition().getX()][entity.getRoomUser().getPosition().getY()].setEntity(entity);
 		}
 
-		List<Item> items = Arrays.asList(this.room.getFloorItems());
+		List<Item> items = this.room.getFloorItems();
 
 		// Sort items by smallest to largest height/Z coordinate
 		Collections.sort(items, new Comparator<Item>() {

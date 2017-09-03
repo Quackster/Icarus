@@ -1,18 +1,22 @@
 package org.alexdev.icarus.game.player;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 import org.alexdev.icarus.dao.mysql.PlayerDao;
 import org.alexdev.icarus.game.moderation.Permission;
 
+import com.google.common.collect.Maps;
+
 public class PlayerManager {
 
-	private static ConcurrentHashMap<Integer, Player> players;
+	private static Map<Integer, Player> players;
 	private static List<Permission> permissions;
 
 	static {
-		players = new ConcurrentHashMap<Integer, Player>();
+		players = Maps.newConcurrentMap();
 		permissions = PlayerDao.getPermissions();
     }
 
@@ -79,7 +83,11 @@ public class PlayerManager {
 		return false;
 	}
 	
-	public static ConcurrentHashMap<Integer, Player> getPlayers() {
+	public static List<Player> getPlayers() {
+        return players.values().stream().filter(p -> p != null).collect(Collectors.toList());
+    }
+	
+	public static Map<Integer, Player> getConnectedPlayers() {
         return players;
     }
 }

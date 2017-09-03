@@ -13,7 +13,18 @@ function onRoomRequestEvent(player, room)
 	-- Force the person to enter their own room when they try to request other rooms
 	-- player:getRoomUser():setRequestedRoomId(player:getRooms():get(0):getData():getId())
 	
-	return false
+	-- How to loop through all players in a room demonstrated
+	
+	--[[ local players = room:getPlayers()
+
+	for i = 0, players:size() - 1 do
+
+		local existingPlayer = players:get(i)
+		existingPlayer:sendMessage("Looks like somebody is joining!")
+		
+	end
+	
+	return false --]]
 end
 
 --[[

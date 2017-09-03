@@ -303,7 +303,7 @@ public class Room {
 		if (forceDisposal) {
 
 			this.cleanupRoomData();
-			RoomManager.getRooms().remove(this.getData().getId());
+			RoomManager.remove(this.getData().getId());
 
 		} else {
 
@@ -314,7 +314,7 @@ public class Room {
 			this.cleanupRoomData();
 
 			if (PlayerManager.getById(this.data.getOwnerId()) == null && this.data.getRoomType() == RoomType.PRIVATE) { 
-				RoomManager.getRooms().remove(this.getData().getId());
+				RoomManager.remove(this.getData().getId());
 			}
 		}
 	}
@@ -387,22 +387,22 @@ public class Room {
 		return e;
 	}
 
-	public Item[] getFloorItems() {
+	public List<Item> getFloorItems() {
 		
 		List<Item> floorItems = items.values().stream()
 				.filter(item -> item.getType() == ItemType.FLOOR)
 				.collect(Collectors.toList());
 		
-		return floorItems.toArray(new Item[floorItems.size()]);
+		return floorItems;
 	}
 
-	public Item[] getWallItems() {
+	public List<Item> getWallItems() {
 		
 		List<Item> wallItems = items.values().stream()
 				.filter(item -> item.getType() == ItemType.WALL)
 				.collect(Collectors.toList());
 		
-		return wallItems.toArray(new Item[wallItems.size()]);
+		return wallItems;
 	}
 
 	public List<Item> getItems(InteractionType interactionType) {

@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.alexdev.icarus.game.GameScheduler;
+import org.alexdev.icarus.game.player.PlayerManager;
+import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.util.Util;
 import org.luaj.vm2.Globals;
@@ -130,6 +132,11 @@ public class PluginManager {
 	}
 
 	private static void registerGlobalVariables(Globals globals) {
+		
+		//Managers
+		globals.set("playerManager", CoerceJavaToLua.coerce(new PlayerManager()));
+		globals.set("roomManager", CoerceJavaToLua.coerce(new RoomManager()));
+		
 		globals.set("log", CoerceJavaToLua.coerce(new Log()));
 		globals.set("util", CoerceJavaToLua.coerce(new Util()));
 		globals.set("scheduler", CoerceJavaToLua.coerce(new PluginScheduler()));

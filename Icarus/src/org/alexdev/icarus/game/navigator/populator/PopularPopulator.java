@@ -15,9 +15,9 @@ public class PopularPopulator extends NavigatorRoomPopulator {
     @Override
     public List<Room> generateListing(boolean limit, Player player) {
 
-        Map<Integer, Room> loadedRooms = RoomManager.getRooms();
+        List<Room> loadedRooms = RoomManager.getRooms();
         
-        List<Room> activeRooms = loadedRooms.values().stream().filter(r -> r.getData().getUsersNow() > 0 && r.getData().getRoomType() == RoomType.PRIVATE).collect(Collectors.toList());
+        List<Room> activeRooms = loadedRooms.stream().filter(r -> r.getData().getUsersNow() > 0 && r.getData().getRoomType() == RoomType.PRIVATE).collect(Collectors.toList());
         
         activeRooms.sort((room1, room2)
         ->room2.getData().getUsersNow()

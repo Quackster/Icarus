@@ -39,7 +39,8 @@ function onEnable(plugin)
 	
 end
 
-scheduler:runTaskLater(5, doTask)
+
+-- scheduler:runTaskLater(5, test)
 
 
 -- Load all event .lua files

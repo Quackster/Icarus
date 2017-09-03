@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.room;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -9,6 +10,8 @@ import java.util.stream.Collectors;
 import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.room.settings.RoomType;
+import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
 public class RoomManager {
 
@@ -37,6 +40,10 @@ public class RoomManager {
         rooms.put(room.getData().getId(), room);
     }
     
+    public static void remove(int id) {
+		rooms.remove(id);
+	}
+    	
     public static List<Room> getPublicRooms() {
         try {
             return rooms.values().stream().filter(room -> room.getData().getRoomType() == RoomType.PUBLIC).collect(Collectors.toList());
@@ -62,10 +69,10 @@ public class RoomManager {
         return null;
     }
 
-    public static Map<Integer, Room> getRooms() {
-        return rooms;
+    public static List<Room> getRooms() {
+        return rooms.values().stream().filter(room -> room != null).collect(Collectors.toList());
     }
-
+    
     public static Map<Integer, Room> getPromotedRooms() {
 		return promotedRooms;
 	}
@@ -73,5 +80,7 @@ public class RoomManager {
 	public static ScheduledExecutorService getScheduler() {
         return scheduler;
     }
+
+
 
 }

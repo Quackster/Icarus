@@ -1,15 +1,17 @@
 package org.alexdev.icarus.messages.outgoing.room.items;
 
+import java.util.List;
+
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
 
 public class WallItemsMessageComposer extends OutgoingMessageComposer {
 
-    private Item[] items;
+    private List<Item> items;
 
-    public WallItemsMessageComposer(Item[] items) {
-        this.items = items;
+    public WallItemsMessageComposer(List<Item> list) {
+        this.items = list;
     }
 
     @Override
@@ -17,13 +19,13 @@ public class WallItemsMessageComposer extends OutgoingMessageComposer {
         
         response.init(Outgoing.WallItemsMessageComposer);
         
-        response.writeInt(this.items.length);
+        response.writeInt(this.items.size());
         for (Item wallItem : this.items) { 
             response.writeInt(wallItem.getUserId());
             response.writeString(wallItem.getOwnerData().getUsername());
         }
 
-        response.writeInt(this.items.length);
+        response.writeInt(this.items.size());
         
         for (Item wallItem : this.items) {
             response.writeString(wallItem.getId() + "");

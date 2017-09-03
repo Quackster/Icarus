@@ -1,5 +1,7 @@
 package org.alexdev.icarus.messages.outgoing.room.items;
 
+import java.util.List;
+
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemMetaDataUtil;
 import org.alexdev.icarus.messages.headers.Outgoing;
@@ -8,24 +10,24 @@ import org.alexdev.icarus.util.Util;
 
 public class FloorItemsMessageComposer extends OutgoingMessageComposer {
 
-    private Item[] items;
+    private List<Item> items;
 
-    public FloorItemsMessageComposer(Item[] items) {
-        this.items = items;
+    public FloorItemsMessageComposer(List<Item> list) {
+        this.items = list;
     }
 
     @Override
     public void write() {
         
         response.init(Outgoing.FloorItemsMessageComposer);
-        response.writeInt(items.length);
+        response.writeInt(items.size());
         
         for (Item floorItem : items) { 
             response.writeInt(floorItem.getUserId());
             response.writeString(floorItem.getOwnerData().getUsername());
         }
 
-        response.writeInt(items.length);
+        response.writeInt(items.size());
 
         for (Item floorItem : items) {
         	

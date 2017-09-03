@@ -9,6 +9,9 @@
 function onPlayerLoginEvent(player)
 	player:sendMessage("Welcome to Icarus Hotel!\r\rThis is a alpha!");
 	log:println("Player login event called")
+	
+	log:println(playerManager:getPlayers():get(0):toString())
+	
 	return false -- will do nothing for logged in event, see PlayerTryLoginEvent instead
 end
 
