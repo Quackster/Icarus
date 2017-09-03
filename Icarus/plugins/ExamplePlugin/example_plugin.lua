@@ -39,7 +39,6 @@ function onEnable(plugin)
 	
 end
 
-
 -- Load all event .lua files
 -- If you delete this code, ABSOLUTELY NO events will work
 

@@ -12,7 +12,6 @@ function onInteractWallItemEvent(player, item)
 	return false
 end
 
-
 --[[
 	Item interact event called when the user interacts with a floor item
 	

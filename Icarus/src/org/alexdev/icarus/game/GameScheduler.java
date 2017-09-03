@@ -37,6 +37,10 @@ public class GameScheduler implements Runnable {
 		
 	}
 
+	public static ScheduledExecutorService getScheduler() {
+		return scheduler;
+	}
+	
 	public static ScheduledFuture<?> getGameScheduler() {
 		return gameScheduler;
 	}

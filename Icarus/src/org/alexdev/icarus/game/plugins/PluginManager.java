@@ -2,10 +2,13 @@ package org.alexdev.icarus.game.plugins;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
+import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.util.Util;
 import org.luaj.vm2.Globals;
+import org.luaj.vm2.LuaFunction;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
@@ -123,9 +126,35 @@ public class PluginManager {
 		return false;
 	}
 
+	public static void runTaskLater(int seconds, Object functionObject, Object parameterObject) {
+		
+		if (!(functionObject instanceof LuaFunction)) {
+			return;
+		}
+		
+		if (!(parameterObject instanceof LuaTable)) {
+			return;
+		}
+		
+		LuaFunction function = (LuaFunction) functionObject;
+		LuaTable parameters = (LuaTable) parameterObject;
+		
+		LuaValue[] parameterValues = new LuaValue[parameters.len().toint()];
+		
+		for (int i = 0; i < parameters.len().toint(); i++) {
+			LuaValue value = parameters.get(i + 1);
+			parameterValues[i] = value;
+		}
+		
+		GameScheduler.getScheduler().schedule(() -> {
+			function.invoke(LuaValue.varargsOf(parameterValues));
+		}, seconds, TimeUnit.SECONDS);
+	}
+	
 	private static void registerGlobalVariables(Globals globals) {
 		globals.set("log", CoerceJavaToLua.coerce(new Log()));
 		globals.set("util", CoerceJavaToLua.coerce(new Util()));
+		globals.set("pluginManager", CoerceJavaToLua.coerce(new PluginManager()));
 
 	}
 }
