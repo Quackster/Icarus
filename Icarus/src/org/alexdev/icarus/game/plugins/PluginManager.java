@@ -129,10 +129,11 @@ public class PluginManager {
 
 	private static void registerGlobalVariables(Globals globals) {
 		
-		//Managers
+		// Managers
 		globals.set("playerManager", CoerceJavaToLua.coerce(new PlayerManager()));
 		globals.set("roomManager", CoerceJavaToLua.coerce(new RoomManager()));
 		
+		// Utilities
 		globals.set("log", CoerceJavaToLua.coerce(new Log()));
 		globals.set("util", CoerceJavaToLua.coerce(new Util()));
 		globals.set("scheduler", CoerceJavaToLua.coerce(new PluginScheduler()));

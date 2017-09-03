@@ -254,10 +254,6 @@ public class Room {
 
 	public void leaveRoom(Player player, boolean hotelView) {
 		
-		if (isCancelled) {
-			return;
-		}
-		
 		if (hotelView) {;
 			player.send(new HotelViewMessageComposer());
 		}
@@ -274,7 +270,7 @@ public class Room {
 		player.getRoomUser().dispose();
 		player.getMessenger().sendStatus(false);
 		
-		boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
+		PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
 
 		this.dispose(false);
 	}
