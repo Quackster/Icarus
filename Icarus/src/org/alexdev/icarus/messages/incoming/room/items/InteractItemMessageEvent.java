@@ -26,19 +26,13 @@ public class InteractItemMessageEvent implements MessageEvent {
 		if (item.getDefinition().getInteractionType().getHandler() != null) {
 			item.getDefinition().getInteractionType().getHandler().onUseItem(item, player.getRoomUser());
 		}
-
-		PluginEvent interact = null;
-
-		if (item.getType() == ItemType.WALL) {
-			interact = PluginEvent.WALL_ITEM_INTERACT_EVENT;
-		}
-
+		
 		if (item.getType() == ItemType.FLOOR) {
-			interact = PluginEvent.FLOOR_ITEM_INTERACT_EVENT;
-		}
-
-		if (interact != null) {
-			PluginManager.callEvent(interact, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
+			PluginManager.callEvent(PluginEvent.FLOOR_ITEM_INTERACT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
+		} 
+		
+		if (item.getType() == ItemType.WALL) {
+			PluginManager.callEvent(PluginEvent.WALL_ITEM_INTERACT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
 		}
 	}
 }

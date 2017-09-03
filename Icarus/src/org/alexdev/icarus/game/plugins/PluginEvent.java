@@ -12,6 +12,8 @@ public enum PluginEvent {
 	ROOM_LEAVE_EVENT("onRoomLeaveEvent"),
 	
 	// Item events
+	PLACE_FLOOR_ITEM_EVENT("onPlaceFloorItemEvent"),
+	PLACE_WALL_ITEM_EVENT("onPlaceFloorItemEvent"),
 	FLOOR_ITEM_INTERACT_EVENT("onInteractFloorItemEvent"),
 	WALL_ITEM_INTERACT_EVENT("onInteractWallItemEvent");
 	
