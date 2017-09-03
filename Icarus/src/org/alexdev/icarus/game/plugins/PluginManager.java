@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.plugins;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import org.alexdev.icarus.game.player.PlayerManager;
@@ -36,7 +37,7 @@ public class PluginManager {
 	private static void getPluginFiles() {
 
 		Globals globals = JsePlatform.standardGlobals();
-		LuaValue chunk = globals.loadfile("plugin_registry.lua");
+		LuaValue chunk = globals.loadfile("plugins" + File.separator + "plugin_registry.lua");
 		chunk.call();
 
 		LuaValue tableValue = globals.get("plugins");
@@ -66,7 +67,7 @@ public class PluginManager {
 
 		Globals globals = JsePlatform.standardGlobals();
 		registerGlobalVariables(globals);
-		LuaValue chunk = globals.loadfile(path);
+		LuaValue chunk = globals.loadfile("plugins" + File.separator + path);
 		chunk.call();
 
 		LuaValue detailsValue = globals.get("plugin_details");

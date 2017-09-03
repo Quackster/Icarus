@@ -130,7 +130,23 @@ public class Icarus {
             writer.flush();
             writer.close();
         }
+        
+        file = new File("plugins");
 
+        if (!file.exists()) { 
+            file.mkdir();
+        }
+        
+        file = new File("plugins" + File.separator + "plugin_registry.lua");
+
+        if (!file.isFile()) { 
+            file.createNewFile();
+            PrintWriter writer = new PrintWriter(file.getAbsoluteFile());
+            writePluginConfiguration(writer);
+            writer.flush();
+            writer.close();
+        }
+        
 
         Util.load();
     }
@@ -165,10 +181,6 @@ public class Icarus {
      * @param writer - {@link PrintWriter} the file writer
      */
     private static void writeHabboHotelConfiguration(PrintWriter writer) {
-        writer.println("[Register]");
-        writer.println("user.name.chars=1234567890qwertyuiopasdfghjklzxcvbnm-=?!@:.,");
-        writer.println("user.default.credits=100");
-        writer.println();
         writer.println("[Scheduler]");
         writer.println("credits.every.x.secs=600");
         writer.println("credits.every.x.amount=10");
@@ -187,6 +199,27 @@ public class Icarus {
         writer.println();
         writer.println("[Debug]");
         writer.println("debug.enable=true");
+        writer.println();
+    }
+    
+    /**
+     * Writes default values for the plugin registry file
+     * 
+     * @param writer - {@link PrintWriter} the file writer
+     */
+    private static void writePluginConfiguration(PrintWriter writer) {
+        writer.println("--[[\r\n" + 
+        		"    Array for storing plugin .lua files to be registered \r\n" + 
+        		"    by the server\r\n" + 
+        		"    \r\n" + 
+        		"    Example:\r\n" + 
+        		"    \r\n" + 
+        		"        plugins = {\r\n" + 
+        		"            \"ExamplePlugin/example_plugin.lua\"\r\n" + 
+        		"        }\r\n" + 
+        		"    \r\n" + 
+        		"--]]\r\n" + 
+        		"plugins = {}");
         writer.println();
     }
     

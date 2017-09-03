@@ -27,4 +27,4 @@ end
 	local packet = luajava.newInstance(composer, from_id, message)
 	
 	friend:send(packet)
-end--]
+end--]]
