@@ -9,6 +9,9 @@ event_register = {
 	"PLAYER_LOGIN_EVENT",
 	"PLAYER_DISCONNECT_EVENT",
 	
+	-- Console messenger events
+	"MESSENGER_TALK_EVENT",
+	
 	-- Room events
 	"ROOM_REQUEST_ENTER_EVENT",
 	"ROOM_ENTER_EVENT",
@@ -22,7 +25,8 @@ event_register = {
 event_files = {
 	"player_events.lua",
 	"room_events.lua",
-	"item_events.lua"
+	"item_events.lua",
+	"messenger_events.lua"
 }
 
 --[[

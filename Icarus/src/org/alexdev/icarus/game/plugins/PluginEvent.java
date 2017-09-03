@@ -6,6 +6,9 @@ public enum PluginEvent {
 	PLAYER_LOGIN_EVENT("onPlayerLoginEvent"),
 	PLAYER_DISCONNECT_EVENT("onPlayerDisconnectEvent"),
 	
+	// Console messenger events
+	MESSENGER_TALK_EVENT("onMessengerTalkEvent"),
+	
 	// Room events
 	ROOM_REQUEST_ENTER_EVENT("onRoomRequestEvent"),
 	ROOM_ENTER_EVENT("onRoomEnterEvent"),

@@ -67,6 +67,8 @@ public class Messenger {
 
         for (MessengerUser friend : this.friends) {
 
+        	friend.update();
+        	
             if (friend.isOnline()) {
                 if (friend.getPlayer().getMessenger().hasInitalised()) {
                     friend.getPlayer().send(message);
