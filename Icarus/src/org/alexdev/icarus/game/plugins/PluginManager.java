@@ -24,14 +24,14 @@ public class PluginManager {
 	private static Map<PluginEvent, List<Plugin>> registeredPluginEvents;
 
 	public static void load() {
-		
+
 		plugins = Lists.newArrayList();
 		registeredPluginEvents = Maps.newConcurrentMap();
-		
+
 		for (PluginEvent event : PluginEvent.values()) {
 			registeredPluginEvents.put(event, Lists.newArrayList());
 		}
-		
+
 		getPluginFiles();
 	}
 
@@ -60,7 +60,7 @@ public class PluginManager {
 			LuaValue value = table.get(i + 1);
 			loadPlugin(value.toString());
 		}
-		
+
 		Log.println("Loaded " + plugins.size() + " plugin(s)!");
 	}
 
@@ -92,69 +92,47 @@ public class PluginManager {
 				details.get("name").toString(), 
 				details.get("author").toString(),
 				globals);
-		
+
 		plugins.add(plugin);
 
 		LuaValue pluginEnable = globals.get("onEnable");
 		pluginEnable.invoke(CoerceJavaToLua.coerce(plugin));
 		
+		// Set the global plugin variable
+		globals.set("plugin", CoerceJavaToLua.coerce(plugin));
+
 		for (int i = 0; i < events.len().toint(); i++) {
 			PluginEvent event = PluginEvent.valueOf(events.get(i + 1).toString());
 			registeredPluginEvents.get(event).add(plugin);
 		}
 
 	}
-	
+
 	public static boolean callEvent(PluginEvent event, LuaValue[] values) {
-		
+
 		if (!registeredPluginEvents.containsKey(event)) {
 			return false;
 		}
-		
+
 		for (Plugin plugin : registeredPluginEvents.get(event)) {
-			
+
 			LuaValue calledEvent = plugin.getGlobals().get(event.getFunctionName());
 			Varargs variableArgs = calledEvent.invoke(LuaValue.varargsOf(values));
-			
+
 			boolean isCancelled = variableArgs.arg1().toboolean();
-			
+
 			if (isCancelled) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 
-	public static void runTaskLater(int seconds, Object functionObject, Object parameterObject) {
-		
-		if (!(functionObject instanceof LuaFunction)) {
-			return;
-		}
-		
-		if (!(parameterObject instanceof LuaTable)) {
-			return;
-		}
-		
-		LuaFunction function = (LuaFunction) functionObject;
-		LuaTable parameters = (LuaTable) parameterObject;
-		
-		LuaValue[] parameterValues = new LuaValue[parameters.len().toint()];
-		
-		for (int i = 0; i < parameters.len().toint(); i++) {
-			LuaValue value = parameters.get(i + 1);
-			parameterValues[i] = value;
-		}
-		
-		GameScheduler.getScheduler().schedule(() -> {
-			function.invoke(LuaValue.varargsOf(parameterValues));
-		}, seconds, TimeUnit.SECONDS);
-	}
-	
 	private static void registerGlobalVariables(Globals globals) {
 		globals.set("log", CoerceJavaToLua.coerce(new Log()));
 		globals.set("util", CoerceJavaToLua.coerce(new Util()));
-		globals.set("pluginManager", CoerceJavaToLua.coerce(new PluginManager()));
+		globals.set("scheduler", CoerceJavaToLua.coerce(new PluginScheduler()));
 
 	}
 }
