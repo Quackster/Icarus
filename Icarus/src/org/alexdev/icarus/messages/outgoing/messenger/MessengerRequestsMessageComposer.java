@@ -5,9 +5,9 @@ import java.util.List;
 import org.alexdev.icarus.game.messenger.MessengerUser;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class MessengerRequestsMessageComposer extends OutgoingMessageComposer {
+public class MessengerRequestsMessageComposer extends MessageComposer {
 
     private Player player;
     private List<MessengerUser> requests;

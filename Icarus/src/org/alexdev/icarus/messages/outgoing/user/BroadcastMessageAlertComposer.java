@@ -1,9 +1,9 @@
 package org.alexdev.icarus.messages.outgoing.user;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class BroadcastMessageAlertComposer extends OutgoingMessageComposer {
+public class BroadcastMessageAlertComposer extends MessageComposer {
 
     private String message;
 

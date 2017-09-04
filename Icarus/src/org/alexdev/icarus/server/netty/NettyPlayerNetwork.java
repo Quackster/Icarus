@@ -1,6 +1,6 @@
 package org.alexdev.icarus.server.netty;
 
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 import org.alexdev.icarus.server.api.IPlayerNetwork;
 import org.jboss.netty.channel.Channel;
 
@@ -19,7 +19,7 @@ public class NettyPlayerNetwork extends IPlayerNetwork {
     }
 
     @Override
-    public void send(OutgoingMessageComposer response) {
+    public void send(MessageComposer response) {
         channel.write(response);
         
     }

@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class CataloguePromotionRoomsComposer extends OutgoingMessageComposer {
+public class CataloguePromotionRoomsComposer extends MessageComposer {
 
 	private List<Room> rooms;
 

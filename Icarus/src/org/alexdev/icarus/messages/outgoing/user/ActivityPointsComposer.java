@@ -4,9 +4,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class ActivityPointsComposer extends OutgoingMessageComposer {
+public class ActivityPointsComposer extends MessageComposer {
 
 	private Map<Integer, Integer> currencies;
 	

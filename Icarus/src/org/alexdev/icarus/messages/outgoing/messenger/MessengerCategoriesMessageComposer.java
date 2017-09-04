@@ -1,9 +1,9 @@
 package org.alexdev.icarus.messages.outgoing.messenger;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class MessengerCategoriesMessageComposer extends OutgoingMessageComposer {
+public class MessengerCategoriesMessageComposer extends MessageComposer {
 
     @Override
     public void write() {

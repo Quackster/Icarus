@@ -1,9 +1,9 @@
 package org.alexdev.icarus.messages.outgoing.room.notify;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class FloodFilterMessageComposer extends OutgoingMessageComposer {
+public class FloodFilterMessageComposer extends MessageComposer {
 
     private int waitSeconds;
 

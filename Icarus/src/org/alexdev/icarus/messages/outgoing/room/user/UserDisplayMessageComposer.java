@@ -6,9 +6,9 @@ import java.util.List;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class UserDisplayMessageComposer extends OutgoingMessageComposer {
+public class UserDisplayMessageComposer extends MessageComposer {
 
     private List<Entity> entities;
 

@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.alexdev.icarus.game.navigator.NavigatorCategory;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class NavigatorCategories extends OutgoingMessageComposer {
+public class NavigatorCategories extends MessageComposer {
     
     private List<NavigatorCategory> categories;
 

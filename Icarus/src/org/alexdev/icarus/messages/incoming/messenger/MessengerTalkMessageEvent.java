@@ -1,6 +1,6 @@
 package org.alexdev.icarus.messages.incoming.messenger;
 
-import org.alexdev.icarus.game.messenger.MessengerMessage;
+import org.alexdev.icarus.game.messenger.PlayerMessage;
 import org.alexdev.icarus.game.messenger.MessengerUser;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.plugins.PluginEvent;
@@ -19,7 +19,7 @@ public class MessengerTalkMessageEvent implements MessageEvent {
         int friendId = request.readInt();
         String message = request.readString();
         
-        MessengerMessage msg = new MessengerMessage(player.getDetails().getId(), friendId, message);
+        PlayerMessage msg = new PlayerMessage(player.getDetails().getId(), friendId, message);
         
 		boolean isCancelled = PluginManager.callEvent(PluginEvent.MESSENGER_TALK_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(msg) });
 		

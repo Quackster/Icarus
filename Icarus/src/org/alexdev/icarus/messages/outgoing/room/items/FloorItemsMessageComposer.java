@@ -5,10 +5,10 @@ import java.util.List;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemMetaDataUtil;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 import org.alexdev.icarus.util.Util;
 
-public class FloorItemsMessageComposer extends OutgoingMessageComposer {
+public class FloorItemsMessageComposer extends MessageComposer {
 
     private List<Item> items;
 

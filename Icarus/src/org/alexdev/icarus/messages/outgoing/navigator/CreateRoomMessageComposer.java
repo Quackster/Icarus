@@ -1,9 +1,9 @@
 package org.alexdev.icarus.messages.outgoing.navigator;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class CreateRoomMessageComposer extends OutgoingMessageComposer {
+public class CreateRoomMessageComposer extends MessageComposer {
 
     private int id;
     private String name;

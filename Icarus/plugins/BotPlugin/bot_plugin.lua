@@ -1,5 +1,5 @@
 plugin_details = {
-	name = "ExamplePlugin",
+	name = "BotPlugin",
 	author = "Quackster",
 	path = "plugins/ExamplePlugin"
 }

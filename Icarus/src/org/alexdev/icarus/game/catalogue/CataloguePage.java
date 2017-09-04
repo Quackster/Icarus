@@ -3,7 +3,7 @@ package org.alexdev.icarus.game.catalogue;
 import java.util.List;
 
 import org.alexdev.icarus.messages.outgoing.catalogue.CataloguePageMessageComposer;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
 public class CataloguePage {
 
@@ -44,7 +44,7 @@ public class CataloguePage {
 	}
 
 
-	public OutgoingMessageComposer getComposer() {
+	public MessageComposer getComposer() {
 
 		if (this.composer == null) {
 			this.composer = new CataloguePageMessageComposer(this, "NORMAL");

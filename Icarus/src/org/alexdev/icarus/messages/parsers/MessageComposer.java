@@ -2,10 +2,10 @@ package org.alexdev.icarus.messages.parsers;
 
 import org.alexdev.icarus.server.netty.streams.NettyResponse;
 
-public abstract class OutgoingMessageComposer {
+public abstract class MessageComposer {
     protected NettyResponse response;
     
-    public OutgoingMessageComposer() {
+    public MessageComposer() {
         this.response = new NettyResponse();
     }
     

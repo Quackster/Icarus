@@ -3,9 +3,9 @@ package org.alexdev.icarus.messages.outgoing.catalogue;
 import org.alexdev.icarus.game.catalogue.CatalogueBundledItem;
 import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class PurchaseNotificationMessageComposer extends OutgoingMessageComposer {
+public class PurchaseNotificationMessageComposer extends MessageComposer {
 
 	private CatalogueBundledItem item;
 

@@ -13,7 +13,7 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.RoomUser;
 import org.alexdev.icarus.messages.outgoing.user.BroadcastMessageAlertComposer;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 import org.alexdev.icarus.server.api.IPlayerNetwork;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
@@ -125,7 +125,7 @@ public class Player extends Entity {
         return network;
     }
 
-    public void send(OutgoingMessageComposer response) {
+    public void send(MessageComposer response) {
         this.network.send(response);
     }
 

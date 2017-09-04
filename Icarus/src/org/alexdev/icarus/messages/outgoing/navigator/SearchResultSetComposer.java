@@ -7,11 +7,11 @@ import org.alexdev.icarus.game.navigator.NavigatorTab;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
 import com.google.common.collect.Lists;
 
-public class SearchResultSetComposer extends OutgoingMessageComposer {
+public class SearchResultSetComposer extends MessageComposer {
 
     private Player player;
     private NavigatorTab navigatorTab;

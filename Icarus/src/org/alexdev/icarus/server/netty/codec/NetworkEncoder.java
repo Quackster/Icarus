@@ -19,7 +19,7 @@
 
 package org.alexdev.icarus.server.netty.codec;
 
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 import org.alexdev.icarus.util.Util;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.ChannelHandlerContext;
@@ -41,9 +41,9 @@ public class NetworkEncoder extends SimpleChannelHandler {
                 return;
             }
 
-            if (e.getMessage() instanceof OutgoingMessageComposer) {
+            if (e.getMessage() instanceof MessageComposer) {
 
-                OutgoingMessageComposer msg = (OutgoingMessageComposer) e.getMessage();
+                MessageComposer msg = (MessageComposer) e.getMessage();
                 if (!msg.getResponse().isFinalised()) {
                     msg.write();
                 }

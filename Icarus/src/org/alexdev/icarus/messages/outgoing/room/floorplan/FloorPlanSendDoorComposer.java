@@ -1,9 +1,9 @@
 package org.alexdev.icarus.messages.outgoing.room.floorplan;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class FloorPlanSendDoorComposer extends OutgoingMessageComposer {
+public class FloorPlanSendDoorComposer extends MessageComposer {
 
 	private int x;
 	private int y;

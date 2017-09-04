@@ -1,9 +1,9 @@
 package org.alexdev.icarus.messages.outgoing.handshake;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class UniqueMachineIDMessageComposer extends OutgoingMessageComposer {
+public class UniqueMachineIDMessageComposer extends MessageComposer {
 
     private String uniqueMachineId;
 

@@ -1,9 +1,9 @@
 package org.alexdev.icarus.messages.outgoing.messenger;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class MessengerSendRequest extends OutgoingMessageComposer {
+public class MessengerSendRequest extends MessageComposer {
 
     private int id;
     private String username;

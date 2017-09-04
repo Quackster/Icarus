@@ -6,18 +6,25 @@ import java.util.LinkedList;
 import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.commands.CommandManager;
 import org.alexdev.icarus.game.entity.Entity;
+import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.furniture.interactions.Interaction;
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.messenger.PlayerMessage;
 import org.alexdev.icarus.game.pathfinder.Pathfinder;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.game.plugins.PluginEvent;
+import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.log.DateTime;
 import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.TalkMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 import org.alexdev.icarus.util.GameSettings;
+import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -66,6 +73,14 @@ public class RoomUser {
 
 		this.updateCurrentItem();
 
+		if (this.entity.getType() == EntityType.PLAYER) {
+
+			PluginManager.callEvent(PluginEvent.ROOM_STOP_WALKING_EVENT, new LuaValue[] {  
+					CoerceJavaToLua.coerce((Player)this.entity), 
+					CoerceJavaToLua.coerce(this.room)
+			});
+		}
+		
 		this.needsUpdate = true;
 	}
 
@@ -136,7 +151,7 @@ public class RoomUser {
 	public void shout(String message) {
 		this.chat(message, this.lastChatId, 1, true, false, false);
 	}
-	
+
 	public void chatSelf(String message) {
 		this.chat(message, this.lastChatId, 1, false, false, true);
 	}
@@ -147,22 +162,18 @@ public class RoomUser {
 
 	public void chat(String message, int bubble, int count, boolean shout, boolean spamCheck, boolean self) {
 
-		boolean isStaff = false;
-		Player player = null;
-
-		if (this.entity instanceof Player) {
-
-			player = (Player)this.entity;
-			isStaff = player.getDetails().hasFuse("moderator");
+		if (this.entity.getType() != EntityType.PLAYER) {
+			return;
 		}
+
+		Player player = (Player)this.entity;
+		boolean isStaff = player.getDetails().hasFuse("moderator");
 
 		if (spamCheck && !self) {
 			if (DateTime.getTimeSeconds() < this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
 
 				if (!isStaff) {
-					if (player != null) {
-						player.send(new FloodFilterMessageComposer(GameSettings.CHAT_FLOOD_WAIT));
-					}
+					player.send(new FloodFilterMessageComposer(GameSettings.CHAT_FLOOD_WAIT));
 					return;
 				}
 			}
@@ -172,16 +183,35 @@ public class RoomUser {
 			bubble = this.lastChatId;
 		}
 
-		if (player != null) {
-			RoomDao.saveChatlog(player, this.room.getData().getId(), shout ? "SHOUT" : "CHAT", message);
-		}
-
-		this.lastChatId = bubble;
+		RoomDao.saveChatlog(player, this.room.getData().getId(), shout ? "SHOUT" : "CHAT", message);
 
 		if (CommandManager.hasCommand(message)) {
 			CommandManager.invokeCommand(player, message);
+			return;
+		} 
+
+		// Plugin event handle for chat
+		PlayerMessage playerMessage = new PlayerMessage(this.entity.getDetails().getId(), -1, message);	{
+			
+			PluginEvent event = shout ? PluginEvent.ROOM_PLAYER_SHOUT_EVENT : PluginEvent.ROOM_PLAYER_CHAT_EVENT;
+			
+			PluginManager.callEvent(event, new LuaValue[] {  
+					CoerceJavaToLua.coerce(player),
+					CoerceJavaToLua.coerce(this.room),
+					CoerceJavaToLua.coerce(playerMessage) 
+			});
+			
+			message = playerMessage.getMessage();
+		}
+		// End plugin event handle
+
+		MessageComposer composer = new TalkMessageComposer(this, shout, message, this.lastChatId, bubble);
+		this.lastChatId = bubble;
+
+		if (self) {
+			player.send(composer);
 		} else {
-			this.room.send(new TalkMessageComposer(this, shout, message, this.lastChatId, bubble));
+			this.room.send(composer);
 		}
 
 		for (Player person : this.room.getPlayers()) {
@@ -251,6 +281,16 @@ public class RoomUser {
 
 		this.goal.setX(X);
 		this.goal.setY(Y);
+
+		if (this.entity.getType() == EntityType.PLAYER) {
+
+			PluginManager.callEvent(PluginEvent.ROOM_WALK_REQUEST_EVENT, new LuaValue[] {  
+					CoerceJavaToLua.coerce((Player)this.entity),
+					CoerceJavaToLua.coerce(this.room),
+					CoerceJavaToLua.coerce(this.position), 
+					CoerceJavaToLua.coerce(this.goal) 
+			});
+		}
 
 		LinkedList<Position> path = Pathfinder.makePath(this.entity);
 

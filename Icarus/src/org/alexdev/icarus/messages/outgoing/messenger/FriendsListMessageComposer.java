@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.alexdev.icarus.game.messenger.MessengerUser;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class FriendsListMessageComposer extends OutgoingMessageComposer {
+public class FriendsListMessageComposer extends MessageComposer {
 
     private List<MessengerUser> friends;
 

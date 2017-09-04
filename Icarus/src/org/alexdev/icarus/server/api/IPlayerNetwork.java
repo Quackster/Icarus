@@ -1,6 +1,6 @@
 package org.alexdev.icarus.server.api;
 
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
 public abstract class IPlayerNetwork {
 
@@ -10,7 +10,7 @@ public abstract class IPlayerNetwork {
         this.connectionId = connectionId;
     }
     
-    public abstract void send(OutgoingMessageComposer response);
+    public abstract void send(MessageComposer response);
     public abstract void close();
     
     public int getConnectionId() {

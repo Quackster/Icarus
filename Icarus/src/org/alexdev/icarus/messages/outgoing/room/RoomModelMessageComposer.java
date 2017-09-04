@@ -1,9 +1,9 @@
 package org.alexdev.icarus.messages.outgoing.room;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class RoomModelMessageComposer extends OutgoingMessageComposer {
+public class RoomModelMessageComposer extends MessageComposer {
     
     private String model;
     private int id;

@@ -2,9 +2,9 @@ package org.alexdev.icarus.messages.outgoing.messenger;
 
 import org.alexdev.icarus.game.messenger.MessengerUser;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class MessengerUpdateMessageComposer extends OutgoingMessageComposer {
+public class MessengerUpdateMessageComposer extends MessageComposer {
 
     private MessengerUser friend;
     private boolean forceOffline;

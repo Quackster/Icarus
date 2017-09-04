@@ -1,9 +1,9 @@
 package org.alexdev.icarus.messages.outgoing.catalogue;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class GiftingSettingsComposer extends OutgoingMessageComposer {
+public class GiftingSettingsComposer extends MessageComposer {
 
 	@Override
 	public void write() {

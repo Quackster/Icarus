@@ -1,9 +1,9 @@
 package org.alexdev.icarus.messages.outgoing.room.notify;
 
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class RoomSettingsOKMessageComposer extends OutgoingMessageComposer {
+public class RoomSettingsOKMessageComposer extends MessageComposer {
 
     private Room room;
 

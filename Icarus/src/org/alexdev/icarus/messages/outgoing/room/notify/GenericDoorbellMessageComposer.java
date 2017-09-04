@@ -1,9 +1,9 @@
 package org.alexdev.icarus.messages.outgoing.room.notify;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class GenericDoorbellMessageComposer extends OutgoingMessageComposer {
+public class GenericDoorbellMessageComposer extends MessageComposer {
 
     private String username;
     private int notifyCode = -1;

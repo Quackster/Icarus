@@ -13,6 +13,10 @@ public enum PluginEvent {
 	ROOM_REQUEST_ENTER_EVENT("onRoomRequestEvent"),
 	ROOM_ENTER_EVENT("onRoomEnterEvent"),
 	ROOM_LEAVE_EVENT("onRoomLeaveEvent"),
+	ROOM_PLAYER_CHAT_EVENT("onPlayerChatEvent"),
+	ROOM_PLAYER_SHOUT_EVENT("onPlayerShoutEvent"),
+	ROOM_WALK_REQUEST_EVENT("onPlayerWalkRequestEvent"),
+	ROOM_STOP_WALKING_EVENT("onPlayerStopWalkingEvent"),
 	
 	// Item events
 	PLACE_FLOOR_ITEM_EVENT("onPlaceFloorItemEvent"),

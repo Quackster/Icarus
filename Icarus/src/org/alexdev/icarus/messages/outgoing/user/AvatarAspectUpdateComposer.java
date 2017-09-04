@@ -1,9 +1,9 @@
 package org.alexdev.icarus.messages.outgoing.user;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class AvatarAspectUpdateComposer extends OutgoingMessageComposer {
+public class AvatarAspectUpdateComposer extends MessageComposer {
 
     private String figure;
     private String gender;

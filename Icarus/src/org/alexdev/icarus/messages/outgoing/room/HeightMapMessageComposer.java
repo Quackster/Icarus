@@ -4,9 +4,9 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class HeightMapMessageComposer extends OutgoingMessageComposer {
+public class HeightMapMessageComposer extends MessageComposer {
 
     private Room room;
 

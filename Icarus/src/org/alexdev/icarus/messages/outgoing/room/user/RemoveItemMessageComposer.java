@@ -3,9 +3,9 @@ package org.alexdev.icarus.messages.outgoing.room.user;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class RemoveItemMessageComposer extends OutgoingMessageComposer {
+public class RemoveItemMessageComposer extends MessageComposer {
 
     private Item item;
     

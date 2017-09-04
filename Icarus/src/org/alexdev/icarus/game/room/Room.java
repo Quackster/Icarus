@@ -49,7 +49,7 @@ import org.alexdev.icarus.messages.outgoing.room.user.RemoveUserMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RoomForwardComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserDisplayMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 import com.google.common.collect.Lists;
@@ -342,7 +342,7 @@ public class Room {
 		this.privateId.set(-1);
 	}
 
-	public void send(OutgoingMessageComposer response, boolean checkRights) {
+	public void send(MessageComposer response, boolean checkRights) {
 
 		for (Player player : this.getPlayers()) {
 
@@ -352,7 +352,7 @@ public class Room {
 		}
 	}
 
-	public void send(OutgoingMessageComposer response) {
+	public void send(MessageComposer response) {
 
 		for (Player player : this.getPlayers()) {
 			player.send(response);

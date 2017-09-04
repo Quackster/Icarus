@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.alexdev.icarus.game.navigator.NavigatorTab;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class NavigatorMetaDataComposer extends OutgoingMessageComposer {
+public class NavigatorMetaDataComposer extends MessageComposer {
 
     private List<NavigatorTab> tabs;
 

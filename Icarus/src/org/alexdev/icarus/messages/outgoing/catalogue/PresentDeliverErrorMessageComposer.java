@@ -1,9 +1,9 @@
 package org.alexdev.icarus.messages.outgoing.catalogue;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class PresentDeliverErrorMessageComposer extends OutgoingMessageComposer {
+public class PresentDeliverErrorMessageComposer extends MessageComposer {
 
 	private boolean creditsError;
 	private boolean ducketError;

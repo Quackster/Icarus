@@ -2,9 +2,9 @@ package org.alexdev.icarus.messages.outgoing.user;
 
 import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.OutgoingMessageComposer;
+import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class UserObjectMessageComposer extends OutgoingMessageComposer {
+public class UserObjectMessageComposer extends MessageComposer {
 
     private PlayerDetails details;
 
