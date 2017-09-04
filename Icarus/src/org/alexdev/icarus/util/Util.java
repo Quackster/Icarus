@@ -20,7 +20,7 @@ public class Util {
 	private static DecimalFormat decimalFormatter;
 	private static String language;
 	private static Wini locale;
-	
+
 	private static Map<String, String> composerPaths;
 
 	public static void load() throws InvalidFileFormatException, IOException {
@@ -43,11 +43,11 @@ public class Util {
 	}
 
 	public static String getComposer(String className) {
-		
+
 		if (composerPaths.containsKey(className)) {
 			return composerPaths.get(className);
 		}
-		
+
 		return null;
 	}
 
@@ -85,6 +85,19 @@ public class Util {
 
 	public static Wini getConfiguration() {
 		return configuration;
+	}
+
+	public static int randomInt(int from, int to) {
+		return randomInt(from, to, false);
+	}
+
+	public static int randomInt(int from, int to, boolean inclusive) {
+
+		if (inclusive) {
+			return from + secureRandom.nextInt(to + 1);	
+		} else {
+			return from + secureRandom.nextInt(to);
+		}
 	}
 
 	public static SecureRandom getRandom() {

@@ -24,7 +24,7 @@ public class FloorItemsMessageComposer extends MessageComposer {
         
         for (Item floorItem : items) { 
             response.writeInt(floorItem.getUserId());
-            response.writeString(floorItem.getOwnerData().getUsername());
+            response.writeString(floorItem.getOwnerData().getName());
         }
 
         response.writeInt(items.size());

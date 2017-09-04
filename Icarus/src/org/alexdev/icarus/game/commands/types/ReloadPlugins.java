@@ -8,6 +8,7 @@ public class ReloadPlugins implements Command {
 
 	@Override
 	public void handleCommand(Player player, String message) {
+		PluginManager.disposePlugins();
 		PluginManager.load();
 	}
 

@@ -16,7 +16,7 @@ public class UserObjectMessageComposer extends MessageComposer {
     public void write() {
         response.init(Outgoing.UserObjectMessageComposer);
         response.writeInt(this.details.getId()); // User ID
-        response.writeString(this.details.getUsername()); // Username
+        response.writeString(this.details.getName()); // Username
         response.writeString(this.details.getFigure()); // Figure
         response.writeString(this.details.getGender().toUpperCase()); // Gender
         response.writeString(this.details.getMission()); // Motto

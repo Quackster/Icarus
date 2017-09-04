@@ -125,7 +125,7 @@ public class Room {
 
 					if (this.getPlayers().size() > 0) {
 						player.send(new GenericDoorbellMessageComposer(1));
-						this.send(new GenericDoorbellMessageComposer(player.getDetails().getUsername()), true);
+						this.send(new GenericDoorbellMessageComposer(player.getDetails().getName()), true);
 					} else {
 						player.send(new GenericNoAnswerDoorbellMessageComposer());
 					}
@@ -176,10 +176,10 @@ public class Room {
 		}
 
 		player.send(new PrepareRoomMessageComposer(this));
-
+		
 		roomUser.setVirtualId(this.privateId.incrementAndGet());
-		roomUser.getPosition().setX(x);
-		roomUser.getPosition().setY(y);
+		roomUser.getPosition().setX(this.getModel().getDoorLocation().getX());
+		roomUser.getPosition().setY(this.getModel().getDoorLocation().getY());
 		roomUser.getPosition().setZ(this.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
 		roomUser.getPosition().setRotation(this.getModel().getDoorLocation().getRotation());
 
@@ -197,7 +197,7 @@ public class Room {
 
 		player.send(new HeightMapMessageComposer(this));
 		player.send(new FloorMapMessageComposer(this));
-
+		
 		this.send(new UserDisplayMessageComposer(player));
 		this.send(new UserStatusMessageComposer(player));
 
@@ -205,7 +205,7 @@ public class Room {
 			this.getEntities().add(player);
 			this.getData().updateUsersNow();
 		}
-
+		
 		player.send(new UserDisplayMessageComposer(this.getEntities()));
 		player.send(new UserStatusMessageComposer(this.getEntities()));
 
@@ -229,8 +229,7 @@ public class Room {
 		player.send(new WallOptionsMessageComposer(this.getData().isHideWall(), this.getData().getWallThickness(), this.getData().getFloorThickness()));
 
 		player.send(new RoomPromotionMessageComposer(this));
-		
-		// Sometimes, if the room ID is considerably low or some shit, the teleporters will flash, here's a hacky lil bug to stop that.
+
 		this.fixFlashingTeleporters();
 		
 		player.send(new FloorItemsMessageComposer(this.getFloorItems()));
@@ -238,13 +237,6 @@ public class Room {
 
 		player.getMessenger().sendStatus(false);
 
-		/*Globals globals = JsePlatform.standardGlobals();
-		globals.set("player", CoerceJavaToLua.coerce(player));
-		globals.set("room", CoerceJavaToLua.coerce(this));
-
-		LuaValue chunk = globals.load("player:getRoomUser():chat(\"I have just entered \" .. room:getData():getName())");
-		chunk.call();*/
-		
 		boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_ENTER_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
 		
 		if (isCancelled) {
@@ -257,21 +249,54 @@ public class Room {
 		if (hotelView) {;
 			player.send(new HotelViewMessageComposer());
 		}
-
-		if (this.entities != null) {
-			this.entities.remove(player);
-			this.data.updateUsersNow();
-		}
-
-		if (this.getPlayers().size() > 0) {
-			this.send(new RemoveUserMessageComposer(player.getRoomUser().getVirtualId()));
-		}
-
-		player.getRoomUser().dispose();
-		player.getMessenger().sendStatus(false);
 		
 		PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
+		
+		// Generic removal of entity
+		this.removeEntity(player);
+		
+		// Tell friends that you're no longer in a room
+		player.getMessenger().sendStatus(false);
+		
+	}
+	
+	public void addEntity(Entity entity) {
+		
+		if (entity.getType() == EntityType.PLAYER) {
+			return;
+		}
+		
+		RoomUser roomUser = entity.getRoomUser();
+		
+		roomUser.setRoom(this);
+		roomUser.setVirtualId(this.privateId.incrementAndGet());
+		roomUser.getPosition().setX(this.getModel().getDoorLocation().getX());
+		roomUser.getPosition().setY(this.getModel().getDoorLocation().getY());
+		roomUser.getPosition().setZ(this.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
+		roomUser.getPosition().setRotation(this.getModel().getDoorLocation().getRotation());
+		
+		this.send(new UserDisplayMessageComposer(entity));
+		this.send(new UserStatusMessageComposer(entity));
 
+		if (!this.getEntities().contains(entity)) {
+			this.getEntities().add(entity);
+		}
+	}
+
+	
+	public void removeEntity(Entity entity) {
+		
+		if (this.entities != null) {
+			this.entities.remove(entity);
+			this.data.updateUsersNow();
+		}
+		
+		if (this.getPlayers().size() > 0) {
+			this.send(new RemoveUserMessageComposer(entity.getRoomUser().getVirtualId()));
+		}
+
+		entity.getRoomUser().dispose();
+		
 		this.dispose(false);
 	}
 

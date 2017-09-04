@@ -6,113 +6,113 @@ import org.alexdev.icarus.messages.outgoing.user.CreditsMessageComposer;
 
 public class PlayerDetails {
 
-    private int id = -1;
-    private String username = "Alex";
-    private String motto = "banana man";
-    private String figure;
-    private String gender;
-    private int rank;
-    private int credits;
+	private int id = -1;
+	private String name = "null";
+	private String motto = "";
+	private String figure = "ch-210-66.hr-100-0.sh-290-80.hd-180-7.lg-270-82";
+	private String gender = "M";
+	private int rank;
+	private int credits;
 
-    private boolean authenticated;
-    private Entity entity;
+	private boolean authenticated;
+	private Entity entity;
 
-    public PlayerDetails(Entity session) {
-        this.authenticated = false;
-        this.entity = session;
-    }
+	public PlayerDetails(Entity entity) {
+		this.authenticated = false;
+		this.entity = entity;
+	}
 
-    public void fill(int id, String username, String motto, String figure, String gender, int rank, int credits) {
-        this.id = id;
-        this.username = username;
-        this.motto = motto;
-        this.figure = figure;
-        this.gender = gender;
-        this.rank = rank;
-        this.credits = credits;
-        this.authenticated = true;
-    }
+	public void fill(int id, String username, String motto, String figure, String gender, int rank, int credits) {
+		this.id = id;
+		this.name = username;
+		this.motto = motto;
+		this.figure = figure;
+		this.gender = gender;
+		this.rank = rank;
+		this.credits = credits;
+		this.authenticated = true;
+	}
 
-    public void save() {
-        PlayerDao.save(this);
-    }
-    
-    public boolean hasFuse(String fuse) {
-        return false;
-    }
+	public void save() {
+		PlayerDao.save(this);
+	}
 
-    public int getId() {
-        return id;
-    }
+	public boolean hasFuse(String fuse) {
+		return false;
+	}
 
-    public boolean isAuthenticated() {
-        return authenticated;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setAuthenticated(boolean authenticated) {
-        this.authenticated = authenticated;
-    }
+	public boolean isAuthenticated() {
+		return authenticated;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public void setAuthenticated(boolean authenticated) {
+		this.authenticated = authenticated;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getMission() {
-        return motto;
-    }
+	public void setName(String username) {
+		this.name = username;
+	}
 
-    public void setMotto(String motto) {
-        this.motto = motto;
-    }
+	public String getMission() {
+		return motto;
+	}
 
-    public String getFigure() {
-        return figure;
-    }
+	public void setMotto(String motto) {
+		this.motto = motto;
+	}
 
-    public void setFigure(String figure) {
-        this.figure = figure;
-    }
+	public String getFigure() {
+		return figure;
+	}
 
-    public String getGender() {
-        return gender;
-    }
+	public void setFigure(String figure) {
+		this.figure = figure;
+	}
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
+	public String getGender() {
+		return gender;
+	}
 
-    public int getRank() {
-        return rank;
-    }
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 
-    public void setCredits(int newTotal) {
-        this.credits = newTotal;
-    }
+	public int getRank() {
+		return rank;
+	}
 
-    public void sendCredits() {
-        if (this.entity instanceof Player) {
-            Player player = (Player)this.entity;
-            player.send(new CreditsMessageComposer(this.credits));
-        }
-    }
+	public void setCredits(int newTotal) {
+		this.credits = newTotal;
+	}
 
-    public int getCredits() {
-        return credits;
-    }
+	public void sendCredits() {
+		if (this.entity instanceof Player) {
+			Player player = (Player)this.entity;
+			player.send(new CreditsMessageComposer(this.credits));
+		}
+	}
 
-    public Entity getEntity() {
-        return entity;
-    }
+	public int getCredits() {
+		return credits;
+	}
 
-    public void setEntity(Entity entity) {
-        this.entity = entity;
-    }
+	public Entity getEntity() {
+		return entity;
+	}
 
-    public Integer getAchievementPoints() {
-        return 0;
-    }
+	public void setEntity(Entity entity) {
+		this.entity = entity;
+	}
+
+	public Integer getAchievementPoints() {
+		return 0;
+	}
 }

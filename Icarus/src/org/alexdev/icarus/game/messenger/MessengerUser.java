@@ -28,7 +28,7 @@ public class MessengerUser {
 
     public void serialiseFriend(Response response, boolean forceOffline) {
         response.writeInt(this.getDetails().getId());
-        response.writeString(this.getDetails().getUsername());
+        response.writeString(this.getDetails().getName());
         response.writeInt(forceOffline ? false : this.isOnline());
         response.writeBool(forceOffline ? false : this.isOnline());
         response.writeBool(forceOffline ? false : this.inRoom());
@@ -53,7 +53,7 @@ public class MessengerUser {
 
     public void serialiseSearch(Response response) {
         response.writeInt(this.getDetails().getId());
-        response.writeString(this.getDetails().getUsername());
+        response.writeString(this.getDetails().getName());
         response.writeString(this.getDetails().getMission()); 
         response.writeBool(this.isOnline());
         response.writeBool(this.inRoom());

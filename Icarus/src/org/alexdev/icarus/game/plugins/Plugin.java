@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.alexdev.icarus.game.GameScheduler;
 import org.luaj.vm2.Globals;
+import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 
 public class Plugin {
@@ -11,6 +12,7 @@ public class Plugin {
 	private String pluginName;
 	private String pluginAuthor;
 	private Globals globals;
+	private boolean shutdown;
 	
 	public Plugin(String pluginName, String pluginAuthor, Globals globals) {
 		this.pluginName = pluginName;
@@ -18,10 +20,17 @@ public class Plugin {
 		this.globals = globals;
 	}
 	
-	public void runTaskLater(int seconds, LuaValue function) {
-		GameScheduler.getScheduler().schedule(() -> {
-			function.invoke();
-		}, seconds, TimeUnit.SECONDS);
+	public void runTaskLater(int seconds, Object functionObject) {
+		runTaskLater(seconds, functionObject, new LuaTable());
+	}
+
+	public void runTaskLater(int seconds, Object functionObject, Object parameterObject) {
+		
+		if (this.shutdown) {
+			return;
+		}
+		
+		PluginScheduler.runTaskLater(seconds, functionObject, parameterObject);
 	}
 
 	public String getName() {
@@ -34,5 +43,13 @@ public class Plugin {
 
 	public Globals getGlobals() {
 		return globals;
+	}
+
+	public boolean isShutdown() {
+		return shutdown;
+	}
+
+	public void setShutdown(boolean shutdown) {
+		this.shutdown = shutdown;
 	}
 }

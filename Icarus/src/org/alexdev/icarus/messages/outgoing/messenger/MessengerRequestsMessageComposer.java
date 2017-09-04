@@ -26,7 +26,7 @@ public class MessengerRequestsMessageComposer extends MessageComposer {
 
         for (MessengerUser user : this.requests) {
             response.writeInt(user.getUserId());
-            response.writeString(user.getDetails().getUsername());
+            response.writeString(user.getDetails().getName());
             response.writeString(user.getDetails().getFigure());
         }
     }

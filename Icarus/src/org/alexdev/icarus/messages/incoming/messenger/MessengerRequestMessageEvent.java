@@ -37,7 +37,7 @@ public class MessengerRequestMessageEvent implements MessageEvent {
             player.getMessenger().getRequests().add(user);
 
             if (user.isOnline()) {
-                user.getPlayer().send(new MessengerSendRequest(player.getDetails().getId(), player.getDetails().getUsername(), player.getDetails().getFigure()));
+                user.getPlayer().send(new MessengerSendRequest(player.getDetails().getId(), player.getDetails().getName(), player.getDetails().getFigure()));
             }
         }
     }

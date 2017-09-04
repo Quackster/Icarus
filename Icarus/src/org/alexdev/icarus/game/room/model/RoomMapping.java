@@ -13,6 +13,9 @@ import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RemoveItemMessageComposer;
+import org.alexdev.icarus.util.Util;
+
+import com.google.common.collect.Lists;
 
 public class RoomMapping {
 
@@ -20,13 +23,16 @@ public class RoomMapping {
 	private int mapSizeX;
 	private int mapSizeY;
 	private RoomTile[][] tiles;
+	private List<Position> walkableTiles;
 
 	public RoomMapping(Room room) {
 		this.room = room;
+		this.walkableTiles = Lists.newArrayList();
 	}
 
 	public void regenerateCollisionMaps() {
 
+		this.walkableTiles.clear();
 		this.mapSizeX = this.room.getModel().getMapSizeX();
 		this.mapSizeY = this.room.getModel().getMapSizeY();
 
@@ -95,6 +101,14 @@ public class RoomMapping {
 				}
 			}
 		}
+		
+		for (int y = 0; y < mapSizeY; y++) {
+			for (int x = 0; x < mapSizeX; x++) {
+				if (this.isTileWalkable(null, x, y)) {
+					this.walkableTiles.add(new Position(x, y));
+				}				
+			}
+		}
 	}
 
 
@@ -107,25 +121,25 @@ public class RoomMapping {
 		if (!this.isTileWalkable(entity, neighbour.getX(), neighbour.getY())) {
 			return false;
 		}
-		
+
 		Item currentItem = this.getHighestItem(current.getX(), current.getY());
 		//Item nextItem = this.getHighestItem(neighbour.getX(), neighbour.getY());
 
 		double currentHeight = this.getTile(current.getX(), current.getY()).getHeight();
 		double nextHeight = this.getTile(neighbour.getX(), neighbour.getY()).getHeight();
-		
-        if (currentHeight > nextHeight) {
-            if ((currentHeight - nextHeight) > 1.0) {
-                return false;
-            }
-        }
 
-        if (nextHeight > currentHeight) {
-            if ((nextHeight - currentHeight) > 1.0) {
-                return false;
-            }
-        }
-		
+		if (currentHeight > nextHeight) {
+			if ((currentHeight - nextHeight) > 1.0) {
+				return false;
+			}
+		}
+
+		if (nextHeight > currentHeight) {
+			if ((nextHeight - currentHeight) > 1.0) {
+				return false;
+			}
+		}
+
 		if (entity != null) {
 			if (!current.isMatch(this.room.getModel().getDoorLocation())) {
 
@@ -157,6 +171,10 @@ public class RoomMapping {
 			return false;
 		}
 
+		if (this.room.getModel().isBlocked(x, y)) {
+			return false;
+		}
+
 		RoomTile tile = this.tiles[x][y];
 
 		if (tile.hasOverrideLock()) {
@@ -164,13 +182,16 @@ public class RoomMapping {
 		}
 
 		if (tile.getEntity() != null) {
-			if (tile.getEntity() != entity) {
-				return false;
-			}
-		}
 
-		if (this.room.getModel().isBlocked(x, y)) {
-			return false;
+			if (this.room.getData().isAllowWalkthrough()) {
+				return true;
+			}
+
+			if (entity != null) {
+				if (tile.getEntity() != entity) {
+					return false;
+				}
+			}
 		}
 
 		Item item = tile.getHighestItem();
@@ -182,6 +203,10 @@ public class RoomMapping {
 		}
 
 		return true;
+	}
+	
+	public Position getRandomWalkableTile() {
+		return this.walkableTiles.get(Util.randomInt(0, this.walkableTiles.size()));
 	}
 
 	public void addItem(Item item) {

@@ -15,6 +15,7 @@ import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
+import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.log.DateTime;
 import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageComposer;
@@ -80,7 +81,7 @@ public class RoomUser {
 					CoerceJavaToLua.coerce(this.room)
 			});
 		}
-		
+
 		this.needsUpdate = true;
 	}
 
@@ -163,6 +164,15 @@ public class RoomUser {
 	public void chat(String message, int bubble, int count, boolean shout, boolean spamCheck, boolean self) {
 
 		if (this.entity.getType() != EntityType.PLAYER) {
+
+			MessageComposer composer = null;
+
+			if (this.entity.getType() == EntityType.BOT) {
+				composer = new TalkMessageComposer(this, shout, message, 2, bubble);
+			}
+			
+			this.room.send(composer);
+
 			return;
 		}
 
@@ -192,15 +202,15 @@ public class RoomUser {
 
 		// Plugin event handle for chat
 		PlayerMessage playerMessage = new PlayerMessage(this.entity.getDetails().getId(), -1, message);	{
-			
+
 			PluginEvent event = shout ? PluginEvent.ROOM_PLAYER_SHOUT_EVENT : PluginEvent.ROOM_PLAYER_CHAT_EVENT;
-			
+
 			PluginManager.callEvent(event, new LuaValue[] {  
 					CoerceJavaToLua.coerce(player),
 					CoerceJavaToLua.coerce(this.room),
 					CoerceJavaToLua.coerce(playerMessage) 
 			});
-			
+
 			message = playerMessage.getMessage();
 		}
 		// End plugin event handle
@@ -261,7 +271,31 @@ public class RoomUser {
 		this.needsUpdate = true;
 	}
 
+	public void warpTo(int x, int y, int rotation) {
+
+		if (this.room.getModel().invalidXYCoords(x, y)) {
+			return;
+		}
+
+		// remove entity from previous tile
+		this.room.getMapping().getTile(this.position.getX(), this.position.getY()).setEntity(null);
+
+		this.position.setX(x);
+		this.position.setY(y);
+		this.position.setZ(this.room.getMapping().getTileHeight(x, y));
+		this.position.setRotation(rotation);
+
+		// set entity to new title
+		this.room.getMapping().getTile(x, y).setEntity(entity);
+
+		this.needsUpdate = true;
+	}
+
 	public void walkTo(int X, int Y) {
+
+		if (this.room.getModel().invalidXYCoords(X, Y)) {
+			return;
+		}
 
 		if (this.room.getModel().isBlocked(X, Y)) {
 			return;
@@ -500,14 +534,6 @@ public class RoomUser {
 
 	public void setRolling(boolean isRolling) {
 		this.isRolling = isRolling;
-	}
-
-	public void warpTo(int x, int y, int rotation) {
-		this.position.setX(x);
-		this.position.setY(y);
-		this.position.setZ(this.room.getMapping().getTileHeight(x, y));
-		this.position.setRotation(rotation);
-		this.needsUpdate = true;
 	}
 
 	public boolean isNeedsUpdate() {

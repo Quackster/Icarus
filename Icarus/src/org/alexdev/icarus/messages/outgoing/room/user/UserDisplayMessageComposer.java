@@ -32,7 +32,7 @@ public class UserDisplayMessageComposer extends MessageComposer {
             for (Entity entity : this.entities) {
                 if (entity.getType() == EntityType.PLAYER) {
                     response.writeInt(entity.getDetails().getId());
-                    response.writeString(entity.getDetails().getUsername());
+                    response.writeString(entity.getDetails().getName());
                     response.writeString(entity.getDetails().getMission());
                     response.writeString(entity.getDetails().getFigure());
                     response.writeInt(entity.getRoomUser().getVirtualId());
@@ -51,7 +51,7 @@ public class UserDisplayMessageComposer extends MessageComposer {
 
                 if (entity.getType() == EntityType.BOT) {
                     response.writeInt(entity.getDetails().getId());
-                    response.writeString(entity.getDetails().getUsername());
+                    response.writeString(entity.getDetails().getName());
                     response.writeString(entity.getDetails().getMission());
                     response.writeString(entity.getDetails().getFigure());
                     response.writeInt(entity.getRoomUser().getVirtualId());

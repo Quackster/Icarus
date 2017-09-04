@@ -127,6 +127,15 @@ public class PluginManager {
 
 		return false;
 	}
+	
+	public static void disposePlugins() {
+		
+		for (Plugin plugin : plugins) {
+			plugin.setShutdown(true);
+		}
+		
+		plugins.clear();
+	}
 
 	private static void registerGlobalVariables(Globals globals) {
 		

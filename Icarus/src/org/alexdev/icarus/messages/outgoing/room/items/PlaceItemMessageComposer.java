@@ -34,7 +34,7 @@ public class PlaceItemMessageComposer extends MessageComposer {
 			response.writeInt(-1);
 			response.writeInt(this.item.getDefinition().getInterationModes() > 0 ? 1 : 0);
 			response.writeInt(this.item.getOwnerData().getId());
-			response.writeString(this.item.getOwnerData().getUsername());
+			response.writeString(this.item.getOwnerData().getName());
 
 		}
 
@@ -47,7 +47,7 @@ public class PlaceItemMessageComposer extends MessageComposer {
             response.writeInt(-1);
             response.writeInt(item.getDefinition().getInterationModes() > 0 ? 1 : 0);
             response.writeInt(item.getUserId());
-            response.writeString(this.item.getOwnerData().getUsername());
+            response.writeString(this.item.getOwnerData().getName());
 		}
 	}
 

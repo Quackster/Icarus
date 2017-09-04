@@ -31,7 +31,7 @@ public class PlayerManager {
     public static Player getByName(String name) {
         
         try {
-            return players.values().stream().filter(s -> s.getDetails().getUsername().equals(name)).findFirst().get();
+            return players.values().stream().filter(s -> s.getDetails().getName().equals(name)).findFirst().get();
         } catch (Exception e) {
             return null;
         }

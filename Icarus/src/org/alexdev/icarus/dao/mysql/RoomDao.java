@@ -322,7 +322,7 @@ public class RoomDao {
 			sqlConnection = Dao.getStorage().getConnection();
 
 			preparedStatement = Dao.getStorage().prepare("INSERT INTO room_chatlogs (user, room_id, timestamp, message_type, message) VALUES (?, ?, ?, ?, ?)", sqlConnection);
-			preparedStatement.setString(1, chatter.getDetails().getUsername());
+			preparedStatement.setString(1, chatter.getDetails().getName());
 			preparedStatement.setInt(2, roomID);
 			preparedStatement.setLong(3, Util.getCurrentTimeSeconds());
 			
@@ -445,7 +445,7 @@ public class RoomDao {
 
         Room instance = new Room();
 
-        instance.getData().fill(row.getInt("id"), type, details == null ? 0 : details.getId(), details == null ? "" : details.getUsername(), row.getString("name"), 
+        instance.getData().fill(row.getInt("id"), type, details == null ? 0 : details.getId(), details == null ? "" : details.getName(), row.getString("name"), 
                 row.getInt("state"), row.getString("password"), row.getInt("users_now"),
                 row.getInt("users_max"), row.getString("description"), row.getInt("trade_state"), row.getInt("score"), row.getInt("category"), 
                 row.getInt("category"), row.getString("model"), row.getString("wallpaper"), row.getString("floor"), row.getString("outside"), 

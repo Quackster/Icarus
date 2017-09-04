@@ -22,7 +22,7 @@ public class WallItemsMessageComposer extends MessageComposer {
         response.writeInt(this.items.size());
         for (Item wallItem : this.items) { 
             response.writeInt(wallItem.getUserId());
-            response.writeString(wallItem.getOwnerData().getUsername());
+            response.writeString(wallItem.getOwnerData().getName());
         }
 
         response.writeInt(this.items.size());
