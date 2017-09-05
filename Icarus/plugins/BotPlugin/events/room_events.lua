@@ -23,8 +23,9 @@ end
 function createBot(room) 
 
 	local bot = luajava.newInstance("org.alexdev.icarus.game.bot.Bot");
-	bot:getDetails():setName(string.format("RandomAlexBot%s", math.random(1000)))
-	bot:getDetails():setMotto("")
+	bot:getDetails():setName("Cuthbert")
+	bot:getDetails():setMotto("To greet all the new peoples!")
+	bot:getDetails():setFigure("lg-285-64.hr-831-61.hd-180-7.ea-3170-63.ch-3077-1408-90.sh-3089-1335")
 	room:addEntity(bot)
 	
 	local startPosition = room:getModel():getDoorLocation():getSquareInFront()
@@ -38,15 +39,16 @@ function randomWalkEntity(entity)
 	if entity:isDisposed() then
 		log:println("entity removed")
 		-- entity:getRoomUser():getRoom():removeEntity(entity)
-		do return end
-	end
+	else
 
-	local randomX = math.random(0, 25)
-	local randomY = math.random(0, 25)
+		local randomX = math.random(0, 25)
+		local randomY = math.random(0, 25)
+		
+		entity:getRoomUser():walkTo(randomX, randomY)
+		
+		plugin:runTaskLater(1, randomWalkEntity, { entity })
 	
-	entity:getRoomUser():walkTo(randomX, randomY)
-	
-	plugin:runTaskLater(1, randomWalkEntity, { entity })
+	end
 	
 end
 
