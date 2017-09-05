@@ -62,8 +62,8 @@ public class Inventory {
     }
     
     public void updatePets() {
-    	this.player.send(new UpdateInventoryMessageComposer());
-    	this.player.send(new PetInventoryMessageComposer(this.pets));
+        this.player.send(new UpdateInventoryMessageComposer());
+        this.player.send(new PetInventoryMessageComposer(this.pets));
     }
 
     public Item getItem(int id) {
@@ -100,14 +100,14 @@ public class Inventory {
     }
 
     public Map<Integer, Pet> getPets() {
-		return pets;
-	}
+        return pets;
+    }
 
-	public List<Item> getWallItems() {
+    public List<Item> getWallItems() {
         return items.values().stream().filter(item -> item != null && item.getType() == ItemType.WALL).collect(Collectors.toList());
     }
 
-	public Pet getPet(int id) {
-		return this.pets.get(id);
-	}
+    public Pet getPet(int id) {
+        return this.pets.get(id);
+    }
 }

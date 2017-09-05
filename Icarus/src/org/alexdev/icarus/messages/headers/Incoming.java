@@ -58,18 +58,18 @@ public class Incoming {
     public static Integer ToggleMoodlightMessageEvent = 14;
     public static Integer SaveMoodlightPresetMessageEvent = 2913;
     public static Integer SubscriptionMessageEvent = 2749;
-	public static Integer GiftingSettingsMessageEvent = 1570;
-	public static Integer PurchasePresentMessageEvent = 1555;
-	public static Integer SaveFloorPlanMessageEvent = 1936;
-	public static Integer FloorPlanPropertiesMessageEvent = 2478;
-	public static Integer PromotableRoomsMessageEvent = 2306;
-	public static Integer NavigatorPromoteRoomCategories = 597;
-	public static Integer PurchaseRoomPromotionMessageEvent = 1542;
-	public static Integer EditRoomPromotionMessageEvent = 816;
-	public static Integer WelcomeMessageEvent = 597;
-	public static Integer PetRacesMessageEvent = 599;
-	public static Integer VerifyPetNameMessageEvent = 3733;
-	public static Integer PlacePetMessageEvent = 1495;
-	
+    public static Integer GiftingSettingsMessageEvent = 1570;
+    public static Integer PurchasePresentMessageEvent = 1555;
+    public static Integer SaveFloorPlanMessageEvent = 1936;
+    public static Integer FloorPlanPropertiesMessageEvent = 2478;
+    public static Integer PromotableRoomsMessageEvent = 2306;
+    public static Integer NavigatorPromoteRoomCategories = 597;
+    public static Integer PurchaseRoomPromotionMessageEvent = 1542;
+    public static Integer EditRoomPromotionMessageEvent = 816;
+    public static Integer WelcomeMessageEvent = 597;
+    public static Integer PetRacesMessageEvent = 599;
+    public static Integer VerifyPetNameMessageEvent = 3733;
+    public static Integer PlacePetMessageEvent = 1495;
+    
     
 }

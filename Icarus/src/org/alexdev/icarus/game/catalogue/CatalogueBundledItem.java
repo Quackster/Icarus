@@ -31,16 +31,16 @@ public class CatalogueBundledItem {
     }
 
     public ItemDefinition getItemDefinition() {
-    	
-    	if (this.overrideDefinition != null) {
-    		return this.overrideDefinition;
-    	}
-    	
+        
+        if (this.overrideDefinition != null) {
+            return this.overrideDefinition;
+        }
+        
         return ItemManager.getFurnitureById(this.itemId);
     }
 
-	public void createBadgeDefinition() {
-	}
+    public void createBadgeDefinition() {
+    }
 
 
 }

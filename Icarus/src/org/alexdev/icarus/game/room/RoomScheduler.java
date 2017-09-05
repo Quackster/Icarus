@@ -30,7 +30,7 @@ public class RoomScheduler {
         // Walking has it's own task because I don't want any overhead
         if (this.walkingScheduledTask == null) {
             this.walkingScheduledTask = RoomManager.getScheduler().scheduleAtFixedRate(() -> {
-            	this.movementTask.execute();
+                this.movementTask.execute();
             }, 0, 500, TimeUnit.MILLISECONDS);
         }
         

@@ -21,11 +21,11 @@ public class MessengerTalkMessageEvent implements MessageEvent {
         
         PlayerMessage msg = new PlayerMessage(player.getDetails().getId(), friendId, message);
         
-		boolean isCancelled = PluginManager.callEvent(PluginEvent.MESSENGER_TALK_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(msg) });
-		
-		if (isCancelled) {
-			return;
-		}
+        boolean isCancelled = PluginManager.callEvent(PluginEvent.MESSENGER_TALK_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(msg) });
+        
+        if (isCancelled) {
+            return;
+        }
         
         friendId = msg.getToId();
         message = msg.getMessage();

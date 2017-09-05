@@ -19,134 +19,134 @@ import com.google.common.collect.Maps;
 
 public class PluginManager {
 
-	private static List<Plugin> plugins;
-	private static Map<PluginEvent, List<Plugin>> registeredPluginEvents;
+    private static List<Plugin> plugins;
+    private static Map<PluginEvent, List<Plugin>> registeredPluginEvents;
 
-	public static void load() {
+    public static void load() {
 
-		plugins = Lists.newArrayList();
-		registeredPluginEvents = Maps.newConcurrentMap();
+        plugins = Lists.newArrayList();
+        registeredPluginEvents = Maps.newConcurrentMap();
 
-		for (PluginEvent event : PluginEvent.values()) {
-			registeredPluginEvents.put(event, Lists.newArrayList());
-		}
+        for (PluginEvent event : PluginEvent.values()) {
+            registeredPluginEvents.put(event, Lists.newArrayList());
+        }
 
-		getPluginFiles();
-	}
+        getPluginFiles();
+    }
 
-	private static void getPluginFiles() {
+    private static void getPluginFiles() {
 
-		Globals globals = JsePlatform.standardGlobals();
-		LuaValue chunk = globals.loadfile("plugins" + File.separator + "plugin_registry.lua");
-		chunk.call();
+        Globals globals = JsePlatform.standardGlobals();
+        LuaValue chunk = globals.loadfile("plugins" + File.separator + "plugin_registry.lua");
+        chunk.call();
 
-		LuaValue tableValue = globals.get("plugins");
+        LuaValue tableValue = globals.get("plugins");
 
-		if (!tableValue.istable()) {
-			return;
+        if (!tableValue.istable()) {
+            return;
 
-		}
+        }
 
-		LuaTable table = (LuaTable) tableValue;
+        LuaTable table = (LuaTable) tableValue;
 
-		if (table.len().toint() > 0) {
-			Log.println();
-		} else {
-			return;
-		}
+        if (table.len().toint() > 0) {
+            Log.println();
+        } else {
+            return;
+        }
 
-		for (int i = 0; i < table.len().toint(); i++) {
-			LuaValue value = table.get(i + 1);
-			loadPlugin(value.toString());
-		}
+        for (int i = 0; i < table.len().toint(); i++) {
+            LuaValue value = table.get(i + 1);
+            loadPlugin(value.toString());
+        }
 
-		Log.println("Loaded " + plugins.size() + " plugin(s)!");
-	}
+        Log.println("Loaded " + plugins.size() + " plugin(s)!");
+    }
 
-	private static void loadPlugin(String path) {
+    private static void loadPlugin(String path) {
 
-		Globals globals = JsePlatform.standardGlobals();
-		registerGlobalVariables(globals);
-		LuaValue chunk = globals.loadfile("plugins" + File.separator + path);
-		chunk.call();
+        Globals globals = JsePlatform.standardGlobals();
+        registerGlobalVariables(globals);
+        LuaValue chunk = globals.loadfile("plugins" + File.separator + path);
+        chunk.call();
 
-		LuaValue detailsValue = globals.get("plugin_details");
+        LuaValue detailsValue = globals.get("plugin_details");
 
-		if (!detailsValue.istable()) {
-			return;
+        if (!detailsValue.istable()) {
+            return;
 
-		}
+        }
 
-		LuaValue eventsValue = globals.get("event_register");
+        LuaValue eventsValue = globals.get("event_register");
 
-		if (!eventsValue.istable()) {
-			return;
+        if (!eventsValue.istable()) {
+            return;
 
-		}
+        }
 
-		LuaTable details = (LuaTable) detailsValue;
-		LuaTable events = (LuaTable) eventsValue;
+        LuaTable details = (LuaTable) detailsValue;
+        LuaTable events = (LuaTable) eventsValue;
 
-		Plugin plugin = new Plugin(
-				details.get("name").toString(), 
-				details.get("author").toString(),
-				globals);
+        Plugin plugin = new Plugin(
+                details.get("name").toString(), 
+                details.get("author").toString(),
+                globals);
 
-		plugins.add(plugin);
+        plugins.add(plugin);
 
-		LuaValue pluginEnable = globals.get("onEnable");
-		pluginEnable.invoke(CoerceJavaToLua.coerce(plugin));
-		
-		// Set the global plugin variable
-		globals.set("plugin", CoerceJavaToLua.coerce(plugin));
+        LuaValue pluginEnable = globals.get("onEnable");
+        pluginEnable.invoke(CoerceJavaToLua.coerce(plugin));
+        
+        // Set the global plugin variable
+        globals.set("plugin", CoerceJavaToLua.coerce(plugin));
 
-		for (int i = 0; i < events.len().toint(); i++) {
-			PluginEvent event = PluginEvent.valueOf(events.get(i + 1).toString());
-			registeredPluginEvents.get(event).add(plugin);
-		}
+        for (int i = 0; i < events.len().toint(); i++) {
+            PluginEvent event = PluginEvent.valueOf(events.get(i + 1).toString());
+            registeredPluginEvents.get(event).add(plugin);
+        }
 
-	}
+    }
 
-	public static boolean callEvent(PluginEvent event, LuaValue[] values) {
+    public static boolean callEvent(PluginEvent event, LuaValue[] values) {
 
-		if (!registeredPluginEvents.containsKey(event)) {
-			return false;
-		}
+        if (!registeredPluginEvents.containsKey(event)) {
+            return false;
+        }
 
-		for (Plugin plugin : registeredPluginEvents.get(event)) {
+        for (Plugin plugin : registeredPluginEvents.get(event)) {
 
-			LuaValue calledEvent = plugin.getGlobals().get(event.getFunctionName());
-			Varargs variableArgs = calledEvent.invoke(LuaValue.varargsOf(values));
+            LuaValue calledEvent = plugin.getGlobals().get(event.getFunctionName());
+            Varargs variableArgs = calledEvent.invoke(LuaValue.varargsOf(values));
 
-			boolean isCancelled = variableArgs.arg1().toboolean();
+            boolean isCancelled = variableArgs.arg1().toboolean();
 
-			if (isCancelled) {
-				return true;
-			}
-		}
+            if (isCancelled) {
+                return true;
+            }
+        }
 
-		return false;
-	}
-	
-	public static void disposePlugins() {
-		
-		for (Plugin plugin : plugins) {
-			plugin.setShutdown(true);
-		}
-		
-		plugins.clear();
-	}
+        return false;
+    }
+    
+    public static void disposePlugins() {
+        
+        for (Plugin plugin : plugins) {
+            plugin.setShutdown(true);
+        }
+        
+        plugins.clear();
+    }
 
-	private static void registerGlobalVariables(Globals globals) {
-		
-		// Managers
-		globals.set("playerManager", CoerceJavaToLua.coerce(new PlayerManager()));
-		globals.set("roomManager", CoerceJavaToLua.coerce(new RoomManager()));
-		
-		// Utilities
-		globals.set("log", CoerceJavaToLua.coerce(new Log()));
-		globals.set("util", CoerceJavaToLua.coerce(new Util()));
-		globals.set("scheduler", CoerceJavaToLua.coerce(new PluginScheduler()));
+    private static void registerGlobalVariables(Globals globals) {
+        
+        // Managers
+        globals.set("playerManager", CoerceJavaToLua.coerce(new PlayerManager()));
+        globals.set("roomManager", CoerceJavaToLua.coerce(new RoomManager()));
+        
+        // Utilities
+        globals.set("log", CoerceJavaToLua.coerce(new Log()));
+        globals.set("util", CoerceJavaToLua.coerce(new Util()));
+        globals.set("scheduler", CoerceJavaToLua.coerce(new PluginScheduler()));
 
-	}
+    }
 }

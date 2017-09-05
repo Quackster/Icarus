@@ -8,22 +8,22 @@ import org.alexdev.icarus.messages.parsers.MessageComposer;
 
 public class ActivityPointsComposer extends MessageComposer {
 
-	private Map<Integer, Integer> currencies;
-	
-	public ActivityPointsComposer(Map<Integer, Integer> currencies) {
-		this.currencies = currencies;
-	}
+    private Map<Integer, Integer> currencies;
+    
+    public ActivityPointsComposer(Map<Integer, Integer> currencies) {
+        this.currencies = currencies;
+    }
 
-	@Override
-	public void write() {
-		
-		this.response.init(Outgoing.ActivityPointsComposer);
-		this.response.writeInt(this.currencies.size());
-		
-		for (Entry<Integer, Integer> set : this.currencies.entrySet()) {
-			this.response.writeInt(set.getKey());
-			this.response.writeInt(set.getValue());
-		}
-	}
+    @Override
+    public void write() {
+        
+        this.response.init(Outgoing.ActivityPointsComposer);
+        this.response.writeInt(this.currencies.size());
+        
+        for (Entry<Integer, Integer> set : this.currencies.entrySet()) {
+            this.response.writeInt(set.getKey());
+            this.response.writeInt(set.getValue());
+        }
+    }
 
 }

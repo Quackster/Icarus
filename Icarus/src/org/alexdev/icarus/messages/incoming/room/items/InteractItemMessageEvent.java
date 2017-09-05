@@ -12,27 +12,27 @@ import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
 public class InteractItemMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage reader) {
+    @Override
+    public void handle(Player player, ClientMessage reader) {
 
-		int itemId = reader.readInt();
+        int itemId = reader.readInt();
 
-		Item item = player.getRoom().getItem(itemId);
+        Item item = player.getRoom().getItem(itemId);
 
-		if (item == null) {
-			return;
-		}
+        if (item == null) {
+            return;
+        }
 
-		if (item.getDefinition().getInteractionType().getHandler() != null) {
-			item.getDefinition().getInteractionType().getHandler().onUseItem(item, player.getRoomUser());
-		}
-		
-		if (item.getType() == ItemType.FLOOR) {
-			PluginManager.callEvent(PluginEvent.FLOOR_ITEM_INTERACT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
-		} 
-		
-		if (item.getType() == ItemType.WALL) {
-			PluginManager.callEvent(PluginEvent.WALL_ITEM_INTERACT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
-		}
-	}
+        if (item.getDefinition().getInteractionType().getHandler() != null) {
+            item.getDefinition().getInteractionType().getHandler().onUseItem(item, player.getRoomUser());
+        }
+        
+        if (item.getType() == ItemType.FLOOR) {
+            PluginManager.callEvent(PluginEvent.FLOOR_ITEM_INTERACT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
+        } 
+        
+        if (item.getType() == ItemType.WALL) {
+            PluginManager.callEvent(PluginEvent.WALL_ITEM_INTERACT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
+        }
+    }
 }

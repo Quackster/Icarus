@@ -125,19 +125,19 @@ public class RoomData {
         }
         
         if (this.roomType == RoomType.PRIVATE) {
-        	roomListingType.getAndAdd(8);
+            roomListingType.getAndAdd(8);
         }
 
         if (this.allowPets) { 
-        	roomListingType.getAndAdd(16);
+            roomListingType.getAndAdd(16);
         }
         
         if (this.room.getPromotion() != null) {
-        	roomListingType.getAndAdd(4);
+            roomListingType.getAndAdd(4);
         }
         
         /*if (this.room.getGroup() != null) {
-        	enumType += 2;
+            enumType += 2;
         }*/
 
         response.writeInt(roomListingType.get());
@@ -149,9 +149,9 @@ public class RoomData {
         }
         
         if (this.room.getPromotion() != null) {
-        	response.writeString(this.room.getPromotion().getPromotionName());
-        	response.writeString(this.room.getPromotion().getPromotionDescription());
-        	response.writeInt(this.room.getPromotion().getPromotionMinutesLeft().get());
+            response.writeString(this.room.getPromotion().getPromotionName());
+            response.writeString(this.room.getPromotion().getPromotionDescription());
+            response.writeInt(this.room.getPromotion().getPromotionMinutesLeft().get());
         }
     }
     
@@ -446,8 +446,8 @@ public class RoomData {
         this.tags = tags;
     }
 
-	public void setWallHeight(int wallHeight) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void setWallHeight(int wallHeight) {
+        // TODO Auto-generated method stub
+        
+    }
 }

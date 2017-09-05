@@ -17,42 +17,42 @@ import com.google.common.collect.Maps;
 
 public class PetDao {
 
-	public static Map<Integer, List<PetRace>> getPetRaces() {
+    public static Map<Integer, List<PetRace>> getPetRaces() {
 
-		Map<Integer, List<PetRace>> races = Maps.newHashMap();
+        Map<Integer, List<PetRace>> races = Maps.newHashMap();
 
-		Connection sqlConnection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
-		try {
+        try {
 
-			sqlConnection = Dao.getStorage().getConnection();
+            sqlConnection = Dao.getStorage().getConnection();
 
-			preparedStatement = Dao.getStorage().prepare("SELECT * FROM pet_races", sqlConnection);
-			resultSet = preparedStatement.executeQuery();
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM pet_races", sqlConnection);
+            resultSet = preparedStatement.executeQuery();
 
-			while (resultSet.next()) {
-				PetRace race = new PetRace(resultSet.getInt("race_id"), resultSet.getInt("colour1"), resultSet.getInt("colour2"), resultSet.getInt("has1colour") == 1, resultSet.getInt("has2colour") == 1);
-				
-				if (!races.containsKey(race.getRaceId())) {
-					races.put(race.getRaceId(), Lists.newArrayList());
-				}
-				
-				races.get(race.getRaceId()).add(race);
-			}
+            while (resultSet.next()) {
+                PetRace race = new PetRace(resultSet.getInt("race_id"), resultSet.getInt("colour1"), resultSet.getInt("colour2"), resultSet.getInt("has1colour") == 1, resultSet.getInt("has2colour") == 1);
+                
+                if (!races.containsKey(race.getRaceId())) {
+                    races.put(race.getRaceId(), Lists.newArrayList());
+                }
+                
+                races.get(race.getRaceId()).add(race);
+            }
 
-		} catch (Exception e) {
-			Log.exception(e);
-		} finally {
-			Storage.closeSilently(resultSet);
-			Storage.closeSilently(preparedStatement);
-			Storage.closeSilently(sqlConnection);
-		}
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
 
-		return races;
-	}
-	
+        return races;
+    }
+    
     public static int createPet(int ownerId, String petName, int type, int race, String colour) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -93,9 +93,9 @@ public class PetDao {
         return 0;
     }
 
-	public static Pet fill(ResultSet data) throws SQLException {
-	    Pet pet = new Pet(data.getInt("id"), data.getString("pet_name"), data.getInt("level"), data.getInt("happiness"), data.getInt("experience"), data.getInt("energy"), data.getInt("owner_id"), data.getString("colour"), data.getInt("race_id"), data.getInt("type"), data.getBoolean("saddled"), data.getInt("hair_style"), data.getInt("hair_colour"), data.getBoolean("any_rider"), data.getInt("birthday"));
-		return pet;
-	}
+    public static Pet fill(ResultSet data) throws SQLException {
+        Pet pet = new Pet(data.getInt("id"), data.getString("pet_name"), data.getInt("level"), data.getInt("happiness"), data.getInt("experience"), data.getInt("energy"), data.getInt("owner_id"), data.getString("colour"), data.getInt("race_id"), data.getInt("type"), data.getBoolean("saddled"), data.getInt("hair_style"), data.getInt("hair_colour"), data.getBoolean("any_rider"), data.getInt("birthday"));
+        return pet;
+    }
 
 }

@@ -43,12 +43,12 @@ public class RoomDao {
             }
 
         } catch (Exception e) {
-        	try {
-				Log.println("Error with model: " + resultSet.getString("id"));
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+            try {
+                Log.println("Error with model: " + resultSet.getString("id"));
+            } catch (SQLException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
             Log.exception(e);
         } finally {
             Storage.closeSilently(resultSet);
@@ -312,43 +312,43 @@ public class RoomDao {
     }
     
     public static void saveChatlog(Player chatter, int roomID, String chatType, String message) {
-    	
-		Connection sqlConnection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
+        
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
-		try {
+        try {
 
-			sqlConnection = Dao.getStorage().getConnection();
+            sqlConnection = Dao.getStorage().getConnection();
 
-			preparedStatement = Dao.getStorage().prepare("INSERT INTO room_chatlogs (user, room_id, timestamp, message_type, message) VALUES (?, ?, ?, ?, ?)", sqlConnection);
-			preparedStatement.setString(1, chatter.getDetails().getName());
-			preparedStatement.setInt(2, roomID);
-			preparedStatement.setLong(3, Util.getCurrentTimeSeconds());
-			
-			if (chatType.equals("CHAT")) {
-				preparedStatement.setInt(4, 0);
-			} else if (chatType.equals("SHOUT")) {
-				preparedStatement.setInt(4, 1);
-			} else {
-				preparedStatement.setInt(4, 2);
-			}
-			
-			preparedStatement.setString(5, message);
-			preparedStatement.execute();
+            preparedStatement = Dao.getStorage().prepare("INSERT INTO room_chatlogs (user, room_id, timestamp, message_type, message) VALUES (?, ?, ?, ?, ?)", sqlConnection);
+            preparedStatement.setString(1, chatter.getDetails().getName());
+            preparedStatement.setInt(2, roomID);
+            preparedStatement.setLong(3, Util.getCurrentTimeSeconds());
+            
+            if (chatType.equals("CHAT")) {
+                preparedStatement.setInt(4, 0);
+            } else if (chatType.equals("SHOUT")) {
+                preparedStatement.setInt(4, 1);
+            } else {
+                preparedStatement.setInt(4, 2);
+            }
+            
+            preparedStatement.setString(5, message);
+            preparedStatement.execute();
 
-		} catch (SQLException e) {
-			Log.exception(e);
-		} finally {
-			Storage.closeSilently(resultSet);
-			Storage.closeSilently(preparedStatement);
-			Storage.closeSilently(sqlConnection);
-		}
+        } catch (SQLException e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
     }
     
     public static RoomModel getCustomModel(int roomId) {
 
-    	RoomModel model = null;
+        RoomModel model = null;
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -365,12 +365,12 @@ public class RoomDao {
             }
 
         } catch (Exception e) {
-        	try {
-				Log.println("Error with model: " + resultSet.getString("id"));
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+            try {
+                Log.println("Error with model: " + resultSet.getString("id"));
+            } catch (SQLException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
             Log.exception(e);
         } finally {
             Storage.closeSilently(resultSet);
@@ -383,8 +383,8 @@ public class RoomDao {
     
     public static void newCustomModel(int roomId, RoomModel model) {
 
-    	deleteCustomModel(roomId);
-    	
+        deleteCustomModel(roomId);
+        
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;

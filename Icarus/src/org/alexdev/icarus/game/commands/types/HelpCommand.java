@@ -5,15 +5,15 @@ import org.alexdev.icarus.game.player.Player;
 
 public class HelpCommand implements Command {
 
-	@Override
-	public void handleCommand(Player player, String message) {
-		
-		StringBuilder about = new StringBuilder();
-		about.append("Commands:\n\n");
-		about.append("- :sit\n");
-		about.append("- :about\n");
-		about.append("- :help.");
-		player.sendMessage(about.toString());
-	}
+    @Override
+    public void handleCommand(Player player, String message) {
+        
+        StringBuilder about = new StringBuilder();
+        about.append("Commands:\n\n");
+        about.append("- :sit\n");
+        about.append("- :about\n");
+        about.append("- :help.");
+        player.sendMessage(about.toString());
+    }
 
 }

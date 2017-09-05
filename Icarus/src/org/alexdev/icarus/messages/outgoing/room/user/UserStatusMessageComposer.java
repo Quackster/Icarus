@@ -64,23 +64,22 @@ public class UserStatusMessageComposer extends MessageComposer {
                 response.writeInt(entity.getRoomUser().getPosition().getHeadRotation());
                 response.writeInt(entity.getRoomUser().getPosition().getBodyRotation());
 
-                StringBuilder statusString = new StringBuilder();
-                statusString.append("/");
+                String statusString = "/";
 
                 for (Entry<EntityStatus, String> status : entity.getRoomUser().getStatuses().entrySet()) {
 
-                    statusString.append(status.getKey().getStatusCode());
+                    statusString += status.getKey().getStatusCode();
 
                     if (!status.getValue().isEmpty()) {
-                        statusString.append(" ");
-                        statusString.append(status.getValue());
+                        statusString += " ";
+                        statusString += status.getValue();
                     }
 
-                    statusString.append("/");
+                    statusString += "/";
                 }
 
-                statusString.append("/");
-                response.writeString(statusString.toString());
+                statusString += " ";
+                response.writeString(statusString);
                 
                 if (entity.getRoomUser().needsUpdate()) {
                     entity.getRoomUser().setNeedUpdate(false);

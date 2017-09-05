@@ -112,7 +112,7 @@ public class InventoryDao {
         return item;
     }
     
-	public static Map<Integer, Pet> getInventoryPets(int id) {
+    public static Map<Integer, Pet> getInventoryPets(int id) {
 
         Map<Integer, Pet> items = Maps.newHashMap();
         
@@ -131,9 +131,9 @@ public class InventoryDao {
     
             while (resultSet.next()) {
                 
-            	items.put(resultSet.getInt("id"), PetDao.fill(resultSet));
-            	
-            	//items.put(resultSet.getInt("id"), fill(resultSet));
+                items.put(resultSet.getInt("id"), PetDao.fill(resultSet));
+                
+                //items.put(resultSet.getInt("id"), fill(resultSet));
             }
 
         } catch (Exception e) {
@@ -145,8 +145,8 @@ public class InventoryDao {
         }
         
         return items;
-	}
-	
+    }
+    
     public static Item fill(ResultSet row) throws Exception {
         Item instance = new Item(row.getLong("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
         return instance;

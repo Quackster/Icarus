@@ -4,5 +4,5 @@ import org.alexdev.icarus.game.player.Player;
 
 public interface Command {
 
-	public void handleCommand(Player player, String message);
+    public void handleCommand(Player player, String message);
 }

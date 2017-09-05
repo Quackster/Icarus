@@ -9,33 +9,33 @@ import org.luaj.vm2.LuaValue;
 
 public class PluginScheduler {
 
-	public static void runTaskLater(int seconds, Object functionObject) {
+    public static void runTaskLater(int seconds, Object functionObject) {
 
-		runTaskLater(seconds, functionObject, new LuaTable());
-	}
+        runTaskLater(seconds, functionObject, new LuaTable());
+    }
 
-	public static void runTaskLater(int seconds, Object functionObject, Object parameterObject) {
+    public static void runTaskLater(int seconds, Object functionObject, Object parameterObject) {
 
-		if (!(functionObject instanceof LuaFunction)) {
-			return;
-		}
+        if (!(functionObject instanceof LuaFunction)) {
+            return;
+        }
 
-		if (!(parameterObject instanceof LuaTable)) {
-			return;
-		}
+        if (!(parameterObject instanceof LuaTable)) {
+            return;
+        }
 
-		LuaFunction function = (LuaFunction) functionObject;
-		LuaTable parameters = (LuaTable) parameterObject;
+        LuaFunction function = (LuaFunction) functionObject;
+        LuaTable parameters = (LuaTable) parameterObject;
 
-		LuaValue[] parameterValues = new LuaValue[parameters.len().toint()];
+        LuaValue[] parameterValues = new LuaValue[parameters.len().toint()];
 
-		for (int i = 0; i < parameters.len().toint(); i++) {
-			LuaValue value = parameters.get(i + 1);
-			parameterValues[i] = value;
-		}
+        for (int i = 0; i < parameters.len().toint(); i++) {
+            LuaValue value = parameters.get(i + 1);
+            parameterValues[i] = value;
+        }
 
-		GameScheduler.getScheduler().schedule(() -> {
-			function.invoke(LuaValue.varargsOf(parameterValues));
-		}, seconds, TimeUnit.SECONDS);
-	}
+        GameScheduler.getScheduler().schedule(() -> {
+            function.invoke(LuaValue.varargsOf(parameterValues));
+        }, seconds, TimeUnit.SECONDS);
+    }
 }

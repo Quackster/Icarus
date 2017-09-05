@@ -10,9 +10,9 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class FloorPlanPropertiesMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage reader) {
-		
+    @Override
+    public void handle(Player player, ClientMessage reader) {
+        
         Room room = player.getRoomUser().getRoom();
 
         if (room == null) {
@@ -22,6 +22,6 @@ public class FloorPlanPropertiesMessageEvent implements MessageEvent {
         player.send(new FloorPlanFloorMapComposer(room.getFloorItems()));
         player.send(new FloorPlanSendDoorComposer(room.getModel().getDoorLocation().getX(), room.getModel().getDoorLocation().getY(), room.getModel().getDoorLocation().getRotation()));
         player.send(new FloorPlanRoomVisualComposer(room.getData().getWallThickness(), room.getData().getFloorThickness(), room.getData().isHideWall()));
-	}
+    }
 
 }

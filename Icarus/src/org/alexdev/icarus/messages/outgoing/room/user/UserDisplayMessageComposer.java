@@ -73,9 +73,9 @@ public class UserDisplayMessageComposer extends MessageComposer {
                 }
                 
                 if (entity.getType() == EntityType.PET) {
-                	
-                	Pet pet = (Pet)entity;
-                	
+                    
+                    Pet pet = (Pet)entity;
+                    
                     response.writeInt(entity.getDetails().getId());
                     response.writeString(pet.getName());
                     response.writeString("");

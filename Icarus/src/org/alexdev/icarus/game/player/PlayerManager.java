@@ -11,12 +11,12 @@ import com.google.common.collect.Maps;
 
 public class PlayerManager {
 
-	private static Map<Integer, Player> players;
-	private static List<Permission> permissions;
+    private static Map<Integer, Player> players;
+    private static List<Permission> permissions;
 
-	static {
-		players = Maps.newConcurrentMap();
-		permissions = PlayerDao.getPermissions();
+    static {
+        players = Maps.newConcurrentMap();
+        permissions = PlayerDao.getPermissions();
     }
 
     public static Player getById(int userId) {
@@ -61,32 +61,32 @@ public class PlayerManager {
         return false;
     }
     
-	public static boolean hasPermission(int rank, String perm) {
-		
-		for (Permission permission  : permissions) {
+    public static boolean hasPermission(int rank, String perm) {
+        
+        for (Permission permission  : permissions) {
 
-			if (permission.getPermission().equals(perm)) {
+            if (permission.getPermission().equals(perm)) {
 
-				if (permission.isInheritable()) {
-					if (rank >= permission.getRank()) {
-						return true;
-					}
-				} else {
-					if (rank == permission.getRank()) {
-						return true;
-					}
-				}
-			}
-		}
-		
-		return false;
-	}
-	
-	public static List<Player> getPlayers() {
+                if (permission.isInheritable()) {
+                    if (rank >= permission.getRank()) {
+                        return true;
+                    }
+                } else {
+                    if (rank == permission.getRank()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    public static List<Player> getPlayers() {
         return players.values().stream().filter(p -> p != null).collect(Collectors.toList());
     }
-	
-	public static Map<Integer, Player> getConnectedPlayers() {
+    
+    public static Map<Integer, Player> getConnectedPlayers() {
         return players;
     }
 }

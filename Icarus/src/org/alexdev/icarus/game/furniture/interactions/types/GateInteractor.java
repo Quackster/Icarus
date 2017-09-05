@@ -9,7 +9,7 @@ public class GateInteractor implements Interaction {
 
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {
-    	
+        
         // Call default interactor, that's all the gate needs
         Interaction interaction = InteractionType.DEFAULT.getHandler();
         interaction.onUseItem(item, roomUser);

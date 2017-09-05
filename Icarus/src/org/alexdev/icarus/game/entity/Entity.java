@@ -5,9 +5,9 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomUser;
 
 public abstract class Entity {
-	
-	protected boolean disposed;
-	
+    
+    protected boolean disposed;
+    
     public abstract PlayerDetails getDetails();
     public abstract RoomUser getRoomUser();
     public abstract EntityType getType();
@@ -23,11 +23,11 @@ public abstract class Entity {
     }
     
     public boolean isDisposed() {
-    	return this.disposed;
+        return this.disposed;
     }
     
     public void setDisposed(boolean flag) {
-    	this.disposed = flag;
+        this.disposed = flag;
     }
 
 }

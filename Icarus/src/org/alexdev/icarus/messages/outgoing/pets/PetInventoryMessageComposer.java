@@ -17,8 +17,8 @@ public class PetInventoryMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-    	
-    	this.response.init(Outgoing.PetInventoryMessageComposer);
+        
+        this.response.init(Outgoing.PetInventoryMessageComposer);
         this.response.writeInt(1);
         this.response.writeInt(1);
 

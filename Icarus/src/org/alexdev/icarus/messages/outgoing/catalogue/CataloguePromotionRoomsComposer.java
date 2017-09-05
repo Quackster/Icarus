@@ -8,25 +8,25 @@ import org.alexdev.icarus.messages.parsers.MessageComposer;
 
 public class CataloguePromotionRoomsComposer extends MessageComposer {
 
-	private List<Room> rooms;
+    private List<Room> rooms;
 
-	public CataloguePromotionRoomsComposer(List<Room> rooms) {
-		this.rooms = rooms;
-	}
+    public CataloguePromotionRoomsComposer(List<Room> rooms) {
+        this.rooms = rooms;
+    }
 
-	@Override
-	public void write() {
-		
-		this.response.init(Outgoing.AvailablePromotionRoomsComposer);
-		this.response.writeBool(true);
-		this.response.writeInt(this.rooms.size());
-		
-		for (Room room : this.rooms) {
-			
-			this.response.writeInt(room.getData().getId());
-			this.response.writeString(room.getData().getName());
-			this.response.writeBool(false);
-		}
-	}
+    @Override
+    public void write() {
+        
+        this.response.init(Outgoing.AvailablePromotionRoomsComposer);
+        this.response.writeBool(true);
+        this.response.writeInt(this.rooms.size());
+        
+        for (Room room : this.rooms) {
+            
+            this.response.writeInt(room.getData().getId());
+            this.response.writeString(room.getData().getName());
+            this.response.writeBool(false);
+        }
+    }
 
 }

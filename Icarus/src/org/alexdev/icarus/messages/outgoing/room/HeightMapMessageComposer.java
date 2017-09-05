@@ -25,27 +25,27 @@ public class HeightMapMessageComposer extends MessageComposer {
         response.writeInt(roomModel.getMapSizeX() * roomModel.getMapSizeY());
  
         for (int y = 0; y < roomModel.getMapSizeY(); y++) {
-			
-			String line = map[y];
-			line = line.replace(Character.toString((char)10), "");
-			line = line.replace(Character.toString((char)13), "");
+            
+            String line = map[y];
+            line = line.replace(Character.toString((char)10), "");
+            line = line.replace(Character.toString((char)13), "");
 
-			for (char pos : line.toCharArray()) {
+            for (char pos : line.toCharArray()) {
 
                 if (pos == 'x') {
                    response.writeShort(-1);
                 } else {
-                	
+                    
                     int height = 0;
                     
                     if (this.tryParseInt(Character.toString(pos))) {
                         height = Integer.valueOf(Character.toString(pos));
                     } else {
-                    	
-                    	int intValue = (int)pos;
-                    	
-                    	Log.println(intValue);
-                    	
+                        
+                        int intValue = (int)pos;
+                        
+                        Log.println(intValue);
+                        
                         height = (intValue - 87);
                     }
                     

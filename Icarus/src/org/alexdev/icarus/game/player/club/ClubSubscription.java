@@ -12,11 +12,11 @@ public class ClubSubscription {
     private long boughtTime;
     private long difference;
     private int userId;
-	private Player player;
+    private Player player;
 
     public ClubSubscription(Player player) {
-    	this.userId = -1;
-    	this.player = player;
+        this.userId = -1;
+        this.player = player;
     }
 
     public void update(int userId, long expireTime, long boughtTime) {
@@ -37,20 +37,20 @@ public class ClubSubscription {
     }
 
     public boolean hasSubscription() {
-    	
-    	if (this.userId == -1) {
-    		return false;
-    	}
-    	
-    	if (Util.getCurrentTimeSeconds() >= this.expireTime) {
-    		return false;
-    	}
-    	
-    	if (this.boughtTime == 0) {
-    		return false;
-    	}
-    	
-    	return true;
+        
+        if (this.userId == -1) {
+            return false;
+        }
+        
+        if (Util.getCurrentTimeSeconds() >= this.expireTime) {
+            return false;
+        }
+        
+        if (this.boughtTime == 0) {
+            return false;
+        }
+        
+        return true;
     }
 
     public int getDaysLeft() {
@@ -70,7 +70,7 @@ public class ClubSubscription {
 
     public int getMonthsLeft() {
 
-    	if (this.hasSubscription()) {
+        if (this.hasSubscription()) {
             int result = (int) (this.difference / (60 * 60 * 24 * 30));
 
             if (result < 0) {
@@ -85,7 +85,7 @@ public class ClubSubscription {
 
     public int getYearsLeft() {
 
-    	if (this.hasSubscription()) {
+        if (this.hasSubscription()) {
             int result = (int) (this.difference / (60 * 60 * 24 * 365));
 
             if (result < 0) {
@@ -118,10 +118,10 @@ public class ClubSubscription {
         return this.difference;
     }
 
-	public void sendSubscriptionStatus() {
-		
+    public void sendSubscriptionStatus() {
+        
         this.player.send(new SubscriptionMessageComposer(this.player));
         this.player.send(new UserRightsComposer(this.player.getSubscription().hasSubscription(), this.player.getDetails().getRank()));
-	}
+    }
 
 }

@@ -30,7 +30,7 @@ public class FloorItemsMessageComposer extends MessageComposer {
         response.writeInt(items.size());
 
         for (Item floorItem : items) {
-        	
+            
             response.writeInt(floorItem.getId());
             response.writeInt(floorItem.getDefinition().getSpriteId());
             response.writeInt(floorItem.getPosition().getX());

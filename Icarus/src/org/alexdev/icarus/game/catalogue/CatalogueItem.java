@@ -103,50 +103,50 @@ public class CatalogueItem {
     // All credits to Leon for this structure.
     public void serialise(Response response) {
 
-    	/*
-    	 * 
-    	 * Incoming[1574, _-6Vt, CatalogPageMessageParser] <- 
-    	 * 
-    	 * [0][0][0]y[6]&[0][11]J>
-    	 * [0][6]NORMAL // type
-    	 * [0][7]roomads // layout
-    	 * [0][0][0][2] // 2 headers, 1 blank
-    	 * [0][13]events_header
-    	 * [0][0]
-    	 * 
-    	 * [0][0][0][2] // 2 blank images
-    	 * [0][0]
-    	 * [0][0]
-    	 * 
-    	 * [0][0][0][1] // 1 item
-    	 * 
-    	 * [0][0]-Û // item id
-    	 * [0]room_ad_plus_badge // catalogue name
-    	 * [0]
-    	 * [0][0][0][0] // cost credits
-    	 * [0][0][0] // cost pixels
-    	 * 
-    	 * [0][0][0][0] // other shit??
-    	 * [0][0][0][0] // other shit??
-    	 * 
-    	 * [0] // first item doesn't equal number and allow gift? = false
-    	 * 
-    	 * [1] // size?
-    	 * 
-    	 * [1]b // badge
-    	 * [0][5]RADZZ // badge type
-    	 * 
-    	 * [0][0][0][0] // sub status
-    	 * 
-    	 * [0] // can bundle deal??
-    	 * [0] // false??
-    	 * [0][0] // empty string????
-    	 * 
-    	 * -- not item related beyon this point of the packet
-    	 * ÿÿÿÿ[0]			
-    	 * 
-    	 */
-    	
+        /*
+         * 
+         * Incoming[1574, _-6Vt, CatalogPageMessageParser] <- 
+         * 
+         * [0][0][0]y[6]&[0][11]J>
+         * [0][6]NORMAL // type
+         * [0][7]roomads // layout
+         * [0][0][0][2] // 2 headers, 1 blank
+         * [0][13]events_header
+         * [0][0]
+         * 
+         * [0][0][0][2] // 2 blank images
+         * [0][0]
+         * [0][0]
+         * 
+         * [0][0][0][1] // 1 item
+         * 
+         * [0][0]-Û // item id
+         * [0]room_ad_plus_badge // catalogue name
+         * [0]
+         * [0][0][0][0] // cost credits
+         * [0][0][0] // cost pixels
+         * 
+         * [0][0][0][0] // other shit??
+         * [0][0][0][0] // other shit??
+         * 
+         * [0] // first item doesn't equal number and allow gift? = false
+         * 
+         * [1] // size?
+         * 
+         * [1]b // badge
+         * [0][5]RADZZ // badge type
+         * 
+         * [0][0][0][0] // sub status
+         * 
+         * [0] // can bundle deal??
+         * [0] // false??
+         * [0][0] // empty string????
+         * 
+         * -- not item related beyon this point of the packet
+         * ÿÿÿÿ[0]            
+         * 
+         */
+        
         final ItemDefinition firstItem = this.itemId.equals("-1") ? null : this.getItems().get(0).getItemDefinition();
 
         response.writeInt(this.getId());

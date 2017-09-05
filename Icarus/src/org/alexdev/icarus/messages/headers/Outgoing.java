@@ -87,19 +87,19 @@ public class Outgoing {
     public static int SubscriptionMessageComposer = 826;
     public static int UserRightsComposer = 3315;
     public static int BubbleAlertComposer = 3152;
-	public static int GiftingSettingsComposer = 766;
-	public static int PresentDeliverErrorMessageComposer = 1971;
-	public static int FloorPlanFloorMapMessageComposer = 1855;
-	public static int FloorPlanSendDoorMessageComposer = 1685;
-	public static int FloorPlanRoomVisualComposer = 3003;
-	public static int RoomForwardComposer = 3289;
-	public static int NavigatorPreferencesComposer = 3617;
-	public static int AvailablePromotionRoomsComposer = 442;
-	public static int NavigatorPromoteCategoriesComposer = 1265;
-	public static int ActivityPointsComposer = 3318;
-	public static int RoomPromotionMessageComposer = 1587;
-	public static int PetRacesMessageComposer = 2333;
-	public static int VerifyPetNameComposer = 1760;
-	public static int PetInventoryMessageComposer = 1988;
+    public static int GiftingSettingsComposer = 766;
+    public static int PresentDeliverErrorMessageComposer = 1971;
+    public static int FloorPlanFloorMapMessageComposer = 1855;
+    public static int FloorPlanSendDoorMessageComposer = 1685;
+    public static int FloorPlanRoomVisualComposer = 3003;
+    public static int RoomForwardComposer = 3289;
+    public static int NavigatorPreferencesComposer = 3617;
+    public static int AvailablePromotionRoomsComposer = 442;
+    public static int NavigatorPromoteCategoriesComposer = 1265;
+    public static int ActivityPointsComposer = 3318;
+    public static int RoomPromotionMessageComposer = 1587;
+    public static int PetRacesMessageComposer = 2333;
+    public static int VerifyPetNameComposer = 1760;
+    public static int PetInventoryMessageComposer = 1988;
     
 }

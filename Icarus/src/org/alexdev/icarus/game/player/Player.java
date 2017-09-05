@@ -38,13 +38,13 @@ public class Player extends Entity {
         this.subscription = new ClubSubscription(this);
     }
 
-	public boolean hasPermission(String permission) {
-		return PlayerManager.hasPermission(this.details.getRank(), permission);
-	}
+    public boolean hasPermission(String permission) {
+        return PlayerManager.hasPermission(this.details.getRank(), permission);
+    }
 
     public void login() {
-    	
-    	// Load all player rooms into memory
+        
+        // Load all player rooms into memory
         RoomDao.getPlayerRooms(this.details, true);
         
         // Load all inventory items
@@ -65,7 +65,7 @@ public class Player extends Entity {
             }
             
             // Call player disconnect event with Player parameter
-        	PluginManager.callEvent(PluginEvent.PLAYER_DISCONNECT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this) });
+            PluginManager.callEvent(PluginEvent.PLAYER_DISCONNECT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this) });
 
             List<Room> rooms = RoomManager.getPlayerRooms(this.details.getId());
 

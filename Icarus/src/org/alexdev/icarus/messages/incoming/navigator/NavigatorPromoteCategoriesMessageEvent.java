@@ -7,9 +7,9 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class NavigatorPromoteCategoriesMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage reader) {
-		player.send(new NavigatorPromoteCategoriesComposer());
-	}
+    @Override
+    public void handle(Player player, ClientMessage reader) {
+        player.send(new NavigatorPromoteCategoriesComposer());
+    }
 
 }

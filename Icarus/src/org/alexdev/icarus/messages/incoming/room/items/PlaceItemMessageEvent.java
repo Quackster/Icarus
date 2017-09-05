@@ -17,72 +17,72 @@ import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
 public class PlaceItemMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage reader) {
+    @Override
+    public void handle(Player player, ClientMessage reader) {
 
-		Room room = player.getRoomUser().getRoom();
+        Room room = player.getRoomUser().getRoom();
 
-		if (room == null) {
-			return;
-		}
+        if (room == null) {
+            return;
+        }
 
-		if (!room.hasRights(player, false)) {
-			return;
-		}
+        if (!room.hasRights(player, false)) {
+            return;
+        }
 
-		String input = reader.readString();
+        String input = reader.readString();
 
-		String[] data = input.split(" ");
-		int id = Integer.parseInt(data[0].replace("-", ""));
+        String[] data = input.split(" ");
+        int id = Integer.parseInt(data[0].replace("-", ""));
 
-		Item item = player.getInventory().getItem(id);
+        Item item = player.getInventory().getItem(id);
 
-		if (item == null) {
-			return;
-		}
+        if (item == null) {
+            return;
+        }
 
-		if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
+        if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
 
-			List<Item> items = player.getRoom().getItems(InteractionType.DIMMER);
+            List<Item> items = player.getRoom().getItems(InteractionType.DIMMER);
 
-			if (items.size() > 0) {
-				player.sendMessage(Util.getLocale("one.dimmer.per.room"));
-				return;
-			}
-		}
+            if (items.size() > 0) {
+                player.sendMessage(Util.getLocale("one.dimmer.per.room"));
+                return;
+            }
+        }
 
-		if (item.getType() == ItemType.WALL) {
-			
-			String[] pos = input.split(":")[1].split(" ");
-			item.parseWallPosition(pos[2] + "," + pos[0].substring(2) + " " + pos[1].substring(2));
-		}
+        if (item.getType() == ItemType.WALL) {
+            
+            String[] pos = input.split(":")[1].split(" ");
+            item.parseWallPosition(pos[2] + "," + pos[0].substring(2) + " " + pos[1].substring(2));
+        }
 
-		if (item.getType() == ItemType.FLOOR) {
+        if (item.getType() == ItemType.FLOOR) {
 
-			int x = Integer.parseInt(data[1]);
-			int y = Integer.parseInt(data[2]);
-			int rotation = Integer.parseInt(data[3]);
-			double height = player.getRoomUser().getRoom().getModel().getHeight(x, y);
+            int x = Integer.parseInt(data[1]);
+            int y = Integer.parseInt(data[2]);
+            int rotation = Integer.parseInt(data[3]);
+            double height = player.getRoomUser().getRoom().getModel().getHeight(x, y);
 
-			item.getPosition().setX(x);
-			item.getPosition().setY(y);
-			item.getPosition().setZ(height);
-			item.getPosition().setRotation(rotation);
+            item.getPosition().setX(x);
+            item.getPosition().setY(y);
+            item.getPosition().setZ(height);
+            item.getPosition().setRotation(rotation);
 
-		}
+        }
 
-		room.getMapping().addItem(item);
+        room.getMapping().addItem(item);
 
-		player.getInventory().remove(item);
-		player.getInventory().updateItems();
+        player.getInventory().remove(item);
+        player.getInventory().updateItems();
 
-		if (item.getType() == ItemType.FLOOR) {
-			PluginManager.callEvent(PluginEvent.PLACE_FLOOR_ITEM_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
-		} 
-		
-		if (item.getType() == ItemType.WALL) {
-			PluginManager.callEvent(PluginEvent.PLACE_WALL_ITEM_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
-		}
-	}
+        if (item.getType() == ItemType.FLOOR) {
+            PluginManager.callEvent(PluginEvent.PLACE_FLOOR_ITEM_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
+        } 
+        
+        if (item.getType() == ItemType.WALL) {
+            PluginManager.callEvent(PluginEvent.PLACE_WALL_ITEM_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
+        }
+    }
 
 }

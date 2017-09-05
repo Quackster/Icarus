@@ -13,28 +13,28 @@ import org.alexdev.icarus.util.Util;
 
 public class PetRacesMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage reader) {
-		
-		String petRace = reader.readString();
-		String petRaceId = petRace.replace("a0 pet", "");
-		
-		if (!Util.isNumber(petRaceId) || !(petRaceId.length() > 0)) {
-			
-	
-			return;
-		}
-		
-		int raceId = Integer.valueOf(petRaceId);
-		List<PetRace> races = PetManager.getRaces(raceId);
-		
-		if (races == null) {
-			Log.println("PET RACE (" + petRace + ") is null?");
-			
-			return;
-		}
-		
-		player.send(new PetRacesMessageComposer(petRace, races));
-	}
+    @Override
+    public void handle(Player player, ClientMessage reader) {
+        
+        String petRace = reader.readString();
+        String petRaceId = petRace.replace("a0 pet", "");
+        
+        if (!Util.isNumber(petRaceId) || !(petRaceId.length() > 0)) {
+            
+    
+            return;
+        }
+        
+        int raceId = Integer.valueOf(petRaceId);
+        List<PetRace> races = PetManager.getRaces(raceId);
+        
+        if (races == null) {
+            Log.println("PET RACE (" + petRace + ") is null?");
+            
+            return;
+        }
+        
+        player.send(new PetRacesMessageComposer(petRace, races));
+    }
 
 }

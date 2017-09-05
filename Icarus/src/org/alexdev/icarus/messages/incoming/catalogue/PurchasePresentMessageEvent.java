@@ -9,15 +9,15 @@ public class PurchasePresentMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage request) {
 
-    	/*int pageId = request.readInt();
-    	int itemId = request.readInt();
-    	String presentData = request.readString();
-    	String presentUser = request.readString();
-    	String presentMessage = request.readString();
-    	int spriteId = request.readInt();
-    	int ribbon = request.readInt();
-    	int colour = request.readInt();
-    	
+        /*int pageId = request.readInt();
+        int itemId = request.readInt();
+        String presentData = request.readString();
+        String presentUser = request.readString();
+        String presentMessage = request.readString();
+        int spriteId = request.readInt();
+        int ribbon = request.readInt();
+        int colour = request.readInt();
+        
         CataloguePage page = CatalogueManager.getPage(pageId);
 
         if (page.getMinRank() > player.getDetails().getRank()) {
@@ -26,8 +26,8 @@ public class PurchasePresentMessageEvent implements MessageEvent {
 
         CatalogueItem item = page.getItem(itemId);
         CatalogueBundledItem bundleItem = item.getItems().get(0);
-    	ItemDefinition definition = bundleItem.getItemDefinition();
-    	
+        ItemDefinition definition = bundleItem.getItemDefinition();
+        
         if (player.getDetails().getCredits() < item.getCostCredits()) {
             player.send(new PresentDeliverErrorMessageComposer(true, false));
             return;

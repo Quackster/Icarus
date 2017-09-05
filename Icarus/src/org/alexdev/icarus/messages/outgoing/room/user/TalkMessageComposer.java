@@ -11,43 +11,43 @@ import org.alexdev.icarus.messages.parsers.MessageComposer;
 
 public class TalkMessageComposer extends MessageComposer {
 
-	private RoomUser roomUser;
-	private boolean shout;
-	private String message;
-	private int count;
-	private int textColour;
+    private RoomUser roomUser;
+    private boolean shout;
+    private String message;
+    private int count;
+    private int textColour;
 
-	public TalkMessageComposer(RoomUser roomUser, boolean shout, String message, int count, int textColour) {
-		this.roomUser = roomUser;
-		this.shout = shout;
-		this.message = message;
-		this.count = count;
-		this.textColour = textColour;
-	}
+    public TalkMessageComposer(RoomUser roomUser, boolean shout, String message, int count, int textColour) {
+        this.roomUser = roomUser;
+        this.shout = shout;
+        this.message = message;
+        this.count = count;
+        this.textColour = textColour;
+    }
 
-	@Override
-	public void write() {
+    @Override
+    public void write() {
 
-		if (roomUser.getEntity().getType() == EntityType.PLAYER) {
-			List<Integer> allowedColours = new ArrayList<Integer>(Arrays.asList(new Integer[] { 0, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 29 }));
+        if (roomUser.getEntity().getType() == EntityType.PLAYER) {
+            List<Integer> allowedColours = new ArrayList<Integer>(Arrays.asList(new Integer[] { 0, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 29 }));
 
-			if (!allowedColours.contains(this.textColour)) {
-				this.textColour = 0;
-			}
-		}
+            if (!allowedColours.contains(this.textColour)) {
+                this.textColour = 0;
+            }
+        }
 
-		int header = Outgoing.ChatMessageComposer;
+        int header = Outgoing.ChatMessageComposer;
 
-		if (this.shout) {
-			header = Outgoing.ShoutMessageComposer;
-		}
+        if (this.shout) {
+            header = Outgoing.ShoutMessageComposer;
+        }
 
-		response.init(header);
-		response.writeInt(this.roomUser.getVirtualId());
-		response.writeString(this.message);
-		response.writeInt(0);
-		response.writeInt(this.textColour);
-		response.writeInt(0);
-		response.writeInt(this.count);
-	}
+        response.init(header);
+        response.writeInt(this.roomUser.getVirtualId());
+        response.writeString(this.message);
+        response.writeInt(0);
+        response.writeInt(this.textColour);
+        response.writeInt(0);
+        response.writeInt(this.count);
+    }
 }

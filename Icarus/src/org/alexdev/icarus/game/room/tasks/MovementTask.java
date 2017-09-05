@@ -71,8 +71,8 @@ public class MovementTask  extends RoomTask {
                 Position next = roomEntity.getPath().pop();
                 
                 if (!roomEntity.getRoom().getMapping().isTileWalkable(entity, next.getX(), next.getY())) {
-                	
-                	// Invalid tile so lets try again
+                    
+                    // Invalid tile so lets try again
                     roomEntity.walkTo(roomEntity.getWalkingGoal().getX(), roomEntity.getWalkingGoal().getY());
                     this.processEntity(entity);
                     return;
@@ -96,7 +96,7 @@ public class MovementTask  extends RoomTask {
                 roomEntity.setNext(next);
             }
             else {
-            	roomEntity.setNext(null);
+                roomEntity.setNext(null);
             }
             
             roomEntity.setNeedUpdate(true);

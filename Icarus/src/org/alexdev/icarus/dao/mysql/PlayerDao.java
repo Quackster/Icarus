@@ -144,38 +144,38 @@ public class PlayerDao {
     }
     
     public static List<Permission> getPermissions() {
-		List<Permission> permissions = Lists.newArrayList();
+        List<Permission> permissions = Lists.newArrayList();
 
-		Connection sqlConnection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
-		try {
+        try {
 
-			sqlConnection = Dao.getStorage().getConnection();
-			preparedStatement = Dao.getStorage().prepare("SELECT * FROM users_permissions", sqlConnection);
-			resultSet = preparedStatement.executeQuery();
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM users_permissions", sqlConnection);
+            resultSet = preparedStatement.executeQuery();
 
-			while (resultSet.next()) {
-				
-				int rank = resultSet.getInt("rank");
-				String permission = resultSet.getString("permission");
-				boolean inheritable = resultSet.getByte("inheritable") == 1;
-				
-				permissions.add(new Permission(permission, inheritable, rank));
-			}
+            while (resultSet.next()) {
+                
+                int rank = resultSet.getInt("rank");
+                String permission = resultSet.getString("permission");
+                boolean inheritable = resultSet.getByte("inheritable") == 1;
+                
+                permissions.add(new Permission(permission, inheritable, rank));
+            }
 
-		} catch (Exception e) {
-			Log.exception(e);
-		} finally {
-			Storage.closeSilently(resultSet);
-			Storage.closeSilently(preparedStatement);
-			Storage.closeSilently(sqlConnection);
-		}
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
 
-		return permissions;
-	}
-    	
+        return permissions;
+    }
+        
     public static PlayerDetails fill(PlayerDetails details, ResultSet row) throws SQLException {
         details.fill(row.getInt("id"), row.getString("username"), row.getString("mission"),  row.getString("figure"), row.getString("gender"), row.getInt("rank"), row.getInt("credits"));
         return details;

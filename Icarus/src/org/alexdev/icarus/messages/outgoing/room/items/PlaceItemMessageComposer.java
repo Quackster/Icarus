@@ -9,37 +9,37 @@ import org.alexdev.icarus.util.Util;
 
 public class PlaceItemMessageComposer extends MessageComposer {
 
-	private Item item;
+    private Item item;
 
-	public PlaceItemMessageComposer(Item item) {
-		this.item = item;
-	}
+    public PlaceItemMessageComposer(Item item) {
+        this.item = item;
+    }
 
-	@Override
-	public void write() {
+    @Override
+    public void write() {
 
-		if (this.item.getType() == ItemType.FLOOR) {
-			response.init(Outgoing.PlaceFloorItemMessageComposer); 
+        if (this.item.getType() == ItemType.FLOOR) {
+            response.init(Outgoing.PlaceFloorItemMessageComposer); 
 
-			response.writeInt(this.item.getId());
-			response.writeInt(this.item.getDefinition().getSpriteId());
-			response.writeInt(this.item.getPosition().getX());
-			response.writeInt(this.item.getPosition().getY());
-			response.writeInt(this.item.getPosition().getRotation());
-			response.writeString("" + Util.getDecimalFormatter().format(item.getPosition().getZ()));
-			response.writeString("");
+            response.writeInt(this.item.getId());
+            response.writeInt(this.item.getDefinition().getSpriteId());
+            response.writeInt(this.item.getPosition().getX());
+            response.writeInt(this.item.getPosition().getY());
+            response.writeInt(this.item.getPosition().getRotation());
+            response.writeString("" + Util.getDecimalFormatter().format(item.getPosition().getZ()));
+            response.writeString("");
 
-			ItemMetaDataUtil.generateExtraData(item, response);
+            ItemMetaDataUtil.generateExtraData(item, response);
 
-			response.writeInt(-1);
-			response.writeInt(this.item.getDefinition().getInterationModes() > 0 ? 1 : 0);
-			response.writeInt(this.item.getOwnerData().getId());
-			response.writeString(this.item.getOwnerData().getName());
+            response.writeInt(-1);
+            response.writeInt(this.item.getDefinition().getInterationModes() > 0 ? 1 : 0);
+            response.writeInt(this.item.getOwnerData().getId());
+            response.writeString(this.item.getOwnerData().getName());
 
-		}
+        }
 
-		if (this.item.getType() == ItemType.WALL) {
-			response.init(Outgoing.PlaceWallItemMessageComposer);
+        if (this.item.getType() == ItemType.WALL) {
+            response.init(Outgoing.PlaceWallItemMessageComposer);
             response.writeString(item.getId() + "");
             response.writeInt(item.getDefinition().getSpriteId());
             response.writeString(item.getWallPosition());
@@ -48,7 +48,7 @@ public class PlaceItemMessageComposer extends MessageComposer {
             response.writeInt(item.getDefinition().getInterationModes() > 0 ? 1 : 0);
             response.writeInt(item.getUserId());
             response.writeString(this.item.getOwnerData().getName());
-		}
-	}
+        }
+    }
 
 }

@@ -139,7 +139,7 @@ public class Item extends Metadata {
 
         // Trigger item update for affected players
         for (Entity entity : affected_players) {
-        	entity.getRoomUser().triggerCurrentItem();
+            entity.getRoomUser().triggerCurrentItem();
         }
     }
 
@@ -261,11 +261,11 @@ public class Item extends Metadata {
     }
 
     public void updateStatus() {
-    	
-    	if (this.getRoom() == null) {
-    		return;
-    	}
-    	
+        
+        if (this.getRoom() == null) {
+            return;
+        }
+        
         try {
             this.getRoom().send(new MoveItemMessageComposer(this));
         } catch (Exception e) { e.printStackTrace(); }
@@ -393,13 +393,13 @@ public class Item extends Metadata {
 
     public Room getRoom() {
         
-    	Room room = RoomManager.find(this.roomId);
-    	
-    	if (room == null) {
-    		room = RoomDao.getRoom(this.roomId, true);
-    	}
-    	
-    	return room;
+        Room room = RoomManager.find(this.roomId);
+        
+        if (room == null) {
+            room = RoomDao.getRoom(this.roomId, true);
+        }
+        
+        return room;
     }
 
     public String getExtraData() {

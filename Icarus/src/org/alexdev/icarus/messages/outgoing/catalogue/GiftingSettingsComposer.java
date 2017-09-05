@@ -5,11 +5,11 @@ import org.alexdev.icarus.messages.parsers.MessageComposer;
 
 public class GiftingSettingsComposer extends MessageComposer {
 
-	@Override
-	public void write() {
+    @Override
+    public void write() {
 
-		response.init(Outgoing.GiftingSettingsComposer);
-		response.writeBool(true);
+        response.init(Outgoing.GiftingSettingsComposer);
+        response.writeBool(true);
         response.writeInt(1);
         response.writeInt(10);
         
@@ -44,5 +44,5 @@ public class GiftingSettingsComposer extends MessageComposer {
             response.writeInt(i);
             i++;
         }
-	}
+    }
 }

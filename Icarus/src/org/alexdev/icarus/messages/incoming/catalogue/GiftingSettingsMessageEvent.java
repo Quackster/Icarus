@@ -7,10 +7,10 @@ import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class GiftingSettingsMessageEvent implements MessageEvent {
 
-	@Override
-	public void handle(Player player, ClientMessage reader) {
-		player.send(new GiftingSettingsComposer());
+    @Override
+    public void handle(Player player, ClientMessage reader) {
+        player.send(new GiftingSettingsComposer());
 
-	}
+    }
 
 }

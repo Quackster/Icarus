@@ -52,7 +52,7 @@ public class MessageHandler {
         this.registerComposerPackages();
     }
     
-	public void register() {
+    public void register() {
         
         this.messages.clear();
         
@@ -141,7 +141,7 @@ public class MessageHandler {
     }
     
     private void registerPetPackets() {
-    	this.registerEvent(Incoming.PlacePetMessageEvent, new PlacePetMessageEvent());
+        this.registerEvent(Incoming.PlacePetMessageEvent, new PlacePetMessageEvent());
         this.registerEvent(Incoming.PetRacesMessageEvent, new PetRacesMessageEvent());
         this.registerEvent(Incoming.VerifyPetNameMessageEvent, new VerifyPetNameMessageEvent());
     }
@@ -162,34 +162,34 @@ public class MessageHandler {
     }
     
     private void registerComposerPackages() {
- 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.catalogue");
- 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.handshake");
- 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.item");
- 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.messenger");
- 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.navigator");
- 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room");
- 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.floorplan");
- 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.items");
- 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.notify");
- 		this.composerPackages.add("org.alexdev.icarus.messages.outgoing.user");
- 	}
+         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.catalogue");
+         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.handshake");
+         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.item");
+         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.messenger");
+         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.navigator");
+         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room");
+         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.floorplan");
+         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.items");
+         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.notify");
+         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.user");
+     }
 
     private void registerEvent(Integer header, MessageEvent messageEvent) {
-    	
-    	if (!this.messages.containsKey(header)) {
-    		this.messages.put(header, Lists.newArrayList());
-    	}
-		
-    	this.messages.get(header).add(messageEvent);
-	}
+        
+        if (!this.messages.containsKey(header)) {
+            this.messages.put(header, Lists.newArrayList());
+        }
+        
+        this.messages.get(header).add(messageEvent);
+    }
 
-	public void handleRequest(Player player, ClientMessage message) {
-		
+    public void handleRequest(Player player, ClientMessage message) {
+        
         if (this.messages.containsKey(message.getMessageId())) {
 
-        	for (MessageEvent event : this.messages.get(message.getMessageId())) {
-        		event.handle(player, message);
-        	}
+            for (MessageEvent event : this.messages.get(message.getMessageId())) {
+                event.handle(player, message);
+            }
         }
     }
 
@@ -197,9 +197,9 @@ public class MessageHandler {
         return messages;
     }
 
-	public List<String> getComposerPackages() {
-		return composerPackages;
-	}
+    public List<String> getComposerPackages() {
+        return composerPackages;
+    }
 
 }
 

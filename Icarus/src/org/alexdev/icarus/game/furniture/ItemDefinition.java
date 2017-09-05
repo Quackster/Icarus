@@ -63,7 +63,7 @@ public class ItemDefinition {
         } else {
             this.variableHeight = new double[0];
         }
-    }
+    }   
 
     public int getId() {
         return id;

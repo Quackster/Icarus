@@ -20,19 +20,19 @@ public class Bot extends Entity {
         return EntityType.BOT;
     }
 
-	@Override
-	public PlayerDetails getDetails() {
-		return this.details;
-	}
+    @Override
+    public PlayerDetails getDetails() {
+        return this.details;
+    }
 
-	@Override
-	public RoomUser getRoomUser() {
-		return this.roomUser;
-	}
+    @Override
+    public RoomUser getRoomUser() {
+        return this.roomUser;
+    }
 
-	@Override
-	public void dispose() {
-		this.disposed = true;
-	}
+    @Override
+    public void dispose() {
+        this.disposed = true;
+    }
 
 }

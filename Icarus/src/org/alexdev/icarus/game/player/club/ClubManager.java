@@ -35,7 +35,7 @@ public class ClubManager {
         long newExpireTime = TimeUnit.DAYS.toSeconds(daysPurchased);
         
         if (player.getSubscription().hasSubscription()) {
-        	newExpireTime += player.getSubscription().getExpireTime();
+            newExpireTime += player.getSubscription().getExpireTime();
             ClubDao.update(player.getDetails().getId(), newExpireTime, currentTime);
         } else {
             newExpireTime += currentTime;

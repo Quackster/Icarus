@@ -26,7 +26,7 @@ public class CatalogueTab {
         this.enabled = enabled;
         this.minRank = minRank;
         this.childTabs = Lists.newArrayList();
-		this.link = link;
+        this.link = link;
     }
 
     public int getId() {
@@ -61,11 +61,11 @@ public class CatalogueTab {
         return childTabs;
     }
     
-	public String getLink() {
-		return link;
-	}
+    public String getLink() {
+        return link;
+    }
 
-	public void setLink(String link) {
-		this.link = link;
-	}
+    public void setLink(String link) {
+        this.link = link;
+    }
 }

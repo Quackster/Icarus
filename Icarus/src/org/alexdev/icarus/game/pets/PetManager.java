@@ -7,14 +7,14 @@ import org.alexdev.icarus.dao.mysql.PetDao;
 
 public class PetManager {
 
-	private static Map<Integer, List<PetRace>> races;
+    private static Map<Integer, List<PetRace>> races;
 
-	public static void load() {
-		races = PetDao.getPetRaces();
-	}
+    public static void load() {
+        races = PetDao.getPetRaces();
+    }
 
-	public static List<PetRace> getRaces(int raceId) {
-		return races.get(raceId);
-	}
-	
+    public static List<PetRace> getRaces(int raceId) {
+        return races.get(raceId);
+    }
+    
 }

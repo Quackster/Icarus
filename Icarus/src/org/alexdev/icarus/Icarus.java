@@ -211,17 +211,17 @@ public class Icarus {
      */
     private static void writePluginConfiguration(PrintWriter writer) {
         writer.println("--[[\r\n" + 
-        		"    Array for storing plugin .lua files to be registered \r\n" + 
-        		"    by the server\r\n" + 
-        		"    \r\n" + 
-        		"    Example:\r\n" + 
-        		"    \r\n" + 
-        		"        plugins = {\r\n" + 
-        		"            \"ExamplePlugin/example_plugin.lua\"\r\n" + 
-        		"        }\r\n" + 
-        		"    \r\n" + 
-        		"--]]\r\n" + 
-        		"plugins = {}");
+                "    Array for storing plugin .lua files to be registered \r\n" + 
+                "    by the server\r\n" + 
+                "    \r\n" + 
+                "    Example:\r\n" + 
+                "    \r\n" + 
+                "        plugins = {\r\n" + 
+                "            \"ExamplePlugin/example_plugin.lua\"\r\n" + 
+                "        }\r\n" + 
+                "    \r\n" + 
+                "--]]\r\n" + 
+                "plugins = {}");
         writer.println();
     }
     

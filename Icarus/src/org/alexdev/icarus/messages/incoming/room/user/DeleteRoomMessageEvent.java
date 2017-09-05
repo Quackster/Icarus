@@ -29,11 +29,11 @@ public class DeleteRoomMessageEvent implements MessageEvent {
         }
         
         for (Item item : room.getItems().values()) {
-        	
-        	item.setRoomId(0);
-        	item.save();
-        	
-        	player.getInventory().addItem(item);
+            
+            item.setRoomId(0);
+            item.save();
+            
+            player.getInventory().addItem(item);
         }
         
         RoomDao.deleteRoom(room);
