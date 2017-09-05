@@ -1,6 +1,11 @@
 package org.alexdev.icarus.game.pets;
 
-public class Pet {
+import org.alexdev.icarus.game.entity.Entity;
+import org.alexdev.icarus.game.entity.EntityType;
+import org.alexdev.icarus.game.player.PlayerDetails;
+import org.alexdev.icarus.game.room.RoomUser;
+
+public class Pet extends Entity {
     public static final int DEFAULT_LEVEL = 1;
     public static final int DEFAULT_ENERGY = 100;
     public static final int DEFAULT_HAPPINESS = 100;
@@ -28,8 +33,10 @@ public class Pet {
 
     private int birthday;
     
+	private RoomUser roomUser;
+	private PlayerDetails playerDetails;
+    
     public Pet(int id, String name, int level, int happiness, int experience, int energy, int ownerId, String colour, int raceId, int typeId, boolean saddled, int hair, int hairDye, boolean anyRider, int birthday) {
-    	
     	this.id = id;
     	this.name = name;
     	this.level = level;
@@ -46,8 +53,33 @@ public class Pet {
     	this.anyRider = anyRider;
     	this.birthday = birthday;
     	
+    	this.roomUser = new RoomUser(this);
+    	this.playerDetails = new PlayerDetails(this);
     	
+    	this.playerDetails.setName(this.name);
+    	this.playerDetails.setFigure(this.getLook());
+    	this.playerDetails.setId(this.id);
     }
+    
+	@Override
+	public PlayerDetails getDetails() {
+		return this.playerDetails;
+	}
+
+	@Override
+	public RoomUser getRoomUser() {
+		return this.roomUser;
+	}
+
+	@Override
+	public EntityType getType() {
+		return EntityType.PET;
+	}
+
+	@Override
+	public void dispose() {
+		this.disposed = true;
+	}
 
 	public int getId() {
 		return id;
@@ -175,5 +207,15 @@ public class Pet {
 
 	public void setBirthday(int birthday) {
 		this.birthday = birthday;
+	}
+
+	public String getOwnerName() {
+		// TODO Auto-generated method stub
+		return "";
+	}
+
+	public Boolean isRidingHorse() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

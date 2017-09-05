@@ -46,6 +46,10 @@ public class PlayerDetails {
 	public int getId() {
 		return id;
 	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public boolean isAuthenticated() {
 		return authenticated;

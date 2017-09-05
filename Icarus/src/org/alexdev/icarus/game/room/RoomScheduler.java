@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.alexdev.icarus.game.room.tasks.CarryItemTask;
 import org.alexdev.icarus.game.room.tasks.MovementTask;
+import org.alexdev.icarus.game.room.tasks.PetTask;
 import org.alexdev.icarus.game.room.tasks.RollerTask;
 
 public class RoomScheduler {
@@ -15,11 +16,13 @@ public class RoomScheduler {
     private MovementTask movementTask;
     private RollerTask rollerTask;
     private CarryItemTask carryItemTask;
+    private PetTask petTask;
     
     public RoomScheduler (Room room) {
         this.rollerTask = new RollerTask(room);
         this.carryItemTask = new CarryItemTask(room);
         this.movementTask =  new MovementTask(room);
+        this.petTask = new PetTask(room);
     }
 
     public void scheduleTasks() {
@@ -36,6 +39,7 @@ public class RoomScheduler {
             this.roomScheduledTasks = RoomManager.getScheduler().scheduleAtFixedRate(() -> {
                 this.rollerTask.execute();
                 this.carryItemTask.execute();
+                this.petTask.execute();
             }, 0, 1, TimeUnit.SECONDS);
         }
     }

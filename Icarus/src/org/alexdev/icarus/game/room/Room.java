@@ -261,6 +261,11 @@ public class Room {
 	}
 	
 	public void addEntity(Entity entity) {
+		this.addEntity(entity, this.getModel().getDoorLocation().getX(), this.getModel().getDoorLocation().getY(), this.getModel().getDoorLocation().getRotation());
+	}
+
+
+	public void addEntity(Entity entity, int x, int y, int rotation) {
 		
 		if (entity.getType() == EntityType.PLAYER) {
 			return;
@@ -270,10 +275,10 @@ public class Room {
 		
 		roomUser.setRoom(this);
 		roomUser.setVirtualId(this.privateId.incrementAndGet());
-		roomUser.getPosition().setX(this.getModel().getDoorLocation().getX());
-		roomUser.getPosition().setY(this.getModel().getDoorLocation().getY());
+		roomUser.getPosition().setX(x);
+		roomUser.getPosition().setY(y);
 		roomUser.getPosition().setZ(this.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
-		roomUser.getPosition().setRotation(this.getModel().getDoorLocation().getRotation());
+		roomUser.getPosition().setRotation(rotation);
 		
 		this.send(new UserDisplayMessageComposer(entity));
 		this.send(new UserStatusMessageComposer(entity));
@@ -281,8 +286,9 @@ public class Room {
 		if (!this.getEntities().contains(entity)) {
 			this.getEntities().add(entity);
 		}
+		
+		this.mapping.getTile(x, y).setEntity(entity);
 	}
-
 	
 	public void removeEntity(Entity entity) {
 		

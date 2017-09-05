@@ -106,4 +106,8 @@ public class Inventory {
 	public List<Item> getWallItems() {
         return items.values().stream().filter(item -> item != null && item.getType() == ItemType.WALL).collect(Collectors.toList());
     }
+
+	public Pet getPet(int id) {
+		return this.pets.get(id);
+	}
 }
