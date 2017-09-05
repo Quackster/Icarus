@@ -167,8 +167,12 @@ public class RoomUser {
 
 			MessageComposer composer = null;
 
-			if (this.entity.getType() == EntityType.BOT) {
+			if (this.entity.getType() == EntityType.PET) {
 				composer = new TalkMessageComposer(this, shout, message, 2, bubble);
+			}
+			
+			if (this.entity.getType() == EntityType.BOT) {
+				composer = new TalkMessageComposer(this, shout, message, 1, bubble);
 			}
 			
 			this.room.send(composer);
