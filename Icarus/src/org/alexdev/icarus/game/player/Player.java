@@ -54,6 +54,7 @@ public class Player extends Entity {
         this.send(new BroadcastMessageAlertComposer(message));
     }
 
+    @Override
     public void dispose() {
 
         if (this.details.isAuthenticated()) {
@@ -82,6 +83,8 @@ public class Player extends Entity {
         this.inventory = null;
         this.roomUser = null;
         this.machineId = null;
+        
+        this.disposed = true;
     }
 
     public List<Room> getRooms() {

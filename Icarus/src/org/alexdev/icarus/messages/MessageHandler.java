@@ -16,6 +16,7 @@ import org.alexdev.icarus.messages.incoming.handshake.*;
 import org.alexdev.icarus.messages.incoming.messenger.*;
 import org.alexdev.icarus.messages.incoming.misc.*;
 import org.alexdev.icarus.messages.incoming.navigator.*;
+import org.alexdev.icarus.messages.incoming.pets.PetRacesMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.*;
 import org.alexdev.icarus.messages.incoming.room.floorplan.FloorPlanPropertiesMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.floorplan.SaveFloorPlanMessageEvent;
@@ -61,6 +62,7 @@ public class MessageHandler {
         this.registerRoomPackets();
         this.registerCataloguePackets();
         this.registerItemPackets();
+        this.registerPetPackets();
     }
 
     private void registerHandshakePackets() {
@@ -133,9 +135,13 @@ public class MessageHandler {
         this.registerEvent(Incoming.GiftingSettingsMessageEvent, new GiftingSettingsMessageEvent());
         this.registerEvent(Incoming.PromotableRoomsMessageEvent, new PromotableRoomsMessageEvent());
         this.registerEvent(Incoming.PurchaseRoomPromotionMessageEvent, new PurchaseRoomPromotionMessageEvent());
+        
     }
     
-
+    private void registerPetPackets() {
+        this.registerEvent(Incoming.PetRacesMessageEvent, new PetRacesMessageEvent());
+    }
+    
     private void registerItemPackets() {
         this.registerEvent(Incoming.InventoryMessageEvent, new InventoryMessageEvent());
         this.registerEvent(Incoming.PlaceItemMessageEvent, new PlaceItemMessageEvent());

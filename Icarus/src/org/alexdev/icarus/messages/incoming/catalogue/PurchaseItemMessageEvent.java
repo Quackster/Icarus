@@ -87,7 +87,7 @@ public class PurchaseItemMessageEvent implements MessageEvent {
 
         for (CatalogueBundledItem bundleItem : item.getItems()) {
 
-            if (bundleItem.getCatalogueItem().getCatalogueName().startsWith("DEAL_HC_")) {
+            if (bundleItem.getCatalogueItem().getDisplayName().startsWith("DEAL_HC_")) {
                 ClubManager.handlePurchase(player, bundleItem, amount);
                 return;
             }

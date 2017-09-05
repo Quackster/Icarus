@@ -20,6 +20,7 @@ import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.log.DateTime;
 import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectComposer;
+import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.TalkMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 import org.alexdev.icarus.messages.parsers.MessageComposer;
@@ -391,6 +392,16 @@ public class RoomUser {
 		this.isWalkingAllowed = true;
 
 	}
+	
+	public void startDancing(int danceId) {
+		
+		this.danceId = danceId;
+		this.room.send(new DanceMessageComposer(this.virtualId, danceId));
+	}
+	
+	public void stopDancing() {
+		this.startDancing(0);
+	}
 
 	public Position getPosition() {
 		return position;
@@ -575,5 +586,6 @@ public class RoomUser {
 	public void setRequestedRoomId(int roomRequestedId) {
 		this.roomRequestedId = roomRequestedId;
 	}
+
 
 }

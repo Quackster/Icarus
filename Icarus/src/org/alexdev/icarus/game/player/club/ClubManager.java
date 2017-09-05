@@ -13,7 +13,7 @@ public class ClubManager {
     public static void handlePurchase(Player player, CatalogueBundledItem bundleItem, int amount) {
         
         int daysPurchased = 30 * amount;
-        String catalogueName = bundleItem.getCatalogueItem().getCatalogueName();
+        String catalogueName = bundleItem.getCatalogueItem().getDisplayName();
         
         if (catalogueName.equals("DEAL_HC_2")) {
             daysPurchased = daysPurchased * 3;

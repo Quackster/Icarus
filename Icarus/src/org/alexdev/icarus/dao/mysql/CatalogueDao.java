@@ -3,6 +3,7 @@ package org.alexdev.icarus.dao.mysql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Base64;
 import java.util.List;
 
 import org.alexdev.icarus.game.catalogue.CatalogueItem;
@@ -115,36 +116,21 @@ public class CatalogueDao {
         List<String> images = Lists.newArrayList();
         List<String> texts = Lists.newArrayList();
         
-        /*String rawImages = row.getString("page_images");
-        rawImages = rawImages.replace("[", "");
-        rawImages = rawImages.replace("]", "");
-        rawImages = rawImages.replace("\"", "|");
-        
+        String rawImages = row.getString("page_images");
         String rawTexts = row.getString("page_texts");
-        rawTexts = rawTexts.replace("[", "");
-        rawTexts = rawTexts.replace("]", "");
-        rawTexts = rawTexts.replace("\"", "");
         
-        if (rawImages.length() >= 2) {
-            rawImages = rawImages.substring(1, rawImages.length() - 2);
-        }
-        
-        if (rawTexts.length() >= 2) {
-            rawTexts = rawTexts.substring(1, rawTexts.length() - 2);
-        }
-
-        for (String image : rawImages.split("\\|")) {
+        for (String image : rawImages.split("\\{}")) {
             images.add(image);
         }
         
-        for (String text : rawTexts.split("\\|")) {
+        for (String text : rawTexts.split("\\{}")) {
             
             if (text.endsWith("==")) {
                 text = new String(Base64.getDecoder().decode(text));
             }
             
             texts.add(text);
-        }*/
+        }
         
         CataloguePage page = new CataloguePage(row.getInt("id"), row.getString("caption"), row.getInt("parent_id"), row.getString("type"), row.getString("page_layout"), row.getInt("min_rank"), images, texts, null);
         return page;

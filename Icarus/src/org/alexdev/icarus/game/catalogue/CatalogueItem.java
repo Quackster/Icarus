@@ -1,6 +1,7 @@
 package org.alexdev.icarus.game.catalogue;
 
 import org.alexdev.icarus.game.furniture.ItemDefinition;
+import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.log.Log;
 
 import java.util.ArrayList;
@@ -150,7 +151,7 @@ public class CatalogueItem {
         final ItemDefinition firstItem = this.itemId.equals("-1") ? null : this.getItems().get(0).getItemDefinition();
 
         response.writeInt(this.getId());
-        response.writeString(this.getCatalogueName());
+        response.writeString(this.getDisplayName());
         response.writeBool(false);
 
         response.writeInt(this.getCostCredits());
@@ -183,8 +184,8 @@ public class CatalogueItem {
                 response.writeString(def.getType());
                 response.writeInt(def.getSpriteId());
 
-                if (this.getCatalogueName().contains("wallpaper_single") || this.getCatalogueName().contains("floor_single") || this.getCatalogueName().contains("landscape_single")) {
-                    response.writeString(this.getCatalogueName().split("_")[2]);
+                if (this.getDisplayName().contains("wallpaper_single") || this.getDisplayName().contains("floor_single") || this.getDisplayName().contains("landscape_single")) {
+                    response.writeString(this.getDisplayName().split("_")[2]);
                 } else {
                     response.writeString(bundledItem.getExtraData());
                 }
@@ -203,7 +204,7 @@ public class CatalogueItem {
         response.writeInt(this.subscriptionStatus);
         response.writeBool(!(this.getLimitedTotal() > 0) && this.allowOffer());
         response.writeBool(false);
-        response.writeString("");
+        response.writeString("catalogue/pet_turtle.png");
 
     }
 
@@ -223,7 +224,7 @@ public class CatalogueItem {
         return items;
     }
 
-    public String getCatalogueName() {
+    public String getDisplayName() {
         return itemName;
     }
 

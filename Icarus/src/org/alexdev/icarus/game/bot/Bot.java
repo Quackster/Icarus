@@ -30,4 +30,9 @@ public class Bot extends Entity {
 		return this.roomUser;
 	}
 
+	@Override
+	public void dispose() {
+		this.disposed = true;
+	}
+
 }

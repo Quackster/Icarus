@@ -3,6 +3,7 @@ package org.alexdev.icarus.game.player;
 import org.alexdev.icarus.dao.mysql.PlayerDao;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.messages.outgoing.user.CreditsMessageComposer;
+import org.alexdev.icarus.util.Util;
 
 public class PlayerDetails {
 
@@ -18,6 +19,7 @@ public class PlayerDetails {
 	private Entity entity;
 
 	public PlayerDetails(Entity entity) {
+		this.id = Util.randomInt(10, 900);
 		this.authenticated = false;
 		this.entity = entity;
 	}

@@ -67,6 +67,7 @@ public class Incoming {
 	public static Integer PurchaseRoomPromotionMessageEvent = 1542;
 	public static Integer EditRoomPromotionMessageEvent = 816;
 	public static Integer WelcomeMessageEvent = 597;
+	public static Integer PetRacesMessageEvent = 599;
 	
     
 }

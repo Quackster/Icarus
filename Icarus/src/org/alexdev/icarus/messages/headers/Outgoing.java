@@ -98,5 +98,6 @@ public class Outgoing {
 	public static int NavigatorPromoteCategoriesComposer = 1265;
 	public static int ActivityPointsComposer = 3318;
 	public static int RoomPromotionMessageComposer = 1587;
+	public static int PetRacesMessageComposer = 2333;
     
 }

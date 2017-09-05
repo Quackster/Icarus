@@ -298,6 +298,10 @@ public class Room {
 		entity.getRoomUser().dispose();
 		
 		this.dispose(false);
+		
+		if (entity.getType() != EntityType.PLAYER) {
+			entity.dispose();
+		}
 	}
 
 	public boolean hasRights(Player player, boolean ownerCheckOnly) {
@@ -361,6 +365,15 @@ public class Room {
 		}
 
 		if (this.entities != null) {
+			
+			for (int i = 0; i < this.entities.size(); i++) {
+				Entity entity = this.entities.get(i);
+				
+				if (entity.getType() != EntityType.PLAYER) {
+					this.removeEntity(entity);
+				}
+			}
+			
 			this.entities.clear();
 		}
 
