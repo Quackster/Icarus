@@ -112,9 +112,8 @@ public class Util {
 		return decimalFormatter;
 	}
 
-	public static boolean isAlphaNumeric(String petName) {
-		// TODO Auto-generated method stub
-		return true;
+	public static boolean isAlphaNumeric(String word) {
+		return word.matches("[A-Za-z0-9]+");
 	}
 
 }

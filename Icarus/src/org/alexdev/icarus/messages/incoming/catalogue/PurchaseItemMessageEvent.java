@@ -54,6 +54,19 @@ public class PurchaseItemMessageEvent implements MessageEvent {
 
 	private void purchasePet(Player player, CatalogueItem item, String extraData) {
 		
+		boolean creditsError = false;
+
+		if (player.getDetails().getCredits() < item.getCostCredits()) {
+			player.send(new PurchaseErrorMessageComposer(creditsError, false));
+			return;
+		}
+
+		if (item.getCostCredits() > 0) {
+			player.getDetails().setCredits(player.getDetails().getCredits() - item.getCostCredits());
+			player.getDetails().sendCredits();
+		}
+
+		
 		String[] petData = extraData.split("\n"); // name (String), race (int) and colour (int)
 		String petType = item.getDisplayName().replace("a0 pet", "");
 
@@ -71,6 +84,8 @@ public class PurchaseItemMessageEvent implements MessageEvent {
         
         player.getInventory().addPet(pet);
         player.getInventory().updatePets();
+        
+        player.send(new PurchaseNotificationMessageComposer());
         
 	}
 
