@@ -12,6 +12,7 @@ import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.RoomUser;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.user.BroadcastMessageAlertComposer;
 import org.alexdev.icarus.messages.parsers.MessageComposer;
 import org.alexdev.icarus.server.api.IPlayerNetwork;
@@ -79,6 +80,8 @@ public class Player extends Entity {
         this.roomUser.dispose();
         this.inventory.dispose();
 
+        Log.println("called?");
+        
         this.messenger = null;
         this.inventory = null;
         this.roomUser = null;

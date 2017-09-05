@@ -1,7 +1,6 @@
 package org.alexdev.icarus.game.catalogue;
 
 import org.alexdev.icarus.game.furniture.ItemDefinition;
-import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.log.Log;
 
 import java.util.ArrayList;

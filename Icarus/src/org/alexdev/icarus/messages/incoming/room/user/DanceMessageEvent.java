@@ -4,7 +4,6 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomUser;
 import org.alexdev.icarus.messages.MessageEvent;
-import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class DanceMessageEvent implements MessageEvent {

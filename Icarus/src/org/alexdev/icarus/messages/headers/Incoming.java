@@ -16,7 +16,7 @@ public class Incoming {
     public static Integer HeightMapMessageEvent = 3925;//815
     public static Integer EventLogMessageEvent = 143;//1787
     public static Integer RoomInfoMessageEvent = 2247;//3494
-    public static Integer MessengerInitMessageEvent = 2782;//733
+    public static Integer MessengerInitMessageEvent = 2919;//733
     public static Integer MessengerUpdateMessageEvent = -3412;//3412
     public static Integer MessengerSearchMessageEvent = 1194;//2760
     public static Integer MessengerRequestMessageEvent = 1706;//2826
