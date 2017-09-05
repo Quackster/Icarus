@@ -38,7 +38,7 @@ public class PickupItemMessageEvent implements MessageEvent {
             room.getMapping().removeItem(item);
             
             player.getInventory().addItem(item);
-            player.getInventory().update();
+            player.getInventory().updateItems();
         }
     }
 

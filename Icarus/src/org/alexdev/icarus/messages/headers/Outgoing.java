@@ -99,5 +99,7 @@ public class Outgoing {
 	public static int ActivityPointsComposer = 3318;
 	public static int RoomPromotionMessageComposer = 1587;
 	public static int PetRacesMessageComposer = 2333;
+	public static int VerifyPetNameComposer = 1760;
+	public static int PetInventoryMessageComposer = 1988;
     
 }

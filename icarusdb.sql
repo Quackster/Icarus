@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 05, 2017 at 04:11 AM
+-- Generation Time: Sep 05, 2017 at 07:38 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -5973,17 +5973,17 @@ INSERT INTO `catalog_pages` (`id`, `parent_id`, `type`, `extra_data`, `caption`,
 (81, 2, 'DEFAULT', NULL, 'Runway', 0, 74, '1', '1', 1, '0', 54, 'default_3x3', 0, '0', 'Spice up your salon, hair parlour or boutique with our stylish yet practical range! From sewing machines to comfy seating, we\'ve got the perfect option for you.{}Click on an item for more information.', 'runway_header_en{}runway_teaser_en', 'undefined'),
 (82, 239, 'DEFAULT', NULL, 'Wedding', 0, 238, '1', '1', 1, '0', 11, 'default_3x3', 0, '0', 'Habbo just wouldn\'tbe the same without a wedding to attend every now and then!{}Click on an item for more information.', 'catalog_header_wedding{}catalog_wedding_teaser15', 'undefined'),
 (83, 2, 'DEFAULT', NULL, 'School', 1, 130, '1', '1', 1, '0', 55, 'default_3x3', 0, '0', 'Sick of being told what to do? Want to be the boss of someone else for a change? Well now you can with our very own school range!{}Click on an item for more information.', 'ruletheschool_header{}catalog_school_teaser', 'undefined'),
-(84, 12, 'DEFAULT', NULL, 'Terriers', 0, 66, '1', '1', 1, '0', 14, 'pets', 0, '0', 'Good things come in small packages and Habbo\'s Terriers are no exception!{}Click on an item for more information.', 'catalog_pet_headline1', 'undefined'),
-(85, 12, 'DEFAULT', NULL, 'Bears', 0, 68, '1', '1', 1, '0', 1, 'pets', 0, '0', 'A large, heavy mammal that walks on the soles of it\'s feet, with thick fur and a very short tail. Fall in love with our adorable range of Bears that include the Grizzly and Polar varieties!{}Click on an item for more information.', 'catalog_pet_headline1', 'undefined'),
-(86, 12, 'DEFAULT', NULL, 'Cats', 0, 20, '1', '1', 1, '0', 2, 'pets', 0, '0', 'Fluff, whiskers, meows and purrs! You\'re about to enter the world of Habbo Cats. These cute little critters make great playmates and will keep you company if you look after them well. Find a new friend from our ever-changing selection.{}Click on an item for more information.', 'catalog_pet_headline1', 'undefined'),
-(87, 12, 'DEFAULT', NULL, 'Dogs', 0, 24, '1', '1', 1, '0', 5, 'pets', 0, '0', 'Wet noses, paws, yaps and woofs! You\'re about to enter the world of Habbo Dogs. An adorable and faithful servant awaits you with a wagging tail everytime they see you. Find a new friend from our ever-changing selection.{}Name your Terrier:{}Pick a color:{}Pick a breed:', 'catalog_pet_headline1', 'undefined'),
-(88, 12, 'DEFAULT', NULL, 'Crocodiles', 0, 22, '1', '1', 1, '0', 4, 'pets', 0, '0', 'Scaly skin, growls and snaps! You\'re about to enter the world of Habbo Crocs. Security for your room or to scare your friends a trustworthy and surprisingly loving companion can be yours. Find a new friend from our ever-changing selection.{}Click on an item for more information.', 'catalog_pet_headline1', 'undefined'),
+(84, 12, 'DEFAULT', NULL, 'Terriers', 0, 66, '1', '1', 1, '0', 14, 'pets', 0, '0', 'Good things come in small packages and Habbo\'s Terriers are no exception!{}Name your Terrier:{}Pick a color:{}Pick a breed:', 'catalog_pet_headline1', 'undefined'),
+(85, 12, 'DEFAULT', NULL, 'Bears', 0, 68, '1', '1', 1, '0', 1, 'pets', 0, '0', 'A large, heavy mammal that walks on the soles of it\'s feet, with thick fur and a very short tail. Fall in love with our adorable range of Bears that include the Grizzly and Polar varieties!{}Name your Bear:{}Pick a color:{}Pick a breed:', 'catalog_pet_headline1', 'undefined'),
+(86, 12, 'DEFAULT', NULL, 'Cats', 0, 20, '1', '1', 1, '0', 2, 'pets', 0, '0', 'Fluff, whiskers, meows and purrs! You\'re about to enter the world of Habbo Cats. These cute little critters make great playmates and will keep you company if you look after them well. Find a new friend from our ever-changing selection.{}Name your Cat:{}Pick a color:{}Pick a breed:', 'catalog_pet_headline1', 'undefined'),
+(87, 12, 'DEFAULT', NULL, 'Dogs', 0, 24, '1', '1', 1, '0', 5, 'pets', 0, '0', 'Wet noses, paws, yaps and woofs! You\'re about to enter the world of Habbo Dogs. An adorable and faithful servant awaits you with a wagging tail everytime they see you. Find a new friend from our ever-changing selection.{}Name your Dog:{}Pick a color:{}Pick a breed:', 'catalog_pet_headline1', 'undefined'),
+(88, 12, 'DEFAULT', NULL, 'Crocs', 0, 22, '1', '1', 1, '0', 4, 'pets', 0, '0', 'Scaly skin, growls and snaps! You\'re about to enter the world of Habbo Crocs. Security for your room or to scare your friends a trustworthy and surprisingly loving companion can be yours. Find a new friend from our ever-changing selection.{}Name your Croc:{}Pick a color:{}Pick a breed:', 'catalog_pet_headline1', 'undefined'),
 (89, 163, 'DEFAULT', NULL, 'Football', 0, 56, '1', '1', 1, '0', 2, 'default_3x3', 0, '0', 'This furni range is a must have for any football fanatic!{}Click on an item for more information.', 'WorldCup{}worldcup_teaser', 'undefined'),
 (90, 2, 'DEFAULT', NULL, 'Prison', 2, 1008, '1', '1', 1, '0', 48, 'default_3x3', 0, '0', 'Hey, he\'s escaping! Just kidding, no one\'s geting out of these high security cells!{}Click on an item for more information.', 'catalog_header_prison{}catalog_prison_teaser15', 'undefined'),
-(91, 12, 'DEFAULT', NULL, 'Lions', 1, 76, '1', '1', 1, '0', 8, 'pets', 0, '0', 'Simba, is that you? Oh wait, it\'s just one of Habbo\'s adorable pet lions! Unlike real ones, these won\'t bite your arms off. And hey, now you can tell all those girls that you\'re a lion tamer, it\'s technically not lying!{}Click on an item for more information.', 'catalog_pet_headline1', 'undefined'),
-(92, 12, 'DEFAULT', NULL, 'Rhinos', 1, 77, '1', '1', 1, '0', 12, 'pets', 0, '0', 'Ever thought rhinos could be cute? Neither did we until we saw these pets released!{}Click on an item for more information.', 'catalog_pet_headline1', 'undefined'),
-(93, 12, 'DEFAULT', NULL, 'Spiders', 1, 95, '1', '1', 1, '0', 13, 'pets', 0, '0', 'One of the most feared creatures in nature, and perhaps the most misunderstood. The majority of Spiders are predators with sharp fangs that inject venom into their prey- but dont worry, these spiders wont bite you! Maybe...{}Click on an item for more information.', 'catalog_pet_headline1', 'undefined'),
-(94, 12, 'DEFAULT', NULL, 'Frogs', 1, 97, '1', '1', 1, '0', 7, 'pets', 0, '0', 'The Frog. Cute, green and slimy! Frogs come in a variety of weird colours and can be found all over the world. Frogs are great jumpers, and make great pets, but are harder to hold onto than a supermodel in a tornado{}Click on an item for more information.', 'catalog_pet_headline1', 'undefined'),
+(91, 12, 'DEFAULT', NULL, 'Lions', 1, 76, '1', '1', 1, '0', 8, 'pets', 0, '0', 'Simba, is that you? Oh wait, it\'s just one of Habbo\'s adorable pet lions! Unlike real ones, these won\'t bite your arms off. And hey, now you can tell all those girls that you\'re a lion tamer, it\'s technically not lying!{}Name your pet:{}Pick a color:{}Pick a breed:', 'catalog_pet_headline1', 'undefined'),
+(92, 12, 'DEFAULT', NULL, 'Rhinos', 1, 77, '1', '1', 1, '0', 12, 'pets', 0, '0', 'Ever thought rhinos could be cute? Neither did we until we saw these pets released!{}Name your pet:{}Pick a color:{}Pick a breed:', 'catalog_pet_headline1', 'undefined'),
+(93, 12, 'DEFAULT', NULL, 'Spiders', 1, 95, '1', '1', 1, '0', 13, 'pets', 0, '0', 'One of the most feared creatures in nature, and perhaps the most misunderstood. The majority of Spiders are predators with sharp fangs that inject venom into their prey- but dont worry, these spiders wont bite you! Maybe...{}Name your pet:{}Pick a color:{}', 'catalog_pet_headline1', 'undefined'),
+(94, 12, 'DEFAULT', NULL, 'Frogs', 1, 97, '1', '1', 1, '0', 7, 'pets', 0, '0', 'The Frog. Cute, green and slimy! Frogs come in a variety of weird colours and can be found all over the world. Frogs are great jumpers, and make great pets, but are harder to hold onto than a supermodel in a tornado{}Name your pet:{}Pick a color:{}Pick a breed:', 'catalog_pet_headline1', 'undefined'),
 (95, 12, 'DEFAULT', NULL, 'Chicks', 1, 107, '1', '1', 1, '0', 3, 'pets', 0, '0', 'Habbo is full of chicks (the pet kind!) Adopt your new born chicklet now and start training it to perform the Chicken Dance for your friends... it will be a show to remember!{}Click on an item for more information.', 'catalog_pet_headline1', 'undefined'),
 (96, 12, 'DEFAULT', NULL, 'Dragons', 1, 109, '1', '1', 1, '0', 6, 'pets', 0, '0', 'Dragons, because who doesn\'t want flying, fire-breathing pets with huge taloned claws?{}Click on an item for more information.', 'catalog_pet_headline1', 'undefined'),
 (97, 2, 'DEFAULT', NULL, 'Guitars', 1, 301, '1', '1', 1, '0', 5, 'default_3x3', 0, '0', 'Click on an item for more information.', 'catalog_teaser_pinata{}ctlg_guitars_teaser', 'undefined'),
@@ -12610,62 +12610,24 @@ INSERT INTO `items` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`, `y`
 (19, 5, 5, 175, 9, '1', '9', 0.01, 2, '20'),
 (20, 5, 5, 175, 9, '1', '10', 0.01, 2, '19'),
 (21, 5, 5, 1638, 18, 'r,4,8', '1,43', 0, 0, '2,1,2,#82F349,167'),
-(22, 5, 5, 1655, 0, '0', '0', 0, 0, ''),
-(23, 5, 5, 1655, 0, 'r,6,1', '12,36', 0, 0, '1'),
 (24, 5, 5, 1655, 9, 'r,2,4', '0,37', 0, 0, '2'),
-(25, 5, 5, 1754, 0, '0', '0', 0, 0, ''),
 (28, 5, 5, 1649, 18, 'r,7,1', '12,36', 0, 0, '1'),
 (29, 5, 5, 1648, 18, 'l,2,10', '4,47', 0, 0, '1'),
-(30, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(31, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(32, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(33, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(34, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(35, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(36, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(37, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(38, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(39, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(40, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(41, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(42, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(43, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(44, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(45, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(46, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(47, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(48, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(49, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(50, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(51, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(52, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(53, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(54, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(55, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(56, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(57, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(58, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(59, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(60, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(61, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(62, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(63, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(64, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(65, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(66, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(67, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(68, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(69, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(70, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(71, 5, 5, 430, 0, '0', '0', 0, 0, ''),
-(72, 5, 5, 430, 18, '10', '4', 1.01, 0, ''),
+(68, 5, 5, 430, 18, '9', '2', 1.01, 2, ''),
+(69, 5, 5, 430, 18, '8', '2', 1.01, 2, ''),
+(70, 5, 5, 430, 18, '8', '3', 1.01, 0, ''),
+(71, 5, 5, 430, 18, '8', '4', 1.01, 0, ''),
+(72, 5, 5, 430, 18, '10', '4', 1.01, 4, ''),
 (73, 5, 5, 430, 18, '10', '3', 1.01, 4, ''),
-(74, 5, 5, 430, 0, '-1', '-1', 1.01, 0, ''),
-(75, 5, 5, 430, 0, '-1', '-1', 1.01, 0, ''),
-(76, 5, 5, 430, 0, '-1', '-1', 0.01, 0, ''),
-(77, 5, 5, 430, 0, '-1', '-1', 0.01, 0, ''),
-(78, 5, 5, 430, 0, '-1', '-1', 0.01, 0, ''),
-(79, 5, 5, 430, 0, '-1', '-1', 0.01, 0, '');
+(74, 5, 5, 430, 18, '8', '5', 1.01, 0, ''),
+(75, 5, 5, 430, 18, '8', '6', 1.01, 0, ''),
+(76, 5, 5, 430, 18, '9', '6', 1.01, 6, ''),
+(77, 5, 5, 430, 18, '10', '6', 1.01, 6, ''),
+(78, 5, 5, 430, 18, '10', '2', 1.01, 4, ''),
+(79, 5, 5, 430, 18, '10', '5', 1.01, 4, ''),
+(80, 2, 2, 752, 14, '7', '13', 8.01, 0, ''),
+(81, 2, 2, 1133, 14, '9', '12', 8.01, 0, '3'),
+(91, 5, 5, 2300, 0, '0', '0', 0, 0, 'dqwdqwdqd\n0\nFFFFFF');
 
 -- --------------------------------------------------------
 
@@ -12778,6 +12740,34 @@ INSERT INTO `navigator_tabs` (`id`, `child_id`, `tab_name`, `title`, `button_typ
 (11, 4, 'my_groups', '', 1, 1, 0, ''),
 (12, 4, 'history', '', 1, 1, 0, ''),
 (13, 4, 'friends_rooms', '', 1, 1, 0, 'FriendsPopulator');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pet_data`
+--
+
+CREATE TABLE `pet_data` (
+  `id` int(11) NOT NULL,
+  `owner_id` int(11) NOT NULL DEFAULT '0',
+  `room_id` int(11) DEFAULT '0',
+  `pet_name` varchar(50) DEFAULT NULL,
+  `race_id` int(11) DEFAULT '11',
+  `type` int(11) DEFAULT NULL,
+  `colour` text,
+  `scratches` int(11) NOT NULL DEFAULT '0',
+  `level` int(11) NOT NULL DEFAULT '0',
+  `happiness` int(11) NOT NULL DEFAULT '0',
+  `experience` int(11) NOT NULL DEFAULT '0',
+  `energy` int(11) NOT NULL DEFAULT '0',
+  `x` int(11) DEFAULT '0',
+  `y` int(11) DEFAULT '0',
+  `saddled` enum('true','false') DEFAULT 'false',
+  `any_rider` enum('true','false') DEFAULT 'false',
+  `hair_style` int(11) DEFAULT '-1',
+  `hair_colour` int(11) DEFAULT '0',
+  `birthday` int(11) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -13102,7 +13092,7 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `name`, `room_type`, `date_created`, `owner_id`, `group_id`, `thumbnail`, `description`, `password`, `users_now`, `users_max`, `model`, `wallpaper`, `floor`, `outside`, `tags`, `trade_state`, `state`, `score`, `category`, `allow_pets`, `allow_pets_eat`, `allow_walkthrough`, `hidewall`, `wall_thickness`, `floor_thickness`, `chat_mode`, `chat_size`, `chat_speed`, `chat_flood`, `chat_distance`, `who_can_mute`, `who_can_kick`, `who_can_ban`) VALUES
-(5, 'Hotel Lobby', 1, '2017-03-20 20:15:27', -1, 0, 'thumbnails/picture1.png', '', '', 0, 25, 'model_n', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 100, 0, 0, 0),
+(5, 'Hotel Lobby', 1, '2017-03-20 20:15:27', -1, 0, 'thumbnails/picture1.png', '', '', 0, 25, 'model_n', '0', '0', '0.0', '', 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0),
 (6, 'Chill Lounge', 1, '2017-03-20 20:19:36', -1, 0, 'thumbnails/picture2.png', '', '', 0, 25, 'dynamic_model_6', '0', '401', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 100, 0, 0, 0),
 (9, 'The Living Room', 0, '2017-03-22 04:28:10', 5, 0, NULL, '', '', 0, 30, 'model_b', '101', '207', '1.4', '', 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
 (14, 'test1337', 0, '2017-05-11 18:43:04', 2, 0, NULL, '', '', 0, 15, 'dynamic_model_14', '0', '0', '0', '', 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
@@ -13454,7 +13444,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `rank`, `join_date`, `last_online`, `sso_ticket`, `email`, `mission`, `gender`, `figure`, `credits`) VALUES
 (2, 'MemeMaster', NULL, 7, 44324323, 1490046606, '123', NULL, 'eating more cake, k?', 'M', 'ch-210-66.hr-100-0.sh-290-80.hd-180-7.lg-270-82', 370),
-(5, 'Alex', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 7, 1489384512, 1491544401, 'sso-icarus-WRfhMar4A0-pV6wQ2-wWEx0O27JY', 'we3rejfpef3@cefc.com', 'Icarus alpha tester', 'M', 'lg-270-90.cc-3075-90.ch-3030-1408.sh-290-64.hr-3260-45.ca-3187-79.ha-3291-73.hd-209-1', 4995);
+(5, 'Alex', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 7, 1489384512, 1491544401, 'sso-icarus-PETgCBnkjW-Yms9zq-2GTCyJwf6s', 'we3rejfpef3@cefc.com', 'Icarus alpha tester', 'M', 'lg-270-90.cc-3075-90.ch-3030-1408.sh-290-64.hr-3260-45.ca-3187-79.ha-3291-73.hd-209-1', 4995);
 
 -- --------------------------------------------------------
 
@@ -13556,6 +13546,12 @@ ALTER TABLE `navigator_categories`
 -- Indexes for table `navigator_tabs`
 --
 ALTER TABLE `navigator_tabs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pet_data`
+--
+ALTER TABLE `pet_data`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -13665,7 +13661,7 @@ ALTER TABLE `furniture`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 --
 -- AUTO_INCREMENT for table `messenger_friendships`
 --
@@ -13691,6 +13687,11 @@ ALTER TABLE `navigator_categories`
 --
 ALTER TABLE `navigator_tabs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT for table `pet_data`
+--
+ALTER TABLE `pet_data`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `rooms`
 --

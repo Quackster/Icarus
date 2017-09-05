@@ -13,10 +13,6 @@ public class InventoryLoadMessageComposer extends MessageComposer {
     private List<Item> wallItems;
     private List<Item> floorItems;
 
-    public InventoryLoadMessageComposer(Player player) {
-        this(player.getInventory().getWallItems(), player.getInventory().getFloorItems());
-    }
-
     public InventoryLoadMessageComposer(List<Item> wallItems, List<Item> floorItems) {
         this.wallItems = wallItems;
         this.floorItems = floorItems;

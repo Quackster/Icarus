@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.log.Log;
 
 import com.google.common.collect.Maps;
@@ -110,10 +111,47 @@ public class InventoryDao {
 
         return item;
     }
+    
+	public static Map<Integer, Pet> getInventoryPets(int id) {
 
+        Map<Integer, Pet> items = Maps.newHashMap();
+        
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            sqlConnection = Dao.getStorage().getConnection();
+            
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM pet_data WHERE room_id = 0 AND owner_id = ?", sqlConnection);
+            preparedStatement.setInt(1, id);
+            
+            resultSet = preparedStatement.executeQuery();
+    
+            while (resultSet.next()) {
+                
+            	items.put(resultSet.getInt("id"), PetDao.fill(resultSet));
+            	
+            	//items.put(resultSet.getInt("id"), fill(resultSet));
+            }
+
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+        
+        return items;
+	}
+	
     public static Item fill(ResultSet row) throws Exception {
         Item instance = new Item(row.getLong("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
         return instance;
     }
+
+
 
 }

@@ -7,16 +7,20 @@ import java.util.stream.Collectors;
 import org.alexdev.icarus.dao.mysql.InventoryDao;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
+import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.outgoing.item.FurniListNotificationComposer;
 import org.alexdev.icarus.messages.outgoing.item.InventoryLoadMessageComposer;
 import org.alexdev.icarus.messages.outgoing.item.RemoveInventoryItemComposer;
 import org.alexdev.icarus.messages.outgoing.item.UpdateInventoryMessageComposer;
+import org.alexdev.icarus.messages.outgoing.pets.PetInventoryMessageComposer;
 
 public class Inventory {
 
     private boolean initalised;
     private Player player;
+    
+    private Map<Integer, Pet> pets;
     private Map<Integer, Item> items;
 
     public Inventory(Player player) {
@@ -27,6 +31,7 @@ public class Inventory {
     public void init() {
         if (!this.initalised) {
             this.items = InventoryDao.getInventoryItems(this.player.getDetails().getId());
+            this.pets = InventoryDao.getInventoryPets(this.player.getDetails().getId());
             this.initalised = true;
         }
     }
@@ -40,10 +45,25 @@ public class Inventory {
         this.items.remove(item.getId());
         this.player.send(new RemoveInventoryItemComposer(item.getId()));
     }
-
-    public void update() {
+    
+    public void addPet(Pet pet) {
+        this.pets.put(pet.getId(), pet);
+        this.player.send(new FurniListNotificationComposer(pet.getId(), 3));
+    }
+    
+    public void remove(Pet pet) {
+        this.pets.remove(pet.getId());
+        this.player.send(new RemoveInventoryItemComposer(pet.getId()));
+    }
+    
+    public void updateItems() {
         this.player.send(new UpdateInventoryMessageComposer());
-        this.player.send(new InventoryLoadMessageComposer(this.player));
+        this.player.send(new InventoryLoadMessageComposer(this.getWallItems(), this.getFloorItems()));
+    }
+    
+    public void updatePets() {
+    	this.player.send(new UpdateInventoryMessageComposer());
+    	this.player.send(new PetInventoryMessageComposer(this.pets));
     }
 
     public Item getItem(int id) {
@@ -54,8 +74,6 @@ public class Inventory {
 
         return null;
     }
-
-
 
     public void dispose() {
 
@@ -73,7 +91,7 @@ public class Inventory {
         this.initalised = initalised;
     }
 
-    public Map<Integer, Item> getItsems() {
+    public Map<Integer, Item> getItems() {
         return items;
     }
 
@@ -81,7 +99,11 @@ public class Inventory {
         return items.values().stream().filter(item -> item != null && item.getType() == ItemType.FLOOR).collect(Collectors.toList());
     }
 
-    public List<Item> getWallItems() {
+    public Map<Integer, Pet> getPets() {
+		return pets;
+	}
+
+	public List<Item> getWallItems() {
         return items.values().stream().filter(item -> item != null && item.getType() == ItemType.WALL).collect(Collectors.toList());
     }
 }

@@ -4,6 +4,7 @@ import org.alexdev.icarus.game.inventory.Inventory;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.item.InventoryLoadMessageComposer;
+import org.alexdev.icarus.messages.outgoing.pets.PetInventoryMessageComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class InventoryMessageEvent implements MessageEvent {
@@ -18,6 +19,7 @@ public class InventoryMessageEvent implements MessageEvent {
         }
         
         player.send(new InventoryLoadMessageComposer(inventory.getWallItems(), inventory.getFloorItems()));
+        player.send(new PetInventoryMessageComposer(inventory.getPets()));
     }
 
 }

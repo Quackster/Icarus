@@ -3,134 +3,169 @@ package org.alexdev.icarus.messages.incoming.catalogue;
 import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.InventoryDao;
+import org.alexdev.icarus.dao.mysql.PetDao;
 import org.alexdev.icarus.game.catalogue.CatalogueBundledItem;
 import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.catalogue.CataloguePage;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.club.ClubManager;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseErrorMessageComposer;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessageComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
+import org.alexdev.icarus.util.Util;
 
 import com.google.common.collect.Lists;
 
 public class PurchaseItemMessageEvent implements MessageEvent {
 
-    @Override
-    public void handle(Player player, ClientMessage request) {
+	@Override
+	public void handle(Player player, ClientMessage request) {
 
-        int pageId = request.readInt();
-        int itemId = request.readInt();
-        String extraData = request.readString();
-        int amount = request.readInt();
+		int pageId = request.readInt();
+		int itemId = request.readInt();
+		String extraData = request.readString();
 
-        CataloguePage page = CatalogueManager.getPage(pageId);
+		CataloguePage page = CatalogueManager.getPage(pageId);
 
-        if (page.getMinRank() > player.getDetails().getRank()) {
+		if (page.getMinRank() > player.getDetails().getRank()) {
+			return;
+		}
+
+		CatalogueItem item = page.getItem(itemId);
+
+		if (item.getDisplayName().startsWith("a0 pet")) {
+
+			this.purchasePet(player, item, extraData);
+			
+			
+			
+		} else {
+			this.purchase(player, item, extraData, request);
+		}
+		
+		player.getInventory().updateItems();
+	}
+
+	private void purchasePet(Player player, CatalogueItem item, String extraData) {
+		
+		String[] petData = extraData.split("\n"); // name (String), race (int) and colour (int)
+		String petType = item.getDisplayName().replace("a0 pet", "");
+
+        if (petData.length != 3) {
             return;
         }
 
-        CatalogueItem item = page.getItem(itemId);
+        String petName = petData[0];
+        int type = Integer.valueOf(petType);
+        int race = Integer.valueOf(petData[1]);
+        String colour = petData[2];
+        
+        int petId = PetDao.createPet(player.getDetails().getId(), petData[0], type, race, colour);
+        Pet pet = new Pet(petId, petName, Pet.DEFAULT_LEVEL, Pet.DEFAULT_HAPPINESS, Pet.DEFAULT_EXPERIENCE, Pet.DEFAULT_ENERGY, player.getDetails().getId(), colour, race, type, false, -1, 0, false, (int)Util.getCurrentTimeSeconds());
+        
+        player.getInventory().addPet(pet);
+        player.getInventory().updatePets();
+        
+	}
 
-        this.purchase(player, item, extraData, amount);
+	private void purchase(Player player, CatalogueItem item, String extraData, ClientMessage request) {
 
-        player.getInventory().update();
-    }
+		int amount = request.readInt();
 
-    private void purchase(Player player, CatalogueItem item, String extraData, int amount) {
+		if (amount > 100) {
+			amount = 1;
+		}
 
-        if (amount > 100) {
-            amount = 1;
-        }
+		if (amount > 1 && !item.allowOffer()) {
+			//client.send(new AlertMessageComposer(Locale.get("catalog.error.nooffer")));
 
-        if (amount > 1 && !item.allowOffer()) {
-            //client.send(new AlertMessageComposer(Locale.get("catalog.error.nooffer")));
+			return;
+		}
 
-            return;
-        }
+		int totalCostCredits;
+		// int totalCostPoints;
+		// int totalCostActivityPoints;
 
-        int totalCostCredits;
-        // int totalCostPoints;
-        // int totalCostActivityPoints;
+		if (item.getLimitedSells() >= item.getLimitedTotal() && item.getLimitedTotal() != 0) {
+			// client.send(new LimitedEditionSoldOutMessageComposer());
+			// TODO: Fix this.
+			return;
+		}
 
-        if (item.getLimitedSells() >= item.getLimitedTotal() && item.getLimitedTotal() != 0) {
-            // client.send(new LimitedEditionSoldOutMessageComposer());
-            // TODO: Fix this.
-            return;
-        }
+		if (item.allowOffer()) {
+			totalCostCredits = amount > 1 ? ((item.getCostCredits() * amount) - ((int) Math.floor((double) amount / 6) * item.getCostCredits())) : item.getCostCredits();
+			//totalCostPoints = amount > 1 ? ((item.getCostOther() * amount) - ((int) Math.floor((double) amount / 6) * item.getCostOther())) : item.getCostOther();
+			//totalCostActivityPoints = amount > 1 ? ((item.getCostPixels() * amount) - ((int) Math.floor((double) amount / 6) * item.getCostPixels())) : item.getCostPixels();
+		} else {
+			totalCostCredits = item.getCostCredits();
+			//totalCostPoints = item.getCostOther();
+			//totalCostActivityPoints = item.getCostPixels();
+		}
 
-        if (item.allowOffer()) {
-            totalCostCredits = amount > 1 ? ((item.getCostCredits() * amount) - ((int) Math.floor((double) amount / 6) * item.getCostCredits())) : item.getCostCredits();
-            //totalCostPoints = amount > 1 ? ((item.getCostOther() * amount) - ((int) Math.floor((double) amount / 6) * item.getCostOther())) : item.getCostOther();
-            //totalCostActivityPoints = amount > 1 ? ((item.getCostPixels() * amount) - ((int) Math.floor((double) amount / 6) * item.getCostPixels())) : item.getCostPixels();
-        } else {
-            totalCostCredits = item.getCostCredits();
-            //totalCostPoints = item.getCostOther();
-            //totalCostActivityPoints = item.getCostPixels();
-        }
+		boolean creditsError = false;
 
-        boolean creditsError = false;
+		if (player.getDetails().getCredits() < totalCostCredits) {
+			player.send(new PurchaseErrorMessageComposer(creditsError, false));
+			return;
+		}
 
-        if (player.getDetails().getCredits() < totalCostCredits) {
-            player.send(new PurchaseErrorMessageComposer(creditsError, false));
-            return;
-        }
+		if (item.getCostCredits() > 0) {
+			player.getDetails().setCredits(player.getDetails().getCredits() - totalCostCredits);
+			player.getDetails().sendCredits();
+		}
 
-        if (item.getCostCredits() > 0) {
-            player.getDetails().setCredits(player.getDetails().getCredits() - totalCostCredits);
-            player.getDetails().sendCredits();
-        }
+		for (CatalogueBundledItem bundleItem : item.getItems()) {
 
-        for (CatalogueBundledItem bundleItem : item.getItems()) {
+			if (bundleItem.getCatalogueItem().getDisplayName().startsWith("DEAL_HC_")) {
+				ClubManager.handlePurchase(player, bundleItem, amount);
+				return;
+			}
 
-            if (bundleItem.getCatalogueItem().getDisplayName().startsWith("DEAL_HC_")) {
-                ClubManager.handlePurchase(player, bundleItem, amount);
-                return;
-            }
-            
-            List<Item> bought = Lists.newArrayList();
+			List<Item> bought = Lists.newArrayList();
 
-            for (int i = 0; i < amount; i++) {
+			for (int i = 0; i < amount; i++) {
 
-            	
-                Item inventoryItem = InventoryDao.newItem(bundleItem.getItemDefinition().getId(), player.getDetails().getId(), extraData);
-                bought.add(inventoryItem);
-                
-                if (inventoryItem.getDefinition().getInteractionType() == InteractionType.JUKEBOX) {
-                    inventoryItem.setExtraData("0");
-                }
 
-                if (inventoryItem.getDefinition().getInteractionType() == InteractionType.GATE) {
-                    inventoryItem.setExtraData("0");
-                }
+				Item inventoryItem = InventoryDao.newItem(bundleItem.getItemDefinition().getId(), player.getDetails().getId(), extraData);
+				bought.add(inventoryItem);
 
-                if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
-                    
-                    Item secondTeleporter = InventoryDao.newItem(bundleItem.getItemDefinition().getId(), player.getDetails().getId(), extraData);
-                    
-                    inventoryItem.setExtraData(String.valueOf(secondTeleporter.getId()));
-                    secondTeleporter.setExtraData(String.valueOf(inventoryItem.getId()));
-                    
-                    bought.add(inventoryItem);
-                    bought.add(secondTeleporter);
-                    
-                    player.getInventory().addItem(secondTeleporter);
-                    
-                    inventoryItem.save();
-                    secondTeleporter.save();
-                    
-                }
+				if (inventoryItem.getDefinition().getInteractionType() == InteractionType.JUKEBOX) {
+					inventoryItem.setExtraData("0");
+				}
 
-                player.getInventory().addItem(inventoryItem);
-            }
+				if (inventoryItem.getDefinition().getInteractionType() == InteractionType.GATE) {
+					inventoryItem.setExtraData("0");
+				}
 
-            player.send(new PurchaseNotificationMessageComposer(bundleItem));
+				if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
 
-        }
-    }
+					Item secondTeleporter = InventoryDao.newItem(bundleItem.getItemDefinition().getId(), player.getDetails().getId(), extraData);
+
+					inventoryItem.setExtraData(String.valueOf(secondTeleporter.getId()));
+					secondTeleporter.setExtraData(String.valueOf(inventoryItem.getId()));
+
+					bought.add(inventoryItem);
+					bought.add(secondTeleporter);
+
+					player.getInventory().addItem(secondTeleporter);
+
+					inventoryItem.save();
+					secondTeleporter.save();
+
+				}
+
+				player.getInventory().addItem(inventoryItem);
+			}
+
+			player.send(new PurchaseNotificationMessageComposer(bundleItem));
+
+		}
+	}
 
 }

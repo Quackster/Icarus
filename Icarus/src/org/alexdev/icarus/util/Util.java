@@ -112,4 +112,9 @@ public class Util {
 		return decimalFormatter;
 	}
 
+	public static boolean isAlphaNumeric(String petName) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 }

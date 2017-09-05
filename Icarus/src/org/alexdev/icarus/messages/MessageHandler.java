@@ -17,6 +17,7 @@ import org.alexdev.icarus.messages.incoming.messenger.*;
 import org.alexdev.icarus.messages.incoming.misc.*;
 import org.alexdev.icarus.messages.incoming.navigator.*;
 import org.alexdev.icarus.messages.incoming.pets.PetRacesMessageEvent;
+import org.alexdev.icarus.messages.incoming.pets.VerifyPetNameMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.*;
 import org.alexdev.icarus.messages.incoming.room.floorplan.FloorPlanPropertiesMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.floorplan.SaveFloorPlanMessageEvent;
@@ -140,6 +141,7 @@ public class MessageHandler {
     
     private void registerPetPackets() {
         this.registerEvent(Incoming.PetRacesMessageEvent, new PetRacesMessageEvent());
+        this.registerEvent(Incoming.VerifyPetNameMessageEvent, new VerifyPetNameMessageEvent());
     }
     
     private void registerItemPackets() {

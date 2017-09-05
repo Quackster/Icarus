@@ -74,7 +74,7 @@ public class PlaceItemMessageEvent implements MessageEvent {
 		room.getMapping().addItem(item);
 
 		player.getInventory().remove(item);
-		player.getInventory().update();
+		player.getInventory().updateItems();
 
 		if (item.getType() == ItemType.FLOOR) {
 			PluginManager.callEvent(PluginEvent.PLACE_FLOOR_ITEM_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
