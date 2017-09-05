@@ -28,7 +28,7 @@ function createBot(room)
 	room:addEntity(bot)
 	
 	local startPosition = room:getModel():getDoorLocation():getSquareInFront()
-	bot:getRoomUser():warpTo(squareInFront:getX(), squareInFront:getY())
+	bot:getRoomUser():warpTo(startPosition:getX(), squareInFront:getY())
 
 	return bot
 end

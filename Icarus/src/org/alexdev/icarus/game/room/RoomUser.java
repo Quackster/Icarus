@@ -414,7 +414,7 @@ public class RoomUser {
 		this.position = position;
 	}
 
-	public Position getGoal() {
+	public Position getWalkingGoal() {
 		return goal;
 	}
 

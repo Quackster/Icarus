@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.game.entity.Entity;
+import org.alexdev.icarus.game.pathfinder.Pathfinder;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomTask;
@@ -30,7 +31,7 @@ public class MovementTask  extends RoomTask {
                 return;
             }
 
-            List<Entity> update_entities = new ArrayList<Entity>();
+            List<Entity> entitiesToUpdate = new ArrayList<Entity>();
             List<Entity> entities = this.room.getEntities();
 
             for (int i = 0; i < entities.size(); i++) {
@@ -45,14 +46,14 @@ public class MovementTask  extends RoomTask {
                         RoomUser roomEntity = entity.getRoomUser();
 
                         if (roomEntity.needsUpdate()) {
-                            update_entities.add(entity);
+                            entitiesToUpdate.add(entity);
                         }
                     }
                 }
             }
 
-            if (update_entities.size() > 0) {
-                room.send(new UserStatusMessageComposer(update_entities));
+            if (entitiesToUpdate.size() > 0) {
+                room.send(new UserStatusMessageComposer(entitiesToUpdate));
             }
 
         } catch (Exception e) {
@@ -70,7 +71,8 @@ public class MovementTask  extends RoomTask {
                 Position next = roomEntity.getPath().pop();
                 
                 if (!roomEntity.getRoom().getMapping().isTileWalkable(entity, next.getX(), next.getY())) {
-                    roomEntity.stopWalking();
+                    roomEntity.walkTo(roomEntity.getWalkingGoal().getX(), roomEntity.getWalkingGoal().getY());
+                    this.processEntity(entity);
                     return;
                 }
                 
