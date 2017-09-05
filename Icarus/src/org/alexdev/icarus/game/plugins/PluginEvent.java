@@ -27,7 +27,7 @@ public enum PluginEvent {
 	
 	private String functionName;
 	
-	private PluginEvent(String functionName) {
+	PluginEvent(String functionName) {
 		this.functionName = functionName;
 	}
 	

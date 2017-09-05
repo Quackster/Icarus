@@ -2,6 +2,7 @@ package org.alexdev.icarus.game.furniture.interactions.types;
 
 import java.util.List;
 
+import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.furniture.interactions.Interaction;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
@@ -21,9 +22,9 @@ public class BedInteractor implements Interaction {
         if (isValidPillowTile(item, roomUser.getPosition())) {
 
             roomUser.getPosition().setRotation(item.getPosition().getRotation());
-            roomUser.removeStatus("dance");
-            roomUser.removeStatus("lay");
-            roomUser.setStatus("lay", " 1.5", true, -1);
+            roomUser.removeStatus(EntityStatus.DANCE);
+            roomUser.removeStatus(EntityStatus.LAY);
+            roomUser.setStatus(EntityStatus.LAY, "1.5");
             
         } else {
 

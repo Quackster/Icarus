@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.furniture.interactions.types;
 
+import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.furniture.interactions.Interaction;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.room.RoomUser;
@@ -29,7 +30,7 @@ public class DefaultInteractor implements Interaction {
     public void onStopWalking(Item item, RoomUser roomUser) {
         
         if (item.getDefinition().allowSit()) {
-            roomUser.setStatus("sit", " 1.0", true, -1);
+            roomUser.setStatus(EntityStatus.SIT, "1.0");
             roomUser.getPosition().setRotation(item.getPosition().getRotation());
         }
     }

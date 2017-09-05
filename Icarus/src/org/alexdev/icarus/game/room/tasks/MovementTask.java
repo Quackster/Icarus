@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.game.entity.Entity;
+import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.pathfinder.Pathfinder;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.game.room.RoomTask;
 import org.alexdev.icarus.game.room.RoomUser;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.model.Rotation;
@@ -71,6 +71,8 @@ public class MovementTask  extends RoomTask {
                 Position next = roomEntity.getPath().pop();
                 
                 if (!roomEntity.getRoom().getMapping().isTileWalkable(entity, next.getX(), next.getY())) {
+                	
+                	// Invalid tile so lets try again
                     roomEntity.walkTo(roomEntity.getWalkingGoal().getX(), roomEntity.getWalkingGoal().getY());
                     this.processEntity(entity);
                     return;
@@ -82,23 +84,22 @@ public class MovementTask  extends RoomTask {
                 RoomTile previousTile = roomEntity.getRoom().getMapping().getTile(roomEntity.getPosition().getX(), roomEntity.getPosition().getY());
                 previousTile.setEntity(null);
 
-                roomEntity.removeStatus("lay");
-                roomEntity.removeStatus("sit");
+                roomEntity.removeStatus(EntityStatus.LAY);
+                roomEntity.removeStatus(EntityStatus.SIT);
 
                 int rotation = Rotation.calculate(roomEntity.getPosition().getX(), roomEntity.getPosition().getY(), next.getX(), next.getY());
                 double height = this.room.getMapping().getTile(next.getX(), next.getY()).getHeight();
                           
                 roomEntity.getPosition().setRotation(rotation);
-                roomEntity.setStatus("mv", " " + next.getX() + "," + next.getY() + "," + Util.getDecimalFormatter().format(height), true, -1);
+                roomEntity.setStatus(EntityStatus.MOVE, next.getX() + "," + next.getY() + "," + Util.getDecimalFormatter().format(height));
                 
                 roomEntity.setNext(next);
-                roomEntity.setNeedUpdate(true);
-                
             }
             else {
-                roomEntity.setNext(null);
-                roomEntity.setNeedUpdate(true);
+            	roomEntity.setNext(null);
             }
+            
+            roomEntity.setNeedUpdate(true);
         }
     }
 }

@@ -1,6 +1,7 @@
 package org.alexdev.icarus.game.commands.types;
 
 import org.alexdev.icarus.game.commands.Command;
+import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.RoomUser;
 
@@ -17,7 +18,7 @@ public class SitCommand implements Command {
 				return;
 			}
 			
-			if (roomUser.containsStatus("sit")) {
+			if (roomUser.containsStatus(EntityStatus.SIT)) {
 				return;
 			}
 			
@@ -27,10 +28,9 @@ public class SitCommand implements Command {
 				return;
 			}
 			
-			roomUser.removeStatus("dance");
-			
-	
-			roomUser.setStatus("sit", " 0", true, -1);
+			roomUser.removeStatus(EntityStatus.DANCE);
+
+			roomUser.setStatus(EntityStatus.SIT, "0");
 			roomUser.setNeedUpdate(true);
 		}
 		

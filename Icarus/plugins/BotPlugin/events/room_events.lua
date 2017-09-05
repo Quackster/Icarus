@@ -28,14 +28,16 @@ function createBot(room)
 	room:addEntity(bot)
 	
 	local startPosition = room:getModel():getDoorLocation():getSquareInFront()
-	bot:getRoomUser():warpTo(startPosition:getX(), squareInFront:getY())
+	bot:getRoomUser():warpTo(startPosition:getX(), startPosition:getY())
 
 	return bot
 end
 
 function randomWalkEntity(entity)
 
-	if entity:isDisposed() then 
+	if entity:isDisposed() then
+		log:println("entity removed")
+		-- entity:getRoomUser():getRoom():removeEntity(entity)
 		do return end
 	end
 

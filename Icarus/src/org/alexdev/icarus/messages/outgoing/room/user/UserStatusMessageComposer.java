@@ -2,9 +2,11 @@ package org.alexdev.icarus.messages.outgoing.room.user;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.alexdev.icarus.game.entity.Entity;
+import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.MessageComposer;
@@ -62,13 +64,23 @@ public class UserStatusMessageComposer extends MessageComposer {
                 response.writeInt(entity.getRoomUser().getPosition().getHeadRotation());
                 response.writeInt(entity.getRoomUser().getPosition().getBodyRotation());
 
-                String status = "/";
+                StringBuilder statusString = new StringBuilder();
+                statusString.append("/");
 
-                for (Entry<String, String> set : entity.getRoomUser().getStatuses().entrySet()) {
-                    status += set.getKey() + set.getValue() + "/";
+                for (Entry<EntityStatus, String> status : entity.getRoomUser().getStatuses().entrySet()) {
+
+                    statusString.append(status.getKey().getStatusCode());
+
+                    if (!status.getValue().isEmpty()) {
+                        statusString.append(" ");
+                        statusString.append(status.getValue());
+                    }
+
+                    statusString.append("/");
                 }
 
-                response.writeString(status);
+                statusString.append("/");
+                response.writeString(statusString.toString());
                 
                 if (entity.getRoomUser().needsUpdate()) {
                     entity.getRoomUser().setNeedUpdate(false);

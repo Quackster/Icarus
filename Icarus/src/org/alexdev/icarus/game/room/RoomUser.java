@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.commands.CommandManager;
 import org.alexdev.icarus.game.entity.Entity;
+import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.furniture.interactions.Interaction;
 import org.alexdev.icarus.game.item.Item;
@@ -50,7 +51,7 @@ public class RoomUser {
 	private int chatCount;
 	private int lookResetTime;
 
-	private HashMap<String, String> statuses;
+	private HashMap<EntityStatus, String> statuses;
 	private LinkedList<Position> path;
 	private Entity entity;
 	private Room room;
@@ -67,7 +68,7 @@ public class RoomUser {
 
 	public void stopWalking() {
 
-		this.removeStatus("mv");
+		this.removeStatus(EntityStatus.MOVE);
 
 		this.next = null;
 		this.isWalking = false;
@@ -113,8 +114,8 @@ public class RoomUser {
 	public void triggerCurrentItem() {
 
 		if (this.currentItem == null) {
-			this.removeStatus("sit");
-			this.removeStatus("lay");
+			this.removeStatus(EntityStatus.SIT);
+			this.removeStatus(EntityStatus.LAY);
 		} else {
 			Interaction handler = this.currentItem.getDefinition().getInteractionType().getHandler();
 
@@ -127,22 +128,21 @@ public class RoomUser {
 		this.needsUpdate = true;
 	}
 
-	public boolean containsStatus(String key) {
-		return this.statuses.containsKey(key);
+	public boolean containsStatus(EntityStatus status) {
+		return this.statuses.containsKey(status);
 	}
 
-	public void removeStatus(String key) {
-		this.statuses.remove(key);
+	public void removeStatus(EntityStatus status) {
+		this.statuses.remove(status);
 	}
 
+	public void setStatus(EntityStatus status, String value) {
 
-	public void setStatus(String key, String value, boolean infinite, int duration) {
-
-		if (this.containsStatus(key)) {
-			this.removeStatus(key);
+		if (this.containsStatus(status)) {
+			this.removeStatus(status);
 		}
 
-		this.statuses.put(key, value);
+		this.statuses.put(status, value);
 	}
 
 	public void chat(String message) {
@@ -151,14 +151,6 @@ public class RoomUser {
 
 	public void shout(String message) {
 		this.chat(message, this.lastChatId, 1, true, false, false);
-	}
-
-	public void chatSelf(String message) {
-		this.chat(message, this.lastChatId, 1, false, false, true);
-	}
-
-	public void shoutSelf(String message) {
-		this.chat(message, this.lastChatId, 1, true, false, true);
 	}
 
 	public void chat(String message, int bubble, int count, boolean shout, boolean spamCheck, boolean self) {
@@ -461,7 +453,7 @@ public class RoomUser {
 		this.danceId = danceId;
 	}
 
-	public HashMap<String, String> getStatuses() {
+	public HashMap<EntityStatus, String> getStatuses() {
 		return statuses;
 	}
 

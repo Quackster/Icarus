@@ -6,7 +6,6 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.game.room.RoomTask;
 import org.alexdev.icarus.game.room.RoomUser;
 
 public class PetTask extends RoomTask {

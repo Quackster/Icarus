@@ -1,4 +1,4 @@
-package org.alexdev.icarus.game.room;
+package org.alexdev.icarus.game.room.tasks;
 
 public abstract class RoomTask {
     

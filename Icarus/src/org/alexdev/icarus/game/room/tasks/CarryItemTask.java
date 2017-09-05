@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.game.room.RoomTask;
 import org.alexdev.icarus.game.room.RoomUser;
 
 public class CarryItemTask extends RoomTask {

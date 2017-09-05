@@ -10,6 +10,7 @@ import org.alexdev.icarus.dao.mysql.ItemDao;
 import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.entity.Entity;
+import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.furniture.interactions.types.TeleportInteractor;
 import org.alexdev.icarus.game.item.Item;
@@ -226,7 +227,7 @@ public class Room {
 		}
 
 		if (this.hasRights(player, false)) {
-			player.getRoomUser().setStatus("flatctrl", " 1", true, -1);
+			player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "1");
 		}        
 
 		player.send(new RoomDataMessageComposer(this, player, true, true));
