@@ -8,14 +8,13 @@
 			
 	return: Boolean - event cancelled state
 --]]
-function onRoomEnterEvent(player, room)
+function onRoomFirstEntryEvent(player, room)
 	log:println("Room enter event called")
 
-	for i = 0, 10 - 1 do
-		-- local bot = createBot(room)
-		
-		-- randomWalkEntity(bot)
-		-- randomDance(bot)
+	if room:getData():getId() == 5 then
+		local bot = createBot(room)
+		randomWalkEntity(bot)
+		randomDance(bot)
 	end
 	
 	return false
@@ -28,7 +27,7 @@ function createBot(room)
 	bot:getDetails():setMotto("")
 	room:addEntity(bot)
 	
-	local squareInFront = room:getModel():getDoorLocation():getSquareInFront()
+	local startPosition = room:getModel():getDoorLocation():getSquareInFront()
 	bot:getRoomUser():warpTo(squareInFront:getX(), squareInFront:getY())
 
 	return bot

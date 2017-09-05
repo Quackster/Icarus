@@ -11,6 +11,7 @@ public enum PluginEvent {
 	
 	// Room events
 	ROOM_REQUEST_ENTER_EVENT("onRoomRequestEvent"),
+	ROOM_FIRST_ENTRY_EVENT("onRoomFirstEntryEvent"),
 	ROOM_ENTER_EVENT("onRoomEnterEvent"),
 	ROOM_LEAVE_EVENT("onRoomLeaveEvent"),
 	ROOM_PLAYER_CHAT_EVENT("onPlayerChatEvent"),

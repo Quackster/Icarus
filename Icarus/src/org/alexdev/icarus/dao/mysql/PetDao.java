@@ -61,7 +61,7 @@ public class PetDao {
         try {
             sqlConnection = Dao.getStorage().getConnection();
 
-            preparedStatement = Dao.getStorage().prepare("INSERT INTO `pet_data` (`owner_id`, `pet_name`, `type`, `race_id`, `colour`, `scratches`, `level`, `happiness`, `experience`, `energy`, `birthday`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("INSERT INTO pet_data (owner_id, pet_name, type, race_id, colour, scratches, level, happiness, experience, energy, birthday) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", sqlConnection);
 
             preparedStatement.setInt(1, ownerId);
             preparedStatement.setString(2, petName);

@@ -5,7 +5,7 @@ plugin_details = {
 }
 
 event_register = {
-	"ROOM_ENTER_EVENT"
+	"ROOM_FIRST_ENTRY_EVENT"
 }
 
 event_files = {

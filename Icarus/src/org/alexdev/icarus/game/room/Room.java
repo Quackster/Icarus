@@ -190,6 +190,12 @@ public class Room {
 
 			this.scheduler = new RoomScheduler(this);
 			this.scheduler.scheduleTasks();
+			
+			boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_FIRST_ENTRY_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
+			
+			if (isCancelled) {
+				this.leaveRoom(player, true);
+			}
 		}
 	}
 	
