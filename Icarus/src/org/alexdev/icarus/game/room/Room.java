@@ -70,7 +70,7 @@ public class Room {
 
 
     public Room() {
-        
+
         this.data = new RoomData(this);
         this.mapping = new RoomMapping(this);
 
@@ -84,12 +84,12 @@ public class Room {
             Log.println("The specified room model (" + this.data.getModel() + ") does not exist.");
             return;
         }
-        
+
         if (this.getModel().getDoorLocation() == null) {
             Log.println("Failed to load door configuration.");
             return;
         }
-        
+
         this.loadRoom(player, pass, 
                 this.getModel().getDoorLocation().getX(), 
                 this.getModel().getDoorLocation().getY(), 
@@ -103,11 +103,13 @@ public class Room {
         }
 
         boolean isOwner = this.hasRights(player, true);
-    
+
         if (this.data.getUsersNow() >= this.data.getUsersMax()) {
-            if (!player.getDetails().hasFuse("user_enter_full_rooms") && player.getDetails().getId() != this.data.getOwnerId()) {
-                player.send(new RoomEnterErrorMessageComposer(1));
-                return;
+            if (!player.hasPermission("user_enter_full_rooms")) {
+                if (player.getDetails().getId() != this.data.getOwnerId()) {
+                    player.send(new RoomEnterErrorMessageComposer(1));
+                    return;
+                }
             }
         }
 
@@ -120,7 +122,7 @@ public class Room {
             }
         }
         else {
-            
+
             if (this.data.getState().getStateCode() > 0 && !this.hasRights(player, false)) {
                 if (this.data.getState() == RoomState.DOORBELL) {
 
@@ -168,7 +170,7 @@ public class Room {
         if (roomUser.getRoom().hasRights(player, true)) {
             player.send(new RoomRightsLevelMessageComposer(4));
             player.send(new HasOwnerRightsMessageComposer());
-            
+
         } else if (roomUser.getRoom().hasRights(player, false)) {
             player.send(new RoomRightsLevelMessageComposer(1));
 
@@ -177,7 +179,7 @@ public class Room {
         }
 
         player.send(new PrepareRoomMessageComposer(this));
-        
+
         roomUser.setVirtualId(this.privateId.incrementAndGet());
         roomUser.getPosition().setX(this.getModel().getDoorLocation().getX());
         roomUser.getPosition().setY(this.getModel().getDoorLocation().getY());
@@ -191,20 +193,20 @@ public class Room {
 
             this.scheduler = new RoomScheduler(this);
             this.scheduler.scheduleTasks();
-            
+
             boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_FIRST_ENTRY_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
-            
+
             if (isCancelled) {
                 this.leaveRoom(player, true);
             }
         }
     }
-    
+
     public void loadMapData(Player player) {
 
         player.send(new HeightMapMessageComposer(this));
         player.send(new FloorMapMessageComposer(this));
-        
+
         this.send(new UserDisplayMessageComposer(player));
         this.send(new UserStatusMessageComposer(player));
 
@@ -212,7 +214,7 @@ public class Room {
             this.getEntities().add(player);
             this.getData().updateUsersNow();
         }
-        
+
         player.send(new UserDisplayMessageComposer(this.getEntities()));
         player.send(new UserStatusMessageComposer(this.getEntities()));
 
@@ -238,80 +240,80 @@ public class Room {
         player.send(new RoomPromotionMessageComposer(this));
 
         this.fixFlashingTeleporters();
-        
+
         player.send(new FloorItemsMessageComposer(this.getFloorItems()));
         player.send(new WallItemsMessageComposer(this.getWallItems()));
 
         player.getMessenger().sendStatus(false);
 
         boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_ENTER_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
-        
+
         if (isCancelled) {
             this.leaveRoom(player, true);
         }
     }
 
     public void leaveRoom(Player player, boolean hotelView) {
-        
+
         if (hotelView) {;
-            player.send(new HotelViewMessageComposer());
+        player.send(new HotelViewMessageComposer());
         }
-        
+
         PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
-        
+
         // Generic removal of entity
         this.removeEntity(player);
-        
+
         // Tell friends that you're no longer in a room
         player.getMessenger().sendStatus(false);
-        
+
     }
-    
+
     public void addEntity(Entity entity) {
         this.addEntity(entity, this.getModel().getDoorLocation().getX(), this.getModel().getDoorLocation().getY(), this.getModel().getDoorLocation().getRotation());
     }
 
 
     public void addEntity(Entity entity, int x, int y, int rotation) {
-        
+
         if (entity.getType() == EntityType.PLAYER) {
             return;
         }
-        
+
         RoomUser roomUser = entity.getRoomUser();
-        
+
         roomUser.setRoom(this);
         roomUser.setVirtualId(this.privateId.incrementAndGet());
         roomUser.getPosition().setX(x);
         roomUser.getPosition().setY(y);
         roomUser.getPosition().setZ(this.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
         roomUser.getPosition().setRotation(rotation);
-        
+
         this.send(new UserDisplayMessageComposer(entity));
         this.send(new UserStatusMessageComposer(entity));
 
         if (!this.getEntities().contains(entity)) {
             this.getEntities().add(entity);
         }
-        
+
         this.mapping.getTile(x, y).setEntity(entity);
     }
-    
+
     public void removeEntity(Entity entity) {
-        
+
         if (this.entities != null) {
             this.entities.remove(entity);
             this.data.updateUsersNow();
         }
-        
+
         if (this.getPlayers().size() > 0) {
             this.send(new RemoveUserMessageComposer(entity.getRoomUser().getVirtualId()));
         }
 
         entity.getRoomUser().dispose();
-        
+
         this.dispose(false);
-        
+
         if (entity.getType() != EntityType.PLAYER) {
             entity.dispose();
         }
@@ -368,9 +370,9 @@ public class Room {
         for (Item item : this.getItems(InteractionType.TELEPORT)) {
             item.setExtraData(TeleportInteractor.TELEPORTER_CLOSE);
         }
-        
+
     }
-    
+
     private void cleanupRoomData() {
 
         if (this.scheduler != null) {
@@ -378,15 +380,15 @@ public class Room {
         }
 
         if (this.entities != null) {
-            
+
             for (int i = 0; i < this.entities.size(); i++) {
                 Entity entity = this.entities.get(i);
-                
+
                 if (entity.getType() != EntityType.PLAYER) {
                     this.removeEntity(entity);
                 }
             }
-            
+
             this.entities.clear();
         }
 
@@ -435,30 +437,30 @@ public class Room {
     }
 
     public List<Item> getFloorItems() {
-        
+
         List<Item> floorItems = items.values().stream()
                 .filter(item -> item.getType() == ItemType.FLOOR)
                 .collect(Collectors.toList());
-        
+
         return floorItems;
     }
 
     public List<Item> getWallItems() {
-        
+
         List<Item> wallItems = items.values().stream()
                 .filter(item -> item.getType() == ItemType.WALL)
                 .collect(Collectors.toList());
-        
+
         return wallItems;
     }
 
     public List<Item> getItems(InteractionType interactionType) {
-        
+
         try {
             return items.values().stream()
                     .filter(item -> item.getDefinition().getInteractionType() == interactionType)
                     .collect(Collectors.toList());
-            
+
         } catch (Exception e) {
             return Lists.newArrayList();
         }
@@ -472,11 +474,11 @@ public class Room {
 
         return ItemDao.getItem(itemId);
     }
-    
+
     public Map<Integer, Item> getItems() {
         return this.items;
     }
-    
+
     public List<Entity> getEntities() {
         return entities;
     }
@@ -486,16 +488,16 @@ public class Room {
     }
 
     public RoomModel getModel() {
-        
+
         if (this.data.getModel().startsWith("dynamic_model")) {
-            
+
             if (this.model == null) {
                 this.model = RoomDao.getCustomModel(this.data.getId());
             }
-            
+
             return model;
         }
-        
+
         return RoomDao.getModel(this.data.getModel());
     }
 
@@ -514,21 +516,21 @@ public class Room {
     public void forwardRoom(Player user) {
         user.send(new RoomForwardComposer(this.data.getId()));
     }
-    
+
     public void createPromotion(String promotionName, String promotionDescription) {
         this.promotion = new RoomPromotion(this, promotionName, promotionDescription);
         RoomManager.addPromotedRoom(this.data.getId(), this);
     }
-    
+
     public void endPromotion() {
         this.promotion = null;
         RoomManager.removePromotedRoom(this.data.getId());
     }
-    
+
     public boolean hasPromotion() {
         return this.promotion != null;
     }
-    
+
     public RoomPromotion getPromotion() {
         return this.promotion;
     }

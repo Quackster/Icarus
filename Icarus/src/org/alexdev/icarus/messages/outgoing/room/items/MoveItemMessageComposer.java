@@ -1,7 +1,7 @@
 package org.alexdev.icarus.messages.outgoing.room.items;
 
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.ItemMetaDataUtil;
+import org.alexdev.icarus.game.item.ItemExtraDataUtil;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.MessageComposer;
@@ -28,7 +28,7 @@ public class MoveItemMessageComposer extends MessageComposer {
             this.response.writeString("" + Util.getDecimalFormatter().format(item.getPosition().getZ()));
             this.response.writeString("");
 
-            ItemMetaDataUtil.generateExtraData(item, response);
+            ItemExtraDataUtil.generateExtraData(item, response);
 
             this.response.writeInt(-1);
             this.response.writeInt(this.item.getDefinition().getInterationModes() > 0 ? 1 : 0);

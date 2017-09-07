@@ -1,5 +1,7 @@
 package org.alexdev.icarus.game.pets;
 
+import org.alexdev.icarus.dao.mysql.PetDao;
+import org.alexdev.icarus.dao.mysql.PlayerDao;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.player.PlayerDetails;
@@ -35,6 +37,7 @@ public class Pet extends Entity {
     
     private RoomUser roomUser;
     private PlayerDetails playerDetails;
+    private String ownerName;
     
     public Pet(int id, String name, int level, int happiness, int experience, int energy, int ownerId, String colour, int raceId, int typeId, boolean saddled, int hair, int hairDye, boolean anyRider, int birthday) {
         this.id = id;
@@ -44,6 +47,7 @@ public class Pet extends Entity {
         this.experience = experience;
         this.energy = energy;
         this.ownerId = ownerId;
+        this.ownerName = PlayerDao.getName(id);
         this.colour = colour;
         this.raceId = raceId;
         this.typeId = typeId;
@@ -210,8 +214,7 @@ public class Pet extends Entity {
     }
 
     public String getOwnerName() {
-        // TODO Auto-generated method stub
-        return "";
+        return this.ownerName;
     }
 
     public Boolean isRidingHorse() {

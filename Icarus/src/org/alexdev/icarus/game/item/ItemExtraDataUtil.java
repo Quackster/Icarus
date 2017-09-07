@@ -2,7 +2,7 @@ package org.alexdev.icarus.game.item;
 
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class ItemMetaDataUtil {
+public class ItemExtraDataUtil {
 
     public static void generateExtraData(Item item, Response response) {
         response.writeInt(1);

@@ -3,7 +3,7 @@ package org.alexdev.icarus.messages.outgoing.room.items;
 import java.util.List;
 
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.ItemMetaDataUtil;
+import org.alexdev.icarus.game.item.ItemExtraDataUtil;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.MessageComposer;
 import org.alexdev.icarus.util.Util;
@@ -39,7 +39,7 @@ public class FloorItemsMessageComposer extends MessageComposer {
             response.writeString("" + Util.getDecimalFormatter().format(floorItem.getPosition().getZ()));
             response.writeString("");
   
-            ItemMetaDataUtil.generateExtraData(floorItem, this.response);
+            ItemExtraDataUtil.generateExtraData(floorItem, this.response);
 
             response.writeInt(-1);
             response.writeInt(floorItem.getDefinition().getInterationModes() > 0 ? 1 : 0);

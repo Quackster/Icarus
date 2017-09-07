@@ -437,15 +437,15 @@ public class RoomDao {
 
         RoomType type = RoomType.getType(row.getInt("room_type"));
 
-        PlayerDetails details = null;
+        String ownerName = "";
 
         if (type == RoomType.PRIVATE) {
-            details = PlayerDao.getDetails(row.getInt("owner_id"));
+            ownerName = PlayerDao.getName(row.getInt("owner_id"));
         }
 
         Room instance = new Room();
 
-        instance.getData().fill(row.getInt("id"), type, details == null ? 0 : details.getId(), details == null ? "" : details.getName(), row.getString("name"), 
+        instance.getData().fill(row.getInt("id"), type, row.getInt("owner_id"), ownerName, row.getString("name"), 
                 row.getInt("state"), row.getString("password"), row.getInt("users_now"),
                 row.getInt("users_max"), row.getString("description"), row.getInt("trade_state"), row.getInt("score"), row.getInt("category"), 
                 row.getInt("category"), row.getString("model"), row.getString("wallpaper"), row.getString("floor"), row.getString("outside"), 

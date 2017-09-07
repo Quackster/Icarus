@@ -12,9 +12,11 @@ function onRoomFirstEntryEvent(player, room)
 	log:println("Room enter event called")
 
 	if room:getData():getId() == 5 then
-		local bot = createBot(room)
-		randomWalkEntity(bot)
-		randomDance(bot)
+        for i = 0, 1000 - 1 do    
+            local bot = createBot(room)
+            randomWalkEntity(bot)
+            randomDance(bot)
+        end
 	end
 	
 	return false
@@ -28,7 +30,7 @@ function createBot(room)
 	bot:getDetails():setFigure("lg-285-64.hr-831-61.hd-180-7.ea-3170-63.ch-3077-1408-90.sh-3089-1335")
 	room:addEntity(bot)
 	
-	local startPosition = room:getModel():getDoorLocation():getSquareInFront()
+	local startPosition = room:getMapping():getRandomWalkableTile()
 	bot:getRoomUser():warpTo(startPosition:getX(), startPosition:getY())
 
 	return bot

@@ -2,6 +2,7 @@ package org.alexdev.icarus.game.player;
 
 import org.alexdev.icarus.dao.mysql.PlayerDao;
 import org.alexdev.icarus.game.entity.Entity;
+import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.messages.outgoing.user.CreditsMessageComposer;
 import org.alexdev.icarus.util.Util;
 
@@ -14,17 +15,18 @@ public class PlayerDetails {
     private String gender = "M";
     private int rank;
     private int credits;
+    private int homeRoomId;
 
     private boolean authenticated;
     private Entity entity;
 
     public PlayerDetails(Entity entity) {
-        this.id = Util.randomInt(10, 900);
+        this.id = -1;//Util.randomInt(10, 900);
         this.authenticated = false;
         this.entity = entity;
     }
 
-    public void fill(int id, String username, String motto, String figure, String gender, int rank, int credits) {
+    public void fill(int id, String username, String motto, String figure, String gender, int rank, int credits, int homeRoomId) {
         this.id = id;
         this.name = username;
         this.motto = motto;
@@ -32,21 +34,26 @@ public class PlayerDetails {
         this.gender = gender;
         this.rank = rank;
         this.credits = credits;
+        this.homeRoomId = homeRoomId;
         this.authenticated = true;
     }
 
     public void save() {
-        PlayerDao.save(this);
+        if (this.entity.getType() == EntityType.PLAYER) {
+            PlayerDao.save(this);
+        }
     }
 
-    public boolean hasFuse(String fuse) {
-        return false;
+    public void sendCredits() {
+        if (this.entity.getType() == EntityType.PLAYER) {
+            ((Player)this.entity).send(new CreditsMessageComposer(this.credits));
+        }
     }
-
+    
     public int getId() {
         return id;
     }
-    
+
     public void setId(int id) {
         this.id = id;
     }
@@ -99,13 +106,6 @@ public class PlayerDetails {
         this.credits = newTotal;
     }
 
-    public void sendCredits() {
-        if (this.entity instanceof Player) {
-            Player player = (Player)this.entity;
-            player.send(new CreditsMessageComposer(this.credits));
-        }
-    }
-
     public int getCredits() {
         return credits;
     }
@@ -120,5 +120,13 @@ public class PlayerDetails {
 
     public Integer getAchievementPoints() {
         return 0;
+    }
+
+    public int getHomeRoomId() {
+        return homeRoomId;
+    }
+
+    public void setHomeRoomId(int homeRoomId) {
+        this.homeRoomId = homeRoomId;
     }
 }

@@ -173,7 +173,7 @@ public class RoomUser {
         }
 
         Player player = (Player)this.entity;
-        boolean isStaff = player.getDetails().hasFuse("moderator");
+        boolean isStaff = player.hasPermission("moderator");
 
         if (spamCheck && !self) {
             if (DateTime.getTimeSeconds() < this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
@@ -185,7 +185,7 @@ public class RoomUser {
             }
         }
 
-        if (bubble == 2 || (bubble == 23 && !player.getDetails().hasFuse("moderator")) || bubble < 0 || bubble > 29) {
+        if (bubble == 2 || (bubble == 23 && !player.hasPermission("moderator")) || bubble < 0 || bubble > 29) {
             bubble = this.lastChatId;
         }
 
@@ -230,7 +230,7 @@ public class RoomUser {
         }
 
         if (spamCheck && !self) {
-            if (!player.getDetails().hasFuse("moderator")) {
+            if (!player.hasPermission("moderator")) {
 
                 if (DateTime.getTimeSeconds() > this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
                     this.chatCount = 0;

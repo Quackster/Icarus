@@ -115,6 +115,37 @@ public class PlayerDao {
 
         return id;    
     }
+    
+    public static String getName(int id) {
+
+        String name = null;
+        
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("SELECT username FROM users WHERE id = ? LIMIT 1", sqlConnection);
+            preparedStatement.setInt(1, id);
+            
+            resultSet = preparedStatement.executeQuery();
+            
+            if (resultSet.next()) {
+                name = resultSet.getString("username");
+            }
+            
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return name;    
+    }
 
     public static void save(PlayerDetails details) {
         
@@ -125,13 +156,14 @@ public class PlayerDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("UPDATE users SET mission = ?, figure = ?, gender = ?, rank = ?, credits = ? WHERE id = ?", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("UPDATE users SET mission = ?, figure = ?, gender = ?, rank = ?, credits = ?, home_room = ? WHERE id = ?", sqlConnection);
             preparedStatement.setString(1, details.getMission());
             preparedStatement.setString(2, details.getFigure());
             preparedStatement.setString(3, details.getGender());
             preparedStatement.setInt(4, details.getRank());
             preparedStatement.setInt(5, details.getCredits());
-            preparedStatement.setInt(6, details.getId());
+            preparedStatement.setInt(6, details.getHomeRoomId());
+            preparedStatement.setInt(7, details.getId());
             preparedStatement.execute();
 
         } catch (Exception e) {
@@ -177,7 +209,7 @@ public class PlayerDao {
     }
         
     public static PlayerDetails fill(PlayerDetails details, ResultSet row) throws SQLException {
-        details.fill(row.getInt("id"), row.getString("username"), row.getString("mission"),  row.getString("figure"), row.getString("gender"), row.getInt("rank"), row.getInt("credits"));
+        details.fill(row.getInt("id"), row.getString("username"), row.getString("mission"),  row.getString("figure"), row.getString("gender"), row.getInt("rank"), row.getInt("credits"), row.getInt("home_room"));
         return details;
     }
 
