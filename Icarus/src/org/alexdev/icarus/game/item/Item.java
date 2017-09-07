@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.ItemDao;
 import org.alexdev.icarus.dao.mysql.MoodlightDao;
+import org.alexdev.icarus.dao.mysql.PlayerDao;
 import org.alexdev.icarus.dao.mysql.RoomDao;
 import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.game.entity.Entity;
@@ -25,7 +26,9 @@ import com.google.common.collect.Lists;
 public class Item extends Metadata {
 
     private int id;
-    private int userId;
+    private int ownerId;
+    private String ownerName;
+    
     private int itemId;
     private int roomId;
     private Position position;
@@ -42,10 +45,12 @@ public class Item extends Metadata {
     private char side = 0;
     private int widthX = 0;
     private int widthY = 0;
+   
 
     public Item(long id, int userId, int itemId, int roomId, String x, String y, double z, int rotation, String extraData) {
         this.id = (int)id;
-        this.userId = userId;
+        this.ownerId = userId;
+        this.ownerName = PlayerDao.getName(this.ownerId);
         this.itemId = itemId;
         
         this.roomId = roomId;
@@ -371,12 +376,12 @@ public class Item extends Metadata {
         this.widthY = widthY;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getOwnerId() {
+        return ownerId;
     }
 
-    public PlayerDetails getOwnerData() {
-        return PlayerManager.getPlayerData(this.userId);
+    public String getOwnerName() {
+        return this.ownerName;
     }
 
     public int getItemId() {

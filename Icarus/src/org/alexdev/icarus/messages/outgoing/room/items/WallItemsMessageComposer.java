@@ -21,8 +21,8 @@ public class WallItemsMessageComposer extends MessageComposer {
         
         response.writeInt(this.items.size());
         for (Item wallItem : this.items) { 
-            response.writeInt(wallItem.getUserId());
-            response.writeString(wallItem.getOwnerData().getName());
+            this.response.writeInt(wallItem.getOwnerId());
+            this.response.writeString(wallItem.getOwnerName());
         }
 
         response.writeInt(this.items.size());
@@ -34,7 +34,7 @@ public class WallItemsMessageComposer extends MessageComposer {
             response.writeString(wallItem.getExtraData());
             response.writeInt(-1);
             response.writeInt(wallItem.getDefinition().getInterationModes() > 0 ? 1 : 0);
-            response.writeInt(wallItem.getUserId());
+            response.writeInt(wallItem.getOwnerId());
         }
     }
 

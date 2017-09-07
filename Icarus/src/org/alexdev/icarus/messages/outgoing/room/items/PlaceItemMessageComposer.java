@@ -33,8 +33,8 @@ public class PlaceItemMessageComposer extends MessageComposer {
 
             response.writeInt(-1);
             response.writeInt(this.item.getDefinition().getInterationModes() > 0 ? 1 : 0);
-            response.writeInt(this.item.getOwnerData().getId());
-            response.writeString(this.item.getOwnerData().getName());
+            this.response.writeInt(this.item.getOwnerId());
+            this.response.writeString(this.item.getOwnerName());
 
         }
 
@@ -46,8 +46,8 @@ public class PlaceItemMessageComposer extends MessageComposer {
             response.writeString(item.getExtraData());
             response.writeInt(-1);
             response.writeInt(item.getDefinition().getInterationModes() > 0 ? 1 : 0);
-            response.writeInt(item.getUserId());
-            response.writeString(this.item.getOwnerData().getName());
+            this.response.writeInt(this.item.getOwnerId());
+            this.response.writeString(this.item.getOwnerName());
         }
     }
 

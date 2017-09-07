@@ -32,8 +32,8 @@ public class MoveItemMessageComposer extends MessageComposer {
 
             this.response.writeInt(-1);
             this.response.writeInt(this.item.getDefinition().getInterationModes() > 0 ? 1 : 0);
-            this.response.writeInt(this.item.getOwnerData().getId());
-            this.response.writeString(this.item.getOwnerData().getName());
+            this.response.writeInt(this.item.getOwnerId());
+            this.response.writeString(this.item.getOwnerName());
         }
 
         if (this.item.getType() == ItemType.WALL) {
@@ -44,8 +44,8 @@ public class MoveItemMessageComposer extends MessageComposer {
             this.response.writeString(item.getExtraData());
             this.response.writeInt(-1);
             this.response.writeInt(item.getDefinition().getInterationModes() > 0 ? 1 : 0);
-            this.response.writeInt(item.getUserId());
-            this.response.writeString(this.item.getOwnerData().getName());
+            this.response.writeInt(this.item.getOwnerId());
+            this.response.writeString(this.item.getOwnerName());
         }
     }
 
