@@ -1,6 +1,5 @@
 package org.alexdev.icarus.game.pets;
 
-import org.alexdev.icarus.dao.mysql.PetDao;
 import org.alexdev.icarus.dao.mysql.PlayerDao;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityType;

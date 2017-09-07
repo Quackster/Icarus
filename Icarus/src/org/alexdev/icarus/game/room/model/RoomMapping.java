@@ -167,7 +167,7 @@ public class RoomMapping {
 
     public boolean isTileWalkable(Entity entity, int x, int y) {
 
-        if (this.room.getModel().invalidXYCoords(x, y)) {
+        if (this.room.getModel().hasInvalidCoordinates(x, y)) {
             return false;
         }
 
@@ -292,7 +292,7 @@ public class RoomMapping {
 
     public double getTileHeight(int x, int y) {
 
-        if (this.room.getModel().invalidXYCoords(x, y)) {
+        if (this.room.getModel().hasInvalidCoordinates(x, y)) {
             return 0;
         }
 
@@ -301,7 +301,7 @@ public class RoomMapping {
 
     public RoomTile getTile(int x, int y) {
 
-        if (this.room.getModel().invalidXYCoords(x, y)) {
+        if (this.room.getModel().hasInvalidCoordinates(x, y)) {
             return null;
         }
 
@@ -310,7 +310,7 @@ public class RoomMapping {
 
     public Item getHighestItem(int x, int y) {
 
-        if (this.room.getModel().invalidXYCoords(x, y)) {
+        if (this.room.getModel().hasInvalidCoordinates(x, y)) {
             return null;
         }
 

@@ -269,7 +269,7 @@ public class RoomUser {
 
     public void warpTo(int x, int y, int rotation) {
 
-        if (this.room.getModel().invalidXYCoords(x, y)) {
+        if (this.room.getModel().hasInvalidCoordinates(x, y)) {
             return;
         }
 
@@ -289,7 +289,7 @@ public class RoomUser {
 
     public void walkTo(int X, int Y) {
 
-        if (this.room.getModel().invalidXYCoords(X, Y)) {
+        if (this.room.getModel().hasInvalidCoordinates(X, Y)) {
             return;
         }
 

@@ -209,7 +209,7 @@ public class RoomModel {
         return heightmap;
     }
 
-    public boolean invalidXYCoords(int x, int y) {
+    public boolean hasInvalidCoordinates(int x, int y) {
         if (x >= this.mapSizeX) {
             return true;
         }

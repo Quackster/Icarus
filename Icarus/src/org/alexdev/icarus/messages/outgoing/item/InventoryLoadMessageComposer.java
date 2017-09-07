@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.MessageComposer;
 
@@ -27,7 +26,6 @@ public class InventoryLoadMessageComposer extends MessageComposer {
         response.writeInt(this.wallItems.size() + this.floorItems.size());
 
         for (Item item : this.wallItems) {
-
             response.writeInt(item.getId());
             response.writeString(item.getDefinition().getType().toUpperCase());
             response.writeInt(item.getId());
@@ -54,7 +52,6 @@ public class InventoryLoadMessageComposer extends MessageComposer {
         }
 
         for (Item item : floorItems) {
-
             response.writeInt(item.getId());
             response.writeString(item.getDefinition().getType().toUpperCase());
             response.writeInt(item.getId());
@@ -80,7 +77,5 @@ public class InventoryLoadMessageComposer extends MessageComposer {
             response.writeString("");
             response.writeInt(0);
         }
-
     }
-
 }

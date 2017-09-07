@@ -2,7 +2,6 @@ package org.alexdev.icarus.messages.outgoing.room.user;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import org.alexdev.icarus.game.entity.Entity;

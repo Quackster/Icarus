@@ -5,12 +5,12 @@ import java.util.List;
 
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityStatus;
-import org.alexdev.icarus.game.pathfinder.Pathfinder;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomUser;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.model.Rotation;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 import org.alexdev.icarus.util.Util;
 
@@ -31,9 +31,9 @@ public class MovementTask  extends RoomTask {
                 return;
             }
 
-            List<Entity> entitiesToUpdate = new ArrayList<Entity>();
             List<Entity> entities = this.room.getEntities();
-
+            List<Entity> entitiesToUpdate = new ArrayList<Entity>();
+            
             for (int i = 0; i < entities.size(); i++) {
 
                 Entity entity = entities.get(i);
@@ -57,7 +57,7 @@ public class MovementTask  extends RoomTask {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.exception(e);
         }
     }
 
@@ -79,11 +79,11 @@ public class MovementTask  extends RoomTask {
                 }
                 
                 RoomTile nextTile = roomEntity.getRoom().getMapping().getTile(next.getX(), next.getY());
-                nextTile.setEntity(entity);
-                
                 RoomTile previousTile = roomEntity.getRoom().getMapping().getTile(roomEntity.getPosition().getX(), roomEntity.getPosition().getY());
+                
                 previousTile.setEntity(null);
-
+                nextTile.setEntity(entity);   
+               
                 roomEntity.removeStatus(EntityStatus.LAY);
                 roomEntity.removeStatus(EntityStatus.SIT);
 

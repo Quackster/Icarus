@@ -13,7 +13,6 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.club.ClubManager;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseErrorMessageComposer;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessageComposer;
