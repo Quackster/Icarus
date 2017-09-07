@@ -79,5 +79,4 @@ public class CataloguePageMessageComposer extends MessageComposer {
             response.writeInt(0);
         }
     }
-
 }

@@ -56,5 +56,4 @@ public class MoveItemMessageEvent implements MessageEvent {
         
         room.getMapping().updateItemPosition(item, rotation_only);
     }
-
 }

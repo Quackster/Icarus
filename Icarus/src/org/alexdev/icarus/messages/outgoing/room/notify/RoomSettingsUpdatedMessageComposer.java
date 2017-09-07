@@ -15,5 +15,4 @@ public class RoomSettingsUpdatedMessageComposer extends MessageComposer {
         response.init(-1);//Outgoing.RoomSettingsUpdatedMessageComposer);
         response.writeInt(this.roomId);
     }
-
 }

@@ -23,5 +23,4 @@ public class FloorPlanSendDoorComposer extends MessageComposer {
         this.response.writeInt(this.rotation);
 
     }
-
 }

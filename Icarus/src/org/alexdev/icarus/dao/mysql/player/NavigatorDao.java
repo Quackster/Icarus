@@ -87,5 +87,4 @@ public class NavigatorDao {
 
         return instance;
     }
-
 }

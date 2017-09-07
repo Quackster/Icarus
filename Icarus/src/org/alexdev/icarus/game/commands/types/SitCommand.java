@@ -32,8 +32,6 @@ public class SitCommand implements Command {
 
             roomUser.setStatus(EntityStatus.SIT, "0");
             roomUser.setNeedUpdate(true);
-        }
-        
+        }  
     }
-
 }

@@ -17,5 +17,4 @@ public class DimmerInteractor implements Interaction {
         // TODO Auto-generated method stub
         
     }
-
 }

@@ -28,5 +28,4 @@ public class CataloguePromotionRoomsComposer extends MessageComposer {
             this.response.writeBool(false);
         }
     }
-
 }

@@ -102,5 +102,6 @@ public class Outgoing {
     public static int VerifyPetNameComposer = 1760;
     public static int PetInventoryMessageComposer = 1988;
     public static int TargettedOfferDataComposer = 2621;
+    public static int HabboClubCenterComposer = 1319;
      
 }

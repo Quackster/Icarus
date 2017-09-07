@@ -13,5 +13,4 @@ public class NavigatorPromoteCategoriesComposer extends MessageComposer {
         this.response.writeString("Promoted Rooms");
         this.response.writeBool(true);
     }
-
 }

@@ -18,5 +18,4 @@ public class CatalogueDiscountComposer extends MessageComposer {
             response.writeInt(99);
         }
     }
-
 }

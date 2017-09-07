@@ -123,5 +123,4 @@ public class ClubSubscription {
         this.player.send(new SubscriptionMessageComposer(this.player));
         this.player.send(new UserRightsComposer(this.player.getSubscription().hasSubscription(), this.player.getDetails().getRank()));
     }
-
 }

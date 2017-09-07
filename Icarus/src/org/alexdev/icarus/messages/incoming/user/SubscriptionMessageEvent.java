@@ -20,5 +20,4 @@ public class SubscriptionMessageEvent implements MessageEvent {
         player.getSubscription().sendSubscriptionStatus();
         
     }
-
 }

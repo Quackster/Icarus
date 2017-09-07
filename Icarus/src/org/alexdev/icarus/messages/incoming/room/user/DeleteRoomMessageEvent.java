@@ -41,5 +41,4 @@ public class DeleteRoomMessageEvent implements MessageEvent {
         
         room.dispose(true);
     }
-
 }

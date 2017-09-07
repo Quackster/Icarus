@@ -39,5 +39,4 @@ public class CurrencyBalanceMessageEvent implements MessageEvent {
         
         player.send(new ActivityPointsComposer(currencies));
     }
-
 }

@@ -19,5 +19,4 @@ public class CarryObjectComposer extends MessageComposer {
         response.writeInt(this.virtualId);
         response.writeInt(this.carryId);
     }
-
 }

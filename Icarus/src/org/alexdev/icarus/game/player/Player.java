@@ -121,5 +121,4 @@ public class Player extends Entity {
     public void send(MessageComposer response) {
         this.network.send(response);
     }
-
 }

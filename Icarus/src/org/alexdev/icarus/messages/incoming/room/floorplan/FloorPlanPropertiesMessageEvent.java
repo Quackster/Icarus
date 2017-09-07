@@ -23,5 +23,4 @@ public class FloorPlanPropertiesMessageEvent implements MessageEvent {
         player.send(new FloorPlanSendDoorComposer(room.getModel().getDoorLocation().getX(), room.getModel().getDoorLocation().getY(), room.getModel().getDoorLocation().getRotation()));
         player.send(new FloorPlanRoomVisualComposer(room.getData().getWallThickness(), room.getData().getFloorThickness(), room.getData().isHideWall()));
     }
-
 }

@@ -36,5 +36,4 @@ public class MoodlightInteractMessageEvent implements MessageEvent {
         
         player.send(new MoodlightConfigComposer(data));
     }
-
 }

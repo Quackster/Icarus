@@ -38,7 +38,5 @@ public class PurchaseRoomPromotionMessageEvent implements MessageEvent {
         eventRoom.send(new RoomPromotionMessageComposer(eventRoom));
         
         player.send(new PurchaseNotificationMessageComposer());
-
     }
-
 }

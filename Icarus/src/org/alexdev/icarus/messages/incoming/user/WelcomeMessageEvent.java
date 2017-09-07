@@ -33,5 +33,4 @@ public class WelcomeMessageEvent implements MessageEvent {
         }
 
     }
-
 }

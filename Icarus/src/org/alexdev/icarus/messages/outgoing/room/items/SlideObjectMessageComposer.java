@@ -56,5 +56,4 @@ public class SlideObjectMessageComposer extends MessageComposer {
             this.response.writeString(Util.getDecimalFormatter().format(this.nextHeight));
         }
     }
-
 }

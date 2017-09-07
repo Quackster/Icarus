@@ -11,5 +11,4 @@ public class ReloadPlugins implements Command {
         PluginManager.disposePlugins();
         PluginManager.load();
     }
-
 }

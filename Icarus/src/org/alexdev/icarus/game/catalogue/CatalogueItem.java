@@ -238,11 +238,9 @@ public class CatalogueItem {
         return costOther;
     }
 
-
     public void setCostOther(int costOther) {
         this.costOther = costOther;
     }
-
 
     public int getAmount() {
         return amount;
@@ -291,5 +289,4 @@ public class CatalogueItem {
     public boolean hasOffer() {
         return hasOffer;
     }
-
 }

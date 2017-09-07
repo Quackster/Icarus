@@ -48,5 +48,4 @@ public class RoomSettingsDataMessageComposer extends MessageComposer {
         response.writeInt(data.getWhoCanKick());//room.RoomData.WhoCanKick);
         response.writeInt(data.getWhoCanBan());//room.RoomData.WhoCanBan);
     }
-
 }

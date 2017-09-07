@@ -12,5 +12,4 @@ public class AvailabilityMessageComposer extends MessageComposer {
         response.writeBool(false);
         response.writeBool(true);
     }
-
 }

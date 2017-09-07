@@ -85,7 +85,6 @@ public class PurchaseItemMessageEvent implements MessageEvent {
         player.getInventory().updatePets();
         
         player.send(new PurchaseNotificationMessageComposer());
-        
     }
 
     private void purchase(Player player, CatalogueItem item, String extraData, ClientMessage request) {
@@ -178,8 +177,6 @@ public class PurchaseItemMessageEvent implements MessageEvent {
             }
 
             player.send(new PurchaseNotificationMessageComposer(bundleItem));
-
         }
     }
-
 }

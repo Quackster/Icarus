@@ -18,5 +18,4 @@ public class LeaveRoomMessageEvent implements MessageEvent {
 
         room.leaveRoom(player, false);
     }
-
 }

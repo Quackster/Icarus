@@ -80,6 +80,7 @@ public class MessageHandler {
         this.registerEvent(Incoming.ChangeAppearanceMessageEvent, new ChangeAppearanceMessageEvent());
         this.registerEvent(Incoming.SubscriptionMessageEvent, new SubscriptionMessageEvent());
         this.registerEvent(Incoming.WelcomeMessageEvent, new WelcomeMessageEvent());
+        this.registerEvent(Incoming.HabboClubCenterMessageEvent, new HabboClubCenterMessageEvent());
     }
     
     private void registerMessenger() {

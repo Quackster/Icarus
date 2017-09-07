@@ -25,5 +25,4 @@ public class ShoutMessageEvent implements MessageEvent {
         
         roomUser.chat(request.readString(), request.readInt(),  request.readInt(), true, true, false);
     }
-
 }

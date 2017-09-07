@@ -103,5 +103,4 @@ public class SaveRoomMessageEvent implements MessageEvent {
         player.send(new RoomSettingsOKMessageComposer(room));
         player.send(new RoomSettingsUpdatedMessageComposer(room.getData().getId()));
     }
-
 }

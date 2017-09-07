@@ -25,5 +25,4 @@ public class DropItemMessageEvent implements MessageEvent {
         
         roomUser.carryItem(0);
     }
-
 }

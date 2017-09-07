@@ -48,5 +48,4 @@ public class MoveItemMessageComposer extends MessageComposer {
             this.response.writeString(this.item.getOwnerName());
         }
     }
-
 }

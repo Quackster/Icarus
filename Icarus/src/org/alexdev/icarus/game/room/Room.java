@@ -204,7 +204,7 @@ public class Room {
 
     public void loadMapData(Player player) {
 
-        player.send(new HeightMapMessageComposer(this));
+        player.send(new HeightMapMessageComposer(this.model));
         player.send(new FloorMapMessageComposer(this));
 
         this.send(new UserDisplayMessageComposer(player));

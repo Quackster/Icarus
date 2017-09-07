@@ -26,5 +26,4 @@ public class CataloguePageMessageEvent implements MessageEvent {
         player.send(new CataloguePageMessageComposer(page, request.readString()));
         player.send(new CatalogueDiscountComposer());
     }
-
 }

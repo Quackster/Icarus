@@ -21,6 +21,5 @@ public class HeightmapMessageEvent implements MessageEvent {
         }
 
         room.loadMapData(player);
-
     }
 }

@@ -15,12 +15,10 @@ public class FurniListNotificationComposer extends MessageComposer {
 
     @Override
     public void write() {
-
         response.init(Outgoing.FurniListNotificationComposer);
         response.writeInt(1);
         response.writeInt(this.type);
         response.writeInt(1);
         response.writeInt(this.itemId);
-
     }
 }

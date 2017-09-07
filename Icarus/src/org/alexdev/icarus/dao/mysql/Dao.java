@@ -41,5 +41,4 @@ public class Dao  {
     public static Storage getStorage() {
         return storage;
     }
-
 }

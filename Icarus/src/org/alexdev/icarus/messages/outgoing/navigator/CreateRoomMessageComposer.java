@@ -19,5 +19,4 @@ public class CreateRoomMessageComposer extends MessageComposer {
         response.writeInt(this.id);
         response.writeString(this.name);
     }
-
 }

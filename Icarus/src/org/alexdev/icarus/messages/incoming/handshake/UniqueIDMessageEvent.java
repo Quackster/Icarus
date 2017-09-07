@@ -12,5 +12,4 @@ public class UniqueIDMessageEvent implements MessageEvent {
         request.readString();
         player.setMachineId(request.readString());
     }
-
 }

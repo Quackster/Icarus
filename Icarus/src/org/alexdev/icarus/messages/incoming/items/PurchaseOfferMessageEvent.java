@@ -13,7 +13,5 @@ public class PurchaseOfferMessageEvent implements MessageEvent {
         int targetedOfferId = reader.readInt();
         
         Log.println("Purchase targeted offer with ID " + targetedOfferId);
-
     }
-
 }

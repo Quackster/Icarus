@@ -46,5 +46,4 @@ public class GameScheduler implements Runnable {
     public static ScheduledExecutorService createNewScheduler() {
         return Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors() * 2);
     }
-
 }

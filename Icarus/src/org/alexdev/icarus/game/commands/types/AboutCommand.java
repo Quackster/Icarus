@@ -15,5 +15,4 @@ public class AboutCommand implements Command {
         about.append("- Glaceon\n");
         player.sendMessage(about.toString());
     }
-
 }

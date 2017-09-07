@@ -50,5 +50,4 @@ public class PlaceItemMessageComposer extends MessageComposer {
             this.response.writeString(this.item.getOwnerName());
         }
     }
-
 }

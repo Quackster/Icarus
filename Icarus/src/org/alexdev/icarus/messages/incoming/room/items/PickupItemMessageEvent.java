@@ -41,5 +41,4 @@ public class PickupItemMessageEvent implements MessageEvent {
             player.getInventory().updateItems();
         }
     }
-
 }

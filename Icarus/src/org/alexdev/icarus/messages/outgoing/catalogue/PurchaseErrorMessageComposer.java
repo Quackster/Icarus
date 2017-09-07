@@ -15,11 +15,9 @@ public class PurchaseErrorMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        
         response.init(Outgoing.PurchaseErrorMessageComposer);
         response.writeBool(creditsError);
         response.writeBool(pixelError);
         
     }
-
 }

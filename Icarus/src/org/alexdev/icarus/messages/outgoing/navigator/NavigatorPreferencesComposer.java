@@ -16,5 +16,4 @@ public class NavigatorPreferencesComposer extends MessageComposer {
         this.response.writeInt(1);
 
     }
-
 }

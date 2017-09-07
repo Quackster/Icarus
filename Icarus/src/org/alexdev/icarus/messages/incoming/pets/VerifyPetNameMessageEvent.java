@@ -26,5 +26,4 @@ public class VerifyPetNameMessageEvent implements MessageEvent {
 
         player.send(new VerifyPetNameComposer(0, ""));
     }
-
 }

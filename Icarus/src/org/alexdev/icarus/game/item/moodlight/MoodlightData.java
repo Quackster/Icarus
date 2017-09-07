@@ -70,7 +70,4 @@ public class MoodlightData {
     public List<MoodlightPreset> getPresets() {
         return presets;
     }
-
-
-
 }

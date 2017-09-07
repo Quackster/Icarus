@@ -16,5 +16,4 @@ public class RoomForwardComposer extends MessageComposer {
         this.response.init(Outgoing.RoomForwardComposer);
         this.response.writeInt(this.roomId);
     }
-
 }

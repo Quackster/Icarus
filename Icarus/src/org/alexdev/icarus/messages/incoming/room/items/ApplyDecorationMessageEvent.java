@@ -47,5 +47,4 @@ public class ApplyDecorationMessageEvent implements MessageEvent {
         player.getInventory().remove(item);
         player.getInventory().updateItems();
     }
-
 }

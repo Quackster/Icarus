@@ -35,7 +35,5 @@ public class MessengerAcceptMessageEvent implements MessageEvent {
             
             player.send(new MessengerUpdateMessageComposer(user, false));
         }
-
     }
-
 }

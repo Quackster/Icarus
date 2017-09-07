@@ -16,5 +16,4 @@ public class FloodFilterMessageComposer extends MessageComposer {
         response.init(Outgoing.FloodFilterMessageComposer);
         response.writeInt(this.waitSeconds);
     }
-
 }

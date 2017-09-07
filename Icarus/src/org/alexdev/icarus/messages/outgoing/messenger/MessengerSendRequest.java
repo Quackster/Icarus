@@ -22,5 +22,4 @@ public class MessengerSendRequest extends MessageComposer {
         response.writeString(this.username);
         response.writeString(this.figure);
     }
-
 }

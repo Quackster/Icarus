@@ -36,5 +36,4 @@ public class MoodlightConfigComposer extends MessageComposer {
             id++;
         }
     }
-
 }

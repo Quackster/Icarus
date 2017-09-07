@@ -20,5 +20,4 @@ public class MessengerMessageComposer extends MessageComposer {
         response.writeString(this.message);
         response.writeInt(0);
     }
-
 }

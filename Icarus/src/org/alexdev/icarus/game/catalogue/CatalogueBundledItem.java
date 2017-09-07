@@ -38,9 +38,4 @@ public class CatalogueBundledItem {
         
         return ItemManager.getFurnitureById(this.itemId);
     }
-
-    public void createBadgeDefinition() {
-    }
-
-
 }

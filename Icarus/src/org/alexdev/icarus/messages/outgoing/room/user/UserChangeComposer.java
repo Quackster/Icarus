@@ -23,5 +23,4 @@ public class UserChangeComposer extends MessageComposer {
         this.response.writeString(this.entity.getDetails().getMission());
         this.response.writeInt(this.entity.getDetails().getAchievementPoints());
     }
-
 }

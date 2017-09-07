@@ -45,7 +45,5 @@ public class RoomThumbnailMessageEvent implements MessageEvent {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
-
 }

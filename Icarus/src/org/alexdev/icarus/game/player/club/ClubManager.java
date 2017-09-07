@@ -45,5 +45,4 @@ public class ClubManager {
         player.getSubscription().update(player.getDetails().getId(), newExpireTime, currentTime);
         player.getSubscription().sendSubscriptionStatus();
     }
-
 }

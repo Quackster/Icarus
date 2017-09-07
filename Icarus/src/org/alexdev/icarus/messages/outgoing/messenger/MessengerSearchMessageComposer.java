@@ -18,19 +18,18 @@ public class MessengerSearchMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-
         response.init(Outgoing.MessengerSearchMessageComposer);
-        
         response.writeInt(this.friends.size());
+        
         for (MessengerUser friend : this.friends) {
             friend.serialiseSearch(response);
         }
 
         response.writeInt(this.strangers.size());
+        
         for (MessengerUser stranger : this.strangers) {
             stranger.serialiseSearch(response);
             stranger.dispose();
         }
     }
-
 }

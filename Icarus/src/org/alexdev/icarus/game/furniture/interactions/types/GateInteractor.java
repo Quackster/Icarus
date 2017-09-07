@@ -20,5 +20,4 @@ public class GateInteractor implements Interaction {
         // TODO Auto-generated method stub
         
     }
-
 }

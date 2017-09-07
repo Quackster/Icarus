@@ -150,5 +150,4 @@ public class MoodlightDao {
         MoodlightData data = new MoodlightData(row.getInt("item_id"), row.getInt("current_preset"), row.getInt("enabled") == 1, row.getString("preset_one"), row.getString("preset_two"), row.getString("preset_three"));
         return data;
     }
-
 }

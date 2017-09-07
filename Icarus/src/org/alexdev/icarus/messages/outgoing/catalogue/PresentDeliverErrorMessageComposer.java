@@ -19,5 +19,4 @@ public class PresentDeliverErrorMessageComposer extends MessageComposer {
         this.response.writeInt(this.creditsError);
         this.response.writeInt(this.ducketError);
     }
-
 }

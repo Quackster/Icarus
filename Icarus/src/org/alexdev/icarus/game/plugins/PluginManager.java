@@ -147,6 +147,5 @@ public class PluginManager {
         globals.set("log", CoerceJavaToLua.coerce(new Log()));
         globals.set("util", CoerceJavaToLua.coerce(new Util()));
         globals.set("scheduler", CoerceJavaToLua.coerce(new PluginScheduler()));
-
     }
 }

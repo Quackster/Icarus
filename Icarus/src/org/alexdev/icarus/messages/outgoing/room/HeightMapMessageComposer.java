@@ -1,6 +1,5 @@
 package org.alexdev.icarus.messages.outgoing.room;
 
-import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.headers.Outgoing;
@@ -8,15 +7,14 @@ import org.alexdev.icarus.messages.parsers.MessageComposer;
 
 public class HeightMapMessageComposer extends MessageComposer {
 
-    private Room room;
+    private RoomModel roomModel;
 
-    public HeightMapMessageComposer(Room room) {
-        this.room = room;
+    public HeightMapMessageComposer(RoomModel roomModel) {
+        this.roomModel = roomModel;
     }
 
     @Override
     public void write() {
-        RoomModel roomModel = room.getModel();
 
         String[] map = roomModel.getHeightMap().split("\\{13}");
 

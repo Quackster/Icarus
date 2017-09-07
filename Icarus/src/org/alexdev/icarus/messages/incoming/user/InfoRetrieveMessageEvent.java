@@ -13,5 +13,4 @@ public class InfoRetrieveMessageEvent implements MessageEvent {
         player.send(new UserObjectMessageComposer(player.getDetails()));
         player.send(new SendPerkAllowancesMessageComposer());
     }
-
 }

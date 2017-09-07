@@ -1,7 +1,5 @@
 package org.alexdev.icarus.game.catalogue.targetedoffer;
 
-import org.alexdev.icarus.log.Log;
-
 public class TargetedOffer {
 
     private int id;

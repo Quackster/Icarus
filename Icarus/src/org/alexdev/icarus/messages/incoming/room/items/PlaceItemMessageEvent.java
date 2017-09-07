@@ -84,5 +84,4 @@ public class PlaceItemMessageEvent implements MessageEvent {
             PluginManager.callEvent(PluginEvent.PLACE_WALL_ITEM_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
         }
     }
-
 }

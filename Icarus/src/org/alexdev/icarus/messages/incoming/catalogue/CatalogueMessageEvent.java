@@ -29,7 +29,5 @@ public class CatalogueMessageEvent implements MessageEvent {
         
         player.send(new CatalogueTabMessageComposer(type, parentTabs));
         player.send(new CataloguePromotionRoomsComposer(player.getRooms()));
-        
     }
-
 }

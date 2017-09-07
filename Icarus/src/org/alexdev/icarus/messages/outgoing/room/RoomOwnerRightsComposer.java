@@ -19,5 +19,4 @@ public class RoomOwnerRightsComposer extends MessageComposer {
         response.writeInt(this.id);
         response.writeBool(this.isOwner);
     }
-
 }

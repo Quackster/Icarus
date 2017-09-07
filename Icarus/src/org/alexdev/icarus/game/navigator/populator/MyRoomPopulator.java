@@ -25,5 +25,4 @@ public class MyRoomPopulator extends NavigatorRoomPopulator {
         
         return rooms;
     }
-
 }

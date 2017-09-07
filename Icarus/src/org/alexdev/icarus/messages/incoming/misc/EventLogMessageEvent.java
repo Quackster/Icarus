@@ -10,5 +10,4 @@ public class EventLogMessageEvent implements MessageEvent {
     public void handle(Player player, ClientMessage request) {
         
     }
-
 }

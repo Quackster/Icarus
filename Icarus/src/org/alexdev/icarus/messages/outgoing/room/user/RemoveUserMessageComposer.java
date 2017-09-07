@@ -16,5 +16,4 @@ public class RemoveUserMessageComposer extends MessageComposer {
         response.init(Outgoing.RemoveUserMessageComposer);
         response.writeString(this.virtualId + "");
     }
-
 }

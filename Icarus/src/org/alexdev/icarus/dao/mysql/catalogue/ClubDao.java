@@ -112,5 +112,4 @@ public class ClubDao {
             Storage.closeSilently(sqlConnection);
         }
     }
-
 }

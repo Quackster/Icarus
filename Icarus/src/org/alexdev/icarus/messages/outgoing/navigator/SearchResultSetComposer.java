@@ -76,7 +76,5 @@ public class SearchResultSetComposer extends MessageComposer {
             response.writeInt(0);
             
         }
-
     }
-
 }

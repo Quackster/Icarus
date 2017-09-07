@@ -37,5 +37,4 @@ public class WallItemsMessageComposer extends MessageComposer {
             response.writeInt(wallItem.getOwnerId());
         }
     }
-
 }

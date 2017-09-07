@@ -31,5 +31,4 @@ public class FollowFriendMessageEvent implements MessageEvent {
             player.send(new FollowErrorMessageComposer(errorID));
         }
     }
-
 }

@@ -39,5 +39,4 @@ public class DoorbellAnswerMessageEvent implements MessageEvent {
             client.send(new AcceptUserInsideRoomMessageComposer());
         }
     }
-
 }

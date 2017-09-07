@@ -19,7 +19,6 @@ public class MessengerRequestsMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        
         response.init(Outgoing.MessengerRequestsMessageComposer);
         response.writeInt(this.player.getDetails().getId());
         response.writeInt(this.requests.size()); 
@@ -30,5 +29,4 @@ public class MessengerRequestsMessageComposer extends MessageComposer {
             response.writeString(user.getDetails().getFigure());
         }
     }
-
 }

@@ -11,8 +11,6 @@ public class FriendsPopulator extends NavigatorRoomPopulator {
 
     @Override
     public List<Room> generateListing(boolean limit, Player player) {
-
         return Lists.newArrayList();
     }
-
 }

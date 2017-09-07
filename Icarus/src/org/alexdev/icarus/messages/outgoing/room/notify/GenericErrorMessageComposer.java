@@ -16,5 +16,4 @@ public class GenericErrorMessageComposer extends MessageComposer {
         response.init(Outgoing.GenericErrorMessageComposer);
         response.writeInt(this.errorCode);
     }
-
 }

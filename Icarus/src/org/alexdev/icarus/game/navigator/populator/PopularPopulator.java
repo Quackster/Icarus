@@ -24,5 +24,4 @@ public class PopularPopulator extends NavigatorRoomPopulator {
 
         return activeRooms;
     }
-
 }

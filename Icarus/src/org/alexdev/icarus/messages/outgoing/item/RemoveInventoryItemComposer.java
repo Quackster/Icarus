@@ -16,5 +16,4 @@ public class RemoveInventoryItemComposer extends MessageComposer {
         response.init(Outgoing.RemoveInventoryItemComposer);
         response.writeInt(this.itemId);
     }
-
 }

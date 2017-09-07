@@ -16,7 +16,6 @@ public class MessengerUpdateMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        
         response.init(Outgoing.FriendUpdateMessageComposer);
         response.writeInt(0);
         response.writeInt(1);
@@ -25,5 +24,4 @@ public class MessengerUpdateMessageComposer extends MessageComposer {
         response.writeBool(false);
         
     }
-
 }

@@ -10,5 +10,4 @@ public class LatencyTestMessageEvent implements MessageEvent {
     public void handle(Player player, ClientMessage request) {
         
     }
-
 }

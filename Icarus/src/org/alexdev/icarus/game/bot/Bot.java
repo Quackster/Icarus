@@ -34,5 +34,4 @@ public class Bot extends Entity {
     public void dispose() {
         this.disposed = true;
     }
-
 }

@@ -34,5 +34,4 @@ public class DanceMessageEvent implements MessageEvent {
 
         roomUser.startDancing(danceId);
     }
-
 }

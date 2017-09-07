@@ -20,5 +20,4 @@ public class PlacePetMessageEvent implements MessageEvent {
         player.getInventory().remove(pet);
         player.getInventory().updatePets();
     }
-
 }

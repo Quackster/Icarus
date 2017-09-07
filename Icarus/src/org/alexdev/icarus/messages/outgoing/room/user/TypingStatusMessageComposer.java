@@ -18,7 +18,5 @@ public class TypingStatusMessageComposer extends MessageComposer {
         response.init(Outgoing.TypingStatusMessageComposer);
         response.writeInt(this.virtualId);
         response.writeInt(this.typeStart);
-        
     }
-
 }

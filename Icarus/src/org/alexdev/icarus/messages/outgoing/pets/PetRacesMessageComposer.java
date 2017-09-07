@@ -30,5 +30,4 @@ public class PetRacesMessageComposer extends MessageComposer {
             this.response.writeBool(race.hasColour2());
         }
     }
-
 }

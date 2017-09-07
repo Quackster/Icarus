@@ -86,21 +86,15 @@ public class RoomManager {
         return null;
     }
  
-    public static List<Room> getRooms() {
-        
+    public static List<Room> getRooms() {  
         return rooms.values().stream().filter(room -> room != null).collect(Collectors.toList());
     }
     
     public static List<Room> getPromotedRooms() {
-        
         return promotedRooms.values().stream().filter(room -> room != null).collect(Collectors.toList());
     }
 
     public static ScheduledExecutorService getScheduler() {
-        
         return scheduler;
     }
-
-
-
 }

@@ -13,12 +13,10 @@ public class RemoveFriendMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-
         response.init(Outgoing.RemoveFriendMessageComposer);
         response.writeInt(0);
         response.writeInt(1);
         response.writeInt(-1);
         response.writeInt(this.friendId);
     }
-
 }

@@ -22,5 +22,4 @@ public class FloorPlanRoomVisualComposer extends MessageComposer {
         this.response.writeInt(this.wallThickness);
         this.response.writeInt(this.floorThickness);
     }
-
 }

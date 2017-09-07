@@ -27,6 +27,7 @@ public class MoodlightManager {
     }
     
     public static boolean isValidColor(String colorCode) {
+        
         switch (colorCode) {
             case "#000000":
             case "#0053F7":
@@ -35,11 +36,8 @@ public class MoodlightManager {
             case "#74F5F5":
             case "#E759DE":
             case "#F2F851":
-
                 return true;
-
             default:
-
                 return false;
         }
     }

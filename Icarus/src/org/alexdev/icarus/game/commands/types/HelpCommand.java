@@ -15,5 +15,4 @@ public class HelpCommand implements Command {
         about.append("- :help.");
         player.sendMessage(about.toString());
     }
-
 }

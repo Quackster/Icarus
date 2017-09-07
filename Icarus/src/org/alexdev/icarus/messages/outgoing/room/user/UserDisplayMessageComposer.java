@@ -108,5 +108,4 @@ public class UserDisplayMessageComposer extends MessageComposer {
             }
         }
     }
-
 }

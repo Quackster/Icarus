@@ -86,5 +86,4 @@ public class UserStatusMessageComposer extends MessageComposer {
             }
         }
     }
-
 }

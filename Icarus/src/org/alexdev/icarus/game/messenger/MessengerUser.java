@@ -88,5 +88,4 @@ public class MessengerUser {
     public boolean inRoom() {
         return isOnline() ? player.inRoom() : false;
     }
-
 }

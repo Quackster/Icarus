@@ -17,5 +17,4 @@ public class FollowErrorMessageComposer extends MessageComposer {
         response.writeInt(this.errorID);
 
     }
-
 }

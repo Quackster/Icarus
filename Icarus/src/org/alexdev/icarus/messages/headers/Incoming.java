@@ -71,6 +71,7 @@ public class Incoming {
     public static Integer VerifyPetNameMessageEvent = 3733;
     public static Integer PlacePetMessageEvent = 1495;
     public static Integer PurchaseOfferMessageEvent = 955;
+    public static Integer HabboClubCenterMessageEvent = 2416;
     
     
 }

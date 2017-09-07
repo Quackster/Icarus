@@ -16,5 +16,4 @@ public class PetManager {
     public static List<PetRace> getRaces(int raceId) {
         return races.get(raceId);
     }
-    
 }

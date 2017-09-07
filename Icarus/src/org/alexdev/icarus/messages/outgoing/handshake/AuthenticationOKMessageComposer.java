@@ -8,5 +8,4 @@ public class AuthenticationOKMessageComposer extends MessageComposer {
     public void write() {
         response.init(Outgoing.AuthenticationOKMessageComposer);
     }
-
 }

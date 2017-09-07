@@ -34,6 +34,4 @@ public enum PluginEvent {
     public String getFunctionName() {
         return functionName;
     }
-
-
 }

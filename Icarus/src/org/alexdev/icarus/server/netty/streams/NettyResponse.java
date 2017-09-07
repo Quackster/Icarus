@@ -127,5 +127,13 @@ public class NettyResponse implements Response {
     @Override
     public boolean isFinalised() {
         return this.finalised;
+    }
+
+    public void writeDouble(int i) {
+        try {
+            bodystream.writeDouble(i);
+        } catch (IOException e) {
+            Log.exception(e);
+        }
     }    
 }

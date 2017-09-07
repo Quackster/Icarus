@@ -55,7 +55,5 @@ public class PurchasePresentMessageEvent implements MessageEvent {
         
         player.getInventory().addItem(inventoryItem);
         player.send(new PurchaseNotificationMessageComposer(bundleItem));*/
-        
     }
-
 }

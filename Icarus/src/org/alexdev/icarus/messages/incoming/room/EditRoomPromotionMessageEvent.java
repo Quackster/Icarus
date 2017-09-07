@@ -34,7 +34,5 @@ public class EditRoomPromotionMessageEvent implements MessageEvent {
         eventRoom.getPromotion().setPromotionName(promotionName);
         eventRoom.getPromotion().setPromotionDescription(promotionDescription);
         eventRoom.send(new RoomPromotionMessageComposer(eventRoom));
-
     }
-
 }

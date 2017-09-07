@@ -17,5 +17,4 @@ public class RoomRatingMessageComposer extends MessageComposer {
         response.writeInt(this.score);
         response.writeBool(false);
     }
-
 }

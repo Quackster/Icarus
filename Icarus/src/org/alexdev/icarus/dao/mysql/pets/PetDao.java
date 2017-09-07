@@ -99,5 +99,4 @@ public class PetDao {
         Pet pet = new Pet(data.getInt("id"), data.getString("pet_name"), data.getInt("level"), data.getInt("happiness"), data.getInt("experience"), data.getInt("energy"), data.getInt("owner_id"), data.getString("colour"), data.getInt("race_id"), data.getInt("type"), data.getBoolean("saddled"), data.getInt("hair_style"), data.getInt("hair_colour"), data.getBoolean("any_rider"), data.getInt("birthday"));
         return pet;
     }
-
 }

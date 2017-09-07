@@ -19,5 +19,4 @@ public class FloorMapMessageComposer extends MessageComposer {
         response.writeInt(this.room.getData().getWallHeight());
         response.writeString(this.room.getModel().getRelativeHeightmap());
     }
-
 }

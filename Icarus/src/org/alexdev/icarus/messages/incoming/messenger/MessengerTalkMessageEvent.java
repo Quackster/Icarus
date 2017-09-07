@@ -42,5 +42,4 @@ public class MessengerTalkMessageEvent implements MessageEvent {
             // TODO: Offline messaging
         }
     }
-
 }

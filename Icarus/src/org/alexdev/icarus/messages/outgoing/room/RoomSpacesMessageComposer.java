@@ -19,5 +19,4 @@ public class RoomSpacesMessageComposer extends MessageComposer {
         response.writeString(this.space);
         response.writeString(this.data);
     }
-
 }

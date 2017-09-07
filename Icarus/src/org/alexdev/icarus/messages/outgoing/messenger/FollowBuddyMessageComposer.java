@@ -17,5 +17,4 @@ public class FollowBuddyMessageComposer extends MessageComposer {
         response.init(Outgoing.FollowBuddyMessageComposer);
         response.writeInt(this.friendId);
     }
-
 }

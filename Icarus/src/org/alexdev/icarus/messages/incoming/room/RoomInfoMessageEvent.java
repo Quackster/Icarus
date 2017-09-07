@@ -23,5 +23,4 @@ public class RoomInfoMessageEvent implements MessageEvent {
         
         player.send(new RoomDataMessageComposer(room, player, isLoading == 1, checkEntry == 1));
     }
-
 }

@@ -16,5 +16,4 @@ public class RoomRightsLevelMessageComposer extends MessageComposer {
         response.init(Outgoing.RightsLevelMessageComposer);
         response.writeInt(this.status);
     }
-
 }

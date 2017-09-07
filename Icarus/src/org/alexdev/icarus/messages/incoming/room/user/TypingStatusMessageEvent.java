@@ -26,7 +26,5 @@ public class TypingStatusMessageEvent implements MessageEvent {
         }
         
         room.send(new TypingStatusMessageComposer(roomUser.getVirtualId(), request.getMessageId() == Incoming.StartTypingMessageEvent));
-
     }
-
 }

@@ -162,5 +162,4 @@ public class ItemDao {
         Item item = new Item(row.getLong("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
         return item;
     }
-
 }
