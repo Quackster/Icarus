@@ -5,7 +5,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.alexdev.icarus.dao.mysql.CatalogueDao;
+import org.alexdev.icarus.dao.mysql.catalogue.CatalogueDao;
+import org.alexdev.icarus.dao.mysql.catalogue.TargetedOfferDao;
+import org.alexdev.icarus.game.catalogue.targetedoffer.TargetedOffer;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -17,11 +19,14 @@ public class CatalogueManager {
 
     private static List<CataloguePage> pages;
     private static List<CatalogueItem> items;
+    
+    private static TargetedOffer offer;
 
     public static void load() {
         loadCataloguePages();
         loadCatalogueItems();
 
+        offer = TargetedOfferDao.getOffer();
         parentTabs = CatalogueDao.getCatalogTabs(-1);
         childTabs = Maps.newHashMap();
 
@@ -95,5 +100,9 @@ public class CatalogueManager {
 
     public List<CatalogueItem> getItems() {
         return items;
+    }
+
+    public static TargetedOffer getOffer() {
+        return offer;
     }
 }

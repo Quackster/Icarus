@@ -1,4 +1,4 @@
-package org.alexdev.icarus.dao.mysql;
+package org.alexdev.icarus.dao.mysql.item;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
+import org.alexdev.icarus.dao.mysql.Dao;
+import org.alexdev.icarus.dao.mysql.Storage;
+import org.alexdev.icarus.dao.mysql.pets.PetDao;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.log.Log;

@@ -1,4 +1,4 @@
-package org.alexdev.icarus.dao.mysql;
+package org.alexdev.icarus.dao.mysql.room;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.alexdev.icarus.game.player.PlayerDetails;
+import org.alexdev.icarus.dao.mysql.Dao;
+import org.alexdev.icarus.dao.mysql.Storage;
+import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomData;
@@ -46,8 +49,7 @@ public class RoomDao {
             try {
                 Log.println("Error with model: " + resultSet.getString("id"));
             } catch (SQLException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
+                Log.exception(e1);
             }
             Log.exception(e);
         } finally {

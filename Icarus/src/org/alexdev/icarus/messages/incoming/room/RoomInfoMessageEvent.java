@@ -1,6 +1,6 @@
 package org.alexdev.icarus.messages.incoming.room;
 
-import org.alexdev.icarus.dao.mysql.RoomDao;
+import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.MessageEvent;

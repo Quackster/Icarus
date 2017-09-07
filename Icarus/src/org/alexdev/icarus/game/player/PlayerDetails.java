@@ -1,6 +1,6 @@
 package org.alexdev.icarus.game.player;
 
-import org.alexdev.icarus.dao.mysql.PlayerDao;
+import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.messages.outgoing.user.CreditsMessageComposer;

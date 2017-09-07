@@ -1,6 +1,6 @@
 package org.alexdev.icarus.game.player.club;
 
-import org.alexdev.icarus.dao.mysql.ClubDao;
+import org.alexdev.icarus.dao.mysql.catalogue.ClubDao;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.outgoing.user.SubscriptionMessageComposer;
 import org.alexdev.icarus.messages.outgoing.user.UserRightsComposer;

@@ -3,7 +3,7 @@ package org.alexdev.icarus.game.room;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import org.alexdev.icarus.dao.mysql.RoomDao;
+import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.commands.CommandManager;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityStatus;

@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import org.alexdev.icarus.dao.mysql.ItemDao;
-import org.alexdev.icarus.dao.mysql.RoomDao;
+import org.alexdev.icarus.dao.mysql.item.ItemDao;
+import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityStatus;

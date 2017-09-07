@@ -2,7 +2,8 @@ package org.alexdev.icarus.game.furniture;
 
 import java.util.Map;
 import java.util.Map.Entry;
-import org.alexdev.icarus.dao.mysql.ItemDao;
+
+import org.alexdev.icarus.dao.mysql.item.ItemDao;
 
 import com.google.common.collect.Maps;
 

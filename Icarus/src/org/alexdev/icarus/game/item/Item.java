@@ -2,10 +2,10 @@ package org.alexdev.icarus.game.item;
 
 import java.util.List;
 
-import org.alexdev.icarus.dao.mysql.ItemDao;
-import org.alexdev.icarus.dao.mysql.MoodlightDao;
-import org.alexdev.icarus.dao.mysql.PlayerDao;
-import org.alexdev.icarus.dao.mysql.RoomDao;
+import org.alexdev.icarus.dao.mysql.item.ItemDao;
+import org.alexdev.icarus.dao.mysql.player.PlayerDao;
+import org.alexdev.icarus.dao.mysql.room.MoodlightDao;
+import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.furniture.ItemManager;

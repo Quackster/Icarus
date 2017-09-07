@@ -2,7 +2,7 @@ package org.alexdev.icarus.game.player;
 
 import java.util.List;
 import org.alexdev.icarus.game.entity.EntityType;
-import org.alexdev.icarus.dao.mysql.RoomDao;
+import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.inventory.Inventory;
 import org.alexdev.icarus.game.messenger.Messenger;

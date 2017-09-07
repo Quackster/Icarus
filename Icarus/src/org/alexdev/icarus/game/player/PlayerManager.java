@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.alexdev.icarus.dao.mysql.PlayerDao;
+import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.game.moderation.Permission;
 
 import com.google.common.collect.Maps;

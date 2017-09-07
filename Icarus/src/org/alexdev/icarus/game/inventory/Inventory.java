@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.alexdev.icarus.dao.mysql.InventoryDao;
+import org.alexdev.icarus.dao.mysql.item.InventoryDao;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.pets.Pet;

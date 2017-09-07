@@ -1,6 +1,6 @@
 package org.alexdev.icarus.game.item.moodlight;
 
-import org.alexdev.icarus.dao.mysql.MoodlightDao;
+import org.alexdev.icarus.dao.mysql.room.MoodlightDao;
 
 public class MoodlightManager {
     

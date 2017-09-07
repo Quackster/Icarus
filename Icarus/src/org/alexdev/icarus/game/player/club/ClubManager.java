@@ -2,7 +2,7 @@ package org.alexdev.icarus.game.player.club;
 
 import java.util.concurrent.TimeUnit;
 
-import org.alexdev.icarus.dao.mysql.ClubDao;
+import org.alexdev.icarus.dao.mysql.catalogue.ClubDao;
 import org.alexdev.icarus.game.catalogue.CatalogueBundledItem;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessageComposer;

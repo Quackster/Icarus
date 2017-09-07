@@ -1,4 +1,4 @@
-package org.alexdev.icarus.dao.mysql;
+package org.alexdev.icarus.dao.mysql.player;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.PlayerManager;
+import org.alexdev.icarus.dao.mysql.Dao;
+import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.moderation.Permission;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.log.Log;

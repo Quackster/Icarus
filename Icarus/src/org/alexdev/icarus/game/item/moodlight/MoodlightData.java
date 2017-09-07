@@ -2,7 +2,7 @@ package org.alexdev.icarus.game.item.moodlight;
 
 import java.util.List;
 
-import org.alexdev.icarus.dao.mysql.MoodlightDao;
+import org.alexdev.icarus.dao.mysql.room.MoodlightDao;
 
 import com.google.common.collect.Lists;
 

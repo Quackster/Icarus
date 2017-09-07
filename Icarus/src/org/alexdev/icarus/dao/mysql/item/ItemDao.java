@@ -1,10 +1,12 @@
-package org.alexdev.icarus.dao.mysql;
+package org.alexdev.icarus.dao.mysql.item;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
 
+import org.alexdev.icarus.dao.mysql.Dao;
+import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;

@@ -1,8 +1,11 @@
-package org.alexdev.icarus.dao.mysql;
+package org.alexdev.icarus.dao.mysql.room;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import org.alexdev.icarus.dao.mysql.Dao;
+import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.item.moodlight.MoodlightData;
 import org.alexdev.icarus.log.Log;
 

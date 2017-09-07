@@ -3,7 +3,7 @@ package org.alexdev.icarus.game.pets;
 import java.util.List;
 import java.util.Map;
 
-import org.alexdev.icarus.dao.mysql.PetDao;
+import org.alexdev.icarus.dao.mysql.pets.PetDao;
 
 public class PetManager {
 
