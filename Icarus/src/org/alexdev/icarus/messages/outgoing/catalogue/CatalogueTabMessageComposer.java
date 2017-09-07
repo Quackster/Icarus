@@ -6,6 +6,7 @@ import org.alexdev.icarus.game.catalogue.CatalogueTab;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
+import org.alexdev.icarus.util.Util;
 
 public class CatalogueTabMessageComposer extends MessageComposer {
 
@@ -42,7 +43,7 @@ public class CatalogueTabMessageComposer extends MessageComposer {
         response.writeBool(tab.isEnabled());
         response.writeInt(tab.getIconImage());
         response.writeInt(tab.getId());
-        response.writeString(tab.getLink().equals("undefined") ? tab.getCaption().toLowerCase().replaceAll("[^A-Za-z0-9]", "").replace(" ", "_") : tab.getLink());
+        response.writeString(tab.getLink().equals("undefined") ? Util.removeNonAlphaNumeric(tab.getCaption()).toLowerCase().replace(" ", "_") : tab.getLink());
         response.writeString(tab.getCaption());
         response.writeInt(0);
     }

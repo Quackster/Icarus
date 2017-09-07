@@ -116,4 +116,8 @@ public class Util {
         return word.matches("[A-Za-z0-9]+");
     }
 
+    public static String removeNonAlphaNumeric(String caption) {
+        return caption.replaceAll("[^A-Za-z0-9]", "");
+    }
+
 }
