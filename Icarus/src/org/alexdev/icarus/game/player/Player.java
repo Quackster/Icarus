@@ -43,17 +43,15 @@ public class Player extends Entity {
     }
 
     public void login() {
-        
+
         // Load all player rooms into memory
         RoomDao.getPlayerRooms(this.details, true);
-        
+
         // Load all inventory items
         this.inventory.init();
-        
-        // Load all messenger data
         this.messenger.init();
     }
-    
+
     public void sendMessage(String message) {
         this.send(new BroadcastMessageAlertComposer(message));
     }
@@ -61,36 +59,23 @@ public class Player extends Entity {
     @Override
     public void dispose() {
 
-        if (this.details.isAuthenticated()) {
+        if (!this.details.isAuthenticated()) {
+            return;   
+        }
 
-            if (this.roomUser.getRoom() != null) {
-                this.roomUser.getRoom().leaveRoom(this, false);
-            }
-            
-            // Call player disconnect event with Player parameter
-            PluginManager.callEvent(PluginEvent.PLAYER_DISCONNECT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this) });
+        if (this.roomUser.getRoom() != null) {
+            this.roomUser.getRoom().leaveRoom(this, false);
+        }
 
-            List<Room> rooms = RoomManager.getPlayerRooms(this.details.getId());
+        PluginManager.callEvent(PluginEvent.PLAYER_DISCONNECT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this) });
 
-            if (rooms.size() > 0) {
-                for (Room room : rooms) {
-                    room.dispose(false); 
-                }
-            }
+        for (Room room : RoomManager.getPlayerRooms(this.details.getId())) {
+            room.dispose(false); 
         }
 
         this.messenger.dispose();
         this.roomUser.dispose();
         this.inventory.dispose();
-
-        Log.println("called?");
-        
-        this.messenger = null;
-        this.inventory = null;
-        this.roomUser = null;
-        this.machineId = null;
-        
-        this.disposed = true;
     }
 
     public List<Room> getRooms() {
