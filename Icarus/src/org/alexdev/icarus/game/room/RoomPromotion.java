@@ -51,8 +51,4 @@ public class RoomPromotion {
     public void setPromotionMinutesLeft(AtomicInteger promotionMinutesLeft) {
         this.promotionMinutesLeft = promotionMinutesLeft;
     }
-
-
-
-
 }

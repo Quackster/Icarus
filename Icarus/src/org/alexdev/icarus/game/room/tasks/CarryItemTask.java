@@ -45,5 +45,4 @@ public class CarryItemTask extends RoomTask {
         
         this.tick();
     }
-
 }

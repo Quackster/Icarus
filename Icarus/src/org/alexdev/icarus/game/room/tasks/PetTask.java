@@ -44,5 +44,4 @@ public class PetTask extends RoomTask {
 
         this.tick();
     }
-
 }

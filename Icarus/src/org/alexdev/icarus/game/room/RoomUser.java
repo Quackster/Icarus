@@ -581,6 +581,4 @@ public class RoomUser {
     public void setRequestedRoomId(int roomRequestedId) {
         this.roomRequestedId = roomRequestedId;
     }
-
-
 }

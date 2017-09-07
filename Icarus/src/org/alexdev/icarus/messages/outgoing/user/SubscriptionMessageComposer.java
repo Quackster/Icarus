@@ -26,7 +26,7 @@ public class SubscriptionMessageComposer extends MessageComposer {
             this.response.writeInt(player.getSubscription().getDaysLeft());
             this.response.writeInt(2);
             this.response.writeInt(player.getSubscription().getMonthsLeft());
-            this.response.writeInt(player.getSubscription().getYearsLeft() / 6);            
+            this.response.writeInt(player.getSubscription().getYearsLeft());            
         }
 
         this.response.writeBool(true); // HC

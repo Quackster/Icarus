@@ -316,6 +316,4 @@ public class RoomMapping {
 
         return this.tiles[x][y].getHighestItem();
     }
-
-
 }

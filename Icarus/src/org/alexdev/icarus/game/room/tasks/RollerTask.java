@@ -153,7 +153,5 @@ public class RollerTask extends RoomTask {
         
         
         this.tick();
-
     }
-
 }
