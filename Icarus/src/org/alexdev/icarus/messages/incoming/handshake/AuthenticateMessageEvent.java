@@ -46,7 +46,7 @@ public class AuthenticateMessageEvent implements MessageEvent {
         player.send(new AvailabilityMessageComposer());
         
         // player.send(new TargettedOfferDataComposer());
-        //ClubManager.purchaseDays(player, 31);
+        // ClubManager.purchaseDays(player, 31);
         
         player.login();
         
