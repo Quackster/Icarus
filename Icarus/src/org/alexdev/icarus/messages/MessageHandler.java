@@ -13,6 +13,7 @@ import org.alexdev.icarus.messages.incoming.catalogue.PurchaseItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.PurchasePresentMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.PurchaseRoomPromotionMessageEvent;
 import org.alexdev.icarus.messages.incoming.handshake.*;
+import org.alexdev.icarus.messages.incoming.items.PurchaseOfferMessageEvent;
 import org.alexdev.icarus.messages.incoming.messenger.*;
 import org.alexdev.icarus.messages.incoming.misc.*;
 import org.alexdev.icarus.messages.incoming.navigator.*;
@@ -159,6 +160,7 @@ public class MessageHandler {
         this.registerEvent(Incoming.MoodlightInteractMessageEvent, new MoodlightInteractMessageEvent());
         this.registerEvent(Incoming.ToggleMoodlightMessageEvent, new ToggleMoodlightMessageEvent());
         this.registerEvent(Incoming.SaveMoodlightPresetMessageEvent, new SaveMoodlightPresetMessageEvent());
+        this.registerEvent(Incoming.PurchaseOfferMessageEvent, new PurchaseOfferMessageEvent());
     }
     
     private void registerComposerPackages() {

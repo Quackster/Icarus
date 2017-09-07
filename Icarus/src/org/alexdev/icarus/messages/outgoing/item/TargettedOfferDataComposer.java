@@ -11,7 +11,7 @@ public class TargettedOfferDataComposer extends MessageComposer {
     public void write() {
         this.response.init(Outgoing.TargettedOfferDataComposer);
         this.response.writeInt(this.minimised ? 4 : 1); 
-        this.response.writeInt(190); // layout
+        this.response.writeInt(330); // ID
         this.response.writeString("000000000000");  // must be 12 characters long
         this.response.writeString("000000000");     // must be 9 characters long
         this.response.writeInt(105); // credits 
@@ -23,7 +23,7 @@ public class TargettedOfferDataComposer extends MessageComposer {
         this.response.writeString("targeted.offer.bf16_tko_gr1.desc"); // description - can either be external text entry or just straight text
         this.response.writeString("targetedoffers/tko_xmas16.png"); // image large
         this.response.writeString("targetedoffers/tto_blkfri_20_small.png"); // image small
-        this.response.writeInt(1); 
+        this.response.writeInt(9001); // ID
         this.response.writeInt(15); 
         this.response.writeString("HC_1_MONTH_INTERNAL");
         this.response.writeString("xmas13_snack");

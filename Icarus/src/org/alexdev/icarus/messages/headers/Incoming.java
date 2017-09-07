@@ -70,6 +70,7 @@ public class Incoming {
     public static Integer PetRacesMessageEvent = 599;
     public static Integer VerifyPetNameMessageEvent = 3733;
     public static Integer PlacePetMessageEvent = 1495;
+    public static Integer PurchaseOfferMessageEvent = 955;
     
     
 }
