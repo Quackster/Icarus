@@ -3,8 +3,9 @@ package org.alexdev.icarus.game.entity;
 import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomUser;
+import org.alexdev.icarus.util.Metadata;
 
-public abstract class Entity {
+public abstract class Entity extends Metadata {
     
     protected boolean disposed;
     

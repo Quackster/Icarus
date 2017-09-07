@@ -251,6 +251,11 @@ public class Room {
         if (isCancelled) {
             this.leaveRoom(player, true);
         }
+        
+        /*if (this.items.size() > 0) {
+            Item item = this.items.get(this.items.keySet().toArray()[0]);
+            item.getMetadata().set("test", "is a test ok?");
+        }*/
     }
 
     public void leaveRoom(Player player, boolean hotelView) {

@@ -12,8 +12,6 @@ import org.alexdev.icarus.game.furniture.ItemManager;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.pathfinder.AffectedTile;
 import org.alexdev.icarus.game.pathfinder.Position;
-import org.alexdev.icarus.game.player.PlayerDetails;
-import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.log.Log;
