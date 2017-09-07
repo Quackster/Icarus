@@ -20,7 +20,7 @@ public class Messenger {
         this.initalised = false;
     }
 
-    public void load() {
+    public void init() {
         this.friends = MessengerDao.getFriends(player.getDetails().getId());
         this.requests = MessengerDao.getRequests(player.getDetails().getId());
     }

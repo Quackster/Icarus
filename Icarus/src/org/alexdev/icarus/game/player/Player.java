@@ -49,6 +49,9 @@ public class Player extends Entity {
         
         // Load all inventory items
         this.inventory.init();
+        
+        // Load all messenger data
+        this.messenger.init();
     }
     
     public void sendMessage(String message) {
