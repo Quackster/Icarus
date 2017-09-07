@@ -18,65 +18,65 @@ public class CataloguePageMessageComposer extends MessageComposer {
     @Override
     public void write() {
 
-        response.init(Outgoing.CataloguePageMessageComposer);
-        response.writeInt(this.page.getId());
-        response.writeString(this.type);
-        response.writeString(page.getLayout());
+        this.response.init(Outgoing.CataloguePageMessageComposer);
+        this.response.writeInt(this.page.getId());
+        this.response.writeString(this.type);
+        this.response.writeString(page.getLayout());
         
-        response.writeInt(page.getImages().size());
+        this.response.writeInt(page.getImages().size());
         for (String image : page.getImages()) {
-            response.writeString(image);
+            this.response.writeString(image);
         }
         
-       response.writeInt(page.getTexts().size());
+       this.response.writeInt(page.getTexts().size());
         for (String text : page.getTexts()) {
-            response.writeString(text);
+            this.response.writeString(text);
         }
 
-        response.writeInt(page.getItems().size()); 
+        this.response.writeInt(page.getItems().size()); 
 
         for (CatalogueItem item : page.getItems()) {
             item.serialise(response);
         }
 
-        response.writeInt(-1);
-        response.writeBool(false);
+        this.response.writeInt(-1);
+        this.response.writeBool(false);
         
         if (page.getLayout().equals("frontpage4")) {
 
-            response.writeInt(4);
+            this.response.writeInt(4);
 
-            response.writeInt(1);
-            response.writeString("New Fitness Duck Bundle!");
-            response.writeString("catalogue/feature_cata_vert_mallbundle3.png");
-            response.writeInt(0);
-            response.writeString("lympix16shop");
-            response.writeInt(-1);
+            this.response.writeInt(1);
+            this.response.writeString("New Fitness Duck Bundle!");
+            this.response.writeString("catalogue/feature_cata_vert_mallbundle3.png");
+            this.response.writeInt(0);
+            this.response.writeString("lympix16shop");
+            this.response.writeInt(-1);
 
-            response.writeInt(2);
-            response.writeString("Clothes Shop");
-            response.writeString("catalogue/feature_cata_hort_clothes.png");
-            response.writeInt(0);
-            response.writeString("clothing_top_picks");
-            response.writeInt(-1);
+            this.response.writeInt(2);
+            this.response.writeString("Clothes Shop");
+            this.response.writeString("catalogue/feature_cata_hort_clothes.png");
+            this.response.writeInt(0);
+            this.response.writeString("clothing_top_picks");
+            this.response.writeInt(-1);
 
-            response.writeInt(3);
-            response.writeString("The Icarus Pet Shop");
-            response.writeString("catalogue/feature_cata_hort_pets.png");
-            response.writeInt(0);
-            response.writeString("pets_info");
-            response.writeInt(-1);
+            this.response.writeInt(3);
+            this.response.writeString("The Icarus Pet Shop");
+            this.response.writeString("catalogue/feature_cata_hort_pets.png");
+            this.response.writeInt(0);
+            this.response.writeString("pets_info");
+            this.response.writeInt(-1);
 
-            response.writeInt(4);
-            response.writeString("Become a HC Member");
-            response.writeString("catalogue/feature_cata_hort_HC_b.png");
-            response.writeInt(0);
-            response.writeString("hc_membership");
-            response.writeInt(-1);
+            this.response.writeInt(4);
+            this.response.writeString("Become a HC Member");
+            this.response.writeString("catalogue/feature_cata_hort_HC_b.png");
+            this.response.writeInt(0);
+            this.response.writeString("hc_membership");
+            this.response.writeInt(-1);
 
         }
         else {
-            response.writeInt(0);
+            this.response.writeInt(0);
         }
     }
 }

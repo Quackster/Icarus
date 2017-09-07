@@ -13,8 +13,8 @@ public class GenerateSecretKeyComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.SecretKeyMessageComposer);    
-        response.writeString(this.publicKey);
-        response.writeBool(false);
+        this.response.init(Outgoing.SecretKeyMessageComposer);    
+        this.response.writeString(this.publicKey);
+        this.response.writeBool(false);
     }
 }

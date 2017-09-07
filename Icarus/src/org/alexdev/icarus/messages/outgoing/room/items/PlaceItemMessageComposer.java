@@ -19,33 +19,33 @@ public class PlaceItemMessageComposer extends MessageComposer {
     public void write() {
 
         if (this.item.getType() == ItemType.FLOOR) {
-            response.init(Outgoing.PlaceFloorItemMessageComposer); 
+            this.response.init(Outgoing.PlaceFloorItemMessageComposer); 
 
-            response.writeInt(this.item.getId());
-            response.writeInt(this.item.getDefinition().getSpriteId());
-            response.writeInt(this.item.getPosition().getX());
-            response.writeInt(this.item.getPosition().getY());
-            response.writeInt(this.item.getPosition().getRotation());
-            response.writeString("" + Util.getDecimalFormatter().format(item.getPosition().getZ()));
-            response.writeString("");
+            this.response.writeInt(this.item.getId());
+            this.response.writeInt(this.item.getDefinition().getSpriteId());
+            this.response.writeInt(this.item.getPosition().getX());
+            this.response.writeInt(this.item.getPosition().getY());
+            this.response.writeInt(this.item.getPosition().getRotation());
+            this.response.writeString("" + Util.getDecimalFormatter().format(item.getPosition().getZ()));
+            this.response.writeString("");
 
             ItemExtraDataUtil.generateExtraData(item, response);
 
-            response.writeInt(-1);
-            response.writeInt(this.item.getDefinition().getInterationModes() > 0 ? 1 : 0);
+            this.response.writeInt(-1);
+            this.response.writeInt(this.item.getDefinition().getInterationModes() > 0 ? 1 : 0);
             this.response.writeInt(this.item.getOwnerId());
             this.response.writeString(this.item.getOwnerName());
 
         }
 
         if (this.item.getType() == ItemType.WALL) {
-            response.init(Outgoing.PlaceWallItemMessageComposer);
-            response.writeString(item.getId() + "");
-            response.writeInt(item.getDefinition().getSpriteId());
-            response.writeString(item.getWallPosition());
-            response.writeString(item.getExtraData());
-            response.writeInt(-1);
-            response.writeInt(item.getDefinition().getInterationModes() > 0 ? 1 : 0);
+            this.response.init(Outgoing.PlaceWallItemMessageComposer);
+            this.response.writeString(item.getId() + "");
+            this.response.writeInt(item.getDefinition().getSpriteId());
+            this.response.writeString(item.getWallPosition());
+            this.response.writeString(item.getExtraData());
+            this.response.writeInt(-1);
+            this.response.writeInt(item.getDefinition().getInterationModes() > 0 ? 1 : 0);
             this.response.writeInt(this.item.getOwnerId());
             this.response.writeString(this.item.getOwnerName());
         }

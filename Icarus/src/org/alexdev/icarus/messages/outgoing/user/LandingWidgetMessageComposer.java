@@ -7,8 +7,8 @@ public class LandingWidgetMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.LandingWidgetMessageComposer);
-        response.writeString("");
-        response.writeString("");
+        this.response.init(Outgoing.LandingWidgetMessageComposer);
+        this.response.writeString("");
+        this.response.writeString("");
     }
 }

@@ -16,10 +16,10 @@ public class FriendsListMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.InitMessengerMessageComposer);
-        response.writeInt(1);
-        response.writeInt(0);
-        response.writeInt(this.friends.size());
+        this.response.init(Outgoing.InitMessengerMessageComposer);
+        this.response.writeInt(1);
+        this.response.writeInt(0);
+        this.response.writeInt(this.friends.size());
         
         for (MessengerUser friend : this.friends) {
             friend.serialiseFriend(response, false);

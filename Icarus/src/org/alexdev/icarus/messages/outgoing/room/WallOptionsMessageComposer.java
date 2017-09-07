@@ -17,9 +17,9 @@ public class WallOptionsMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.WallOptionsMessageComposer);
-        response.writeBool(this.hideWall);
-        response.writeInt(this.wallThickness);
-        response.writeInt(this.floorThickness);
+        this.response.init(Outgoing.WallOptionsMessageComposer);
+        this.response.writeBool(this.hideWall);
+        this.response.writeInt(this.wallThickness);
+        this.response.writeInt(this.floorThickness);
     }
 }

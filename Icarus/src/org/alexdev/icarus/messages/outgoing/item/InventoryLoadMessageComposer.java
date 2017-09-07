@@ -20,62 +20,62 @@ public class InventoryLoadMessageComposer extends MessageComposer {
     @Override
     public void write() {
 
-        response.init(Outgoing.InventoryMessageComposer);
-        response.writeInt(1);
-        response.writeInt(0);
-        response.writeInt(this.wallItems.size() + this.floorItems.size());
+        this.response.init(Outgoing.InventoryMessageComposer);
+        this.response.writeInt(1);
+        this.response.writeInt(0);
+        this.response.writeInt(this.wallItems.size() + this.floorItems.size());
 
         for (Item item : this.wallItems) {
-            response.writeInt(item.getId());
-            response.writeString(item.getDefinition().getType().toUpperCase());
-            response.writeInt(item.getId());
-            response.writeInt(item.getDefinition().getSpriteId());
+            this.response.writeInt(item.getId());
+            this.response.writeString(item.getDefinition().getType().toUpperCase());
+            this.response.writeInt(item.getId());
+            this.response.writeInt(item.getDefinition().getSpriteId());
 
             if (item.getDefinition().getItemName().contains("landscape"))
-                response.writeInt(4);
+                this.response.writeInt(4);
             else if (item.getDefinition().getItemName().contains("wallpaper"))
-                response.writeInt(2);
+                this.response.writeInt(2);
             else if (item.getDefinition().getItemName().contains("a2")) 
-                response.writeInt(3);
+                this.response.writeInt(3);
             else
-                response.writeInt(1);
+                this.response.writeInt(1);
 
-            response.writeInt(0);
-            response.writeString(item.getExtraData());
-            response.writeBool(item.getDefinition().allowRecycle());
-            response.writeBool(item.getDefinition().allowTrade());
-            response.writeBool(item.getDefinition().allowInventoryStack());
-            response.writeBool(item.getDefinition().allowMarketplaceSell());
-            response.writeInt(-1);
-            response.writeBool(false);
-            response.writeInt(-1);
+            this.response.writeInt(0);
+            this.response.writeString(item.getExtraData());
+            this.response.writeBool(item.getDefinition().allowRecycle());
+            this.response.writeBool(item.getDefinition().allowTrade());
+            this.response.writeBool(item.getDefinition().allowInventoryStack());
+            this.response.writeBool(item.getDefinition().allowMarketplaceSell());
+            this.response.writeInt(-1);
+            this.response.writeBool(false);
+            this.response.writeInt(-1);
         }
 
         for (Item item : floorItems) {
-            response.writeInt(item.getId());
-            response.writeString(item.getDefinition().getType().toUpperCase());
-            response.writeInt(item.getId());
-            response.writeInt(item.getDefinition().getSpriteId());
+            this.response.writeInt(item.getId());
+            this.response.writeString(item.getDefinition().getType().toUpperCase());
+            this.response.writeInt(item.getId());
+            this.response.writeInt(item.getDefinition().getSpriteId());
 
             if (item.getDefinition().getInteractionType() == InteractionType.GROUPITEM || item.getDefinition().getInteractionType() == InteractionType.GLD_GATE) {
-                response.writeInt(17); 
+                this.response.writeInt(17); 
             } else if (item.getDefinition().getInteractionType() == InteractionType.MUSICDISK) {
-                response.writeInt(8);
+                this.response.writeInt(8);
             } else {
-                response.writeInt(1);
+                this.response.writeInt(1);
             }
 
-            response.writeInt(0);
-            response.writeString(item.getExtraData());
-            response.writeBool(item.getDefinition().allowRecycle());
-            response.writeBool(item.getDefinition().allowTrade());
-            response.writeBool(item.getDefinition().allowInventoryStack());
-            response.writeBool(item.getDefinition().allowMarketplaceSell());
-            response.writeInt(-1);
-            response.writeBool(false); 
-            response.writeInt(-1);
-            response.writeString("");
-            response.writeInt(0);
+            this.response.writeInt(0);
+            this.response.writeString(item.getExtraData());
+            this.response.writeBool(item.getDefinition().allowRecycle());
+            this.response.writeBool(item.getDefinition().allowTrade());
+            this.response.writeBool(item.getDefinition().allowInventoryStack());
+            this.response.writeBool(item.getDefinition().allowMarketplaceSell());
+            this.response.writeInt(-1);
+            this.response.writeBool(false); 
+            this.response.writeInt(-1);
+            this.response.writeString("");
+            this.response.writeInt(0);
         }
     }
 }

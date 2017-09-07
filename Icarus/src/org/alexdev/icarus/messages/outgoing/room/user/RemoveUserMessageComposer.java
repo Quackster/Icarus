@@ -13,7 +13,7 @@ public class RemoveUserMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.RemoveUserMessageComposer);
-        response.writeString(this.virtualId + "");
+        this.response.init(Outgoing.RemoveUserMessageComposer);
+        this.response.writeString(this.virtualId + "");
     }
 }

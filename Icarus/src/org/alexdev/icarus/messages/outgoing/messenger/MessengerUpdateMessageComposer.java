@@ -16,12 +16,12 @@ public class MessengerUpdateMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.FriendUpdateMessageComposer);
-        response.writeInt(0);
-        response.writeInt(1);
-        response.writeInt(0);
+        this.response.init(Outgoing.FriendUpdateMessageComposer);
+        this.response.writeInt(0);
+        this.response.writeInt(1);
+        this.response.writeInt(0);
         this.friend.serialiseFriend(response, this.forceOffline);
-        response.writeBool(false);
+        this.response.writeBool(false);
         
     }
 }

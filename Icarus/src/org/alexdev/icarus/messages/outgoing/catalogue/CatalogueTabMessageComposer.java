@@ -20,42 +20,42 @@ public class CatalogueTabMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.CatalogueTabMessageComposer);
-        response.writeBool(true);
-        response.writeInt(0);
-        response.writeInt(-1);
-        response.writeString("root");
-        response.writeString("");
-        response.writeInt(0);
-        response.writeInt(parentTabs.size());
+        this.response.init(Outgoing.CatalogueTabMessageComposer);
+        this.response.writeBool(true);
+        this.response.writeInt(0);
+        this.response.writeInt(-1);
+        this.response.writeString("root");
+        this.response.writeString("");
+        this.response.writeInt(0);
+        this.response.writeInt(parentTabs.size());
 
         for (CatalogueTab parent_tab : parentTabs) {
-            this.appendCatalogueIndexData(parent_tab, response);
-            this.recursiveCatalogueIndex(parent_tab, response);
+            this.appendCatalogueIndexData(parent_tab, this.response);
+            this.recursiveCatalogueIndex(parent_tab, this.response);
         }
 
-        response.writeBool(false);
-        response.writeString(type);
+        this.response.writeBool(false);
+        this.response.writeString(type);
     }
 
     void appendCatalogueIndexData(CatalogueTab tab, Response response) {
 
-        response.writeBool(tab.isEnabled());
-        response.writeInt(tab.getIconImage());
-        response.writeInt(tab.getId());
-        response.writeString(tab.getLink().equals("undefined") ? Util.removeNonAlphaNumeric(tab.getCaption()).toLowerCase().replace(" ", "_") : tab.getLink());
-        response.writeString(tab.getCaption());
-        response.writeInt(0);
+        this.response.writeBool(tab.isEnabled());
+        this.response.writeInt(tab.getIconImage());
+        this.response.writeInt(tab.getId());
+        this.response.writeString(tab.getLink().equals("undefined") ? Util.removeNonAlphaNumeric(tab.getCaption().toLowerCase()).replace(" ", "_") : tab.getLink());
+        this.response.writeString(tab.getCaption());
+        this.response.writeInt(0);
     }
 
     void recursiveCatalogueIndex(CatalogueTab tab, Response response)  {
 
         List<CatalogueTab> child_tabs = tab.getChildTabs();
-        response.writeInt(child_tabs.size());
+        this.response.writeInt(child_tabs.size());
 
         for (CatalogueTab child_tab : child_tabs) {
-            this.appendCatalogueIndexData(child_tab, response);
-            this.recursiveCatalogueIndex(child_tab, response);
+            this.appendCatalogueIndexData(child_tab, this.response);
+            this.recursiveCatalogueIndex(child_tab, this.response);
         }
     }
 }

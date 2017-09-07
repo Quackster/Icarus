@@ -21,25 +21,25 @@ public class RoomDataMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.RoomDataMessageComposer);
-        response.writeBool(this.isLoading);
+        this.response.init(Outgoing.RoomDataMessageComposer);
+        this.response.writeBool(this.isLoading);
         this.room.getData().serialise(response, this.isLoading);
-        response.writeBool(this.checkEntry);
-        response.writeBool(false); 
-        response.writeBool(false);
-        response.writeBool(false);
-        response.writeInt(room.getData().getWhoCanMute());
-        response.writeInt(room.getData().getWhoCanKick());
-        response.writeInt(room.getData().getWhoCanBan());
-        response.writeBool(room.hasRights(player, true)); // TODO: Rights, true if moderator or room owner
-        response.writeInt(room.getData().getChatMode());
-        response.writeInt(room.getData().getChatSize());
-        response.writeInt(room.getData().getChatSpeed());
-        response.writeInt(room.getData().getChatMaxDistance());
-        response.writeInt(room.getData().getChatFloodProtection());
+        this.response.writeBool(this.checkEntry);
+        this.response.writeBool(false); 
+        this.response.writeBool(false);
+        this.response.writeBool(false);
+        this.response.writeInt(room.getData().getWhoCanMute());
+        this.response.writeInt(room.getData().getWhoCanKick());
+        this.response.writeInt(room.getData().getWhoCanBan());
+        this.response.writeBool(room.hasRights(player, true)); // TODO: Rights, true if moderator or room owner
+        this.response.writeInt(room.getData().getChatMode());
+        this.response.writeInt(room.getData().getChatSize());
+        this.response.writeInt(room.getData().getChatSpeed());
+        this.response.writeInt(room.getData().getChatMaxDistance());
+        this.response.writeInt(room.getData().getChatFloodProtection());
         
         /*response.writeInt(room->getData()->chat_speed);
-        response.writeInt(room->getData()->chat_flood);
-        response.writeInt(room->getData()->chat_distance)*/;
+        this.response.writeInt(room->getData()->chat_flood);
+        this.response.writeInt(room->getData()->chat_distance)*/;
     }
 }

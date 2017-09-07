@@ -7,7 +7,7 @@ public class GenericNoAnswerDoorbellMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.GenericNoAnswerDoorbellMessageComposer);
-        response.writeString("");
+        this.response.init(Outgoing.GenericNoAnswerDoorbellMessageComposer);
+        this.response.writeString("");
     }
 }

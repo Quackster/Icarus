@@ -15,8 +15,8 @@ public class CanCreateRoomMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.CanCreateRoomMessageComposer);
-        response.writeInt(this.player.getRooms().size() >= GameSettings.MAX_ROOMS_PER_ACCOUNT ? 1 : 0);
-        response.writeInt(GameSettings.MAX_ROOMS_PER_ACCOUNT);
+        this.response.init(Outgoing.CanCreateRoomMessageComposer);
+        this.response.writeInt(this.player.getRooms().size() >= GameSettings.MAX_ROOMS_PER_ACCOUNT ? 1 : 0);
+        this.response.writeInt(GameSettings.MAX_ROOMS_PER_ACCOUNT);
     }
 }

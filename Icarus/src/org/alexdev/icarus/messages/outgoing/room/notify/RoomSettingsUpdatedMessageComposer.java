@@ -12,7 +12,7 @@ public class RoomSettingsUpdatedMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(-1);//Outgoing.RoomSettingsUpdatedMessageComposer);
-        response.writeInt(this.roomId);
+        this.response.init(-1);//Outgoing.RoomSettingsUpdatedMessageComposer);
+        this.response.writeInt(this.roomId);
     }
 }

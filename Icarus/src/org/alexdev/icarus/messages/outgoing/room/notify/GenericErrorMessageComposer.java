@@ -13,7 +13,7 @@ public class GenericErrorMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.GenericErrorMessageComposer);
-        response.writeInt(this.errorCode);
+        this.response.init(Outgoing.GenericErrorMessageComposer);
+        this.response.writeInt(this.errorCode);
     }
 }

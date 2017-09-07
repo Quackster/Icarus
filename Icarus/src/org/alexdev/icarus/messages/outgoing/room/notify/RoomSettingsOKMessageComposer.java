@@ -13,7 +13,7 @@ public class RoomSettingsOKMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(-1);////Outgoing.RoomSettingsOKMessageComposer);
-        response.writeInt(this.room.getData().getId());
+        this.response.init(-1);////Outgoing.RoomSettingsOKMessageComposer);
+        this.response.writeInt(this.room.getData().getId());
     }
 }

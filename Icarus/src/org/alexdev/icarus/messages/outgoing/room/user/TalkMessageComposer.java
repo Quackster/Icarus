@@ -42,12 +42,12 @@ public class TalkMessageComposer extends MessageComposer {
             header = Outgoing.ShoutMessageComposer;
         }
 
-        response.init(header);
-        response.writeInt(this.roomUser.getVirtualId());
-        response.writeString(this.message);
-        response.writeInt(0);
-        response.writeInt(this.textColour);
-        response.writeInt(0);
-        response.writeInt(this.count);
+        this.response.init(header);
+        this.response.writeInt(this.roomUser.getVirtualId());
+        this.response.writeString(this.message);
+        this.response.writeInt(0);
+        this.response.writeInt(this.textColour);
+        this.response.writeInt(0);
+        this.response.writeInt(this.count);
     }
 }

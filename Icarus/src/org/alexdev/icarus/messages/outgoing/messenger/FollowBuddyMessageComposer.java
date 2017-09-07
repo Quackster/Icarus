@@ -14,7 +14,7 @@ public class FollowBuddyMessageComposer extends MessageComposer {
     @Override
     public void write() {
         
-        response.init(Outgoing.FollowBuddyMessageComposer);
-        response.writeInt(this.friendId);
+        this.response.init(Outgoing.FollowBuddyMessageComposer);
+        this.response.writeInt(this.friendId);
     }
 }

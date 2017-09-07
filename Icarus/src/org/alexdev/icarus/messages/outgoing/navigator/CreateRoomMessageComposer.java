@@ -15,8 +15,8 @@ public class CreateRoomMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.CreateRoomMessageComposer);
-        response.writeInt(this.id);
-        response.writeString(this.name);
+        this.response.init(Outgoing.CreateRoomMessageComposer);
+        this.response.writeInt(this.id);
+        this.response.writeString(this.name);
     }
 }

@@ -18,12 +18,12 @@ public class GenericDoorbellMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.GenericDoorbellMessageComposer);
+        this.response.init(Outgoing.GenericDoorbellMessageComposer);
 
         if (this.username != null) {
-            response.writeString(this.username); 
+            this.response.writeString(this.username); 
         } else {
-            response.writeInt(this.notifyCode);
+            this.response.writeInt(this.notifyCode);
         }
     }
 }

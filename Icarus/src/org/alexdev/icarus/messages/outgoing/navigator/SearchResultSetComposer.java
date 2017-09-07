@@ -26,9 +26,9 @@ public class SearchResultSetComposer extends MessageComposer {
     @Override
     public void write() {
     
-        response.init(Outgoing.SearchResultSetComposer);
-        response.writeString(this.navigatorTab.getTabName());
-        response.writeString(this.searchQuery);
+        this.response.init(Outgoing.SearchResultSetComposer);
+        this.response.writeString(this.navigatorTab.getTabName());
+        this.response.writeString(this.searchQuery);
 
         if (this.searchQuery.isEmpty()) {
 
@@ -42,25 +42,25 @@ public class SearchResultSetComposer extends MessageComposer {
                 tabs.addAll(this.navigatorTab.getChildTabs());
             }
                 
-            response.writeInt(tabs.size());
+            this.response.writeInt(tabs.size());
                 
             for (NavigatorTab tab : tabs) {
                 
-                response.writeString(tab.getTabName());
-                response.writeString(tab.getTitle());
-                response.writeInt(roomLimit ? (int)tab.getButtonType() : 2); // force no button
-                response.writeBool(roomLimit ? tab.isClosed() : false); // force collapsed
-                response.writeInt(tab.isThumbnail());
+                this.response.writeString(tab.getTabName());
+                this.response.writeString(tab.getTitle());
+                this.response.writeInt(roomLimit ? (int)tab.getButtonType() : 2); // force no button
+                this.response.writeBool(roomLimit ? tab.isClosed() : false); // force collapsed
+                this.response.writeInt(tab.isThumbnail());
                 
                 List<Room> rooms = Lists.newArrayList();
                 
                 if (tab.getRoomPopulator() == null) {
-                    response.writeInt(0);
+                    this.response.writeInt(0);
                 } else {
                     
                     rooms.addAll(tab.getRoomPopulator().generateListing(roomLimit, player));
                     
-                    response.writeInt(rooms.size());
+                    this.response.writeInt(rooms.size());
                     
                     for (Room room : rooms) {
                         room.getData().serialise(response, false);
@@ -73,7 +73,7 @@ public class SearchResultSetComposer extends MessageComposer {
             tabs.clear();
 
         } else { // TODO: Search
-            response.writeInt(0);
+            this.response.writeInt(0);
             
         }
     }

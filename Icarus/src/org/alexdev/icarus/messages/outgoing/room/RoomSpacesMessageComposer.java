@@ -15,8 +15,8 @@ public class RoomSpacesMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.RoomSpacesMessageComposer);
-        response.writeString(this.space);
-        response.writeString(this.data);
+        this.response.init(Outgoing.RoomSpacesMessageComposer);
+        this.response.writeString(this.space);
+        this.response.writeString(this.data);
     }
 }

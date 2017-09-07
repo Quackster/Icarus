@@ -15,8 +15,8 @@ public class CarryObjectComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.CarryObjectComposer);
-        response.writeInt(this.virtualId);
-        response.writeInt(this.carryId);
+        this.response.init(Outgoing.CarryObjectComposer);
+        this.response.writeInt(this.virtualId);
+        this.response.writeInt(this.carryId);
     }
 }

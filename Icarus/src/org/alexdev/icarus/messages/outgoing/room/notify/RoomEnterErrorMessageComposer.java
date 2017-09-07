@@ -13,8 +13,8 @@ public class RoomEnterErrorMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.RoomEnterErrorMessageComposer);
-        response.writeInt(this.errorCode);
+        this.response.init(Outgoing.RoomEnterErrorMessageComposer);
+        this.response.writeInt(this.errorCode);
 
     }
 }

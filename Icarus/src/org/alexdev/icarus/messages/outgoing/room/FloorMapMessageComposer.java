@@ -14,9 +14,9 @@ public class FloorMapMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.FloorMapMessageComposer);
-        response.writeBool(true);
-        response.writeInt(this.room.getData().getWallHeight());
-        response.writeString(this.room.getModel().getRelativeHeightmap());
+        this.response.init(Outgoing.FloorMapMessageComposer);
+        this.response.writeBool(true);
+        this.response.writeInt(this.room.getData().getWallHeight());
+        this.response.writeString(this.room.getModel().getRelativeHeightmap());
     }
 }

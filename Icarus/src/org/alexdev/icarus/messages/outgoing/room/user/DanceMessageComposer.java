@@ -15,9 +15,9 @@ public class DanceMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.DanceStatusMessageComposer);
-        response.writeInt(this.virtualId);
-        response.writeInt(this.danceId);
+        this.response.init(Outgoing.DanceStatusMessageComposer);
+        this.response.writeInt(this.virtualId);
+        this.response.writeInt(this.danceId);
     }
 
 }

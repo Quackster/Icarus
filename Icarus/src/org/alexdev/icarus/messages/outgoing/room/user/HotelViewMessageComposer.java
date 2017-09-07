@@ -7,7 +7,7 @@ public class HotelViewMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.HotelScreenMessageComposer);
-        response.writeInt(3);
+        this.response.init(Outgoing.HotelScreenMessageComposer);
+        this.response.writeInt(3);
     }
 }

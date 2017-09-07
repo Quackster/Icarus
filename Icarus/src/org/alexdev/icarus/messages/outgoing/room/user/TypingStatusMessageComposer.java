@@ -15,8 +15,8 @@ public class TypingStatusMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.TypingStatusMessageComposer);
-        response.writeInt(this.virtualId);
-        response.writeInt(this.typeStart);
+        this.response.init(Outgoing.TypingStatusMessageComposer);
+        this.response.writeInt(this.virtualId);
+        this.response.writeInt(this.typeStart);
     }
 }

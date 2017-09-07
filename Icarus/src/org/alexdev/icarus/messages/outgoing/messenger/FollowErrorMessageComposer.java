@@ -13,8 +13,8 @@ public class FollowErrorMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.FollowErrorMessageComposer);
-        response.writeInt(this.errorID);
+        this.response.init(Outgoing.FollowErrorMessageComposer);
+        this.response.writeInt(this.errorID);
 
     }
 }

@@ -27,15 +27,15 @@ public class UserStatusMessageComposer extends MessageComposer {
     @Override
     public void write() {
  
-        response.init(Outgoing.UserStatusMessageComposer);
+        this.response.init(Outgoing.UserStatusMessageComposer);
         
         synchronized (this.users) {
 
-            response.writeInt(this.users.size());
+            this.response.writeInt(this.users.size());
 
             for (Entity entity : this.users) {
 
-                response.writeInt(entity.getRoomUser().getVirtualId());
+                this.response.writeInt(entity.getRoomUser().getVirtualId());
                 
                 if (entity.getRoomUser().isWalking()) {
                     
@@ -44,9 +44,9 @@ public class UserStatusMessageComposer extends MessageComposer {
                     }
                 }
                 
-                response.writeInt(entity.getRoomUser().getPosition().getX());
-                response.writeInt(entity.getRoomUser().getPosition().getY());
-                response.writeString(Util.getDecimalFormatter().format(entity.getRoomUser().getPosition().getZ()));
+                this.response.writeInt(entity.getRoomUser().getPosition().getX());
+                this.response.writeInt(entity.getRoomUser().getPosition().getY());
+                this.response.writeString(Util.getDecimalFormatter().format(entity.getRoomUser().getPosition().getZ()));
                 
                 if (entity.getRoomUser().isWalking()) {
 
@@ -60,8 +60,8 @@ public class UserStatusMessageComposer extends MessageComposer {
                     }
                 }
                 
-                response.writeInt(entity.getRoomUser().getPosition().getHeadRotation());
-                response.writeInt(entity.getRoomUser().getPosition().getBodyRotation());
+                this.response.writeInt(entity.getRoomUser().getPosition().getHeadRotation());
+                this.response.writeInt(entity.getRoomUser().getPosition().getBodyRotation());
 
                 String statusString = "/";
 
@@ -78,7 +78,7 @@ public class UserStatusMessageComposer extends MessageComposer {
                 }
 
                 statusString += " ";
-                response.writeString(statusString);
+                this.response.writeString(statusString);
                 
                 if (entity.getRoomUser().needsUpdate()) {
                     entity.getRoomUser().setNeedUpdate(false);

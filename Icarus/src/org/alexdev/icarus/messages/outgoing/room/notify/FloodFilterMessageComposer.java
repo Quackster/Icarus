@@ -13,7 +13,7 @@ public class FloodFilterMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.FloodFilterMessageComposer);
-        response.writeInt(this.waitSeconds);
+        this.response.init(Outgoing.FloodFilterMessageComposer);
+        this.response.writeInt(this.waitSeconds);
     }
 }

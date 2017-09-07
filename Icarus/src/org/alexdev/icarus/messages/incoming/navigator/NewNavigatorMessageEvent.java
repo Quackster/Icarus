@@ -15,25 +15,25 @@ public class NewNavigatorMessageEvent implements MessageEvent {
     public void handle(Player player, ClientMessage request) {
 
         /*Response response = new Response();
-        response.init(Outgoing.NavigatorLiftedRoomsComposer);
-        response.appendInt32(0);
+        this.response.init(Outgoing.NavigatorLiftedRoomsComposer);
+        this.response.appendInt32(0);
         player.send(response);
 
-        response.init(Outgoing.NavigatorSavedSearchesComposer);
-        response.appendInt32(1);
-        response.appendInt32(1);
-        response.appendString("myworld_view");
-        response.appendString("test3");
-        response.appendString("");
+        this.response.init(Outgoing.NavigatorSavedSearchesComposer);
+        this.response.appendInt32(1);
+        this.response.appendInt32(1);
+        this.response.appendString("myworld_view");
+        this.response.appendString("test3");
+        this.response.appendString("");
         player.send(response);
         
-        response.init(Outgoing.NewNavigatorSizeMessageComposer);
-        response.appendInt32(50);//pref.NewnaviX);
-        response.appendInt32(50);//pref.NewnaviY);
-        response.appendInt32(580);//pref.NewnaviWidth);
-        response.appendInt32(600);//pref.NewnaviHeight);
-        response.appendBoolean(true);
-        response.appendInt32(1);
+        this.response.init(Outgoing.NewNavigatorSizeMessageComposer);
+        this.response.appendInt32(50);//pref.NewnaviX);
+        this.response.appendInt32(50);//pref.NewnaviY);
+        this.response.appendInt32(580);//pref.NewnaviWidth);
+        this.response.appendInt32(600);//pref.NewnaviHeight);
+        this.response.appendBoolean(true);
+        this.response.appendInt32(1);
         player.send(response);*/
 
         player.send(new NavigatorMetaDataComposer(NavigatorManager.getParentTabs()));

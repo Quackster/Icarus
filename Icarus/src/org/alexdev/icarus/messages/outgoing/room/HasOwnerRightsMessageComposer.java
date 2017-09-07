@@ -7,6 +7,6 @@ public class HasOwnerRightsMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.HasOwnerRightsMessageComposer);
+        this.response.init(Outgoing.HasOwnerRightsMessageComposer);
     }
 }

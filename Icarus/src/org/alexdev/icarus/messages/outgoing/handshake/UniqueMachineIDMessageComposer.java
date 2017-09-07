@@ -18,7 +18,7 @@ public class UniqueMachineIDMessageComposer extends MessageComposer {
             return;
         }
         
-        response.init(Outgoing.UniqueMachineIDMessageComposer);
-        response.writeString(this.uniqueMachineId);
+        this.response.init(Outgoing.UniqueMachineIDMessageComposer);
+        this.response.writeString(this.uniqueMachineId);
     }
 }

@@ -17,24 +17,24 @@ public class WallItemsMessageComposer extends MessageComposer {
     @Override
     public void write() {
         
-        response.init(Outgoing.WallItemsMessageComposer);
+        this.response.init(Outgoing.WallItemsMessageComposer);
         
-        response.writeInt(this.items.size());
+        this.response.writeInt(this.items.size());
         for (Item wallItem : this.items) { 
             this.response.writeInt(wallItem.getOwnerId());
             this.response.writeString(wallItem.getOwnerName());
         }
 
-        response.writeInt(this.items.size());
+        this.response.writeInt(this.items.size());
         
         for (Item wallItem : this.items) {
-            response.writeString(wallItem.getId() + "");
-            response.writeInt(wallItem.getDefinition().getSpriteId());
-            response.writeString(wallItem.getWallPosition());
-            response.writeString(wallItem.getExtraData());
-            response.writeInt(-1);
-            response.writeInt(wallItem.getDefinition().getInterationModes() > 0 ? 1 : 0);
-            response.writeInt(wallItem.getOwnerId());
+            this.response.writeString(wallItem.getId() + "");
+            this.response.writeInt(wallItem.getDefinition().getSpriteId());
+            this.response.writeString(wallItem.getWallPosition());
+            this.response.writeString(wallItem.getExtraData());
+            this.response.writeInt(-1);
+            this.response.writeInt(wallItem.getDefinition().getInterationModes() > 0 ? 1 : 0);
+            this.response.writeInt(wallItem.getOwnerId());
         }
     }
 }

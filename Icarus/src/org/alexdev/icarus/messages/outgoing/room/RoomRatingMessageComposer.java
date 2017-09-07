@@ -13,8 +13,8 @@ public class RoomRatingMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.RoomRatingMessageComposer);
-        response.writeInt(this.score);
-        response.writeBool(false);
+        this.response.init(Outgoing.RoomRatingMessageComposer);
+        this.response.writeInt(this.score);
+        this.response.writeBool(false);
     }
 }

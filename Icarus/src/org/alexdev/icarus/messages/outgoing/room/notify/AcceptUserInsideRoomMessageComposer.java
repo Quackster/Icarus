@@ -7,7 +7,7 @@ public class AcceptUserInsideRoomMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.AcceptUserInsideRoomMessageComposer);
-        response.writeInt(1);
+        this.response.init(Outgoing.AcceptUserInsideRoomMessageComposer);
+        this.response.writeInt(1);
     }
 }

@@ -15,8 +15,8 @@ public class RoomOwnerRightsComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.RoomOwnerRightsComposer);
-        response.writeInt(this.id);
-        response.writeBool(this.isOwner);
+        this.response.init(Outgoing.RoomOwnerRightsComposer);
+        this.response.writeInt(this.id);
+        this.response.writeBool(this.isOwner);
     }
 }

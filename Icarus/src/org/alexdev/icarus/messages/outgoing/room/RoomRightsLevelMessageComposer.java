@@ -13,7 +13,7 @@ public class RoomRightsLevelMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.RightsLevelMessageComposer);
-        response.writeInt(this.status);
+        this.response.init(Outgoing.RightsLevelMessageComposer);
+        this.response.writeInt(this.status);
     }
 }

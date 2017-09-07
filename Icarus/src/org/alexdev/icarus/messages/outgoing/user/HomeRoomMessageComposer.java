@@ -15,9 +15,9 @@ public class HomeRoomMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.HomeRoomMessageComposer);
-        response.writeInt(this.roomId); 
-        response.writeInt(this.forceEnter); 
+        this.response.init(Outgoing.HomeRoomMessageComposer);
+        this.response.writeInt(this.roomId); 
+        this.response.writeInt(this.forceEnter); 
     }
 
 }

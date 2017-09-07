@@ -17,17 +17,17 @@ public class FlatCategoriesMessageComposer extends MessageComposer {
     @Override
     public void write() {
         
-        response.init(Outgoing.FlatCategoriesMessageComposer);
-        response.writeInt(this.categories.size());
+        this.response.init(Outgoing.FlatCategoriesMessageComposer);
+        this.response.writeInt(this.categories.size());
 
         for (NavigatorCategory category : this.categories) {
-            response.writeInt(category.getId());
-            response.writeString(category.getName());
-            response.writeBool(true); // show category?
-            response.writeBool(false); // no idea
-            response.writeString("NONE");
-            response.writeString("");
-            response.writeBool(false);
+            this.response.writeInt(category.getId());
+            this.response.writeString(category.getName());
+            this.response.writeBool(true); // show category?
+            this.response.writeBool(false); // no idea
+            this.response.writeString("NONE");
+            this.response.writeString("");
+            this.response.writeBool(false);
         }
     }
 }

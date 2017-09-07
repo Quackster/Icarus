@@ -6,6 +6,6 @@ import org.alexdev.icarus.messages.parsers.MessageComposer;
 public class AuthenticationOKMessageComposer extends MessageComposer {
 
     public void write() {
-        response.init(Outgoing.AuthenticationOKMessageComposer);
+        this.response.init(Outgoing.AuthenticationOKMessageComposer);
     }
 }

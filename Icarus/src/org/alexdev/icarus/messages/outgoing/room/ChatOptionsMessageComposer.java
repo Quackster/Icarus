@@ -14,11 +14,11 @@ public class ChatOptionsMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.ChatOptionsMessageComposer);
-        response.writeInt(room.getData().getChatMode());
-        response.writeInt(room.getData().getChatSize());
-        response.writeInt(room.getData().getChatSpeed());
-        response.writeInt(room.getData().getChatMaxDistance());
-        response.writeInt(room.getData().getChatFloodProtection());
+        this.response.init(Outgoing.ChatOptionsMessageComposer);
+        this.response.writeInt(room.getData().getChatMode());
+        this.response.writeInt(room.getData().getChatSize());
+        this.response.writeInt(room.getData().getChatSpeed());
+        this.response.writeInt(room.getData().getChatMaxDistance());
+        this.response.writeInt(room.getData().getChatFloodProtection());
     }
 }

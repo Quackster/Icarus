@@ -16,16 +16,16 @@ public class NavigatorCategories extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.NavigatorCategories);
-        response.writeInt(4 + this.categories.size());
+        this.response.init(Outgoing.NavigatorCategories);
+        this.response.writeInt(4 + this.categories.size());
 
           for (NavigatorCategory category : this.categories) {
-            response.writeString("category__" + category.getName());
+            this.response.writeString("category__" + category.getName());
         }
 
-        response.writeString("recommended");
-        response.writeString("new_ads");
-        response.writeString("staffpicks");
-        response.writeString("official");
+        this.response.writeString("recommended");
+        this.response.writeString("new_ads");
+        this.response.writeString("staffpicks");
+        this.response.writeString("official");
     }
 }

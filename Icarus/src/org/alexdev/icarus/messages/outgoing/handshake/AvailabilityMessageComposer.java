@@ -7,9 +7,9 @@ public class AvailabilityMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.AvailabilityMessageComposer);
-        response.writeBool(true);
-        response.writeBool(false);
-        response.writeBool(true);
+        this.response.init(Outgoing.AvailabilityMessageComposer);
+        this.response.writeBool(true);
+        this.response.writeBool(false);
+        this.response.writeBool(true);
     }
 }

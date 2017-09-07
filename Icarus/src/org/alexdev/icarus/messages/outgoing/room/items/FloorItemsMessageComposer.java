@@ -19,31 +19,31 @@ public class FloorItemsMessageComposer extends MessageComposer {
     @Override
     public void write() {
         
-        response.init(Outgoing.FloorItemsMessageComposer);
-        response.writeInt(items.size());
+        this.response.init(Outgoing.FloorItemsMessageComposer);
+        this.response.writeInt(items.size());
         
         for (Item floorItem : items) { 
-            response.writeInt(floorItem.getOwnerId());
-            response.writeString(floorItem.getOwnerName());
+            this.response.writeInt(floorItem.getOwnerId());
+            this.response.writeString(floorItem.getOwnerName());
         }
 
-        response.writeInt(items.size());
+        this.response.writeInt(items.size());
 
         for (Item floorItem : items) {
             
-            response.writeInt(floorItem.getId());
-            response.writeInt(floorItem.getDefinition().getSpriteId());
-            response.writeInt(floorItem.getPosition().getX());
-            response.writeInt(floorItem.getPosition().getY());
-            response.writeInt(floorItem.getPosition().getRotation());
-            response.writeString("" + Util.getDecimalFormatter().format(floorItem.getPosition().getZ()));
-            response.writeString("");
+            this.response.writeInt(floorItem.getId());
+            this.response.writeInt(floorItem.getDefinition().getSpriteId());
+            this.response.writeInt(floorItem.getPosition().getX());
+            this.response.writeInt(floorItem.getPosition().getY());
+            this.response.writeInt(floorItem.getPosition().getRotation());
+            this.response.writeString("" + Util.getDecimalFormatter().format(floorItem.getPosition().getZ()));
+            this.response.writeString("");
   
             ItemExtraDataUtil.generateExtraData(floorItem, this.response);
 
-            response.writeInt(-1);
-            response.writeInt(floorItem.getDefinition().getInterationModes() > 0 ? 1 : 0);
-            response.writeInt(floorItem.getOwnerId());
+            this.response.writeInt(-1);
+            this.response.writeInt(floorItem.getDefinition().getInterationModes() > 0 ? 1 : 0);
+            this.response.writeInt(floorItem.getOwnerId());
         }
     }
 }

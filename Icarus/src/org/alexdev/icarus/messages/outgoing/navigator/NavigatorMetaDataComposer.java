@@ -16,12 +16,12 @@ public class NavigatorMetaDataComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.NavigatorMetaDataComposer);
-        response.writeInt(this.tabs.size());
+        this.response.init(Outgoing.NavigatorMetaDataComposer);
+        this.response.writeInt(this.tabs.size());
 
         for (NavigatorTab tab : this.tabs) {
-            response.writeString(tab.getTabName());
-            response.writeInt(0);
+            this.response.writeString(tab.getTabName());
+            this.response.writeInt(0);
         }
     }
 }

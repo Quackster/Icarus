@@ -13,8 +13,8 @@ public class CreditsMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.CreditsMessageComposer);
-        response.writeString(this.credits + ".0");
+        this.response.init(Outgoing.CreditsMessageComposer);
+        this.response.writeString(this.credits + ".0");
     }
 
 }

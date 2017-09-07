@@ -7,7 +7,7 @@ public class UpdateInventoryMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.UpdateInventoryMessageComposer);
+        this.response.init(Outgoing.UpdateInventoryMessageComposer);
         
     }
 }

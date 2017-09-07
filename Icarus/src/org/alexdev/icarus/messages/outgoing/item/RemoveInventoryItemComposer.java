@@ -13,7 +13,7 @@ public class RemoveInventoryItemComposer extends MessageComposer {
 
     @Override
     public void write() {
-        response.init(Outgoing.RemoveInventoryItemComposer);
-        response.writeInt(this.itemId);
+        this.response.init(Outgoing.RemoveInventoryItemComposer);
+        this.response.writeInt(this.itemId);
     }
 }

@@ -18,9 +18,9 @@ public class HeightMapMessageComposer extends MessageComposer {
 
         String[] map = roomModel.getHeightMap().split("\\{13}");
 
-        response.init(Outgoing.HeightMapMessageComposer);
-        response.writeInt(roomModel.getMapSizeX());
-        response.writeInt(roomModel.getMapSizeX() * roomModel.getMapSizeY());
+        this.response.init(Outgoing.HeightMapMessageComposer);
+        this.response.writeInt(roomModel.getMapSizeX());
+        this.response.writeInt(roomModel.getMapSizeX() * roomModel.getMapSizeY());
  
         for (int y = 0; y < roomModel.getMapSizeY(); y++) {
             
@@ -31,7 +31,7 @@ public class HeightMapMessageComposer extends MessageComposer {
             for (char pos : line.toCharArray()) {
 
                 if (pos == 'x') {
-                   response.writeShort(-1);
+                   this.response.writeShort(-1);
                 } else {
                     
                     int height = 0;
@@ -47,7 +47,7 @@ public class HeightMapMessageComposer extends MessageComposer {
                         height = (intValue - 87);
                     }
                     
-                    response.writeShort(height * 256);
+                    this.response.writeShort(height * 256);
                 }
             }
         }
