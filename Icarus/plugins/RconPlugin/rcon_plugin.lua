@@ -7,7 +7,8 @@ plugin_details = {
 event_register = { }
 
 event_files = {
-	"rcon_handler.lua"
+	"rcon_handler.lua",
+    "command_handler.lua"
 }
 
 rcon_port = 30001

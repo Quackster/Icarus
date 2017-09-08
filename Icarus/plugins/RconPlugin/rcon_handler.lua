@@ -1,5 +1,5 @@
 --[[
-    The server socket handler for incoming MUS connections
+    The server socket handler for incoming MUS connections.
     
     @author: Quackster
 --]]
@@ -38,31 +38,25 @@ end
 
 --[[
     RCON command handler where it's possible to remote control
-    the server
+    the server.
     
     @author: Quackster
 --]]
+
 function handleRconCommands(incoming_data) 
 
     local rcon_data = util:split(incoming_data, ";")
     
-    local rcon_password = rcon_data:get(0)
-    local rcon_command = rcon_data:get(1)
-    local rcon_data = rcon_data:get(2)
+    local password = rcon_data:get(0)
+    local command = rcon_data:get(1)
     
-    log:println("RCON command: " .. rcon_command)
-    
-    -- Hotel alert command
-    if rcon_command == "ha" then
-    
-        local players = playerManager:getPlayers()
-
-        for i = 0, players:size() - 1 do
-
-            local existingPlayer = players:get(i)
-            existingPlayer:sendMessage(rcon_data)
-            
-        end
+    -- Do not continue if the password is incorrect.
+    if password ~= rcon_password then
+        do return end
     end
+    
+    -- Find function in global namespace and call it.
+    _G[command_handlers[command]](rcon_data)
+    
 end
 
