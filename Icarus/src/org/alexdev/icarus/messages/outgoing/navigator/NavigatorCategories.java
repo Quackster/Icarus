@@ -19,7 +19,7 @@ public class NavigatorCategories extends MessageComposer {
         this.response.init(Outgoing.NavigatorCategories);
         this.response.writeInt(4 + this.categories.size());
 
-          for (NavigatorCategory category : this.categories) {
+        for (NavigatorCategory category : this.categories) {
             this.response.writeString("category__" + category.getName());
         }
 

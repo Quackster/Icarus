@@ -25,12 +25,16 @@ public class WelcomeMessageEvent implements MessageEvent {
         LuaValue chunk = globals.load("session:sendMessage([[" + welcomeMessage.toString() + "]])");
         chunk.call();*/
        
+        if (player.isLoggedIn()) {
+            return;
+        }
         
         PluginManager.callEvent(PluginEvent.PLAYER_LOGIN_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player) });
         
         if (CatalogueManager.getOffer() != null) {
-            player.send(new TargettedOfferDataComposer(CatalogueManager.getOffer()));
+            //player.send(new TargettedOfferDataComposer(CatalogueManager.getOffer()));
         }
-
+        
+        player.setLoggedIn(true);
     }
 }

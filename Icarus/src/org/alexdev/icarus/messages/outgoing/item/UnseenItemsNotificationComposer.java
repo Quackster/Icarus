@@ -3,12 +3,12 @@ package org.alexdev.icarus.messages.outgoing.item;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.parsers.MessageComposer;
 
-public class FurniListNotificationComposer extends MessageComposer {
+public class UnseenItemsNotificationComposer extends MessageComposer {
 
     private int itemId;
     private int type;
 
-    public FurniListNotificationComposer(int itemId, int type) {
+    public UnseenItemsNotificationComposer(int itemId, int type) {
         this.itemId = itemId;
         this.type = type;
     }

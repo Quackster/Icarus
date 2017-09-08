@@ -27,6 +27,8 @@ public class Player extends Entity {
     private Messenger messenger;
     private Inventory inventory;
     private ClubSubscription subscription;
+    
+    private boolean loggedIn;
 
     public Player(IPlayerNetwork network) {
         this.network = network;
@@ -120,5 +122,13 @@ public class Player extends Entity {
 
     public void send(MessageComposer response) {
         this.network.send(response);
+    }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
     }
 }

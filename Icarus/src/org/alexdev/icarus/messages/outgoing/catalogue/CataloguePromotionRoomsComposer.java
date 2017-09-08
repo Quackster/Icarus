@@ -16,7 +16,6 @@ public class CataloguePromotionRoomsComposer extends MessageComposer {
 
     @Override
     public void write() {
-        
         this.response.init(Outgoing.AvailablePromotionRoomsComposer);
         this.response.writeBool(true);
         this.response.writeInt(this.rooms.size());

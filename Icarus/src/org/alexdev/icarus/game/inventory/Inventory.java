@@ -9,7 +9,7 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.messages.outgoing.item.FurniListNotificationComposer;
+import org.alexdev.icarus.messages.outgoing.item.UnseenItemsNotificationComposer;
 import org.alexdev.icarus.messages.outgoing.item.InventoryLoadMessageComposer;
 import org.alexdev.icarus.messages.outgoing.item.RemoveInventoryItemComposer;
 import org.alexdev.icarus.messages.outgoing.item.UpdateInventoryMessageComposer;
@@ -38,7 +38,7 @@ public class Inventory {
 
     public void addItem(Item item) {
         this.items.put(item.getId(), item);
-        this.player.send(new FurniListNotificationComposer(item.getId(), 1));
+        this.player.send(new UnseenItemsNotificationComposer(item.getId(), 1));
     }
 
     public void remove(Item item) {
@@ -48,7 +48,7 @@ public class Inventory {
     
     public void addPet(Pet pet) {
         this.pets.put(pet.getId(), pet);
-        this.player.send(new FurniListNotificationComposer(pet.getId(), 3));
+        this.player.send(new UnseenItemsNotificationComposer(pet.getId(), 3));
     }
     
     public void remove(Pet pet) {
