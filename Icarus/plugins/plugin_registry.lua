@@ -10,6 +10,7 @@
     
 --]]
 plugins = {
-	"BotPlugin/bot_plugin.lua"
+	"RconPlugin/rcon_plugin.lua",
+    "BotPlugin/Bot_plugin.lua"
 }
 

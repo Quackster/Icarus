@@ -95,11 +95,9 @@ public class PluginManager {
         plugins.add(plugin);
 
         LuaValue pluginEnable = globals.get("onEnable");
+        globals.set("plugin", CoerceJavaToLua.coerce(plugin));
         pluginEnable.invoke(CoerceJavaToLua.coerce(plugin));
         
-        // Set the global plugin variable
-        globals.set("plugin", CoerceJavaToLua.coerce(plugin));
-
         for (int i = 0; i < events.len().toint(); i++) {
             PluginEvent event = PluginEvent.valueOf(events.get(i + 1).toString());
             registeredPluginEvents.get(event).add(plugin);
@@ -131,7 +129,7 @@ public class PluginManager {
     public static void disposePlugins() {
         
         for (Plugin plugin : plugins) {
-            plugin.setShutdown(true);
+            plugin.setClosed(true);
         }
         
         plugins.clear();

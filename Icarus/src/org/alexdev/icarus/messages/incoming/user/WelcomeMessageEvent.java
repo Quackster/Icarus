@@ -15,16 +15,6 @@ public class WelcomeMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
 
-        /*Globals globals = JsePlatform.standardGlobals();
-        globals.set("session", CoerceJavaToLua.coerce(player));
-
-        StringBuilder welcomeMessage = new StringBuilder();
-        welcomeMessage.append("Welcome to Icarus Hotel\n\n");
-        welcomeMessage.append("This server is currently in alpha stage, some features may still be added, removed, or changed!");
-
-        LuaValue chunk = globals.load("session:sendMessage([[" + welcomeMessage.toString() + "]])");
-        chunk.call();*/
-       
         if (player.isLoggedIn()) {
             return;
         }
@@ -32,7 +22,7 @@ public class WelcomeMessageEvent implements MessageEvent {
         PluginManager.callEvent(PluginEvent.PLAYER_LOGIN_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player) });
         
         if (CatalogueManager.getOffer() != null) {
-            //player.send(new TargettedOfferDataComposer(CatalogueManager.getOffer()));
+            player.send(new TargettedOfferDataComposer(CatalogueManager.getOffer()));
         }
         
         player.setLoggedIn(true);

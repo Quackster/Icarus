@@ -1,7 +1,13 @@
 package org.alexdev.icarus.util;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.Socket;
 import java.security.SecureRandom;
 import java.text.DecimalFormat;
 import java.util.Map;
@@ -120,4 +126,20 @@ public class Util {
         return caption.replaceAll("[^A-Za-z0-9]", "");
     }
 
+    public static String readToEnd(Socket socket) throws IOException {
+        
+        byte[] receive = new byte[512];
+        
+        String str;
+
+        DataInputStream reader = new DataInputStream(socket.getInputStream());
+        reader.read(receive);
+
+        str = new String(receive);
+        return str;
+    }
+    
+    public static byte[] getByteArray(int size) {
+        return new byte[size];
+    }
 }

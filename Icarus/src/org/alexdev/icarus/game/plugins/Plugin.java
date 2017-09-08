@@ -1,7 +1,12 @@
 package org.alexdev.icarus.game.plugins;
 
+import java.util.concurrent.TimeUnit;
+
+import org.alexdev.icarus.game.GameScheduler;
 import org.luaj.vm2.Globals;
+import org.luaj.vm2.LuaFunction;
 import org.luaj.vm2.LuaTable;
+import org.luaj.vm2.LuaValue;
 
 public class Plugin {
 
@@ -15,20 +20,23 @@ public class Plugin {
         this.pluginAuthor = pluginAuthor;
         this.globals = globals;
     }
-    
-    public void runTaskLater(int seconds, Object functionObject) {
-        runTaskLater(seconds, functionObject, new LuaTable());
+
+    public static void runTaskLater(int seconds, Object functionObject) {
+        PluginScheduler.runTaskLater(seconds, functionObject, new LuaTable());
     }
 
-    public void runTaskLater(int seconds, Object functionObject, Object parameterObject) {
-        
-        if (this.shutdown) {
-            return;
-        }
-        
+    public static void runTaskLater(int seconds, Object functionObject, Object parameterObject) {
         PluginScheduler.runTaskLater(seconds, functionObject, parameterObject);
     }
-
+    
+    public static void runTaskAsynchronously(Object functionObject) {
+        PluginScheduler.runTaskAsynchronously(functionObject, new LuaTable());
+    }
+    
+    public static void runTaskAsynchronously(Object functionObject, Object parameterObject) {
+        PluginScheduler.runTaskAsynchronously(functionObject, parameterObject);
+    }
+    
     public String getName() {
         return pluginName;
     }
@@ -41,11 +49,11 @@ public class Plugin {
         return globals;
     }
 
-    public boolean isShutdown() {
+    public boolean isClosed() {
         return shutdown;
     }
 
-    public void setShutdown(boolean shutdown) {
+    public void setClosed(boolean shutdown) {
         this.shutdown = shutdown;
     }
 }

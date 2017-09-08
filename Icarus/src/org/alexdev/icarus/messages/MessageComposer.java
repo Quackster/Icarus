@@ -15,8 +15,4 @@ public abstract class MessageComposer {
     public Response getResponse() {
         return response;
     }
-
-    public void setResponse(NettyResponse response) {
-        this.response = response;
-    }
 }

@@ -24,7 +24,7 @@ public class TargetedOfferDao {
 
             sqlConnection = Dao.getStorage().getConnection();
 
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM targeted_offers WHERE expire_time > ?", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM targeted_offers WHERE expire_time > ? AND enabled = 1", sqlConnection);
             preparedStatement.setLong(1, Util.getCurrentTimeSeconds());
 
             resultSet = preparedStatement.executeQuery();
