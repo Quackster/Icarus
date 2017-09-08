@@ -10,6 +10,9 @@ event_files = {
 	"rcon_handler.lua"
 }
 
+rcon_port = 30001
+rcon_password = "jellybaby"
+
 --[[
 	Called when the plugin first starts up, so the plugin can load data if needed
 	so when the event is called the plugin is ready
@@ -21,9 +24,6 @@ function onEnable(plugin)
 	
 	-- If you want, use log.println() to show everyone this method being called
 	log:println(string.format('[Lua] Initialising plugin %s by %s', plugin:getName(), plugin:getAuthor()))
-    
-    local array = util:getByteArray(512);
-    
     listenServer()
 	
 end

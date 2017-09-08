@@ -10,6 +10,9 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.security.SecureRandom;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.alexdev.icarus.Icarus;
@@ -139,7 +142,7 @@ public class Util {
         return str;
     }
     
-    public static byte[] getByteArray(int size) {
-        return new byte[size];
+    public static List<String> split(String str, String delim) {
+        return new ArrayList<String>(Arrays.asList(str.split(delim)));
     }
 }
