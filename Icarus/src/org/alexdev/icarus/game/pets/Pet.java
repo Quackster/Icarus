@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.pets;
 
+import org.alexdev.icarus.dao.mysql.pets.PetDao;
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityType;
@@ -37,8 +38,12 @@ public class Pet extends Entity {
     private RoomUser roomUser;
     private PlayerDetails playerDetails;
     private String ownerName;
+    private int roomId;
     
-    public Pet(int id, String name, int level, int happiness, int experience, int energy, int ownerId, String colour, int raceId, int typeId, boolean saddled, int hair, int hairDye, boolean anyRider, int birthday) {
+    private int x;
+    private int y;
+    
+    public Pet(int id, String name, int level, int happiness, int experience, int energy, int ownerId, String colour, int raceId, int typeId, boolean saddled, int hair, int hairDye, boolean anyRider, int birthday, int roomId, int x, int y) {
         this.id = id;
         this.name = name;
         this.level = level;
@@ -46,7 +51,7 @@ public class Pet extends Entity {
         this.experience = experience;
         this.energy = energy;
         this.ownerId = ownerId;
-        this.ownerName = PlayerDao.getName(id);
+        this.ownerName = PlayerDao.getName(this.ownerId);
         this.colour = colour;
         this.raceId = raceId;
         this.typeId = typeId;
@@ -55,6 +60,7 @@ public class Pet extends Entity {
         this.hairDye = hairDye;
         this.anyRider = anyRider;
         this.birthday = birthday;
+        this.roomId = roomId;
         
         this.roomUser = new RoomUser(this);
         this.playerDetails = new PlayerDetails(this);
@@ -62,6 +68,11 @@ public class Pet extends Entity {
         this.playerDetails.setName(this.name);
         this.playerDetails.setFigure(this.getLook());
         this.playerDetails.setId(this.id);
+        
+        if (this.roomId > 0) {
+            this.x = x;
+            this.y = y;
+        }
     }
     
     @Override
@@ -82,6 +93,14 @@ public class Pet extends Entity {
     @Override
     public void dispose() {
         this.disposed = true;
+    }
+    
+    public void save() {
+        PetDao.savePet(this);
+    }
+    
+    public void savePosition() {
+        PetDao.savePetPosition(this);
     }
 
     public int getId() {
@@ -219,5 +238,34 @@ public class Pet extends Entity {
     public Boolean isRidingHorse() {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    public boolean hasRider() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public int getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }

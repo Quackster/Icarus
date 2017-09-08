@@ -17,6 +17,7 @@ import org.alexdev.icarus.messages.incoming.items.PurchaseOfferMessageEvent;
 import org.alexdev.icarus.messages.incoming.messenger.*;
 import org.alexdev.icarus.messages.incoming.misc.*;
 import org.alexdev.icarus.messages.incoming.navigator.*;
+import org.alexdev.icarus.messages.incoming.pets.PetInformationMessageEvemt;
 import org.alexdev.icarus.messages.incoming.pets.PetRacesMessageEvent;
 import org.alexdev.icarus.messages.incoming.pets.PlacePetMessageEvent;
 import org.alexdev.icarus.messages.incoming.pets.VerifyPetNameMessageEvent;
@@ -145,6 +146,7 @@ public class MessageHandler {
         this.registerEvent(Incoming.PlacePetMessageEvent, new PlacePetMessageEvent());
         this.registerEvent(Incoming.PetRacesMessageEvent, new PetRacesMessageEvent());
         this.registerEvent(Incoming.VerifyPetNameMessageEvent, new VerifyPetNameMessageEvent());
+        this.registerEvent(Incoming.PetInfoMessageEvent, new PetInformationMessageEvemt());
     }
     
     private void registerItemPackets() {

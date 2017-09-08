@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
+import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.pets.PetRace;
 import org.alexdev.icarus.log.Log;
@@ -36,11 +38,11 @@ public class PetDao {
 
             while (resultSet.next()) {
                 PetRace race = new PetRace(resultSet.getInt("race_id"), resultSet.getInt("colour1"), resultSet.getInt("colour2"), resultSet.getInt("has1colour") == 1, resultSet.getInt("has2colour") == 1);
-                
+
                 if (!races.containsKey(race.getRaceId())) {
                     races.put(race.getRaceId(), Lists.newArrayList());
                 }
-                
+
                 races.get(race.getRaceId()).add(race);
             }
 
@@ -54,7 +56,7 @@ public class PetDao {
 
         return races;
     }
-    
+
     public static int createPet(int ownerId, String petName, int type, int race, String colour) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -95,8 +97,89 @@ public class PetDao {
         return 0;
     }
 
+    public static List<Pet> getRoomPets(int roomId) {
+
+        List<Pet> pets = Lists.newArrayList();
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM pet_data WHERE room_id = " + roomId, sqlConnection);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                pets.add(fill(resultSet));
+            }
+
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return pets;
+    }
+
+    public static void savePet(Pet pet) {
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("UPDATE pet_data SET level = ?, room_id = ?, energy = ?, happiness = ?, experience = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, pet.getLevel());
+            preparedStatement.setInt(2, pet.getRoomId());
+            preparedStatement.setInt(3, pet.getEnergy());
+            preparedStatement.setInt(4, pet.getHappiness());
+            preparedStatement.setInt(5, pet.getExperience());
+            preparedStatement.setInt(6, pet.getId());
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+    
+    public static void savePetPosition(Pet pet) {
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        
+        pet.setX(pet.getRoomUser().getPosition().getX());
+        pet.setY(pet.getRoomUser().getPosition().getY());
+
+        try {
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("UPDATE pet_data SET x = ?, y = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, pet.getX());
+            preparedStatement.setInt(2, pet.getY());
+            preparedStatement.setInt(3, pet.getId());
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
     public static Pet fill(ResultSet data) throws SQLException {
-        Pet pet = new Pet(data.getInt("id"), data.getString("pet_name"), data.getInt("level"), data.getInt("happiness"), data.getInt("experience"), data.getInt("energy"), data.getInt("owner_id"), data.getString("colour"), data.getInt("race_id"), data.getInt("type"), data.getBoolean("saddled"), data.getInt("hair_style"), data.getInt("hair_colour"), data.getBoolean("any_rider"), data.getInt("birthday"));
+        Pet pet = new Pet(data.getInt("id"), data.getString("pet_name"), data.getInt("level"), data.getInt("happiness"), data.getInt("experience"), data.getInt("energy"), data.getInt("owner_id"), data.getString("colour"), data.getInt("race_id"), data.getInt("type"), data.getBoolean("saddled"), data.getInt("hair_style"), data.getInt("hair_colour"), data.getBoolean("any_rider"), data.getInt("birthday"), data.getInt("room_id"), data.getInt("x"), data.getInt("y"));
         return pet;
     }
 }

@@ -3,7 +3,7 @@ package org.alexdev.icarus.game.commands.types;
 import org.alexdev.icarus.game.commands.Command;
 import org.alexdev.icarus.game.player.Player;
 
-public class AboutCommand implements Command {
+public class AboutCommand extends Command {
 
     @Override
     public void handleCommand(Player player, String message) {
@@ -14,5 +14,10 @@ public class AboutCommand implements Command {
         about.append("- Leon\n");
         about.append("- Glaceon\n");
         player.sendMessage(about.toString());
+    }
+
+    @Override
+    public void addPermissions() {
+        this.permissions.add("user");
     }
 }

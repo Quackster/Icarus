@@ -10,6 +10,10 @@ public class PlacePetMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
         
+        if (!player.getRoom().getData().isAllowPets() && !player.getRoom().hasRights(player, true)) {
+            return;
+        }
+        
         Pet pet = player.getInventory().getPet(reader.readInt());
         
         int X = reader.readInt();
@@ -19,5 +23,10 @@ public class PlacePetMessageEvent implements MessageEvent {
         
         player.getInventory().remove(pet);
         player.getInventory().updatePets();
+        
+        pet.setRoomId(player.getRoom().getData().getId());
+        
+        pet.save();
+        pet.savePosition();
     }
 }

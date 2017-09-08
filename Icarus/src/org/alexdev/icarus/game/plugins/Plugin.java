@@ -1,12 +1,7 @@
 package org.alexdev.icarus.game.plugins;
 
-import java.util.concurrent.TimeUnit;
-
-import org.alexdev.icarus.game.GameScheduler;
 import org.luaj.vm2.Globals;
-import org.luaj.vm2.LuaFunction;
 import org.luaj.vm2.LuaTable;
-import org.luaj.vm2.LuaValue;
 
 public class Plugin {
 

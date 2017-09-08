@@ -191,7 +191,7 @@ public class RoomUser {
 
         RoomDao.saveChatlog(player, this.room.getData().getId(), shout ? "SHOUT" : "CHAT", message);
 
-        if (CommandManager.hasCommand(message)) {
+        if (CommandManager.hasCommand(player, message)) {
             CommandManager.invokeCommand(player, message);
             return;
         } 

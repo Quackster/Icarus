@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import org.alexdev.icarus.dao.mysql.item.ItemDao;
+import org.alexdev.icarus.dao.mysql.pets.PetDao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.entity.Entity;
@@ -15,6 +16,7 @@ import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.furniture.interactions.types.TeleportInteractor;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
+import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.plugins.PluginEvent;
@@ -193,12 +195,26 @@ public class Room {
 
             this.scheduler = new RoomScheduler(this);
             this.scheduler.scheduleTasks();
+            
+            this.addPets();
 
             boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_FIRST_ENTRY_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
 
             if (isCancelled) {
                 this.leaveRoom(player, true);
             }
+        }
+    }
+
+    private void addPets() {
+        for (Pet pet : PetDao.getRoomPets(this.data.getId())) {
+            pet.getRoomUser().setRoom(this);
+            pet.getRoomUser().setVirtualId(this.privateId.incrementAndGet());
+            pet.getRoomUser().getPosition().setX(pet.getX());
+            pet.getRoomUser().getPosition().setY(pet.getY());
+            pet.getRoomUser().getPosition().setZ(this.getModel().getHeight(pet.getRoomUser().getPosition().getX(), pet.getRoomUser().getPosition().getY()));
+            pet.getRoomUser().getPosition().setRotation(0);
+            this.entities.add(pet);
         }
     }
 
@@ -261,7 +277,7 @@ public class Room {
     public void leaveRoom(Player player, boolean hotelView) {
 
         if (hotelView) {;
-        player.send(new HotelViewMessageComposer());
+            player.send(new HotelViewMessageComposer());
         }
 
         PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
@@ -271,7 +287,9 @@ public class Room {
 
         // Tell friends that you're no longer in a room
         player.getMessenger().sendStatus(false);
-
+        
+        // Dispose room call
+        this.dispose(false);
     }
 
     public void addEntity(Entity entity) {
@@ -315,13 +333,17 @@ public class Room {
             this.send(new RemoveUserMessageComposer(entity.getRoomUser().getVirtualId()));
         }
 
-        entity.getRoomUser().dispose();
-
-        this.dispose(false);
-
         if (entity.getType() != EntityType.PLAYER) {
+            
+            // Save coordinates of pet
+            if (entity.getType() == EntityType.PET) {
+                ((Pet)entity).savePosition();
+            }
+            
             entity.dispose();
         }
+        
+        entity.getRoomUser().dispose();
     }
 
     public boolean hasRights(Player player, boolean ownerCheckOnly) {
@@ -439,6 +461,18 @@ public class Room {
         }
 
         return e;
+    }
+    
+
+    public Entity getEntityById(int id) {
+        
+        for (Entity entity : this.entities) {
+            if (entity.getDetails().getId() == id) {
+                return entity;
+            }
+        }
+
+        return null;
     }
 
     public List<Item> getFloorItems() {

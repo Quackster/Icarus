@@ -5,7 +5,7 @@ import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.RoomUser;
 
-public class SitCommand implements Command {
+public class SitCommand extends Command {
 
     @Override
     public void handleCommand(Player player, String message) {
@@ -30,8 +30,13 @@ public class SitCommand implements Command {
             
             roomUser.removeStatus(EntityStatus.DANCE);
 
-            roomUser.setStatus(EntityStatus.SIT, "0");
+            roomUser.setStatus(EntityStatus.SIT, "0.5");
             roomUser.setNeedUpdate(true);
         }  
+    }
+
+    @Override
+    public void addPermissions() {
+        this.permissions.add("user");
     }
 }
