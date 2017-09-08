@@ -3,8 +3,8 @@ package org.alexdev.icarus.messages.outgoing.room.items;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pathfinder.Position;
+import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.MessageComposer;
 import org.alexdev.icarus.util.Util;
 
 public class SlideObjectMessageComposer extends MessageComposer {

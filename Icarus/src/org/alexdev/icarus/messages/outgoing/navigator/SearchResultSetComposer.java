@@ -6,8 +6,8 @@ import java.util.List;
 import org.alexdev.icarus.game.navigator.NavigatorTab;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.MessageComposer;
 
 import com.google.common.collect.Lists;
 

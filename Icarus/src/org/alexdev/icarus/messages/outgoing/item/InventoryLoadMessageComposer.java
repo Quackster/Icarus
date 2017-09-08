@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.MessageComposer;
 
 public class InventoryLoadMessageComposer extends MessageComposer {
 

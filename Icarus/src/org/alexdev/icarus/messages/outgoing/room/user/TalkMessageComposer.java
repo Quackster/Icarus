@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.room.RoomUser;
+import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.MessageComposer;
 
 public class TalkMessageComposer extends MessageComposer {
 

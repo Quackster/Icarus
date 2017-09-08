@@ -2,8 +2,8 @@ package org.alexdev.icarus.messages.outgoing.room;
 
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.log.Log;
+import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.MessageComposer;
 
 public class HeightMapMessageComposer extends MessageComposer {
 

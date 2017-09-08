@@ -1,6 +1,6 @@
 package org.alexdev.icarus.server.api;
 
-import org.alexdev.icarus.messages.parsers.MessageComposer;
+import org.alexdev.icarus.messages.MessageComposer;
 
 public abstract class IPlayerNetwork {
 

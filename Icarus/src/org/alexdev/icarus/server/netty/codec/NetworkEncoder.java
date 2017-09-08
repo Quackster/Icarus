@@ -19,8 +19,10 @@
 
 package org.alexdev.icarus.server.netty.codec;
 
-import org.alexdev.icarus.messages.parsers.MessageComposer;
+import org.alexdev.icarus.log.Log;
+import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.util.Util;
+import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.Channels;
@@ -48,11 +50,11 @@ public class NetworkEncoder extends SimpleChannelHandler {
                     msg.write();
                 }
 
-                if (Util.getConfiguration().get("Logging", "log.packets", Boolean.class)) {
-                    //Log.println("SENT: " + msg.getResponse().getBodyString());
+                if (Util.getConfiguration().get("Logging", "log.sent.packets", Boolean.class)) {
+                    Log.println("SENT: " + msg.getResponse().getBodyString());
                 }
 
-                Channels.write(ctx, e.getFuture(), ChannelBuffers.copiedBuffer(msg.getResponse().get()));
+                Channels.write(ctx, e.getFuture(), ChannelBuffers.copiedBuffer((ChannelBuffer)msg.getResponse().get()));
                 return;
             }
         }

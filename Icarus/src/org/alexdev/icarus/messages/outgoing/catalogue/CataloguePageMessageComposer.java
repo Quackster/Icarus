@@ -2,8 +2,8 @@ package org.alexdev.icarus.messages.outgoing.catalogue;
 
 import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.game.catalogue.CataloguePage;
+import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.MessageComposer;
 
 public class CataloguePageMessageComposer extends MessageComposer {
 

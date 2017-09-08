@@ -7,8 +7,8 @@ import java.util.Map.Entry;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.pathfinder.Position;
+import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.MessageComposer;
 import org.alexdev.icarus.util.Util;
 
 public class UserStatusMessageComposer extends MessageComposer {

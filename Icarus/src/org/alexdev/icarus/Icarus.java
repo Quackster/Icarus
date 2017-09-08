@@ -173,7 +173,8 @@ public class Icarus {
         writer.println("log.errors=true");
         writer.println("log.output=true");
         writer.println("log.connections=true");
-        writer.println("log.packets=true");
+        writer.println("log.sent.packets=false");
+        writer.println("log.received.packets=false");
         writer.println();
     }
 
@@ -189,10 +190,6 @@ public class Icarus {
         writer.println();
         writer.println("[Bot]");
         writer.println("bot.response.delay=1500");
-        writer.println();
-        writer.println("[Player]");
-        writer.println("carry.drink.time=180");
-        writer.println("carry.drink.interval=12");
         writer.println();
         writer.println("talking.lookat.distance=30");
         writer.println("talking.lookat.reset=6");

@@ -16,14 +16,6 @@ public class NettyResponse implements Response {
     private ChannelBufferOutputStream bodystream;
     private ChannelBuffer body;
 
-    public NettyResponse() {
-        this.loadArray();
-    }
-    
-    public NettyResponse(int id) {
-        this.init(id);
-    }
-
     @Override
     public void init(int id) {
 
@@ -41,13 +33,6 @@ public class NettyResponse implements Response {
         }
     }
     
-    public void loadArray() {
-        this.id = -1;
-        this.finalised = false;
-        this.body = ChannelBuffers.dynamicBuffer();
-        this.bodystream = new ChannelBufferOutputStream(body);
-    }
-
     @Override
     public void writeString(Object obj) {
 

@@ -1,6 +1,6 @@
 package org.alexdev.icarus.messages.outgoing.room.notify;
 
-import org.alexdev.icarus.messages.parsers.MessageComposer;
+import org.alexdev.icarus.messages.MessageComposer;
 
 public class RoomSettingsUpdatedMessageComposer extends MessageComposer {
 

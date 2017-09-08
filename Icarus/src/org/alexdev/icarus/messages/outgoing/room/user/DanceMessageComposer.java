@@ -1,7 +1,7 @@
 package org.alexdev.icarus.messages.outgoing.room.user;
 
+import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.MessageComposer;
 
 public class DanceMessageComposer extends MessageComposer {
 

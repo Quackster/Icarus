@@ -1,8 +1,8 @@
 package org.alexdev.icarus.messages.outgoing.messenger;
 
 import org.alexdev.icarus.game.messenger.MessengerUser;
+import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.MessageComposer;
 
 public class MessengerUpdateMessageComposer extends MessageComposer {
 

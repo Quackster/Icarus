@@ -1,9 +1,10 @@
-package org.alexdev.icarus.messages.parsers;
+package org.alexdev.icarus.messages;
 
+import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.server.netty.streams.NettyResponse;
 
 public abstract class MessageComposer {
-    protected NettyResponse response;
+    protected Response response;
     
     public MessageComposer() {
         this.response = new NettyResponse();
@@ -11,7 +12,7 @@ public abstract class MessageComposer {
     
     public abstract void write();
 
-    public NettyResponse getResponse() {
+    public Response getResponse() {
         return response;
     }
 

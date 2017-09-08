@@ -2,8 +2,8 @@ package org.alexdev.icarus.messages.outgoing.room.items;
 
 import org.alexdev.icarus.game.item.moodlight.MoodlightData;
 import org.alexdev.icarus.game.item.moodlight.MoodlightPreset;
+import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.MessageComposer;
 
 public class MoodlightConfigComposer extends MessageComposer {
 

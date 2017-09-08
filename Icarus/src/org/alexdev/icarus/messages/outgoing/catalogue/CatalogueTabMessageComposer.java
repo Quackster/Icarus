@@ -3,8 +3,8 @@ package org.alexdev.icarus.messages.outgoing.catalogue;
 import java.util.List;
 
 import org.alexdev.icarus.game.catalogue.CatalogueTab;
+import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.messages.parsers.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.util.Util;
 
