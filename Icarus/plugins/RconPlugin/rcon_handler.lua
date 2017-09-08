@@ -8,10 +8,6 @@ function listenServer()
     local server_socket = nil
 
     log:println(string.format("[Rcon] Attempting to create RCON server on port %s", rcon_port))
-   
-    local splitted = util:split("ha;44,444", ";")
-    log:println(string.format("splitted: %s", splitted:get(1)))
-   
     server_socket = luajava.newInstance("java.net.ServerSocket", rcon_port);
     
     log:println(string.format("[Rcon] RCON server listening on port %s", rcon_port))
@@ -40,6 +36,12 @@ function waitForConnections(server_socket)
     end
 end
 
+--[[
+    RCON command handler where it's possible to remote control
+    the server
+    
+    @author: Quackster
+--]]
 function handleRconCommands(incoming_data) 
 
     local rcon_data = util:split(incoming_data, ";")
@@ -50,6 +52,7 @@ function handleRconCommands(incoming_data)
     
     log:println("RCON command: " .. rcon_command)
     
+    -- Hotel alert command
     if rcon_command == "ha" then
     
         local players = playerManager:getPlayers()
@@ -62,3 +65,4 @@ function handleRconCommands(incoming_data)
         end
     end
 end
+
