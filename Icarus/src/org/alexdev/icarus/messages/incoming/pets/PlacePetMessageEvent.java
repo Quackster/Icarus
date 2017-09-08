@@ -25,9 +25,9 @@ public class PlacePetMessageEvent implements MessageEvent {
         int Y = reader.readInt();
         
         if (X == 0 || Y == 0) {
-            Position safePosition = player.getRoom().getMapping().getRandomWalkableTile();
-            X = safePosition.getX();
-            Y = safePosition.getY();
+            Position position = player.getRoom().getModel().getDoorLocation();
+            X = position.getX();
+            Y = position.getY();
         }
         
         player.getRoom().addEntity(pet, X, Y, 4);

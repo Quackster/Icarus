@@ -97,10 +97,10 @@ public class SaveRoomMessageEvent implements MessageEvent {
         
         room.save();
         
-        player.send(new ChatOptionsMessageComposer(room));
-        player.send(new WallOptionsMessageComposer(room.getData().isHideWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
+        room.send(new ChatOptionsMessageComposer(room));
+        room.send(new WallOptionsMessageComposer(room.getData().isHideWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
         
-        player.send(new RoomSettingsOKMessageComposer(room));
-        player.send(new RoomSettingsUpdatedMessageComposer(room.getData().getId()));
+        room.send(new RoomSettingsOKMessageComposer(room));
+        room.send(new RoomSettingsUpdatedMessageComposer(room.getData().getId()));
     }
 }

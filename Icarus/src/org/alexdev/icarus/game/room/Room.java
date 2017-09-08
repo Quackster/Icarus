@@ -206,18 +206,6 @@ public class Room {
         }
     }
 
-    private void addPets() {
-        for (Pet pet : PetDao.getRoomPets(this.data.getId())) {
-            pet.getRoomUser().setRoom(this);
-            pet.getRoomUser().setVirtualId(this.privateId.incrementAndGet());
-            pet.getRoomUser().getPosition().setX(pet.getX());
-            pet.getRoomUser().getPosition().setY(pet.getY());
-            pet.getRoomUser().getPosition().setZ(this.getModel().getHeight(pet.getRoomUser().getPosition().getX(), pet.getRoomUser().getPosition().getY()));
-            pet.getRoomUser().getPosition().setRotation(0);
-            this.entities.add(pet);
-        }
-    }
-
     public void loadMapData(Player player) {
 
         player.send(new HeightMapMessageComposer(this.getModel()));
@@ -392,6 +380,8 @@ public class Room {
      * or either have their door open (presumably because of low room ID numbers - like room ID 1 or 2)
      * 
      * This will fix that issue.
+     * 
+     * @return none
      */
     private void fixFlashingTeleporters() {
         for (Item item : this.getItems(InteractionType.TELEPORT)) {
@@ -399,6 +389,26 @@ public class Room {
         }
 
     }
+    
+    /**
+     * Select room pets from data access object, will add them
+     * along with setting their stored coordinates to the entity
+     * and applying the height
+     * 
+     * @return none
+     */
+    private void addPets() {
+        for (Pet pet : PetDao.getRoomPets(this.data.getId())) {
+            pet.getRoomUser().setRoom(this);
+            pet.getRoomUser().setVirtualId(this.privateId.incrementAndGet());
+            pet.getRoomUser().getPosition().setX(pet.getX());
+            pet.getRoomUser().getPosition().setY(pet.getY());
+            pet.getRoomUser().getPosition().setZ(this.getModel().getHeight(pet.getRoomUser().getPosition().getX(), pet.getRoomUser().getPosition().getY()));
+            pet.getRoomUser().getPosition().setRotation(0);
+            this.entities.add(pet);
+        }
+    }
+
 
     private void cleanupRoomData() {
 

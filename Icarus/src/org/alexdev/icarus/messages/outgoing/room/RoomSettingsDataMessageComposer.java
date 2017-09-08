@@ -7,17 +7,14 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 
 public class RoomSettingsDataMessageComposer extends MessageComposer {
 
-    private Room room;
+    private RoomData data;
 
-    public RoomSettingsDataMessageComposer(Room room) {
-        this.room = room;
+    public RoomSettingsDataMessageComposer(RoomData data) {
+        this.data = data;
     }
 
     @Override
-    public void write() {
-        
-        RoomData data = this.room.getData();
-        
+    public void write() {  
         this.response.init(Outgoing.RoomSettingsDataMessageComposer);
         this.response.writeInt(data.getId());
         this.response.writeString(data.getName());
@@ -26,11 +23,12 @@ public class RoomSettingsDataMessageComposer extends MessageComposer {
         this.response.writeInt(data.getCategory());
         this.response.writeInt(data.getUsersMax());
         this.response.writeInt(data.getUsersMax());
-        this.response.writeInt(0);
-        /*foreach (var s in room.RoomData.Tags)
-        {
-            this.response.appendString(s);
-        }*/
+        this.response.writeInt(data.getTags().length);
+        
+        for (String tag : data.getTags()) {
+            this.response.writeString(tag);
+        }
+        
         this.response.writeInt(data.getTradeState());
         this.response.writeInt(data.isAllowPets());
         this.response.writeInt(data.isAllowPetsEat());

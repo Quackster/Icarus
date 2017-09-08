@@ -19,6 +19,6 @@ public class RoomSettingsDataMessageEvent implements MessageEvent {
             return;
         }
         
-        player.send(new RoomSettingsDataMessageComposer(room));
+        player.send(new RoomSettingsDataMessageComposer(room.getData()));
     }
 }
