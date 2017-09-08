@@ -42,7 +42,6 @@ end
     
     @author: Quackster
 --]]
-
 function handleRconCommands(incoming_data) 
 
     local rcon_data = util:split(incoming_data, ";")
@@ -57,6 +56,5 @@ function handleRconCommands(incoming_data)
     
     -- Find function in global namespace and call it.
     _G[command_handlers[command]](rcon_data)
-    
 end
 

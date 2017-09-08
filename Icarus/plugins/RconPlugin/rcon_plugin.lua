@@ -1,13 +1,13 @@
 plugin_details = {
-	name = "RconPlugin",
-	author = "Quackster",
-	path = "plugins/RconPlugin"
+    name = "RconPlugin",
+    author = "Quackster",
+    path = "plugins/RconPlugin"
 }
 
 event_register = { }
 
 event_files = {
-	"rcon_handler.lua",
+    "rcon_handler.lua",
     "command_handler.lua"
 }
 
@@ -22,16 +22,15 @@ rcon_password = "jellybaby"
 	return: none
 --]]
 function onEnable(plugin)
-	
-	-- If you want, use log.println() to show everyone this method being called
-	log:println(string.format('[Lua] Initialising plugin %s by %s', plugin:getName(), plugin:getAuthor()))
+
+    -- If you want, use log.println() to show everyone this method being called
+    log:println(string.format('[Lua] Initialising plugin %s by %s', plugin:getName(), plugin:getAuthor()))
     listenServer()
-	
+
 end
 
 -- Load all event .lua files
 -- If you delete this code, ABSOLUTELY NO events will work
-
 for i, file in ipairs(event_files) do
-	dofile (string.format('%s/%s', plugin_details.path, file))
+    dofile (string.format('%s/%s', plugin_details.path, file))
 end
