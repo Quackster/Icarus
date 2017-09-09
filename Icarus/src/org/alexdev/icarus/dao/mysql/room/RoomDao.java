@@ -211,6 +211,36 @@ public class RoomDao {
 
         return rooms;
     }
+    
+    public static void saveRoomRights(int roomID, List<Integer> rights) {
+
+        Dao.getStorage().execute("DELETE FROM room_rights WHERE room_id = '" + roomID + "'");
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        for (int userID : rights) {
+
+            try {
+
+                sqlConnection = Dao.getStorage().getConnection();
+                preparedStatement = Dao.getStorage().prepare("INSERT INTO room_rights (room_id, user_id) VALUES (?, ?)", sqlConnection);
+                preparedStatement.setInt(1, roomID);
+                preparedStatement.setInt(2, userID);
+                preparedStatement.execute();
+
+            } catch (Exception e) {
+                Log.exception(e);
+            } finally {
+                Storage.closeSilently(resultSet);
+                Storage.closeSilently(preparedStatement);
+                Storage.closeSilently(sqlConnection);
+            }
+
+        }
+
+    }
 
     public static Room createRoom(Player player, String name, String description, String model, int category, int usersMax, int tradeState) {
 

@@ -105,5 +105,8 @@ public class Outgoing {
     public static int HabboClubCenterComposer = 1319;
     public static int PetInformationComposer = 3380;
     public static int WhisperMessageComposer = 1400;
+    public static int RoomRightsListComposer = 225;
+    public static int RightsRemovedComposer = 1501;
+    public static int RightsAssignedComposer = 3493;
      
 }

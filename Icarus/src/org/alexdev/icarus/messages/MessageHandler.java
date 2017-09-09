@@ -34,6 +34,13 @@ import org.alexdev.icarus.messages.incoming.room.items.PickupItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.PlaceItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.SaveMoodlightPresetMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.ToggleMoodlightMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.settings.DeleteRoomMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.settings.GiveRightsMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.settings.RemoveRightsMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.settings.RoomInfoMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.settings.RoomRightsMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.settings.RoomEditMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.settings.SaveRoomMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.user.*;
 import org.alexdev.icarus.messages.incoming.user.*;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
@@ -68,6 +75,8 @@ public class MessageHandler {
         this.registerCataloguePackets();
         this.registerItemPackets();
         this.registerPetPackets();
+        this.registerRoomSettingPackets();
+        this.registerRoomFloorplanPackets();
     }
 
     private void registerHandshakePackets() {
@@ -111,7 +120,6 @@ public class MessageHandler {
     }
     
     private void registerRoomPackets() {
-        this.registerEvent(Incoming.RoomInfoMessageEvent, new RoomInfoMessageEvent());
         this.registerEvent(Incoming.EnterRoomMessageEvent, new EnterRoomMessageEvent());
         this.registerEvent(Incoming.HeightMapMessageEvent, new HeightmapMessageEvent());
         this.registerEvent(Incoming.UserWalkMessageEvent, new UserWalkMessageEvent());
@@ -123,14 +131,23 @@ public class MessageHandler {
         this.registerEvent(Incoming.StopTypingMessageEvent, new TypingStatusMessageEvent());
         this.registerEvent(Incoming.AnswerDoorbellMessageEvent, new DoorbellAnswerMessageEvent());
         this.registerEvent(Incoming.EnterDoorbellMessageEvent, new DoorbellEnterMessageEvent());
-        this.registerEvent(Incoming.RoomEditInfoMessageEvent, new RoomSettingsDataMessageEvent());
-        this.registerEvent(Incoming.SaveRoomMessageEvent, new SaveRoomMessageEvent());
-        this.registerEvent(Incoming.DeleteRoomMessageEvent, new DeleteRoomMessageEvent());
         this.registerEvent(Incoming.RoomThumbnailMessageEvent, new RoomThumbnailMessageEvent());
         this.registerEvent(Incoming.RoomCameraMessageEvent, new RoomThumbnailMessageEvent());
+    }
+    
+    private void registerRoomSettingPackets() {
+        this.registerEvent(Incoming.RoomInfoMessageEvent, new RoomInfoMessageEvent());
+        this.registerEvent(Incoming.SaveRoomMessageEvent, new SaveRoomMessageEvent());
+        this.registerEvent(Incoming.RoomEditInfoMessageEvent, new RoomEditMessageEvent());
+        this.registerEvent(Incoming.RoomRightsMessageEvent, new RoomRightsMessageEvent());
+        this.registerEvent(Incoming.RemoveRightsMessageEvent, new RemoveRightsMessageEvent());
+        this.registerEvent(Incoming.GiveRightsMessageEvent, new GiveRightsMessageEvent());
+        this.registerEvent(Incoming.DeleteRoomMessageEvent, new DeleteRoomMessageEvent());
+    }
+    
+    private void registerRoomFloorplanPackets() {
         this.registerEvent(Incoming.FloorPlanPropertiesMessageEvent, new FloorPlanPropertiesMessageEvent());
         this.registerEvent(Incoming.SaveFloorPlanMessageEvent, new SaveFloorPlanMessageEvent());
-        this.registerEvent(Incoming.EditRoomPromotionMessageEvent, new EditRoomPromotionMessageEvent());
     }
     
     private void registerCataloguePackets() {

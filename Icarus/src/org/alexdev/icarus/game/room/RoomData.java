@@ -1,10 +1,7 @@
 package org.alexdev.icarus.game.room;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.room.settings.RoomState;
 import org.alexdev.icarus.game.room.settings.RoomType;
 import org.alexdev.icarus.server.api.messages.Response;
@@ -37,7 +34,6 @@ public class RoomData {
     private int wallThickness;
     private int floorThickness;
     private String[] tags;
-    private List<Integer> rights;
     private Room room;
     private int chatType;
     private int chatBalloon;
@@ -49,9 +45,7 @@ public class RoomData {
     private int whoCanBan;
     
     public RoomData(Room room) {
-        
         this.room = room;
-        this.rights = new ArrayList<Integer>();
     }
     
     public void fill(int id, RoomType type, int ownerID, String ownerName, String name, int state, String password, int usersNow, int usersMax,
@@ -85,7 +79,6 @@ public class RoomData {
         this.wallThickness = wallThickness;
         this.floorThickness = floorThickness;
         this.setTags(tagFormat.split(","));
-        this.rights = RoomDao.getRoomRights(this.id);
         this.chatType = chatType;
         this.chatSpeed = chatSpeed;
         this.chatMaxDistance = chatMaxDistance;
@@ -353,10 +346,6 @@ public class RoomData {
 
     public String getModel() {
         return this.model;
-    }
-    
-    public List<Integer> getRights() {
-        return rights;
     }
 
     public int getChatMode() {

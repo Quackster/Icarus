@@ -69,6 +69,7 @@ public class Room {
 
     private List<Entity> entities; 
     private Map<Integer, Item> items;
+    private List<Integer> rights;
 
 
     public Room() {
@@ -191,6 +192,8 @@ public class Room {
         if (!(this.getPlayers().size() > 0)) {
 
             this.items = ItemDao.getRoomItems(this.getData().getID());
+            this.rights = RoomDao.getRoomRights(this.getData().getID());
+            
             this.mapping.regenerateCollisionMaps();
 
             this.scheduler = new RoomScheduler(this);
@@ -334,6 +337,19 @@ public class Room {
         entity.getRoomUser().dispose();
     }
 
+    public boolean hasRights(int userID, boolean ownerCheckOnly) {
+        
+        if (this.data.getOwnerID() == userID) {
+            return true;
+        } else {
+            if (!ownerCheckOnly) {
+                return this.rights.contains(Integer.valueOf(userID));
+            }
+        }
+
+        return false;
+    }
+
     public boolean hasRights(Player player, boolean ownerCheckOnly) {
 
         if (player.hasPermission("room_all_rights")) {
@@ -346,7 +362,7 @@ public class Room {
             return true;
         } else {
             if (!ownerCheckOnly) {
-                return this.data.getRights().contains(Integer.valueOf(userID));
+                return this.rights.contains(Integer.valueOf(userID));
             }
         }
 
@@ -427,6 +443,10 @@ public class Room {
             }
 
             this.entities.clear();
+        }
+        
+        if (this.rights != null) {
+            this.rights.clear();
         }
 
         this.privateID.set(-1);
@@ -582,5 +602,9 @@ public class Room {
 
     public RoomPromotion getPromotion() {
         return this.promotion;
+    }
+
+    public List<Integer> getRights() {
+        return this.rights;
     }
 }

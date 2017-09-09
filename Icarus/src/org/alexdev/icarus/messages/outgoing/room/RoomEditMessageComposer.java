@@ -4,11 +4,11 @@ import org.alexdev.icarus.game.room.RoomData;
 import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
 
-public class RoomSettingsDataMessageComposer extends MessageComposer {
+public class RoomEditMessageComposer extends MessageComposer {
 
     private RoomData data;
 
-    public RoomSettingsDataMessageComposer(RoomData data) {
+    public RoomEditMessageComposer(RoomData data) {
         this.data = data;
     }
 

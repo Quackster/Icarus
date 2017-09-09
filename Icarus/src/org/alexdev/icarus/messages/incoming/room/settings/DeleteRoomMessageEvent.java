@@ -1,4 +1,4 @@
-package org.alexdev.icarus.messages.incoming.room.user;
+package org.alexdev.icarus.messages.incoming.room.settings;
 
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.item.Item;

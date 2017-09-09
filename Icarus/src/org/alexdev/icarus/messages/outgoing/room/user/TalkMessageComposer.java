@@ -14,14 +14,12 @@ public class TalkMessageComposer extends MessageComposer {
     private RoomUser roomUser;
     private ChatType type;
     private String message;
-    private int count;
     private int textColour;
 
     public TalkMessageComposer(RoomUser roomUser, ChatType type, String message, int bubble) {
         this.roomUser = roomUser;
         this.type = type;
         this.message = message;
-        this.count = 1;
         this.textColour = bubble;
     }
 
@@ -42,6 +40,6 @@ public class TalkMessageComposer extends MessageComposer {
         this.response.writeInt(0);
         this.response.writeInt(this.textColour);
         this.response.writeInt(0);
-        this.response.writeInt(this.count);
+        this.response.writeInt(1);
     }
 }
