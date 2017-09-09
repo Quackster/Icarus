@@ -73,6 +73,7 @@ public class Incoming {
     public static Integer PurchaseOfferMessageEvent = 955;
     public static Integer HabboClubCenterMessageEvent = 2416;
     public static Integer PetInfoMessageEvent = 2986;
+    public static Integer RemovePetMessageEvent = 3975;
     
     
 }

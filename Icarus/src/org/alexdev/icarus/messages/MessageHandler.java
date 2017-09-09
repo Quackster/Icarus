@@ -17,9 +17,10 @@ import org.alexdev.icarus.messages.incoming.items.PurchaseOfferMessageEvent;
 import org.alexdev.icarus.messages.incoming.messenger.*;
 import org.alexdev.icarus.messages.incoming.misc.*;
 import org.alexdev.icarus.messages.incoming.navigator.*;
-import org.alexdev.icarus.messages.incoming.pets.PetInformationMessageEvemt;
+import org.alexdev.icarus.messages.incoming.pets.PetInformationMessageEvent;
 import org.alexdev.icarus.messages.incoming.pets.PetRacesMessageEvent;
 import org.alexdev.icarus.messages.incoming.pets.PlacePetMessageEvent;
+import org.alexdev.icarus.messages.incoming.pets.RemovePetMessageEvent;
 import org.alexdev.icarus.messages.incoming.pets.VerifyPetNameMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.*;
 import org.alexdev.icarus.messages.incoming.room.floorplan.FloorPlanPropertiesMessageEvent;
@@ -146,7 +147,8 @@ public class MessageHandler {
         this.registerEvent(Incoming.PlacePetMessageEvent, new PlacePetMessageEvent());
         this.registerEvent(Incoming.PetRacesMessageEvent, new PetRacesMessageEvent());
         this.registerEvent(Incoming.VerifyPetNameMessageEvent, new VerifyPetNameMessageEvent());
-        this.registerEvent(Incoming.PetInfoMessageEvent, new PetInformationMessageEvemt());
+        this.registerEvent(Incoming.PetInfoMessageEvent, new PetInformationMessageEvent());
+        this.registerEvent(Incoming.RemovePetMessageEvent, new RemovePetMessageEvent());
     }
     
     private void registerItemPackets() {

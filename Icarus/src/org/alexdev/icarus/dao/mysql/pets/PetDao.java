@@ -9,8 +9,6 @@ import java.util.Map;
 
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
-import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.pets.PetRace;
 import org.alexdev.icarus.log.Log;
