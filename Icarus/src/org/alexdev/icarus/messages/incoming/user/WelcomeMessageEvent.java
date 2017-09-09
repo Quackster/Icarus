@@ -19,13 +19,16 @@ public class WelcomeMessageEvent implements MessageEvent {
         if (player.isLoggedIn()) {
             return;
         }
-        
+
         PluginManager.callEvent(PluginEvent.PLAYER_LOGIN_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player) });
-        
+
         for (TargetedOffer offer : CatalogueManager.getOffers()) {
-            player.send(new TargettedOfferDataComposer(offer));
+
+            if (!offer.isUserBlacklisted(player.getDetails().getID())) {
+                player.send(new TargettedOfferDataComposer(offer));
+            }
         }
-        
+
         player.setLoggedIn(true);
     }
 }

@@ -140,40 +140,8 @@ public class PurchaseItemMessageEvent implements MessageEvent {
                 return;
             }
 
-            List<Item> bought = Lists.newArrayList();
-
             for (int i = 0; i < amount; i++) {
-
-
-                Item inventoryItem = InventoryDao.newItem(bundleItem.getItemDefinition().getID(), player.getDetails().getID(), extraData);
-                bought.add(inventoryItem);
-
-                if (inventoryItem.getDefinition().getInteractionType() == InteractionType.JUKEBOX) {
-                    inventoryItem.setExtraData("0");
-                }
-
-                if (inventoryItem.getDefinition().getInteractionType() == InteractionType.GATE) {
-                    inventoryItem.setExtraData("0");
-                }
-
-                if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
-
-                    Item secondTeleporter = InventoryDao.newItem(bundleItem.getItemDefinition().getID(), player.getDetails().getID(), extraData);
-
-                    inventoryItem.setExtraData(String.valueOf(secondTeleporter.getID()));
-                    secondTeleporter.setExtraData(String.valueOf(inventoryItem.getID()));
-
-                    bought.add(inventoryItem);
-                    bought.add(secondTeleporter);
-
-                    player.getInventory().addItem(secondTeleporter);
-
-                    inventoryItem.save();
-                    secondTeleporter.save();
-
-                }
-
-                player.getInventory().addItem(inventoryItem);
+                bundleItem.getItemDefinition().handleDefinitionPurchase(player, extraData);
             }
 
             player.send(new PurchaseNotificationMessageComposer(bundleItem));

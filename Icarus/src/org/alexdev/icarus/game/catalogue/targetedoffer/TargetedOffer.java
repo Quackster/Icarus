@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.alexdev.icarus.dao.mysql.catalogue.TargetedOfferDao;
 import org.alexdev.icarus.log.Log;
 
 import com.google.common.collect.Lists;
@@ -20,7 +21,9 @@ public class TargetedOffer {
     private String largeImage;
     private String smallImage;
     private long expiryDate;
+    
     private List<Integer> items;
+    private List<Integer> blacklist;
     
     public TargetedOffer(int id, String title, String description, int costCredits, int costActivityPoints, int activityPointsType, int purchaseLimit, String largeImage, String smallImage, long expiryDate, String itemIDs) {
         this.id = id;
@@ -34,6 +37,7 @@ public class TargetedOffer {
         this.smallImage = smallImage;
         this.expiryDate = expiryDate;
         this.items = Lists.newArrayList();
+        this.blacklist = TargetedOfferDao.getOfferBlacklist(this.id);
         
         try {
             
@@ -88,5 +92,15 @@ public class TargetedOffer {
 
     public List<Integer> getItems() {
         return items;
+    }
+
+    public boolean isUserBlacklisted(int userID) {
+        Log.println("is user blacklist? " + blacklist.contains(userID));
+        return blacklist.contains(userID);
+    }
+
+    public void addUserToBlacklist(int userID) {
+        this.blacklist.add(userID);
+        TargetedOfferDao.addUserToBlacklist(this.id, userID);
     }  
 }

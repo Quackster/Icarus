@@ -1,6 +1,9 @@
 package org.alexdev.icarus.game.furniture;
 
+import org.alexdev.icarus.dao.mysql.item.InventoryDao;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
+import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.util.Util;
 
 public class ItemDefinition {
@@ -65,6 +68,35 @@ public class ItemDefinition {
         }
     }   
 
+    public void handleDefinitionPurchase(Player player, String extraData) {
+        
+        Item inventoryItem = InventoryDao.newItem(this.id, player.getDetails().getID(), extraData);
+
+        if (inventoryItem.getDefinition().getInteractionType() == InteractionType.JUKEBOX) {
+            inventoryItem.setExtraData("0");
+        }
+
+        if (inventoryItem.getDefinition().getInteractionType() == InteractionType.GATE) {
+            inventoryItem.setExtraData("0");
+        }
+
+        if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
+
+            Item secondTeleporter = InventoryDao.newItem(this.id, player.getDetails().getID(), "0");
+
+            inventoryItem.setExtraData(String.valueOf(secondTeleporter.getID()));
+            secondTeleporter.setExtraData(String.valueOf(inventoryItem.getID()));
+
+            player.getInventory().addItem(secondTeleporter);
+
+            inventoryItem.save();
+            secondTeleporter.save();
+
+        }
+
+        player.getInventory().addItem(inventoryItem);
+    }
+    
     public int getID() {
         return id;
     }

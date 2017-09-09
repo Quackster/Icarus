@@ -11,7 +11,7 @@
 function onRoomFirstEntryEvent(player, room)
 	log:println("Room enter event called")
 
-	if room:getData():getId() == 5 then
+	if room:getData():getID() == 5 then
         -- for i = 0, 1000 - 1 do    
         --    local bot = createBot(room)
         --    randomWalkEntity(bot)
