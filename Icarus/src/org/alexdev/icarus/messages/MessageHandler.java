@@ -36,6 +36,7 @@ import org.alexdev.icarus.messages.incoming.room.items.SaveMoodlightPresetMessag
 import org.alexdev.icarus.messages.incoming.room.items.ToggleMoodlightMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.settings.DeleteRoomMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.settings.GiveRightsMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.settings.RemoveAllRightsMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.settings.RemoveRightsMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.settings.RoomInfoMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.settings.RoomRightsMessageEvent;
@@ -143,6 +144,7 @@ public class MessageHandler {
         this.registerEvent(Incoming.RemoveRightsMessageEvent, new RemoveRightsMessageEvent());
         this.registerEvent(Incoming.GiveRightsMessageEvent, new GiveRightsMessageEvent());
         this.registerEvent(Incoming.DeleteRoomMessageEvent, new DeleteRoomMessageEvent());
+        this.registerEvent(Incoming.RemoveAllRoomRightsMessageEvent, new RemoveAllRightsMessageEvent());
     }
     
     private void registerRoomFloorplanPackets() {

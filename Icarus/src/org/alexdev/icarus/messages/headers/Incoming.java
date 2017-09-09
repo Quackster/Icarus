@@ -77,6 +77,7 @@ public class Incoming {
     public static Integer RoomRightsMessageEvent = 3937;
     public static Integer RemoveRightsMessageEvent = 877;
     public static Integer GiveRightsMessageEvent = 3843;
+    public static Integer RemoveAllRoomRightsMessageEvent = 884;
     
     
 }
