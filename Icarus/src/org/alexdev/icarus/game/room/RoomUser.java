@@ -16,6 +16,7 @@ import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
+import org.alexdev.icarus.game.room.chat.ChatType;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.log.DateTime;
 import org.alexdev.icarus.messages.MessageComposer;
@@ -34,7 +35,7 @@ import com.google.common.collect.Maps;
 public class RoomUser {
 
     private int virtualID;
-    private int lastChatID;
+    private int chatColor;
     private int danceID;
     private int roomRequestedID;
 
@@ -144,27 +145,30 @@ public class RoomUser {
 
         this.statuses.put(status, value);
     }
-
-    public void chat(String message) {
-        this.chat(message, this.lastChatID, 1, false, false, false);
+    
+    /**
+     * Chat without spam checking, only sends to self
+     * 
+     * @param message - the message to chat to room
+     */
+    public void chatSelf(ChatType type, String message) {
+        if (this.entity.getType() == EntityType.PLAYER) {
+            ((Player)entity).send(new TalkMessageComposer(this, type, message, this.chatColor));
+        }
     }
-
-    public void shout(String message) {
-        this.chat(message, this.lastChatID, 1, true, false, false);
-    }
-
-    public void chat(String message, int bubble, int count, boolean shout, boolean spamCheck, boolean self) {
+    
+    public void chat(String message, ChatType type, boolean spamCheck) {
 
         if (this.entity.getType() != EntityType.PLAYER) {
 
             MessageComposer composer = null;
 
             if (this.entity.getType() == EntityType.PET) {
-                composer = new TalkMessageComposer(this, shout, message, 1, bubble);
+                composer = new TalkMessageComposer(this, type, message, 1);
             }
             
             if (this.entity.getType() == EntityType.BOT) {
-                composer = new TalkMessageComposer(this, shout, message, 1, 2);
+                composer = new TalkMessageComposer(this, type, message, 2);
             }
             
             this.room.send(composer);
@@ -175,7 +179,7 @@ public class RoomUser {
         Player player = (Player)this.entity;
         boolean isStaff = player.hasPermission("moderator");
 
-        if (spamCheck && !self) {
+        if (spamCheck) {
             if (DateTime.getTimeSeconds() < this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
 
                 if (!isStaff) {
@@ -184,22 +188,17 @@ public class RoomUser {
                 }
             }
         }
-
-        if (bubble == 2 || (bubble == 23 && !player.hasPermission("moderator")) || bubble < 0 || bubble > 29) {
-            bubble = this.lastChatID;
-        }
-
-        RoomDao.saveChatlog(player, this.room.getData().getID(), shout ? "SHOUT" : "CHAT", message);
+        
+        RoomDao.saveChatlog(player, this.room.getData().getID(), type.name(), message);
 
         if (CommandManager.hasCommand(player, message)) {
             CommandManager.invokeCommand(player, message);
             return;
         } 
 
-        // Plugin event handle for chat
         PlayerMessage playerMessage = new PlayerMessage(this.entity.getDetails().getID(), -1, message);    {
 
-            PluginEvent event = shout ? PluginEvent.ROOM_PLAYER_SHOUT_EVENT : PluginEvent.ROOM_PLAYER_CHAT_EVENT;
+            PluginEvent event = type.getEvent();
 
             PluginManager.callEvent(event, new LuaValue[] {  
                     CoerceJavaToLua.coerce(player),
@@ -209,16 +208,9 @@ public class RoomUser {
 
             message = playerMessage.getMessage();
         }
-        // End plugin event handle
-
-        MessageComposer composer = new TalkMessageComposer(this, shout, message, this.lastChatID, bubble);
-        this.lastChatID = bubble;
-
-        if (self) {
-            player.send(composer);
-        } else {
-            this.room.send(composer);
-        }
+        
+        MessageComposer composer = new TalkMessageComposer(this, type, message, this.chatColor);
+        this.room.send(composer);
 
         for (Player person : this.room.getPlayers()) {
 
@@ -229,7 +221,7 @@ public class RoomUser {
             person.getRoomUser().lookTowards(this.entity.getRoomUser().getPosition());
         }
 
-        if (spamCheck && !self) {
+        if (spamCheck) {
             if (!player.hasPermission("moderator")) {
 
                 if (DateTime.getTimeSeconds() > this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
@@ -373,7 +365,7 @@ public class RoomUser {
         this.position = new Position(0, 0, 0);
         this.goal = new Position(0, 0, 0);
 
-        this.lastChatID = 0;
+        this.chatColor = 0;
         this.roomRequestedID = -1;
         this.virtualID = -1;
         this.danceID = 0;
@@ -437,12 +429,12 @@ public class RoomUser {
         this.virtualID = virtualID;
     }
 
-    public int getLastChatID() {
-        return lastChatID;
+    public int getChatColor() {
+        return chatColor;
     }
 
-    public void setLastChatID(int lastChatID) {
-        this.lastChatID = lastChatID;
+    public void setChatColor(int chatColor) {
+        this.chatColor = chatColor;
     }
 
     public int getDanceID() {

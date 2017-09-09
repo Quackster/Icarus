@@ -6,23 +6,24 @@ import java.util.List;
 
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.room.RoomUser;
+import org.alexdev.icarus.game.room.chat.ChatType;
 import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
 
 public class TalkMessageComposer extends MessageComposer {
 
     private RoomUser roomUser;
-    private boolean shout;
+    private ChatType type;
     private String message;
     private int count;
     private int textColour;
 
-    public TalkMessageComposer(RoomUser roomUser, boolean shout, String message, int count, int textColour) {
+    public TalkMessageComposer(RoomUser roomUser, ChatType type, String message, int bubble) {
         this.roomUser = roomUser;
-        this.shout = shout;
+        this.type = type;
         this.message = message;
-        this.count = count;
-        this.textColour = textColour;
+        this.count = 1;
+        this.textColour = bubble;
     }
 
     @Override
@@ -36,13 +37,7 @@ public class TalkMessageComposer extends MessageComposer {
             }
         }
 
-        int header = Outgoing.ChatMessageComposer;
-
-        if (this.shout) {
-            header = Outgoing.ShoutMessageComposer;
-        }
-
-        this.response.init(header);
+        this.response.init(this.type.getHeader());
         this.response.writeInt(this.roomUser.getVirtualID());
         this.response.writeString(this.message);
         this.response.writeInt(0);

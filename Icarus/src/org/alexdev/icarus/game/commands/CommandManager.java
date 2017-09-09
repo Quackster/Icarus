@@ -18,6 +18,7 @@ public class CommandManager {
         commands.put(new String[] { "sit" }, new SitCommand());
         commands.put(new String[] { "help" }, new HelpCommand());
         commands.put(new String[] { "reloadplugins" }, new ReloadPlugins());
+        commands.put(new String[] { "debugfurniture" }, new DebugFurniture());
     }
 
     private static Command getCommand(String commandName) {

@@ -104,5 +104,6 @@ public class Outgoing {
     public static int TargettedOfferDataComposer = 2621;
     public static int HabboClubCenterComposer = 1319;
     public static int PetInformationComposer = 3380;
+    public static int WhisperMessageComposer = 1400;
      
 }

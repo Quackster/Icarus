@@ -16,6 +16,7 @@ public enum PluginEvent {
     ROOM_LEAVE_EVENT("onRoomLeaveEvent"),
     ROOM_PLAYER_CHAT_EVENT("onPlayerChatEvent"),
     ROOM_PLAYER_SHOUT_EVENT("onPlayerShoutEvent"),
+    ROOM_PLAYER_WHISPER_EVENT("onPlayerWhisperEvent"),
     ROOM_WALK_REQUEST_EVENT("onPlayerWalkRequestEvent"),
     ROOM_STOP_WALKING_EVENT("onPlayerStopWalkingEvent"),
     

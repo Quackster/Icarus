@@ -20,6 +20,10 @@ public abstract class Metadata {
         this.data.put(key, obj);
     }
     
+    public boolean hasMetadata(String key) {
+        return this.data.containsKey(key);
+    }
+    
     public Object get(String key) {
         return this.data.get(key);
     }
@@ -34,5 +38,14 @@ public abstract class Metadata {
 
     public void remove(String key) {
         this.data.remove(key);
+    }
+
+    public boolean getAsBool(String string) {
+        
+        if (!this.data.containsKey(string)) {
+            return false;
+        }
+        
+        return (boolean)this.data.get(string);
     }
 }

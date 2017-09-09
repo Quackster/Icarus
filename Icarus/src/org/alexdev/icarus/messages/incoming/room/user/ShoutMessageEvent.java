@@ -3,6 +3,7 @@ package org.alexdev.icarus.messages.incoming.room.user;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomUser;
+import org.alexdev.icarus.game.room.chat.ChatType;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
@@ -23,6 +24,10 @@ public class ShoutMessageEvent implements MessageEvent {
             return;
         }
         
-        roomUser.chat(request.readString(), request.readInt(),  request.readInt(), true, true, false);
+        String message = request.readString();
+        int bubble = request.readInt();
+        
+        roomUser.setChatColor(bubble);
+        roomUser.chat(message, ChatType.SHOUT, true);
     }
 }
