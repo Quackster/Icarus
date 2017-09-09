@@ -147,6 +147,11 @@ public class Room {
                         return;
                     }
                 }
+                
+                if (this.data.getState() == RoomState.INVISIBLE) {
+                    this.leaveRoom(player, true);
+                    return;
+                }
             }
         }
 
