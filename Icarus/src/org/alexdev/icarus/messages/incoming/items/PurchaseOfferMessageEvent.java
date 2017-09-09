@@ -22,6 +22,10 @@ public class PurchaseOfferMessageEvent implements MessageEvent {
             return;
         }
         
+        if (offer.isExpired()) {
+            return;
+        }
+        
         for (int definitionID : offer.getItems()) {
             
             ItemDefinition definition = ItemManager.getFurnitureByID(definitionID);

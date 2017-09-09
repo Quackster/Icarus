@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.catalogue.TargetedOfferDao;
 import org.alexdev.icarus.log.Log;
+import org.alexdev.icarus.util.Util;
 
 import com.google.common.collect.Lists;
 
@@ -26,6 +27,7 @@ public class TargetedOffer {
     private List<Integer> blacklist;
     
     public TargetedOffer(int id, String title, String description, int costCredits, int costActivityPoints, int activityPointsType, int purchaseLimit, String largeImage, String smallImage, long expiryDate, String itemIDs) {
+        
         this.id = id;
         this.title = title;
         this.description = description;
@@ -89,13 +91,16 @@ public class TargetedOffer {
     public long getExpiryDate() {
         return expiryDate;
     }
+    
+    public boolean isExpired() {
+        return !(this.expiryDate > Util.getCurrentTimeSeconds());
+    }
 
     public List<Integer> getItems() {
         return items;
     }
 
     public boolean isUserBlacklisted(int userID) {
-        Log.println("is user blacklist? " + blacklist.contains(userID));
         return blacklist.contains(userID);
     }
 
