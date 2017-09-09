@@ -1,15 +1,10 @@
 package org.alexdev.icarus.messages.incoming.catalogue;
 
-import java.util.List;
-
-import org.alexdev.icarus.dao.mysql.item.InventoryDao;
 import org.alexdev.icarus.dao.mysql.pets.PetDao;
 import org.alexdev.icarus.game.catalogue.CatalogueBundledItem;
 import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.catalogue.CataloguePage;
-import org.alexdev.icarus.game.furniture.interactions.InteractionType;
-import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.club.ClubManager;
@@ -18,8 +13,6 @@ import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseErrorMessageCompos
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessageComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.alexdev.icarus.util.Util;
-
-import com.google.common.collect.Lists;
 
 public class PurchaseItemMessageEvent implements MessageEvent {
 

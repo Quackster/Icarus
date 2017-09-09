@@ -2,9 +2,6 @@ package org.alexdev.icarus.game.catalogue;
 
 import java.util.List;
 
-import org.alexdev.icarus.messages.MessageComposer;
-import org.alexdev.icarus.messages.outgoing.catalogue.CataloguePageMessageComposer;
-
 public class CataloguePage {
 
     private int id = -1;
@@ -17,8 +14,6 @@ public class CataloguePage {
     private List<String> images;
     private List<String> texts;
     private List<CatalogueItem> items = null;
-    
-    private CataloguePageMessageComposer composer = null;
 
     public CataloguePage(int id, String caption, int parentID, String type, String layout, int minimum_rank, List<String> images, List<String> texts, List<CatalogueItem> items) {
         super();

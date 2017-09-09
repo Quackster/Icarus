@@ -1,7 +1,5 @@
 package org.alexdev.icarus.game.catalogue.targetedoffer;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.catalogue.TargetedOfferDao;
