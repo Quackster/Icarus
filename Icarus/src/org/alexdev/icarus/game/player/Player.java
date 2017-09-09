@@ -45,6 +45,9 @@ public class Player extends Entity {
 
     public void login() {
 
+        // Add player to logged in maps
+        PlayerManager.addPlayer(this);
+        
         // Load all player rooms into memory
         RoomDao.getPlayerRooms(this.details, true);
 
@@ -73,6 +76,8 @@ public class Player extends Entity {
         for (Room room : RoomManager.getPlayerRooms(this.details.getId())) {
             room.dispose(false); 
         }
+        
+        PlayerManager.removePlayer(this);
 
         this.messenger.dispose();
         this.roomUser.dispose();

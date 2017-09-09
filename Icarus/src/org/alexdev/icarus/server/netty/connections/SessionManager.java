@@ -21,13 +21,13 @@ public class SessionManager {
         Player player = new Player(new NettyPlayerNetwork(channel, channel.getId()));
         channel.setAttachment(player);
         
-        PlayerManager.getConnectedPlayers().put(channel.getId(), player);
+        //PlayerManager.getConnectedPlayers().put(channel.getId(), player);
         return sessions.putIfAbsent(channel.getId(), player) == null;
     }
 
     public void removeSession(Channel channel) { 
         try {
-            PlayerManager.getConnectedPlayers().remove(channel.getId());
+            //PlayerManager.getConnectedPlayers().remove(channel.getId());
             sessions.remove(channel.getId());
         } catch (Exception e) {
             e.printStackTrace();
