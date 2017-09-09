@@ -279,7 +279,7 @@ public class RoomData {
         this.allowWalkthrough = allowWalkthrough;
     }
 
-    public boolean isHideWall() {
+    public boolean hasHiddenWall() {
         return hideWall;
     }
 
@@ -348,27 +348,27 @@ public class RoomData {
         return this.model;
     }
 
-    public int getChatMode() {
+    public int getBubbleMode() {
         return chatType;
     }
 
-    public void setChatType(int chatType) {
+    public void setBubbleMode(int chatType) {
         this.chatType = chatType;
     }
 
-    public int getChatSize() {
+    public int getBubbleType() {
         return chatBalloon;
     }
 
-    public void setChatBalloon(int chatBalloon) {
+    public void setBubbleType(int chatBalloon) {
         this.chatBalloon = chatBalloon;
     }
 
-    public int getChatSpeed() {
+    public int getBubbleScroll() {
         return chatSpeed;
     }
 
-    public void setChatSpeed(int chatSpeed) {
+    public void setBubbleScroll(int chatSpeed) {
         this.chatSpeed = chatSpeed;
     }
 

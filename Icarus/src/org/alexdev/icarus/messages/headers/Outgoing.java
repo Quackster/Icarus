@@ -108,5 +108,7 @@ public class Outgoing {
     public static int RoomRightsListComposer = 225;
     public static int RightsRemovedComposer = 1501;
     public static int RightsAssignedComposer = 3493;
+    public static int SettingsUpdatedMessageComposer = 3865;
+    public static int RoomInfoUpdatedMessageComposer = 3743;
      
 }

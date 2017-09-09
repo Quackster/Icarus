@@ -4,10 +4,9 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomData;
 import org.alexdev.icarus.messages.MessageEvent;
-import org.alexdev.icarus.messages.outgoing.room.ChatOptionsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.WallOptionsMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.notify.RoomSettingsOKMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.notify.RoomSettingsUpdatedMessageComposer;
+import org.alexdev.icarus.messages.outgoing.room.notify.SettingsUpdatedMessageComposer;
+import org.alexdev.icarus.messages.outgoing.room.notify.RoomInfoUpdatedMessageComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class SaveRoomMessageEvent implements MessageEvent {
@@ -80,9 +79,9 @@ public class SaveRoomMessageEvent implements MessageEvent {
         data.setWhoCanMute(request.readInt());
         data.setWhoCanKick(request.readInt());
         data.setWhoCanBan(request.readInt());
-        data.setChatType(request.readInt());
-        data.setChatBalloon(request.readInt());
-        data.setChatSpeed(request.readInt());
+        data.setBubbleMode(request.readInt());
+        data.setBubbleType(request.readInt());
+        data.setBubbleScroll(request.readInt());
         data.setChatMaxDistance(request.readInt());
         
         if (data.getChatMaxDistance() > 90) {
@@ -97,10 +96,9 @@ public class SaveRoomMessageEvent implements MessageEvent {
         
         room.save();
         
-        room.send(new ChatOptionsMessageComposer(room));
-        room.send(new WallOptionsMessageComposer(room.getData().isHideWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
+        room.send(new WallOptionsMessageComposer(room.getData().hasHiddenWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
         
-        room.send(new RoomSettingsOKMessageComposer(room));
-        room.send(new RoomSettingsUpdatedMessageComposer(room.getData().getID()));
+        room.send(new SettingsUpdatedMessageComposer(room.getData().getID()));
+        room.send(new RoomInfoUpdatedMessageComposer(room.getData().getID()));
     }
 }

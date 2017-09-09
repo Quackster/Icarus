@@ -28,7 +28,6 @@ import org.alexdev.icarus.game.room.settings.RoomType;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.incoming.room.RoomPromotionMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.ChatOptionsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.FloorMapMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.HasOwnerRightsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.HeightMapMessageComposer;
@@ -245,9 +244,7 @@ public class Room {
         }        
 
         player.send(new RoomDataMessageComposer(this, player, true, true));
-
-        player.send(new ChatOptionsMessageComposer(this));
-        player.send(new WallOptionsMessageComposer(this.getData().isHideWall(), this.getData().getWallThickness(), this.getData().getFloorThickness()));
+        player.send(new WallOptionsMessageComposer(this.getData().hasHiddenWall(), this.getData().getWallThickness(), this.getData().getFloorThickness()));
 
         player.send(new RoomPromotionMessageComposer(this));
 

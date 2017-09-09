@@ -32,12 +32,12 @@ public class RoomEditMessageComposer extends MessageComposer {
         this.response.writeInt(data.isAllowPets());
         this.response.writeInt(data.isAllowPetsEat());
         this.response.writeInt(data.isAllowWalkthrough());
-        this.response.writeInt(data.isHideWall());
+        this.response.writeInt(data.hasHiddenWall());
         this.response.writeInt(data.getWallThickness());
         this.response.writeInt(data.getFloorThickness());
-        this.response.writeInt(data.getChatMode());//room.RoomData.ChatType);
-        this.response.writeInt(data.getChatSize());//room.RoomData.ChatBalloon);
-        this.response.writeInt(data.getChatSpeed());//room.RoomData.ChatSpeed);
+        this.response.writeInt(data.getBubbleMode());//room.RoomData.ChatType);
+        this.response.writeInt(data.getBubbleType());//room.RoomData.ChatBalloon);
+        this.response.writeInt(data.getBubbleScroll());//room.RoomData.ChatSpeed);
         this.response.writeInt(data.getChatMaxDistance());//room.RoomData.ChatMaxDistance);
         this.response.writeInt(data.getChatFloodProtection());//room.RoomData.ChatFloodProtection > 2 ? 2 : room.RoomData.ChatFloodProtection);
         this.response.writeBool(false); //allow_dyncats_checkbox

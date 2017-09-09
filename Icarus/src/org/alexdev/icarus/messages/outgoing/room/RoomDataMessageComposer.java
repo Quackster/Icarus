@@ -32,9 +32,9 @@ public class RoomDataMessageComposer extends MessageComposer {
         this.response.writeInt(room.getData().getWhoCanKick());
         this.response.writeInt(room.getData().getWhoCanBan());
         this.response.writeBool(room.hasRights(player, true)); // TODO: Rights, true if moderator or room owner
-        this.response.writeInt(room.getData().getChatMode());
-        this.response.writeInt(room.getData().getChatSize());
-        this.response.writeInt(room.getData().getChatSpeed());
+        this.response.writeInt(room.getData().getBubbleMode());
+        this.response.writeInt(room.getData().getBubbleType());
+        this.response.writeInt(room.getData().getBubbleScroll());
         this.response.writeInt(room.getData().getChatMaxDistance());
         this.response.writeInt(room.getData().getChatFloodProtection());
         
