@@ -43,16 +43,6 @@ public class CataloguePage {
         return null;
     }
 
-
-    public MessageComposer getComposer() {
-
-        if (this.composer == null) {
-            this.composer = new CataloguePageMessageComposer(this, "NORMAL");
-        }
-
-        return composer;
-    }
-
     public List<CatalogueItem> getItems() {
 
         if (this.items == null) {

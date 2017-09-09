@@ -1,5 +1,13 @@
 package org.alexdev.icarus.game.catalogue.targetedoffer;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.alexdev.icarus.log.Log;
+
+import com.google.common.collect.Lists;
+
 public class TargetedOffer {
 
     private int id;
@@ -12,8 +20,9 @@ public class TargetedOffer {
     private String largeImage;
     private String smallImage;
     private long expiryDate;
+    private List<Integer> items;
     
-    public TargetedOffer(int id, String title, String description, int costCredits, int costActivityPoints, int activityPointsType, int purchaseLimit, String largeImage, String smallImage, long expiryDate) {
+    public TargetedOffer(int id, String title, String description, int costCredits, int costActivityPoints, int activityPointsType, int purchaseLimit, String largeImage, String smallImage, long expiryDate, String itemIDs) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -24,6 +33,17 @@ public class TargetedOffer {
         this.largeImage = largeImage;
         this.smallImage = smallImage;
         this.expiryDate = expiryDate;
+        this.items = Lists.newArrayList();
+        
+        try {
+            
+            for (String itemID : itemIDs.split(";")) {
+                this.items.add(Integer.valueOf(itemID));
+            }
+            
+        } catch (Exception e) {
+            Log.exception(e);
+        }
     }
 
     public int getID() {
@@ -64,5 +84,9 @@ public class TargetedOffer {
 
     public long getExpiryDate() {
         return expiryDate;
+    }
+
+    public List<Integer> getItems() {
+        return items;
     }  
 }

@@ -26,6 +26,7 @@ import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.TalkMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 import org.alexdev.icarus.util.GameSettings;
+import org.alexdev.icarus.util.Util;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
@@ -197,10 +198,7 @@ public class RoomUser {
         } 
 
         PlayerMessage playerMessage = new PlayerMessage(this.entity.getDetails().getID(), -1, message);    {
-
-            PluginEvent event = type.getEvent();
-
-            PluginManager.callEvent(event, new LuaValue[] {  
+            PluginManager.callEvent(type.getEvent(), new LuaValue[] {  
                     CoerceJavaToLua.coerce(player),
                     CoerceJavaToLua.coerce(this.room),
                     CoerceJavaToLua.coerce(playerMessage) 
@@ -230,7 +228,7 @@ public class RoomUser {
                     this.chatCount = this.chatCount + 1;
                 }
 
-                this.chatFloodTimer = (DateTime.getTimeSeconds() + GameSettings.CHAT_FLOOD_SECONDS);
+                this.chatFloodTimer = (Util.getCurrentTimeSeconds() + GameSettings.CHAT_FLOOD_SECONDS);
 
             }
         }

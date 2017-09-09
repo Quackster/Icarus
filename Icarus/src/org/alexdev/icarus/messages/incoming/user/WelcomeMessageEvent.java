@@ -1,6 +1,7 @@
 package org.alexdev.icarus.messages.incoming.user;
 
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
+import org.alexdev.icarus.game.catalogue.targetedoffer.TargetedOffer;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
@@ -21,8 +22,8 @@ public class WelcomeMessageEvent implements MessageEvent {
         
         PluginManager.callEvent(PluginEvent.PLAYER_LOGIN_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player) });
         
-        if (CatalogueManager.getOffer() != null) {
-            player.send(new TargettedOfferDataComposer(CatalogueManager.getOffer()));
+        for (TargetedOffer offer : CatalogueManager.getOffers()) {
+            player.send(new TargettedOfferDataComposer(offer));
         }
         
         player.setLoggedIn(true);

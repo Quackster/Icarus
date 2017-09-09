@@ -1,5 +1,6 @@
 command_handlers = {
-    ["ha"] = "cmdHotelAlert"
+    ["ha"] = "cmdHotelAlert",
+    ["reloadoffers"] = "cmdReloadOffers"
 }
 
 --[[
@@ -20,5 +21,32 @@ function cmdHotelAlert(rcon_data)
     for i = 0, players:size() - 1 do
         local player = players:get(i)
         player:sendMessage(message)
+    end
+end
+
+--[[
+    Reload offers when being edited by housekeeping.
+    
+    @parameters: 
+        rcon_data - split by ';' delimeter
+
+    Handler for RCON command    : reloadoffers
+    Syntax                      : password;command;
+    Example                     : password;reloadoffers;
+--]]
+function cmdReloadOffers(rcon_data)
+    
+    log:println(" [Rcon] Catalogue offers reloaded")
+
+    catalogueManager:reloadOffers()
+    
+    local players = playerManager:getPlayers()
+    
+    for i = 0, players:size() - 1 do
+        local player = players:get(i)
+        
+        if player:getDetails():getID() >= 5 then
+            player:sendMessage(" [Rcon] Catalogue offers reloaded")
+        end
     end
 end

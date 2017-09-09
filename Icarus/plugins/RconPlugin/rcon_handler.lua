@@ -54,6 +54,8 @@ function handleRconCommands(incoming_data)
         do return end
     end
     
+    log:println(string.format(" [Rcon] Incoming RCON command: ", command))
+    
     -- Find function in global namespace and call it.
     _G[command_handlers[command]](rcon_data)
 end

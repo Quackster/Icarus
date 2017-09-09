@@ -3,6 +3,7 @@ package org.alexdev.icarus.dao.mysql.catalogue;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Map;
 
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
@@ -10,11 +11,13 @@ import org.alexdev.icarus.game.catalogue.targetedoffer.TargetedOffer;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.util.Util;
 
+import com.google.common.collect.Maps;
+
 public class TargetedOfferDao {
 
-    public static TargetedOffer getOffer() {
+    public static Map<Integer, TargetedOffer> getOffers() {
         
-        TargetedOffer offer = null;
+        Map<Integer, TargetedOffer> offers = Maps.newHashMap();
         
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -30,7 +33,7 @@ public class TargetedOfferDao {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                offer = new TargetedOffer(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getString("description"), resultSet.getInt("credits"), resultSet.getInt("activity_points"), resultSet.getInt("activity_points_type"), resultSet.getInt("purchase_limit"), resultSet.getString("large_image"), resultSet.getString("small_image"), resultSet.getInt("expire_time"));
+                offers.put(resultSet.getInt("id"), new TargetedOffer(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getString("description"), resultSet.getInt("credits"), resultSet.getInt("activity_points"), resultSet.getInt("activity_points_type"), resultSet.getInt("purchase_limit"), resultSet.getString("large_image"), resultSet.getString("small_image"), resultSet.getLong("expire_time"), resultSet.getString("items")));
 
             }
 
@@ -42,6 +45,6 @@ public class TargetedOfferDao {
             Storage.closeSilently(sqlConnection);
         }
         
-        return offer;
+        return offers;
     }
 }

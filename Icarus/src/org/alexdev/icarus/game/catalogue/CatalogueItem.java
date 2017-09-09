@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.server.api.messages.Response;
+import org.alexdev.icarus.util.Metadata;
 
 import com.google.common.collect.Lists;
 
@@ -101,7 +102,7 @@ public class CatalogueItem {
     }
 
     // All credits to Leon for this structure.
-    public void serialise(Response response) {
+    public void serialise(Response response, boolean debugFurniture) {
 
         /*
          * 
@@ -150,7 +151,7 @@ public class CatalogueItem {
         final ItemDefinition firstItem = this.itemID.equals("-1") ? null : this.getItems().get(0).getItemDefinition();
 
         response.writeInt(this.getID());
-        response.writeString(this.getDisplayName());
+        response.writeString(this.getDisplayName() + (debugFurniture ? " (Definition ID " + (firstItem != null ? this.getItems().get(0).getItemDefinition().getID() : "") + ")" : ""));
         response.writeBool(false);
 
         response.writeInt(this.getCostCredits());

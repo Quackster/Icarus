@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.catalogue;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -20,19 +21,24 @@ public class CatalogueManager {
     private static List<CataloguePage> pages;
     private static List<CatalogueItem> items;
     
-    private static TargetedOffer offer;
+    private static Map<Integer, TargetedOffer> offers;
 
     public static void load() {
         loadCataloguePages();
         loadCatalogueItems();
 
-        offer = TargetedOfferDao.getOffer();
+        offers = TargetedOfferDao.getOffers();
         parentTabs = CatalogueDao.getCatalogTabs(-1);
         childTabs = Maps.newHashMap();
 
         for (CatalogueTab parent : parentTabs) {
             loadCatalogueTabs(parent, parent.getID());
         }
+    }
+    
+    public static void reloadOffers() {
+        offers.clear();
+        offers = TargetedOfferDao.getOffers();
     }
 
     public static void loadCatalogueTabs(CatalogueTab tab, int parent_id) {
@@ -102,7 +108,11 @@ public class CatalogueManager {
         return items;
     }
 
-    public static TargetedOffer getOffer() {
-        return offer;
+    public static Collection<TargetedOffer> getOffers() {
+        return offers.values();
+    }
+    
+    public static TargetedOffer getOfferByID(int id) {
+        return offers.get(id);
     }
 }

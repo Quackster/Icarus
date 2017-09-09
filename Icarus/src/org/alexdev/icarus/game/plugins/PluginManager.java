@@ -3,6 +3,8 @@ package org.alexdev.icarus.game.plugins;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+
+import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.log.Log;
@@ -138,6 +140,7 @@ public class PluginManager {
     private static void registerGlobalVariables(Globals globals) {
         
         // Managers
+        globals.set("catalogueManager", CoerceJavaToLua.coerce(new CatalogueManager()));
         globals.set("playerManager", CoerceJavaToLua.coerce(new PlayerManager()));
         globals.set("roomManager", CoerceJavaToLua.coerce(new RoomManager()));
         

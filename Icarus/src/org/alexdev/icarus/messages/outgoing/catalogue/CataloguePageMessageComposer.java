@@ -9,10 +9,12 @@ public class CataloguePageMessageComposer extends MessageComposer {
 
     private CataloguePage page;
     private String type;
+    private boolean debugFurniture;
 
-    public CataloguePageMessageComposer(CataloguePage page, String type) {
+    public CataloguePageMessageComposer(CataloguePage page, String type, boolean debugFurniture) {
         this.page = page;
         this.type = type;
+        this.debugFurniture = debugFurniture;
     }
 
     @Override
@@ -36,7 +38,7 @@ public class CataloguePageMessageComposer extends MessageComposer {
         this.response.writeInt(page.getItems().size()); 
 
         for (CatalogueItem item : page.getItems()) {
-            item.serialise(response);
+            item.serialise(response, debugFurniture);
         }
 
         this.response.writeInt(-1);
