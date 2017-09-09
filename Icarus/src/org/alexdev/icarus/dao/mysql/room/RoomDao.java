@@ -211,35 +211,35 @@ public class RoomDao {
 
         return rooms;
     }
-    
-    public static void saveRoomRights(int roomID, List<Integer> rights) {
 
+    public static void clearRoomRights(int roomID) {
         Dao.getStorage().execute("DELETE FROM room_rights WHERE room_id = '" + roomID + "'");
+    }
+
+    public static void removeRoomRights(int roomID, int userID) {
+        Dao.getStorage().execute("DELETE FROM room_rights WHERE room_id = '" + roomID + "' AND user_id = '" + userID + "'");
+    }
+
+    public static void addRoomRights(int roomID, int userID) {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
+        try {
 
-        for (int userID : rights) {
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("INSERT INTO room_rights (room_id, user_id) VALUES (?, ?)", sqlConnection);
+            preparedStatement.setInt(1, roomID);
+            preparedStatement.setInt(2, userID);
+            preparedStatement.execute();
 
-            try {
-
-                sqlConnection = Dao.getStorage().getConnection();
-                preparedStatement = Dao.getStorage().prepare("INSERT INTO room_rights (room_id, user_id) VALUES (?, ?)", sqlConnection);
-                preparedStatement.setInt(1, roomID);
-                preparedStatement.setInt(2, userID);
-                preparedStatement.execute();
-
-            } catch (Exception e) {
-                Log.exception(e);
-            } finally {
-                Storage.closeSilently(resultSet);
-                Storage.closeSilently(preparedStatement);
-                Storage.closeSilently(sqlConnection);
-            }
-
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
         }
-
     }
 
     public static Room createRoom(Player player, String name, String description, String model, int category, int usersMax, int tradeState) {
@@ -342,9 +342,9 @@ public class RoomDao {
     public static RoomModel getModel(String model) {
         return roomModels.get(model);
     }
-    
+
     public static void saveChatlog(Player chatter, int roomID, String chatType, String message) {
-        
+
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -357,7 +357,7 @@ public class RoomDao {
             preparedStatement.setString(1, chatter.getDetails().getName());
             preparedStatement.setInt(2, roomID);
             preparedStatement.setLong(3, Util.getCurrentTimeSeconds());
-            
+
             if (chatType.equals("CHAT")) {
                 preparedStatement.setInt(4, 0);
             } else if (chatType.equals("SHOUT")) {
@@ -365,7 +365,7 @@ public class RoomDao {
             } else {
                 preparedStatement.setInt(4, 2);
             }
-            
+
             preparedStatement.setString(5, message);
             preparedStatement.execute();
 
@@ -377,7 +377,7 @@ public class RoomDao {
             Storage.closeSilently(sqlConnection);
         }
     }
-    
+
     public static RoomModel getCustomModel(int roomID) {
 
         RoomModel model = null;
@@ -409,14 +409,14 @@ public class RoomDao {
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
-        
+
         return model;
     }
-    
+
     public static void newCustomModel(int roomID, RoomModel model) {
 
         deleteCustomModel(roomID);
-        
+
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -433,7 +433,7 @@ public class RoomDao {
             preparedStatement.setString(6, model.getHeightMap());
             preparedStatement.setInt(7, model.getWallHeight());
             preparedStatement.execute();
-            
+
         } catch (Exception e) {
             Log.exception(e);
         } finally {
@@ -442,7 +442,7 @@ public class RoomDao {
             Storage.closeSilently(sqlConnection);
         }
     }
-    
+
     public static void deleteCustomModel(int roomID) {
 
         Connection sqlConnection = null;
@@ -455,7 +455,7 @@ public class RoomDao {
             preparedStatement = Dao.getStorage().prepare("DELETE FROM room_models_dynamic WHERE id = ?", sqlConnection);
             preparedStatement.setString(1, "dynamic_model_" + roomID);
             preparedStatement.execute();
-            
+
         } catch (Exception e) {
             Log.exception(e);
         } finally {

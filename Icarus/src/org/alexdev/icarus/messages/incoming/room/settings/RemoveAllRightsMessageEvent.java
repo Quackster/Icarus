@@ -8,9 +8,7 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.room.RoomRightsLevelMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.settings.RightsRemovedComposer;
-import org.alexdev.icarus.server.api.messages.ClientMessage;
-
-import com.google.common.collect.Lists;
+import org.alexdev.icarus.server.api.messages.ClientMessage;;
 
 public class RemoveAllRightsMessageEvent implements MessageEvent {
 
@@ -46,7 +44,6 @@ public class RemoveAllRightsMessageEvent implements MessageEvent {
         
         room.getRights().clear();
         
-        RoomDao.saveRoomRights(room.getData().getID(), Lists.newArrayList());
+        RoomDao.clearRoomRights(room.getData().getID());
     }
-
 }

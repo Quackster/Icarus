@@ -79,6 +79,8 @@ public class Room {
 
         this.items = Maps.newHashMap();
         this.entities = Lists.newArrayList();
+        
+        this.rights = RoomDao.getRoomRights(this.getData().getID());
     }
 
     public void loadRoom(Player player, String pass) {
@@ -192,8 +194,6 @@ public class Room {
         if (!(this.getPlayers().size() > 0)) {
 
             this.items = ItemDao.getRoomItems(this.getData().getID());
-            this.rights = RoomDao.getRoomRights(this.getData().getID());
-            
             this.mapping.regenerateCollisionMaps();
 
             this.scheduler = new RoomScheduler(this);

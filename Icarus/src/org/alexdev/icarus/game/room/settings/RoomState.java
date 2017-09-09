@@ -4,7 +4,8 @@ public enum RoomState {
     
     OPEN(0),
     DOORBELL(1),
-    PASSWORD(2);
+    PASSWORD(2),
+    INVISIBLE(3);
     
     private int stateCode;
 

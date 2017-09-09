@@ -44,9 +44,8 @@ public class GiveRightsMessageEvent implements MessageEvent {
         }
 
         room.getRights().add(userID);
+        RoomDao.addRoomRights(room.getData().getID(), userID);
+        
         player.send(new RightsAssignedComposer(room.getData().getID(), userID, PlayerManager.getPlayerData(userID).getName()));
-
-        RoomDao.saveRoomRights(room.getData().getID(), room.getRights());
     }
-
 }

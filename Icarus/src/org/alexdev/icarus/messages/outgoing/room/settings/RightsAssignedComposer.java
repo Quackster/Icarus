@@ -22,5 +22,4 @@ public class RightsAssignedComposer extends MessageComposer {
         this.response.writeInt(this.userID);
         this.response.writeString(this.name);
     }
-
 }

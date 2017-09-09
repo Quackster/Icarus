@@ -48,10 +48,9 @@ public class RemoveRightsMessageEvent implements MessageEvent {
             }
             
             room.getRights().remove(Integer.valueOf(userID));
+            RoomDao.removeRoomRights(room.getData().getID(), userID);
+            
             player.send(new RightsRemovedComposer(room.getData().getID(), userID));
         }
-
-        RoomDao.saveRoomRights(room.getData().getID(), room.getRights());
     }
-
 }

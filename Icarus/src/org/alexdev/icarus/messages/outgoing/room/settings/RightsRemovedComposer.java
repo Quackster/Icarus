@@ -19,5 +19,4 @@ public class RightsRemovedComposer extends MessageComposer {
         this.response.writeInt(this.roomID);
         this.response.writeInt(this.userID);
     }
-
 }
