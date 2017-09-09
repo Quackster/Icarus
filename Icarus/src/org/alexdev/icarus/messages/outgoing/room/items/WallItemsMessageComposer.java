@@ -21,20 +21,20 @@ public class WallItemsMessageComposer extends MessageComposer {
         
         this.response.writeInt(this.items.size());
         for (Item wallItem : this.items) { 
-            this.response.writeInt(wallItem.getOwnerId());
+            this.response.writeInt(wallItem.getOwnerID());
             this.response.writeString(wallItem.getOwnerName());
         }
 
         this.response.writeInt(this.items.size());
         
         for (Item wallItem : this.items) {
-            this.response.writeString(wallItem.getId() + "");
-            this.response.writeInt(wallItem.getDefinition().getSpriteId());
+            this.response.writeString(wallItem.getID() + "");
+            this.response.writeInt(wallItem.getDefinition().getSpriteID());
             this.response.writeString(wallItem.getWallPosition());
             this.response.writeString(wallItem.getExtraData());
             this.response.writeInt(-1);
             this.response.writeInt(wallItem.getDefinition().getInterationModes() > 0 ? 1 : 0);
-            this.response.writeInt(wallItem.getOwnerId());
+            this.response.writeInt(wallItem.getOwnerID());
         }
     }
 }

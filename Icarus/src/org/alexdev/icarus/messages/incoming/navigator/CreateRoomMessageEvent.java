@@ -25,6 +25,6 @@ public class CreateRoomMessageEvent implements MessageEvent {
         
         Room room = RoomDao.createRoom(player, name, description, model, category, usersMax, tradeState);
         
-        player.send(new CreateRoomMessageComposer(room.getData().getId(), room.getData().getName()));
+        player.send(new CreateRoomMessageComposer(room.getData().getID(), room.getData().getName()));
     }
 }

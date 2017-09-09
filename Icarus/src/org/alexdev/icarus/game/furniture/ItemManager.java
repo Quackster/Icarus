@@ -9,31 +9,31 @@ import com.google.common.collect.Maps;
 
 public class ItemManager {
 
-    private static Map<Integer, ItemDefinition> furnitureIds;
-    private static Map<Integer, ItemDefinition> furnitureSpriteIds;
+    private static Map<Integer, ItemDefinition> furnitureIDs;
+    private static Map<Integer, ItemDefinition> furnitureSpriteIDs;
 
     public static void load() {
-        furnitureIds = ItemDao.getFurniture();
-        furnitureSpriteIds = Maps.newHashMap();
+        furnitureIDs = ItemDao.getFurniture();
+        furnitureSpriteIDs = Maps.newHashMap();
 
-        for (Entry<Integer, ItemDefinition> set : furnitureIds.entrySet()) {
-            furnitureSpriteIds.put(set.getValue().getSpriteId(), set.getValue());
+        for (Entry<Integer, ItemDefinition> set : furnitureIDs.entrySet()) {
+            furnitureSpriteIDs.put(set.getValue().getSpriteID(), set.getValue());
         }
     }
 
-    public static ItemDefinition getFurnitureById(int id) {
+    public static ItemDefinition getFurnitureByID(int id) {
 
-        if (furnitureIds.containsKey(id)) {
-            return furnitureIds.get(id);
+        if (furnitureIDs.containsKey(id)) {
+            return furnitureIDs.get(id);
         }
 
         return null;
     }
 
-    public static ItemDefinition getFurnitureBySpriteId(int id) {
+    public static ItemDefinition getFurnitureBySpriteID(int id) {
 
-        if (furnitureIds.containsKey(id)) {
-            return furnitureIds.get(id);
+        if (furnitureIDs.containsKey(id)) {
+            return furnitureIDs.get(id);
         }
 
         return null;

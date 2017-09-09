@@ -47,7 +47,7 @@ public class MoodlightData {
         MoodlightDao.saveMoodlightData(this);
     }
     
-    public int getId() {
+    public int getID() {
         return id;
     }
 

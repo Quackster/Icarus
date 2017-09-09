@@ -29,7 +29,7 @@ public class AuthenticateMessageEvent implements MessageEvent {
             return;
         }
         
-        if (player.getMachineId() == null) {
+        if (player.getMachineID() == null) {
             player.getNetwork().close();
             return;
         }
@@ -39,7 +39,7 @@ public class AuthenticateMessageEvent implements MessageEvent {
             return;
         }
    
-        player.send(new UniqueMachineIDMessageComposer(player.getMachineId()));
+        player.send(new UniqueMachineIDMessageComposer(player.getMachineID()));
         player.send(new AuthenticationOKMessageComposer());
         player.send(new HomeRoomMessageComposer(2, false));
         player.send(new LandingWidgetMessageComposer());

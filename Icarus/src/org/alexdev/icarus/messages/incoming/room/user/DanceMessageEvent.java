@@ -23,15 +23,15 @@ public class DanceMessageEvent implements MessageEvent {
             return;
         }
         
-        int danceId = request.readInt();
+        int danceID = request.readInt();
         
-        if (danceId < 0 || danceId > 4)
-            danceId = 0;
+        if (danceID < 0 || danceID > 4)
+            danceID = 0;
         
-        if (danceId > 0) {
+        if (danceID > 0) {
             roomUser.carryItem(0); // remove anything they were carrying
         }
 
-        roomUser.startDancing(danceId);
+        roomUser.startDancing(danceID);
     }
 }

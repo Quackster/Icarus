@@ -101,6 +101,6 @@ public class SaveRoomMessageEvent implements MessageEvent {
         room.send(new WallOptionsMessageComposer(room.getData().isHideWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
         
         room.send(new RoomSettingsOKMessageComposer(room));
-        room.send(new RoomSettingsUpdatedMessageComposer(room.getData().getId()));
+        room.send(new RoomSettingsUpdatedMessageComposer(room.getData().getID()));
     }
 }

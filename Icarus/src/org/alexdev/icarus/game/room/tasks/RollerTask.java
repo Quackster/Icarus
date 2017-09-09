@@ -96,7 +96,7 @@ public class RollerTask extends RoomTask {
                             }
 
 
-                            room.send(new SlideObjectMessageComposer(item, front, roller.getId(), nextHeight));
+                            room.send(new SlideObjectMessageComposer(item, front, roller.getID(), nextHeight));
                             
                             item.getPosition().setX(front.getX());
                             item.getPosition().setY(front.getY());
@@ -134,7 +134,7 @@ public class RollerTask extends RoomTask {
                                 continue;
                             }*/
 
-                            room.send(new SlideObjectMessageComposer(entity, front, roller.getId(), nextHeight));
+                            room.send(new SlideObjectMessageComposer(entity, front, roller.getID(), nextHeight));
 
                             entity.getRoomUser().getPosition().setX(front.getX());
                             entity.getRoomUser().getPosition().setY(front.getY());

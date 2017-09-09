@@ -22,10 +22,10 @@ public class Pet extends Entity {
     private int experience;
     private int energy;
 
-    private int ownerId;
+    private int ownerID;
     private String colour;
-    private int raceId;
-    private int typeId;
+    private int raceID;
+    private int typeID;
 
     private int hairDye = 0;
     private int hair = -1;
@@ -38,38 +38,38 @@ public class Pet extends Entity {
     private RoomUser roomUser;
     private PlayerDetails playerDetails;
     private String ownerName;
-    private int roomId;
+    private int roomID;
     
     private int x;
     private int y;
     
-    public Pet(int id, String name, int level, int happiness, int experience, int energy, int ownerId, String colour, int raceId, int typeId, boolean saddled, int hair, int hairDye, boolean anyRider, int birthday, int roomId, int x, int y) {
+    public Pet(int id, String name, int level, int happiness, int experience, int energy, int ownerID, String colour, int raceID, int typeID, boolean saddled, int hair, int hairDye, boolean anyRider, int birthday, int roomID, int x, int y) {
         this.id = id;
         this.name = name;
         this.level = level;
         this.happiness = happiness;
         this.experience = experience;
         this.energy = energy;
-        this.ownerId = ownerId;
-        this.ownerName = PlayerDao.getName(this.ownerId);
+        this.ownerID = ownerID;
+        this.ownerName = PlayerDao.getName(this.ownerID);
         this.colour = colour;
-        this.raceId = raceId;
-        this.typeId = typeId;
+        this.raceID = raceID;
+        this.typeID = typeID;
         this.saddled = saddled;
         this.hair = hair;
         this.hairDye = hairDye;
         this.anyRider = anyRider;
         this.birthday = birthday;
-        this.roomId = roomId;
+        this.roomID = roomID;
         
         this.roomUser = new RoomUser(this);
         this.playerDetails = new PlayerDetails(this);
         
         this.playerDetails.setName(this.name);
         this.playerDetails.setFigure(this.getLook());
-        this.playerDetails.setId(this.id);
+        this.playerDetails.setID(this.id);
         
-        if (this.roomId > 0) {
+        if (this.roomID > 0) {
             this.x = x;
             this.y = y;
         }
@@ -103,11 +103,11 @@ public class Pet extends Entity {
         PetDao.savePetPosition(this);
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setID(int id) {
         this.id = id;
     }
 
@@ -159,8 +159,8 @@ public class Pet extends Entity {
         this.energy = energy;
     }
 
-    public int getOwnerId() {
-        return ownerId;
+    public int getOwnerID() {
+        return ownerID;
     }
     
     public String getColour() {
@@ -172,23 +172,23 @@ public class Pet extends Entity {
     }
     
    public String getLook() {
-        return this.getTypeId() + " " + this.getRaceId() + " " + this.getColour();
+        return this.getTypeID() + " " + this.getRaceID() + " " + this.getColour();
     }
 
-    public int getRaceId() {
-        return raceId;
+    public int getRaceID() {
+        return raceID;
     }
 
-    public void setRaceId(int raceId) {
-        this.raceId = raceId;
+    public void setRaceID(int raceID) {
+        this.raceID = raceID;
     }
 
-    public int getTypeId() {
-        return typeId;
+    public int getTypeID() {
+        return typeID;
     }
 
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
+    public void setTypeID(int typeID) {
+        this.typeID = typeID;
     }
 
     public int getHairDye() {
@@ -245,12 +245,12 @@ public class Pet extends Entity {
         return false;
     }
 
-    public int getRoomId() {
-        return roomId;
+    public int getRoomID() {
+        return roomID;
     }
 
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
+    public void setRoomID(int roomID) {
+        this.roomID = roomID;
     }
 
     public int getX() {

@@ -35,7 +35,7 @@ public class UserStatusMessageComposer extends MessageComposer {
 
             for (Entity entity : this.users) {
 
-                this.response.writeInt(entity.getRoomUser().getVirtualId());
+                this.response.writeInt(entity.getRoomUser().getVirtualID());
                 
                 if (entity.getRoomUser().isWalking()) {
                     

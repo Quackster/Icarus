@@ -32,11 +32,11 @@ public class UserDisplayMessageComposer extends MessageComposer {
             
             for (Entity entity : this.entities) {
                 if (entity.getType() == EntityType.PLAYER) {
-                    this.response.writeInt(entity.getDetails().getId());
+                    this.response.writeInt(entity.getDetails().getID());
                     this.response.writeString(entity.getDetails().getName());
                     this.response.writeString(entity.getDetails().getMission());
                     this.response.writeString(entity.getDetails().getFigure());
-                    this.response.writeInt(entity.getRoomUser().getVirtualId());
+                    this.response.writeInt(entity.getRoomUser().getVirtualID());
                     this.response.writeInt(entity.getRoomUser().getPosition().getX());
                     this.response.writeInt(entity.getRoomUser().getPosition().getY());
                     this.response.writeString(Double.toString(entity.getRoomUser().getPosition().getZ()));
@@ -51,11 +51,11 @@ public class UserDisplayMessageComposer extends MessageComposer {
                 }
 
                 if (entity.getType() == EntityType.BOT) {
-                    this.response.writeInt(entity.getDetails().getId());
+                    this.response.writeInt(entity.getDetails().getID());
                     this.response.writeString(entity.getDetails().getName());
                     this.response.writeString(entity.getDetails().getMission());
                     this.response.writeString(entity.getDetails().getFigure());
-                    this.response.writeInt(entity.getRoomUser().getVirtualId());
+                    this.response.writeInt(entity.getRoomUser().getVirtualID());
                     this.response.writeInt(entity.getRoomUser().getPosition().getX());
                     this.response.writeInt(entity.getRoomUser().getPosition().getY());
                     this.response.writeString(Double.toString(entity.getRoomUser().getPosition().getZ()));
@@ -76,27 +76,27 @@ public class UserDisplayMessageComposer extends MessageComposer {
                     
                     Pet pet = (Pet)entity;
                     
-                    this.response.writeInt(entity.getDetails().getId());
+                    this.response.writeInt(entity.getDetails().getID());
                     this.response.writeString(pet.getName());
                     this.response.writeString("");
                     
                     String look = pet.getLook().toLowerCase() + " ";;
                     
-                    if (pet.getTypeId() == 15) {
+                    if (pet.getTypeID() == 15) {
                         look += new StringBuilder().append(pet.isSaddled() ? "3" : "2").append(" 2 ").append(pet.getHair()).append(" ").append(pet.getHairDye()).append(" 3 ").append(pet.getHair()).append(" ").append(pet.getHairDye()).append(pet.isSaddled() ? "0 4 9 0" : "").toString();
                     } else {
                         look += "2 2 -1 0 3 -1 0";
                     }
                     
                     this.response.writeString(look);
-                    this.response.writeInt(entity.getRoomUser().getVirtualId());
+                    this.response.writeInt(entity.getRoomUser().getVirtualID());
                     this.response.writeInt(entity.getRoomUser().getPosition().getX());
                     this.response.writeInt(entity.getRoomUser().getPosition().getY());
                     this.response.writeString(Double.toString(entity.getRoomUser().getPosition().getZ()));
                     this.response.writeInt(0);
                     this.response.writeInt(2);
-                    this.response.writeInt(pet.getTypeId());
-                    this.response.writeInt(pet.getOwnerId());
+                    this.response.writeInt(pet.getTypeID());
+                    this.response.writeInt(pet.getOwnerID());
                     this.response.writeString(pet.getOwnerName());
                     this.response.writeInt(1);
                     this.response.writeBool(pet.isSaddled());

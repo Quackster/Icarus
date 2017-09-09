@@ -23,7 +23,7 @@ public class PetRacesMessageComposer extends MessageComposer {
         this.response.writeInt(this.races.size());
 
         for (PetRace race : this.races) {
-            this.response.writeInt(race.getRaceId());
+            this.response.writeInt(race.getRaceID());
             this.response.writeInt(race.getColour1());
             this.response.writeInt(race.getColour2());
             this.response.writeBool(race.hasColour1());

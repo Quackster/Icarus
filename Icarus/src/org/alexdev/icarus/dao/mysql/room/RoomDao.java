@@ -112,7 +112,7 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE owner_id = " + details.getId(), sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE owner_id = " + details.getID(), sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -143,7 +143,7 @@ public class RoomDao {
         return rooms;
     }
 
-    public static Room getRoom(int roomId, boolean storeInMemory) {
+    public static Room getRoom(int roomID, boolean storeInMemory) {
 
         Room room = null;
         Connection sqlConnection = null;
@@ -153,7 +153,7 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE id = " + roomId, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE id = " + roomID, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -182,7 +182,7 @@ public class RoomDao {
         return room;
     }
 
-    public static List<Integer> getRoomRights(int roomId) {
+    public static List<Integer> getRoomRights(int roomID) {
 
         List<Integer> rooms = Lists.newArrayList();
 
@@ -193,7 +193,7 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_rights WHERE room_id = " + roomId, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_rights WHERE room_id = " + roomID, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -225,7 +225,7 @@ public class RoomDao {
             preparedStatement = Dao.getStorage().prepare("INSERT INTO rooms (name, description, owner_id, model, category, users_max, trade_state) VALUES (?, ?, ?, ?, ?, ?, ?)", sqlConnection);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, description);
-            preparedStatement.setInt(3, player.getDetails().getId());
+            preparedStatement.setInt(3, player.getDetails().getID());
             preparedStatement.setString(4, model);
             preparedStatement.setInt(5, category);
             preparedStatement.setInt(6, usersMax);
@@ -250,7 +250,7 @@ public class RoomDao {
     }
 
     public static void deleteRoom(Room room) {
-        Dao.getStorage().execute("DELETE FROM rooms WHERE id = " + room.getData().getId());
+        Dao.getStorage().execute("DELETE FROM rooms WHERE id = " + room.getData().getID());
     }
 
     public static void updateRoom(Room room) {
@@ -296,7 +296,7 @@ public class RoomDao {
             preparedStatement.setString(24, data.getFloor());
             preparedStatement.setString(25, data.getLandscape());
             preparedStatement.setString(26, data.getModel());
-            preparedStatement.setInt(27, data.getId());
+            preparedStatement.setInt(27, data.getID());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -348,7 +348,7 @@ public class RoomDao {
         }
     }
     
-    public static RoomModel getCustomModel(int roomId) {
+    public static RoomModel getCustomModel(int roomID) {
 
         RoomModel model = null;
         Connection sqlConnection = null;
@@ -359,7 +359,7 @@ public class RoomDao {
 
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_models_dynamic WHERE id = ?", sqlConnection);
-            preparedStatement.setString(1, "dynamic_model_" + roomId);
+            preparedStatement.setString(1, "dynamic_model_" + roomID);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -383,9 +383,9 @@ public class RoomDao {
         return model;
     }
     
-    public static void newCustomModel(int roomId, RoomModel model) {
+    public static void newCustomModel(int roomID, RoomModel model) {
 
-        deleteCustomModel(roomId);
+        deleteCustomModel(roomID);
         
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -395,7 +395,7 @@ public class RoomDao {
 
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("INSERT INTO room_models_dynamic (id, door_x, door_y, door_z, door_dir, heightmap, wall_height) VALUES (?, ?, ?, ?, ?, ?, ?)", sqlConnection);
-            preparedStatement.setString(1, "dynamic_model_" + roomId);
+            preparedStatement.setString(1, "dynamic_model_" + roomID);
             preparedStatement.setInt(2, model.getDoorLocation().getX());
             preparedStatement.setInt(3, model.getDoorLocation().getY());
             preparedStatement.setInt(4, (int)model.getDoorLocation().getZ());
@@ -413,7 +413,7 @@ public class RoomDao {
         }
     }
     
-    public static void deleteCustomModel(int roomId) {
+    public static void deleteCustomModel(int roomID) {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -423,7 +423,7 @@ public class RoomDao {
 
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("DELETE FROM room_models_dynamic WHERE id = ?", sqlConnection);
-            preparedStatement.setString(1, "dynamic_model_" + roomId);
+            preparedStatement.setString(1, "dynamic_model_" + roomID);
             preparedStatement.execute();
             
         } catch (Exception e) {

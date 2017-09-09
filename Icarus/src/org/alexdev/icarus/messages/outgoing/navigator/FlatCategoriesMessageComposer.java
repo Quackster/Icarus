@@ -21,7 +21,7 @@ public class FlatCategoriesMessageComposer extends MessageComposer {
         this.response.writeInt(this.categories.size());
 
         for (NavigatorCategory category : this.categories) {
-            this.response.writeInt(category.getId());
+            this.response.writeInt(category.getID());
             this.response.writeString(category.getName());
             this.response.writeBool(true); // show category?
             this.response.writeBool(false); // no idea

@@ -24,16 +24,16 @@ import com.google.common.collect.Lists;
 public class Item extends Metadata {
 
     private int id;
-    private int ownerId;
+    private int ownerID;
     private String ownerName;
     
-    private int itemId;
-    private int roomId;
+    private int itemID;
+    private int roomID;
     private Position position;
     private String extraData;
     private ItemType type;
     private Item itemUnderneath;
-    private int teleporterId = 0;
+    private int teleporterID = 0;
 
     /**
      * Wall position variables
@@ -45,13 +45,13 @@ public class Item extends Metadata {
     private int widthY = 0;
    
 
-    public Item(long id, int userId, int itemId, int roomId, String x, String y, double z, int rotation, String extraData) {
+    public Item(long id, int userID, int itemID, int roomID, String x, String y, double z, int rotation, String extraData) {
         this.id = (int)id;
-        this.ownerId = userId;
-        this.ownerName = PlayerDao.getName(this.ownerId);
-        this.itemId = itemId;
+        this.ownerID = userID;
+        this.ownerName = PlayerDao.getName(this.ownerID);
+        this.itemID = itemID;
         
-        this.roomId = roomId;
+        this.roomID = roomID;
         
         if (extraData.length() > 0) {
             this.setExtraData(extraData);
@@ -79,7 +79,7 @@ public class Item extends Metadata {
         }
 
         if (this.type == ItemType.WALL) {
-            if (this.roomId > 0) {
+            if (this.roomID > 0) {
                 this.parseWallPosition(x + " " + y);
             }
         }
@@ -117,7 +117,7 @@ public class Item extends Metadata {
         for (Entity entity : this.getRoom().getEntities()) {
 
             if (entity.getRoomUser().getCurrentItem() != null) {
-                if (entity.getRoomUser().getCurrentItem().getId() == this.id) {
+                if (entity.getRoomUser().getCurrentItem().getID() == this.id) {
 
                     // Item doesn't exist within player
                     if (!hasEntityCollision(entity.getRoomUser().getPosition().getX(), entity.getRoomUser().getPosition().getY())) {
@@ -274,20 +274,20 @@ public class Item extends Metadata {
         } catch (Exception e) { e.printStackTrace(); }
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 
-    public int getTeleporterId() {
-        return teleporterId;
+    public int getTeleporterID() {
+        return teleporterID;
     }
 
-    public void setTeleporterId(int teleporterId) {
-        this.teleporterId = teleporterId;
+    public void setTeleporterID(int teleporterID) {
+        this.teleporterID = teleporterID;
     }
 
     public ItemDefinition getDefinition() {
-        return ItemManager.getFurnitureById(this.itemId);
+        return ItemManager.getFurnitureByID(this.itemID);
     }
 
     public void save() {
@@ -374,32 +374,32 @@ public class Item extends Metadata {
         this.widthY = widthY;
     }
 
-    public int getOwnerId() {
-        return ownerId;
+    public int getOwnerID() {
+        return ownerID;
     }
 
     public String getOwnerName() {
         return this.ownerName;
     }
 
-    public int getItemId() {
-        return itemId;
+    public int getItemID() {
+        return itemID;
     }
 
-    public void setRoomId(int id) {
-        this.roomId = id;
+    public void setRoomID(int id) {
+        this.roomID = id;
     }
 
-    public int getRoomId() {
-        return roomId;
+    public int getRoomID() {
+        return roomID;
     }
 
     public Room getRoom() {
         
-        Room room = RoomManager.find(this.roomId);
+        Room room = RoomManager.find(this.roomID);
         
         if (room == null) {
-            room = RoomDao.getRoom(this.roomId, true);
+            room = RoomDao.getRoom(this.roomID, true);
         }
         
         return room;
@@ -413,8 +413,8 @@ public class Item extends Metadata {
 
         if (this.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
 
-            if (this.teleporterId == 0) {
-                this.teleporterId = Integer.valueOf(extraData);
+            if (this.teleporterID == 0) {
+                this.teleporterID = Integer.valueOf(extraData);
             }
 
             this.extraData = "0";

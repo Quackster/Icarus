@@ -13,15 +13,15 @@ import com.google.common.collect.Lists;
 public class CatalogueItem {
 
     private int id;
-    private int pageId;
-    private String itemId;
+    private int pageID;
+    private String itemID;
     private String itemName;
     private int costCredits;
     private int costPixels;
     private int costOther;
     private int amount;
     private int subscriptionStatus;
-    private int songId;
+    private int songID;
     private String extraData;
     private String badge;
 
@@ -31,17 +31,17 @@ public class CatalogueItem {
     private boolean hasOffer;
     private List<CatalogueBundledItem> items;
 
-    public CatalogueItem(int id, int pageId, String itemIds, String catalogueName, int costCredits, int costPixels, int costOther, int amount, int subscriptionStatus, int songId, String extraData, String badage, int limitedStack, int limitedSells, boolean hasOffer) {
+    public CatalogueItem(int id, int pageID, String itemIDs, String catalogueName, int costCredits, int costPixels, int costOther, int amount, int subscriptionStatus, int songID, String extraData, String badage, int limitedStack, int limitedSells, boolean hasOffer) {
         this.id = id;
-        this.pageId = pageId;
-        this.itemId = itemIds;
+        this.pageID = pageID;
+        this.itemID = itemIDs;
         this.itemName = catalogueName;
         this.costCredits = costCredits;
         this.costPixels = costPixels;
         this.setCostOther(costOther);
         this.amount = amount;
         this.subscriptionStatus = subscriptionStatus;
-        this.songId = songId;
+        this.songID = songID;
         this.extraData = extraData;
         this.badge = badage;
         this.limitedTotal = limitedStack;
@@ -51,10 +51,10 @@ public class CatalogueItem {
 
         // This has been taken from Comet, cus it's the best <3
         if (items.size() == 0) {
-            if (!this.itemId.equals("-1")) {
+            if (!this.itemID.equals("-1")) {
 
-                if (itemId.contains(",")) {
-                    String[] split = itemId.replace("\n", "").split(",");
+                if (itemID.contains(",")) {
+                    String[] split = itemID.replace("\n", "").split(",");
 
                     for (String str : split) {
                         if (!str.equals("")) {
@@ -62,18 +62,18 @@ public class CatalogueItem {
                             if (parts.length != 3) continue;
 
                             try {
-                                final int aItemId = Integer.parseInt(parts[0]);
+                                final int aItemID = Integer.parseInt(parts[0]);
                                 final int aAmount = Integer.parseInt(parts[1]);
                                 final String aPresetData = parts[2];
 
-                                this.items.add(new CatalogueBundledItem(this, aPresetData, aAmount, aItemId));
+                                this.items.add(new CatalogueBundledItem(this, aPresetData, aAmount, aItemID));
                             } catch (Exception ignored) {
                                 Log.println("Invalid item data for catalog item: " + this.id);
                             }
                         }
                     }
                 } else {
-                    this.items.add(new CatalogueBundledItem(this, this.extraData, this.amount, Integer.valueOf(this.itemId)));
+                    this.items.add(new CatalogueBundledItem(this, this.extraData, this.amount, Integer.valueOf(this.itemID)));
                 }
             }
         }
@@ -147,9 +147,9 @@ public class CatalogueItem {
          * 
          */
         
-        final ItemDefinition firstItem = this.itemId.equals("-1") ? null : this.getItems().get(0).getItemDefinition();
+        final ItemDefinition firstItem = this.itemID.equals("-1") ? null : this.getItems().get(0).getItemDefinition();
 
-        response.writeInt(this.getId());
+        response.writeInt(this.getID());
         response.writeString(this.getDisplayName());
         response.writeBool(false);
 
@@ -181,7 +181,7 @@ public class CatalogueItem {
                 ItemDefinition def = bundledItem.getItemDefinition();
 
                 response.writeString(def.getType());
-                response.writeInt(def.getSpriteId());
+                response.writeInt(def.getSpriteID());
 
                 if (this.getDisplayName().contains("wallpaper_single") || this.getDisplayName().contains("floor_single") || this.getDisplayName().contains("landscape_single")) {
                     response.writeString(this.getDisplayName().split("_")[2]);
@@ -206,15 +206,15 @@ public class CatalogueItem {
         response.writeString("catalogue/pet_turtle.png");
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
-    public int getPageId() {
-        return pageId;
+    public int getPageID() {
+        return pageID;
     }
 
-    public String getItemId() {
-        return itemId;
+    public String getItemID() {
+        return itemID;
     }
 
     public List<CatalogueBundledItem> getItems() {
@@ -248,8 +248,8 @@ public class CatalogueItem {
         return subscriptionStatus;
     }
 
-    public int getSongId() {
-        return songId;
+    public int getSongID() {
+        return songID;
     }
 
     public String getExtraData() {

@@ -11,21 +11,21 @@ public class SlideObjectMessageComposer extends MessageComposer {
 
     private Item item;
     private Position next;
-    private int rollerId;
+    private int rollerID;
     private double nextHeight;
     private Entity entity;
 
-    public SlideObjectMessageComposer(Item item, Position next, int rollerId, double nextHeight) {
+    public SlideObjectMessageComposer(Item item, Position next, int rollerID, double nextHeight) {
         this.item = item;
         this.next = next;
-        this.rollerId = rollerId;
+        this.rollerID = rollerID;
         this.nextHeight = nextHeight;
     }
 
-    public SlideObjectMessageComposer(Entity entity, Position next, int rollerId, double nextHeight) {
+    public SlideObjectMessageComposer(Entity entity, Position next, int rollerID, double nextHeight) {
         this.entity = entity;
         this.next = next;
-        this.rollerId = rollerId;
+        this.rollerID = rollerID;
         this.nextHeight = nextHeight;
     }
 
@@ -39,19 +39,19 @@ public class SlideObjectMessageComposer extends MessageComposer {
             this.response.writeInt(this.next.getX());
             this.response.writeInt(this.next.getY());
             this.response.writeInt(1);
-            this.response.writeInt(this.item.getId());
+            this.response.writeInt(this.item.getID());
             this.response.writeString(Util.getDecimalFormatter().format(this.item.getPosition().getZ()));
             this.response.writeString(Util.getDecimalFormatter().format(this.nextHeight));
-            this.response.writeInt(this.rollerId);
+            this.response.writeInt(this.rollerID);
         } else {
             this.response.writeInt(this.entity.getRoomUser().getPosition().getX());
             this.response.writeInt(this.entity.getRoomUser().getPosition().getY());
             this.response.writeInt(this.next.getX());
             this.response.writeInt(this.next.getY());
             this.response.writeInt(0);
-            this.response.writeInt(this.rollerId);
+            this.response.writeInt(this.rollerID);
             this.response.writeInt(2);
-            this.response.writeInt(this.entity.getRoomUser().getVirtualId());
+            this.response.writeInt(this.entity.getRoomUser().getVirtualID());
             this.response.writeString(Util.getDecimalFormatter().format(this.entity.getRoomUser().getPosition().getZ()));
             this.response.writeString(Util.getDecimalFormatter().format(this.nextHeight));
         }

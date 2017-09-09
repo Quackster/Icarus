@@ -42,7 +42,7 @@ public class CatalogueTabMessageComposer extends MessageComposer {
 
         this.response.writeBool(tab.isEnabled());
         this.response.writeInt(tab.getIconImage());
-        this.response.writeInt(tab.getId());
+        this.response.writeInt(tab.getID());
         this.response.writeString(tab.getLink().equals("undefined") ? Util.removeNonAlphaNumeric(tab.getCaption().toLowerCase()).replace(" ", "_") : tab.getLink());
         this.response.writeString(tab.getCaption());
         this.response.writeInt(0);

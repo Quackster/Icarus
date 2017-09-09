@@ -17,7 +17,7 @@ public class UserChangeComposer extends MessageComposer {
     @Override
     public void write() {
         this.response.init(Outgoing.UserChangeComposer);
-        this.response.writeInt(this.self ? -1 : this.entity.getRoomUser().getVirtualId());
+        this.response.writeInt(this.self ? -1 : this.entity.getRoomUser().getVirtualID());
         this.response.writeString(this.entity.getDetails().getFigure());
         this.response.writeString(this.entity.getDetails().getGender());
         this.response.writeString(this.entity.getDetails().getMission());

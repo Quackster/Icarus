@@ -26,7 +26,7 @@ public class TargetedOffer {
         this.expiryDate = expiryDate;
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 

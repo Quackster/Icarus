@@ -17,7 +17,7 @@ import com.google.common.collect.Maps;
 
 public class InventoryDao {
     
-    public static Map<Integer, Item> getInventoryItems(int userId) {
+    public static Map<Integer, Item> getInventoryItems(int userID) {
 
         Map<Integer, Item> items = Maps.newHashMap();
         
@@ -30,7 +30,7 @@ public class InventoryDao {
             sqlConnection = Dao.getStorage().getConnection();
             
             preparedStatement = Dao.getStorage().prepare("SELECT id, user_id, item_id, room_id, x, y, z, rotation, extra_data FROM items WHERE room_id = 0 AND user_id = ?", sqlConnection);
-            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(1, userID);
             
             resultSet = preparedStatement.executeQuery();
     
@@ -80,7 +80,7 @@ public class InventoryDao {
         return item;
     }
 
-    public static Item newItem(int itemId, int ownerId, String extraData) {
+    public static Item newItem(int itemID, int ownerID, String extraData) {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -92,9 +92,9 @@ public class InventoryDao {
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("INSERT INTO items (owner_id, user_id, item_id, extra_data) VALUES(?, ?, ?, ?)", sqlConnection);
             
-            preparedStatement.setInt(1, ownerId);
-            preparedStatement.setInt(2, ownerId);
-            preparedStatement.setInt(3, itemId);
+            preparedStatement.setInt(1, ownerID);
+            preparedStatement.setInt(2, ownerID);
+            preparedStatement.setInt(3, itemID);
             preparedStatement.setString(4, extraData);
             preparedStatement.executeUpdate();
 

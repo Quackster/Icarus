@@ -31,19 +31,19 @@ public class CatalogueManager {
         childTabs = Maps.newHashMap();
 
         for (CatalogueTab parent : parentTabs) {
-            loadCatalogueTabs(parent, parent.getId());
+            loadCatalogueTabs(parent, parent.getID());
         }
     }
 
     public static void loadCatalogueTabs(CatalogueTab tab, int parent_id) {
 
-        List<CatalogueTab> child = CatalogueDao.getCatalogTabs(tab.getId());
+        List<CatalogueTab> child = CatalogueDao.getCatalogTabs(tab.getID());
 
         if (child.size() > 0) { 
 
             for (CatalogueTab parent_tab : child) {
                 tab.getChildTabs().add(parent_tab);
-                loadCatalogueTabs(parent_tab, parent_tab.getId());
+                loadCatalogueTabs(parent_tab, parent_tab.getID());
             }
         }
     }
@@ -61,13 +61,13 @@ public class CatalogueManager {
         return parentTabs.stream().filter(tab -> tab.getMinRank() <= rank).collect(Collectors.toList());
     }
 
-    public static List<CatalogueTab> getChildTabs(int parentId, int rank) {
-        return childTabs.get(parentId).stream().filter(tab -> tab.getMinRank() <= rank).collect(Collectors.toList());
+    public static List<CatalogueTab> getChildTabs(int parentID, int rank) {
+        return childTabs.get(parentID).stream().filter(tab -> tab.getMinRank() <= rank).collect(Collectors.toList());
     }
 
-    public static CataloguePage getPage(int pageId) {
+    public static CataloguePage getPage(int pageID) {
 
-        Optional<CataloguePage> cataloguePage = pages.stream().filter(page -> page.getId() == pageId).findFirst();
+        Optional<CataloguePage> cataloguePage = pages.stream().filter(page -> page.getID() == pageID).findFirst();
 
         if (cataloguePage.isPresent()) {
             return cataloguePage.get();
@@ -77,18 +77,18 @@ public class CatalogueManager {
 
     }
 
-    public static List<CatalogueItem> getPageItems(int pageId) {
+    public static List<CatalogueItem> getPageItems(int pageID) {
 
         try {
-            return items.stream().filter(item -> item.getPageId() == pageId).collect(Collectors.toList());
+            return items.stream().filter(item -> item.getPageID() == pageID).collect(Collectors.toList());
         } catch (Exception e) {
             return Lists.newArrayList();
         }
     }
 
-    public static CatalogueItem getItem(int itemId) {
+    public static CatalogueItem getItem(int itemID) {
 
-        Optional<CatalogueItem> catalogueItem = items.stream().filter(item -> item.getId() == itemId).findFirst();
+        Optional<CatalogueItem> catalogueItem = items.stream().filter(item -> item.getID() == itemID).findFirst();
 
         if (catalogueItem.isPresent()) {
             return catalogueItem.get();

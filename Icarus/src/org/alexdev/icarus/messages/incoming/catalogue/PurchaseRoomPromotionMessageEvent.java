@@ -15,12 +15,12 @@ public class PurchaseRoomPromotionMessageEvent implements MessageEvent {
         reader.readInt();
         reader.readInt();
         
-        int roomId = reader.readInt();
+        int roomID = reader.readInt();
         
         Room eventRoom = null;
         
         for (Room room : player.getRooms()) {
-            if (room.getData().getId() == roomId) {
+            if (room.getData().getID() == roomID) {
                 eventRoom = room;
                 break;
             }

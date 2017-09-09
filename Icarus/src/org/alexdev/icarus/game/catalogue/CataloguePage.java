@@ -9,7 +9,7 @@ public class CataloguePage {
 
     private int id = -1;
     private String caption;
-    private int parentId = -1;
+    private int parentID = -1;
     private String type;
     private String layout;
     private int minimum_rank;
@@ -20,11 +20,11 @@ public class CataloguePage {
     
     private CataloguePageMessageComposer composer = null;
 
-    public CataloguePage(int id, String caption, int parentId, String type, String layout, int minimum_rank, List<String> images, List<String> texts, List<CatalogueItem> items) {
+    public CataloguePage(int id, String caption, int parentID, String type, String layout, int minimum_rank, List<String> images, List<String> texts, List<CatalogueItem> items) {
         super();
         this.id = id;
         this.caption = caption;
-        this.parentId = parentId;
+        this.parentID = parentID;
         this.type = type;
         this.layout = layout;
         this.minimum_rank = minimum_rank;
@@ -32,10 +32,10 @@ public class CataloguePage {
         this.texts = texts;
     }
 
-    public CatalogueItem getItem(int itemId) {
+    public CatalogueItem getItem(int itemID) {
 
         for (CatalogueItem item : this.items) {
-            if (item.getId() == itemId) {
+            if (item.getID() == itemID) {
                 return item;
             }
         }
@@ -65,7 +65,7 @@ public class CataloguePage {
     /**
      * @return the id
      */
-    public int getId() {
+    public int getID() {
         return id;
     }
 
@@ -77,10 +77,10 @@ public class CataloguePage {
     }
 
     /**
-     * @return the parentId
+     * @return the parentID
      */
-    public int getParentId() {
-        return parentId;
+    public int getParentID() {
+        return parentID;
     }
 
     /**

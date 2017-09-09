@@ -5,18 +5,18 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 
 public class HomeRoomMessageComposer extends MessageComposer {
 
-    private int roomId;
+    private int roomID;
     private boolean forceEnter;
 
-    public HomeRoomMessageComposer(int roomId, boolean forceEnter) {
-        this.roomId = roomId;
+    public HomeRoomMessageComposer(int roomID, boolean forceEnter) {
+        this.roomID = roomID;
         this.forceEnter = forceEnter;
     }
 
     @Override
     public void write() {
         this.response.init(Outgoing.HomeRoomMessageComposer);
-        this.response.writeInt(this.roomId); 
+        this.response.writeInt(this.roomID); 
         this.response.writeInt(this.forceEnter); 
     }
 

@@ -29,7 +29,7 @@ public class MoodlightInteractMessageEvent implements MessageEvent {
             return;
         }
         
-        MoodlightData data = MoodlightManager.getMoodlightData(moodlight.getId());
+        MoodlightData data = MoodlightManager.getMoodlightData(moodlight.getID());
         
         moodlight.setExtraData(data.generateExtraData());
         moodlight.save();

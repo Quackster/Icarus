@@ -16,7 +16,7 @@ import com.google.common.collect.Lists;
 
 public class NavigatorDao {
 
-    public static List<NavigatorTab> getTabs(int childId) {
+    public static List<NavigatorTab> getTabs(int childID) {
 
         List<NavigatorTab> tabs = Lists.newArrayList();
 
@@ -27,7 +27,7 @@ public class NavigatorDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM navigator_tabs WHERE child_id = " + childId, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM navigator_tabs WHERE child_id = " + childID, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -35,7 +35,7 @@ public class NavigatorDao {
                 NavigatorTab tab = fill(resultSet);
 
                 tabs.add(tab);
-                tabs.addAll(getTabs(tab.getId()));
+                tabs.addAll(getTabs(tab.getID()));
             }
 
         } catch (Exception e) {

@@ -13,7 +13,7 @@ public class RoomData {
 
     private int id;
     private RoomType roomType;
-    private int ownerId;
+    private int ownerID;
     private String ownerName;
     private String name;
     private RoomState state;
@@ -25,7 +25,7 @@ public class RoomData {
     private int tradeState;
     private int score;
     private int category;
-    private int groupId;
+    private int groupID;
     private String model;
     private String wall;
     private String floor;
@@ -54,15 +54,15 @@ public class RoomData {
         this.rights = new ArrayList<Integer>();
     }
     
-    public void fill(int id, RoomType type, int ownerId, String ownerName, String name, int state, String password, int usersNow, int usersMax,
-            String description, int tradeState, int score, int category, int groupId, String model, String wall,
+    public void fill(int id, RoomType type, int ownerID, String ownerName, String name, int state, String password, int usersNow, int usersMax,
+            String description, int tradeState, int score, int category, int groupID, String model, String wall,
             String floor, String landscape, boolean allowPets, boolean allowPetsEat, boolean allowWalkthrough,
             boolean hideWall, int wallThickness, int floorThickness, String tagFormat, int chatType, int chatBalloon, int chatSpeed,
             int chatMaxDistance, int chatFloodProtection, int whoCanMute, int whoCanKick, int whoCanBan, String thumbnail) {
 
         this.id = id;
         this.roomType = type;
-        this.ownerId = ownerId;
+        this.ownerID = ownerID;
         this.ownerName = ownerName;
         this.name = name;
         this.state = RoomState.getState(state);
@@ -73,7 +73,7 @@ public class RoomData {
         this.tradeState = tradeState;
         this.score = score;
         this.category = category;
-        this.groupId = groupId;
+        this.groupID = groupID;
         this.model = model;
         this.wall = wall;
         this.floor = floor;
@@ -100,7 +100,7 @@ public class RoomData {
         
         response.writeInt(id);
         response.writeString(this.name);
-        response.writeInt(this.ownerId);
+        response.writeInt(this.ownerID);
         response.writeString(this.ownerName);
         response.writeInt(this.state.getStateCode());
         response.writeInt(this.usersNow);
@@ -230,12 +230,12 @@ public class RoomData {
         this.category = category;
     }
 
-    public int getGroupId() {
-        return groupId;
+    public int getGroupID() {
+        return groupID;
     }
 
-    public void setGroupId(int groupId) {
-        this.groupId = groupId;
+    public void setGroupID(int groupID) {
+        this.groupID = groupID;
     }
 
     public String getWall() {
@@ -315,12 +315,12 @@ public class RoomData {
         this.floorThickness = floorThickness;
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 
-    public int getOwnerId() {
-        return ownerId;
+    public int getOwnerID() {
+        return ownerID;
     }
 
     public String getOwnerName() {
@@ -339,8 +339,8 @@ public class RoomData {
         return roomType;
     }
 
-    public void setOwnerId(int ownerId) {
-        this.ownerId = ownerId;
+    public void setOwnerID(int ownerID) {
+        this.ownerID = ownerID;
     }
 
     public void setOwnerName(String ownerName) {

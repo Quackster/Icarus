@@ -13,9 +13,9 @@ public class CataloguePageMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage request) {
         
-        int pageId = request.readInt();
+        int pageID = request.readInt();
         
-        CataloguePage page = CatalogueManager.getPage(pageId);
+        CataloguePage page = CatalogueManager.getPage(pageID);
         
         if (page == null) {
             return;

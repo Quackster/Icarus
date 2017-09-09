@@ -16,14 +16,14 @@ public class PetRacesMessageEvent implements MessageEvent {
     public void handle(Player player, ClientMessage reader) {
         
         String petRace = reader.readString();
-        String petRaceId = petRace.replace("a0 pet", "");
+        String petRaceID = petRace.replace("a0 pet", "");
         
-        if (!Util.isNumber(petRaceId) || !(petRaceId.length() > 0)) {
+        if (!Util.isNumber(petRaceID) || !(petRaceID.length() > 0)) {
             return;
         }
         
-        int raceId = Integer.valueOf(petRaceId);
-        List<PetRace> races = PetManager.getRaces(raceId);
+        int raceID = Integer.valueOf(petRaceID);
+        List<PetRace> races = PetManager.getRaces(raceID);
         
         if (races == null) {
             return;

@@ -11,7 +11,7 @@ import org.alexdev.icarus.log.Log;
 
 public class MoodlightDao {
 
-    public static boolean hasMoodlightData(int itemId) {
+    public static boolean hasMoodlightData(int itemID) {
 
         boolean exists = false;
         
@@ -23,7 +23,7 @@ public class MoodlightDao {
 
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT item_id FROM room_items_moodlight WHERE item_id = ? LIMIT 1", sqlConnection);
-            preparedStatement.setInt(1, itemId);
+            preparedStatement.setInt(1, itemID);
             resultSet = preparedStatement.executeQuery();
             
             while (resultSet.next()) {
@@ -41,7 +41,7 @@ public class MoodlightDao {
         return exists;
     }
     
-    public static MoodlightData getMoodlightData(int itemId) {
+    public static MoodlightData getMoodlightData(int itemID) {
 
         MoodlightData data = null;
         
@@ -53,7 +53,7 @@ public class MoodlightDao {
 
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_items_moodlight WHERE item_id = ? LIMIT 1", sqlConnection);
-            preparedStatement.setInt(1, itemId);
+            preparedStatement.setInt(1, itemID);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -86,7 +86,7 @@ public class MoodlightDao {
             preparedStatement.setString(3, data.getPresets().get(0).toString());
             preparedStatement.setString(4, data.getPresets().get(1).toString());
             preparedStatement.setString(5, data.getPresets().get(2).toString());
-            preparedStatement.setInt(6, data.getId());
+            preparedStatement.setInt(6, data.getID());
             preparedStatement.executeUpdate();
 
         } catch (Exception e) {
@@ -99,7 +99,7 @@ public class MoodlightDao {
     }
 
     
-    public static void newMoodlightData(int itemId) {
+    public static void newMoodlightData(int itemID) {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -108,7 +108,7 @@ public class MoodlightDao {
         try {
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("INSERT INTO room_items_moodlight (item_id, enabled, current_preset, preset_one, preset_two, preset_three) VALUES (?, ?, ?, ?, ?, ?)", sqlConnection);
-            preparedStatement.setInt(1, itemId);
+            preparedStatement.setInt(1, itemID);
             preparedStatement.setInt(2, 0);
             preparedStatement.setInt(3, 1);
             preparedStatement.setString(4, "#000000,255,0");
@@ -125,7 +125,7 @@ public class MoodlightDao {
         }
     }
     
-    public static void deleteMoodlightData(int itemId) {
+    public static void deleteMoodlightData(int itemID) {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -134,7 +134,7 @@ public class MoodlightDao {
         try {
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("DELETE FROM room_items_moodlight WHERE item_id = ?", sqlConnection);
-            preparedStatement.setInt(1, itemId);
+            preparedStatement.setInt(1, itemID);
             preparedStatement.executeUpdate();
 
         } catch (Exception e) {

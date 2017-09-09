@@ -35,7 +35,7 @@ public class PlacePetMessageEvent implements MessageEvent {
         player.getInventory().remove(pet);
         player.getInventory().updatePets();
         
-        pet.setRoomId(player.getRoom().getData().getId());
+        pet.setRoomID(player.getRoom().getData().getID());
         
         pet.save();
         pet.savePosition();

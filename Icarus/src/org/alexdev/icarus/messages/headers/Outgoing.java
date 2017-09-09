@@ -56,7 +56,7 @@ public class Outgoing {
     public static int TypingStatusMessageComposer = 1727;//2604
     public static int FloodFilterMessageComposer = 803;//626
     public static int DanceStatusMessageComposer = 130;//1005
-    public static int IdleStatusMessageComposer = 2306;//2932
+    public static int IDleStatusMessageComposer = 2306;//2932
     public static int CatalogueTabMessageComposer = 2140;//3579
     public static int BroadcastMessageAlertComposer = 1751;//1092
     public static int CataloguePageMessageComposer = 3277;//2025

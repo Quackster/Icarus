@@ -60,7 +60,7 @@ import com.google.common.collect.Maps;
 
 public class Room {
 
-    private AtomicInteger privateId = new AtomicInteger(-1);
+    private AtomicInteger privateID = new AtomicInteger(-1);
     private RoomData data;
     private RoomScheduler scheduler;
     private RoomMapping mapping;
@@ -108,7 +108,7 @@ public class Room {
 
         if (this.data.getUsersNow() >= this.data.getUsersMax()) {
             if (!player.hasPermission("user_enter_full_rooms")) {
-                if (player.getDetails().getId() != this.data.getOwnerId()) {
+                if (player.getDetails().getID() != this.data.getOwnerID()) {
                     player.send(new RoomEnterErrorMessageComposer(1));
                     return;
                 }
@@ -116,11 +116,11 @@ public class Room {
         }
 
         if (player.getRoomUser().isTeleporting()) {
-            if (player.getRoomUser().getTeleportRoomId() != this.data.getId()) {
+            if (player.getRoomUser().getTeleportRoomID() != this.data.getID()) {
                 this.leaveRoom(player, true);
             } else {
                 player.getRoomUser().setTeleporting(false);
-                player.getRoomUser().setTeleportRoomId(0);
+                player.getRoomUser().setTeleportRoomID(0);
             }
         }
         else {
@@ -152,7 +152,7 @@ public class Room {
         roomUser.setRoom(this);
         roomUser.getStatuses().clear();
 
-        player.send(new RoomModelMessageComposer(this.getModel().getName(), this.getData().getId()));
+        player.send(new RoomModelMessageComposer(this.getModel().getName(), this.getData().getID()));
         player.send(new RoomRatingMessageComposer(this.data.getScore()));
 
         int floorData = Integer.parseInt(this.data.getFloor());
@@ -167,7 +167,7 @@ public class Room {
         }
 
         player.send(new RoomSpacesMessageComposer("landscape", this.data.getLandscape()));
-        player.send(new RoomOwnerRightsComposer(this.data.getId(), isOwner));
+        player.send(new RoomOwnerRightsComposer(this.data.getID(), isOwner));
 
         if (roomUser.getRoom().hasRights(player, true)) {
             player.send(new RoomRightsLevelMessageComposer(4));
@@ -182,7 +182,7 @@ public class Room {
 
         player.send(new PrepareRoomMessageComposer(this));
 
-        roomUser.setVirtualId(this.privateId.incrementAndGet());
+        roomUser.setVirtualID(this.privateID.incrementAndGet());
         roomUser.getPosition().setX(this.getModel().getDoorLocation().getX());
         roomUser.getPosition().setY(this.getModel().getDoorLocation().getY());
         roomUser.getPosition().setZ(this.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
@@ -190,7 +190,7 @@ public class Room {
 
         if (!(this.getPlayers().size() > 0)) {
 
-            this.items = ItemDao.getRoomItems(this.getData().getId());
+            this.items = ItemDao.getRoomItems(this.getData().getID());
             this.mapping.regenerateCollisionMaps();
 
             this.scheduler = new RoomScheduler(this);
@@ -224,11 +224,11 @@ public class Room {
 
         for (Player players : this.getPlayers()) {
             if (players.getRoomUser().isDancing()) {
-                player.send(new DanceMessageComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getDanceId()));
+                player.send(new DanceMessageComposer(players.getRoomUser().getVirtualID(), players.getRoomUser().getDanceID()));
             }
 
             if (players.getRoomUser().getCarryItem() > 0) {
-                player.send(new CarryObjectComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getCarryItem())); 
+                player.send(new CarryObjectComposer(players.getRoomUser().getVirtualID(), players.getRoomUser().getCarryItem())); 
             }
         }
 
@@ -294,7 +294,7 @@ public class Room {
         RoomUser roomUser = entity.getRoomUser();
 
         roomUser.setRoom(this);
-        roomUser.setVirtualId(this.privateId.incrementAndGet());
+        roomUser.setVirtualID(this.privateID.incrementAndGet());
         roomUser.getPosition().setX(x);
         roomUser.getPosition().setY(y);
         roomUser.getPosition().setZ(this.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
@@ -318,7 +318,7 @@ public class Room {
         }
 
         if (this.getPlayers().size() > 0) {
-            this.send(new RemoveUserMessageComposer(entity.getRoomUser().getVirtualId()));
+            this.send(new RemoveUserMessageComposer(entity.getRoomUser().getVirtualID()));
         }
 
         if (entity.getType() != EntityType.PLAYER) {
@@ -340,9 +340,9 @@ public class Room {
             return true;
         }
 
-        int userID = player.getDetails().getId();
+        int userID = player.getDetails().getID();
 
-        if (this.data.getOwnerId() == userID) {
+        if (this.data.getOwnerID() == userID) {
             return true;
         } else {
             if (!ownerCheckOnly) {
@@ -358,7 +358,7 @@ public class Room {
         if (forceDisposal) {
 
             this.cleanupRoomData();
-            RoomManager.removeRoom(this.getData().getId());
+            RoomManager.removeRoom(this.getData().getID());
 
         } else {
 
@@ -368,8 +368,8 @@ public class Room {
 
             this.cleanupRoomData();
 
-            if (PlayerManager.getById(this.data.getOwnerId()) == null && this.data.getRoomType() == RoomType.PRIVATE) { 
-                RoomManager.removeRoom(this.getData().getId());
+            if (PlayerManager.getByID(this.data.getOwnerID()) == null && this.data.getRoomType() == RoomType.PRIVATE) { 
+                RoomManager.removeRoom(this.getData().getID());
             }
         }
     }
@@ -398,9 +398,9 @@ public class Room {
      * @return none
      */
     private void addPets() {
-        for (Pet pet : PetDao.getRoomPets(this.data.getId())) {
+        for (Pet pet : PetDao.getRoomPets(this.data.getID())) {
             pet.getRoomUser().setRoom(this);
-            pet.getRoomUser().setVirtualId(this.privateId.incrementAndGet());
+            pet.getRoomUser().setVirtualID(this.privateID.incrementAndGet());
             pet.getRoomUser().getPosition().setX(pet.getX());
             pet.getRoomUser().getPosition().setY(pet.getY());
             pet.getRoomUser().getPosition().setZ(this.getModel().getHeight(pet.getRoomUser().getPosition().getX(), pet.getRoomUser().getPosition().getY()));
@@ -429,7 +429,7 @@ public class Room {
             this.entities.clear();
         }
 
-        this.privateId.set(-1);
+        this.privateID.set(-1);
     }
 
     public void send(MessageComposer response, boolean checkRights) {
@@ -474,10 +474,10 @@ public class Room {
     }
     
 
-    public Entity getEntityById(int id) {
+    public Entity getEntityByID(int id) {
         
         for (Entity entity : this.entities) {
-            if (entity.getDetails().getId() == id) {
+            if (entity.getDetails().getID() == id) {
                 return entity;
             }
         }
@@ -515,13 +515,13 @@ public class Room {
         }
     }
 
-    public Item getItem(int itemId) {
+    public Item getItem(int itemID) {
 
-        if (this.items.containsKey(itemId)) {
-            return this.items.get(itemId);
+        if (this.items.containsKey(itemID)) {
+            return this.items.get(itemID);
         }
 
-        return ItemDao.getItem(itemId);
+        return ItemDao.getItem(itemID);
     }
 
     public Map<Integer, Item> getItems() {
@@ -541,7 +541,7 @@ public class Room {
         if (this.data.getModel().startsWith("dynamic_model")) {
 
             if (this.model == null) {
-                this.model = RoomDao.getCustomModel(this.data.getId());
+                this.model = RoomDao.getCustomModel(this.data.getID());
             }
 
             return model;
@@ -563,17 +563,17 @@ public class Room {
     }
 
     public void forwardRoom(Player user) {
-        user.send(new RoomForwardComposer(this.data.getId()));
+        user.send(new RoomForwardComposer(this.data.getID()));
     }
 
     public void createPromotion(String promotionName, String promotionDescription) {
         this.promotion = new RoomPromotion(this, promotionName, promotionDescription);
-        RoomManager.addPromotedRoom(this.data.getId(), this);
+        RoomManager.addPromotedRoom(this.data.getID(), this);
     }
 
     public void endPromotion() {
         this.promotion = null;
-        RoomManager.removePromotedRoom(this.data.getId());
+        RoomManager.removePromotedRoom(this.data.getID());
     }
 
     public boolean hasPromotion() {

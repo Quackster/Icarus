@@ -12,7 +12,7 @@ public class NavigatorCategory {
         this.minimumRank = minimumRank;
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 

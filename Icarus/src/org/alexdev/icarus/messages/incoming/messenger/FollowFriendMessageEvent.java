@@ -11,14 +11,14 @@ public class FollowFriendMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage request) {
         
-        int friendId = request.readInt();
+        int friendID = request.readInt();
         int errorID = -1;
 
-        Player client = player.getMessenger().getFriend(friendId).getPlayer();
+        Player client = player.getMessenger().getFriend(friendID).getPlayer();
         
         if (client != null) {
             if (client.inRoom()) {
-                player.send(new FollowBuddyMessageComposer(client.getRoom().getData().getId()));
+                player.send(new FollowBuddyMessageComposer(client.getRoom().getData().getID()));
             }
 
             else errorID = 2; // User is not in a room

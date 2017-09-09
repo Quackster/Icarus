@@ -5,18 +5,18 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 
 public class MessengerMessageComposer extends MessageComposer {
 
-    private int userId;
+    private int userID;
     private String message;
 
-    public MessengerMessageComposer(int userId, String message) {
-        this.userId = userId;
+    public MessengerMessageComposer(int userID, String message) {
+        this.userID = userID;
         this.message = message;
     }
 
     @Override
     public void write() {
         this.response.init(Outgoing.MessengerMessageComposer);
-        this.response.writeInt(this.userId);
+        this.response.writeInt(this.userID);
         this.response.writeString(this.message);
         this.response.writeInt(0);
     }

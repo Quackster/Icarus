@@ -15,7 +15,7 @@ public class ItemDefinition {
     //private boolean canStack;
     private boolean canSit;
     private boolean isWalkable;
-    private int spriteId;
+    private int spriteID;
     private boolean allowRecycle;
     private boolean allowTrade;
     private boolean allowMarketplaceSell;
@@ -23,13 +23,13 @@ public class ItemDefinition {
     private boolean allowInventoryStack;
     private InteractionType interactionType;
     private int interationModes;
-    private String[] vendingIds;
+    private String[] vendingIDs;
     private double[] variableHeight;
 
     public ItemDefinition(int id, String publicName, String itemName, String type, int width, int length, double stackHeight,
-            boolean canStack, boolean canSit, boolean isWalkable, int spriteId, boolean allowRecycle,
+            boolean canStack, boolean canSit, boolean isWalkable, int spriteID, boolean allowRecycle,
             boolean allowTrade, boolean allowMarketplaceSell, boolean allowGift, boolean allowInventoryStack,
-            InteractionType interactionType, int interationModes, String vendingIds, String adjustableHeights) {
+            InteractionType interactionType, int interationModes, String vendingIDs, String adjustableHeights) {
 
         this.id = id;
         this.publicName = publicName;
@@ -41,7 +41,7 @@ public class ItemDefinition {
         //this.canStack = canStack;
         this.canSit = canSit;
         this.isWalkable = isWalkable;
-        this.spriteId = spriteId;
+        this.spriteID = spriteID;
         this.allowRecycle = allowRecycle;
         this.allowTrade = allowTrade;
         this.allowMarketplaceSell = allowMarketplaceSell;
@@ -49,7 +49,7 @@ public class ItemDefinition {
         this.allowInventoryStack = allowInventoryStack;
         this.interactionType = interactionType;
         this.interationModes = interationModes;
-        this.vendingIds = vendingIds.isEmpty() ? new String[0] : vendingIds.split(",");
+        this.vendingIDs = vendingIDs.isEmpty() ? new String[0] : vendingIDs.split(",");
 
         if (adjustableHeights.length() > 0) {
 
@@ -65,7 +65,7 @@ public class ItemDefinition {
         }
     }   
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 
@@ -109,7 +109,6 @@ public class ItemDefinition {
         }
         if (this.interactionType == InteractionType.BED) {
             return false;
-
         }
 
         return true;
@@ -123,8 +122,8 @@ public class ItemDefinition {
         return isWalkable;
     }
 
-    public int getSpriteId() {
-        return spriteId;
+    public int getSpriteID() {
+        return spriteID;
     }
 
     public boolean allowRecycle() {
@@ -159,11 +158,11 @@ public class ItemDefinition {
         return interationModes;
     }
 
-    public int getVendingId() {
+    public int getVendingID() {
 
-        if (this.vendingIds.length > 0) {
-            int vendingId = Integer.parseInt(this.vendingIds[Util.getRandom().nextInt(this.vendingIds.length)].trim());
-            return vendingId;
+        if (this.vendingIDs.length > 0) {
+            int vendingID = Integer.parseInt(this.vendingIDs[Util.getRandom().nextInt(this.vendingIDs.length)].trim());
+            return vendingID;
         }
 
         return -1;

@@ -39,7 +39,7 @@ public class MessengerSearchMessageEvent implements MessageEvent {
 
         for (Integer id : search) {
 
-            if (id != player.getDetails().getId()) {
+            if (id != player.getDetails().getID()) {
 
                 if (player.getMessenger().isFriend(id)) {
                     friends.add(player.getMessenger().getFriend(id));

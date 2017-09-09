@@ -15,6 +15,6 @@ public class PrepareRoomMessageComposer extends MessageComposer {
     @Override
     public void write() {
         this.response.init(Outgoing.RoomUpdateMessageComposer);
-        this.response.writeInt(room.getData().getId());
+        this.response.writeInt(room.getData().getID());
     }
 }

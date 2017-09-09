@@ -191,9 +191,9 @@ public class MessageHandler {
 
     public void handleRequest(Player player, ClientMessage message) {
         
-        if (this.messages.containsKey(message.getMessageId())) {
+        if (this.messages.containsKey(message.getMessageID())) {
 
-            for (MessageEvent event : this.messages.get(message.getMessageId())) {
+            for (MessageEvent event : this.messages.get(message.getMessageID())) {
                 event.handle(player, message);
             }
         }

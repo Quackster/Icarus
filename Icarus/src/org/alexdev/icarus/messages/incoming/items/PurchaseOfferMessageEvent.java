@@ -10,8 +10,8 @@ public class PurchaseOfferMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
        
-        int targetedOfferId = reader.readInt();
+        int targetedOfferID = reader.readInt();
         
-        Log.println("Purchase targeted offer with ID " + targetedOfferId);
+        Log.println("Purchase targeted offer with ID " + targetedOfferID);
     }
 }

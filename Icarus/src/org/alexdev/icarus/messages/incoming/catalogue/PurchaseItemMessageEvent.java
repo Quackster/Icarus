@@ -26,17 +26,17 @@ public class PurchaseItemMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage request) {
 
-        int pageId = request.readInt();
-        int itemId = request.readInt();
+        int pageID = request.readInt();
+        int itemID = request.readInt();
         String extraData = request.readString();
 
-        CataloguePage page = CatalogueManager.getPage(pageId);
+        CataloguePage page = CatalogueManager.getPage(pageID);
 
         if (page.getMinRank() > player.getDetails().getRank()) {
             return;
         }
 
-        CatalogueItem item = page.getItem(itemId);
+        CatalogueItem item = page.getItem(itemID);
 
         if (item.getDisplayName().startsWith("a0 pet")) {
 
@@ -78,8 +78,8 @@ public class PurchaseItemMessageEvent implements MessageEvent {
         int race = Integer.valueOf(petData[1]);
         String colour = petData[2];
         
-        int petId = PetDao.createPet(player.getDetails().getId(), petData[0], type, race, colour);
-        Pet pet = new Pet(petId, petName, Pet.DEFAULT_LEVEL, Pet.DEFAULT_HAPPINESS, Pet.DEFAULT_EXPERIENCE, Pet.DEFAULT_ENERGY, player.getDetails().getId(), colour, race, type, false, -1, 0, false, (int)Util.getCurrentTimeSeconds(), 0, 0, 0);
+        int petID = PetDao.createPet(player.getDetails().getID(), petData[0], type, race, colour);
+        Pet pet = new Pet(petID, petName, Pet.DEFAULT_LEVEL, Pet.DEFAULT_HAPPINESS, Pet.DEFAULT_EXPERIENCE, Pet.DEFAULT_ENERGY, player.getDetails().getID(), colour, race, type, false, -1, 0, false, (int)Util.getCurrentTimeSeconds(), 0, 0, 0);
         
         player.getInventory().addPet(pet);
         player.getInventory().updatePets();
@@ -145,7 +145,7 @@ public class PurchaseItemMessageEvent implements MessageEvent {
             for (int i = 0; i < amount; i++) {
 
 
-                Item inventoryItem = InventoryDao.newItem(bundleItem.getItemDefinition().getId(), player.getDetails().getId(), extraData);
+                Item inventoryItem = InventoryDao.newItem(bundleItem.getItemDefinition().getID(), player.getDetails().getID(), extraData);
                 bought.add(inventoryItem);
 
                 if (inventoryItem.getDefinition().getInteractionType() == InteractionType.JUKEBOX) {
@@ -158,10 +158,10 @@ public class PurchaseItemMessageEvent implements MessageEvent {
 
                 if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
 
-                    Item secondTeleporter = InventoryDao.newItem(bundleItem.getItemDefinition().getId(), player.getDetails().getId(), extraData);
+                    Item secondTeleporter = InventoryDao.newItem(bundleItem.getItemDefinition().getID(), player.getDetails().getID(), extraData);
 
-                    inventoryItem.setExtraData(String.valueOf(secondTeleporter.getId()));
-                    secondTeleporter.setExtraData(String.valueOf(inventoryItem.getId()));
+                    inventoryItem.setExtraData(String.valueOf(secondTeleporter.getID()));
+                    secondTeleporter.setExtraData(String.valueOf(inventoryItem.getID()));
 
                     bought.add(inventoryItem);
                     bought.add(secondTeleporter);

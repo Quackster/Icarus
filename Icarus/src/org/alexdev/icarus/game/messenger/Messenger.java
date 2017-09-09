@@ -21,8 +21,8 @@ public class Messenger {
     }
 
     public void init() {
-        this.friends = MessengerDao.getFriends(player.getDetails().getId());
-        this.requests = MessengerDao.getRequests(player.getDetails().getId());
+        this.friends = MessengerDao.getFriends(player.getDetails().getID());
+        this.requests = MessengerDao.getRequests(player.getDetails().getID());
     }
 
     public boolean hasReqest(int id) {
@@ -35,7 +35,7 @@ public class Messenger {
     
     public MessengerUser getFriend(int id) {
         
-        Optional<MessengerUser> friend = this.friends.stream().filter(f -> f.getDetails().getId() == id).findFirst();
+        Optional<MessengerUser> friend = this.friends.stream().filter(f -> f.getDetails().getID() == id).findFirst();
 
         if (friend.isPresent()) {
             return friend.get();
@@ -46,7 +46,7 @@ public class Messenger {
     
     public MessengerUser getRequest(int id) {
 
-        Optional<MessengerUser> request = this.requests.stream().filter(f -> f.getDetails().getId() == id).findFirst();
+        Optional<MessengerUser> request = this.requests.stream().filter(f -> f.getDetails().getID() == id).findFirst();
 
         if (request.isPresent()) {
             return request.get();
@@ -63,7 +63,7 @@ public class Messenger {
     
     public void sendStatus(boolean forceOffline) {
 
-        MessengerUpdateMessageComposer message = new MessengerUpdateMessageComposer(new MessengerUser(this.player.getDetails().getId()), forceOffline);
+        MessengerUpdateMessageComposer message = new MessengerUpdateMessageComposer(new MessengerUser(this.player.getDetails().getID()), forceOffline);
 
         for (MessengerUser friend : this.friends) {
 

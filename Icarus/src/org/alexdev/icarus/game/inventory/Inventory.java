@@ -30,30 +30,30 @@ public class Inventory {
 
     public void init() {
         if (!this.initalised) {
-            this.items = InventoryDao.getInventoryItems(this.player.getDetails().getId());
-            this.pets = InventoryDao.getInventoryPets(this.player.getDetails().getId());
+            this.items = InventoryDao.getInventoryItems(this.player.getDetails().getID());
+            this.pets = InventoryDao.getInventoryPets(this.player.getDetails().getID());
             this.initalised = true;
         }
     }
 
     public void addItem(Item item) {
-        this.items.put(item.getId(), item);
-        this.player.send(new UnseenItemsNotificationComposer(item.getId(), 1));
+        this.items.put(item.getID(), item);
+        this.player.send(new UnseenItemsNotificationComposer(item.getID(), 1));
     }
 
     public void remove(Item item) {
-        this.items.remove(item.getId());
-        this.player.send(new RemoveInventoryItemComposer(item.getId()));
+        this.items.remove(item.getID());
+        this.player.send(new RemoveInventoryItemComposer(item.getID()));
     }
     
     public void addPet(Pet pet) {
-        this.pets.put(pet.getId(), pet);
-        this.player.send(new UnseenItemsNotificationComposer(pet.getId(), 3));
+        this.pets.put(pet.getID(), pet);
+        this.player.send(new UnseenItemsNotificationComposer(pet.getID(), 3));
     }
     
     public void remove(Pet pet) {
-        this.pets.remove(pet.getId());
-        this.player.send(new RemoveInventoryItemComposer(pet.getId()));
+        this.pets.remove(pet.getID());
+        this.player.send(new RemoveInventoryItemComposer(pet.getID()));
     }
     
     public void updateItems() {

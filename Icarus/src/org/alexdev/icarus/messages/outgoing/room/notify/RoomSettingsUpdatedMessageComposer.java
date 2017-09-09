@@ -4,15 +4,15 @@ import org.alexdev.icarus.messages.MessageComposer;
 
 public class RoomSettingsUpdatedMessageComposer extends MessageComposer {
 
-    private int roomId;
+    private int roomID;
 
-    public RoomSettingsUpdatedMessageComposer(int roomId) {
-        this.roomId = roomId;
+    public RoomSettingsUpdatedMessageComposer(int roomID) {
+        this.roomID = roomID;
     }
 
     @Override
     public void write() {
         this.response.init(-1);//Outgoing.RoomSettingsUpdatedMessageComposer);
-        this.response.writeInt(this.roomId);
+        this.response.writeInt(this.roomID);
     }
 }

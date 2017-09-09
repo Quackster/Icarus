@@ -49,15 +49,15 @@ public class SaveFloorPlanMessageEvent implements MessageEvent {
         int floorThickness = reader.readInt();
         int wallHeight = reader.readInt();
 
-        RoomModel model = new RoomModel("dynamic_model_" + room.getData().getId(), heightmap, doorX, doorY, (int)doorZ, doorRotation);
-        RoomDao.newCustomModel(room.getData().getId(), model);
+        RoomModel model = new RoomModel("dynamic_model_" + room.getData().getID(), heightmap, doorX, doorY, (int)doorZ, doorRotation);
+        RoomDao.newCustomModel(room.getData().getID(), model);
 
         room.setModel(model);
 
         room.getData().setWallThickness(wallThickness);
         room.getData().setFloorThickness(floorThickness);
         room.getData().setWallHeight(wallHeight);
-        room.getData().setModel("dynamic_model_" + room.getData().getId());
+        room.getData().setModel("dynamic_model_" + room.getData().getID());
         room.save();
 
         List<Player> connectedPlayers = new ArrayList<>();

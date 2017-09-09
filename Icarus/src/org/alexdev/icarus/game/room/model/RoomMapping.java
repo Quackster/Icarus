@@ -211,9 +211,9 @@ public class RoomMapping {
 
     public void addItem(Item item) {
 
-        item.setRoomId(this.room.getData().getId());
+        item.setRoomID(this.room.getData().getID());
 
-        this.room.getItems().put(item.getId(), item);
+        this.room.getItems().put(item.getID(), item);
 
         if (item.getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, false);
@@ -243,18 +243,18 @@ public class RoomMapping {
         item.getPosition().setY(-1);
 
         if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
-            if (MoodlightDao.hasMoodlightData(item.getId())) {
-                MoodlightDao.deleteMoodlightData(item.getId());
+            if (MoodlightDao.hasMoodlightData(item.getID())) {
+                MoodlightDao.deleteMoodlightData(item.getID());
             }
 
             item.setExtraData("");
         }
 
-        this.room.getItems().remove(item.getId());
+        this.room.getItems().remove(item.getID());
         this.regenerateCollisionMaps();
 
         item.updateEntities();
-        item.setRoomId(0);
+        item.setRoomID(0);
         item.save();
 
         this.room.send(new RemoveItemMessageComposer(item));

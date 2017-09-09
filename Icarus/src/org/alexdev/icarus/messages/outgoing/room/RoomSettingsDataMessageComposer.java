@@ -15,7 +15,7 @@ public class RoomSettingsDataMessageComposer extends MessageComposer {
     @Override
     public void write() {  
         this.response.init(Outgoing.RoomSettingsDataMessageComposer);
-        this.response.writeInt(data.getId());
+        this.response.writeInt(data.getID());
         this.response.writeString(data.getName());
         this.response.writeString(data.getDescription());
         this.response.writeInt(data.getState().getStateCode());

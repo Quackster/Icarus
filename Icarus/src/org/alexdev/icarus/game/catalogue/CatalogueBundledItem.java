@@ -7,15 +7,15 @@ public class CatalogueBundledItem {
 
     private String extraData;
     private int amount;
-    private int itemId;
+    private int itemID;
     private CatalogueItem catalogueItem;
     private ItemDefinition overrideDefinition;
     
-    public CatalogueBundledItem(CatalogueItem catalogueItem, String extraData, int amount, int itemId) {
+    public CatalogueBundledItem(CatalogueItem catalogueItem, String extraData, int amount, int itemID) {
         this.catalogueItem = catalogueItem;
         this.extraData = extraData;
         this.amount = amount;
-        this.itemId = itemId;
+        this.itemID = itemID;
     }
 
     public CatalogueItem getCatalogueItem() {
@@ -36,6 +36,6 @@ public class CatalogueBundledItem {
             return this.overrideDefinition;
         }
         
-        return ItemManager.getFurnitureById(this.itemId);
+        return ItemManager.getFurnitureByID(this.itemID);
     }
 }

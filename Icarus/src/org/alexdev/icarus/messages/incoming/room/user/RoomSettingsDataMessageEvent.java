@@ -11,11 +11,11 @@ public class RoomSettingsDataMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage request) {
         
-        int roomId = request.readInt();
+        int roomID = request.readInt();
         
         Room room = player.getRoomUser().getRoom();
         
-        if (room.getData().getId() != roomId) {
+        if (room.getData().getID() != roomID) {
             return;
         }
         

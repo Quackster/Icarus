@@ -12,9 +12,9 @@ public class ApplyDecorationMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage request) {
         
-        int itemId = request.readInt();
+        int itemID = request.readInt();
         
-        Item item = player.getInventory().getItem(itemId);
+        Item item = player.getInventory().getItem(itemID);
         
         if (item == null) {
             return;

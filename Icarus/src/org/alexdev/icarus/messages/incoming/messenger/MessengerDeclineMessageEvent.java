@@ -16,16 +16,16 @@ public class MessengerDeclineMessageEvent implements MessageEvent {
         if (!deleteAll) {
 
             request.readInt();
-            int fromId = request.readInt();
+            int fromID = request.readInt();
             
-            MessengerDao.removeRequest(fromId, player.getDetails().getId());
+            MessengerDao.removeRequest(fromID, player.getDetails().getID());
             
         } else {
             
             for (int i = 0; i < player.getMessenger().getRequests().size(); i++) {
                 
                 MessengerUser user = player.getMessenger().getRequests().get(i);
-                MessengerDao.removeRequest(user.getUserId(), player.getDetails().getId());
+                MessengerDao.removeRequest(user.getUserID(), player.getDetails().getID());
                 player.getMessenger().getRequests().remove(user);
             }
         }

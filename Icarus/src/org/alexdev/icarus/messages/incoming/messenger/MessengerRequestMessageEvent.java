@@ -19,25 +19,25 @@ public class MessengerRequestMessageEvent implements MessageEvent {
             return;
         }
 
-        int userId = PlayerDao.getId(username);
+        int userID = PlayerDao.getID(username);
 
-        if (userId < 1) {
+        if (userID < 1) {
             return;
         }
 
-        if (player.getMessenger().hasReqest(userId)) {
+        if (player.getMessenger().hasReqest(userID)) {
             return;
         }
 
         //TODO: Check if they have blocked friend requests
 
-        if (MessengerDao.newRequest(player.getDetails().getId(), userId)) {
+        if (MessengerDao.newRequest(player.getDetails().getID(), userID)) {
 
-            MessengerUser user = new MessengerUser(userId);
+            MessengerUser user = new MessengerUser(userID);
             player.getMessenger().getRequests().add(user);
 
             if (user.isOnline()) {
-                user.getPlayer().send(new MessengerSendRequest(player.getDetails().getId(), player.getDetails().getName(), player.getDetails().getFigure()));
+                user.getPlayer().send(new MessengerSendRequest(player.getDetails().getID(), player.getDetails().getName(), player.getDetails().getFigure()));
             }
         }
     }

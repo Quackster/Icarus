@@ -19,7 +19,7 @@ public class CataloguePageMessageComposer extends MessageComposer {
     public void write() {
 
         this.response.init(Outgoing.CataloguePageMessageComposer);
-        this.response.writeInt(this.page.getId());
+        this.response.writeInt(this.page.getID());
         this.response.writeString(this.type);
         this.response.writeString(page.getLayout());
         

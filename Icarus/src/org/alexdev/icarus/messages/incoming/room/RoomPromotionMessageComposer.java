@@ -18,8 +18,8 @@ public class RoomPromotionMessageComposer extends MessageComposer {
         this.response.init(Outgoing.RoomPromotionMessageComposer);
 
         if (this.room.getPromotion() != null) {
-            this.response.writeInt(room.getData().getId());
-            this.response.writeInt(room.getData().getOwnerId());
+            this.response.writeInt(room.getData().getID());
+            this.response.writeInt(room.getData().getOwnerID());
             this.response.writeString(room.getData().getOwnerName());
             this.response.writeInt(1);
             this.response.writeInt(0);
