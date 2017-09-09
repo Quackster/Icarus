@@ -339,18 +339,7 @@ public class Room {
         entity.getRoomUser().dispose();
     }
 
-    public boolean hasRights(int userID, boolean ownerCheckOnly) {
-        
-        if (this.data.getOwnerID() == userID) {
-            return true;
-        } else {
-            if (!ownerCheckOnly) {
-                return this.rights.contains(Integer.valueOf(userID));
-            }
-        }
 
-        return false;
-    }
 
     public boolean hasRights(Player player, boolean ownerCheckOnly) {
 
@@ -358,8 +347,11 @@ public class Room {
             return true;
         }
 
-        int userID = player.getDetails().getID();
-
+        return hasRights(player, ownerCheckOnly);
+    }
+    
+    public boolean hasRights(int userID, boolean ownerCheckOnly) {
+        
         if (this.data.getOwnerID() == userID) {
             return true;
         } else {
