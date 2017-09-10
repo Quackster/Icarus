@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 09, 2017 at 12:53 PM
+-- Generation Time: Sep 10, 2017 at 08:50 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -12584,80 +12584,6 @@ CREATE TABLE `items` (
   `extra_data` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `items`
---
-
-INSERT INTO `items` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`, `y`, `z`, `rotation`, `extra_data`) VALUES
-(1, 5, 5, 175, 9, '11', '1', 0.01, 4, '2'),
-(2, 5, 5, 175, 9, '5', '10', 0.01, 2, '1'),
-(3, 5, 5, 175, 9, '4', '5', 0.01, 2, '4'),
-(4, 5, 5, 175, 9, '1', '6', 0.01, 2, '3'),
-(5, 5, 5, 175, 9, '1', '8', 0.01, 2, '6'),
-(6, 5, 5, 175, 9, '5', '1', 0.01, 2, '5'),
-(7, 5, 5, 175, 9, '10', '1', 0.01, 4, '8'),
-(8, 5, 5, 175, 9, '5', '9', 0.01, 2, '7'),
-(9, 5, 5, 175, 9, '8', '7', 0.01, 2, '10'),
-(10, 5, 5, 175, 9, '5', '8', 0.01, 2, '9'),
-(11, 5, 5, 175, 9, '8', '8', 0.01, 2, '12'),
-(12, 5, 5, 175, 9, '8', '1', 0.01, 4, '11'),
-(13, 5, 5, 175, 9, '5', '2', 0.01, 2, '14'),
-(14, 5, 5, 175, 9, '9', '1', 0.01, 4, '13'),
-(15, 5, 5, 175, 9, '8', '6', 0.01, 2, '16'),
-(16, 5, 5, 175, 9, '7', '1', 0.01, 4, '15'),
-(17, 5, 5, 175, 9, '5', '3', 0.01, 2, '18'),
-(18, 5, 5, 175, 9, '5', '4', 0.01, 2, '17'),
-(19, 5, 5, 175, 9, '1', '9', 0.01, 2, '20'),
-(20, 5, 5, 175, 9, '1', '10', 0.01, 2, '19'),
-(21, 5, 5, 1638, 19, 'l,0,19', '13,33', 0, 0, '2,1,2,#74F5F5,117'),
-(24, 5, 5, 1655, 9, 'r,2,4', '0,37', 0, 0, '2'),
-(28, 5, 5, 1649, 18, 'r,7,1', '12,36', 0, 0, '1'),
-(29, 5, 5, 1648, 18, 'l,2,10', '4,47', 0, 0, '1'),
-(68, 5, 5, 430, 18, '9', '2', 1.01, 2, ''),
-(69, 5, 5, 430, 18, '8', '2', 1.01, 2, ''),
-(70, 5, 5, 430, 18, '8', '3', 1.01, 0, ''),
-(71, 5, 5, 430, 18, '8', '4', 1.01, 0, ''),
-(72, 5, 5, 430, 18, '10', '4', 1.01, 4, ''),
-(73, 5, 5, 430, 18, '10', '3', 1.01, 4, ''),
-(74, 5, 5, 430, 18, '8', '5', 1.01, 0, ''),
-(75, 5, 5, 430, 18, '8', '6', 1.01, 0, ''),
-(76, 5, 5, 430, 18, '9', '6', 1.01, 6, ''),
-(77, 5, 5, 430, 18, '10', '6', 1.01, 6, ''),
-(78, 5, 5, 430, 18, '10', '2', 1.01, 4, ''),
-(79, 5, 5, 430, 18, '10', '5', 1.01, 4, ''),
-(91, 5, 5, 2300, 18, '3', '10', 0.01, 0, '2'),
-(94, 5, 5, 1651, 19, 'r,19,0', '11,43', 0, 0, ''),
-(95, 5, 5, 1651, 19, 'r,12,0', '7,41', 0, 0, ''),
-(96, 5, 5, 1651, 19, 'l,0,14', '7,33', 0, 0, ''),
-(97, 5, 5, 1651, 19, 'l,0,32', '10,28', 0, 0, ''),
-(98, 5, 5, 1651, 19, 'r,3,0', '8,34', 0, 0, ''),
-(99, 5, 5, 1036, 18, '6', '11', 0.01, 0, ''),
-(113, 2, 2, 22, 20, '7', '2', 0.01, 2, ''),
-(114, 2, 2, 22, 20, '4', '3', 0.01, 4, '3'),
-(115, 2, 2, 22, 20, '11', '7', 0.01, 2, '1'),
-(116, 2, 2, 22, 20, '8', '10', 0.01, 2, ''),
-(117, 2, 2, 22, 20, '7', '11', 0.01, 2, ''),
-(118, 2, 2, 22, 20, '10', '12', 0.01, 0, ''),
-(119, 2, 2, 22, 20, '10', '9', 0.01, 4, ''),
-(120, 2, 2, 22, 20, '9', '6', 0.01, 2, ''),
-(121, 2, 2, 22, 20, '8', '4', 0.01, 0, ''),
-(122, 2, 2, 22, 20, '10', '3', 0.01, 4, ''),
-(123, 2, 2, 22, 20, '6', '13', 0.01, 2, ''),
-(124, 2, 2, 22, 20, '7', '6', 0.01, 2, ''),
-(125, 2, 2, 22, 20, '8', '8', 0.01, 2, ''),
-(126, 2, 2, 22, 20, '6', '4', 0.01, 2, ''),
-(127, 2, 2, 22, 20, '5', '6', 0.01, 0, ''),
-(128, 2, 2, 22, 20, '4', '10', 0.01, 2, ''),
-(129, 2, 2, 22, 20, '4', '12', 0.01, 2, ''),
-(130, 2, 2, 22, 20, '5', '9', 0.01, 2, ''),
-(131, 2, 2, 22, 20, '9', '2', 0.01, 2, ''),
-(132, 2, 2, 22, 20, '11', '5', 0.01, 4, ''),
-(134, 5, 5, 220, 6, '5', '5', 1.01, 0, ''),
-(138, 5, 5, 1649, 6, 'r,8,1', '1,27', 0, 0, ''),
-(139, 5, 5, 752, 23, '7', '3', 0.01, 0, '3'),
-(146, 5, 5, 1484, 0, '0', '0', 0, 0, ''),
-(147, 5, 5, 1478, 0, '0', '0', 0, 0, '');
-
 -- --------------------------------------------------------
 
 --
@@ -12766,9 +12692,9 @@ INSERT INTO `navigator_tabs` (`id`, `child_id`, `tab_name`, `title`, `button_typ
 (8, 3, 'top_promotions', '', 0, 0, 0, 'PromotedPopulator'),
 (9, 4, 'my', '', 1, 0, 0, 'MyRoomPopulator'),
 (10, 4, 'favorites', '', 1, 0, 0, ''),
-(11, 4, 'my_groups', '', 1, 1, 0, ''),
+(11, 4, 'friends_rooms', '', 1, 0, 0, 'FriendsPopulator'),
 (12, 4, 'history', '', 1, 1, 0, ''),
-(13, 4, 'friends_rooms', '', 1, 1, 0, 'FriendsPopulator');
+(13, 4, 'my_groups', '', 1, 1, 0, '');
 
 -- --------------------------------------------------------
 
@@ -12803,8 +12729,8 @@ CREATE TABLE `pet_data` (
 --
 
 INSERT INTO `pet_data` (`id`, `owner_id`, `room_id`, `pet_name`, `race_id`, `type`, `colour`, `scratches`, `level`, `happiness`, `experience`, `energy`, `x`, `y`, `saddled`, `any_rider`, `hair_style`, `hair_colour`, `birthday`) VALUES
-(8, 5, 0, 'Doggo', 4, 3, 'FFFFFF', 0, 1, 100, 0, 100, 7, 5, 'false', 'false', -1, 0, 1504921602),
-(9, 2, 0, 'Cat', 0, 1, '84A95F', 0, 1, 100, 0, 100, 2, 7, 'false', 'false', -1, 0, 1504922776);
+(8, 5, 3, 'Doggo', 4, 3, 'FFFFFF', 0, 1, 100, 0, 100, 2, 9, 'false', 'false', -1, 0, 1504921602),
+(9, 2, 0, 'Cat', 0, 1, '84A95F', 0, 1, 100, 0, 100, 1, 8, 'false', 'false', -1, 0, 1504922776);
 
 -- --------------------------------------------------------
 
@@ -13129,9 +13055,9 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `name`, `room_type`, `date_created`, `owner_id`, `group_id`, `thumbnail`, `description`, `password`, `users_now`, `users_max`, `model`, `wallpaper`, `floor`, `outside`, `tags`, `trade_state`, `state`, `score`, `category`, `allow_pets`, `allow_pets_eat`, `allow_walkthrough`, `hidewall`, `wall_thickness`, `floor_thickness`, `chat_mode`, `chat_size`, `chat_speed`, `chat_flood`, `chat_distance`, `who_can_mute`, `who_can_kick`, `who_can_ban`) VALUES
-(5, 'Hotel Lobby', 1, '2017-03-20 20:15:27', -1, 0, 'thumbnails/picture1.png', '', '', 0, 25, 'model_b', '0', '0', '0.0', '', 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0),
-(6, 'Chill Lounge', 1, '2017-03-20 20:19:36', -1, 0, 'thumbnails/picture2.png', '', '', 0, 25, 'model_h', '105', '608', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 100, 0, 0, 0),
-(23, 'Alex\'s Room', 0, '2017-09-08 02:49:35', 5, 0, NULL, '', '', 0, 10, 'model_b', '0', '0', '0', '', 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0);
+(1, 'Hotel Lobby', 1, '2017-03-20 20:15:27', -1, 0, 'thumbnails/picture1.png', '', '', 0, 25, 'model_b', '0', '0', '0.0', '', 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0),
+(2, 'Chill Lounge', 1, '2017-03-20 20:19:36', -1, 0, 'thumbnails/picture2.png', '', '', 0, 25, 'model_h', '105', '608', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 100, 0, 0, 0),
+(3, 'Alex\'s Room', 0, '2017-09-08 02:49:35', 5, 0, NULL, '', '', 0, 10, 'model_b', '0', '0', '0', 'habbo,icarus', 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 2, 1, 30, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -13315,7 +13241,17 @@ INSERT INTO `room_chatlogs` (`id`, `user`, `room_id`, `timestamp`, `message_type
 (3741, 'Alex', 23, 1504946933, 0, ':debugfurniture'),
 (3742, 'Alex', 23, 1504947066, 0, ':debugfurniture'),
 (3743, 'Alex', 23, 1504948046, 0, ':debugfurniture'),
-(3744, 'Alex', 23, 1504948115, 0, ':debugfurniture');
+(3744, 'Alex', 23, 1504948115, 0, ':debugfurniture'),
+(3745, 'Alex', 23, 1504979539, 0, 'hhtrh'),
+(3746, 'Alex', 23, 1504979541, 0, 'trhrthtrhr'),
+(3747, 'Alex', 23, 1504979543, 0, 'trthr'),
+(3748, 'Alex', 23, 1504979543, 0, 'th'),
+(3749, 'Alex', 23, 1504979543, 0, 'tr'),
+(3750, 'Alex', 23, 1504979544, 0, 'h'),
+(3751, 'Alex', 23, 1504979554, 0, 'g'),
+(3752, 'Alex', 23, 1504979556, 0, 'ggggggggggg'),
+(3753, 'Alex', 23, 1504979562, 0, 'g'),
+(3754, 'Alex', 23, 1504979574, 0, 'ggggggg');
 
 -- --------------------------------------------------------
 
@@ -13438,7 +13374,8 @@ CREATE TABLE `room_rights` (
 --
 
 INSERT INTO `room_rights` (`id`, `room_id`, `user_id`) VALUES
-(1, 7, 1);
+(7, 23, 2),
+(8, 23, 2);
 
 -- --------------------------------------------------------
 
@@ -13543,7 +13480,7 @@ CREATE TABLE `targeted_offers` (
 --
 
 INSERT INTO `targeted_offers` (`id`, `title`, `description`, `credits`, `activity_points`, `activity_points_type`, `purchase_limit`, `large_image`, `small_image`, `expire_time`, `enabled`, `items`) VALUES
-(1, 'Random MEGA Deal!', 'This deal is completely random! Crazy right? We\'re giving away items at an affordable SUPER CHEAP price. So you can spend less for more by saving 20%!\r\nThis deal is limited to 1 per person and it includes 3 months of Habbo Club, 15 rollers, 20 credits.', 50, 10, 0, 1, 'targetedoffers/ufo_feb17_v1.png', 'targetedoffers/tto_blkfri_20_small.png', 1505557385, 1, '1484;1478');
+(1, 'Random MEGA Deal!', 'This deal is completely random! Crazy right? We\'re giving away items at an affordable SUPER CHEAP price. So you can spend less for more by saving 20%!\r\nThis deal is limited to 1 per person and it includes 3 months of Habbo Club, 15 rollers, 20 credits.', 50, 10, 0, 1, 'targetedoffers/download (1).png', 'targetedoffers/tto_blkfri_20_small.png', 1505489078, 0, '1484;1478');
 
 -- --------------------------------------------------------
 
@@ -13556,13 +13493,6 @@ CREATE TABLE `targeted_offers_blacklist` (
   `offer_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `targeted_offers_blacklist`
---
-
-INSERT INTO `targeted_offers_blacklist` (`id`, `offer_id`, `user_id`) VALUES
-(2, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -13591,8 +13521,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `rank`, `join_date`, `last_online`, `sso_ticket`, `email`, `mission`, `gender`, `figure`, `credits`, `home_room`) VALUES
-(2, 'Bot', NULL, 1, 44324323, 1490046606, '123', NULL, 'eating more cake, k?', 'M', 'ha-1012-91.hd-180-7.ch-3015-1426.lg-275-64.hr-831-61', 370, 0),
-(5, 'Alex', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 7, 1489384512, 1491544401, 'sso-icarus-TcrehSuQ6j-orDBMs-8hZzdQ6lO0', 'we3rejfpef3@cefc.com', 'Icarus alpha tester', 'M', 'lg-270-90.sh-290-64.ch-3030-1408.ca-3187-79.hd-180-1.ha-3291-73.cc-3075-90.hr-3260-45', 4995, 0);
+(2, 'Bot', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 1, 44324323, 1490046606, '123', NULL, 'eating more cake, k?', 'M', 'ha-1012-91.hd-180-7.ch-3015-1426.lg-275-64.hr-831-61', 370, 0),
+(5, 'Alex', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 1, 1489384512, 1491544401, 'sso-icarus-rg04FDKqTS-KGCkXw-4gqlV8TbkI', 'we3rejfpef3@cefc.com', 'Icarus alpha tester', 'M', 'lg-270-90.sh-290-64.ch-3030-1408.ca-3187-79.hd-180-1.ha-3291-73.cc-3075-90.hr-3260-45', 4995, 0);
 
 -- --------------------------------------------------------
 
@@ -13858,7 +13788,7 @@ ALTER TABLE `pet_data`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `rooms_newbie`
 --
@@ -13868,7 +13798,7 @@ ALTER TABLE `rooms_newbie`
 -- AUTO_INCREMENT for table `room_chatlogs`
 --
 ALTER TABLE `room_chatlogs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3745;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3755;
 --
 -- AUTO_INCREMENT for table `room_items_moodlight`
 --
@@ -13878,7 +13808,7 @@ ALTER TABLE `room_items_moodlight`
 -- AUTO_INCREMENT for table `room_rights`
 --
 ALTER TABLE `room_rights`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `site_articles`
 --
@@ -13908,7 +13838,7 @@ ALTER TABLE `targeted_offers`
 -- AUTO_INCREMENT for table `targeted_offers_blacklist`
 --
 ALTER TABLE `targeted_offers_blacklist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --
