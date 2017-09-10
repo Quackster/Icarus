@@ -1,6 +1,6 @@
 package org.alexdev.icarus.messages.incoming.navigator;
 
-import org.alexdev.icarus.dao.mysql.room.RoomDao;
+import org.alexdev.icarus.dao.mysql.navigator.NavigatorDao;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.MessageEvent;
@@ -23,8 +23,7 @@ public class CreateRoomMessageEvent implements MessageEvent {
             return;
         }
         
-        Room room = RoomDao.createRoom(player, name, description, model, category, usersMax, tradeState);
-        
+        Room room = NavigatorDao.createRoom(player, name, description, model, category, usersMax, tradeState);
         player.send(new CreateRoomMessageComposer(room.getData().getID(), room.getData().getName()));
     }
 }

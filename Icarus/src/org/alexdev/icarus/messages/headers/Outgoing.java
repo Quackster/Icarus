@@ -110,5 +110,7 @@ public class Outgoing {
     public static int RightsAssignedComposer = 3493;
     public static int SettingsUpdatedMessageComposer = 3865;
     public static int RoomInfoUpdatedMessageComposer = 3743;
+    public static int GroupPurchaseDialogComposer = 1062;
+    public static int GroupBadgeDialogComposer = 2839;
      
 }

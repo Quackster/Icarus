@@ -12,6 +12,9 @@ import org.alexdev.icarus.messages.incoming.catalogue.PromotableRoomsMessageEven
 import org.alexdev.icarus.messages.incoming.catalogue.PurchaseItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.PurchasePresentMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.PurchaseRoomPromotionMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.GroupBadgeDialogMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.GroupPurchaseDialogMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.GroupPurchaseMessageEvent;
 import org.alexdev.icarus.messages.incoming.handshake.*;
 import org.alexdev.icarus.messages.incoming.items.PurchaseOfferMessageEvent;
 import org.alexdev.icarus.messages.incoming.messenger.*;
@@ -78,6 +81,7 @@ public class MessageHandler {
         this.registerPetPackets();
         this.registerRoomSettingPackets();
         this.registerRoomFloorplanPackets();
+        this.registerGroupPackets();
     }
 
     private void registerHandshakePackets() {
@@ -186,6 +190,12 @@ public class MessageHandler {
         this.registerEvent(Incoming.PurchaseOfferMessageEvent, new PurchaseOfferMessageEvent());
     }
     
+    private void registerGroupPackets() {
+        this.registerEvent(Incoming.GroupBuyDialogMessageEvent, new GroupPurchaseDialogMessageEvent());
+        this.registerEvent(Incoming.GroupBadgeDialogMessageEvent, new GroupBadgeDialogMessageEvent());
+        this.registerEvent(Incoming.GroupPurchaseMessageEvent, new GroupPurchaseMessageEvent());
+    }
+    
     private void registerComposerPackages() {
          this.composerPackages.add("org.alexdev.icarus.messages.outgoing.catalogue");
          this.composerPackages.add("org.alexdev.icarus.messages.outgoing.handshake");
@@ -194,6 +204,8 @@ public class MessageHandler {
          this.composerPackages.add("org.alexdev.icarus.messages.outgoing.navigator");
          this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room");
          this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.floorplan");
+         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.settings");
+         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.groups");
          this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.items");
          this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.notify");
          this.composerPackages.add("org.alexdev.icarus.messages.outgoing.user");

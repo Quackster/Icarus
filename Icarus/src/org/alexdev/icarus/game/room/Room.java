@@ -9,11 +9,13 @@ import java.util.stream.Collectors;
 import org.alexdev.icarus.dao.mysql.item.ItemDao;
 import org.alexdev.icarus.dao.mysql.pets.PetDao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
+import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.furniture.interactions.types.TeleportInteractor;
+import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.pets.Pet;
@@ -64,6 +66,7 @@ public class Room {
     private RoomMapping mapping;
     private RoomModel model;
     private RoomPromotion promotion;
+    private Group group;
 
     private List<Entity> entities; 
     private Map<Integer, Item> items;
@@ -418,7 +421,6 @@ public class Room {
         }
     }
 
-
     private void cleanupRoomData() {
 
         if (this.scheduler != null) {
@@ -554,13 +556,13 @@ public class Room {
         if (this.data.getModel().startsWith("dynamic_model")) {
 
             if (this.model == null) {
-                this.model = RoomDao.getCustomModel(this.data.getID());
+                this.model = RoomModelDao.getCustomModel(this.data.getID());
             }
 
             return model;
         }
 
-        return RoomDao.getModel(this.data.getModel());
+        return RoomModelDao.getModel(this.data.getModel());
     }
 
     public RoomMapping getMapping() {
@@ -599,5 +601,13 @@ public class Room {
 
     public List<Integer> getRights() {
         return this.rights;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

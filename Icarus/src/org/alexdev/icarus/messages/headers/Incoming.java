@@ -78,6 +78,9 @@ public class Incoming {
     public static Integer RemoveRightsMessageEvent = 877;
     public static Integer GiveRightsMessageEvent = 3843;
     public static Integer RemoveAllRoomRightsMessageEvent = 884;
+    public static Integer GroupBuyDialogMessageEvent = 365;
+    public static Integer GroupBadgeDialogMessageEvent = 3706;
+    public static Integer GroupPurchaseMessageEvent = 2959;
     
     
 }

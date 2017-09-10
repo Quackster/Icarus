@@ -3,7 +3,7 @@ package org.alexdev.icarus.messages.incoming.room.floorplan;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.alexdev.icarus.dao.mysql.room.RoomDao;
+import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomModel;
@@ -50,7 +50,7 @@ public class SaveFloorPlanMessageEvent implements MessageEvent {
         int wallHeight = reader.readInt();
 
         RoomModel model = new RoomModel("dynamic_model_" + room.getData().getID(), heightmap, doorX, doorY, (int)doorZ, doorRotation);
-        RoomDao.newCustomModel(room.getData().getID(), model);
+        RoomModelDao.newCustomModel(room.getData().getID(), model);
 
         room.setModel(model);
 

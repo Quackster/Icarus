@@ -4,10 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 
-import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
@@ -15,50 +13,14 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomData;
 import org.alexdev.icarus.game.room.RoomManager;
-import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.game.room.settings.RoomType;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.util.Util;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 public class RoomDao {
-
-    private static HashMap<String, RoomModel> roomModels;
-
-    public static void getModels() {
-
-        roomModels = Maps.newHashMap();
-
-        Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-
-            sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_models", sqlConnection);
-            resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                roomModels.put(resultSet.getString("id"), new RoomModel(resultSet.getString("id"), resultSet.getString("heightmap"), resultSet.getInt("door_x"), resultSet.getInt("door_y"), resultSet.getInt("door_z"), resultSet.getInt("door_dir")));
-            }
-
-        } catch (Exception e) {
-            try {
-                Log.println("Error with model: " + resultSet.getString("id"));
-            } catch (SQLException e1) {
-                Log.exception(e1);
-            }
-            Log.exception(e);
-        } finally {
-            Storage.closeSilently(resultSet);
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
-        }
-    }
-
+    
     public static List<Room> getPublicRooms(boolean storeInMemory) {
 
         List<Room> rooms = Lists.newArrayList();
@@ -242,43 +204,6 @@ public class RoomDao {
         }
     }
 
-    public static Room createRoom(Player player, String name, String description, String model, int category, int usersMax, int tradeState) {
-
-        Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-
-            sqlConnection = Dao.getStorage().getConnection();
-
-            preparedStatement = Dao.getStorage().prepare("INSERT INTO rooms (name, description, owner_id, model, category, users_max, trade_state) VALUES (?, ?, ?, ?, ?, ?, ?)", sqlConnection);
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, description);
-            preparedStatement.setInt(3, player.getDetails().getID());
-            preparedStatement.setString(4, model);
-            preparedStatement.setInt(5, category);
-            preparedStatement.setInt(6, usersMax);
-            preparedStatement.setInt(7, tradeState);
-            preparedStatement.executeUpdate();
-
-            ResultSet row = preparedStatement.getGeneratedKeys();
-
-            if (row != null && row.next()) {
-                return getRoom(row.getInt(1), true);
-            }
-
-        } catch (SQLException e) {
-            Log.exception(e);
-        } finally {
-            Storage.closeSilently(resultSet);
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
-        }
-
-        return null;
-    }
-
     public static void deleteRoom(Room room) {
         Dao.getStorage().execute("DELETE FROM rooms WHERE id = " + room.getData().getID());
     }
@@ -339,10 +264,6 @@ public class RoomDao {
 
     }
 
-    public static RoomModel getModel(String model) {
-        return roomModels.get(model);
-    }
-
     public static void saveChatlog(Player chatter, int roomID, String chatType, String message) {
 
         Connection sqlConnection = null;
@@ -378,92 +299,6 @@ public class RoomDao {
         }
     }
 
-    public static RoomModel getCustomModel(int roomID) {
-
-        RoomModel model = null;
-        Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-
-            sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_models_dynamic WHERE id = ?", sqlConnection);
-            preparedStatement.setString(1, "dynamic_model_" + roomID);
-            resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                model = new RoomModel(resultSet.getString("id"), resultSet.getString("heightmap"), resultSet.getInt("door_x"), resultSet.getInt("door_y"), resultSet.getInt("door_z"), resultSet.getInt("door_dir"));
-            }
-
-        } catch (Exception e) {
-            try {
-                Log.println("Error with model: " + resultSet.getString("id"));
-            } catch (SQLException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-            Log.exception(e);
-        } finally {
-            Storage.closeSilently(resultSet);
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
-        }
-
-        return model;
-    }
-
-    public static void newCustomModel(int roomID, RoomModel model) {
-
-        deleteCustomModel(roomID);
-
-        Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-
-            sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("INSERT INTO room_models_dynamic (id, door_x, door_y, door_z, door_dir, heightmap, wall_height) VALUES (?, ?, ?, ?, ?, ?, ?)", sqlConnection);
-            preparedStatement.setString(1, "dynamic_model_" + roomID);
-            preparedStatement.setInt(2, model.getDoorLocation().getX());
-            preparedStatement.setInt(3, model.getDoorLocation().getY());
-            preparedStatement.setInt(4, (int)model.getDoorLocation().getZ());
-            preparedStatement.setInt(5, model.getDoorLocation().getRotation());
-            preparedStatement.setString(6, model.getHeightMap());
-            preparedStatement.setInt(7, model.getWallHeight());
-            preparedStatement.execute();
-
-        } catch (Exception e) {
-            Log.exception(e);
-        } finally {
-            Storage.closeSilently(resultSet);
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
-        }
-    }
-
-    public static void deleteCustomModel(int roomID) {
-
-        Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-
-            sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("DELETE FROM room_models_dynamic WHERE id = ?", sqlConnection);
-            preparedStatement.setString(1, "dynamic_model_" + roomID);
-            preparedStatement.execute();
-
-        } catch (Exception e) {
-            Log.exception(e);
-        } finally {
-            Storage.closeSilently(resultSet);
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
-        }
-    }
 
     public static Room fill(ResultSet row) throws SQLException {
 

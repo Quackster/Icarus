@@ -1,6 +1,7 @@
 package org.alexdev.icarus.messages.incoming.room.settings;
 
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
+import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
@@ -37,7 +38,7 @@ public class DeleteRoomMessageEvent implements MessageEvent {
         }
         
         RoomDao.deleteRoom(room);
-        RoomDao.deleteCustomModel(roomID);
+        RoomModelDao.deleteCustomModel(roomID);
         
         room.dispose(true);
     }

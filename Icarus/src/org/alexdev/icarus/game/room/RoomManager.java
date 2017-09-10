@@ -7,6 +7,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.stream.Collectors;
 
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
+import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
 import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.room.settings.RoomType;
 
@@ -24,7 +25,7 @@ public class RoomManager {
         
         scheduler = GameScheduler.createNewScheduler();
         
-        RoomDao.getModels();
+        RoomModelDao.getModels();
         RoomDao.getPublicRooms(true);
     }
 

@@ -1,4 +1,4 @@
-package org.alexdev.icarus.dao.mysql.player;
+package org.alexdev.icarus.dao.mysql.navigator;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,14 +8,54 @@ import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
+import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.navigator.NavigatorCategory;
 import org.alexdev.icarus.game.navigator.NavigatorTab;
+import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.log.Log;
 
 import com.google.common.collect.Lists;
 
 public class NavigatorDao {
 
+    public static Room createRoom(Player player, String name, String description, String model, int category, int usersMax, int tradeState) {
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            sqlConnection = Dao.getStorage().getConnection();
+
+            preparedStatement = Dao.getStorage().prepare("INSERT INTO rooms (name, description, owner_id, model, category, users_max, trade_state) VALUES (?, ?, ?, ?, ?, ?, ?)", sqlConnection);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, description);
+            preparedStatement.setInt(3, player.getDetails().getID());
+            preparedStatement.setString(4, model);
+            preparedStatement.setInt(5, category);
+            preparedStatement.setInt(6, usersMax);
+            preparedStatement.setInt(7, tradeState);
+            preparedStatement.executeUpdate();
+
+            ResultSet row = preparedStatement.getGeneratedKeys();
+
+            if (row != null && row.next()) {
+                return RoomDao.getRoom(row.getInt(1), true);
+            }
+
+        } catch (SQLException e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return null;
+    }
+    
     public static List<NavigatorTab> getTabs(int childID) {
 
         List<NavigatorTab> tabs = Lists.newArrayList();

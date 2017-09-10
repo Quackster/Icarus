@@ -10,6 +10,7 @@ import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.commands.CommandManager;
 import org.alexdev.icarus.game.furniture.ItemManager;
+import org.alexdev.icarus.game.groups.GroupManager;
 import org.alexdev.icarus.game.navigator.NavigatorManager;
 import org.alexdev.icarus.game.pets.PetManager;
 import org.alexdev.icarus.game.plugins.PluginManager;
@@ -62,6 +63,7 @@ public class Icarus {
             CatalogueManager.load();
             GameScheduler.load();
             PetManager.load();
+            GroupManager.load();
             CommandManager.load();
             PluginManager.load();
             Util.createComposerLookup();
