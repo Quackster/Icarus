@@ -402,8 +402,7 @@ public class Room {
     
     /**
      * Select room pets from data access object, will add them
-     * along with setting their stored coordinates to the entity
-     * and applying the height
+     * along with setting their stored coordinates to the entity and will also apply the height.
      * 
      * @return none
      */

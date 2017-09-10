@@ -8,6 +8,7 @@ import org.alexdev.icarus.messages.outgoing.room.WallOptionsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.notify.SettingsUpdatedMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.notify.RoomInfoUpdatedMessageComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
+import org.alexdev.icarus.util.Util;
 
 public class SaveRoomMessageEvent implements MessageEvent {
 
@@ -24,7 +25,7 @@ public class SaveRoomMessageEvent implements MessageEvent {
             return;
         }
         
-        request.readInt(); // room id
+        request.readInt();
         
         RoomData data = room.getData();
         
@@ -56,7 +57,7 @@ public class SaveRoomMessageEvent implements MessageEvent {
         String[] tags = new String[tagCount];
 
         for (int i = 0; i < tagCount; i++) {
-          tags[i] = request.readString();
+          tags[i] = Util.removeNonAlphaNumeric(request.readString());
         }
         
         data.setTags(tags);
@@ -94,11 +95,10 @@ public class SaveRoomMessageEvent implements MessageEvent {
             data.setChatFloodProtection(1);
         }        
         
-        room.save();
-        
         room.send(new WallOptionsMessageComposer(room.getData().hasHiddenWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
-        
         room.send(new SettingsUpdatedMessageComposer(room.getData().getID()));
         room.send(new RoomInfoUpdatedMessageComposer(room.getData().getID()));
+        
+        room.save();
     }
 }

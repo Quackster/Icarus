@@ -9,6 +9,7 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.settings.RoomState;
 import org.alexdev.icarus.game.room.settings.RoomType;
+import org.alexdev.icarus.util.GameSettings;
 
 public class PopularPopulator extends NavigatorRoomPopulator {
 
@@ -17,21 +18,28 @@ public class PopularPopulator extends NavigatorRoomPopulator {
 
         List<Room> loadedRooms = RoomManager.getRooms();
         List<Room> activeRooms = loadedRooms.stream().filter(r -> r.getData().getUsersNow() > 0 && r.getData().getRoomType() == RoomType.PRIVATE).collect(Collectors.toList());
-        
+
         for (int i = 0; i < activeRooms.size(); i++) {
-            
+
             Room room = activeRooms.get(i);
-            
+
             if (room.getData().getState() == RoomState.INVISIBLE) {
                 if (!room.hasRights(player, false)) {
                     activeRooms.remove(room);
                 }
             }
         }
-        
+
+        // Keep first thirty rooms
+        if (limit) {
+            if (activeRooms.size() > GameSettings.MAX_ROOMS_POPULAR) {
+                activeRooms = activeRooms.subList(0, GameSettings.MAX_ROOMS_POPULAR);
+            }
+        }
+
         activeRooms.sort((room1, room2)
-        ->room2.getData().getUsersNow()
-        - room1.getData().getUsersNow());
+                ->room2.getData().getUsersNow()
+                - room1.getData().getUsersNow());
 
         return activeRooms;
     }

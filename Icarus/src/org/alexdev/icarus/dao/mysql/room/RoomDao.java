@@ -101,7 +101,7 @@ public class RoomDao {
         return rooms;
     }
 
-    public static List<Room> getPlayerRooms(PlayerDetails details, boolean storeInMemory) {
+    public static List<Room> getPlayerRooms(int userID, boolean storeInMemory) {
 
         List<Room> rooms = Lists.newArrayList();
 
@@ -112,7 +112,7 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE owner_id = " + details.getID(), sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE owner_id = " + userID, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {

@@ -49,7 +49,7 @@ public class Player extends Entity {
         PlayerManager.addPlayer(this);
         
         // Load all player rooms into memory
-        RoomDao.getPlayerRooms(this.details, true);
+        RoomDao.getPlayerRooms(this.details.getID(), true);
 
         // Load all inventory items
         this.inventory.init();
