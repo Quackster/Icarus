@@ -6,7 +6,7 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.MessageEvent;
-import org.alexdev.icarus.messages.outgoing.room.RoomRightsLevelMessageComposer;
+import org.alexdev.icarus.messages.outgoing.room.RightsLevelMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.settings.RightsRemovedComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
@@ -43,7 +43,7 @@ public class RemoveRightsMessageEvent implements MessageEvent {
                     user.getRoomUser().removeStatus(EntityStatus.FLAT_CONTROL);
                     user.getRoomUser().setNeedsUpdate(true);
                     
-                    user.send(new RoomRightsLevelMessageComposer(0));
+                    user.send(new RightsLevelMessageComposer(0));
                 }
             }
             

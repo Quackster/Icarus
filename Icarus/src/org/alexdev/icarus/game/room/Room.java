@@ -29,14 +29,13 @@ import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.incoming.room.RoomPromotionMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.FloorMapMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.HasOwnerRightsMessageComposer;
+import org.alexdev.icarus.messages.outgoing.room.OwnerRightsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.HeightMapMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.PrepareRoomMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.RoomDataMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.RoomModelMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.RoomOwnerRightsComposer;
 import org.alexdev.icarus.messages.outgoing.room.RoomRatingMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.RoomRightsLevelMessageComposer;
+import org.alexdev.icarus.messages.outgoing.room.RightsLevelMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.RoomSpacesMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.WallOptionsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.items.FloorItemsMessageComposer;
@@ -177,17 +176,15 @@ public class Room {
         player.send(new RoomOwnerRightsComposer(this.data.getID(), isOwner));
 
         if (roomUser.getRoom().hasRights(player, true)) {
-            player.send(new RoomRightsLevelMessageComposer(4));
-            player.send(new HasOwnerRightsMessageComposer());
+            player.send(new RightsLevelMessageComposer(4));
+            player.send(new OwnerRightsMessageComposer());
 
         } else if (roomUser.getRoom().hasRights(player, false)) {
-            player.send(new RoomRightsLevelMessageComposer(1));
+            player.send(new RightsLevelMessageComposer(1));
 
         } else {
-            player.send(new RoomRightsLevelMessageComposer(0));
+            player.send(new RightsLevelMessageComposer(0));
         }
-
-        player.send(new PrepareRoomMessageComposer(this));
 
         roomUser.setVirtualID(this.privateID.incrementAndGet());
         roomUser.getPosition().setX(this.getModel().getDoorLocation().getX());
@@ -239,7 +236,7 @@ public class Room {
             }
         }
 
-        if (this.hasRights(player, true)) {
+        if (player.hasPermission("room_all_rights") || this.data.getOwnerID() == player.getDetails().getID()) {
             player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "useradmin");
         } else if (this.hasRights(player, false)) {
             player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "1");
@@ -288,9 +285,12 @@ public class Room {
     }
 
     public void addEntity(Entity entity) {
-        this.addEntity(entity, this.getModel().getDoorLocation().getX(), this.getModel().getDoorLocation().getY(), this.getModel().getDoorLocation().getRotation());
+        
+        this.addEntity(entity, 
+                this.getModel().getDoorLocation().getX(), 
+                this.getModel().getDoorLocation().getY(), 
+                this.getModel().getDoorLocation().getRotation());
     }
-
 
     public void addEntity(Entity entity, int x, int y, int rotation) {
 
@@ -340,8 +340,6 @@ public class Room {
         
         entity.getRoomUser().dispose();
     }
-
-
 
     public boolean hasRights(Player player, boolean ownerCheckOnly) {
 

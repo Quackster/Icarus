@@ -32,7 +32,7 @@ public class Outgoing {
     public static int RightsLevelMessageComposer = 680;//2960
     public static int YouAreNotControllerMessageComposer = 1068;//3674
     public static int RoomSpacesMessageComposer = 1897;//1735
-    public static int RoomUpdateMessageComposer = 3743;//1091
+    //public static int RoomUpdateMessageComposer = 3743;//1091
     public static int SearchResultSetComposer = 1089;//2247
     public static int SecretKeyMessageComposer = 696;//690
     public static int SendPerkAllowancesMessageComposer = 1790;//2028
@@ -43,7 +43,7 @@ public class Outgoing {
     public static int UserStatusMessageComposer = 3559;//2627
     public static int CanCreateRoomMessageComposer = 3568;//3645
     public static int RoomOwnerRightsComposer = 3675;//625
-    public static int HasOwnerRightsMessageComposer = 1932;//2037
+    public static int OwnerRightsMessageComposer = 1932;//2037
     public static int RoomSettingsDataMessageComposer = 3361;//1131
     public static int MessageInviteMessageComposer = 2138;//141
     public static int RoomEnterErrorMessageComposer = 200;//1675
