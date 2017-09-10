@@ -5,30 +5,30 @@ import org.alexdev.icarus.game.player.PlayerManager;
 
 public class PlayerMessage {
 
-    public int fromID;
-    public int toID;
+    public int fromId;
+    public int toId;
     public String message;
     
-    public PlayerMessage(int fromID, int toID, String message) {
-        this.fromID = fromID;
-        this.toID = toID;
+    public PlayerMessage(int fromId, int toId, String message) {
+        this.fromId = fromId;
+        this.toId = toId;
         this.message = message;
     }
 
-    public int getFromID() {
-        return fromID;
+    public int getFromId() {
+        return fromId;
     }
     
-    public void setFromID(int fromID) {
-        this.fromID = fromID;
+    public void setFromId(int fromId) {
+        this.fromId = fromId;
     }
     
-    public int getToID() {
-        return toID;
+    public int getToId() {
+        return toId;
     }
     
-    public void setToID(int toID) {
-        this.toID = toID;
+    public void setToId(int toId) {
+        this.toId = toId;
     }
     
     public String getMessage() {
@@ -40,6 +40,6 @@ public class PlayerMessage {
     }
     
     public Player getFriend() {
-        return PlayerManager.getByID(this.toID);
+        return PlayerManager.getById(this.toId);
     }
 }

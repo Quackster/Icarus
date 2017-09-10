@@ -23,7 +23,7 @@ public class FloorItemsMessageComposer extends MessageComposer {
         this.response.writeInt(items.size());
         
         for (Item floorItem : items) { 
-            this.response.writeInt(floorItem.getOwnerID());
+            this.response.writeInt(floorItem.getOwnerId());
             this.response.writeString(floorItem.getOwnerName());
         }
 
@@ -31,8 +31,8 @@ public class FloorItemsMessageComposer extends MessageComposer {
 
         for (Item floorItem : items) {
             
-            this.response.writeInt(floorItem.getID());
-            this.response.writeInt(floorItem.getDefinition().getSpriteID());
+            this.response.writeInt(floorItem.getId());
+            this.response.writeInt(floorItem.getDefinition().getSpriteId());
             this.response.writeInt(floorItem.getPosition().getX());
             this.response.writeInt(floorItem.getPosition().getY());
             this.response.writeInt(floorItem.getPosition().getRotation());
@@ -43,7 +43,7 @@ public class FloorItemsMessageComposer extends MessageComposer {
 
             this.response.writeInt(-1);
             this.response.writeInt(floorItem.getDefinition().getInterationModes() > 0 ? 1 : 0);
-            this.response.writeInt(floorItem.getOwnerID());
+            this.response.writeInt(floorItem.getOwnerId());
         }
     }
 }

@@ -5,11 +5,11 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 
 public class UnseenItemsNotificationComposer extends MessageComposer {
 
-    private int itemID;
+    private int itemId;
     private int type;
 
-    public UnseenItemsNotificationComposer(int itemID, int type) {
-        this.itemID = itemID;
+    public UnseenItemsNotificationComposer(int itemId, int type) {
+        this.itemId = itemId;
         this.type = type;
     }
 
@@ -19,6 +19,6 @@ public class UnseenItemsNotificationComposer extends MessageComposer {
         this.response.writeInt(1);
         this.response.writeInt(this.type);
         this.response.writeInt(1);
-        this.response.writeInt(this.itemID);
+        this.response.writeInt(this.itemId);
     }
 }

@@ -19,17 +19,17 @@ public class PurchaseItemMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage request) {
 
-        int pageID = request.readInt();
-        int itemID = request.readInt();
+        int pageId = request.readInt();
+        int itemId = request.readInt();
         String extraData = request.readString();
 
-        CataloguePage page = CatalogueManager.getPage(pageID);
+        CataloguePage page = CatalogueManager.getPage(pageId);
 
         if (page.getMinRank() > player.getDetails().getRank()) {
             return;
         }
 
-        CatalogueItem item = page.getItem(itemID);
+        CatalogueItem item = page.getItem(itemId);
 
         if (item.getDisplayName().startsWith("a0 pet")) {
 
@@ -71,8 +71,8 @@ public class PurchaseItemMessageEvent implements MessageEvent {
         int race = Integer.valueOf(petData[1]);
         String colour = petData[2];
         
-        int petID = PetDao.createPet(player.getDetails().getID(), petData[0], type, race, colour);
-        Pet pet = new Pet(petID, petName, Pet.DEFAULT_LEVEL, Pet.DEFAULT_HAPPINESS, Pet.DEFAULT_EXPERIENCE, Pet.DEFAULT_ENERGY, player.getDetails().getID(), colour, race, type, false, -1, 0, false, (int)Util.getCurrentTimeSeconds(), 0, 0, 0);
+        int petId = PetDao.createPet(player.getDetails().getId(), petData[0], type, race, colour);
+        Pet pet = new Pet(petId, petName, Pet.DEFAULT_LEVEL, Pet.DEFAULT_HAPPINESS, Pet.DEFAULT_EXPERIENCE, Pet.DEFAULT_ENERGY, player.getDetails().getId(), colour, race, type, false, -1, 0, false, (int)Util.getCurrentTimeSeconds(), 0, 0, 0);
         
         player.getInventory().addPet(pet);
         player.getInventory().updatePets();

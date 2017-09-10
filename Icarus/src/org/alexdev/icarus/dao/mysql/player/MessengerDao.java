@@ -15,7 +15,7 @@ import com.google.common.collect.Lists;
 
 public class MessengerDao {
 
-    public static List<MessengerUser> getFriends(int userID) {
+    public static List<MessengerUser> getFriends(int userId) {
 
         List<MessengerUser> friends = Lists.newArrayList();
 
@@ -26,14 +26,14 @@ public class MessengerDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM messenger_friendships WHERE (sender = " + userID + ") OR (receiver = " + userID + ")", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM messenger_friendships WHERE (sender = " + userId + ") OR (receiver = " + userId + ")", sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
 
                 MessengerUser friend = null;
 
-                if (resultSet.getInt("sender") != userID) {
+                if (resultSet.getInt("sender") != userId) {
                     friend = new MessengerUser(resultSet.getInt("sender"));
                 } else {
                     friend = new MessengerUser(resultSet.getInt("receiver"));
@@ -54,7 +54,7 @@ public class MessengerDao {
     }
 
 
-    public static List<MessengerUser> getRequests(int userID) {
+    public static List<MessengerUser> getRequests(int userId) {
 
         List<MessengerUser> users = Lists.newArrayList();
 
@@ -65,7 +65,7 @@ public class MessengerDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM messenger_requests WHERE to_id = " + userID, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM messenger_requests WHERE to_id = " + userId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -115,20 +115,20 @@ public class MessengerDao {
         return users;
     }
 
-    public static boolean newRequest(int fromID, int toID) {
+    public static boolean newRequest(int fromId, int toId) {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
-        if (!requestExists(fromID, toID)) {
+        if (!requestExists(fromId, toId)) {
 
             try {
 
                 sqlConnection = Dao.getStorage().getConnection();
                 preparedStatement = Dao.getStorage().prepare("INSERT INTO messenger_requests (to_id, from_id) VALUES (?, ?)", sqlConnection);
-                preparedStatement.setInt(1, toID);
-                preparedStatement.setInt(2, fromID);
+                preparedStatement.setInt(1, toId);
+                preparedStatement.setInt(2, fromId);
                 preparedStatement.execute();
 
                 return true;
@@ -145,7 +145,7 @@ public class MessengerDao {
         return false;
     }
 
-    public static boolean requestExists(int fromID, int toID) {
+    public static boolean requestExists(int fromId, int toId) {
 
         boolean exists = false;
         
@@ -156,7 +156,7 @@ public class MessengerDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM messenger_requests WHERE (to_id = '" + toID + "') AND (from_id = '" + fromID + "') OR (from_id = '" + toID + "') AND (to_id = '" + fromID + "')", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM messenger_requests WHERE (to_id = '" + toId + "') AND (from_id = '" + fromId + "') OR (from_id = '" + toId + "') AND (to_id = '" + fromId + "')", sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -174,12 +174,12 @@ public class MessengerDao {
         return exists;
     }
 
-    public static void removeRequest(int fromID, int toID) {
-        Dao.getStorage().execute("DELETE FROM messenger_requests WHERE from_id = " + fromID + " AND to_id = " + toID);
+    public static void removeRequest(int fromId, int toId) {
+        Dao.getStorage().execute("DELETE FROM messenger_requests WHERE from_id = " + fromId + " AND to_id = " + toId);
     }
 
-    public static void removeFriend(int friendID, int userID) {
-        Dao.getStorage().execute("DELETE FROM messenger_friendships WHERE (sender = " + userID + " AND receiver = " + friendID + ") OR (receiver = " + userID + " AND sender = " + friendID + ")");
+    public static void removeFriend(int friendId, int userId) {
+        Dao.getStorage().execute("DELETE FROM messenger_friendships WHERE (sender = " + userId + " AND receiver = " + friendId + ") OR (receiver = " + userId + " AND sender = " + friendId + ")");
     }
 
     public static boolean newFriend(int sender, int receiver) {

@@ -5,18 +5,18 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 
 public class CarryObjectComposer extends MessageComposer {
 
-    private int virtualID;
-    private int carryID;
+    private int virtualId;
+    private int carryId;
     
-    public CarryObjectComposer(int virtualID, int carryID) {
-        this.virtualID = virtualID;
-        this.carryID = carryID;
+    public CarryObjectComposer(int virtualId, int carryId) {
+        this.virtualId = virtualId;
+        this.carryId = carryId;
     }
 
     @Override
     public void write() {
         this.response.init(Outgoing.CarryObjectComposer);
-        this.response.writeInt(this.virtualID);
-        this.response.writeInt(this.carryID);
+        this.response.writeInt(this.virtualId);
+        this.response.writeInt(this.carryId);
     }
 }

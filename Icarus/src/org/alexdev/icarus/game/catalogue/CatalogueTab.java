@@ -7,7 +7,7 @@ import com.google.common.collect.Lists;
 public class CatalogueTab {
 
     private int id;
-    private int parentID;
+    private int parentId;
     private String caption;
     private int iconColour;
     private int iconImage;
@@ -16,10 +16,10 @@ public class CatalogueTab {
     private String link;
     private List<CatalogueTab> childTabs;
     
-    public CatalogueTab(int id, int parentID, String caption, int iconColour, int iconImage, boolean enabled, int minRank, String link) {
+    public CatalogueTab(int id, int parentId, String caption, int iconColour, int iconImage, boolean enabled, int minRank, String link) {
         
         this.id = id;
-        this.parentID = parentID;
+        this.parentId = parentId;
         this.caption = caption;
         this.iconColour = iconColour;
         this.iconImage = iconImage;
@@ -29,12 +29,12 @@ public class CatalogueTab {
         this.link = link;
     }
 
-    public int getID() {
+    public int getId() {
         return id;
     }
 
-    public int getParentID() {
-        return parentID;
+    public int getParentId() {
+        return parentId;
     }
 
     public String getCaption() {

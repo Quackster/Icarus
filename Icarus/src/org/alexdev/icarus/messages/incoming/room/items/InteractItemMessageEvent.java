@@ -15,9 +15,9 @@ public class InteractItemMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
 
-        int itemID = reader.readInt();
+        int itemId = reader.readInt();
 
-        Item item = player.getRoom().getItem(itemID);
+        Item item = player.getRoom().getItem(itemId);
 
         if (item == null) {
             return;
@@ -38,12 +38,12 @@ public class InteractItemMessageEvent implements MessageEvent {
         if (player.getMetadata().getAsBool("debugfurniture")) {
             StringBuilder builder = new StringBuilder();
             builder.append("<b>Item settings</b>\n");
-            builder.append("item_id: " + item.getID() + "\n");
-            builder.append("owner_id: " + item.getOwnerID() + "\n");
+            builder.append("item_id: " + item.getId() + "\n");
+            builder.append("owner_id: " + item.getOwnerId() + "\n");
             builder.append("height: " + item.getPosition().getZ() + "\n");
             builder.append("\r");
             builder.append("<b>Definition settings</b>\n");
-            builder.append("furniture_id: " + item.getDefinition().getID() + "\n");
+            builder.append("furniture_id: " + item.getDefinition().getId() + "\n");
             builder.append("interaction_type: " + item.getDefinition().getInteractionType().name() + "\n");
             builder.append("allow_trade: " + item.getDefinition().allowTrade() + "\n");
             builder.append("allow_stack: " + item.getDefinition().allowStack() + "\n");

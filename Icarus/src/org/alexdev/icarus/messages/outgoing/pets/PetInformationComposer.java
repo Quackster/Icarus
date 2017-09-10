@@ -16,7 +16,7 @@ public class PetInformationComposer extends MessageComposer {
     @Override
     public void write() {
         this.response.init(Outgoing.PetInformationComposer);
-        this.response.writeInt(this.pet.getID());
+        this.response.writeInt(this.pet.getId());
         this.response.writeString(this.pet.getName());
         this.response.writeInt(this.pet.getLevel());
         this.response.writeInt(20); // max level
@@ -27,7 +27,7 @@ public class PetInformationComposer extends MessageComposer {
         this.response.writeInt(100); // nutrition
         this.response.writeInt(100); // max nutrition
         this.response.writeInt(this.pet.getScratches());
-        this.response.writeInt(this.pet.getOwnerID());
+        this.response.writeInt(this.pet.getOwnerId());
         this.response.writeInt((Util.getCurrentTimeSeconds() - this.pet.getBirthday()) / 60 / 60 / 24);
         this.response.writeString(this.pet.getOwnerName());
         this.response.writeInt(0);

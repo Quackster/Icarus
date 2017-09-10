@@ -14,9 +14,9 @@ public class PurchaseOfferMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
        
-        int targetedOfferID = reader.readInt();
+        int targetedOfferId = reader.readInt();
         
-        TargetedOffer offer = CatalogueManager.getOfferByID(targetedOfferID);
+        TargetedOffer offer = CatalogueManager.getOfferById(targetedOfferId);
         
         if (offer == null) {
             return;
@@ -26,15 +26,15 @@ public class PurchaseOfferMessageEvent implements MessageEvent {
             return;
         }
         
-        for (int definitionID : offer.getItems()) {
+        for (int definitionId : offer.getItems()) {
             
-            ItemDefinition definition = ItemManager.getFurnitureByID(definitionID);
+            ItemDefinition definition = ItemManager.getFurnitureById(definitionId);
             definition.handleDefinitionPurchase(player, "");
         }
        
         player.getDetails().sendCredits();
         player.send(new PurchaseNotificationMessageComposer());
         
-        offer.addUserToBlacklist(player.getDetails().getID());
+        offer.addUserToBlacklist(player.getDetails().getId());
     }
 }

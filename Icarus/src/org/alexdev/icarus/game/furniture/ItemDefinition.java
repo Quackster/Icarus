@@ -18,7 +18,7 @@ public class ItemDefinition {
     //private boolean canStack;
     private boolean canSit;
     private boolean isWalkable;
-    private int spriteID;
+    private int spriteId;
     private boolean allowRecycle;
     private boolean allowTrade;
     private boolean allowMarketplaceSell;
@@ -26,13 +26,13 @@ public class ItemDefinition {
     private boolean allowInventoryStack;
     private InteractionType interactionType;
     private int interationModes;
-    private String[] vendingIDs;
+    private String[] vendingIds;
     private double[] variableHeight;
 
     public ItemDefinition(int id, String publicName, String itemName, String type, int width, int length, double stackHeight,
-            boolean canStack, boolean canSit, boolean isWalkable, int spriteID, boolean allowRecycle,
+            boolean canStack, boolean canSit, boolean isWalkable, int spriteId, boolean allowRecycle,
             boolean allowTrade, boolean allowMarketplaceSell, boolean allowGift, boolean allowInventoryStack,
-            InteractionType interactionType, int interationModes, String vendingIDs, String adjustableHeights) {
+            InteractionType interactionType, int interationModes, String vendingIds, String adjustableHeights) {
 
         this.id = id;
         this.publicName = publicName;
@@ -44,7 +44,7 @@ public class ItemDefinition {
         //this.canStack = canStack;
         this.canSit = canSit;
         this.isWalkable = isWalkable;
-        this.spriteID = spriteID;
+        this.spriteId = spriteId;
         this.allowRecycle = allowRecycle;
         this.allowTrade = allowTrade;
         this.allowMarketplaceSell = allowMarketplaceSell;
@@ -52,7 +52,7 @@ public class ItemDefinition {
         this.allowInventoryStack = allowInventoryStack;
         this.interactionType = interactionType;
         this.interationModes = interationModes;
-        this.vendingIDs = vendingIDs.isEmpty() ? new String[0] : vendingIDs.split(",");
+        this.vendingIds = vendingIds.isEmpty() ? new String[0] : vendingIds.split(",");
 
         if (adjustableHeights.length() > 0) {
 
@@ -70,7 +70,7 @@ public class ItemDefinition {
 
     public void handleDefinitionPurchase(Player player, String extraData) {
         
-        Item inventoryItem = InventoryDao.newItem(this.id, player.getDetails().getID(), extraData);
+        Item inventoryItem = InventoryDao.newItem(this.id, player.getDetails().getId(), extraData);
 
         if (inventoryItem.getDefinition().getInteractionType() == InteractionType.JUKEBOX) {
             inventoryItem.setExtraData("0");
@@ -82,10 +82,10 @@ public class ItemDefinition {
 
         if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
 
-            Item secondTeleporter = InventoryDao.newItem(this.id, player.getDetails().getID(), "0");
+            Item secondTeleporter = InventoryDao.newItem(this.id, player.getDetails().getId(), "0");
 
-            inventoryItem.setExtraData(String.valueOf(secondTeleporter.getID()));
-            secondTeleporter.setExtraData(String.valueOf(inventoryItem.getID()));
+            inventoryItem.setExtraData(String.valueOf(secondTeleporter.getId()));
+            secondTeleporter.setExtraData(String.valueOf(inventoryItem.getId()));
 
             player.getInventory().addItem(secondTeleporter);
 
@@ -97,7 +97,7 @@ public class ItemDefinition {
         player.getInventory().addItem(inventoryItem);
     }
     
-    public int getID() {
+    public int getId() {
         return id;
     }
 
@@ -154,8 +154,8 @@ public class ItemDefinition {
         return isWalkable;
     }
 
-    public int getSpriteID() {
-        return spriteID;
+    public int getSpriteId() {
+        return spriteId;
     }
 
     public boolean allowRecycle() {
@@ -190,11 +190,11 @@ public class ItemDefinition {
         return interationModes;
     }
 
-    public int getVendingID() {
+    public int getVendingId() {
 
-        if (this.vendingIDs.length > 0) {
-            int vendingID = Integer.parseInt(this.vendingIDs[Util.getRandom().nextInt(this.vendingIDs.length)].trim());
-            return vendingID;
+        if (this.vendingIds.length > 0) {
+            int vendingId = Integer.parseInt(this.vendingIds[Util.getRandom().nextInt(this.vendingIds.length)].trim());
+            return vendingId;
         }
 
         return -1;

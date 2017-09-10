@@ -20,7 +20,7 @@ import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
 public class Player extends Entity {
 
-    private String machineID;
+    private String machineId;
     private PlayerDetails details;
     private IPlayerNetwork network;
     private RoomUser roomUser;
@@ -49,7 +49,7 @@ public class Player extends Entity {
         PlayerManager.addPlayer(this);
         
         // Load all player rooms into memory
-        RoomDao.getPlayerRooms(this.details.getID(), true);
+        RoomDao.getPlayerRooms(this.details.getId(), true);
 
         // Load all inventory items
         this.inventory.init();
@@ -73,7 +73,7 @@ public class Player extends Entity {
 
         PluginManager.callEvent(PluginEvent.PLAYER_DISCONNECT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this) });
 
-        for (Room room : RoomManager.getPlayerRooms(this.details.getID())) {
+        for (Room room : RoomManager.getPlayerRooms(this.details.getId())) {
             room.dispose(false); 
         }
         
@@ -85,15 +85,15 @@ public class Player extends Entity {
     }
 
     public List<Room> getRooms() {
-        return RoomManager.getPlayerRooms(this.details.getID());
+        return RoomManager.getPlayerRooms(this.details.getId());
     }
 
-    public void setMachineID(String machineID) {
-        this.machineID = machineID;
+    public void setMachineId(String machineId) {
+        this.machineId = machineId;
     }
 
-    public String getMachineID() {
-        return machineID;
+    public String getMachineId() {
+        return machineId;
     }
 
     public PlayerDetails getDetails() {

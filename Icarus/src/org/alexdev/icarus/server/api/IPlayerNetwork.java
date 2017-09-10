@@ -4,20 +4,20 @@ import org.alexdev.icarus.messages.MessageComposer;
 
 public abstract class IPlayerNetwork {
 
-    private int connectionID;
+    private int connectionId;
     
-    public IPlayerNetwork(int connectionID) {
-        this.connectionID = connectionID;
+    public IPlayerNetwork(int connectionId) {
+        this.connectionId = connectionId;
     }
     
     public abstract void send(MessageComposer response);
     public abstract void close();
     
-    public int getConnectionID() {
-        return connectionID;
+    public int getConnectionId() {
+        return connectionId;
     }
 
-    public void setConnectionID(int connectionID) {
-        this.connectionID = connectionID;
+    public void setConnectionId(int connectionId) {
+        this.connectionId = connectionId;
     }
 }

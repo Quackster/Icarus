@@ -5,15 +5,15 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 
 public class RoomForwardComposer extends MessageComposer {
 
-    private int roomID;
+    private int roomId;
 
-    public RoomForwardComposer(int roomID) {
-        this.roomID = roomID;
+    public RoomForwardComposer(int roomId) {
+        this.roomId = roomId;
     }
 
     @Override
     public void write() {
         this.response.init(Outgoing.RoomForwardComposer);
-        this.response.writeInt(this.roomID);
+        this.response.writeInt(this.roomId);
     }
 }

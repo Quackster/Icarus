@@ -10,14 +10,14 @@ public class EditRoomPromotionMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
         
-        int roomID = reader.readInt();
+        int roomId = reader.readInt();
         String promotionName = reader.readString();    
         String promotionDescription = reader.readString();
         
         Room eventRoom = null;
         
         for (Room room : player.getRooms()) {
-            if (room.getData().getID() == roomID) {
+            if (room.getData().getId() == roomId) {
                 eventRoom = room;
                 break;
             }

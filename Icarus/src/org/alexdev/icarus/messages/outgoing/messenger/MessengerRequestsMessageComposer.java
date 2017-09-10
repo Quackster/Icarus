@@ -20,11 +20,11 @@ public class MessengerRequestsMessageComposer extends MessageComposer {
     @Override
     public void write() {
         this.response.init(Outgoing.MessengerRequestsMessageComposer);
-        this.response.writeInt(this.player.getDetails().getID());
+        this.response.writeInt(this.player.getDetails().getId());
         this.response.writeInt(this.requests.size()); 
 
         for (MessengerUser user : this.requests) {
-            this.response.writeInt(user.getUserID());
+            this.response.writeInt(user.getUserId());
             this.response.writeString(user.getDetails().getName());
             this.response.writeString(user.getDetails().getFigure());
         }

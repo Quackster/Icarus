@@ -20,8 +20,8 @@ public class MoveItemMessageComposer extends MessageComposer {
 
         if (this.item.getType() == ItemType.FLOOR) {
             this.response.init(Outgoing.MoveFloorItemMessageComposer); 
-            this.response.writeInt(this.item.getID());
-            this.response.writeInt(this.item.getDefinition().getSpriteID());
+            this.response.writeInt(this.item.getId());
+            this.response.writeInt(this.item.getDefinition().getSpriteId());
             this.response.writeInt(this.item.getPosition().getX());
             this.response.writeInt(this.item.getPosition().getY());
             this.response.writeInt(this.item.getPosition().getRotation());
@@ -32,19 +32,19 @@ public class MoveItemMessageComposer extends MessageComposer {
 
             this.response.writeInt(-1);
             this.response.writeInt(this.item.getDefinition().getInterationModes() > 0 ? 1 : 0);
-            this.response.writeInt(this.item.getOwnerID());
+            this.response.writeInt(this.item.getOwnerId());
             this.response.writeString(this.item.getOwnerName());
         }
 
         if (this.item.getType() == ItemType.WALL) {
             this.response.init(Outgoing.MoveWallItemMessageComposer);
-            this.response.writeString(item.getID() + "");
-            this.response.writeInt(item.getDefinition().getSpriteID());
+            this.response.writeString(item.getId() + "");
+            this.response.writeInt(item.getDefinition().getSpriteId());
             this.response.writeString(item.getWallPosition());
             this.response.writeString(item.getExtraData());
             this.response.writeInt(-1);
             this.response.writeInt(item.getDefinition().getInterationModes() > 0 ? 1 : 0);
-            this.response.writeInt(this.item.getOwnerID());
+            this.response.writeInt(this.item.getOwnerId());
             this.response.writeString(this.item.getOwnerName());
         }
     }

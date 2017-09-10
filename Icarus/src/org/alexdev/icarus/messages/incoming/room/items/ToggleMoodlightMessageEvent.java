@@ -28,7 +28,7 @@ public class ToggleMoodlightMessageEvent implements MessageEvent {
             return;
         }
         
-        MoodlightData data = MoodlightManager.getMoodlightData(moodlight.getID());
+        MoodlightData data = MoodlightManager.getMoodlightData(moodlight.getId());
         data.setEnabled(!data.isEnabled());
         data.save();
         

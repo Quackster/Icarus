@@ -10,7 +10,7 @@ import org.alexdev.icarus.log.Log;
 
 public class ClubDao {
 
-    public static long[] getSubscription(int userID) {
+    public static long[] getSubscription(int userId) {
 
         long[] subscriptionData = null;
 
@@ -23,7 +23,7 @@ public class ClubDao {
             sqlConnection = Dao.getStorage().getConnection();
 
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM users_subscriptions WHERE user_id = ? LIMIT 1", sqlConnection);
-            preparedStatement.setInt(1, userID);
+            preparedStatement.setInt(1, userId);
 
             resultSet = preparedStatement.executeQuery();
 
@@ -43,7 +43,7 @@ public class ClubDao {
         return subscriptionData;
     }
 
-    public static void create(int userID, long expireTime, long boughtTime) {
+    public static void create(int userId, long expireTime, long boughtTime) {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -53,7 +53,7 @@ public class ClubDao {
 
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("INSERT INTO users_subscriptions (user_id, expire_time, bought_time) VALUES (?, ?, ?)", sqlConnection);
-            preparedStatement.setInt(1, userID);
+            preparedStatement.setInt(1, userId);
             preparedStatement.setLong(2, expireTime);
             preparedStatement.setLong(3, boughtTime);
             preparedStatement.execute();
@@ -67,7 +67,7 @@ public class ClubDao {
         }
     }
 
-    public static void update(int userID, long expireTime, long boughtTime) {
+    public static void update(int userId, long expireTime, long boughtTime) {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -79,7 +79,7 @@ public class ClubDao {
             preparedStatement = Dao.getStorage().prepare("UPDATE users_subscriptions SET expire_time = ?, bought_time = ? WHERE user_id = ?", sqlConnection);
             preparedStatement.setLong(1, expireTime);
             preparedStatement.setLong(2, boughtTime);
-            preparedStatement.setInt(3, userID);  
+            preparedStatement.setInt(3, userId);  
             preparedStatement.execute();
 
         } catch (Exception e) {
@@ -91,7 +91,7 @@ public class ClubDao {
         }
     }
 
-    public static void delete(int userID) {
+    public static void delete(int userId) {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -101,7 +101,7 @@ public class ClubDao {
 
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("DELETE FROM users_subscriptions WHERE user_id = ?", sqlConnection);
-            preparedStatement.setInt(1, userID);
+            preparedStatement.setInt(1, userId);
             preparedStatement.execute();
 
         } catch (Exception e) {

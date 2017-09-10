@@ -23,7 +23,7 @@ public class DeleteRoomMessageEvent implements MessageEvent {
             return;
         }
         
-        int roomID = request.readInt(); // room id
+        int roomId = request.readInt(); // room id
         
         for (Player users : room.getPlayers()) {
             room.leaveRoom(users, true);
@@ -31,14 +31,14 @@ public class DeleteRoomMessageEvent implements MessageEvent {
         
         for (Item item : room.getItems().values()) {
             
-            item.setRoomID(0);
+            item.setRoomId(0);
             item.save();
             
             player.getInventory().addItem(item);
         }
         
         RoomDao.deleteRoom(room);
-        RoomModelDao.deleteCustomModel(roomID);
+        RoomModelDao.deleteCustomModel(roomId);
         
         room.dispose(true);
     }

@@ -13,7 +13,7 @@ public class RemovePetMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
         
-        Entity entity = player.getRoom().getEntityByID(reader.readInt());
+        Entity entity = player.getRoom().getEntityById(reader.readInt());
         
         if (entity == null) {
             return;
@@ -26,26 +26,26 @@ public class RemovePetMessageEvent implements MessageEvent {
         Pet pet = (Pet)entity;
         player.getRoom().removeEntity(pet);
         
-        boolean isPetOwner = player.getDetails().getID() == pet.getOwnerID();
+        boolean isPetOwner = player.getDetails().getId() == pet.getOwnerId();
         
         if (isPetOwner) {
             
             player.getInventory().addPet(pet);
             player.getInventory().updatePets();
             
-            pet.setRoomID(0);
+            pet.setRoomId(0);
             pet.save();
         
         } else {
             
-            boolean isPetOwnerOnline = PlayerManager.getByID(pet.getOwnerID()) != null;
+            boolean isPetOwnerOnline = PlayerManager.getById(pet.getOwnerId()) != null;
             
-            pet.setRoomID(0);
+            pet.setRoomId(0);
             pet.save();
             
             if (isPetOwnerOnline) {
                 
-                Player petOwner = PlayerManager.getByID(pet.getOwnerID());
+                Player petOwner = PlayerManager.getById(pet.getOwnerId());
                 
                 petOwner.getInventory().addPet(pet);
                 petOwner.getInventory().updatePets();

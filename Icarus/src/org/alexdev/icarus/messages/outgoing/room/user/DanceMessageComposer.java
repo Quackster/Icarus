@@ -5,19 +5,19 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 
 public class DanceMessageComposer extends MessageComposer {
 
-    private int virtualID;
-    private int danceID;
+    private int virtualId;
+    private int danceId;
 
-    public DanceMessageComposer(int virtualID, int danceID) {
-        this.virtualID = virtualID;
-        this.danceID = danceID;
+    public DanceMessageComposer(int virtualId, int danceId) {
+        this.virtualId = virtualId;
+        this.danceId = danceId;
     }
 
     @Override
     public void write() {
         this.response.init(Outgoing.DanceStatusMessageComposer);
-        this.response.writeInt(this.virtualID);
-        this.response.writeInt(this.danceID);
+        this.response.writeInt(this.virtualId);
+        this.response.writeInt(this.danceId);
     }
 
 }

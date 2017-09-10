@@ -21,7 +21,7 @@ public class GroupPurchaseDialogComposer extends MessageComposer {
         this.response.writeInt(this.roomsWithoutGroup.size());
         
         for (Room room : this.roomsWithoutGroup) {
-            this.response.writeInt(room.getData().getID());
+            this.response.writeInt(room.getData().getId());
             this.response.writeString(room.getData().getName());
             this.response.writeBool(false);
         }

@@ -18,10 +18,10 @@ import com.google.common.collect.Lists;
 
 public class PlayerDao {
     
-    public static PlayerDetails getDetails(int userID) {
+    public static PlayerDetails getDetails(int userId) {
 
         PlayerDetails details = new PlayerDetails(null);
-        Player player = PlayerManager.getByID(userID);
+        Player player = PlayerManager.getById(userId);
 
         if (player != null) {
             details = player.getDetails();
@@ -36,7 +36,7 @@ public class PlayerDao {
                 sqlConnection = Dao.getStorage().getConnection();
                 
                 preparedStatement = Dao.getStorage().prepare("SELECT * FROM users WHERE id = ? LIMIT 1", sqlConnection);
-                preparedStatement.setInt(1, userID);
+                preparedStatement.setInt(1, userId);
                 
                 resultSet = preparedStatement.executeQuery();
 
@@ -88,7 +88,7 @@ public class PlayerDao {
         return success;
     }
 
-    public static int getID(String username) {
+    public static int getId(String username) {
 
         int id = -1;
         
@@ -164,8 +164,8 @@ public class PlayerDao {
             preparedStatement.setString(3, details.getGender());
             preparedStatement.setInt(4, details.getRank());
             preparedStatement.setInt(5, details.getCredits());
-            preparedStatement.setInt(6, details.getHomeRoomID());
-            preparedStatement.setInt(7, details.getID());
+            preparedStatement.setInt(6, details.getHomeRoomId());
+            preparedStatement.setInt(7, details.getId());
             preparedStatement.execute();
 
         } catch (Exception e) {

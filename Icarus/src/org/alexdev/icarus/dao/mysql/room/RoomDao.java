@@ -39,7 +39,7 @@ public class RoomDao {
 
                 int id = resultSet.getInt("id");
 
-                Room room = RoomManager.find(id);
+                Room room = RoomManager.getByRoomId(id);
 
                 if (room == null) {
                     room = fill(resultSet);
@@ -63,7 +63,7 @@ public class RoomDao {
         return rooms;
     }
 
-    public static List<Room> getPlayerRooms(int userID, boolean storeInMemory) {
+    public static List<Room> getPlayerRooms(int userId, boolean storeInMemory) {
 
         List<Room> rooms = Lists.newArrayList();
 
@@ -74,14 +74,14 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE owner_id = " + userID, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE owner_id = " + userId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
 
                 int id = resultSet.getInt("id");
 
-                Room room = RoomManager.find(id);
+                Room room = RoomManager.getByRoomId(id);
 
                 if (room == null) {
                     room = fill(resultSet);
@@ -105,7 +105,7 @@ public class RoomDao {
         return rooms;
     }
 
-    public static Room getRoom(int roomID, boolean storeInMemory) {
+    public static Room getRoom(int roomId, boolean storeInMemory) {
 
         Room room = null;
         Connection sqlConnection = null;
@@ -115,14 +115,14 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE id = " + roomID, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE id = " + roomId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
 
                 int id = resultSet.getInt("id");
 
-                room = RoomManager.find(id);
+                room = RoomManager.getByRoomId(id);
 
                 if (room == null) {
                     room = fill(resultSet);
@@ -144,7 +144,7 @@ public class RoomDao {
         return room;
     }
 
-    public static List<Integer> getRoomRights(int roomID) {
+    public static List<Integer> getRoomRights(int roomId) {
 
         List<Integer> rooms = Lists.newArrayList();
 
@@ -155,7 +155,7 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_rights WHERE room_id = " + roomID, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_rights WHERE room_id = " + roomId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -174,15 +174,15 @@ public class RoomDao {
         return rooms;
     }
 
-    public static void clearRoomRights(int roomID) {
-        Dao.getStorage().execute("DELETE FROM room_rights WHERE room_id = '" + roomID + "'");
+    public static void clearRoomRights(int roomId) {
+        Dao.getStorage().execute("DELETE FROM room_rights WHERE room_id = '" + roomId + "'");
     }
 
-    public static void removeRoomRights(int roomID, int userID) {
-        Dao.getStorage().execute("DELETE FROM room_rights WHERE room_id = '" + roomID + "' AND user_id = '" + userID + "'");
+    public static void removeRoomRights(int roomId, int userId) {
+        Dao.getStorage().execute("DELETE FROM room_rights WHERE room_id = '" + roomId + "' AND user_id = '" + userId + "'");
     }
 
-    public static void addRoomRights(int roomID, int userID) {
+    public static void addRoomRights(int roomId, int userId) {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -191,8 +191,8 @@ public class RoomDao {
 
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("INSERT INTO room_rights (room_id, user_id) VALUES (?, ?)", sqlConnection);
-            preparedStatement.setInt(1, roomID);
-            preparedStatement.setInt(2, userID);
+            preparedStatement.setInt(1, roomId);
+            preparedStatement.setInt(2, userId);
             preparedStatement.execute();
 
         } catch (Exception e) {
@@ -205,7 +205,7 @@ public class RoomDao {
     }
 
     public static void deleteRoom(Room room) {
-        Dao.getStorage().execute("DELETE FROM rooms WHERE id = " + room.getData().getID());
+        Dao.getStorage().execute("DELETE FROM rooms WHERE id = " + room.getData().getId());
     }
 
     public static void updateRoom(Room room) {
@@ -223,7 +223,7 @@ public class RoomDao {
             preparedStatement = Dao.getStorage().prepare("UPDATE rooms SET name = ?, description = ?, "
                     + "state = ?, password = ?, users_max = ?, category = ?, tags = ?, trade_state = ?, allow_pets = ?, allow_pets_eat = ?, " 
                     + "allow_walkthrough = ?, hidewall = ?, wall_thickness = ?, floor_thickness = ?, who_can_mute = ?, who_can_kick = ?, who_can_ban = ?, "
-                    + "chat_mode = ?, chat_size = ?, chat_speed = ?, chat_distance = ?, chat_flood = ?, wallpaper = ?, floor = ?, outside = ?, model = ? WHERE id = ?", sqlConnection);
+                    + "chat_mode = ?, chat_size = ?, chat_speed = ?, chat_distance = ?, chat_flood = ?, wallpaper = ?, floor = ?, outside = ?, model = ?, group_id = ? WHERE id = ?", sqlConnection);
 
             preparedStatement.setString(1, data.getName());
             preparedStatement.setString(2, data.getDescription());
@@ -251,7 +251,8 @@ public class RoomDao {
             preparedStatement.setString(24, data.getFloor());
             preparedStatement.setString(25, data.getLandscape());
             preparedStatement.setString(26, data.getModel());
-            preparedStatement.setInt(27, data.getID());
+            preparedStatement.setInt(27, data.getGroupId());
+            preparedStatement.setInt(28, data.getId());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -264,7 +265,7 @@ public class RoomDao {
 
     }
 
-    public static void saveChatlog(Player chatter, int roomID, String chatType, String message) {
+    public static void saveChatlog(Player chatter, int roomId, String chatType, String message) {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -276,7 +277,7 @@ public class RoomDao {
 
             preparedStatement = Dao.getStorage().prepare("INSERT INTO room_chatlogs (user, room_id, timestamp, message_type, message) VALUES (?, ?, ?, ?, ?)", sqlConnection);
             preparedStatement.setString(1, chatter.getDetails().getName());
-            preparedStatement.setInt(2, roomID);
+            preparedStatement.setInt(2, roomId);
             preparedStatement.setLong(3, Util.getCurrentTimeSeconds());
 
             if (chatType.equals("CHAT")) {
@@ -315,10 +316,12 @@ public class RoomDao {
         instance.getData().fill(row.getInt("id"), type, row.getInt("owner_id"), ownerName, row.getString("name"), 
                 row.getInt("state"), row.getString("password"), row.getInt("users_now"),
                 row.getInt("users_max"), row.getString("description"), row.getInt("trade_state"), row.getInt("score"), row.getInt("category"), 
-                row.getInt("category"), row.getString("model"), row.getString("wallpaper"), row.getString("floor"), row.getString("outside"), 
+                row.getInt("group_id"), row.getString("model"), row.getString("wallpaper"), row.getString("floor"), row.getString("outside"), 
                 row.getBoolean("allow_pets"), row.getBoolean("allow_pets_eat"), row.getBoolean("allow_walkthrough"), row.getBoolean("hidewall"), 
                 row.getInt("wall_thickness"), row.getInt("floor_thickness"), row.getString("tags"), row.getInt("chat_mode"), row.getInt("chat_size"), row.getInt("chat_speed"),
                 row.getInt("chat_distance"), row.getInt("chat_flood"), row.getInt("who_can_mute"), row.getInt("who_can_kick"), row.getInt("who_can_ban"), row.getString("thumbnail"));
+        
+        instance.updateGroup();
 
         return instance;
     }

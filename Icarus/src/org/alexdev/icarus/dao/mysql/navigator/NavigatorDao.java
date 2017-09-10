@@ -32,7 +32,7 @@ public class NavigatorDao {
             preparedStatement = Dao.getStorage().prepare("INSERT INTO rooms (name, description, owner_id, model, category, users_max, trade_state) VALUES (?, ?, ?, ?, ?, ?, ?)", sqlConnection);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, description);
-            preparedStatement.setInt(3, player.getDetails().getID());
+            preparedStatement.setInt(3, player.getDetails().getId());
             preparedStatement.setString(4, model);
             preparedStatement.setInt(5, category);
             preparedStatement.setInt(6, usersMax);
@@ -56,7 +56,7 @@ public class NavigatorDao {
         return null;
     }
     
-    public static List<NavigatorTab> getTabs(int childID) {
+    public static List<NavigatorTab> getTabs(int childId) {
 
         List<NavigatorTab> tabs = Lists.newArrayList();
 
@@ -67,7 +67,7 @@ public class NavigatorDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM navigator_tabs WHERE child_id = " + childID, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM navigator_tabs WHERE child_id = " + childId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -75,7 +75,7 @@ public class NavigatorDao {
                 NavigatorTab tab = fill(resultSet);
 
                 tabs.add(tab);
-                tabs.addAll(getTabs(tab.getID()));
+                tabs.addAll(getTabs(tab.getId()));
             }
 
         } catch (Exception e) {

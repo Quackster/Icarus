@@ -36,7 +36,7 @@ public class Outgoing {
     public static int SearchResultSetComposer = 1089;//2247
     public static int SecretKeyMessageComposer = 696;//690
     public static int SendPerkAllowancesMessageComposer = 1790;//2028
-    public static int UniqueMachineIDMessageComposer = 3731;//3683
+    public static int UniqueMachineIdMessageComposer = 3731;//3683
     public static int UserDisplayMessageComposer = 3857;//504
     public static int RemoveUserMessageComposer = 3839;//3475
     public static int UserObjectMessageComposer = 845;//3762
@@ -56,7 +56,7 @@ public class Outgoing {
     public static int TypingStatusMessageComposer = 1727;//2604
     public static int FloodFilterMessageComposer = 803;//626
     public static int DanceStatusMessageComposer = 130;//1005
-    public static int IDleStatusMessageComposer = 2306;//2932
+    public static int IdleStatusMessageComposer = 2306;//2932
     public static int CatalogueTabMessageComposer = 2140;//3579
     public static int BroadcastMessageAlertComposer = 1751;//1092
     public static int CataloguePageMessageComposer = 3277;//2025
@@ -112,5 +112,7 @@ public class Outgoing {
     public static int RoomInfoUpdatedMessageComposer = 3743;
     public static int GroupPurchaseDialogComposer = 1062;
     public static int GroupBadgeDialogComposer = 2839;
+    public static int GroupBadgesMessageComposer = 711;
+    public static int GroupInfoMessageComposer = 815;
      
 }

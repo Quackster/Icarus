@@ -35,10 +35,10 @@ import com.google.common.collect.Maps;
 
 public class RoomUser {
 
-    private int virtualID;
+    private int virtualId;
     private int chatColor;
-    private int danceID;
-    private int roomRequestedID;
+    private int danceId;
+    private int roomRequestedId;
 
     private Position position;
     private Position goal;
@@ -47,7 +47,7 @@ public class RoomUser {
     private boolean isWalking;
     private boolean needsUpdate;
     private boolean isTeleporting;
-    private int teleportRoomID;
+    private int teleportRoomId;
 
     private long chatFloodTimer;
     private int chatCount;
@@ -190,14 +190,14 @@ public class RoomUser {
             }
         }
         
-        RoomDao.saveChatlog(player, this.room.getData().getID(), type.name(), message);
+        RoomDao.saveChatlog(player, this.room.getData().getId(), type.name(), message);
 
         if (CommandManager.hasCommand(player, message)) {
             CommandManager.invokeCommand(player, message);
             return;
         } 
 
-        PlayerMessage playerMessage = new PlayerMessage(this.entity.getDetails().getID(), -1, message);    {
+        PlayerMessage playerMessage = new PlayerMessage(this.entity.getDetails().getId(), -1, message);    {
             PluginManager.callEvent(type.getEvent(), new LuaValue[] {  
                     CoerceJavaToLua.coerce(player),
                     CoerceJavaToLua.coerce(this.room),
@@ -326,21 +326,21 @@ public class RoomUser {
         this.isWalking = true;
     }
 
-    public void carryItem(int vendingID) {
+    public void carryItem(int vendingId) {
 
-        if (vendingID == -1) {
+        if (vendingId == -1) {
             return;
         }
 
         this.carryTimer = 0;
-        this.carryItem = vendingID;
+        this.carryItem = vendingId;
 
-        if (vendingID > 0)
+        if (vendingId > 0)
             this.carryTimer = 240;
         else
             this.carryTimer = 0;
 
-        this.room.send(new CarryObjectComposer(this.virtualID, vendingID)); 
+        this.room.send(new CarryObjectComposer(this.virtualId, vendingId)); 
     }
 
     public void dispose() {
@@ -364,9 +364,9 @@ public class RoomUser {
         this.goal = new Position(0, 0, 0);
 
         this.chatColor = 0;
-        this.roomRequestedID = -1;
-        this.virtualID = -1;
-        this.danceID = 0;
+        this.roomRequestedId = -1;
+        this.virtualId = -1;
+        this.danceId = 0;
         this.lookResetTime = -1;
         this.carryItem = 0;
         this.carryTimer = -1;
@@ -378,10 +378,10 @@ public class RoomUser {
 
     }
     
-    public void startDancing(int danceID) {
+    public void startDancing(int danceId) {
         
-        this.danceID = danceID;
-        this.room.send(new DanceMessageComposer(this.virtualID, danceID));
+        this.danceId = danceId;
+        this.room.send(new DanceMessageComposer(this.virtualId, danceId));
     }
     
     public void stopDancing() {
@@ -417,14 +417,14 @@ public class RoomUser {
     }
 
     public boolean isDancing() {
-        return this.danceID != 0;
+        return this.danceId != 0;
     }
-    public int getVirtualID() {
-        return virtualID;
+    public int getVirtualId() {
+        return virtualId;
     }
 
-    public void setVirtualID(int virtualID) {
-        this.virtualID = virtualID;
+    public void setVirtualId(int virtualId) {
+        this.virtualId = virtualId;
     }
 
     public int getChatColor() {
@@ -435,12 +435,12 @@ public class RoomUser {
         this.chatColor = chatColor;
     }
 
-    public int getDanceID() {
-        return danceID;
+    public int getDanceId() {
+        return danceId;
     }
 
-    public void setDanceID(int danceID) {
-        this.danceID = danceID;
+    public void setDanceId(int danceId) {
+        this.danceId = danceId;
     }
 
     public HashMap<EntityStatus, String> getStatuses() {
@@ -472,8 +472,8 @@ public class RoomUser {
         return room;
     }
 
-    public int getRoomID() {
-        return (room == null ? 0 : room.getData().getID());
+    public int getRoomId() {
+        return (room == null ? 0 : room.getData().getId());
     }
 
     public void setRoom(Room room) {
@@ -548,12 +548,12 @@ public class RoomUser {
         this.isTeleporting = isTeleporting;
     }
 
-    public int getTeleportRoomID() {
-        return teleportRoomID;
+    public int getTeleportRoomId() {
+        return teleportRoomId;
     }
 
-    public void setTeleportRoomID(int teleportRoomID) {
-        this.teleportRoomID = teleportRoomID;
+    public void setTeleportRoomId(int teleportRoomId) {
+        this.teleportRoomId = teleportRoomId;
     }
 
     public boolean isWalkingAllowed() {
@@ -564,11 +564,11 @@ public class RoomUser {
         this.isWalkingAllowed = isWalkingAllowed;
     }
 
-    public int getRequestedRoomID() {
-        return roomRequestedID;
+    public int getRequestedRoomId() {
+        return roomRequestedId;
     }
 
-    public void setRequestedRoomID(int roomRequestedID) {
-        this.roomRequestedID = roomRequestedID;
+    public void setRequestedRoomId(int roomRequestedId) {
+        this.roomRequestedId = roomRequestedId;
     }
 }

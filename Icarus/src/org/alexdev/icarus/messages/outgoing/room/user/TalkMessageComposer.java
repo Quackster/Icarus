@@ -35,7 +35,7 @@ public class TalkMessageComposer extends MessageComposer {
         }
 
         this.response.init(this.type.getHeader());
-        this.response.writeInt(this.roomUser.getVirtualID());
+        this.response.writeInt(this.roomUser.getVirtualId());
         this.response.writeString(this.message);
         this.response.writeInt(0);
         this.response.writeInt(this.textColour);

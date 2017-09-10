@@ -8,23 +8,23 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 
 public class RoomRightsListComposer extends MessageComposer {
 
-    private int roomID;
+    private int roomId;
     private List<Integer> rights;
 
-    public RoomRightsListComposer(int roomID, List<Integer> rights) {
-        this.roomID = roomID;
+    public RoomRightsListComposer(int roomId, List<Integer> rights) {
+        this.roomId = roomId;
         this.rights = rights;
     }
 
     @Override
     public void write() {
         this.response.init(Outgoing.RoomRightsListComposer);
-        this.response.writeInt(this.roomID);
+        this.response.writeInt(this.roomId);
         this.response.writeInt(this.rights.size());
         
-        for (Integer userID : this.rights) {     
-            this.response.writeInt(userID);
-            this.response.writeString(PlayerManager.getPlayerData(userID).getName());
+        for (Integer userId : this.rights) {     
+            this.response.writeInt(userId);
+            this.response.writeString(PlayerManager.getPlayerData(userId).getName());
         }
     }
 

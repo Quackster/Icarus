@@ -9,10 +9,10 @@ public class SendPerkAllowancesMessageComposer extends MessageComposer {
     public void write() {
         this.response.init(Outgoing.SendPerkAllowancesMessageComposer);
         this.response.writeInt(15); // Count
-        this.response.writeString("USE_GUIDE_TOOL");
+        this.response.writeString("USE_GUIdE_TOOL");
         this.response.writeString("");
         this.response.writeBool(false);
-        this.response.writeString("GIVE_GUIDE_TOURS");
+        this.response.writeString("GIVE_GUIdE_TOURS");
         this.response.writeString("requirement.unfulfilled.helper_le");
         this.response.writeBool(false);
         this.response.writeString("JUDGE_CHAT_REVIEWS");

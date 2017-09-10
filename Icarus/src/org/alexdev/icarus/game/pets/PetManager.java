@@ -13,7 +13,7 @@ public class PetManager {
         races = PetDao.getPetRaces();
     }
 
-    public static List<PetRace> getRaces(int raceID) {
-        return races.get(raceID);
+    public static List<PetRace> getRaces(int raceId) {
+        return races.get(raceId);
     }
 }

@@ -11,9 +11,9 @@ public class DoorbellEnterMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage request) {
         
-        int roomID = request.readInt();
+        int roomId = request.readInt();
         
-        Room room = RoomManager.find(roomID);
+        Room room = RoomManager.getByRoomId(roomId);
         
         if (room == null) {
             return;

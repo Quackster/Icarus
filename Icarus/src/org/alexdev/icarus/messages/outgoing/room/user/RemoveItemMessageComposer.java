@@ -24,9 +24,9 @@ public class RemoveItemMessageComposer extends MessageComposer {
             this.response.init(Outgoing.RemoveWallItemMessageComposer);
         }
         
-        this.response.writeString(item.getID());
+        this.response.writeString(item.getId());
         this.response.writeBool(false);
-        this.response.writeInt(item.getOwnerID());
+        this.response.writeInt(item.getOwnerId());
 
         if (this.item.getType() == ItemType.FLOOR) {
             this.response.writeInt(0);

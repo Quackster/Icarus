@@ -21,8 +21,8 @@ public class RoomRightsMessageEvent implements MessageEvent {
             return;
         }
         
-        int roomID = reader.readInt();
+        int roomId = reader.readInt();
         
-        player.send(new RoomRightsListComposer(roomID, room.getRights()));
+        player.send(new RoomRightsListComposer(roomId, room.getRights()));
     }
 }

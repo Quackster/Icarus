@@ -54,7 +54,7 @@ public class ItemDao {
 
     }
     
-    public static Item getItem(int itemID) {
+    public static Item getItem(int itemId) {
 
         Item item = null;
 
@@ -65,7 +65,7 @@ public class ItemDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM items WHERE id = " + itemID, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM items WHERE id = " + itemId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -83,7 +83,7 @@ public class ItemDao {
         return item;
     }
 
-    public static Map<Integer, Item> getRoomItems(int roomID) {
+    public static Map<Integer, Item> getRoomItems(int roomId) {
 
         Map<Integer, Item> items = Maps.newHashMap();
 
@@ -94,7 +94,7 @@ public class ItemDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM items WHERE room_id = " + roomID, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM items WHERE room_id = " + roomId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -124,8 +124,8 @@ public class ItemDao {
         
         String extraData = item.getExtraData();
         
-        if (item.getTeleporterID() > 0) {
-            extraData = String.valueOf(item.getTeleporterID());
+        if (item.getTeleporterId() > 0) {
+            extraData = String.valueOf(item.getTeleporterId());
         }
 
         Connection sqlConnection = null;
@@ -140,8 +140,8 @@ public class ItemDao {
             preparedStatement.setString(3, y);
             preparedStatement.setDouble(4, item.getPosition().getZ());
             preparedStatement.setInt(5, item.getPosition().getRotation());
-            preparedStatement.setInt(6, item.getRoomID());
-            preparedStatement.setLong(7, item.getID());
+            preparedStatement.setInt(6, item.getRoomId());
+            preparedStatement.setLong(7, item.getId());
             preparedStatement.executeUpdate();
 
         } catch (Exception e) {

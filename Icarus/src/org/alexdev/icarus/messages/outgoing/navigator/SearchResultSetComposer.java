@@ -35,7 +35,7 @@ public class SearchResultSetComposer extends MessageComposer {
             List<NavigatorTab> tabs = new ArrayList<NavigatorTab>();
             boolean roomLimit = true;
             
-            if (this.navigatorTab.getChildID() != -1) { // child tab, aka client requested for more room data through the navigator button
+            if (this.navigatorTab.getChildId() != -1) { // child tab, aka client requested for more room data through the navigator button
                 tabs.add(this.navigatorTab);
                 roomLimit = false;
             } else {

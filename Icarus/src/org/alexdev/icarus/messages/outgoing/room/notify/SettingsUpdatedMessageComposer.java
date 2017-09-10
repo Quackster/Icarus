@@ -5,15 +5,15 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 
 public class SettingsUpdatedMessageComposer extends MessageComposer {
 
-    private int roomID;
+    private int roomId;
 
-    public SettingsUpdatedMessageComposer(int roomID) {
-        this.roomID = roomID;
+    public SettingsUpdatedMessageComposer(int roomId) {
+        this.roomId = roomId;
     }
 
     @Override
     public void write() {
         this.response.init(Outgoing.SettingsUpdatedMessageComposer);
-        this.response.writeInt(this.roomID);
+        this.response.writeInt(this.roomId);
     }
 }

@@ -25,12 +25,12 @@ public class RemoveAllRightsMessageEvent implements MessageEvent {
             return;
         }
         
-        for (int userID : room.getRights()) {
+        for (int userId : room.getRights()) {
             
-            Player user = PlayerManager.getByID(userID);
+            Player user = PlayerManager.getById(userId);
             
             if (user != null) {
-                if (user.getRoomUser().getRoomID() == room.getData().getID()) {
+                if (user.getRoomUser().getRoomId() == room.getData().getId()) {
                     
                     user.getRoomUser().removeStatus(EntityStatus.FLAT_CONTROL);
                     user.getRoomUser().setNeedsUpdate(true);
@@ -39,11 +39,11 @@ public class RemoveAllRightsMessageEvent implements MessageEvent {
                 }
             }
             
-            player.send(new RightsRemovedComposer(room.getData().getID(), userID));
+            player.send(new RightsRemovedComposer(room.getData().getId(), userId));
         }
         
         room.getRights().clear();
         
-        RoomDao.clearRoomRights(room.getData().getID());
+        RoomDao.clearRoomRights(room.getData().getId());
     }
 }

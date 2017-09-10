@@ -13,7 +13,7 @@ public class MyRoomPopulator extends NavigatorRoomPopulator {
     @Override
     public List<Room> generateListing(boolean limit, Player player) {
         
-        List<Room> rooms = RoomManager.getPlayerRooms(player.getDetails().getID());
+        List<Room> rooms = RoomManager.getPlayerRooms(player.getDetails().getId());
         
         if (rooms == null) {
             rooms = new ArrayList<Room>();

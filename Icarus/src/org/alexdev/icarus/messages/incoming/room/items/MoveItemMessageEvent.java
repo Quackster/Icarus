@@ -22,9 +22,9 @@ public class MoveItemMessageEvent implements MessageEvent {
             return;
         }
 
-        int itemID = reader.readInt();
+        int itemId = reader.readInt();
 
-        Item item = room.getItem(itemID);
+        Item item = room.getItem(itemId);
 
         if (item == null) {
             return;

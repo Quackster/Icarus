@@ -37,11 +37,11 @@ public class PetDao {
             while (resultSet.next()) {
                 PetRace race = new PetRace(resultSet.getInt("race_id"), resultSet.getInt("colour1"), resultSet.getInt("colour2"), resultSet.getInt("has1colour") == 1, resultSet.getInt("has2colour") == 1);
 
-                if (!races.containsKey(race.getRaceID())) {
-                    races.put(race.getRaceID(), Lists.newArrayList());
+                if (!races.containsKey(race.getRaceId())) {
+                    races.put(race.getRaceId(), Lists.newArrayList());
                 }
 
-                races.get(race.getRaceID()).add(race);
+                races.get(race.getRaceId()).add(race);
             }
 
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class PetDao {
         return races;
     }
 
-    public static int createPet(int ownerID, String petName, int type, int race, String colour) {
+    public static int createPet(int ownerId, String petName, int type, int race, String colour) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -65,7 +65,7 @@ public class PetDao {
 
             preparedStatement = Dao.getStorage().prepare("INSERT INTO pet_data (owner_id, pet_name, type, race_id, colour, scratches, level, happiness, experience, energy, birthday) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", sqlConnection);
 
-            preparedStatement.setInt(1, ownerID);
+            preparedStatement.setInt(1, ownerId);
             preparedStatement.setString(2, petName);
             preparedStatement.setInt(3, type);
             preparedStatement.setInt(4, race);
@@ -95,7 +95,7 @@ public class PetDao {
         return 0;
     }
 
-    public static List<Pet> getRoomPets(int roomID) {
+    public static List<Pet> getRoomPets(int roomId) {
 
         List<Pet> pets = Lists.newArrayList();
 
@@ -106,7 +106,7 @@ public class PetDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM pet_data WHERE room_id = " + roomID, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM pet_data WHERE room_id = " + roomId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -134,11 +134,11 @@ public class PetDao {
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("UPDATE pet_data SET level = ?, room_id = ?, energy = ?, happiness = ?, experience = ? WHERE id = ?", sqlConnection);
             preparedStatement.setInt(1, pet.getLevel());
-            preparedStatement.setInt(2, pet.getRoomID());
+            preparedStatement.setInt(2, pet.getRoomId());
             preparedStatement.setInt(3, pet.getEnergy());
             preparedStatement.setInt(4, pet.getHappiness());
             preparedStatement.setInt(5, pet.getExperience());
-            preparedStatement.setInt(6, pet.getID());
+            preparedStatement.setInt(6, pet.getId());
             preparedStatement.executeUpdate();
 
         } catch (Exception e) {
@@ -164,7 +164,7 @@ public class PetDao {
             preparedStatement = Dao.getStorage().prepare("UPDATE pet_data SET x = ?, y = ? WHERE id = ?", sqlConnection);
             preparedStatement.setInt(1, pet.getX());
             preparedStatement.setInt(2, pet.getY());
-            preparedStatement.setInt(3, pet.getID());
+            preparedStatement.setInt(3, pet.getId());
             preparedStatement.executeUpdate();
 
         } catch (Exception e) {

@@ -4,15 +4,15 @@ import org.alexdev.icarus.dao.mysql.room.MoodlightDao;
 
 public class MoodlightManager {
     
-    public static MoodlightData getMoodlightData(int itemID) {
+    public static MoodlightData getMoodlightData(int itemId) {
         
         MoodlightData data = null;
         
-        if (!MoodlightDao.hasMoodlightData(itemID)) {
-            MoodlightDao.newMoodlightData(itemID);
+        if (!MoodlightDao.hasMoodlightData(itemId)) {
+            MoodlightDao.newMoodlightData(itemId);
         }
         
-        data = MoodlightDao.getMoodlightData(itemID);
+        data = MoodlightDao.getMoodlightData(itemId);
         
         return data;
     }

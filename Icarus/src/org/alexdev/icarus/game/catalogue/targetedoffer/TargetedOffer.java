@@ -24,7 +24,7 @@ public class TargetedOffer {
     private List<Integer> items;
     private List<Integer> blacklist;
     
-    public TargetedOffer(int id, String title, String description, int costCredits, int costActivityPoints, int activityPointsType, int purchaseLimit, String largeImage, String smallImage, long expiryDate, String itemIDs) {
+    public TargetedOffer(int id, String title, String description, int costCredits, int costActivityPoints, int activityPointsType, int purchaseLimit, String largeImage, String smallImage, long expiryDate, String itemIds) {
         
         this.id = id;
         this.title = title;
@@ -41,8 +41,8 @@ public class TargetedOffer {
         
         try {
             
-            for (String itemID : itemIDs.split(";")) {
-                this.items.add(Integer.valueOf(itemID));
+            for (String itemId : itemIds.split(";")) {
+                this.items.add(Integer.valueOf(itemId));
             }
             
         } catch (Exception e) {
@@ -50,7 +50,7 @@ public class TargetedOffer {
         }
     }
 
-    public int getID() {
+    public int getId() {
         return id;
     }
 
@@ -98,12 +98,12 @@ public class TargetedOffer {
         return items;
     }
 
-    public boolean isUserBlacklisted(int userID) {
-        return blacklist.contains(userID);
+    public boolean isUserBlacklisted(int userId) {
+        return blacklist.contains(userId);
     }
 
-    public void addUserToBlacklist(int userID) {
-        this.blacklist.add(userID);
-        TargetedOfferDao.addUserToBlacklist(this.id, userID);
+    public void addUserToBlacklist(int userId) {
+        this.blacklist.add(userId);
+        TargetedOfferDao.addUserToBlacklist(this.id, userId);
     }  
 }

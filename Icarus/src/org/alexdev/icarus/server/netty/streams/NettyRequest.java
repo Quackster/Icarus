@@ -12,8 +12,8 @@ public class NettyRequest implements ClientMessage {
     private int header;
     public ChannelBuffer buffer;
     
-    public NettyRequest(int messageID, ChannelBuffer buffer) {
-        this.header = (short) messageID;
+    public NettyRequest(int messageId, ChannelBuffer buffer) {
+        this.header = (short) messageId;
         this.buffer = (buffer == null || buffer.readableBytes() == 0) ? ChannelBuffers.EMPTY_BUFFER : buffer;
     }
 
@@ -83,7 +83,7 @@ public class NettyRequest implements ClientMessage {
         return buffer;
     }
 
-    public int getMessageID() {
+    public int getMessageId() {
         return header;
     }
 

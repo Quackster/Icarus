@@ -13,7 +13,7 @@ public class PetInformationMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
        
-        Entity entity = player.getRoom().getEntityByID(reader.readInt());
+        Entity entity = player.getRoom().getEntityById(reader.readInt());
         
         if (entity == null) {
             return;

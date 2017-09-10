@@ -31,20 +31,20 @@ public class RoomManager {
 
     public static void addRoom(Room room) {
 
-        if (rooms.containsKey(room.getData().getID())) {
+        if (rooms.containsKey(room.getData().getId())) {
             return;
         }
 
-        rooms.put(room.getData().getID(), room);
+        rooms.put(room.getData().getId(), room);
     }
 
     public static void addPromotedRoom(int id, Room room) {
 
-        if (promotedRooms.containsKey(room.getData().getID())) {
+        if (promotedRooms.containsKey(room.getData().getId())) {
             return;
         }
 
-        promotedRooms.put(room.getData().getID(), room);
+        promotedRooms.put(room.getData().getId(), room);
     }
     
     public static void removeRoom(int id) {
@@ -69,19 +69,19 @@ public class RoomManager {
         }
     }
     
-    public static List<Room> getPlayerRooms(int userID) {
+    public static List<Room> getPlayerRooms(int userId) {
         
         try {
-            return rooms.values().stream().filter(room -> room.getData().getOwnerID() == userID).collect(Collectors.toList());
+            return rooms.values().stream().filter(room -> room.getData().getOwnerId() == userId).collect(Collectors.toList());
         } catch (Exception e) {
             return null;
         }
     }
 
-    public static Room find(int roomID) {
+    public static Room getByRoomId(int roomId) {
 
-        if (rooms.containsKey(roomID)) {
-            return rooms.get(roomID);
+        if (rooms.containsKey(roomId)) {
+            return rooms.get(roomId);
         }
 
         return null;

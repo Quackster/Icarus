@@ -3,12 +3,12 @@ package org.alexdev.icarus.game.room.model;
 public class Rotation {
     
     /*    
-    public final static double PI_DIVIDE = Math.PI / 4.0;
+    public final static double PI_DIVIdE = Math.PI / 4.0;
     
     public static byte calculate(int X, int Y, int toX, int toY) {
        
         double number = Math.atan2(toY - Y, toX - X);
-        double var = Math.round(number / PI_DIVIDE);
+        double var = Math.round(number / PI_DIVIdE);
         
         return (byte)(var + (var < -2L ? 10 : 2));
     }

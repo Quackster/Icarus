@@ -8,26 +8,26 @@ import org.alexdev.icarus.game.player.Player;
 
 public class MessengerUser {
 
-    private int userID;
+    private int userId;
     private PlayerDetails details;
     private Player player;
     
-    public MessengerUser(int userID) {
-        this.userID = userID;
+    public MessengerUser(int userId) {
+        this.userId = userId;
 
         if (this.isOnline()) {
             this.details = this.player.getDetails();
         } else {
-            this.details = PlayerDao.getDetails(this.userID);
+            this.details = PlayerDao.getDetails(this.userId);
         }
     }
 
     public void update() {
-        this.player = PlayerManager.getByID(this.userID);
+        this.player = PlayerManager.getById(this.userId);
     }
 
     public void serialiseFriend(Response response, boolean forceOffline) {
-        response.writeInt(this.getDetails().getID());
+        response.writeInt(this.getDetails().getId());
         response.writeString(this.getDetails().getName());
         response.writeInt(forceOffline ? false : this.isOnline());
         response.writeBool(forceOffline ? false : this.isOnline());
@@ -52,7 +52,7 @@ public class MessengerUser {
     }
 
     public void serialiseSearch(Response response) {
-        response.writeInt(this.getDetails().getID());
+        response.writeInt(this.getDetails().getId());
         response.writeString(this.getDetails().getName());
         response.writeString(this.getDetails().getMission()); 
         response.writeBool(this.isOnline());
@@ -76,8 +76,8 @@ public class MessengerUser {
         return details;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getUserId() {
+        return userId;
     }
 
     public boolean isOnline() {

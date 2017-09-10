@@ -22,7 +22,7 @@ public class CataloguePromotionRoomsComposer extends MessageComposer {
         
         for (Room room : this.rooms) {
             
-            this.response.writeInt(room.getData().getID());
+            this.response.writeInt(room.getData().getId());
             this.response.writeString(room.getData().getName());
             this.response.writeBool(false);
         }

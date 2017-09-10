@@ -8,8 +8,8 @@ public class NettyPlayerNetwork extends IPlayerNetwork {
 
     private Channel channel;
 
-    public NettyPlayerNetwork(Channel channel, int connectionID) {
-        super(connectionID);
+    public NettyPlayerNetwork(Channel channel, int connectionId) {
+        super(connectionId);
         this.channel = channel;
     }
 

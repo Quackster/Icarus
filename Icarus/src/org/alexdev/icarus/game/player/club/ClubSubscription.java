@@ -11,22 +11,22 @@ public class ClubSubscription {
     private long expireTime;
     private long boughtTime;
     private long difference;
-    private int userID;
+    private int userId;
     private Player player;
 
     public ClubSubscription(Player player) {
-        this.userID = -1;
+        this.userId = -1;
         this.player = player;
     }
 
-    public void update(int userID, long expireTime, long boughtTime) {
-        this.userID = userID;
+    public void update(int userId, long expireTime, long boughtTime) {
+        this.userId = userId;
         this.expireTime = expireTime;
         this.boughtTime = boughtTime;
 
         if (this.expireTime > 0) {
             if (!this.hasSubscription()) {
-                ClubDao.delete(this.userID);
+                ClubDao.delete(this.userId);
                 this.expireTime = 0;
                 this.boughtTime = 0;
                 return;
@@ -38,7 +38,7 @@ public class ClubSubscription {
 
     public boolean hasSubscription() {
         
-        if (this.userID == -1) {
+        if (this.userId == -1) {
             return false;
         }
         

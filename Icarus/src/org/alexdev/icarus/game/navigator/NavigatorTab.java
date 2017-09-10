@@ -8,7 +8,7 @@ import org.alexdev.icarus.log.Log;
 public class NavigatorTab {
 
     private int id;
-    private int childID;
+    private int childId;
     private String tabName;
     private String title;
     private byte buttonType;
@@ -16,9 +16,9 @@ public class NavigatorTab {
     private boolean thumbnail;
     private NavigatorRoomPopulator roomPopulator;
 
-    public void fill(int id, int childID, String tabName, String title, byte buttonType, boolean closed, boolean thumbnail, String roomPopulator) {
+    public void fill(int id, int childId, String tabName, String title, byte buttonType, boolean closed, boolean thumbnail, String roomPopulator) {
         this.id = id;
-        this.childID = childID;
+        this.childId = childId;
         this.tabName = tabName;
         this.title = title;
         this.buttonType = buttonType;
@@ -50,18 +50,18 @@ public class NavigatorTab {
     public List<NavigatorTab> getChildTabs() {
 
         try {
-            return NavigatorManager.getAllTabs().stream().filter(t -> t.childID == this.id).collect(Collectors.toList());
+            return NavigatorManager.getAllTabs().stream().filter(t -> t.childId == this.id).collect(Collectors.toList());
         } catch (Exception e) {
             return null;
         }
     }
 
-    public int getID() {
+    public int getId() {
         return id;
     }
 
-    public int getChildID() {
-        return childID;
+    public int getChildId() {
+        return childId;
     }
 
     public String getTabName() {

@@ -16,7 +16,7 @@ import com.google.common.collect.Lists;
 
 public class CatalogueDao {
 
-    public static List<CatalogueTab> getCatalogTabs(int parentID) {
+    public static List<CatalogueTab> getCatalogTabs(int parentId) {
 
         List<CatalogueTab> tabs = Lists.newArrayList();
 
@@ -27,7 +27,7 @@ public class CatalogueDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM catalog_pages WHERE parent_id = " + parentID, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM catalog_pages WHERE parent_id = " + parentId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {

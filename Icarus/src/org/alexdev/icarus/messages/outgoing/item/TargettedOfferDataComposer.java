@@ -18,7 +18,7 @@ public class TargettedOfferDataComposer extends MessageComposer {
     public void write() {
         this.response.init(Outgoing.TargettedOfferDataComposer);
         this.response.writeInt(this.minimised ? 4 : 1); 
-        this.response.writeInt(this.offer.getID());
+        this.response.writeInt(this.offer.getId());
         this.response.writeString("000000000000");  // must be 12 characters long
         this.response.writeString("000000000");     // must be 9 characters long
         this.response.writeInt(this.offer.getCostCredits()); // credits 
@@ -35,7 +35,7 @@ public class TargettedOfferDataComposer extends MessageComposer {
         
         /*        this.response.init(Outgoing.TargettedOfferDataComposer);
         this.response.writeInt(this.minimised ? 4 : 1); 
-        this.response.writeInt(330); // ID
+        this.response.writeInt(330); // Id
         this.response.writeString("000000000000");  // must be 12 characters long
         this.response.writeString("000000000");     // must be 9 characters long
         this.response.writeInt(105); // credits 

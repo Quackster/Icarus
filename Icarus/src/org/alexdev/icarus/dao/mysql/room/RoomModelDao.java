@@ -53,7 +53,7 @@ public class RoomModelDao {
         }
     }
     
-    public static RoomModel getCustomModel(int roomID) {
+    public static RoomModel getCustomModel(int roomId) {
 
         RoomModel model = null;
         Connection sqlConnection = null;
@@ -64,7 +64,7 @@ public class RoomModelDao {
 
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_models_dynamic WHERE id = ?", sqlConnection);
-            preparedStatement.setString(1, "dynamic_model_" + roomID);
+            preparedStatement.setString(1, "dynamic_model_" + roomId);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -88,9 +88,9 @@ public class RoomModelDao {
         return model;
     }
 
-    public static void newCustomModel(int roomID, RoomModel model) {
+    public static void newCustomModel(int roomId, RoomModel model) {
 
-        deleteCustomModel(roomID);
+        deleteCustomModel(roomId);
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -100,7 +100,7 @@ public class RoomModelDao {
 
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("INSERT INTO room_models_dynamic (id, door_x, door_y, door_z, door_dir, heightmap, wall_height) VALUES (?, ?, ?, ?, ?, ?, ?)", sqlConnection);
-            preparedStatement.setString(1, "dynamic_model_" + roomID);
+            preparedStatement.setString(1, "dynamic_model_" + roomId);
             preparedStatement.setInt(2, model.getDoorLocation().getX());
             preparedStatement.setInt(3, model.getDoorLocation().getY());
             preparedStatement.setInt(4, (int)model.getDoorLocation().getZ());
@@ -118,7 +118,7 @@ public class RoomModelDao {
         }
     }
 
-    public static void deleteCustomModel(int roomID) {
+    public static void deleteCustomModel(int roomId) {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -128,7 +128,7 @@ public class RoomModelDao {
 
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("DELETE FROM room_models_dynamic WHERE id = ?", sqlConnection);
-            preparedStatement.setString(1, "dynamic_model_" + roomID);
+            preparedStatement.setString(1, "dynamic_model_" + roomId);
             preparedStatement.execute();
 
         } catch (Exception e) {

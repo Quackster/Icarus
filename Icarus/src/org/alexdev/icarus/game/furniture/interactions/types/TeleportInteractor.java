@@ -51,7 +51,7 @@ public class TeleportInteractor implements Interaction {
         roomUser.walkTo(item.getPosition().getX(), item.getPosition().getY());
         roomUser.setWalkingAllowed(false);
         
-        Item targetTeleporter = roomUser.getRoom().getItem(item.getTeleporterID());
+        Item targetTeleporter = roomUser.getRoom().getItem(item.getTeleporterId());
 
         // Do teleporter flashing effects for the teleporter they hopped into
         RoomManager.getScheduler().schedule(() -> {
@@ -74,21 +74,21 @@ public class TeleportInteractor implements Interaction {
         // Open up new teleporter and walk out of it
         RoomManager.getScheduler().schedule(() -> {
 
-            if (targetTeleporter.getRoomID() != item.getRoomID()) {                
+            if (targetTeleporter.getRoomId() != item.getRoomId()) {                
                 roomUser.setTeleporting(true);
-                roomUser.setTeleportRoomID(targetTeleporter.getRoomID());
+                roomUser.setTeleportRoomId(targetTeleporter.getRoomId());
     
                 targetTeleporter.getRoom().loadRoom((Player) roomUser.getEntity(), "", targetTeleporter.getPosition().getX(), targetTeleporter.getPosition().getY(), targetTeleporter.getPosition().getRotation());
             } else {
                 roomUser.warpTo(targetTeleporter.getPosition().getX(), targetTeleporter.getPosition().getY(), targetTeleporter.getPosition().getRotation());
             }
 
-            if (targetTeleporter.getRoomID() == item.getRoomID()) {
+            if (targetTeleporter.getRoomId() == item.getRoomId()) {
                 targetTeleporter.setExtraData(TELEPORTER_OPEN);
                 targetTeleporter.updateStatus();
             } else {
-                roomUser.getRoom().getItem(item.getTeleporterID()).setExtraData(TELEPORTER_OPEN);
-                roomUser.getRoom().getItem(item.getTeleporterID()).updateStatus();
+                roomUser.getRoom().getItem(item.getTeleporterId()).setExtraData(TELEPORTER_OPEN);
+                roomUser.getRoom().getItem(item.getTeleporterId()).updateStatus();
             }
 
         }, 3, TimeUnit.SECONDS);
@@ -102,12 +102,12 @@ public class TeleportInteractor implements Interaction {
         // Close the teleporter
         RoomManager.getScheduler().schedule(() -> {
 
-            if (targetTeleporter.getRoomID() == item.getRoomID()) {
+            if (targetTeleporter.getRoomId() == item.getRoomId()) {
                 targetTeleporter.setExtraData(TELEPORTER_CLOSE);
                 targetTeleporter.updateStatus();
             } else {
-                roomUser.getRoom().getItem(item.getTeleporterID()).setExtraData(TELEPORTER_CLOSE);
-                roomUser.getRoom().getItem(item.getTeleporterID()).updateStatus();
+                roomUser.getRoom().getItem(item.getTeleporterId()).setExtraData(TELEPORTER_CLOSE);
+                roomUser.getRoom().getItem(item.getTeleporterId()).updateStatus();
             }
 
         }, 4, TimeUnit.SECONDS);

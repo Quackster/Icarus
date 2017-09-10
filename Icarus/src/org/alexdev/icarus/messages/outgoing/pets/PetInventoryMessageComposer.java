@@ -25,10 +25,10 @@ public class PetInventoryMessageComposer extends MessageComposer {
         this.response.writeInt(pets.size());
 
         for (Pet data : pets.values()) {
-            this.response.writeInt(data.getID());
+            this.response.writeInt(data.getId());
             this.response.writeString(data.getName());
-            this.response.writeInt(data.getTypeID());
-            this.response.writeInt(data.getRaceID());
+            this.response.writeInt(data.getTypeId());
+            this.response.writeInt(data.getRaceId());
             this.response.writeString(data.getColour());
             this.response.writeInt(0);
             this.response.writeInt(0);

@@ -33,7 +33,7 @@ Incoming[1736, _-1jM, _-3AF] <-
 [0][0][0][4] // room count
 
 ---
-[1]E16                         - room ID
+[1]E16                         - room Id
 [0]winterpartys's  room     - room name
 [1]                         - boolean
 ---

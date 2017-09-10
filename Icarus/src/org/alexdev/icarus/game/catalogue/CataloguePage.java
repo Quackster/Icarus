@@ -6,7 +6,7 @@ public class CataloguePage {
 
     private int id = -1;
     private String caption;
-    private int parentID = -1;
+    private int parentId = -1;
     private String type;
     private String layout;
     private int minimum_rank;
@@ -15,11 +15,11 @@ public class CataloguePage {
     private List<String> texts;
     private List<CatalogueItem> items = null;
 
-    public CataloguePage(int id, String caption, int parentID, String type, String layout, int minimum_rank, List<String> images, List<String> texts, List<CatalogueItem> items) {
+    public CataloguePage(int id, String caption, int parentId, String type, String layout, int minimum_rank, List<String> images, List<String> texts, List<CatalogueItem> items) {
         super();
         this.id = id;
         this.caption = caption;
-        this.parentID = parentID;
+        this.parentId = parentId;
         this.type = type;
         this.layout = layout;
         this.minimum_rank = minimum_rank;
@@ -27,10 +27,10 @@ public class CataloguePage {
         this.texts = texts;
     }
 
-    public CatalogueItem getItem(int itemID) {
+    public CatalogueItem getItem(int itemId) {
 
         for (CatalogueItem item : this.items) {
-            if (item.getID() == itemID) {
+            if (item.getId() == itemId) {
                 return item;
             }
         }
@@ -50,7 +50,7 @@ public class CataloguePage {
     /**
      * @return the id
      */
-    public int getID() {
+    public int getId() {
         return id;
     }
 
@@ -62,10 +62,10 @@ public class CataloguePage {
     }
 
     /**
-     * @return the parentID
+     * @return the parentId
      */
-    public int getParentID() {
-        return parentID;
+    public int getParentId() {
+        return parentId;
     }
 
     /**

@@ -5,18 +5,18 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 
 public class RightsRemovedComposer extends MessageComposer {
 
-    private int roomID;
-    private int userID;
+    private int roomId;
+    private int userId;
 
-    public RightsRemovedComposer(int roomID, int userID) {
-        this.roomID = roomID;
-        this.userID = userID;
+    public RightsRemovedComposer(int roomId, int userId) {
+        this.roomId = roomId;
+        this.userId = userId;
     }
 
     @Override
     public void write() {
         this.response.init(Outgoing.RightsRemovedComposer);
-        this.response.writeInt(this.roomID);
-        this.response.writeInt(this.userID);
+        this.response.writeInt(this.roomId);
+        this.response.writeInt(this.userId);
     }
 }

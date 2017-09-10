@@ -24,16 +24,16 @@ import com.google.common.collect.Lists;
 public class Item extends Metadata {
 
     private int id;
-    private int ownerID;
+    private int ownerId;
     private String ownerName;
     
-    private int itemID;
-    private int roomID;
+    private int itemId;
+    private int roomId;
     private Position position;
     private String extraData;
     private ItemType type;
     private Item itemUnderneath;
-    private int teleporterID = 0;
+    private int teleporterId = 0;
 
     /**
      * Wall position variables
@@ -45,13 +45,13 @@ public class Item extends Metadata {
     private int widthY = 0;
    
 
-    public Item(long id, int userID, int itemID, int roomID, String x, String y, double z, int rotation, String extraData) {
+    public Item(long id, int userId, int itemId, int roomId, String x, String y, double z, int rotation, String extraData) {
         this.id = (int)id;
-        this.ownerID = userID;
-        this.ownerName = PlayerDao.getName(this.ownerID);
-        this.itemID = itemID;
+        this.ownerId = userId;
+        this.ownerName = PlayerDao.getName(this.ownerId);
+        this.itemId = itemId;
         
-        this.roomID = roomID;
+        this.roomId = roomId;
         
         if (extraData.length() > 0) {
             this.setExtraData(extraData);
@@ -79,7 +79,7 @@ public class Item extends Metadata {
         }
 
         if (this.type == ItemType.WALL) {
-            if (this.roomID > 0) {
+            if (this.roomId > 0) {
                 this.parseWallPosition(x + " " + y);
             }
         }
@@ -117,7 +117,7 @@ public class Item extends Metadata {
         for (Entity entity : this.getRoom().getEntities()) {
 
             if (entity.getRoomUser().getCurrentItem() != null) {
-                if (entity.getRoomUser().getCurrentItem().getID() == this.id) {
+                if (entity.getRoomUser().getCurrentItem().getId() == this.id) {
 
                     // Item doesn't exist within player
                     if (!hasEntityCollision(entity.getRoomUser().getPosition().getX(), entity.getRoomUser().getPosition().getY())) {
@@ -227,7 +227,7 @@ public class Item extends Metadata {
             this.lengthY = Integer.valueOf(y_data[1]);
 
         } catch (NumberFormatException e) {
-            Log.println("Error parsing wall item for item ID: " + this.id);
+            Log.println("Error parsing wall item for item Id: " + this.id);
         }
     }
 
@@ -274,20 +274,20 @@ public class Item extends Metadata {
         } catch (Exception e) { e.printStackTrace(); }
     }
 
-    public int getID() {
+    public int getId() {
         return id;
     }
 
-    public int getTeleporterID() {
-        return teleporterID;
+    public int getTeleporterId() {
+        return teleporterId;
     }
 
-    public void setTeleporterID(int teleporterID) {
-        this.teleporterID = teleporterID;
+    public void setTeleporterId(int teleporterId) {
+        this.teleporterId = teleporterId;
     }
 
     public ItemDefinition getDefinition() {
-        return ItemManager.getFurnitureByID(this.itemID);
+        return ItemManager.getFurnitureById(this.itemId);
     }
 
     public void save() {
@@ -374,32 +374,32 @@ public class Item extends Metadata {
         this.widthY = widthY;
     }
 
-    public int getOwnerID() {
-        return ownerID;
+    public int getOwnerId() {
+        return ownerId;
     }
 
     public String getOwnerName() {
         return this.ownerName;
     }
 
-    public int getItemID() {
-        return itemID;
+    public int getItemId() {
+        return itemId;
     }
 
-    public void setRoomID(int id) {
-        this.roomID = id;
+    public void setRoomId(int id) {
+        this.roomId = id;
     }
 
-    public int getRoomID() {
-        return roomID;
+    public int getRoomId() {
+        return roomId;
     }
 
     public Room getRoom() {
         
-        Room room = RoomManager.find(this.roomID);
+        Room room = RoomManager.getByRoomId(this.roomId);
         
         if (room == null) {
-            room = RoomDao.getRoom(this.roomID, true);
+            room = RoomDao.getRoom(this.roomId, true);
         }
         
         return room;
@@ -413,8 +413,8 @@ public class Item extends Metadata {
 
         if (this.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
 
-            if (this.teleporterID == 0) {
-                this.teleporterID = Integer.valueOf(extraData);
+            if (this.teleporterId == 0) {
+                this.teleporterId = Integer.valueOf(extraData);
             }
 
             this.extraData = "0";

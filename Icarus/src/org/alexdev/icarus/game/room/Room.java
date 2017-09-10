@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import org.alexdev.icarus.dao.mysql.groups.GroupDao;
 import org.alexdev.icarus.dao.mysql.item.ItemDao;
 import org.alexdev.icarus.dao.mysql.pets.PetDao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
@@ -60,7 +61,7 @@ import com.google.common.collect.Maps;
 
 public class Room {
 
-    private AtomicInteger privateID = new AtomicInteger(-1);
+    private AtomicInteger privateId = new AtomicInteger(-1);
     private RoomData data;
     private RoomScheduler scheduler;
     private RoomMapping mapping;
@@ -80,8 +81,8 @@ public class Room {
 
         this.items = Maps.newHashMap();
         this.entities = Lists.newArrayList();
-        
-        this.rights = RoomDao.getRoomRights(this.getData().getID());
+
+        this.rights = RoomDao.getRoomRights(this.getData().getId());
     }
 
     public void loadRoom(Player player, String pass) {
@@ -112,7 +113,7 @@ public class Room {
 
         if (this.data.getUsersNow() >= this.data.getUsersMax()) {
             if (!player.hasPermission("user_enter_full_rooms")) {
-                if (player.getDetails().getID() != this.data.getOwnerID()) {
+                if (player.getDetails().getId() != this.data.getOwnerId()) {
                     player.send(new RoomEnterErrorMessageComposer(1));
                     return;
                 }
@@ -120,11 +121,11 @@ public class Room {
         }
 
         if (player.getRoomUser().isTeleporting()) {
-            if (player.getRoomUser().getTeleportRoomID() != this.data.getID()) {
+            if (player.getRoomUser().getTeleportRoomId() != this.data.getId()) {
                 this.leaveRoom(player, true);
             } else {
                 player.getRoomUser().setTeleporting(false);
-                player.getRoomUser().setTeleportRoomID(0);
+                player.getRoomUser().setTeleportRoomId(0);
             }
         }
         else {
@@ -148,7 +149,7 @@ public class Room {
                         return;
                     }
                 }
-                
+
                 if (this.data.getState() == RoomState.INVISIBLE) {
                     this.leaveRoom(player, true);
                     return;
@@ -161,7 +162,7 @@ public class Room {
         roomUser.setRoom(this);
         roomUser.getStatuses().clear();
 
-        player.send(new RoomModelMessageComposer(this.getModel().getName(), this.getData().getID()));
+        player.send(new RoomModelMessageComposer(this.getModel().getName(), this.getData().getId()));
         player.send(new RoomRatingMessageComposer(this.data.getScore()));
 
         int floorData = Integer.parseInt(this.data.getFloor());
@@ -176,7 +177,7 @@ public class Room {
         }
 
         player.send(new RoomSpacesMessageComposer("landscape", this.data.getLandscape()));
-        player.send(new RoomOwnerRightsComposer(this.data.getID(), isOwner));
+        player.send(new RoomOwnerRightsComposer(this.data.getId(), isOwner));
 
         if (roomUser.getRoom().hasRights(player, true)) {
             player.send(new RightsLevelMessageComposer(4));
@@ -189,7 +190,7 @@ public class Room {
             player.send(new RightsLevelMessageComposer(0));
         }
 
-        roomUser.setVirtualID(this.privateID.incrementAndGet());
+        roomUser.setVirtualId(this.privateId.incrementAndGet());
         roomUser.getPosition().setX(this.getModel().getDoorLocation().getX());
         roomUser.getPosition().setY(this.getModel().getDoorLocation().getY());
         roomUser.getPosition().setZ(this.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
@@ -197,12 +198,12 @@ public class Room {
 
         if (!(this.getPlayers().size() > 0)) {
 
-            this.items = ItemDao.getRoomItems(this.getData().getID());
+            this.items = ItemDao.getRoomItems(this.getData().getId());
             this.mapping.regenerateCollisionMaps();
 
             this.scheduler = new RoomScheduler(this);
             this.scheduler.scheduleTasks();
-            
+
             this.addPets();
 
             boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_FIRST_ENTRY_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
@@ -231,30 +232,29 @@ public class Room {
 
         for (Player players : this.getPlayers()) {
             if (players.getRoomUser().isDancing()) {
-                player.send(new DanceMessageComposer(players.getRoomUser().getVirtualID(), players.getRoomUser().getDanceID()));
+                player.send(new DanceMessageComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getDanceId()));
             }
 
             if (players.getRoomUser().getCarryItem() > 0) {
-                player.send(new CarryObjectComposer(players.getRoomUser().getVirtualID(), players.getRoomUser().getCarryItem())); 
+                player.send(new CarryObjectComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getCarryItem())); 
             }
         }
 
-        if (player.hasPermission("room_all_rights") || this.data.getOwnerID() == player.getDetails().getID()) {
+        if (player.hasPermission("room_all_rights") || this.data.getOwnerId() == player.getDetails().getId()) {
             player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "useradmin");
         } else if (this.hasRights(player, false)) {
             player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "1");
         }        
 
-        player.send(new RoomDataMessageComposer(this, player, true, true));
         player.send(new WallOptionsMessageComposer(this.getData().hasHiddenWall(), this.getData().getWallThickness(), this.getData().getFloorThickness()));
-
         player.send(new RoomPromotionMessageComposer(this));
 
         this.fixFlashingTeleporters();
 
         player.send(new FloorItemsMessageComposer(this.getFloorItems()));
         player.send(new WallItemsMessageComposer(this.getWallItems()));
-
+        player.send(new RoomDataMessageComposer(this, player, true, false));
+        
         player.getMessenger().sendStatus(false);
 
         boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_ENTER_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
@@ -262,7 +262,7 @@ public class Room {
         if (isCancelled) {
             this.leaveRoom(player, true);
         }
-        
+
         /*if (this.items.size() > 0) {
             Item item = this.items.get(this.items.keySet().toArray()[0]);
             item.getMetadata().set("test", "is a test ok?");
@@ -272,7 +272,7 @@ public class Room {
     public void leaveRoom(Player player, boolean hotelView) {
 
         if (hotelView) {;
-            player.send(new HotelViewMessageComposer());
+        player.send(new HotelViewMessageComposer());
         }
 
         PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
@@ -282,13 +282,13 @@ public class Room {
 
         // Tell friends that you're no longer in a room
         player.getMessenger().sendStatus(false);
-        
+
         // Dispose room call
         this.dispose(false);
     }
 
     public void addEntity(Entity entity) {
-        
+
         this.addEntity(entity, 
                 this.getModel().getDoorLocation().getX(), 
                 this.getModel().getDoorLocation().getY(), 
@@ -304,7 +304,7 @@ public class Room {
         RoomUser roomUser = entity.getRoomUser();
 
         roomUser.setRoom(this);
-        roomUser.setVirtualID(this.privateID.incrementAndGet());
+        roomUser.setVirtualId(this.privateId.incrementAndGet());
         roomUser.getPosition().setX(x);
         roomUser.getPosition().setY(y);
         roomUser.getPosition().setZ(this.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
@@ -328,19 +328,19 @@ public class Room {
         }
 
         if (this.getPlayers().size() > 0) {
-            this.send(new RemoveUserMessageComposer(entity.getRoomUser().getVirtualID()));
+            this.send(new RemoveUserMessageComposer(entity.getRoomUser().getVirtualId()));
         }
 
         if (entity.getType() != EntityType.PLAYER) {
-            
+
             // Save coordinates of pet
             if (entity.getType() == EntityType.PET) {
                 ((Pet)entity).savePosition();
             }
-            
+
             entity.dispose();
         }
-        
+
         entity.getRoomUser().dispose();
     }
 
@@ -350,16 +350,16 @@ public class Room {
             return true;
         }
 
-        return hasRights(player.getDetails().getID(), ownerCheckOnly);
+        return hasRights(player.getDetails().getId(), ownerCheckOnly);
     }
-    
-    public boolean hasRights(int userID, boolean ownerCheckOnly) {
-        
-        if (this.data.getOwnerID() == userID) {
+
+    public boolean hasRights(int userId, boolean ownerCheckOnly) {
+
+        if (this.data.getOwnerId() == userId) {
             return true;
         } else {
             if (!ownerCheckOnly) {
-                return this.rights.contains(Integer.valueOf(userID));
+                return this.rights.contains(Integer.valueOf(userId));
             }
         }
 
@@ -371,7 +371,7 @@ public class Room {
         if (forceDisposal) {
 
             this.cleanupRoomData();
-            RoomManager.removeRoom(this.getData().getID());
+            RoomManager.removeRoom(this.getData().getId());
 
         } else {
 
@@ -381,8 +381,8 @@ public class Room {
 
             this.cleanupRoomData();
 
-            if (PlayerManager.getByID(this.data.getOwnerID()) == null && this.data.getRoomType() == RoomType.PRIVATE) { 
-                RoomManager.removeRoom(this.getData().getID());
+            if (PlayerManager.getById(this.data.getOwnerId()) == null && this.data.getRoomType() == RoomType.PRIVATE) { 
+                RoomManager.removeRoom(this.getData().getId());
             }
         }
     }
@@ -390,7 +390,7 @@ public class Room {
 
     /**
      * Sometimes the teleporters will glitch out when placed, due to whatever reason and they will flash
-     * or either have their door open (presumably because of low room ID numbers - like room ID 1 or 2)
+     * or either have their door open (presumably because of low room Id numbers - like room Id 1 or 2)
      * 
      * This will fix that issue.
      * 
@@ -402,7 +402,7 @@ public class Room {
         }
 
     }
-    
+
     /**
      * Select room pets from data access object, will add them
      * along with setting their stored coordinates to the entity and will also apply the height.
@@ -410,9 +410,9 @@ public class Room {
      * @return none
      */
     private void addPets() {
-        for (Pet pet : PetDao.getRoomPets(this.data.getID())) {
+        for (Pet pet : PetDao.getRoomPets(this.data.getId())) {
             pet.getRoomUser().setRoom(this);
-            pet.getRoomUser().setVirtualID(this.privateID.incrementAndGet());
+            pet.getRoomUser().setVirtualId(this.privateId.incrementAndGet());
             pet.getRoomUser().getPosition().setX(pet.getX());
             pet.getRoomUser().getPosition().setY(pet.getY());
             pet.getRoomUser().getPosition().setZ(this.getModel().getHeight(pet.getRoomUser().getPosition().getX(), pet.getRoomUser().getPosition().getY()));
@@ -439,12 +439,12 @@ public class Room {
 
             this.entities.clear();
         }
-        
+
         if (this.rights != null) {
             this.rights.clear();
         }
 
-        this.privateID.set(-1);
+        this.privateId.set(-1);
     }
 
     public void send(MessageComposer response, boolean checkRights) {
@@ -487,12 +487,12 @@ public class Room {
 
         return e;
     }
-    
 
-    public Entity getEntityByID(int id) {
-        
+
+    public Entity getEntityById(int id) {
+
         for (Entity entity : this.entities) {
-            if (entity.getDetails().getID() == id) {
+            if (entity.getDetails().getId() == id) {
                 return entity;
             }
         }
@@ -530,13 +530,13 @@ public class Room {
         }
     }
 
-    public Item getItem(int itemID) {
+    public Item getItem(int itemId) {
 
-        if (this.items.containsKey(itemID)) {
-            return this.items.get(itemID);
+        if (this.items.containsKey(itemId)) {
+            return this.items.get(itemId);
         }
 
-        return ItemDao.getItem(itemID);
+        return ItemDao.getItem(itemId);
     }
 
     public Map<Integer, Item> getItems() {
@@ -556,7 +556,7 @@ public class Room {
         if (this.data.getModel().startsWith("dynamic_model")) {
 
             if (this.model == null) {
-                this.model = RoomModelDao.getCustomModel(this.data.getID());
+                this.model = RoomModelDao.getCustomModel(this.data.getId());
             }
 
             return model;
@@ -577,18 +577,18 @@ public class Room {
         this.model = model;
     }
 
-    public void forwardRoom(Player user) {
-        user.send(new RoomForwardComposer(this.data.getID()));
+    public void sendToRoom(Player user) {
+        user.send(new RoomForwardComposer(this.data.getId()));
     }
 
     public void createPromotion(String promotionName, String promotionDescription) {
         this.promotion = new RoomPromotion(this, promotionName, promotionDescription);
-        RoomManager.addPromotedRoom(this.data.getID(), this);
+        RoomManager.addPromotedRoom(this.data.getId(), this);
     }
 
     public void endPromotion() {
         this.promotion = null;
-        RoomManager.removePromotedRoom(this.data.getID());
+        RoomManager.removePromotedRoom(this.data.getId());
     }
 
     public boolean hasPromotion() {
@@ -609,5 +609,17 @@ public class Room {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public void updateGroup() {
+        if (this.data.getGroupId() > 0) {
+            this.group = GroupDao.getGroup(this.data.getGroupId());
+            
+            // If the group was failed to be retrieved, we set it back to null and save the room
+            if (this.group == null) {
+                this.data.setGroupId(0);
+                this.save();
+            }
+        }
     }
 }

@@ -14,7 +14,7 @@ public class PlayerDetails {
     private String gender = "M";
     private int rank;
     private int credits;
-    private int homeRoomID;
+    private int homeRoomId;
 
     private boolean authenticated;
     private Entity entity;
@@ -25,7 +25,7 @@ public class PlayerDetails {
         this.entity = entity;
     }
 
-    public void fill(int id, String username, String motto, String figure, String gender, int rank, int credits, int homeRoomID) {
+    public void fill(int id, String username, String motto, String figure, String gender, int rank, int credits, int homeRoomId) {
         this.id = id;
         this.name = username;
         this.motto = motto;
@@ -33,7 +33,7 @@ public class PlayerDetails {
         this.gender = gender;
         this.rank = rank;
         this.credits = credits;
-        this.homeRoomID = homeRoomID;
+        this.homeRoomId = homeRoomId;
         this.authenticated = true;
     }
 
@@ -49,11 +49,11 @@ public class PlayerDetails {
         }
     }
     
-    public int getID() {
+    public int getId() {
         return id;
     }
 
-    public void setID(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -121,11 +121,11 @@ public class PlayerDetails {
         return 0;
     }
 
-    public int getHomeRoomID() {
-        return homeRoomID;
+    public int getHomeRoomId() {
+        return homeRoomId;
     }
 
-    public void setHomeRoomID(int homeRoomID) {
-        this.homeRoomID = homeRoomID;
+    public void setHomeRoomId(int homeRoomId) {
+        this.homeRoomId = homeRoomId;
     }
 }

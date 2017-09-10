@@ -82,7 +82,7 @@ public class TargetedOfferDao {
         return blacklist;
     }
     
-    public static void addUserToBlacklist(int offerID, int userID) {
+    public static void addUserToBlacklist(int offerId, int userId) {
         
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -93,8 +93,8 @@ public class TargetedOfferDao {
             sqlConnection = Dao.getStorage().getConnection();
 
             preparedStatement = Dao.getStorage().prepare("INSERT INTO targeted_offers_blacklist (offer_id, user_id) VALUES (?, ?)", sqlConnection);
-            preparedStatement.setInt(1, offerID);
-            preparedStatement.setInt(2, userID);
+            preparedStatement.setInt(1, offerId);
+            preparedStatement.setInt(2, userId);
             preparedStatement.execute();
 
         } catch (Exception e) {

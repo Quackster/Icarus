@@ -25,16 +25,16 @@ public class GiveRightsMessageEvent implements MessageEvent {
             return;
         }
 
-        int userID = reader.readInt();
+        int userId = reader.readInt();
 
-        if (room.hasRights(userID, false)) {
+        if (room.hasRights(userId, false)) {
             return;
         }
 
-        Player user = PlayerManager.getByID(userID);
+        Player user = PlayerManager.getById(userId);
 
         if (user != null) {
-            if (user.getRoomUser().getRoomID() == room.getData().getID()) {
+            if (user.getRoomUser().getRoomId() == room.getData().getId()) {
 
                 user.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "1");
                 user.getRoomUser().setNeedsUpdate(true);
@@ -43,9 +43,9 @@ public class GiveRightsMessageEvent implements MessageEvent {
             }
         }
 
-        room.getRights().add(userID);
-        RoomDao.addRoomRights(room.getData().getID(), userID);
+        room.getRights().add(userId);
+        RoomDao.addRoomRights(room.getData().getId(), userId);
         
-        player.send(new RightsAssignedComposer(room.getData().getID(), userID, PlayerManager.getPlayerData(userID).getName()));
+        player.send(new RightsAssignedComposer(room.getData().getId(), userId, PlayerManager.getPlayerData(userId).getName()));
     }
 }

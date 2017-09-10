@@ -5,15 +5,15 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 
 public class RemoveUserMessageComposer extends MessageComposer {
 
-    private int virtualID;
+    private int virtualId;
 
-    public RemoveUserMessageComposer(int virtualID) {
-        this.virtualID = virtualID;
+    public RemoveUserMessageComposer(int virtualId) {
+        this.virtualId = virtualId;
     }
 
     @Override
     public void write() {
         this.response.init(Outgoing.RemoveUserMessageComposer);
-        this.response.writeString(this.virtualID + "");
+        this.response.writeString(this.virtualId + "");
     }
 }

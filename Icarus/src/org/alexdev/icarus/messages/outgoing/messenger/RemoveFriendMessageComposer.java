@@ -5,10 +5,10 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 
 public class RemoveFriendMessageComposer extends MessageComposer {
 
-    private int friendID;
+    private int friendId;
 
-    public RemoveFriendMessageComposer(int friendID) {
-        this.friendID = friendID;
+    public RemoveFriendMessageComposer(int friendId) {
+        this.friendId = friendId;
     }
 
     @Override
@@ -17,6 +17,6 @@ public class RemoveFriendMessageComposer extends MessageComposer {
         this.response.writeInt(0);
         this.response.writeInt(1);
         this.response.writeInt(-1);
-        this.response.writeInt(this.friendID);
+        this.response.writeInt(this.friendId);
     }
 }

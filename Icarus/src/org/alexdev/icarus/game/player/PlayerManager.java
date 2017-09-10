@@ -10,13 +10,13 @@ import com.google.common.collect.Maps;
 
 public class PlayerManager {
 
-    private static Map<Integer, Player> authenticatedPlayersByID;
+    private static Map<Integer, Player> authenticatedPlayersById;
     private static Map<String, Player> authenticatedPlayersByName;
 
     private static List<Permission> permissions;
 
     static {
-        authenticatedPlayersByID = Maps.newConcurrentMap();
+        authenticatedPlayersById = Maps.newConcurrentMap();
         authenticatedPlayersByName = Maps.newConcurrentMap();
 
         permissions = PlayerDao.getPermissions();
@@ -25,7 +25,7 @@ public class PlayerManager {
     public static void addPlayer(Player player) {
 
         if (player.getDetails().isAuthenticated()) {
-            authenticatedPlayersByID.put(player.getDetails().getID(), player);
+            authenticatedPlayersById.put(player.getDetails().getId(), player);
             authenticatedPlayersByName.put(player.getDetails().getName(), player);
         }
     }
@@ -33,15 +33,15 @@ public class PlayerManager {
     public static void removePlayer(Player player) {
 
         if (player.getDetails().isAuthenticated()) {
-            authenticatedPlayersByID.remove(player.getDetails().getID());
+            authenticatedPlayersById.remove(player.getDetails().getId());
             authenticatedPlayersByName.remove(player.getDetails().getName());
         }
     }
 
-    public static Player getByID(int userID) {
+    public static Player getById(int userId) {
 
-        if (authenticatedPlayersByID.containsKey(userID)) {
-            return authenticatedPlayersByID.get(userID);
+        if (authenticatedPlayersById.containsKey(userId)) {
+            return authenticatedPlayersById.get(userId);
         }
         
         return null;
@@ -56,12 +56,12 @@ public class PlayerManager {
         return null;
     }
 
-    public static PlayerDetails getPlayerData(int userID) {
+    public static PlayerDetails getPlayerData(int userId) {
 
-        Player player = getByID(userID);
+        Player player = getById(userId);
 
         if (player == null) {
-            return PlayerDao.getDetails(userID);
+            return PlayerDao.getDetails(userId);
         }
 
         return player.getDetails();
@@ -69,10 +69,10 @@ public class PlayerManager {
 
     public static boolean checkForDuplicates(Player player) {
 
-        for (Player session : authenticatedPlayersByID.values()) {
+        for (Player session : authenticatedPlayersById.values()) {
 
-            if (session.getDetails().getID() == player.getDetails().getID()) {
-                if (session.getNetwork().getConnectionID() != player.getNetwork().getConnectionID()) { // user tries to login twice
+            if (session.getDetails().getId() == player.getDetails().getId()) {
+                if (session.getNetwork().getConnectionId() != player.getNetwork().getConnectionId()) { // user tries to login twice
                     return true;
                 }
             }
@@ -102,6 +102,6 @@ public class PlayerManager {
     }
 
     public static List<Player> getPlayers() {
-        return authenticatedPlayersByID.values().stream().filter(p -> p != null).collect(Collectors.toList());
+        return authenticatedPlayersById.values().stream().filter(p -> p != null).collect(Collectors.toList());
     }
 }

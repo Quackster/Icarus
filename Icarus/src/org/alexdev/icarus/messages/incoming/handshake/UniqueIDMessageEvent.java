@@ -10,6 +10,6 @@ public class UniqueIDMessageEvent implements MessageEvent {
     public void handle(Player player, ClientMessage request) {
 
         request.readString();
-        player.setMachineID(request.readString());
+        player.setMachineId(request.readString());
     }
 }

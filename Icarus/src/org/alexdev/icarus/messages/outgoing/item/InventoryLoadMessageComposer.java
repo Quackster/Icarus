@@ -26,10 +26,10 @@ public class InventoryLoadMessageComposer extends MessageComposer {
         this.response.writeInt(this.wallItems.size() + this.floorItems.size());
 
         for (Item item : this.wallItems) {
-            this.response.writeInt(item.getID());
+            this.response.writeInt(item.getId());
             this.response.writeString(item.getDefinition().getType().toUpperCase());
-            this.response.writeInt(item.getID());
-            this.response.writeInt(item.getDefinition().getSpriteID());
+            this.response.writeInt(item.getId());
+            this.response.writeInt(item.getDefinition().getSpriteId());
 
             if (item.getDefinition().getItemName().contains("landscape"))
                 this.response.writeInt(4);
@@ -52,10 +52,10 @@ public class InventoryLoadMessageComposer extends MessageComposer {
         }
 
         for (Item item : floorItems) {
-            this.response.writeInt(item.getID());
+            this.response.writeInt(item.getId());
             this.response.writeString(item.getDefinition().getType().toUpperCase());
-            this.response.writeInt(item.getID());
-            this.response.writeInt(item.getDefinition().getSpriteID());
+            this.response.writeInt(item.getId());
+            this.response.writeInt(item.getDefinition().getSpriteId());
 
             if (item.getDefinition().getInteractionType() == InteractionType.GROUPITEM || item.getDefinition().getInteractionType() == InteractionType.GLD_GATE) {
                 this.response.writeInt(17); 

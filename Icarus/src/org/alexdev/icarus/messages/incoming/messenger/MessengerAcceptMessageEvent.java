@@ -16,18 +16,18 @@ public class MessengerAcceptMessageEvent implements MessageEvent {
     
         for (int i = 0; i < amount; i++) {
             
-            int toID = player.getDetails().getID();
-            int fromID = request.readInt();
+            int toId = player.getDetails().getId();
+            int fromId = request.readInt();
             
-            MessengerDao.removeRequest(fromID, toID);
-            MessengerDao.newFriend(toID, fromID);
+            MessengerDao.removeRequest(fromId, toId);
+            MessengerDao.newFriend(toId, fromId);
             
-            MessengerUser user = new MessengerUser(fromID);
+            MessengerUser user = new MessengerUser(fromId);
             player.getMessenger().getFriends().add(user);
             
             if (user.isOnline()) {
                 
-                MessengerUser to = new MessengerUser(toID);
+                MessengerUser to = new MessengerUser(toId);
                 
                 user.getPlayer().getMessenger().getFriends().add(to);
                 user.getPlayer().send(new MessengerUpdateMessageComposer(to, false));

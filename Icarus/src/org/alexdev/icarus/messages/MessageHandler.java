@@ -222,9 +222,9 @@ public class MessageHandler {
 
     public void handleRequest(Player player, ClientMessage message) {
         
-        if (this.messages.containsKey(message.getMessageID())) {
+        if (this.messages.containsKey(message.getMessageId())) {
 
-            for (MessageEvent event : this.messages.get(message.getMessageID())) {
+            for (MessageEvent event : this.messages.get(message.getMessageId())) {
                 event.handle(player, message);
             }
         }
