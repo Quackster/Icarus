@@ -239,7 +239,9 @@ public class Room {
             }
         }
 
-        if (this.hasRights(player, false)) {
+        if (this.hasRights(player, true)) {
+            player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "useradmin");
+        } else if (this.hasRights(player, false)) {
             player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "1");
         }        
 
