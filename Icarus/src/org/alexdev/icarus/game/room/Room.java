@@ -347,7 +347,7 @@ public class Room {
             return true;
         }
 
-        return hasRights(player, ownerCheckOnly);
+        return hasRights(player.getDetails().getID(), ownerCheckOnly);
     }
     
     public boolean hasRights(int userID, boolean ownerCheckOnly) {
