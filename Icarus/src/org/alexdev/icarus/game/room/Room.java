@@ -240,8 +240,18 @@ public class Room {
             }
         }
 
+        /* [f76a21e6be54cea897c44fbfc7c32839]
+Outgoing[2923, _-3yD] -> [0][0][0][10][11]k[0][0][0][5][0][0][0][7]
+{id:2923}{i:5}{i:7}
+--------------------
+[1d1cb11cb8d5156afeb284fb1eb04339]
+Incoming[2241, _-4nq, UserUpdateMessageParser] <- [0][0][0]9[8]Á[0][0][0][1][0][0][0][0][0][0][0][6][0][0][0][6][0][3]0.0[0][0][0][5][0][0][0][5][0]/flatctrl 4/mv 5,7,0.0//
+--------------------
+[1d1cb11cb8d5156afeb284fb1eb04339]
+Incoming[2241, _-4nq, UserUpdateMessageParser] <- [0][0][0].[8]Á[0][0][0][1][0][0][0][0][0][0][0][5][0][0][0][7][0][3]0.0[0][0][0][5][0][0][0][5][0][13]/flatctrl 4//        */
+        
         if (player.hasPermission("room_all_rights") || this.data.getOwnerId() == player.getDetails().getId()) {
-            player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "useradmin");
+            player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "4");
         } else if (this.hasRights(player, false)) {
             player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "1");
         }        
@@ -262,29 +272,20 @@ public class Room {
         if (isCancelled) {
             this.leaveRoom(player, true);
         }
-
-        /*if (this.items.size() > 0) {
-            Item item = this.items.get(this.items.keySet().toArray()[0]);
-            item.getMetadata().set("test", "is a test ok?");
-        }*/
     }
 
     public void leaveRoom(Player player, boolean hotelView) {
 
-        if (hotelView) {;
-        player.send(new HotelViewMessageComposer());
+        if (hotelView) {
+            player.send(new HotelViewMessageComposer());
         }
 
         PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
 
-        // Generic removal of entity
         this.removeEntity(player);
-
-        // Tell friends that you're no longer in a room
-        player.getMessenger().sendStatus(false);
-
-        // Dispose room call
         this.dispose(false);
+        
+        player.getMessenger().sendStatus(false);
     }
 
     public void addEntity(Entity entity) {
