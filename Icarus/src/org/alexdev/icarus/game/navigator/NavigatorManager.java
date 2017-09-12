@@ -30,7 +30,9 @@ public class NavigatorManager {
     public static List<NavigatorTab> getParentTabs() {
 
         try {
+            
             return tabs.stream().filter(tab -> tab.getChildId() == -1).collect(Collectors.toList());
+            
         } catch (Exception e) {
             return null;
         }

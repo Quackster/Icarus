@@ -1,7 +1,7 @@
 package org.alexdev.icarus.messages.headers;
 
 public class Outgoing {
-
+    
     public static int AuthenticationOKMessageComposer = 1294;//1079
     public static int CreateRoomMessageComposer = 912;//3001
     public static int CreditsMessageComposer = 1662;//1958
@@ -32,7 +32,6 @@ public class Outgoing {
     public static int RightsLevelMessageComposer = 231;//680
     public static int YouAreNotControllerMessageComposer = 2630;//1068
     public static int RoomSpacesMessageComposer = 2558;//1897
-    //public static int RoomUpdateMessageComposer = 3246;//3743
     public static int SearchResultSetComposer = 1036;//1089
     public static int SecretKeyMessageComposer = 1631;//696
     public static int SendPerkAllowancesMessageComposer = 3877;//1790
@@ -114,5 +113,4 @@ public class Outgoing {
     public static int GroupBadgesMessageComposer = 84;//711
     public static int GroupInfoMessageComposer = 2197;//815
     public static int AvatarAspectUpdateMessageComposer = 125;//884
-     
 }

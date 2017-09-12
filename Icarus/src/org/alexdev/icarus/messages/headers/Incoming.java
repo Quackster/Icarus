@@ -66,7 +66,7 @@ public class Incoming {
     public static Integer NavigatorPromoteRoomCategories = 3524;//597
     public static Integer PurchaseRoomPromotionMessageEvent = 1839;//1542
     public static Integer EditRoomPromotionMessageEvent = 2562;//816
-    public static Integer WelcomeMessageEvent = 3524;//597
+    public static Integer WelcomeMessageEvent = Incoming.NavigatorPromoteRoomCategories;
     public static Integer PetRacesMessageEvent = 3692;//599
     public static Integer VerifyPetNameMessageEvent = 2794;//3733
     public static Integer PlacePetMessageEvent = 886;//1495
@@ -81,6 +81,4 @@ public class Incoming {
     public static Integer GroupBuyDialogMessageEvent = 1051;//365
     public static Integer GroupBadgeDialogMessageEvent = 121;//3706
     public static Integer GroupPurchaseMessageEvent = 1753;//2959
-    
-    
 }
