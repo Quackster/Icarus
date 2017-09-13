@@ -25,7 +25,7 @@ public class NettyRequest implements ClientMessage {
         try {
             return buffer.readInt();
         } catch (Exception e) {
-            return -1;
+            return 0;
         }
     }
     

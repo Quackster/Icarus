@@ -53,7 +53,7 @@ public class GroupPurchaseMessageEvent implements MessageEvent {
             groupItems.add(reader.readInt());
         }
 
-        String badge = BadgeUtil.generateBadge(groupBase, groupBaseColour, groupItems);
+        String badge = BadgeUtil.generate(groupBase, groupBaseColour, groupItems);
         Group group = GroupDao.createGroup(name, desc, badge, player.getDetails().getId(), roomId, Util.getCurrentTimeSeconds(), colourA, colourB);
         
         room.getData().setGroupId(group.getId());

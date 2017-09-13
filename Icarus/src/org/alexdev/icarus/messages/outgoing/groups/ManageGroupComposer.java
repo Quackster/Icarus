@@ -3,7 +3,6 @@ package org.alexdev.icarus.messages.outgoing.groups;
 import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
-import org.alexdev.icarus.util.Util;
 
 public class ManageGroupComposer extends MessageComposer {
 
@@ -32,22 +31,17 @@ public class ManageGroupComposer extends MessageComposer {
         
         String[] badgeParts = this.group.getBadge().replace("b", "").split("s");
         
-        for (int i = 0; i < badgeParts.length; i++) {
-            
-            String text = badgeParts[i];
+        for (String symbol : badgeParts) {
 
-            int num1 = (text.length() >= 6) ? Integer.parseInt(Util.left(text, 3)) : Integer.parseInt(Util.left(text, 2));
-            int num2 = (text.length() >= 6) ? Integer.parseInt(Util.left(Util.right(text, 3), 2)) : Integer.parseInt(Util.right(Util.left(text, 4), 2));
+            this.response.writeInt((symbol.length() >= 6 ? Integer.valueOf(symbol.substring(0, 3)) : Integer.valueOf(symbol.substring(0, 2))));
+            this.response.writeInt((symbol.length() >= 6 ? Integer.valueOf(symbol.substring(3, 5)) : Integer.valueOf(symbol.substring(2, 4))));
 
-            this.response.writeInt(num1);
-            this.response.writeInt(num2);
-
-            if (text.length() < 5) {
+            if (symbol.length() < 5) {
                 this.response.writeInt(0);
-            } else if (text.length() >= 6) {
-                this.response.writeInt(Integer.parseInt(Util.right(text, 1)));
+            } else if (symbol.length() >= 6) {
+                this.response.writeInt(Integer.valueOf(symbol.substring(5, 6)));
             } else {
-                this.response.writeInt(Integer.parseInt(Util.right(text, 1)));
+                this.response.writeInt(Integer.valueOf(symbol.substring(4, 5)));
             }
         }
 
