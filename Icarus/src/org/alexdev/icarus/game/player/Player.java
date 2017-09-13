@@ -10,10 +10,12 @@ import org.alexdev.icarus.game.player.club.ClubSubscription;
 import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.game.room.RoomAction;
 import org.alexdev.icarus.game.room.RoomManager;
-import org.alexdev.icarus.game.room.RoomUser;
+import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.HotelViewMessageComposer;
+import org.alexdev.icarus.messages.outgoing.room.user.RoomForwardComposer;
 import org.alexdev.icarus.messages.outgoing.user.BroadcastMessageAlertComposer;
 import org.alexdev.icarus.server.api.IPlayerNetwork;
 import org.luaj.vm2.LuaValue;
@@ -57,21 +59,31 @@ public class Player extends Entity {
         this.messenger.init();
     }
 
-    public void leaveRoom(boolean hotelView) {
-
-        Room room = this.roomUser.getRoom();
+    public void performRoomAction(RoomAction action, Object value) {
         
-        if (hotelView) {
-            this.send(new HotelViewMessageComposer());
+        if (action == RoomAction.LEAVE_ROOM) {
+            Room room = this.roomUser.getRoom();
+            boolean goHotelView = (boolean)value;
+            
+            if (goHotelView) {
+                this.send(new HotelViewMessageComposer());
+            }
+
+            PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this), CoerceJavaToLua.coerce(this.roomUser.getRoom()) });
+            
+            if (room != null) {
+                room.getEntityManager().removeEntity(this);
+                room.dispose(false);
+                this.messenger.sendStatus(false);
+            }
+            
+            return;
         }
-
-        PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this), CoerceJavaToLua.coerce(this.roomUser.getRoom()) });
         
-        if (room != null) {
-            room.removeEntity(this);
-            room.dispose(false);
-
-            this.messenger.sendStatus(false);
+        if (action == RoomAction.FORWARD_ROOM) {
+            int roomId = (int)value;
+            this.send(new RoomForwardComposer(roomId));
+            return;
         }
     }
 
@@ -87,7 +99,7 @@ public class Player extends Entity {
         }
 
         if (this.roomUser.getRoom() != null) {
-            this.leaveRoom(false);
+            this.performRoomAction(RoomAction.LEAVE_ROOM, false);
         }
 
         PluginManager.callEvent(PluginEvent.PLAYER_DISCONNECT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this) });

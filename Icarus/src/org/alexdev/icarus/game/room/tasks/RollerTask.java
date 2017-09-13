@@ -28,12 +28,12 @@ public class RollerTask extends RoomTask {
                 
                 boolean redoMap = false;
 
-                if (room.getEntities().size() == 0) {
+                if (room.getEntityManager().getEntities().size() == 0) {
                     return;
                 }
 
-                List<Item> rollers = room.getItems(InteractionType.ROLLER);
-                List<Entity> entities = this.room.getEntities();
+                List<Item> rollers = room.getItemManager().getItems(InteractionType.ROLLER);
+                List<Entity> entities = this.room.getEntityManager().getEntities();
 
                 for (int i = 0; i < entities.size(); i++) {
 

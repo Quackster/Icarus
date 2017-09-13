@@ -6,7 +6,7 @@ import org.alexdev.icarus.game.furniture.interactions.Interaction;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.RoomManager;
-import org.alexdev.icarus.game.room.RoomUser;
+import org.alexdev.icarus.game.room.user.RoomUser;
 
 public class VendingInteractor implements Interaction {
 

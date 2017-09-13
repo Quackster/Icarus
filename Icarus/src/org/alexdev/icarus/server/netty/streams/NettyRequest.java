@@ -1,8 +1,6 @@
 package org.alexdev.icarus.server.netty.streams;
 
 import java.nio.charset.Charset;
-import java.util.Arrays;
-
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;

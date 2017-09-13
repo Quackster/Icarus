@@ -2,8 +2,6 @@ package org.alexdev.icarus.game.groups.badge;
 
 import java.util.List;
 
-import org.alexdev.icarus.log.Log;
-
 public class BadgeUtil {
     
     private static String format(int num) {

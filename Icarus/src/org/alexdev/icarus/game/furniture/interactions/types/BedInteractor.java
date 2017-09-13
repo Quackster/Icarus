@@ -7,7 +7,7 @@ import org.alexdev.icarus.game.furniture.interactions.Interaction;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pathfinder.Position;
-import org.alexdev.icarus.game.room.RoomUser;
+import org.alexdev.icarus.game.room.user.RoomUser;
 
 import com.google.common.collect.Lists;
 

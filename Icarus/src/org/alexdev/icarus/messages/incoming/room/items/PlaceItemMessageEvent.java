@@ -43,7 +43,7 @@ public class PlaceItemMessageEvent implements MessageEvent {
 
         if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
 
-            List<Item> items = player.getRoom().getItems(InteractionType.DIMMER);
+            List<Item> items = player.getRoom().getItemManager().getItems(InteractionType.DIMMER);
 
             if (items.size() > 0) {
                 player.sendMessage(Util.getLocale("one.dimmer.per.room"));

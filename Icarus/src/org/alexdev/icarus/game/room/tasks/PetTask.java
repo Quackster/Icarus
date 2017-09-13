@@ -6,7 +6,7 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.game.room.RoomUser;
+import org.alexdev.icarus.game.room.user.RoomUser;
 
 public class PetTask extends RoomTask {
 
@@ -22,16 +22,15 @@ public class PetTask extends RoomTask {
 
             if (this.canTick(5)) {
                 
-                if (room.getEntities(EntityType.PET).size() == 0) {
+                List<Entity> pets = this.room.getEntityManager().getEntities(EntityType.PET);
+                
+                if (pets.size() == 0) {
                     return;
                 }
 
-                List<Entity> entities = room.getEntities(EntityType.PET);
+                for (int i = 0; i < pets.size(); i++) {
 
-                for (int i = 0; i < entities.size(); i++) {
-
-                    Entity entity = entities.get(i);
-
+                    Entity entity = pets.get(i);
                     Position tile = this.room.getMapping().getRandomWalkableTile();
 
                     RoomUser roomUser = entity.getRoomUser();

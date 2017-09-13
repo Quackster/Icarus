@@ -1,4 +1,4 @@
-package org.alexdev.icarus.game.room.chat;
+package org.alexdev.icarus.game.room.user;
 
 import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.messages.headers.Outgoing;

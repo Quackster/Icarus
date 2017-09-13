@@ -7,9 +7,9 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.game.room.RoomUser;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.model.Rotation;
+import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 import org.alexdev.icarus.util.Util;
@@ -27,11 +27,11 @@ public class MovementTask  extends RoomTask {
 
         try {
 
-            if (this.room.getEntities().size() == 0) {
+            if (this.room.getEntityManager().getEntities().size() == 0) {
                 return;
             }
 
-            List<Entity> entities = this.room.getEntities();
+            List<Entity> entities = this.room.getEntityManager().getEntities();
             List<Entity> entitiesToUpdate = new ArrayList<Entity>();
             
             for (int i = 0; i < entities.size(); i++) {

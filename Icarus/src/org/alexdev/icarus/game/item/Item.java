@@ -114,7 +114,7 @@ public class Item extends Metadata {
             return;
         }
 
-        for (Entity entity : this.getRoom().getEntities()) {
+        for (Entity entity : this.getRoom().getEntityManager().getEntities()) {
 
             if (entity.getRoomUser().getCurrentItem() != null) {
                 if (entity.getRoomUser().getCurrentItem().getId() == this.id) {

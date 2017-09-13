@@ -29,7 +29,7 @@ public class SaveMoodlightPresetMessageEvent implements MessageEvent {
             return;
         }
         
-        List<Item> items = player.getRoom().getItems(InteractionType.DIMMER);
+        List<Item> items = player.getRoom().getItemManager().getItems(InteractionType.DIMMER);
         
         Item moodlight = null;
         

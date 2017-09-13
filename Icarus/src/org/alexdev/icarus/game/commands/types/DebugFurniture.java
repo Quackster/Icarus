@@ -2,7 +2,7 @@ package org.alexdev.icarus.game.commands.types;
 
 import org.alexdev.icarus.game.commands.Command;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.game.room.chat.ChatType;
+import org.alexdev.icarus.game.room.user.ChatType;
 
 public class DebugFurniture extends Command {
 

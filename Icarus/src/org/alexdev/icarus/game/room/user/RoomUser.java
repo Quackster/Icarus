@@ -1,4 +1,4 @@
-package org.alexdev.icarus.game.room;
+package org.alexdev.icarus.game.room.user;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -16,7 +16,7 @@ import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
-import org.alexdev.icarus.game.room.chat.ChatType;
+import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.log.DateTime;
 import org.alexdev.icarus.messages.MessageComposer;
@@ -212,7 +212,7 @@ public class RoomUser extends Metadata {
         MessageComposer composer = new TalkMessageComposer(this, type, message, this.chatColor);
         this.room.send(composer);
 
-        for (Player person : this.room.getPlayers()) {
+        for (Player person : this.room.getEntityManager().getPlayers()) {
 
             if (this.entity == person) {
                 continue;

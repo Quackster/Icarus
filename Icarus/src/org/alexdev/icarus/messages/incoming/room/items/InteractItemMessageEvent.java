@@ -17,7 +17,7 @@ public class InteractItemMessageEvent implements MessageEvent {
 
         int itemId = reader.readInt();
 
-        Item item = player.getRoom().getItem(itemId);
+        Item item = player.getRoom().getItemManager().getItem(itemId);
 
         if (item == null) {
             return;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.game.room.RoomUser;
+import org.alexdev.icarus.game.room.user.RoomUser;
 
 public class CarryItemTask extends RoomTask {
 
@@ -18,11 +18,11 @@ public class CarryItemTask extends RoomTask {
 
         try {
 
-            if (room.getEntities().size() == 0) {
+            if (this.room.getEntityManager().getEntities().size() == 0) {
                 return;
             }
 
-            List<Entity> entities = room.getEntities();
+            List<Entity> entities = this.room.getEntityManager().getEntities();
 
             for (int i = 0; i < entities.size(); i++) {
                 

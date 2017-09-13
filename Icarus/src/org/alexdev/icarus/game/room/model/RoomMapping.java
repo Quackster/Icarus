@@ -45,13 +45,13 @@ public class RoomMapping {
             }
         }
 
-        List<Entity> entities = this.room.getEntities();
+        List<Entity> entities = this.room.getEntityManager().getEntities();
 
         for (Entity entity : entities) {
             this.tiles[entity.getRoomUser().getPosition().getX()][entity.getRoomUser().getPosition().getY()].setEntity(entity);
         }
 
-        List<Item> items = this.room.getFloorItems();
+        List<Item> items = this.room.getItemManager().getFloorItems();
 
         // Sort items by smallest to largest height/Z coordinate
         Collections.sort(items, new Comparator<Item>() {
@@ -213,7 +213,7 @@ public class RoomMapping {
 
         item.setRoomId(this.room.getData().getId());
 
-        this.room.getItems().put(item.getId(), item);
+        this.room.getItemManager().getItems().put(item.getId(), item);
 
         if (item.getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, false);
@@ -250,7 +250,7 @@ public class RoomMapping {
             item.setExtraData("");
         }
 
-        this.room.getItems().remove(item.getId());
+        this.room.getItemManager().getItems().remove(item.getId());
         this.regenerateCollisionMaps();
 
         item.updateEntities();

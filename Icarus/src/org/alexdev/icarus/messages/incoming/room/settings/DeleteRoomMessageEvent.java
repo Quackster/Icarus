@@ -5,6 +5,7 @@ import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.game.room.RoomAction;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
@@ -25,11 +26,11 @@ public class DeleteRoomMessageEvent implements MessageEvent {
         
         int roomId = request.readInt(); // room id
         
-        for (Player users : room.getPlayers()) {
-            users.leaveRoom(true);
+        for (Player users : room.getEntityManager().getPlayers()) {
+            users.performRoomAction(RoomAction.LEAVE_ROOM, true);
         }
         
-        for (Item item : room.getItems().values()) {
+        for (Item item : room.getItemManager().getItems().values()) {
             
             item.setRoomId(0);
             item.save();

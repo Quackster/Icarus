@@ -15,7 +15,7 @@ public class ToggleMoodlightMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
 
-        List<Item> items = player.getRoom().getItems(InteractionType.DIMMER);
+        List<Item> items = player.getRoom().getItemManager().getItems(InteractionType.DIMMER);
         
         Item moodlight = null;
         

@@ -7,7 +7,7 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.RoomManager;
-import org.alexdev.icarus.game.room.RoomUser;
+import org.alexdev.icarus.game.room.user.RoomUser;
 
 public class TeleportInteractor implements Interaction {
 
@@ -51,7 +51,7 @@ public class TeleportInteractor implements Interaction {
         roomUser.walkTo(item.getPosition().getX(), item.getPosition().getY());
         roomUser.setWalkingAllowed(false);
         
-        Item targetTeleporter = roomUser.getRoom().getItem(item.getTeleporterId());
+        Item targetTeleporter = roomUser.getRoom().getItemManager().getItem(item.getTeleporterId());
 
         // Do teleporter flashing effects for the teleporter they hopped into
         RoomManager.getScheduler().schedule(() -> {
@@ -87,8 +87,8 @@ public class TeleportInteractor implements Interaction {
                 targetTeleporter.setExtraData(TELEPORTER_OPEN);
                 targetTeleporter.updateStatus();
             } else {
-                roomUser.getRoom().getItem(item.getTeleporterId()).setExtraData(TELEPORTER_OPEN);
-                roomUser.getRoom().getItem(item.getTeleporterId()).updateStatus();
+                roomUser.getRoom().getItemManager().getItem(item.getTeleporterId()).setExtraData(TELEPORTER_OPEN);
+                roomUser.getRoom().getItemManager().getItem(item.getTeleporterId()).updateStatus();
             }
 
         }, 3, TimeUnit.SECONDS);
@@ -106,8 +106,8 @@ public class TeleportInteractor implements Interaction {
                 targetTeleporter.setExtraData(TELEPORTER_CLOSE);
                 targetTeleporter.updateStatus();
             } else {
-                roomUser.getRoom().getItem(item.getTeleporterId()).setExtraData(TELEPORTER_CLOSE);
-                roomUser.getRoom().getItem(item.getTeleporterId()).updateStatus();
+                roomUser.getRoom().getItemManager().getItem(item.getTeleporterId()).setExtraData(TELEPORTER_CLOSE);
+                roomUser.getRoom().getItemManager().getItem(item.getTeleporterId()).updateStatus();
             }
 
         }, 4, TimeUnit.SECONDS);

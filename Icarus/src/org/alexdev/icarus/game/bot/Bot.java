@@ -3,7 +3,7 @@ package org.alexdev.icarus.game.bot;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.player.PlayerDetails;
-import org.alexdev.icarus.game.room.RoomUser;
+import org.alexdev.icarus.game.room.user.RoomUser;
 
 public class Bot extends Entity {
 

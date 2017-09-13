@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.groups.GroupDao;
 import org.alexdev.icarus.game.groups.Group;
-import org.alexdev.icarus.game.groups.GroupManager;
 import org.alexdev.icarus.game.groups.badge.BadgeUtil;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.game.room.RoomAction;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessageComposer;
@@ -62,8 +62,8 @@ public class GroupPurchaseMessageEvent implements MessageEvent {
         player.send(new PurchaseNotificationMessageComposer());
 
         if (player.getRoomUser().getRoomId() != room.getData().getId()) {
-            player.getRoomUser().set("showGroupHomeroomDialog", true);;
-            Room.sendToRoom(player, roomId);
+            player.getRoomUser().set("showGroupHomeroomDialog", true);
+            player.performRoomAction(RoomAction.FORWARD_ROOM, roomId);
             
         } else {
             player.send(new NewGroupMessageComposer(roomId, group.getId()));

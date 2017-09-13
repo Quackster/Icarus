@@ -5,7 +5,7 @@ import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.player.PlayerDetails;
-import org.alexdev.icarus.game.room.RoomUser;
+import org.alexdev.icarus.game.room.user.RoomUser;
 
 public class Pet extends Entity {
     public static final int DEFAULT_LEVEL = 1;

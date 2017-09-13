@@ -16,7 +16,7 @@ public class HeightmapMessageEvent implements MessageEvent {
             return;
         }
         
-        if (room.getEntities().contains(player)) {
+        if (room.getEntityManager().getEntities().contains(player)) {
             return;
         }
 

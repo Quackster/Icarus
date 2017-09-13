@@ -5,6 +5,7 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.game.room.RoomAction;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.luaj.vm2.LuaValue;
@@ -28,7 +29,7 @@ public class EnterRoomMessageEvent implements MessageEvent {
         boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_REQUEST_ENTER_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(room) });
         
         if (isCancelled) {
-            player.leaveRoom(true);
+            player.performRoomAction(RoomAction.LEAVE_ROOM, true);
             return;
         }
         

@@ -27,7 +27,7 @@ public class PickupItemMessageEvent implements MessageEvent {
 
         int itemId = reader.readInt();
 
-        Item item = room.getItem(itemId);
+        Item item = room.getItemManager().getItem(itemId);
 
         if (item == null) {
             return;

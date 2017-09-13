@@ -195,7 +195,7 @@ public class RoomData {
     }
     
     public void updateUsersNow() {
-        this.usersNow = this.room.getPlayers().size();
+        this.usersNow = this.room.getEntityManager().getPlayers().size();
     }
     public int getUsersMax() {
         return usersMax;

@@ -5,6 +5,7 @@ import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.game.room.RoomAction;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
@@ -36,8 +37,8 @@ public class DeleteGroupMessageEvent implements MessageEvent {
         
         group.delete();
         
-        for (Player users : room.getPlayers()) {
-            users.leaveRoom(true);
+        for (Player users : room.getEntityManager().getPlayers()) {
+            users.performRoomAction(RoomAction.LEAVE_ROOM, true);
         }
     }
 

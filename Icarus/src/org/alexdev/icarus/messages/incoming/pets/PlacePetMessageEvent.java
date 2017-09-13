@@ -30,7 +30,7 @@ public class PlacePetMessageEvent implements MessageEvent {
             Y = position.getY();
         }
         
-        player.getRoom().addEntity(pet, X, Y, 4);
+        player.getRoom().getEntityManager().addEntity(pet, X, Y, 4);
         
         player.getInventory().remove(pet);
         player.getInventory().updatePets();
