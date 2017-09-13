@@ -33,7 +33,7 @@ public class RoomItemManager {
      */
     public void fixFlashingTeleporters() {
         for (Item item : this.getItems(InteractionType.TELEPORT)) {
-            item.setExtraData(TeleportInteractor.TELEPORTER_CLOSE);
+            //item.setExtraData(TeleportInteractor.TELEPORTER_CLOSE);
         }
     }
     

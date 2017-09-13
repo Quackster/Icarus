@@ -42,6 +42,7 @@ public class RoomUser extends Metadata {
     private int roomRequestedId;
 
     private Position position;
+    private Position overridePosition;
     private Position goal;
     private Position next;
 
@@ -575,5 +576,13 @@ public class RoomUser extends Metadata {
 
     public void setRequestedRoomId(int roomRequestedId) {
         this.roomRequestedId = roomRequestedId;
+    }
+
+    public Position getOverridePosition() {
+        return overridePosition;
+    }
+
+    public void setOverridePosition(Position overridePosition) {
+        this.overridePosition = overridePosition;
     }
 }

@@ -1,4 +1,4 @@
-package org.alexdev.icarus.game.groups.badge;
+package org.alexdev.icarus.game.util;
 
 import java.util.List;
 

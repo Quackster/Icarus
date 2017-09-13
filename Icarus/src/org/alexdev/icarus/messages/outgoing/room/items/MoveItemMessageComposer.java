@@ -1,8 +1,8 @@
 package org.alexdev.icarus.messages.outgoing.room.items;
 
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.ItemExtraDataUtil;
 import org.alexdev.icarus.game.item.ItemType;
+import org.alexdev.icarus.game.util.ItemExtraDataUtil;
 import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.util.Util;

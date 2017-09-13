@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.groups.GroupDao;
 import org.alexdev.icarus.game.groups.Group;
-import org.alexdev.icarus.game.groups.badge.BadgeUtil;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomAction;
 import org.alexdev.icarus.game.room.RoomManager;
+import org.alexdev.icarus.game.util.BadgeUtil;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessageComposer;
 import org.alexdev.icarus.messages.outgoing.groups.GroupBadgesMessageComposer;
