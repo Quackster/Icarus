@@ -41,7 +41,7 @@ public class RoomEntityManager {
         RoomUser roomUser = entity.getRoomUser();
 
         roomUser.setRoom(this.room);
-        roomUser.setVirtualId(this.room.getPrivateId().incrementAndGet());
+        roomUser.setVirtualId(this.room.getVirtualTicketCounter().incrementAndGet());
         roomUser.getPosition().setX(x);
         roomUser.getPosition().setY(y);
         roomUser.getPosition().setZ(this.room.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
@@ -60,7 +60,7 @@ public class RoomEntityManager {
     public void addPets() {
         for (Pet pet : PetDao.getRoomPets(this.room.getData().getId())) {
             pet.getRoomUser().setRoom(this.room);
-            pet.getRoomUser().setVirtualId(this.room.getPrivateId().incrementAndGet());
+            pet.getRoomUser().setVirtualId(this.room.getVirtualTicketCounter().incrementAndGet());
             pet.getRoomUser().getPosition().setX(pet.getX());
             pet.getRoomUser().getPosition().setY(pet.getY());
             pet.getRoomUser().getPosition().setZ(this.room.getModel().getHeight(pet.getRoomUser().getPosition().getX(), pet.getRoomUser().getPosition().getY()));

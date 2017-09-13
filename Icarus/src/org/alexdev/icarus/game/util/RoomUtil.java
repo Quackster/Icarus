@@ -19,19 +19,17 @@ public class RoomUtil {
 
     public static void playerRoomEntry(Player player, Room room, String password) {
         
-        entityRoomEntry(player, room, 
+        playerRoomEntry(player, room, 
                 room.getModel().getDoorLocation().getX(), 
                 room.getModel().getDoorLocation().getY(), 
                 room.getModel().getDoorLocation().getRotation());
     }
     
-    public static void entityRoomEntry(Player player, Room room, int x, int y, int rotation) {
+    public static void playerRoomEntry(Player player, Room room, int x, int y, int rotation) {
         
         if (player.inRoom()) {
             player.performRoomAction(RoomAction.LEAVE_ROOM, false);
         }
-
-        boolean isOwner = room.hasRights(player, true);
 
         RoomUser roomUser = player.getRoomUser();
 
@@ -41,8 +39,8 @@ public class RoomUtil {
         player.send(new RoomModelMessageComposer(room.getModel().getName(), room.getData().getId()));
         player.send(new RoomRatingMessageComposer(room.getData().getScore()));
 
-        int floorData = Integer.parseInt(room.getData().getFloor());
-        int wallData = Integer.parseInt(room.getData().getWall());
+        int floorData = Integer.valueOf(room.getData().getFloor());
+        int wallData = Integer.valueOf(room.getData().getWall());
 
         if (floorData > 0) {
             player.send(new RoomSpacesMessageComposer("floor", room.getData().getFloor()));
@@ -53,7 +51,7 @@ public class RoomUtil {
         }
 
         player.send(new RoomSpacesMessageComposer("landscape", room.getData().getLandscape()));
-        player.send(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
+        player.send(new RoomOwnerRightsComposer(room.getData().getId(), room.hasRights(player, true)));
 
         if (roomUser.getRoom().hasRights(player, true)) {
             player.send(new RightsLevelMessageComposer(4));
@@ -66,7 +64,7 @@ public class RoomUtil {
             player.send(new RightsLevelMessageComposer(0));
         }
 
-        roomUser.setVirtualId(room.getPrivateId().incrementAndGet());
+        roomUser.setVirtualId(room.getVirtualTicketCounter().incrementAndGet());
         roomUser.getPosition().setX(x);
         roomUser.getPosition().setY(y);
         roomUser.getPosition().setZ(room.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));

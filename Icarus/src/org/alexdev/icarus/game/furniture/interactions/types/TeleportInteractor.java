@@ -79,7 +79,7 @@ public class TeleportInteractor implements Interaction {
                 roomUser.setTeleporting(true);
                 roomUser.setTeleportRoomId(targetTeleporter.getRoomId());
                 
-                RoomUtil.entityRoomEntry((Player)roomUser.getEntity(), targetTeleporter.getRoom(), 
+                RoomUtil.playerRoomEntry((Player)roomUser.getEntity(), targetTeleporter.getRoom(), 
                         targetTeleporter.getPosition().getX(), 
                         targetTeleporter.getPosition().getY(), 
                         targetTeleporter.getPosition().getRotation());

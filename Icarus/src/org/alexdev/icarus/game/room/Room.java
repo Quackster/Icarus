@@ -18,20 +18,18 @@ import org.alexdev.icarus.messages.MessageComposer;
 
 public class Room {
 
-    private AtomicInteger privateId = new AtomicInteger(-1);
+    private AtomicInteger virtualTicketCounter = new AtomicInteger(-1);
     
     private RoomData data;
     private RoomModel model;
     private RoomScheduler scheduler;
     private RoomMapping mapping;
     private RoomPromotion promotion;
-    
-
-    private List<Integer> rights;
-    
     private RoomItemManager itemManager;
     private RoomEntityManager entityManager;
-
+    
+    private List<Integer> rights;
+    
     public Room() {
         this.data = new RoomData(this);
         this.mapping = new RoomMapping(this);
@@ -162,13 +160,12 @@ public class Room {
             this.scheduler.cancelTasks();
         }
         
-        this.entityManager.cleanupEntities();
-
         if (this.rights != null) {
             this.rights.clear();
         }
         
-        this.privateId.set(-1);
+        this.entityManager.cleanupEntities();
+        this.virtualTicketCounter.set(-1);
     }
 
     public RoomData getData() {
@@ -195,8 +192,8 @@ public class Room {
         return itemManager;
     }
 
-    public AtomicInteger getPrivateId() {
-        return privateId;
+    public AtomicInteger getVirtualTicketCounter() {
+        return virtualTicketCounter;
     }
 
     public RoomScheduler getScheduler() {
