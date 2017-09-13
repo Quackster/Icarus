@@ -31,7 +31,11 @@ public class EnterRoomMessageEvent implements MessageEvent {
         }
         
         player.getRoomUser().setRequestedRoomId(roomId);
-        boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_REQUEST_ENTER_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(room) });
+        
+        boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_REQUEST_ENTER_EVENT, new LuaValue[] { 
+                CoerceJavaToLua.coerce(player), 
+                CoerceJavaToLua.coerce(room) 
+        });
         
         if (isCancelled) {
             player.performRoomAction(RoomAction.LEAVE_ROOM, true);
@@ -41,7 +45,6 @@ public class EnterRoomMessageEvent implements MessageEvent {
         if (player.getRoomUser().getRequestedRoomId() != roomId) {
             room.dispose(false);
             room = RoomDao.getRoom(player.getRoomUser().getRequestedRoomId(), true);
-            
         }
 
         if (room == null) {
