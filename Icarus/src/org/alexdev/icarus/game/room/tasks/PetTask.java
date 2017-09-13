@@ -21,9 +21,9 @@ public class PetTask extends RoomTask {
         try {
 
             if (this.canTick(5)) {
-                
+
                 List<Entity> pets = this.room.getEntityManager().getEntities(EntityType.PET);
-                
+
                 if (pets.size() == 0) {
                     return;
                 }
@@ -31,7 +31,7 @@ public class PetTask extends RoomTask {
                 for (int i = 0; i < pets.size(); i++) {
 
                     Entity entity = pets.get(i);
-                    Position tile = this.room.getMapping().getRandomWalkableTile();
+                    Position tile = this.room.getMapping().getAvaliableTile();
 
                     RoomUser roomUser = entity.getRoomUser();
                     roomUser.walkTo(tile.getX(), tile.getY());
@@ -39,7 +39,9 @@ public class PetTask extends RoomTask {
                 }
             }
 
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace(); 
+        }
 
         this.tick();
     }

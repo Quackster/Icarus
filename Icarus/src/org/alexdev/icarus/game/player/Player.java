@@ -2,7 +2,6 @@ package org.alexdev.icarus.game.player;
 
 import java.util.List;
 import org.alexdev.icarus.game.entity.EntityType;
-import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.inventory.Inventory;
 import org.alexdev.icarus.game.messenger.Messenger;
@@ -46,49 +45,33 @@ public class Player extends Entity {
         return PlayerManager.hasPermission(this.details.getRank(), permission);
     }
 
-    public void login() {
-
-        // Add player to logged in maps
-        PlayerManager.addPlayer(this);
-
-        // Load all player rooms into memory
-        RoomDao.getPlayerRooms(this.details.getId(), true);
-
-        // Load all inventory items
-        this.inventory.init();
-        this.messenger.init();
-    }
-
     public void performRoomAction(RoomAction action, Object value) {
-        
-        if (action == RoomAction.LEAVE_ROOM) {
-            Room room = this.roomUser.getRoom();
-            boolean goHotelView = (boolean)value;
-            
-            if (goHotelView) {
-                this.send(new HotelViewMessageComposer());
-            }
 
-            PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this), CoerceJavaToLua.coerce(this.roomUser.getRoom()) });
-            
-            if (room != null) {
-                room.getEntityManager().removeEntity(this);
-                room.dispose(false);
-                this.messenger.sendStatus(false);
+        switch (action) {
+            case FORWARD_ROOM: {
+                
+                Room room = this.roomUser.getRoom();
+                boolean goHotelView = (boolean)value;
+    
+                if (goHotelView) {
+                    this.send(new HotelViewMessageComposer());
+                }
+    
+                PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this), CoerceJavaToLua.coerce(this.roomUser.getRoom()) });
+    
+                if (room != null) {
+                    room.getEntityManager().removeEntity(this);
+                    room.dispose(false);
+                    this.messenger.sendStatus(false);
+                }break;
             }
-            
-            return;
+    
+            case LEAVE_ROOM: {
+                int roomId = (int)value;
+                this.send(new RoomForwardComposer(roomId));
+                break;
+            }
         }
-        
-        if (action == RoomAction.FORWARD_ROOM) {
-            int roomId = (int)value;
-            this.send(new RoomForwardComposer(roomId));
-            return;
-        }
-    }
-
-    public void sendMessage(String message) {
-        this.send(new BroadcastMessageAlertComposer(message));
     }
 
     @Override
@@ -113,6 +96,11 @@ public class Player extends Entity {
         this.messenger.dispose();
         this.roomUser.dispose();
         this.inventory.dispose();
+    }
+    
+    @Override
+    public EntityType getType() {
+        return EntityType.PLAYER;
     }
 
     public List<Room> getRooms() {
@@ -146,16 +134,15 @@ public class Player extends Entity {
     public ClubSubscription getSubscription() {
         return subscription;
     }
-
-    @Override
-    public EntityType getType() {
-        return EntityType.PLAYER;
-    }
-
+    
     public IPlayerNetwork getNetwork() {
         return network;
     }
 
+    public void sendMessage(String message) {
+        this.send(new BroadcastMessageAlertComposer(message));
+    }
+    
     public void send(MessageComposer response) {
         this.network.send(response);
     }

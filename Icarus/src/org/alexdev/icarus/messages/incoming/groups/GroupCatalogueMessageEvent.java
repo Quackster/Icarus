@@ -9,7 +9,7 @@ import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.groups.GroupPurchaseDialogComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
-public class GroupPurchaseDialogMessageEvent implements MessageEvent {
+public class GroupCatalogueMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {

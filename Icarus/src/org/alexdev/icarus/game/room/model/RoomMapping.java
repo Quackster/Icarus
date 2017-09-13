@@ -205,7 +205,7 @@ public class RoomMapping {
         return true;
     }
     
-    public Position getRandomWalkableTile() {
+    public Position getAvaliableTile() {
         return this.walkableTiles.get(Util.randomInt(0, this.walkableTiles.size()));
     }
 

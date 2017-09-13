@@ -15,7 +15,7 @@ import org.alexdev.icarus.messages.incoming.catalogue.PurchaseRoomPromotionMessa
 import org.alexdev.icarus.messages.incoming.groups.DeleteGroupMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.GroupBadgeDialogMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.GroupInfoMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.GroupPurchaseDialogMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.GroupCatalogueMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.GroupPurchaseMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.ManageGroupMessageEvent;
 import org.alexdev.icarus.messages.incoming.handshake.*;
@@ -194,7 +194,7 @@ public class MessageHandler {
     }
     
     private void registerGroupPackets() {
-        this.registerEvent(Incoming.GroupBuyDialogMessageEvent, new GroupPurchaseDialogMessageEvent());
+        this.registerEvent(Incoming.GroupCatalogueMessageEvent, new GroupCatalogueMessageEvent());
         this.registerEvent(Incoming.GroupBadgeDialogMessageEvent, new GroupBadgeDialogMessageEvent());
         this.registerEvent(Incoming.GroupPurchaseMessageEvent, new GroupPurchaseMessageEvent());
         this.registerEvent(Incoming.GroupInfoMessageEvent, new GroupInfoMessageEvent());

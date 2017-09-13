@@ -1,6 +1,7 @@
 package org.alexdev.icarus.messages.incoming.handshake;
 
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
+import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.messages.MessageEvent;
@@ -44,6 +45,11 @@ public class AuthenticateMessageEvent implements MessageEvent {
         player.send(new HomeRoomMessageComposer(2, false));
         player.send(new LandingWidgetMessageComposer());
         player.send(new AvailabilityMessageComposer());
-        player.login();
+        
+        PlayerManager.addPlayer(player);
+        RoomDao.getPlayerRooms(player.getDetails().getId(), true);
+        
+        player.getInventory().init();
+        player.getMessenger().init();
     }
 }
