@@ -48,7 +48,7 @@ public class Player extends Entity {
     public void performRoomAction(RoomAction action, Object value) {
 
         switch (action) {
-            case FORWARD_ROOM: {
+            case LEAVE_ROOM: {
                 
                 Room room = this.roomUser.getRoom();
                 boolean goHotelView = (boolean)value;
@@ -66,7 +66,7 @@ public class Player extends Entity {
                 }break;
             }
     
-            case LEAVE_ROOM: {
+            case FORWARD_ROOM: {
                 int roomId = (int)value;
                 this.send(new RoomForwardComposer(roomId));
                 break;
