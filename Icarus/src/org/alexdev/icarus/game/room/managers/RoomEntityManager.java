@@ -1,6 +1,5 @@
 package org.alexdev.icarus.game.room.managers;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.alexdev.icarus.dao.mysql.pets.PetDao;
 import org.alexdev.icarus.game.entity.Entity;
@@ -58,12 +57,6 @@ public class RoomEntityManager {
         this.room.getMapping().getTile(x, y).setEntity(entity);
     }
     
-    /**
-     * Select room pets from data access object, will add them
-     * along with setting their stored coordinates to the entity and will also apply the height.
-     * 
-     * @return none
-     */
     public void addPets() {
         for (Pet pet : PetDao.getRoomPets(this.room.getData().getId())) {
             pet.getRoomUser().setRoom(this.room);
@@ -75,7 +68,6 @@ public class RoomEntityManager {
             this.entities.add(pet);
         }
     }
-
 
     public void removeEntity(Entity entity) {
 
@@ -89,8 +81,6 @@ public class RoomEntityManager {
         }
 
         if (entity.getType() != EntityType.PLAYER) {
-
-            // Save coordinates of pet
             if (entity.getType() == EntityType.PET) {
                 ((Pet)entity).savePosition();
             }
@@ -102,6 +92,7 @@ public class RoomEntityManager {
     }
 
     public void cleanupEntities() {
+        
         if (this.entities != null) {
 
             for (int i = 0; i < this.entities.size(); i++) {
@@ -118,7 +109,7 @@ public class RoomEntityManager {
     
     public List<Player> getPlayers() {
 
-        List<Player> sessions = new ArrayList<Player>();
+        List<Player> sessions = Lists.newArrayList();
 
         for (Entity entity : this.getEntities(EntityType.PLAYER)) {
             Player player = (Player)entity;
@@ -129,15 +120,16 @@ public class RoomEntityManager {
     }
 
     public List<Entity> getEntities(EntityType type) {
-        List<Entity> e = new ArrayList<Entity>();
+        
+        List<Entity> entities = Lists.newArrayList();
 
         for (Entity entity : this.entities) {
             if (entity.getType() == type) {
-                e.add(entity);
+                entities.add(entity);
             }
         }
 
-        return e;
+        return entities;
     }
 
     public Entity getEntityById(int id) {

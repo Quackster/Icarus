@@ -70,9 +70,6 @@ public class HeightmapMessageEvent implements MessageEvent {
 
         player.send(new WallOptionsMessageComposer(room.getData().hasHiddenWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
         player.send(new RoomPromotionMessageComposer(room));
-
-        room.getItemManager().fixFlashingTeleporters();
-
         player.send(new FloorItemsMessageComposer(room.getItemManager().getFloorItems()));
         player.send(new WallItemsMessageComposer(room.getItemManager().getWallItems()));
         player.send(new RoomDataMessageComposer(room, player, true, false));

@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import org.alexdev.icarus.dao.mysql.item.ItemDao;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
-import org.alexdev.icarus.game.furniture.interactions.types.TeleportInteractor;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.room.Room;
@@ -22,20 +21,6 @@ public class RoomItemManager {
         this.room = room;
         this.items = Maps.newHashMap();
     }
-   
-    /**
-     * Sometimes the teleporters will glitch out when placed, due to whatever reason and they will flash
-     * or either have their door open (presumably because of low room Id numbers - like room Id 1 or 2)
-     * 
-     * This will fix that issue.
-     * 
-     * @return none
-     */
-    public void fixFlashingTeleporters() {
-        for (Item item : this.getItems(InteractionType.TELEPORT)) {
-            //item.setExtraData(TeleportInteractor.TELEPORTER_CLOSE);
-        }
-    }
     
     public List<Item> getFloorItems() {
         return items.values().stream().filter(item -> item.getType() == ItemType.FLOOR).collect(Collectors.toList());
@@ -48,6 +33,7 @@ public class RoomItemManager {
     public List<Item> getItems(InteractionType interactionType) {
 
         try {
+            
             return items.values().stream()
                     .filter(item -> item.getDefinition().getInteractionType() == interactionType)
                     .collect(Collectors.toList());
@@ -66,10 +52,6 @@ public class RoomItemManager {
         return ItemDao.getItem(itemId);
     }
 
-    public Map<Integer, Item> getItems() {
-        return this.items;
-    }
-
     public void refreshRoomFurniture() {
         
         if (this.items != null) {
@@ -78,5 +60,9 @@ public class RoomItemManager {
         }
         
         this.items = ItemDao.getRoomItems(room.getData().getId());
+    } 
+    
+    public Map<Integer, Item> getItems() {
+        return items;
     }
 }

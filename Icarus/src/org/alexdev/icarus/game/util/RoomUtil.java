@@ -5,7 +5,6 @@ import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomAction;
-import org.alexdev.icarus.game.room.settings.RoomState;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.messages.outgoing.room.OwnerRightsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.RightsLevelMessageComposer;
@@ -13,10 +12,6 @@ import org.alexdev.icarus.messages.outgoing.room.RoomModelMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.RoomOwnerRightsComposer;
 import org.alexdev.icarus.messages.outgoing.room.RoomRatingMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.RoomSpacesMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.notify.GenericDoorbellMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.notify.GenericErrorMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.notify.GenericNoAnswerDoorbellMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.notify.RoomEnterErrorMessageComposer;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
@@ -24,65 +19,19 @@ public class RoomUtil {
 
     public static void entityRoomEntry(Player player, Room room, String password) {
         
-        entityRoomEntry(player, room, password, 
+        entityRoomEntry(player, room, 
                 room.getModel().getDoorLocation().getX(), 
                 room.getModel().getDoorLocation().getY(), 
                 room.getModel().getDoorLocation().getRotation());
     }
     
-    public static void entityRoomEntry(Player player, Room room, String password, int x, int y, int rotation) {
+    public static void entityRoomEntry(Player player, Room room, int x, int y, int rotation) {
         
         if (player.inRoom()) {
             player.performRoomAction(RoomAction.LEAVE_ROOM, false);
         }
 
         boolean isOwner = room.hasRights(player, true);
-
-        if (room.getData().getUsersNow() >= room.getData().getUsersMax()) {
-            if (!player.hasPermission("user_enter_full_rooms")) {
-                if (player.getDetails().getId() != room.getData().getOwnerId()) {
-                    player.send(new RoomEnterErrorMessageComposer(1));
-                    return;
-                }
-            }
-        }
-
-        if (player.getRoomUser().isTeleporting()) {
-            if (player.getRoomUser().getTeleportRoomId() != room.getData().getId()) {
-                player.performRoomAction(RoomAction.LEAVE_ROOM, true);
-            } else {
-                player.getRoomUser().setTeleporting(false);
-                player.getRoomUser().setTeleportRoomId(0);
-            }
-        }
-        else {
-
-            if (room.getData().getState().getStateCode() > 0 && !room.hasRights(player, false)) {
-                if (room.getData().getState() == RoomState.DOORBELL) {
-
-                    if (room.getEntityManager().getPlayers().size() > 0) {
-                        player.send(new GenericDoorbellMessageComposer(1));
-                        room.send(new GenericDoorbellMessageComposer(player.getDetails().getName()), true);
-                    } else {
-                        player.send(new GenericNoAnswerDoorbellMessageComposer());
-                    }
-
-                    return;
-                }
-
-                if (room.getData().getState() == RoomState.PASSWORD) {
-                    if (!password.equals(room.getData().getPassword())) {
-                        player.send(new GenericErrorMessageComposer(-100002));
-                        return;
-                    }
-                }
-
-                if (room.getData().getState() == RoomState.INVISIBLE) {
-                    player.performRoomAction(RoomAction.LEAVE_ROOM, true);
-                    return;
-                }
-            }
-        }
 
         RoomUser roomUser = player.getRoomUser();
 
