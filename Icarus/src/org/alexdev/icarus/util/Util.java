@@ -87,11 +87,7 @@ public class Util {
             return false;
         }
     }
-
-    public static Wini getConfiguration() {
-        return configuration;
-    }
-
+    
     public static int randomInt(int from, int to) {
         return randomInt(from, to, false);
     }
@@ -105,6 +101,62 @@ public class Util {
         }
     }
 
+    public static boolean isAlphaNumeric(String word) {
+        return word.matches("[A-Za-z0-9]+");
+    }
+
+    public static String removeNonAlphaNumeric(String caption) {
+        return caption.replaceAll("[^A-Za-z0-9]", "");
+    }
+
+    public static String readToEnd(Socket socket) throws IOException {
+
+        byte[] receive = new byte[512];
+
+        String str;
+
+        DataInputStream reader = new DataInputStream(socket.getInputStream());
+        reader.read(receive);
+
+        str = new String(receive);
+        return str;
+    }
+
+    public static String left(final String str, final int len) {
+        if (str == null) {
+            return null;
+        }
+        if (len < 0) {
+            return "";
+        }
+        if (str.length() <= len) {
+            return str;
+        }
+        return str.substring(0, len);
+    }
+
+    public static String right(final String str, final int len) {
+        if (str == null) {
+            return null;
+        }
+        if (len < 0) {
+            return "";
+        }
+        if (str.length() <= len) {
+            return str;
+        }
+        return str.substring(str.length() - len);
+    }
+
+    public static List<String> split(String str, String delim) {
+        return new ArrayList<String>(Arrays.asList(str.split(delim)));
+    }
+    
+
+    public static Wini getConfiguration() {
+        return configuration;
+    }
+
     public static SecureRandom getRandom() {
         return secureRandom;
     }
@@ -115,30 +167,5 @@ public class Util {
 
     public static DecimalFormat getDecimalFormatter() {
         return decimalFormatter;
-    }
-
-    public static boolean isAlphaNumeric(String word) {
-        return word.matches("[A-Za-z0-9]+");
-    }
-
-    public static String removeNonAlphaNumeric(String caption) {
-        return caption.replaceAll("[^A-Za-z0-9]", "");
-    }
-
-    public static String readToEnd(Socket socket) throws IOException {
-        
-        byte[] receive = new byte[512];
-        
-        String str;
-
-        DataInputStream reader = new DataInputStream(socket.getInputStream());
-        reader.read(receive);
-
-        str = new String(receive);
-        return str;
-    }
-    
-    public static List<String> split(String str, String delim) {
-        return new ArrayList<String>(Arrays.asList(str.split(delim)));
     }
 }

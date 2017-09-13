@@ -13,8 +13,10 @@ import org.alexdev.icarus.messages.incoming.catalogue.PurchaseItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.PurchasePresentMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.PurchaseRoomPromotionMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.GroupBadgeDialogMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.GroupInfoMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.GroupPurchaseDialogMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.GroupPurchaseMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.ManageGroupMessageEvent;
 import org.alexdev.icarus.messages.incoming.handshake.*;
 import org.alexdev.icarus.messages.incoming.items.PurchaseOfferMessageEvent;
 import org.alexdev.icarus.messages.incoming.messenger.*;
@@ -95,7 +97,7 @@ public class MessageHandler {
         this.registerEvent(Incoming.CurrencyBalanceMessageEvent, new CurrencyBalanceMessageEvent());
         this.registerEvent(Incoming.ChangeAppearanceMessageEvent, new ChangeAppearanceMessageEvent());
         this.registerEvent(Incoming.SubscriptionMessageEvent, new SubscriptionMessageEvent());
-        this.registerEvent(Incoming.WelcomeMessageEvent, new WelcomeMessageEvent());
+        this.registerEvent(Incoming.NavigatorPromoteRoomCategories, new WelcomeMessageEvent());
         this.registerEvent(Incoming.HabboClubCenterMessageEvent, new HabboClubCenterMessageEvent());
     }
     
@@ -194,6 +196,8 @@ public class MessageHandler {
         this.registerEvent(Incoming.GroupBuyDialogMessageEvent, new GroupPurchaseDialogMessageEvent());
         this.registerEvent(Incoming.GroupBadgeDialogMessageEvent, new GroupBadgeDialogMessageEvent());
         this.registerEvent(Incoming.GroupPurchaseMessageEvent, new GroupPurchaseMessageEvent());
+        this.registerEvent(Incoming.GroupInfoMessageEvent, new GroupInfoMessageEvent());
+        this.registerEvent(Incoming.ManageGroupMessageEvent, new ManageGroupMessageEvent());
     }
     
     private void registerComposerPackages() {

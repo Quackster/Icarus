@@ -26,6 +26,7 @@ import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.TalkMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 import org.alexdev.icarus.util.GameSettings;
+import org.alexdev.icarus.util.Metadata;
 import org.alexdev.icarus.util.Util;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
@@ -33,7 +34,7 @@ import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-public class RoomUser {
+public class RoomUser extends Metadata {
 
     private int virtualId;
     private int chatColor;
@@ -60,6 +61,7 @@ public class RoomUser {
     private Item currentItem;
     private int carryTimer;
     private int carryItem;
+    
     private boolean isRolling;
     private boolean isWalkingAllowed;
 
@@ -375,6 +377,9 @@ public class RoomUser {
         this.isRolling = false;
         this.isWalking = false;
         this.isWalkingAllowed = true;
+        this.room = null;
+        
+        this.getMetadata().clear();
 
     }
     

@@ -113,4 +113,6 @@ public class Outgoing {
     public static int GroupBadgesMessageComposer = 84;//711
     public static int GroupInfoMessageComposer = 2197;//815
     public static int AvatarAspectUpdateMessageComposer = 125;//884
+    public static int GroupInfoComposer = 1530;
+    public static int ManageGroupComposer = 991;
 }

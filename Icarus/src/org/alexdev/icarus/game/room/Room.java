@@ -17,6 +17,7 @@ import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.furniture.interactions.types.TeleportInteractor;
 import org.alexdev.icarus.game.groups.Group;
+import org.alexdev.icarus.game.groups.GroupManager;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.pets.Pet;
@@ -31,6 +32,8 @@ import org.alexdev.icarus.game.room.settings.RoomType;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.incoming.room.RoomPromotionMessageComposer;
+import org.alexdev.icarus.messages.outgoing.groups.GroupBadgesMessageComposer;
+import org.alexdev.icarus.messages.outgoing.groups.NewGroupMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.FloorMapMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.OwnerRightsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.HeightMapMessageComposer;
@@ -67,7 +70,6 @@ public class Room {
     private RoomMapping mapping;
     private RoomModel model;
     private RoomPromotion promotion;
-    private Group group;
 
     private List<Entity> entities; 
     private Map<Integer, Item> items;
@@ -77,7 +79,6 @@ public class Room {
     public Room() {
 
         this.data = new RoomData(this);
-        this.mapping = new RoomMapping(this);
 
         this.items = Maps.newHashMap();
         this.entities = Lists.newArrayList();
@@ -199,6 +200,8 @@ public class Room {
         if (!(this.getPlayers().size() > 0)) {
 
             this.items = ItemDao.getRoomItems(this.getData().getId());
+            
+            this.mapping = new RoomMapping(this);
             this.mapping.regenerateCollisionMaps();
 
             this.scheduler = new RoomScheduler(this);
@@ -249,7 +252,7 @@ Incoming[2241, _-4nq, UserUpdateMessageParser] <- [0][0][0]9[8]Á[0][0][0][1][0][
 --------------------
 [1d1cb11cb8d5156afeb284fb1eb04339]
 Incoming[2241, _-4nq, UserUpdateMessageParser] <- [0][0][0].[8]Á[0][0][0][1][0][0][0][0][0][0][0][5][0][0][0][7][0][3]0.0[0][0][0][5][0][0][0][5][0][13]/flatctrl 4//        */
-        
+
         if (player.hasPermission("room_all_rights") || this.data.getOwnerId() == player.getDetails().getId()) {
             player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "4");
         } else if (this.hasRights(player, false)) {
@@ -264,13 +267,23 @@ Incoming[2241, _-4nq, UserUpdateMessageParser] <- [0][0][0].[8]Á[0][0][0][1][0][
         player.send(new FloorItemsMessageComposer(this.getFloorItems()));
         player.send(new WallItemsMessageComposer(this.getWallItems()));
         player.send(new RoomDataMessageComposer(this, player, true, false));
-        
+
         player.getMessenger().sendStatus(false);
 
         boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_ENTER_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
 
         if (isCancelled) {
             this.leaveRoom(player, true);
+        }
+
+        Group group = this.getGroup();
+
+        if (group != null) {
+            if (player.getRoomUser().getMetadata().getAsBool("showGroupHomeroomDialog")) {
+                player.getRoomUser().getMetadata().set("showGroupHomeroomDialog", false);
+                
+                this.send(new NewGroupMessageComposer(this.getData().getId(), this.data.getGroupId()));
+            }
         }
     }
 
@@ -284,7 +297,7 @@ Incoming[2241, _-4nq, UserUpdateMessageParser] <- [0][0][0].[8]Á[0][0][0][1][0][
 
         this.removeEntity(player);
         this.dispose(false);
-        
+
         player.getMessenger().sendStatus(false);
     }
 
@@ -366,28 +379,7 @@ Incoming[2241, _-4nq, UserUpdateMessageParser] <- [0][0][0].[8]Á[0][0][0][1][0][
 
         return false;
     }
-
-    public void dispose(boolean forceDisposal) {
-
-        if (forceDisposal) {
-
-            this.cleanupRoomData();
-            RoomManager.removeRoom(this.getData().getId());
-
-        } else {
-
-            if (this.getPlayers().size() > 0) {
-                return;
-            }
-
-            this.cleanupRoomData();
-
-            if (PlayerManager.getById(this.data.getOwnerId()) == null && this.data.getRoomType() == RoomType.PRIVATE) { 
-                RoomManager.removeRoom(this.getData().getId());
-            }
-        }
-    }
-
+    
 
     /**
      * Sometimes the teleporters will glitch out when placed, due to whatever reason and they will flash
@@ -420,32 +412,6 @@ Incoming[2241, _-4nq, UserUpdateMessageParser] <- [0][0][0].[8]Á[0][0][0][1][0][
             pet.getRoomUser().getPosition().setRotation(0);
             this.entities.add(pet);
         }
-    }
-
-    private void cleanupRoomData() {
-
-        if (this.scheduler != null) {
-            this.scheduler.cancelTasks();
-        }
-
-        if (this.entities != null) {
-
-            for (int i = 0; i < this.entities.size(); i++) {
-                Entity entity = this.entities.get(i);
-
-                if (entity.getType() != EntityType.PLAYER) {
-                    this.removeEntity(entity);
-                }
-            }
-
-            this.entities.clear();
-        }
-
-        if (this.rights != null) {
-            this.rights.clear();
-        }
-
-        this.privateId.set(-1);
     }
 
     public void send(MessageComposer response, boolean checkRights) {
@@ -578,8 +544,8 @@ Incoming[2241, _-4nq, UserUpdateMessageParser] <- [0][0][0].[8]Á[0][0][0][1][0][
         this.model = model;
     }
 
-    public void sendToRoom(Player user) {
-        user.send(new RoomForwardComposer(this.data.getId()));
+    public static void sendToRoom(Player user, int roomId) {
+        user.send(new RoomForwardComposer(roomId));
     }
 
     public void createPromotion(String promotionName, String promotionDescription) {
@@ -605,22 +571,73 @@ Incoming[2241, _-4nq, UserUpdateMessageParser] <- [0][0][0].[8]Á[0][0][0][1][0][
     }
 
     public Group getGroup() {
-        return group;
-    }
 
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-
-    public void updateGroup() {
         if (this.data.getGroupId() > 0) {
-            this.group = GroupDao.getGroup(this.data.getGroupId());
             
-            // If the group was failed to be retrieved, we set it back to null and save the room
-            if (this.group == null) {
+            Group group = GroupDao.getGroup(this.data.getGroupId());
+
+            if (group == null) {
                 this.data.setGroupId(0);
                 this.save();
+                return null;
+            }
+
+            return group;
+        }
+
+        return null;
+    }
+    
+
+    public void dispose(boolean forceDisposal) {
+
+        if (forceDisposal) {
+
+            this.cleanupRoomData();
+            RoomManager.removeRoom(this.getData().getId());
+
+        } else {
+
+            if (this.getPlayers().size() > 0) {
+                return;
+            }
+
+            this.cleanupRoomData();
+
+            if (PlayerManager.getById(this.data.getOwnerId()) == null && this.data.getRoomType() == RoomType.PRIVATE) { 
+                RoomManager.removeRoom(this.getData().getId());
             }
         }
     }
+
+    private void cleanupRoomData() {
+
+        if (this.scheduler != null) {
+            this.scheduler.cancelTasks();
+        }
+
+        if (this.entities != null) {
+
+            for (int i = 0; i < this.entities.size(); i++) {
+                Entity entity = this.entities.get(i);
+
+                if (entity.getType() != EntityType.PLAYER) {
+                    this.removeEntity(entity);
+                }
+            }
+
+            this.entities.clear();
+        }
+
+        if (this.rights != null) {
+            this.rights.clear();
+        }
+        
+        this.scheduler  = null;
+        this.mapping = null;
+        this.promotion = null;
+
+        this.privateId.set(-1);
+    }
+
 }

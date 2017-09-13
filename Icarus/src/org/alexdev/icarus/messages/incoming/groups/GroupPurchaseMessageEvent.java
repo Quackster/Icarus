@@ -5,13 +5,14 @@ import java.util.List;
 import org.alexdev.icarus.dao.mysql.groups.GroupDao;
 import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.groups.GroupManager;
+import org.alexdev.icarus.game.groups.badge.BadgeUtil;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessageComposer;
 import org.alexdev.icarus.messages.outgoing.groups.GroupBadgesMessageComposer;
-import org.alexdev.icarus.messages.outgoing.groups.GroupInfoMessageComposer;
+import org.alexdev.icarus.messages.outgoing.groups.NewGroupMessageComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.alexdev.icarus.util.Util;
 
@@ -52,20 +53,20 @@ public class GroupPurchaseMessageEvent implements MessageEvent {
             groupItems.add(reader.readInt());
         }
 
-        String badge = GroupManager.generateBadge(groupBase, groupBaseColour, groupItems);
+        String badge = BadgeUtil.generateBadge(groupBase, groupBaseColour, groupItems);
         Group group = GroupDao.createGroup(name, desc, badge, player.getDetails().getId(), roomId, Util.getCurrentTimeSeconds(), colourA, colourB);
         
-        room.setGroup(group);
         room.getData().setGroupId(group.getId());
         room.save();
         
-        if (player.getRoomUser().getRoomId() != room.getData().getId()) {
-            room.sendToRoom(player);
-        }
-        
-        room.send(new GroupBadgesMessageComposer(group.getId(), badge));
-        room.send(new GroupInfoMessageComposer(roomId, group.getId()));
-        
         player.send(new PurchaseNotificationMessageComposer());
+
+        if (player.getRoomUser().getRoomId() != room.getData().getId()) {
+            player.getRoomUser().set("showGroupHomeroomDialog", true);
+            Room.sendToRoom(player, roomId);
+        } else {
+            player.send(new NewGroupMessageComposer(roomId, group.getId()));
+            room.send(new GroupBadgesMessageComposer(group.getId(), badge));
+        }
     }
 }

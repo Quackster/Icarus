@@ -1,5 +1,7 @@
 package org.alexdev.icarus.game.groups;
 
+import org.alexdev.icarus.game.groups.access.GroupAccessType;
+
 public class Group {
 
     private int id;
@@ -12,8 +14,9 @@ public class Group {
     private int colourA;
     private int colourB;
     private boolean canMembersDecorate;
+    private GroupAccessType accessType;
 
-    public Group(int id, String title, String description, String badge, int ownerId, int roomId, long created, int colourA, int colourB, boolean canMembersDecorate) {
+    public Group(int id, String title, String description, String badge, int ownerId, int roomId, long created, int colourA, int colourB, boolean canMembersDecorate, int accessType) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -24,6 +27,18 @@ public class Group {
         this.colourA = colourA;
         this.colourB = colourB;
         this.canMembersDecorate = canMembersDecorate;
+        
+        if (accessType == 0) {
+            this.accessType = GroupAccessType.OPEN;
+        }
+        
+        if (accessType == 1) {
+            this.accessType = GroupAccessType.LOCKED;
+        }
+        
+        if (accessType == 2) {
+            this.accessType = GroupAccessType.PRIVATE;
+        }
     }
 
     public int getId() {
@@ -88,6 +103,14 @@ public class Group {
 
     public void setColourB(int colourB) {
         this.colourB = colourB;
+    }
+
+    public GroupAccessType getAccessType() {
+        return accessType;
+    }
+
+    public void setAccessType(GroupAccessType accessType) {
+        this.accessType = accessType;
     }
 
     public boolean canMembersDecorate() {

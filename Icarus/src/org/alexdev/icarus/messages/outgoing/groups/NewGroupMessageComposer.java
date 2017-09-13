@@ -3,12 +3,12 @@ package org.alexdev.icarus.messages.outgoing.groups;
 import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
 
-public class GroupInfoMessageComposer extends MessageComposer {
+public class NewGroupMessageComposer extends MessageComposer {
 
     private int roomId;
     private int groupId;
 
-    public GroupInfoMessageComposer(int roomId, int groupId) {
+    public NewGroupMessageComposer(int roomId, int groupId) {
         this.roomId = roomId;
         this.groupId = groupId;
     }

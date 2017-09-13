@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.groups.Group;
+import org.alexdev.icarus.game.groups.access.GroupAccessType;
 import org.alexdev.icarus.log.Log;
 
 public class GroupDao {
@@ -48,7 +49,7 @@ public class GroupDao {
             Storage.closeSilently(sqlConnection);
         }
         
-        return new Group(groupId, title, description, badge, ownerId, roomId, created, colourA, colourB, false);
+        return new Group(groupId, title, description, badge, ownerId, roomId, created, colourA, colourB, false, GroupAccessType.OPEN.getType());
     }
 
     public static Group getGroup(int groupId) {
@@ -67,7 +68,7 @@ public class GroupDao {
             resultSet = preparedStatement.executeQuery();
             
             if (resultSet.next()) {
-                group = new Group(groupId, resultSet.getString("title"), resultSet.getString("description"), resultSet.getString("badge"), resultSet.getInt("room_id"), resultSet.getInt("owner_id"), resultSet.getInt("created"), resultSet.getInt("colour_a"), resultSet.getInt("colour_b"), false);
+                group = new Group(groupId, resultSet.getString("title"), resultSet.getString("description"), resultSet.getString("badge"), resultSet.getInt("owner_id"), resultSet.getInt("room_id"), resultSet.getInt("created"), resultSet.getInt("colour_a"), resultSet.getInt("colour_b"), false, resultSet.getInt("access_type"));
             }
 
         } catch (Exception e) {

@@ -69,7 +69,7 @@ public class SaveFloorPlanMessageEvent implements MessageEvent {
 
         for (Player user : connectedPlayers) {
             if (user != null) {
-                room.sendToRoom(user);
+                Room.sendToRoom(player, room.getData().getId());
             }
         }
 

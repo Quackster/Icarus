@@ -48,4 +48,9 @@ public abstract class Metadata {
         
         return (boolean)this.data.get(string);
     }
+
+    public void clear() {
+        this.data.clear();
+        
+    }
 }
