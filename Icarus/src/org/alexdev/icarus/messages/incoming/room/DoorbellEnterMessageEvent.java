@@ -20,6 +20,6 @@ public class DoorbellEnterMessageEvent implements MessageEvent {
             return;
         }
         
-        RoomUtil.entityRoomEntry(player, room, "");
+        RoomUtil.playerRoomEntry(player, room, "");
     }
 }

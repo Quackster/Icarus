@@ -96,6 +96,6 @@ public class EnterRoomMessageEvent implements MessageEvent {
             }
         }
         
-        RoomUtil.entityRoomEntry(player, room, password);
+        RoomUtil.playerRoomEntry(player, room, password);
     }
 }

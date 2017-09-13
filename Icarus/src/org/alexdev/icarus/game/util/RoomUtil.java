@@ -17,7 +17,7 @@ import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
 public class RoomUtil {
 
-    public static void entityRoomEntry(Player player, Room room, String password) {
+    public static void playerRoomEntry(Player player, Room room, String password) {
         
         entityRoomEntry(player, room, 
                 room.getModel().getDoorLocation().getX(), 
