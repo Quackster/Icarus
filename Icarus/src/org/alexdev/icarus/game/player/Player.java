@@ -28,7 +28,7 @@ public class Player extends Entity {
     private Messenger messenger;
     private Inventory inventory;
     private ClubSubscription subscription;
-    
+
     private boolean loggedIn;
 
     public Player(IPlayerNetwork network) {
@@ -48,7 +48,7 @@ public class Player extends Entity {
 
         // Add player to logged in maps
         PlayerManager.addPlayer(this);
-        
+
         // Load all player rooms into memory
         RoomDao.getPlayerRooms(this.details.getId(), true);
 
@@ -59,22 +59,22 @@ public class Player extends Entity {
 
     public void leaveRoom(boolean hotelView) {
 
-        if (this.roomUser.getRoom() != null) {
-            return;
-        }
+        Room room = this.roomUser.getRoom();
         
         if (hotelView) {
             this.send(new HotelViewMessageComposer());
         }
 
         PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this), CoerceJavaToLua.coerce(this.roomUser.getRoom()) });
+        
+        if (room != null) {
+            room.removeEntity(this);
+            room.dispose(false);
 
-        this.roomUser.getRoom().removeEntity(this);
-        this.roomUser.getRoom().dispose(false);
-
-        this.messenger.sendStatus(false);
+            this.messenger.sendStatus(false);
+        }
     }
-    
+
     public void sendMessage(String message) {
         this.send(new BroadcastMessageAlertComposer(message));
     }
@@ -95,7 +95,7 @@ public class Player extends Entity {
         for (Room room : RoomManager.getPlayerRooms(this.details.getId())) {
             room.dispose(false); 
         }
-        
+
         PlayerManager.removePlayer(this);
 
         this.messenger.dispose();
