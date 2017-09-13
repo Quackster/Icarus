@@ -86,11 +86,4 @@ public class NettyRequest implements ClientMessage {
     public int getMessageId() {
         return header;
     }
-
-    @Override
-    public byte[] getRawMessage() {
-        byte[] complete = this.buffer.array();
-        
-        return Arrays.copyOfRange(complete, 6, complete.length); 
-    }
 }

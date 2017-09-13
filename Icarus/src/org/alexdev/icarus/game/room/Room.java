@@ -107,7 +107,7 @@ public class Room {
     public void loadRoom(Player player, String pass, int x, int y, int rotation) {
 
         if (player.inRoom()) {
-            player.getRoom().leaveRoom(player, false);
+            player.leaveRoom(false);
         }
 
         boolean isOwner = this.hasRights(player, true);
@@ -123,7 +123,7 @@ public class Room {
 
         if (player.getRoomUser().isTeleporting()) {
             if (player.getRoomUser().getTeleportRoomId() != this.data.getId()) {
-                this.leaveRoom(player, true);
+                player.leaveRoom(true);
             } else {
                 player.getRoomUser().setTeleporting(false);
                 player.getRoomUser().setTeleportRoomId(0);
@@ -152,7 +152,7 @@ public class Room {
                 }
 
                 if (this.data.getState() == RoomState.INVISIBLE) {
-                    this.leaveRoom(player, true);
+                    player.leaveRoom(true);
                     return;
                 }
             }
@@ -212,7 +212,7 @@ public class Room {
             boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_FIRST_ENTRY_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
 
             if (isCancelled) {
-                this.leaveRoom(player, true);
+                player.leaveRoom(true);
             }
         }
     }
@@ -273,7 +273,7 @@ Incoming[2241, _-4nq, UserUpdateMessageParser] <- [0][0][0].[8]Á[0][0][0][1][0][
         boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_ENTER_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
 
         if (isCancelled) {
-            this.leaveRoom(player, true);
+            player.leaveRoom(true);
         }
 
         Group group = this.getGroup();
@@ -285,20 +285,6 @@ Incoming[2241, _-4nq, UserUpdateMessageParser] <- [0][0][0].[8]Á[0][0][0][1][0][
                 this.send(new NewGroupMessageComposer(this.getData().getId(), this.data.getGroupId()));
             }
         }
-    }
-
-    public void leaveRoom(Player player, boolean hotelView) {
-
-        if (hotelView) {
-            player.send(new HotelViewMessageComposer());
-        }
-
-        PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
-
-        this.removeEntity(player);
-        this.dispose(false);
-
-        player.getMessenger().sendStatus(false);
     }
 
     public void addEntity(Entity entity) {

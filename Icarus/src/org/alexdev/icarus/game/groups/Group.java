@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.groups;
 
+import org.alexdev.icarus.dao.mysql.groups.GroupDao;
 import org.alexdev.icarus.game.groups.access.GroupAccessType;
 
 public class Group {
@@ -39,6 +40,10 @@ public class Group {
         if (accessType == 2) {
             this.accessType = GroupAccessType.PRIVATE;
         }
+    }
+    
+    public void delete() {
+        GroupDao.deleteGroup(this.id);
     }
 
     public int getId() {

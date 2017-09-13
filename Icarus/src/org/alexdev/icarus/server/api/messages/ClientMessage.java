@@ -10,5 +10,4 @@ public interface ClientMessage {
     public byte[] readBytes(int len);
     public String getMessageBody();
     public int getMessageId();
-    public byte[] getRawMessage();
 }

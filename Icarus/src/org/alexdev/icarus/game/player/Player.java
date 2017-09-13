@@ -13,6 +13,7 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.RoomUser;
 import org.alexdev.icarus.messages.MessageComposer;
+import org.alexdev.icarus.messages.outgoing.room.user.HotelViewMessageComposer;
 import org.alexdev.icarus.messages.outgoing.user.BroadcastMessageAlertComposer;
 import org.alexdev.icarus.server.api.IPlayerNetwork;
 import org.luaj.vm2.LuaValue;
@@ -56,6 +57,24 @@ public class Player extends Entity {
         this.messenger.init();
     }
 
+    public void leaveRoom(boolean hotelView) {
+
+        if (this.roomUser.getRoom() != null) {
+            return;
+        }
+        
+        if (hotelView) {
+            this.send(new HotelViewMessageComposer());
+        }
+
+        PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this), CoerceJavaToLua.coerce(this.roomUser.getRoom()) });
+
+        this.roomUser.getRoom().removeEntity(this);
+        this.roomUser.getRoom().dispose(false);
+
+        this.messenger.sendStatus(false);
+    }
+    
     public void sendMessage(String message) {
         this.send(new BroadcastMessageAlertComposer(message));
     }
@@ -68,7 +87,7 @@ public class Player extends Entity {
         }
 
         if (this.roomUser.getRoom() != null) {
-            this.roomUser.getRoom().leaveRoom(this, false);
+            this.leaveRoom(false);
         }
 
         PluginManager.callEvent(PluginEvent.PLAYER_DISCONNECT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this) });

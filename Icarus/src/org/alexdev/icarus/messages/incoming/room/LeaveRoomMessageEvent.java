@@ -10,12 +10,6 @@ public class LeaveRoomMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage request) {
 
-        Room room = player.getRoomUser().getRoom();
-        
-        if (room == null) {
-            return;
-        }
-
-        room.leaveRoom(player, false);
+        player.leaveRoom(true);
     }
 }

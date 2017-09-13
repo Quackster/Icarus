@@ -82,4 +82,5 @@ public class Incoming {
     public static Integer GroupPurchaseMessageEvent = 1753;//2959
     public static Integer GroupInfoMessageEvent = 283;
     public static Integer ManageGroupMessageEvent = 266;
+    public static Integer DeleteGroupMessageEvent = 3320;
 }

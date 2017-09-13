@@ -1,6 +1,5 @@
 package org.alexdev.icarus.messages.incoming.room.user;
 
-import java.io.FileOutputStream;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
@@ -16,13 +15,6 @@ public class RoomThumbnailMessageEvent implements MessageEvent {
         //byte[] buffer = new byte[bytes.length * 3];
 
         try {
-
-            byte[] msg = request.getRawMessage();
-     
-            FileOutputStream fos = new FileOutputStream("pathname.png");
-            fos.write(msg);
-            fos.close();
-
 
             /*Inflater inflater = new Inflater();
             inflater.setInput(bytes);

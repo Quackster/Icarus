@@ -81,4 +81,28 @@ public class GroupDao {
         
         return group;
     }
+    
+    public static void deleteGroup(int id) {
+        
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        
+        try {
+
+            sqlConnection = Dao.getStorage().getConnection();
+
+            preparedStatement = Dao.getStorage().prepare("DELETE FROM group_data WHERE id = ?", sqlConnection);
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+        
+    }
 }

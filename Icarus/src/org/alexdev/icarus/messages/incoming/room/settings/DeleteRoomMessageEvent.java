@@ -26,7 +26,7 @@ public class DeleteRoomMessageEvent implements MessageEvent {
         int roomId = request.readInt(); // room id
         
         for (Player users : room.getPlayers()) {
-            room.leaveRoom(users, true);
+            users.leaveRoom(true);
         }
         
         for (Item item : room.getItems().values()) {

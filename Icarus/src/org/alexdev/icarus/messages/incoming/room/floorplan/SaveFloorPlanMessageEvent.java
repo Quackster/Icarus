@@ -64,7 +64,7 @@ public class SaveFloorPlanMessageEvent implements MessageEvent {
 
         for (Player user : room.getPlayers()) {
             connectedPlayers.add(user);
-            room.leaveRoom(user, true);
+            user.leaveRoom(false);
         }
 
         for (Player user : connectedPlayers) {
