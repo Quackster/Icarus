@@ -212,7 +212,6 @@ public class RoomDao {
     public static void updateRoom(Room room) {
 
         RoomData data = room.getData();
-
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -220,7 +219,6 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-
             preparedStatement = Dao.getStorage().prepare("UPDATE rooms SET name = ?, description = ?, "
                     + "state = ?, password = ?, users_max = ?, category = ?, tags = ?, trade_state = ?, allow_pets = ?, allow_pets_eat = ?, " 
                     + "allow_walkthrough = ?, hidewall = ?, wall_thickness = ?, floor_thickness = ?, who_can_mute = ?, who_can_kick = ?, who_can_ban = ?, "
@@ -228,7 +226,7 @@ public class RoomDao {
 
             preparedStatement.setString(1, data.getName());
             preparedStatement.setString(2, data.getDescription());
-            preparedStatement.setInt(3, data.getState().getStateCode());
+            preparedStatement.setString(3, data.getState().name());
             preparedStatement.setString(4, data.getPassword());
             preparedStatement.setInt(5, data.getUsersMax());
             preparedStatement.setInt(6, data.getCategory());
@@ -263,7 +261,6 @@ public class RoomDao {
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
-
     }
 
     public static void saveChatlog(Player chatter, int roomId, String chatType, String message) {
@@ -300,7 +297,6 @@ public class RoomDao {
             Storage.closeSilently(sqlConnection);
         }
     }
-
 
     public static Room fill(ResultSet row) throws SQLException {
 
