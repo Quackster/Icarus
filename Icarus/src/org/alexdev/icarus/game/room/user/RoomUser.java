@@ -40,37 +40,35 @@ public class RoomUser extends Metadata {
     private int chatColor;
     private int danceId;
     private int roomRequestedId;
-
+    private int chatCount;
+    private int lookResetTime;
+    private int teleportRoomId;
+    private int carryTimer;
+    private int carryItem;
+    private long chatFloodTimer;
+    private boolean isWalking;
+    private boolean needsUpdate;
+    private boolean isTeleporting;
+    private boolean isRolling;
+    private boolean isWalkingAllowed;
+    private Entity entity;
+    private Room room;
+    private Item currentItem;
     private Position position;
     private Position overridePosition;
     private Position goal;
     private Position next;
-
-    private boolean isWalking;
-    private boolean needsUpdate;
-    private boolean isTeleporting;
-    private int teleportRoomId;
-
-    private long chatFloodTimer;
-    private int chatCount;
-    private int lookResetTime;
-
     private HashMap<EntityStatus, String> statuses;
     private LinkedList<Position> path;
-    private Entity entity;
-    private Room room;
-    private Item currentItem;
-    private int carryTimer;
-    private int carryItem;
-    
-    private boolean isRolling;
-    private boolean isWalkingAllowed;
 
     public RoomUser(Entity entity) {
         this.dispose();
         this.entity = entity;
     }
 
+    /**
+     * Stop walking.
+     */
     public void stopWalking() {
 
         this.removeStatus(EntityStatus.MOVE);
@@ -91,6 +89,11 @@ public class RoomUser extends Metadata {
         this.needsUpdate = true;
     }
 
+    /**
+     * Update current item.
+     *
+     * @return true, if successful
+     */
     public boolean updateCurrentItem() {
 
         Item item = this.room.getMapping().getHighestItem(this.position.getX(), this.position.getY());
@@ -116,6 +119,9 @@ public class RoomUser extends Metadata {
         return true;
     }
 
+    /**
+     * Trigger current item.
+     */
     public void triggerCurrentItem() {
 
         if (this.currentItem == null) {
@@ -133,14 +139,31 @@ public class RoomUser extends Metadata {
         this.needsUpdate = true;
     }
 
+    /**
+     * Contains status.
+     *
+     * @param status the status
+     * @return true, if successful
+     */
     public boolean containsStatus(EntityStatus status) {
         return this.statuses.containsKey(status);
     }
 
+    /**
+     * Removes the status.
+     *
+     * @param status the status
+     */
     public void removeStatus(EntityStatus status) {
         this.statuses.remove(status);
     }
 
+    /**
+     * Sets the status.
+     *
+     * @param status the status
+     * @param value the value
+     */
     public void setStatus(EntityStatus status, String value) {
 
         if (this.containsStatus(status)) {
@@ -151,8 +174,9 @@ public class RoomUser extends Metadata {
     }
     
     /**
-     * Chat without spam checking, only sends to self
-     * 
+     * Chat without spam checking, only sends to self.
+     *
+     * @param type the type
      * @param message - the message to chat to room
      */
     public void chatSelf(ChatType type, String message) {
@@ -161,6 +185,13 @@ public class RoomUser extends Metadata {
         }
     }
     
+    /**
+     * Chat and broadcast message in room, supports spam checking.
+     *
+     * @param message the message
+     * @param type the type
+     * @param spamCheck the spam check
+     */
     public void chat(String message, ChatType type, boolean spamCheck) {
 
         if (this.entity.getType() != EntityType.PLAYER) {
@@ -236,6 +267,11 @@ public class RoomUser extends Metadata {
         }
     }
 
+    /**
+     * Look towards specified position.
+     *
+     * @param look the position to look towards
+     */
     public void lookTowards(Position look) {
 
         if (this.isWalking) {
@@ -259,6 +295,13 @@ public class RoomUser extends Metadata {
         this.needsUpdate = true;
     }
 
+    /**
+     * Warp to specified position.
+     *
+     * @param x the x
+     * @param y the y
+     * @param rotation the rotation
+     */
     public void warpTo(int x, int y, int rotation) {
 
         if (this.room.getModel().hasInvalidCoordinates(x, y)) {
@@ -278,6 +321,12 @@ public class RoomUser extends Metadata {
         this.needsUpdate = true;
     }
 
+    /**
+     * Walk to specified position.
+     *
+     * @param X the x
+     * @param Y the y
+     */
     public void walkTo(int X, int Y) {
 
         if (this.room.getModel().hasInvalidCoordinates(X, Y)) {
@@ -327,6 +376,11 @@ public class RoomUser extends Metadata {
         this.isWalking = true;
     }
 
+    /**
+     * Carry item.
+     *
+     * @param vendingId the vending id
+     */
     public void carryItem(int vendingId) {
 
         if (vendingId == -1) {
@@ -344,6 +398,9 @@ public class RoomUser extends Metadata {
         this.room.send(new CarryObjectComposer(this.virtualId, vendingId)); 
     }
 
+    /**
+     * Dispose.
+     */
     public void dispose() {
 
         if (this.statuses != null) {
@@ -382,78 +439,170 @@ public class RoomUser extends Metadata {
 
     }
     
+    /**
+     * Start dancing.
+     *
+     * @param danceId the dance id
+     */
     public void startDancing(int danceId) {
         this.danceId = danceId;
         this.room.send(new DanceMessageComposer(this.virtualId, danceId));
     }
     
+    /**
+     * Stop dancing.
+     */
     public void stopDancing() {
         this.startDancing(0);
     }
 
+    /**
+     * Gets the position.
+     *
+     * @return the position
+     */
     public Position getPosition() {
         return position;
     }
 
+    /**
+     * Sets the position.
+     *
+     * @param position the new position
+     */
     public void setPosition(Position position) {
         this.position = position;
     }
 
+    /**
+     * Gets the walking goal.
+     *
+     * @return the walking goal
+     */
     public Position getWalkingGoal() {
         return goal;
     }
 
+    /**
+     * Sets the goal.
+     *
+     * @param goal the new goal
+     */
     public void setGoal(Position goal) {
         this.goal = goal;
     }
 
+    /**
+     * Gets the next.
+     *
+     * @return the next
+     */
     public Position getNext() {
         return next;
     }
 
+    /**
+     * Sets the next.
+     *
+     * @param next the new next
+     */
     public void setNext(Position next) {
         this.next = next;
     }
 
+    /**
+     * Update status.
+     */
     public void updateStatus() {
         this.room.send(new UserStatusMessageComposer(this.entity));
     }
 
+    /**
+     * Checks if is dancing.
+     *
+     * @return true, if is dancing
+     */
     public boolean isDancing() {
         return this.danceId != 0;
     }
+    
+    /**
+     * Gets the virtual id.
+     *
+     * @return the virtual id
+     */
     public int getVirtualId() {
         return virtualId;
     }
 
+    /**
+     * Sets the virtual id.
+     *
+     * @param virtualId the new virtual id
+     */
     public void setVirtualId(int virtualId) {
         this.virtualId = virtualId;
     }
 
+    /**
+     * Gets the chat color.
+     *
+     * @return the chat color
+     */
     public int getChatColor() {
         return chatColor;
     }
 
+    /**
+     * Sets the chat color.
+     *
+     * @param chatColor the new chat color
+     */
     public void setChatColor(int chatColor) {
         this.chatColor = chatColor;
     }
 
+    /**
+     * Gets the dance id.
+     *
+     * @return the dance id
+     */
     public int getDanceId() {
         return danceId;
     }
 
+    /**
+     * Sets the dance id.
+     *
+     * @param danceId the new dance id
+     */
     public void setDanceId(int danceId) {
         this.danceId = danceId;
     }
 
+    /**
+     * Gets the statuses.
+     *
+     * @return the statuses
+     */
     public HashMap<EntityStatus, String> getStatuses() {
         return statuses;
     }
 
+    /**
+     * Gets the path.
+     *
+     * @return the path
+     */
     public LinkedList<Position> getPath() {
         return path;
     }
 
+    /**
+     * Sets the path.
+     *
+     * @param path the new path
+     */
     public void setPath(LinkedList<Position> path) {
 
         if (this.path != null) {
@@ -463,122 +612,272 @@ public class RoomUser extends Metadata {
         this.path = path;
     }
 
+    /**
+     * Needs update.
+     *
+     * @return true, if successful
+     */
     public boolean needsUpdate() {
         return needsUpdate;
     }
 
+    /**
+     * Sets the need update.
+     *
+     * @param needsWalkUpdate the new need update
+     */
     public void setNeedUpdate(boolean needsWalkUpdate) {
         this.needsUpdate = needsWalkUpdate;
     }
 
+    /**
+     * Gets the room.
+     *
+     * @return the room
+     */
     public Room getRoom() {
         return room;
     }
 
+    /**
+     * Gets the room id.
+     *
+     * @return the room id
+     */
     public int getRoomId() {
         return (room == null ? 0 : room.getData().getId());
     }
 
+    /**
+     * Sets the room.
+     *
+     * @param room the new room
+     */
     public void setRoom(Room room) {
         this.room = room;
     }
 
+    /**
+     * Checks if is walking.
+     *
+     * @return true, if is walking
+     */
     public boolean isWalking() {
         return isWalking;
     }
 
+    /**
+     * Sets the walking.
+     *
+     * @param isWalking the new walking
+     */
     public void setWalking(boolean isWalking) {
         this.isWalking = isWalking;
     }
 
+    /**
+     * Gets the entity.
+     *
+     * @return the entity
+     */
     public Entity getEntity() {
         return entity;
     }
 
+    /**
+     * Gets the look reset time.
+     *
+     * @return the look reset time
+     */
     public int getLookResetTime() {
         return lookResetTime;
     }
 
+    /**
+     * Sets the look reset time.
+     *
+     * @param lookResetTime the new look reset time
+     */
     public void setLookResetTime(int lookResetTime) {
         this.lookResetTime = lookResetTime;
     }
 
+    /**
+     * Gets the current item.
+     *
+     * @return the current item
+     */
     public Item getCurrentItem() {
         return currentItem;
     }
 
+    /**
+     * Sets the current item.
+     *
+     * @param currentItem the new current item
+     */
     public void setCurrentItem(Item currentItem) {
         this.currentItem = currentItem;
     }
 
+    /**
+     * Gets the carry timer.
+     *
+     * @return the carry timer
+     */
     public int getCarryTimer() {
         return carryTimer;
     }
 
+    /**
+     * Sets the carry timer.
+     *
+     * @param carryTimer the new carry timer
+     */
     public void setCarryTimer(int carryTimer) {
         this.carryTimer = carryTimer;
     }
 
+    /**
+     * Gets the carry item.
+     *
+     * @return the carry item
+     */
     public int getCarryItem() {
         return carryItem;
     }
 
+    /**
+     * Sets the carry item.
+     *
+     * @param carryItem the new carry item
+     */
     public void setCarryItem(int carryItem) {
         this.carryItem = carryItem;
     }
 
+    /**
+     * Checks if is rolling.
+     *
+     * @return true, if is rolling
+     */
     public boolean isRolling() {
         return isRolling;
     }
 
+    /**
+     * Sets the rolling.
+     *
+     * @param isRolling the new rolling
+     */
     public void setRolling(boolean isRolling) {
         this.isRolling = isRolling;
     }
 
+    /**
+     * Checks if is needs update.
+     *
+     * @return true, if is needs update
+     */
     public boolean isNeedsUpdate() {
         return needsUpdate;
     }
 
+    /**
+     * Sets the needs update.
+     *
+     * @param needsUpdate the new needs update
+     */
     public void setNeedsUpdate(boolean needsUpdate) {
         this.needsUpdate = needsUpdate;
     }
 
+    /**
+     * Checks if is teleporting.
+     *
+     * @return true, if is teleporting
+     */
     public boolean isTeleporting() {
         return isTeleporting;
     }
 
+    /**
+     * Sets the teleporting.
+     *
+     * @param isTeleporting the new teleporting
+     */
     public void setTeleporting(boolean isTeleporting) {
         this.isTeleporting = isTeleporting;
     }
 
+    /**
+     * Gets the teleport room id.
+     *
+     * @return the teleport room id
+     */
     public int getTeleportRoomId() {
         return teleportRoomId;
     }
 
+    /**
+     * Sets the teleport room id.
+     *
+     * @param teleportRoomId the new teleport room id
+     */
     public void setTeleportRoomId(int teleportRoomId) {
         this.teleportRoomId = teleportRoomId;
     }
 
+    /**
+     * Checks if is walking allowed.
+     *
+     * @return true, if is walking allowed
+     */
     public boolean isWalkingAllowed() {
         return isWalkingAllowed;
     }
 
+    /**
+     * Sets the walking allowed.
+     *
+     * @param isWalkingAllowed the new walking allowed
+     */
     public void setWalkingAllowed(boolean isWalkingAllowed) {
         this.isWalkingAllowed = isWalkingAllowed;
     }
 
+    /**
+     * Gets the requested room id.
+     *
+     * @return the requested room id
+     */
     public int getRequestedRoomId() {
         return roomRequestedId;
     }
 
+    /**
+     * Sets the requested room id.
+     *
+     * @param roomRequestedId the new requested room id
+     */
     public void setRequestedRoomId(int roomRequestedId) {
         this.roomRequestedId = roomRequestedId;
     }
 
+    /**
+     * Gets the override position.
+     *
+     * @return the override position
+     */
     public Position getOverridePosition() {
         return overridePosition;
     }
 
+    /**
+     * Sets the override position.
+     *
+     * @param overridePosition the new override position
+     */
     public void setOverridePosition(Position overridePosition) {
         this.overridePosition = overridePosition;
     }
