@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 14, 2017 at 08:38 AM
+-- Generation Time: Sep 14, 2017 at 08:44 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -13382,13 +13382,13 @@ INSERT INTO `items` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`, `y`
 (265, 5, 5, 1729, 0, '0', '0', 0, 0, ''),
 (266, 5, 5, 1729, 1, 'r,10,0', '10,35', 0, 0, ''),
 (267, 5, 5, 1729, 1, 'r,9,0', '10,33', 0, 0, ''),
-(268, 5, 5, 1483, 1, '4', '10', 0.03, 2, ''),
+(268, 5, 5, 1483, 1, '4', '9', 0.03, 2, ''),
 (269, 5, 5, 3016, 1, '8', '4', 0.07, 2, ''),
 (270, 5, 5, 3020, 0, '0', '0', 0, 0, ''),
 (271, 5, 5, 3025, 1, '7', '9', 0.07, 0, ''),
-(272, 5, 5, 3028, 1, '10', '2', 0.03, 0, ''),
-(273, 5, 5, 3027, 1, '5', '5', 0.03, 2, ''),
-(274, 5, 5, 1484, 1, '6', '1', 0.03, 2, ''),
+(272, 5, 5, 3028, 1, '10', '2', 0.03, 0, '0'),
+(273, 5, 5, 3027, 1, '5', '5', 0.03, 2, '1'),
+(274, 5, 5, 1484, 1, '6', '1', 0.03, 2, '1'),
 (275, 5, 5, 1500, 1, '4', '1', 0.03, 0, '1');
 
 -- --------------------------------------------------------
@@ -13842,20 +13842,20 @@ CREATE TABLE `rooms` (
   `state` enum('OPEN','DOORBELL','PASSWORD','INVISIBLE') NOT NULL DEFAULT 'OPEN',
   `score` int(11) NOT NULL DEFAULT '0',
   `category` int(11) NOT NULL DEFAULT '0',
-  `allow_pets` tinyint(4) NOT NULL DEFAULT '1',
-  `allow_pets_eat` tinyint(1) NOT NULL DEFAULT '1',
+  `allow_pets` tinyint(1) NOT NULL DEFAULT '0',
+  `allow_pets_eat` tinyint(1) NOT NULL DEFAULT '0',
   `allow_walkthrough` tinyint(1) NOT NULL DEFAULT '0',
   `hidewall` tinyint(1) NOT NULL DEFAULT '0',
   `wall_thickness` tinyint(1) NOT NULL DEFAULT '0',
   `floor_thickness` tinyint(1) NOT NULL DEFAULT '0',
-  `chat_mode` int(11) NOT NULL DEFAULT '0',
-  `chat_size` int(11) NOT NULL DEFAULT '1',
-  `chat_speed` int(11) NOT NULL DEFAULT '1',
-  `chat_flood` int(11) NOT NULL DEFAULT '1',
-  `chat_distance` int(11) NOT NULL DEFAULT '30',
-  `who_can_mute` int(11) NOT NULL DEFAULT '0',
-  `who_can_kick` int(11) NOT NULL DEFAULT '0',
-  `who_can_ban` int(11) NOT NULL DEFAULT '0'
+  `chat_mode` tinyint(1) NOT NULL DEFAULT '0',
+  `chat_size` tinyint(1) NOT NULL DEFAULT '1',
+  `chat_speed` tinyint(1) NOT NULL DEFAULT '1',
+  `chat_flood` tinyint(1) NOT NULL DEFAULT '1',
+  `chat_distance` tinyint(1) NOT NULL DEFAULT '30',
+  `who_can_mute` tinyint(1) NOT NULL DEFAULT '0',
+  `who_can_kick` tinyint(1) NOT NULL DEFAULT '0',
+  `who_can_ban` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -14338,7 +14338,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `rank`, `join_date`, `last_online`, `sso_ticket`, `email`, `mission`, `gender`, `figure`, `credits`, `home_room`) VALUES
 (2, 'Bot', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 1, 44324323, 1490046606, 'sso-icarus-Fh7e49mxLI-n5fthV-NTRkJBMQ2s', NULL, 'eating more cake, k?', 'M', 'ha-1012-91.hd-180-7.ch-3015-1426.lg-275-64.hr-831-61', 370, 0),
-(5, 'Alex', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 7, 1489384512, 1491544401, 'sso-icarus-ebVZA0dlS7-5aqCh2-uoP0TDSzek', 'we3rejfpef3@cefc.com', 'Icarus alpha tester', 'M', 'ca-3187-79.hd-180-1.ch-3030-1408.sh-290-64.lg-270-90.ha-3291-73.hr-3260-45.cc-3075-90', 4995, 0);
+(5, 'Alex', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 7, 1489384512, 1491544401, 'sso-icarus-g5XzSqCxcO-iHE3rS-dbJmDjtQYT', 'we3rejfpef3@cefc.com', 'Icarus alpha tester', 'M', 'ca-3187-79.hd-180-1.ch-3030-1408.sh-290-64.lg-270-90.ha-3291-73.hr-3260-45.cc-3075-90', 4995, 0);
 
 -- --------------------------------------------------------
 
