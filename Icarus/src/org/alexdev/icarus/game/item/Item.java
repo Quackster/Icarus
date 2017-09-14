@@ -39,6 +39,19 @@ public class Item extends Metadata {
     private int widthX = 0;
     private int widthY = 0;
    
+    /**
+     * Instantiates a new item.
+     *
+     * @param id the id
+     * @param userId the user id
+     * @param itemId the item id
+     * @param roomId the room id
+     * @param x the x
+     * @param y the y
+     * @param z the z
+     * @param rotation the rotation
+     * @param extraData the extra data
+     */
     public Item(long id, int userId, int itemId, int roomId, String x, String y, double z, int rotation, String extraData) {
         
         this.id = (int)id;
@@ -82,8 +95,8 @@ public class Item extends Metadata {
 
     /**
      * Returns the coordinates that this item can possibly affect, such as
-     * a table covering 2x2 squares
-     * 
+     * a table covering 2x2 squares.
+     *
      * @return {@link List} - of {@link AffectedTile}'s
      */
     public List<Position> getAffectedTiles() {
@@ -96,8 +109,7 @@ public class Item extends Metadata {
     }
 
     /**
-     * Updates entities who are or were sitting/laying/standing on this furniture
-     * 
+     * Updates entities who are or were sitting/laying/standing on this furniture.
      */
     public void updateEntities() {
 
@@ -142,10 +154,10 @@ public class Item extends Metadata {
     }
 
     /**
-     * Check if specified coordinates collide with the item
-     * 
-     * @param x
-     * @param y
+     * Check if specified coordinates collide with the item.
+     *
+     * @param x the x
+     * @param y the y
      * @return {@link boolean} - true if item exits within these coordinates
      */
     private boolean hasEntityCollision(int x, int y) {
@@ -164,8 +176,8 @@ public class Item extends Metadata {
     }
 
     /**
-     * Is this item walkable or not
-     * 
+     * Is this item walkable or not.
+     *
      * @return {@link boolean} - true if walkable
      */
     public boolean canWalk() {
@@ -204,10 +216,10 @@ public class Item extends Metadata {
     }
 
     /**
-        Parse wall item with the arguments given, this should only exist in one place!
-
-        @param Wall position (left/right,width_x, width_y length_x, length_y) eg (r,3,6 2,7)
-        @return none
+     * Parse wall item with the arguments given, this should only exist in one place!.
+     *
+     * @param position the position
+     * @return none
      */
     public void parseWallPosition(String position) {
 
@@ -227,8 +239,8 @@ public class Item extends Metadata {
     }
 
     /**
-     * Gets the variables and generates the needed wall position
-     * 
+     * Gets the variables and generates the needed wall position.
+     *
      * @return {@link String} - the wall position string
      */
     public String getWallPosition() {
@@ -241,8 +253,8 @@ public class Item extends Metadata {
     }
 
     /**
-     * Returns a list of items below this current item
-     * 
+     * Returns a list of items below this current item.
+     *
      * @return {@link List} - list of items
      */
     public List<Item> getItemsBeneath() {
@@ -258,6 +270,9 @@ public class Item extends Metadata {
         return items;
     }
 
+    /**
+     * Update status.
+     */
     public void updateStatus() {
         
         if (this.getRoom() == null) {
@@ -269,6 +284,10 @@ public class Item extends Metadata {
         } catch (Exception e) { e.printStackTrace(); }
     }
     
+    /**
+     * Delete item from database, if the item is a Moodlight/Dimmer
+     * that is also deleted.
+     */
     public void delete() {
         if (this.getDefinition().getInteractionType() == InteractionType.DIMMER) {
 
@@ -281,6 +300,11 @@ public class Item extends Metadata {
     }
 
 
+    /**
+     * Gets the total height.
+     *
+     * @return the total height
+     */
     public double getTotalHeight() {
 
         double currentHeight = 0.00;
@@ -309,86 +333,189 @@ public class Item extends Metadata {
         return currentHeight;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Gets the teleporter id.
+     *
+     * @return the teleporter id
+     */
     public int getTeleporterId() {
         return teleporterId;
     }
 
+    /**
+     * Sets the teleporter id.
+     *
+     * @param teleporterId the new teleporter id
+     */
     public void setTeleporterId(int teleporterId) {
         this.teleporterId = teleporterId;
     }
 
+    /**
+     * Gets the definition.
+     *
+     * @return the definition
+     */
     public ItemDefinition getDefinition() {
         return ItemManager.getFurnitureById(this.itemId);
     }
 
+    /**
+     * Save.
+     */
     public void save() {
         ItemDao.saveItem(this);
     }
 
+    /**
+     * Gets the length X.
+     *
+     * @return the length X
+     */
     public int getLengthX() {
         return lengthX;
     }
 
+    /**
+     * Sets the length X.
+     *
+     * @param lengthX the new length X
+     */
     public void setLengthX(int lengthX) {
         this.lengthX = lengthX;
     }
 
+    /**
+     * Gets the length Y.
+     *
+     * @return the length Y
+     */
     public int getLengthY() {
         return lengthY;
     }
 
+    /**
+     * Sets the length Y.
+     *
+     * @param lengthY the new length Y
+     */
     public void setLengthY(int lengthY) {
         this.lengthY = lengthY;
     }
 
+    /**
+     * Gets the side.
+     *
+     * @return the side
+     */
     public char getSide() {
         return side;
     }
 
+    /**
+     * Sets the side.
+     *
+     * @param side the new side
+     */
     public void setSide(char side) {
         this.side = side;
     }
 
+    /**
+     * Gets the width X.
+     *
+     * @return the width X
+     */
     public int getWidthX() {
         return widthX;
     }
 
+    /**
+     * Sets the width X.
+     *
+     * @param widthX the new width X
+     */
     public void setWidthX(int widthX) {
         this.widthX = widthX;
     }
 
+    /**
+     * Gets the width Y.
+     *
+     * @return the width Y
+     */
     public int getWidthY() {
         return widthY;
     }
 
+    /**
+     * Sets the width Y.
+     *
+     * @param widthY the new width Y
+     */
     public void setWidthY(int widthY) {
         this.widthY = widthY;
     }
 
+    /**
+     * Gets the owner id.
+     *
+     * @return the owner id
+     */
     public int getOwnerId() {
         return ownerId;
     }
 
+    /**
+     * Gets the owner name.
+     *
+     * @return the owner name
+     */
     public String getOwnerName() {
         return this.ownerName;
     }
 
+    /**
+     * Gets the item id.
+     *
+     * @return the item id
+     */
     public int getItemId() {
         return itemId;
     }
 
+    /**
+     * Sets the room id.
+     *
+     * @param id the new room id
+     */
     public void setRoomId(int id) {
         this.roomId = id;
     }
 
+    /**
+     * Gets the room id.
+     *
+     * @return the room id
+     */
     public int getRoomId() {
         return roomId;
     }
 
+    /**
+     * Gets the room.
+     *
+     * @return the room
+     */
     public Room getRoom() {
         
         Room room = RoomManager.getByRoomId(this.roomId);
@@ -400,10 +527,20 @@ public class Item extends Metadata {
         return room;
     }
 
+    /**
+     * Gets the extra data.
+     *
+     * @return the extra data
+     */
     public String getExtraData() {
         return extraData;
     }
 
+    /**
+     * Sets the extra data.
+     *
+     * @param extraData the new extra data
+     */
     public void setExtraData(String extraData) {
 
         if (this.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
@@ -418,18 +555,38 @@ public class Item extends Metadata {
         this.extraData = extraData;
     }
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     public ItemType getType() {
         return type;
     }
 
+    /**
+     * Gets the position.
+     *
+     * @return the position
+     */
     public Position getPosition() {
         return this.position;
     }
 
+    /**
+     * Gets the item beneath.
+     *
+     * @return the item beneath
+     */
     public Item getItemBeneath() {
         return itemUnderneath;
     }
 
+    /**
+     * Sets the item underneath.
+     *
+     * @param itemUnderneath the new item underneath
+     */
     public void setItemUnderneath(Item itemUnderneath) {
         this.itemUnderneath = itemUnderneath;
     }

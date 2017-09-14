@@ -130,7 +130,6 @@ public class RoomEntityManager {
             List<Entity> nonPlayableEntities = this.getNonPlayable();
             
             for (int i = 0; i < nonPlayableEntities.size(); i++) {
-                
                 Entity entity = nonPlayableEntities.get(i);
                 entity.dispose();
             }

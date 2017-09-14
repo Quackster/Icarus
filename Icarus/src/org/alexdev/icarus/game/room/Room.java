@@ -15,6 +15,11 @@ import org.alexdev.icarus.game.room.managers.RoomEntityManager;
 import org.alexdev.icarus.game.room.managers.RoomItemManager;
 import org.alexdev.icarus.game.room.model.RoomMapping;
 import org.alexdev.icarus.game.room.model.RoomModel;
+import org.alexdev.icarus.game.room.scheduler.ScheduleTime;
+import org.alexdev.icarus.game.room.scheduler.Scheduler;
+import org.alexdev.icarus.game.room.tasks.CarryItemTask;
+import org.alexdev.icarus.game.room.tasks.PetTask;
+import org.alexdev.icarus.game.room.tasks.RollerTask;
 import org.alexdev.icarus.messages.MessageComposer;
 
 public class Room {
@@ -22,7 +27,7 @@ public class Room {
     private AtomicInteger virtualTicketCounter = new AtomicInteger(-1);
     private RoomData data;
     private RoomModel model;
-    private RoomScheduler scheduler;
+    private Scheduler scheduler;
     private RoomMapping mapping;
     private RoomPromotion promotion;
     private RoomItemManager itemManager;
@@ -32,10 +37,19 @@ public class Room {
     public Room() {
         this.data = new RoomData(this);
         this.mapping = new RoomMapping(this);
-        this.scheduler = new RoomScheduler(this);
+        this.scheduler = new Scheduler(this);
         this.itemManager = new RoomItemManager(this);
         this.entityManager = new RoomEntityManager(this);
         this.rights = RoomDao.getRoomRights(this.data.getId());
+    }
+    
+    /**
+     * Register the tasks required for room functionality
+     */
+    public void scheduleEvents() {
+        this.scheduler.addScheduleEvent(ScheduleTime.ONE_SECOND, new CarryItemTask(this));
+        this.scheduler.addScheduleEvent(ScheduleTime.FOUR_SECONDS, new RollerTask(this));
+        this.scheduler.addScheduleEvent(ScheduleTime.FIVE_SECONDS, new PetTask(this));
     }
 
     /**
@@ -296,7 +310,7 @@ public class Room {
      *
      * @return the scheduler
      */
-    public RoomScheduler getScheduler() {
+    public Scheduler getScheduler() {
         return scheduler;
     }
 }

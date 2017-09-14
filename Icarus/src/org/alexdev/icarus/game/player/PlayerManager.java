@@ -114,6 +114,18 @@ public class PlayerManager {
 
         return player.getDetails();
     }
+    
+    /**
+     * Send message to entire server.
+     *
+     * @param message the message
+     */
+    public static void sendMessage(String message) {
+        
+        for (Player player : authenticatedPlayersById.values()) {
+            player.sendMessage(message);
+        }
+    }
 
     /**
      * Check for duplicates.

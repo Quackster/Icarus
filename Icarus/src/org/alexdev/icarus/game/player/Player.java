@@ -21,7 +21,7 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
 public class Player extends Entity {
-
+    
     private String machineId;
     private PlayerDetails details;
     private IPlayerNetwork network;
@@ -29,7 +29,6 @@ public class Player extends Entity {
     private Messenger messenger;
     private Inventory inventory;
     private ClubSubscription subscription;
-
     private boolean loggedIn;
 
     public Player(IPlayerNetwork network) {
@@ -41,6 +40,12 @@ public class Player extends Entity {
         this.subscription = new ClubSubscription(this);
     }
 
+    /**
+     * Perform room action.
+     *
+     * @param action the action
+     * @param value the value
+     */
     public void performRoomAction(RoomAction action, Object value) {
 
         switch (action) {
@@ -79,6 +84,9 @@ public class Player extends Entity {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.alexdev.icarus.game.entity.Entity#dispose()
+     */
     @Override
     public void dispose() {
 
@@ -101,6 +109,9 @@ public class Player extends Entity {
         this.destroyObjects();
     }
 
+    /**
+     * Destroy objects.
+     */
     private void destroyObjects() {
         this.network = null;
         this.details = null;
@@ -110,59 +121,123 @@ public class Player extends Entity {
         this.subscription = null;
     }
 
+    /* (non-Javadoc)
+     * @see org.alexdev.icarus.game.entity.Entity#getType()
+     */
     @Override
     public EntityType getType() {
         return EntityType.PLAYER;
     }
 
+    /**
+     * Gets the rooms.
+     *
+     * @return the rooms
+     */
     public List<Room> getRooms() {
         return RoomManager.getPlayerRooms(this.details.getId());
     }
 
+    /**
+     * Sets the machine id.
+     *
+     * @param machineId the new machine id
+     */
     public void setMachineId(String machineId) {
         this.machineId = machineId;
     }
 
+    /**
+     * Gets the machine id.
+     *
+     * @return the machine id
+     */
     public String getMachineId() {
         return machineId;
     }
 
+    /* (non-Javadoc)
+     * @see org.alexdev.icarus.game.entity.Entity#getDetails()
+     */
     public PlayerDetails getDetails() {
         return details;
     }
 
+    /* (non-Javadoc)
+     * @see org.alexdev.icarus.game.entity.Entity#getRoomUser()
+     */
     public RoomUser getRoomUser() {
         return roomUser;
     }
 
+    /**
+     * Gets the messenger.
+     *
+     * @return the messenger
+     */
     public Messenger getMessenger() {
         return messenger;
     }
 
+    /**
+     * Gets the inventory.
+     *
+     * @return the inventory
+     */
     public Inventory getInventory() {
         return inventory;
     }
 
+    /**
+     * Gets the subscription.
+     *
+     * @return the subscription
+     */
     public ClubSubscription getSubscription() {
         return subscription;
     }
 
+    /**
+     * Gets the network.
+     *
+     * @return the network
+     */
     public IPlayerNetwork getNetwork() {
         return network;
     }
 
+    /**
+     * Send message.
+     *
+     * @param message the message
+     */
     public void sendMessage(String message) {
         this.send(new BroadcastMessageAlertComposer(message));
     }
 
+    /**
+     * Send.
+     *
+     * @param response the response
+     */
     public void send(MessageComposer response) {
         this.network.send(response);
     }
 
+    /**
+     * Checks if is logged in.
+     *
+     * @return true, if is logged in
+     */
     public boolean isLoggedIn() {
         return loggedIn;
     }
 
+    /**
+     * Sets the logged in.
+     *
+     * @param loggedIn the new logged in
+     */
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }
