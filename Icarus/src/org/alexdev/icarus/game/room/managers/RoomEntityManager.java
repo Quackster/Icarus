@@ -14,10 +14,6 @@ import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 
 import com.google.common.collect.Lists;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class RoomEntityManager.
- */
 public class RoomEntityManager {
 
     /** The room. */
