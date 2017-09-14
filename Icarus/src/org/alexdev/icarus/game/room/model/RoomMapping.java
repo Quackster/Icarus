@@ -13,9 +13,6 @@ import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RemoveItemMessageComposer;
-import org.alexdev.icarus.util.Util;
-
-import com.google.common.collect.Lists;
 
 public class RoomMapping {
 

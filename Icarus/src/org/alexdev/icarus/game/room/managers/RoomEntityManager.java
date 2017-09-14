@@ -14,11 +14,23 @@ import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 
 import com.google.common.collect.Lists;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RoomEntityManager.
+ */
 public class RoomEntityManager {
 
+    /** The room. */
     private Room room;
+
+    /** The entities. */
     private List<Entity> entities; 
 
+    /**
+     * Instantiates a new room entity manager.
+     *
+     * @param room the room
+     */
     public RoomEntityManager(Room room) {
         this.room = room;
         this.entities = Lists.newArrayList();
@@ -27,8 +39,8 @@ public class RoomEntityManager {
     /**
      * Adds an {@link Entity} to the room with the default door coordinates.
      * The entity will appear to everybody who is in the room.
-     * 
-     * @param entity
+     *
+     * @param entity the entity
      */
     public void addEntity(Entity entity) {
 
@@ -71,9 +83,10 @@ public class RoomEntityManager {
 
     /**
      * Retrieves the pet data for a room and adds them into the class
-     * with their saved coordinates from the database
+     * with their saved coordinates from the database.
      */
     public void addPets() {
+        
         for (Pet pet : PetDao.getRoomPets(this.room.getData().getId())) {
             pet.getRoomUser().setRoom(this.room);
             pet.getRoomUser().setVirtualId(this.room.getVirtualTicketCounter().incrementAndGet());
@@ -114,20 +127,23 @@ public class RoomEntityManager {
         entity.getRoomUser().dispose();
     }
 
+
     /**
-     * Removes all entities from the room, including players.
+     * Cleanup non playable entities.
      * 
      * Will save the coordinates of these entities if they were either
-     * bots or players.
+     * bots or pets..
      * 
-     * This should only be called if there's no players in the room.
      */
-    public void cleanupEntities() {
+    public void cleanupNonPlayableEntities() {
 
         if (this.entities != null) {
 
-            for (int i = 0; i < this.entities.size(); i++) {
-                Entity entity = this.entities.get(i);
+            List<Entity> nonPlayableEntities = this.getNonPlayable();
+            
+            for (int i = 0; i < nonPlayableEntities.size(); i++) {
+                
+                Entity entity = nonPlayableEntities.get(i);
                 entity.dispose();
             }
 
@@ -141,20 +157,23 @@ public class RoomEntityManager {
      * @return List<{@link Player}> list of players
      */
     public List<Player> getPlayers() {
-
-        List<Player> players = Lists.newArrayList();
-
-        for (Player player : this.getEntitiesByClass(Player.class)) {
-            players.add(player);
-        }
-
-        return players;
+        return this.getEntitiesByClass(Player.class);
+    }
+    
+    /**
+     * Return the list of non playable entities in this room.
+     *  
+     * @return List of list of entities
+     */
+    public List<Entity> getNonPlayable() {
+        return this.getEntitiesByType(EntityType.BOT, EntityType.PET);
     }
 
     /**
      * Return the list of entities currently in this room by its
      * given class.
      *  
+     * @param entityClass the entity class
      * @return List<{@link T}> list of entities
      */
     public <T extends Entity> List<T> getEntitiesByClass(Class<T> entityClass) {
@@ -172,14 +191,44 @@ public class RoomEntityManager {
     }
 
     /**
+     * Return the list of entities currently in this room by its
+     * given class.
+     *  
+     *
+     * @param EntityType arguments
+     * @return List of entities
+     */
+
+    public List<Entity> getEntitiesByType(EntityType... types) {
+
+        List<Entity> entities = Lists.newArrayList();
+
+        for (Entity entity : this.entities) {
+
+            for (EntityType type : types) {
+                if (type.equals(entity.getType())) {
+                    entities.add(entity);
+                }
+            }
+        }
+
+        return entities;
+    }
+
+    /**
      * Returns an entity by its id and given class.
      *  
+     *
+     * @param <T> the generic type
+     * @param id the id
+     * @param entityClass the entity class
      * @return Entity
      */
     public <T extends Entity> T getEntityById(int id, Class<T> entityClass) {
 
         for (Entity entity : this.entities) {
             if (entity.getType().getEntityClass() == entityClass) {
+                
                 if (entity.getDetails().getId() == id) {
                     return entityClass.cast(entity);
                 }
@@ -189,6 +238,11 @@ public class RoomEntityManager {
         return null;
     }
 
+    /**
+     * Gets the entities.
+     *
+     * @return the entities
+     */
     public List<Entity> getEntities() {
         return entities;
     }

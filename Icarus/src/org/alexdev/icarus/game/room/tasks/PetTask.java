@@ -2,11 +2,8 @@ package org.alexdev.icarus.game.room.tasks;
 
 import java.util.List;
 
-import org.alexdev.icarus.game.entity.Entity;
-import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.game.room.user.RoomUser;
 
 public class PetTask extends RoomTask {
 

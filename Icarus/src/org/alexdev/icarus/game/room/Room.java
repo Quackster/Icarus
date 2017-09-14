@@ -201,7 +201,7 @@ public class Room {
             this.scheduler.cancelTasks();
         }
 
-        this.entityManager.cleanupEntities();
+        this.entityManager.cleanupNonPlayableEntities();
         this.itemManager.getItems().clear();
         this.virtualTicketCounter.set(-1);
 
