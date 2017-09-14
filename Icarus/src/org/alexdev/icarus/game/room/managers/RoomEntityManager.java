@@ -49,10 +49,6 @@ public class RoomEntityManager {
      */
     public void addEntity(Entity entity, int x, int y, int rotation) {
 
-        if (entity.getType() == EntityType.PLAYER) {
-            return;
-        }
-
         RoomUser roomUser = entity.getRoomUser();
 
         roomUser.setRoom(this.room);
@@ -67,6 +63,7 @@ public class RoomEntityManager {
 
         if (!this.entities.contains(entity)) {
             this.entities.add(entity);
+            this.room.getData().updateUsersNow();
         }
 
         this.room.getMapping().getTile(x, y).setEntity(entity);
@@ -109,12 +106,9 @@ public class RoomEntityManager {
             this.room.send(new RemoveUserMessageComposer(entity.getRoomUser().getVirtualId()));
         }
 
-        if (entity.getType() != EntityType.PLAYER) {
-            if (entity.getType() == EntityType.PET) {
-                ((Pet)entity).savePosition();
-            }
-
-            entity.dispose();
+        if (entity.getType() == EntityType.PET) {
+            Pet pet = (Pet)entity;
+            pet.savePosition();
         }
 
         entity.getRoomUser().dispose();
@@ -125,6 +119,8 @@ public class RoomEntityManager {
      * 
      * Will save the coordinates of these entities if they were either
      * bots or players.
+     * 
+     * This should only be called if there's no players in the room.
      */
     public void cleanupEntities() {
 
@@ -132,10 +128,7 @@ public class RoomEntityManager {
 
             for (int i = 0; i < this.entities.size(); i++) {
                 Entity entity = this.entities.get(i);
-
-                if (entity.getType() != EntityType.PLAYER) {
-                    this.removeEntity(entity);
-                }
+                entity.dispose();
             }
 
             this.entities.clear();
@@ -177,6 +170,7 @@ public class RoomEntityManager {
 
         return entities;
     }
+
     /**
      * Returns an entity by its id and given class.
      *  

@@ -39,14 +39,8 @@ public class HeightmapMessageEvent implements MessageEvent {
 
         player.send(new HeightMapMessageComposer(room.getModel()));
         player.send(new FloorMapMessageComposer(room));
-
-        room.send(new UserDisplayMessageComposer(player));
-        room.send(new UserStatusMessageComposer(player));
-
-        if (!room.getEntityManager().getEntities().contains(player)) {
-            room.getEntityManager().getEntities().add(player);
-            room.getData().updateUsersNow();
-        }
+        
+        room.getEntityManager().addEntity(player);
 
         player.send(new UserDisplayMessageComposer(room.getEntityManager().getEntities()));
         player.send(new UserStatusMessageComposer(room.getEntityManager().getEntities()));

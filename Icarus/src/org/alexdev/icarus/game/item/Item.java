@@ -26,7 +26,6 @@ public class Item extends Metadata {
     private int id;
     private int ownerId;
     private String ownerName;
-    
     private int itemId;
     private int roomId;
     private Position position;
@@ -34,18 +33,14 @@ public class Item extends Metadata {
     private ItemType type;
     private Item itemUnderneath;
     private int teleporterId = 0;
-
-    /**
-     * Wall position variables
-     */
     private int lengthX = 0;
     private int lengthY = 0;
     private char side = 0;
     private int widthX = 0;
     private int widthY = 0;
    
-
     public Item(long id, int userId, int itemId, int roomId, String x, String y, double z, int rotation, String extraData) {
+        
         this.id = (int)id;
         this.ownerId = userId;
         this.ownerName = PlayerDao.getName(this.ownerId);
@@ -273,27 +268,7 @@ public class Item extends Metadata {
             this.getRoom().send(new MoveItemMessageComposer(this));
         } catch (Exception e) { e.printStackTrace(); }
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getTeleporterId() {
-        return teleporterId;
-    }
-
-    public void setTeleporterId(int teleporterId) {
-        this.teleporterId = teleporterId;
-    }
-
-    public ItemDefinition getDefinition() {
-        return ItemManager.getFurnitureById(this.itemId);
-    }
-
-    public void save() {
-        ItemDao.saveItem(this);
-    }
-
+    
     public void delete() {
         if (this.getDefinition().getInteractionType() == InteractionType.DIMMER) {
 
@@ -332,6 +307,26 @@ public class Item extends Metadata {
         }
 
         return currentHeight;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getTeleporterId() {
+        return teleporterId;
+    }
+
+    public void setTeleporterId(int teleporterId) {
+        this.teleporterId = teleporterId;
+    }
+
+    public ItemDefinition getDefinition() {
+        return ItemManager.getFurnitureById(this.itemId);
+    }
+
+    public void save() {
+        ItemDao.saveItem(this);
     }
 
     public int getLengthX() {

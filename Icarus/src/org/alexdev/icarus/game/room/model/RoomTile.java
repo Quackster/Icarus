@@ -1,11 +1,12 @@
 package org.alexdev.icarus.game.room.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.room.Room;
+
+import com.google.common.collect.Lists;
 
 public class RoomTile {
 
@@ -19,10 +20,15 @@ public class RoomTile {
     private Item itemUnderneath = null;
     private Entity entity;
     
-    public RoomTile(Room room) {
+    private int x;
+    private int y;
+    
+    public RoomTile(Room room, int x, int y) {
         this.room = room;
-        this.items = new ArrayList<Item>();
-        this.entity = null;
+        this.x = x;
+        this.y = y;
+        this.height = this.room.getModel().getHeight(x, y);
+        this.items = Lists.newArrayList();
     }
     
     public Room getRoom() {
@@ -71,5 +77,13 @@ public class RoomTile {
 
     public void setItemUnderneath(Item itemUnderneath) {
         this.itemUnderneath = itemUnderneath;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }

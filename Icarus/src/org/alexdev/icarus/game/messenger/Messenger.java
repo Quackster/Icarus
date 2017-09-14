@@ -21,20 +21,20 @@ public class Messenger {
     }
 
     public void init() {
-        this.friends = MessengerDao.getFriends(player.getDetails().getId());
-        this.requests = MessengerDao.getRequests(player.getDetails().getId());
+        this.friends = MessengerDao.getFriends(this.player.getDetails().getId());
+        this.requests = MessengerDao.getRequests(this.player.getDetails().getId());
     }
 
-    public boolean hasReqest(int id) {
+    public boolean hasRequest(int id) {
         return this.getRequest(id) != null;
     }
-    
+
     public boolean isFriend(int id) {
         return this.getFriend(id) != null;
     }
-    
+
     public MessengerUser getFriend(int id) {
-        
+
         Optional<MessengerUser> friend = this.friends.stream().filter(f -> f.getDetails().getId() == id).findFirst();
 
         if (friend.isPresent()) {
@@ -43,7 +43,7 @@ public class Messenger {
             return null;
         }
     }
-    
+
     public MessengerUser getRequest(int id) {
 
         Optional<MessengerUser> request = this.requests.stream().filter(f -> f.getDetails().getId() == id).findFirst();
@@ -60,37 +60,28 @@ public class Messenger {
         MessengerUser user = this.getFriend(id);
         this.friends.remove(user);
     }
-    
+
     public void sendStatus(boolean forceOffline) {
 
         MessengerUpdateMessageComposer message = new MessengerUpdateMessageComposer(new MessengerUser(this.player.getDetails().getId()), forceOffline);
 
         for (MessengerUser friend : this.friends) {
-
-            friend.update();
-            
-            if (friend.isOnline()) {
+            if (friend.isUserOnline()) {
                 if (friend.getPlayer().getMessenger().hasInitalised()) {
                     friend.getPlayer().send(message);
                 }
             }
         }
     }
-    
+
     public void dispose() {
-
         this.sendStatus(false);
-        
-        if (this.friends != null) {
-            this.friends.clear();
-            this.friends = null;
-        }
+        this.destroyObjects();
+    }
 
-        if (this.requests != null) {
-            this.requests.clear();
-            this.requests = null;
-        }
-
+    private void destroyObjects() {
+        this.friends = null;
+        this.requests = null;
         this.player = null;
     }
 

@@ -10,7 +10,7 @@ import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.furniture.interactions.Interaction;
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.messenger.PlayerMessage;
+import org.alexdev.icarus.game.messenger.InstantMessage;
 import org.alexdev.icarus.game.pathfinder.Pathfinder;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
@@ -199,7 +199,7 @@ public class RoomUser extends Metadata {
             return;
         } 
 
-        PlayerMessage playerMessage = new PlayerMessage(this.entity.getDetails().getId(), -1, message);    {
+        InstantMessage playerMessage = new InstantMessage(this.entity.getDetails().getId(), -1, message);    {
             PluginManager.callEvent(type.getEvent(), new LuaValue[] {  
                     CoerceJavaToLua.coerce(player),
                     CoerceJavaToLua.coerce(this.room),

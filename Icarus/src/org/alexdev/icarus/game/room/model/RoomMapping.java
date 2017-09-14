@@ -23,44 +23,34 @@ public class RoomMapping {
     private int mapSizeX;
     private int mapSizeY;
     private RoomTile[][] tiles;
-    private List<Position> walkableTiles;
 
     public RoomMapping(Room room) {
         this.room = room;
-        this.walkableTiles = Lists.newArrayList();
     }
 
+    /**
+     * Regenerate collision maps.
+     */
     public void regenerateCollisionMaps() {
 
-        this.walkableTiles.clear();
         this.mapSizeX = this.room.getModel().getMapSizeX();
         this.mapSizeY = this.room.getModel().getMapSizeY();
-
         this.tiles = new RoomTile[this.mapSizeX][this.mapSizeY];
-
-        for (int y = 0; y < mapSizeY; y++) {
-            for (int x = 0; x < mapSizeX; x++) {
-                this.tiles[x][y] = new RoomTile(this.room);
-                this.tiles[x][y].setHeight(this.room.getModel().getHeight(x, y));
-            }
-        }
-
+        
         List<Entity> entities = this.room.getEntityManager().getEntities();
 
         for (Entity entity : entities) {
-            this.tiles[entity.getRoomUser().getPosition().getX()][entity.getRoomUser().getPosition().getY()].setEntity(entity);
+            this.getTile(entity.getRoomUser().getPosition().getX(), entity.getRoomUser().getPosition().getY()).setEntity(entity);
         }
 
         List<Item> items = this.room.getItemManager().getFloorItems();
 
-        // Sort items by smallest to largest height/Z coordinate
         Collections.sort(items, new Comparator<Item>() {
             @Override
             public int compare(Item item1, Item item2) {
                 return Double.compare(item1.getPosition().getZ(), item2.getPosition().getZ());
             }
         });
-
 
         for (Item item : items) {
 
@@ -101,17 +91,17 @@ public class RoomMapping {
                 }
             }
         }
-        
-        for (int y = 0; y < mapSizeY; y++) {
-            for (int x = 0; x < mapSizeX; x++) {
-                if (this.isTileWalkable(null, x, y)) {
-                    this.walkableTiles.add(new Position(x, y));
-                }                
-            }
-        }
     }
 
-
+    /**
+     * Checks if is valid step.
+     *
+     * @param entity the entity
+     * @param current the current
+     * @param neighbour the neighbour
+     * @param isFinalMove the is final move
+     * @return true, if is valid step
+     */
     public boolean isValidStep(Entity entity, Position current, Position neighbour, boolean isFinalMove) {
 
         if (!this.isTileWalkable(entity, current.getX(), current.getY())) {
@@ -123,7 +113,6 @@ public class RoomMapping {
         }
 
         Item currentItem = this.getHighestItem(current.getX(), current.getY());
-        //Item nextItem = this.getHighestItem(neighbour.getX(), neighbour.getY());
 
         double currentHeight = this.getTile(current.getX(), current.getY()).getHeight();
         double nextHeight = this.getTile(neighbour.getX(), neighbour.getY()).getHeight();
@@ -165,6 +154,14 @@ public class RoomMapping {
         return true;
     }
 
+    /**
+     * Checks if is tile walkable.
+     *
+     * @param entity the entity
+     * @param x the x
+     * @param y the y
+     * @return true, if is tile walkable
+     */
     public boolean isTileWalkable(Entity entity, int x, int y) {
 
         if (this.room.getModel().hasInvalidCoordinates(x, y)) {
@@ -175,7 +172,7 @@ public class RoomMapping {
             return false;
         }
 
-        RoomTile tile = this.tiles[x][y];
+        RoomTile tile =  this.getTile(x, y);
 
         if (tile.hasOverrideLock()) {
             return false;
@@ -204,11 +201,12 @@ public class RoomMapping {
 
         return true;
     }
-    
-    public Position getAvaliableTile() {
-        return this.walkableTiles.get(Util.randomInt(0, this.walkableTiles.size()));
-    }
 
+    /**
+     * Adds the item.
+     *
+     * @param item the item
+     */
     public void addItem(Item item) {
 
         item.setRoomId(this.room.getData().getId());
@@ -226,6 +224,12 @@ public class RoomMapping {
         item.save();
     }
 
+    /**
+     * Update item position.
+     *
+     * @param item the item
+     * @param rotation_only the rotation only
+     */
     public void updateItemPosition(Item item, boolean rotation_only) {
 
         if (item.getType() == ItemType.FLOOR) {
@@ -237,6 +241,11 @@ public class RoomMapping {
         item.save();
     }
 
+    /**
+     * Removes the item.
+     *
+     * @param item the item
+     */
     public void removeItem(Item item) {
 
         item.getPosition().setX(-1);
@@ -260,6 +269,12 @@ public class RoomMapping {
         this.room.send(new RemoveItemMessageComposer(item));
     }
 
+    /**
+     * Handle item adjustment.
+     *
+     * @param item the item
+     * @param rotation_only the rotation only
+     */
     private void handleItemAdjustment(Item item, boolean rotation_only) {
 
         if (rotation_only) {
@@ -289,31 +304,60 @@ public class RoomMapping {
 
         item.updateStatus();
     }
-
-    public double getTileHeight(int x, int y) {
-
-        if (this.room.getModel().hasInvalidCoordinates(x, y)) {
-            return 0;
-        }
-
-        return this.tiles[x][y].getHeight();
-    }
-
+    
+    /**
+     * Gets the tile, will create it if it's null (within the valid heightmap size).
+     *
+     * @param x the x
+     * @param y the y
+     * @return the tile
+     */
     public RoomTile getTile(int x, int y) {
 
         if (this.room.getModel().hasInvalidCoordinates(x, y)) {
             return null;
         }
 
+        RoomTile tile = this.tiles[x][y];
+        
+        if (tile == null) {     
+            this.tiles[x][y] = new RoomTile(this.room, x, y);
+        }
+        
         return this.tiles[x][y];
     }
+    
+    /**
+     * Gets the tile height.
+     *
+     * @param x the x
+     * @param y the y
+     * @return the tile height
+     */
+    public double getTileHeight(int x, int y) {
 
+        if (this.room.getModel().hasInvalidCoordinates(x, y)) {
+            return 0;
+        }
+
+        return this.getTile(x, y).getHeight();
+    }
+
+
+
+    /**
+     * Gets the highest item.
+     *
+     * @param x the x
+     * @param y the y
+     * @return the highest item
+     */
     public Item getHighestItem(int x, int y) {
 
         if (this.room.getModel().hasInvalidCoordinates(x, y)) {
             return null;
         }
 
-        return this.tiles[x][y].getHighestItem();
+        return this.getTile(x, y).getHighestItem();
     }
 }

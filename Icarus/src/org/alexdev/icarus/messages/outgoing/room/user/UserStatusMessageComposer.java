@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityStatus;
+import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.util.Util;
@@ -25,9 +26,9 @@ public class UserStatusMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
- 
+
         this.response.init(Outgoing.UserStatusMessageComposer);
-        
+
         synchronized (this.users) {
 
             this.response.writeInt(this.users.size());
@@ -35,9 +36,28 @@ public class UserStatusMessageComposer extends MessageComposer {
             for (Entity entity : this.users) {
 
                 this.response.writeInt(entity.getRoomUser().getVirtualId());
+                
+                if (entity.getRoomUser().isWalking()) {
+
+                    if (entity.getRoomUser().getNext() == null) {
+                        entity.getRoomUser().stopWalking();
+                    }
+                }
+
                 this.response.writeInt(entity.getRoomUser().getPosition().getX());
                 this.response.writeInt(entity.getRoomUser().getPosition().getY());
                 this.response.writeString(Util.getDecimalFormatter().format(entity.getRoomUser().getPosition().getZ()));
+
+                if (entity.getRoomUser().isWalking()) {
+                    if (entity.getRoomUser().getNext() != null) {
+
+                        Position next = entity.getRoomUser().getNext();
+                        entity.getRoomUser().getPosition().setZ(entity.getRoomUser().getRoom().getMapping().getTile(next.getX(), next.getY()).getHeight());
+                        entity.getRoomUser().getPosition().setX(next.getX());
+                        entity.getRoomUser().getPosition().setY(next.getY());
+                    }
+                }
+
                 this.response.writeInt(entity.getRoomUser().getPosition().getHeadRotation());
                 this.response.writeInt(entity.getRoomUser().getPosition().getBodyRotation());
 
@@ -57,7 +77,7 @@ public class UserStatusMessageComposer extends MessageComposer {
 
                 statusString += " ";
                 this.response.writeString(statusString);
-                
+
                 if (entity.getRoomUser().needsUpdate()) {
                     entity.getRoomUser().setNeedUpdate(false);
                 }

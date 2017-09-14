@@ -17,23 +17,18 @@ import org.alexdev.icarus.messages.outgoing.pets.PetInventoryMessageComposer;
 
 public class Inventory {
 
-    private boolean initalised;
     private Player player;
-    
+
     private Map<Integer, Pet> pets;
     private Map<Integer, Item> items;
 
     public Inventory(Player player) {
-        this.initalised = false;
         this.player = player;
     }
 
     public void init() {
-        if (!this.initalised) {
-            this.items = InventoryDao.getInventoryItems(this.player.getDetails().getId());
-            this.pets = InventoryDao.getInventoryPets(this.player.getDetails().getId());
-            this.initalised = true;
-        }
+        this.items = InventoryDao.getInventoryItems(this.player.getDetails().getId());
+        this.pets = InventoryDao.getInventoryPets(this.player.getDetails().getId());
     }
 
     public void addItem(Item item) {
@@ -45,22 +40,22 @@ public class Inventory {
         this.items.remove(item.getId());
         this.player.send(new RemoveInventoryItemComposer(item.getId()));
     }
-    
+
     public void addPet(Pet pet) {
         this.pets.put(pet.getId(), pet);
         this.player.send(new UnseenItemsNotificationComposer(pet.getId(), 3));
     }
-    
+
     public void remove(Pet pet) {
         this.pets.remove(pet.getId());
         this.player.send(new RemoveInventoryItemComposer(pet.getId()));
     }
-    
+
     public void updateItems() {
         this.player.send(new UpdateInventoryMessageComposer());
         this.player.send(new InventoryLoadMessageComposer(this.getWallItems(), this.getFloorItems()));
     }
-    
+
     public void updatePets() {
         this.player.send(new UpdateInventoryMessageComposer());
         this.player.send(new PetInventoryMessageComposer(this.pets));
@@ -73,22 +68,6 @@ public class Inventory {
         }
 
         return null;
-    }
-
-    public void dispose() {
-
-        if (this.items != null) {
-            this.items.clear();
-            this.items = null;
-        }
-    }
-
-    public boolean isInitalised() {
-        return initalised;
-    }
-
-    public void setInitalised(boolean initalised) {
-        this.initalised = initalised;
     }
 
     public Map<Integer, Item> getItems() {

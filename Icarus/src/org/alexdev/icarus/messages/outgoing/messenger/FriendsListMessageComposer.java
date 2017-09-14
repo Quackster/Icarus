@@ -22,7 +22,7 @@ public class FriendsListMessageComposer extends MessageComposer {
         this.response.writeInt(this.friends.size());
         
         for (MessengerUser friend : this.friends) {
-            friend.serialiseFriend(response, false);
+            friend.serialise(response, false);
         }
     }
 }

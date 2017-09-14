@@ -66,12 +66,6 @@ public class RoomUtil {
             player.send(new RightsLevelMessageComposer(0));
         }
         
-        roomUser.setVirtualId(room.getVirtualTicketCounter().incrementAndGet());
-        roomUser.getPosition().setX(x);
-        roomUser.getPosition().setY(y);
-        roomUser.getPosition().setZ(room.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
-        roomUser.getPosition().setRotation(rotation);
-
         boolean firstUserEntry = !(room.getEntityManager().getPlayers().size() > 0);
         
         if (firstUserEntry) {

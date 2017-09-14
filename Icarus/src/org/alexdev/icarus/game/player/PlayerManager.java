@@ -10,18 +10,21 @@ import com.google.common.collect.Maps;
 
 public class PlayerManager {
 
+    private static List<Permission> permissions;
     private static Map<Integer, Player> authenticatedPlayersById;
     private static Map<String, Player> authenticatedPlayersByName;
-
-    private static List<Permission> permissions;
 
     static {
         authenticatedPlayersById = Maps.newConcurrentMap();
         authenticatedPlayersByName = Maps.newConcurrentMap();
-
         permissions = PlayerDao.getPermissions();
     }
 
+    /**
+     * Adds the player.
+     *
+     * @param player the player
+     */
     public static void addPlayer(Player player) {
 
         if (player.getDetails().isAuthenticated()) {
@@ -29,7 +32,12 @@ public class PlayerManager {
             authenticatedPlayersByName.put(player.getDetails().getName(), player);
         }
     }
-    
+
+    /**
+     * Removes the player.
+     *
+     * @param player the player
+     */
     public static void removePlayer(Player player) {
 
         if (player.getDetails().isAuthenticated()) {
@@ -38,33 +46,64 @@ public class PlayerManager {
         }
     }
 
+    /**
+     * Gets the by id.
+     *
+     * @param userId the user id
+     * @return the by id
+     */
     public static Player getById(int userId) {
 
         if (authenticatedPlayersById.containsKey(userId)) {
             return authenticatedPlayersById.get(userId);
         }
-        
+
         return null;
     }
 
+    /**
+     * Gets the by name.
+     *
+     * @param name the name
+     * @return the by name
+     */
     public static Player getByName(String name) {
 
         if (authenticatedPlayersByName.containsKey(name)) {
             return authenticatedPlayersByName.get(name);
         }
-        
+
         return null;
     }
-    
+
+    /**
+     * Checks for player.
+     *
+     * @param userId the user id
+     * @return true, if successful
+     */
     public static boolean hasPlayer(int userId) {
         return authenticatedPlayersById.containsKey(userId);
     }
-    
+
+    /**
+     * Checks for player.
+     *
+     * @param name the name
+     * @return true, if successful
+     */
     public static boolean hasPlayer(String name) {
         return authenticatedPlayersByName.containsKey(name);
     }
 
 
+    /**
+     * Gets the player data, will try and retrieve logged in player data
+     * before querying the database for it.
+     *
+     * @param userId the user id
+     * @return the player data
+     */
     public static PlayerDetails getPlayerData(int userId) {
 
         Player player = getById(userId);
@@ -76,6 +115,12 @@ public class PlayerManager {
         return player.getDetails();
     }
 
+    /**
+     * Check for duplicates.
+     *
+     * @param player the player
+     * @return true, if successful
+     */
     public static boolean checkForDuplicates(Player player) {
 
         for (Player session : authenticatedPlayersById.values()) {
@@ -86,9 +131,17 @@ public class PlayerManager {
                 }
             }
         }
+        
         return false;
     }
 
+    /**
+     * Checks for permission.
+     *
+     * @param rank the rank
+     * @param perm the perm
+     * @return true, if successful
+     */
     public static boolean hasPermission(int rank, String perm) {
 
         for (Permission permission  : permissions) {
@@ -110,6 +163,11 @@ public class PlayerManager {
         return false;
     }
 
+    /**
+     * Gets the players.
+     *
+     * @return the players
+     */
     public static List<Player> getPlayers() {
         return authenticatedPlayersById.values().stream().filter(p -> p != null).collect(Collectors.toList());
     }

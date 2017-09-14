@@ -3,13 +3,13 @@ package org.alexdev.icarus.game.messenger;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
 
-public class PlayerMessage {
+public class InstantMessage {
 
     public int fromId;
     public int toId;
     public String message;
     
-    public PlayerMessage(int fromId, int toId, String message) {
+    public InstantMessage(int fromId, int toId, String message) {
         this.fromId = fromId;
         this.toId = toId;
         this.message = message;

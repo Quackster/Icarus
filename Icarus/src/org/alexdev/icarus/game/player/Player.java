@@ -44,34 +44,38 @@ public class Player extends Entity {
     public void performRoomAction(RoomAction action, Object value) {
 
         switch (action) {
-            case LEAVE_ROOM: {
-                
-                Room room = this.roomUser.getRoom();
-                boolean goHotelView = (boolean)value;
-                
-                if (room != null) {
-                                        
-                    PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { 
-                            CoerceJavaToLua.coerce(this), 
-                            CoerceJavaToLua.coerce(this.roomUser.getRoom()) 
-                    });
-                    
-                    if (goHotelView) {
-                        this.send(new HotelViewMessageComposer());
-                    }
-                    
-                    room.getEntityManager().removeEntity(this);
-                    room.dispose();
-                    this.messenger.sendStatus(false);
-                }
-                break;
+        case LEAVE_ROOM: {
+
+            Room room = this.roomUser.getRoom();
+            boolean goHotelView = (boolean)value;
+
+            if (room == null) {
+                return;
             }
-    
-            case FORWARD_ROOM: {
-                int roomId = (int)value;
-                this.send(new RoomForwardComposer(roomId));
-                break;
+
+            PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { 
+                    CoerceJavaToLua.coerce(this), 
+                    CoerceJavaToLua.coerce(this.roomUser.getRoom()) 
+            });
+
+            if (goHotelView) {
+                this.send(new HotelViewMessageComposer());
             }
+
+            room.getEntityManager().removeEntity(this);
+            room.cleanup();
+            
+            this.messenger.sendStatus(false);
+            
+            break;
+
+        }
+
+        case FORWARD_ROOM: {
+            int roomId = (int)value;
+            this.send(new RoomForwardComposer(roomId));
+            break;
+        }
         }
     }
 
@@ -89,16 +93,23 @@ public class Player extends Entity {
         PluginManager.callEvent(PluginEvent.PLAYER_DISCONNECT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this) });
 
         for (Room room : RoomManager.getPlayerRooms(this.details.getId())) {
-            room.dispose(); 
+            room.cleanup(); 
         }
 
         PlayerManager.removePlayer(this);
-
-        this.messenger.dispose();
-        this.roomUser.dispose();
-        this.inventory.dispose();
+        
+        this.destroyObjects();
     }
-    
+
+    private void destroyObjects() {
+        this.network = null;
+        this.details = null;
+        this.roomUser = null;
+        this.messenger = null;
+        this.inventory = null;
+        this.subscription = null;
+    }
+
     @Override
     public EntityType getType() {
         return EntityType.PLAYER;
@@ -135,7 +146,7 @@ public class Player extends Entity {
     public ClubSubscription getSubscription() {
         return subscription;
     }
-    
+
     public IPlayerNetwork getNetwork() {
         return network;
     }
@@ -143,7 +154,7 @@ public class Player extends Entity {
     public void sendMessage(String message) {
         this.send(new BroadcastMessageAlertComposer(message));
     }
-    
+
     public void send(MessageComposer response) {
         this.network.send(response);
     }

@@ -25,7 +25,7 @@ public class MessengerAcceptMessageEvent implements MessageEvent {
             MessengerUser user = new MessengerUser(fromId);
             player.getMessenger().getFriends().add(user);
             
-            if (user.isOnline()) {
+            if (user.isUserOnline()) {
                 
                 MessengerUser to = new MessengerUser(toId);
                 
