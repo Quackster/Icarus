@@ -16,17 +16,9 @@ import com.google.common.collect.Lists;
 
 public class RoomEntityManager {
 
-    /** The room. */
     private Room room;
-
-    /** The entities. */
     private List<Entity> entities; 
 
-    /**
-     * Instantiates a new room entity manager.
-     *
-     * @param room the room
-     */
     public RoomEntityManager(Room room) {
         this.room = room;
         this.entities = Lists.newArrayList();
