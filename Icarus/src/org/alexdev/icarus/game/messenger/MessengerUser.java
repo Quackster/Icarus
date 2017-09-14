@@ -75,7 +75,7 @@ public class MessengerUser {
     }
 
     public Player getPlayer() {
-        return player;
+        return PlayerManager.getById(this.userId);
     }
 
     public PlayerDetails getDetails() {
