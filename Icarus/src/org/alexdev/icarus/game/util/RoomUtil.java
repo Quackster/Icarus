@@ -49,21 +49,23 @@ public class RoomUtil {
         if (wallData > 0) {
             player.send(new RoomSpacesMessageComposer("wallpaper", room.getData().getWall()));
         }
-
+        
+        boolean isOwner = roomUser.getRoom().hasRights(player.getDetails().getId(), true);
+ 
         player.send(new RoomSpacesMessageComposer("landscape", room.getData().getLandscape()));
-        player.send(new RoomOwnerRightsComposer(room.getData().getId(), room.hasRights(player, true)));
-
-        if (roomUser.getRoom().hasRights(player, true)) {
+        player.send(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
+        
+        if (isOwner) {
             player.send(new RightsLevelMessageComposer(4));
             player.send(new OwnerRightsMessageComposer());
 
-        } else if (roomUser.getRoom().hasRights(player, false)) {
+        } else if (roomUser.getRoom().hasRights(player.getDetails().getId(), false)) {
             player.send(new RightsLevelMessageComposer(1));
 
         } else {
             player.send(new RightsLevelMessageComposer(0));
         }
-
+        
         roomUser.setVirtualId(room.getVirtualTicketCounter().incrementAndGet());
         roomUser.getPosition().setX(x);
         roomUser.getPosition().setY(y);

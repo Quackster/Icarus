@@ -43,9 +43,8 @@ public class CommandManager {
             Command cmd = getCommand(commandName);
             
             if (cmd != null) {
-
                 for (String permission : cmd.getPermissions()) {                   
-                    if (player.hasPermission(permission)) {    
+                    if (player.getDetails().hasPermission(permission)) {    
                         return true;
                     }
                 }
@@ -58,11 +57,14 @@ public class CommandManager {
     public static void invokeCommand(Player player, String message) {
 
         String commandName = message.split(":")[1];
-
         Command cmd = getCommand(commandName);
         
         if (cmd != null) {
             cmd.handleCommand(player, message);
         }
+    }
+
+    public static Map<String[], Command> getCommands() {
+        return commands;
     }
 }

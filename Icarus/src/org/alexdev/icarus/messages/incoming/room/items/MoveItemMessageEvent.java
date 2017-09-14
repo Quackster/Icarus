@@ -18,7 +18,7 @@ public class MoveItemMessageEvent implements MessageEvent {
 
         Room room = player.getRoom();
 
-        if (!room.hasRights(player, false)) {
+        if (!room.hasRights(player.getDetails().getId(), false)) {
             return;
         }
 

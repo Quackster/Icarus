@@ -6,8 +6,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.alexdev.icarus.dao.mysql.groups.GroupDao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
+import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.enums.RoomType;
 import org.alexdev.icarus.game.room.managers.RoomEntityManager;
@@ -19,7 +21,7 @@ import org.alexdev.icarus.messages.MessageComposer;
 public class Room {
 
     private AtomicInteger virtualTicketCounter = new AtomicInteger(-1);
-    
+
     private RoomData data;
     private RoomModel model;
     private RoomScheduler scheduler;
@@ -27,33 +29,34 @@ public class Room {
     private RoomPromotion promotion;
     private RoomItemManager itemManager;
     private RoomEntityManager entityManager;
-    
+
     private List<Integer> rights;
-    
+
     public Room() {
         this.data = new RoomData(this);
         this.mapping = new RoomMapping(this);
         this.scheduler = new RoomScheduler(this);
         this.itemManager = new RoomItemManager(this);
         this.entityManager = new RoomEntityManager(this);
-        
+
         this.rights = RoomDao.getRoomRights(this.data.getId());
-    }
-
-    public boolean hasRights(Player player, boolean ownerCheckOnly) {
-
-        if (player.hasPermission("room_all_rights")) {
-            return true;
-        }
-
-        return hasRights(player.getDetails().getId(), ownerCheckOnly);
     }
 
     public boolean hasRights(int userId, boolean ownerCheckOnly) {
 
+        PlayerDetails details = PlayerManager.getPlayerData(userId);
+        
+        if (details != null) {
+
+            if (details.hasPermission("room_all_rights")) {
+                return true;
+            }
+        }
+        
         if (this.data.getOwnerId() == userId) {
             return true;
         } else {
+            
             if (!ownerCheckOnly) {
                 return this.rights.contains(Integer.valueOf(userId));
             }
@@ -62,11 +65,11 @@ public class Room {
         return false;
     }
 
-    public void send(MessageComposer response, boolean checkRights) {
+    public void sendWithRights(MessageComposer response) {
 
         for (Player player : this.getEntityManager().getPlayers()) {
 
-            if (checkRights && this.hasRights(player, false)) {
+            if (this.hasRights(player.getDetails().getId(), false)) {
                 player.send(response);
             }
         }
@@ -118,7 +121,7 @@ public class Room {
     public Group getGroup() {
 
         if (this.data.getGroupId() > 0) {
-            
+
             Group group = GroupDao.getGroup(this.data.getGroupId());
 
             if (group == null) {
@@ -132,7 +135,7 @@ public class Room {
 
         return null;
     }
-    
+
     public void dispose(boolean forceDisposal) {
 
         if (forceDisposal) {
@@ -159,11 +162,11 @@ public class Room {
         if (this.scheduler != null) {
             this.scheduler.cancelTasks();
         }
-        
+
         if (this.rights != null) {
             this.rights.clear();
         }
-        
+
         this.entityManager.cleanupEntities();
         this.virtualTicketCounter.set(-1);
     }
@@ -171,7 +174,7 @@ public class Room {
     public RoomData getData() {
         return data;
     }
-    
+
     public RoomMapping getMapping() {
         return mapping;
     }

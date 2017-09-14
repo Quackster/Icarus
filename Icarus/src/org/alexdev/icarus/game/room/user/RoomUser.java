@@ -181,7 +181,7 @@ public class RoomUser extends Metadata {
         }
 
         Player player = (Player)this.entity;
-        boolean isStaff = player.hasPermission("moderator");
+        boolean isStaff = player.getDetails().hasPermission("moderator");
 
         if (spamCheck) {
             if (DateTime.getTimeSeconds() < this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
@@ -223,7 +223,7 @@ public class RoomUser extends Metadata {
         }
 
         if (spamCheck) {
-            if (!player.hasPermission("moderator")) {
+            if (!player.getDetails().hasPermission("moderator")) {
 
                 if (DateTime.getTimeSeconds() > this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
                     this.chatCount = 0;

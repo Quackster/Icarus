@@ -11,7 +11,6 @@ import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.groups.NewGroupMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.FloorMapMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.HeightMapMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.RoomDataMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.WallOptionsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.items.FloorItemsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.items.WallItemsMessageComposer;
@@ -62,9 +61,9 @@ public class HeightmapMessageEvent implements MessageEvent {
             }
         }
 
-        if (player.hasPermission("room_all_rights") || room.getData().getOwnerId() == player.getDetails().getId()) {
+        if (player.getDetails().hasPermission("room_all_rights") || room.getData().getOwnerId() == player.getDetails().getId()) {
             player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "4");
-        } else if (room.hasRights(player, false)) {
+        } else if (room.hasRights(player.getDetails().getId(), false)) {
             player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "1");
         }        
 
@@ -72,7 +71,6 @@ public class HeightmapMessageEvent implements MessageEvent {
         player.send(new RoomPromotionMessageComposer(room));
         player.send(new FloorItemsMessageComposer(room.getItemManager().getFloorItems()));
         player.send(new WallItemsMessageComposer(room.getItemManager().getWallItems()));
-        //player.send(new RoomDataMessageComposer(room, player, true, false));
 
         player.getMessenger().sendStatus(false);
 

@@ -22,7 +22,7 @@ public class SaveFloorPlanMessageEvent implements MessageEvent {
             return;
         }
 
-        if (!room.hasRights(player, true)) {
+        if (!room.hasRights(player.getDetails().getId(), true)) {
             return;
         }
 

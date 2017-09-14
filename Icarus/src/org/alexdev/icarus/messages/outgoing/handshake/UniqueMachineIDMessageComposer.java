@@ -8,16 +8,11 @@ public class UniqueMachineIDMessageComposer extends MessageComposer {
     private String uniqueMachineId;
 
     public UniqueMachineIDMessageComposer(String uniqueMachineId) {
-        this.uniqueMachineId = uniqueMachineId;
+        this.uniqueMachineId = uniqueMachineId == null ? "" : uniqueMachineId;
     }
 
     @Override
     public void write() {
-        
-        if (this.uniqueMachineId == null) {
-            return;
-        }
-        
         this.response.init(Outgoing.UniqueMachineIdMessageComposer);
         this.response.writeString(this.uniqueMachineId);
     }

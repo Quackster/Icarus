@@ -41,10 +41,6 @@ public class Player extends Entity {
         this.subscription = new ClubSubscription(this);
     }
 
-    public boolean hasPermission(String permission) {
-        return PlayerManager.hasPermission(this.details.getRank(), permission);
-    }
-
     public void performRoomAction(RoomAction action, Object value) {
 
         switch (action) {

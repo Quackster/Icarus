@@ -24,7 +24,7 @@ public class PopularPopulator extends NavigatorRoomPopulator {
             Room room = activeRooms.get(i);
 
             if (room.getData().getState() == RoomState.INVISIBLE) {
-                if (!room.hasRights(player, false)) {
+                if (!room.hasRights(player.getDetails().getId(), false)) {
                     activeRooms.remove(room);
                 }
             }

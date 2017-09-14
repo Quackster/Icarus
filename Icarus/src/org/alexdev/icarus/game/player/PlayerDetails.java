@@ -36,6 +36,10 @@ public class PlayerDetails {
         this.homeRoomId = homeRoomId;
         this.authenticated = true;
     }
+    
+    public boolean hasPermission(String permission) {
+        return PlayerManager.hasPermission(this.rank, permission);
+    }
 
     public void save() {
         if (this.entity.getType() == EntityType.PLAYER) {

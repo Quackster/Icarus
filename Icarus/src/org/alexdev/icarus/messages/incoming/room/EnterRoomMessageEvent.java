@@ -54,7 +54,7 @@ public class EnterRoomMessageEvent implements MessageEvent {
         String password = request.readString();
         
         if (room.getData().getUsersNow() >= room.getData().getUsersMax()) {
-            if (!player.hasPermission("user_enter_full_rooms")) {
+            if (!player.getDetails().hasPermission("user_enter_full_rooms")) {
                 if (player.getDetails().getId() != room.getData().getOwnerId()) {
                     player.send(new RoomEnterErrorMessageComposer(1));
                     return;
@@ -72,12 +72,12 @@ public class EnterRoomMessageEvent implements MessageEvent {
         }
         else {
 
-            if (room.getData().getState().getStateCode() > 0 && !room.hasRights(player, false)) {
+            if (room.getData().getState().getStateCode() > 0 && !room.hasRights(player.getDetails().getId(), false)) {
                 if (room.getData().getState() == RoomState.DOORBELL) {
 
                     if (room.getEntityManager().getPlayers().size() > 0) {
                         player.send(new GenericDoorbellMessageComposer(1));
-                        room.send(new GenericDoorbellMessageComposer(player.getDetails().getName()), true);
+                        room.sendWithRights(new GenericDoorbellMessageComposer(player.getDetails().getName()));
                     } else {
                         player.send(new GenericNoAnswerDoorbellMessageComposer());
                     }

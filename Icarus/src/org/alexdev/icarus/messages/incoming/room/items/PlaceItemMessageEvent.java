@@ -26,7 +26,7 @@ public class PlaceItemMessageEvent implements MessageEvent {
             return;
         }
 
-        if (!room.hasRights(player, false)) {
+        if (!room.hasRights(player.getDetails().getId(), false)) {
             return;
         }
 
