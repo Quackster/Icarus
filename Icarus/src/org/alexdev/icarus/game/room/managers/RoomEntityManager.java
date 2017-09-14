@@ -37,7 +37,7 @@ public class RoomEntityManager {
                 this.room.getModel().getDoorLocation().getY(), 
                 this.room.getModel().getDoorLocation().getRotation());
     }
-    
+
     /**
      * Adds an {@link Entity} to the room with specified x, y coordinates and rotation.
      * The entity will appear to everybody who is in the room.
@@ -71,7 +71,11 @@ public class RoomEntityManager {
 
         this.room.getMapping().getTile(x, y).setEntity(entity);
     }
-    
+
+    /**
+     * Retrieves the pet data for a room and adds them into the class
+     * with their saved coordinates from the database
+     */
     public void addPets() {
         for (Pet pet : PetDao.getRoomPets(this.room.getData().getId())) {
             pet.getRoomUser().setRoom(this.room);
@@ -84,6 +88,16 @@ public class RoomEntityManager {
         }
     }
 
+    /**
+     * Removes the given entity from the class, it will
+     * remove them from the entity list, and show everybody that
+     * the entity has disappeared.
+     * 
+     * If the entity was a pet or a bot, then their coordinates
+     * will be saved to the database.
+     * 
+     * @param entity - {@link Entity}
+     */
     public void removeEntity(Entity entity) {
 
         if (this.entities != null) {
@@ -106,8 +120,14 @@ public class RoomEntityManager {
         entity.getRoomUser().dispose();
     }
 
+    /**
+     * Removes all entities from the room, including players.
+     * 
+     * Will save the coordinates of these entities if they were either
+     * bots or players.
+     */
     public void cleanupEntities() {
-        
+
         if (this.entities != null) {
 
             for (int i = 0; i < this.entities.size(); i++) {
@@ -121,7 +141,12 @@ public class RoomEntityManager {
             this.entities.clear();
         }
     }
-    
+
+    /**
+     * Return the list of players currently in this room.
+     *  
+     * @return List<{@link Player}> list of players
+     */
     public List<Player> getPlayers() {
 
         List<Player> players = Lists.newArrayList();
@@ -133,25 +158,18 @@ public class RoomEntityManager {
         return players;
     }
 
-    public List<Entity> getEntitiesByType(EntityType type) {
-        
-        List<Entity> entities = Lists.newArrayList();
+    /**
+     * Return the list of entities currently in this room by its
+     * given class.
+     *  
+     * @return List<{@link T}> list of entities
+     */
+    public <T extends Entity> List<T> getEntitiesByClass(Class<T> entityClass) {
 
-        for (Entity entity : this.entities) {
-            if (entity.getType() == type) {
-                entities.add(entity);
-            }
-        }
-
-        return entities;
-    }
-    
-    public <T> List<T> getEntitiesByClass(Class<T> entityClass) {
-        
         List<T> entities = Lists.newArrayList();
 
         for (Entity entity : this.entities) {
-            
+
             if (entity.getType().getEntityClass() == entityClass) {
                 entities.add(entityClass.cast(entity));
             }
@@ -159,12 +177,18 @@ public class RoomEntityManager {
 
         return entities;
     }
-
-    public Entity getEntityById(int id) {
+    /**
+     * Returns an entity by its id and given class.
+     *  
+     * @return Entity
+     */
+    public <T extends Entity> T getEntityById(int id, Class<T> entityClass) {
 
         for (Entity entity : this.entities) {
-            if (entity.getDetails().getId() == id) {
-                return entity;
+            if (entity.getType().getEntityClass() == entityClass) {
+                if (entity.getDetails().getId() == id) {
+                    return entityClass.cast(entity);
+                }
             }
         }
 

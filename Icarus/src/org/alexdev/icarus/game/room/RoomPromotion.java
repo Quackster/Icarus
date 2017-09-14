@@ -16,6 +16,10 @@ public class RoomPromotion {
         this.promotionMinutesLeft = new AtomicInteger(120);
     }
     
+    /**
+     * Will decrease the room promotion timer by 1 down every minute.
+     * If the timer has expired, then the promotion has ended and will be removed.
+     */
     public void performCycle() {
         
         if (this.room.getPromotion().getPromotionMinutesLeft().get() > 0) {

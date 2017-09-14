@@ -148,8 +148,10 @@ public class Room {
         }
         
         if (!PlayerManager.hasPlayer(this.data.getOwnerId())) {
-            RoomManager.removeRoom(this.data.getId());
+            return;
         }
+           
+        RoomManager.removeRoom(this.data.getId());
     }
 
     private void cleanupRoomData() {
