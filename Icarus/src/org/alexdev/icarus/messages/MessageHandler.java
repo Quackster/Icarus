@@ -49,6 +49,7 @@ import org.alexdev.icarus.messages.incoming.room.settings.RoomRightsMessageEvent
 import org.alexdev.icarus.messages.incoming.room.settings.RoomEditMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.settings.SaveRoomMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.user.*;
+import org.alexdev.icarus.messages.incoming.trading.StartTradingMessageEvent;
 import org.alexdev.icarus.messages.incoming.user.*;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
@@ -62,7 +63,6 @@ public class MessageHandler {
     private List<String> composerPackages;
 
     public MessageHandler() {
-        //this.parsers = Lists.newArrayList();
         this.messages = Maps.newHashMap();
         this.composerPackages = Lists.newArrayList();
         this.register();
@@ -85,6 +85,7 @@ public class MessageHandler {
         this.registerRoomSettingPackets();
         this.registerRoomFloorplanPackets();
         this.registerGroupPackets();
+        this.registerTradePackets();
     }
 
     private void registerHandshakePackets() {
@@ -200,6 +201,10 @@ public class MessageHandler {
         this.registerEvent(Incoming.GroupInfoMessageEvent, new GroupInfoMessageEvent());
         this.registerEvent(Incoming.DeleteGroupMessageEvent, new DeleteGroupMessageEvent());
         this.registerEvent(Incoming.ManageGroupMessageEvent, new ManageGroupMessageEvent());
+    }
+    
+    private void registerTradePackets() {
+        this.registerEvent(Incoming.StartTradingMessageEvent, new StartTradingMessageEvent());
     }
     
     private void registerComposerPackages() {

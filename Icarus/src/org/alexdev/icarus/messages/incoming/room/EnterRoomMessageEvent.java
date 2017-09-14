@@ -43,7 +43,7 @@ public class EnterRoomMessageEvent implements MessageEvent {
         }
         
         if (player.getRoomUser().getRequestedRoomId() != roomId) {
-            room.dispose(false);
+            room.dispose();
             room = RoomDao.getRoom(player.getRoomUser().getRequestedRoomId(), true);
         }
 

@@ -13,8 +13,8 @@ public class DebugFurniture extends Command {
             player.getMetadata().set("debugfurniture", false);
         }
         
-        player.getMetadata().set("debugfurniture", !player.getMetadata().getAsBool("debugfurniture"));
-        player.getRoomUser().chatSelf(ChatType.WHISPER, "I have turned " + (player.getMetadata().getAsBool("debugfurniture") ? "on" : "off") + " the debug furniture command.");
+        player.getMetadata().set("debugfurniture", !player.getMetadata().getBoolean("debugfurniture"));
+        player.getRoomUser().chatSelf(ChatType.WHISPER, "I have turned " + (player.getMetadata().getBoolean("debugfurniture") ? "on" : "off") + " the debug furniture command.");
     }
 
     @Override

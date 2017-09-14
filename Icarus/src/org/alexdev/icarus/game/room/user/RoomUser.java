@@ -176,7 +176,6 @@ public class RoomUser extends Metadata {
             }
             
             this.room.send(composer);
-
             return;
         }
 
@@ -268,15 +267,14 @@ public class RoomUser extends Metadata {
 
         // remove entity from previous tile
         this.room.getMapping().getTile(this.position.getX(), this.position.getY()).setEntity(null);
-
+        
+        // set entity to new title
+        this.room.getMapping().getTile(x, y).setEntity(this.entity);
+        
         this.position.setX(x);
         this.position.setY(y);
         this.position.setZ(this.room.getMapping().getTileHeight(x, y));
         this.position.setRotation(rotation);
-
-        // set entity to new title
-        this.room.getMapping().getTile(x, y).setEntity(entity);
-
         this.needsUpdate = true;
     }
 
@@ -385,7 +383,6 @@ public class RoomUser extends Metadata {
     }
     
     public void startDancing(int danceId) {
-        
         this.danceId = danceId;
         this.room.send(new DanceMessageComposer(this.virtualId, danceId));
     }

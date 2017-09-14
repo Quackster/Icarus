@@ -13,6 +13,9 @@ public class HelpCommand extends Command {
         about.append("- :sit\n");
         about.append("- :about\n");
         about.append("- :help.");
+        
+        //TODO: List commands here programmically.
+        
         player.sendMessage(about.toString());
     }
 

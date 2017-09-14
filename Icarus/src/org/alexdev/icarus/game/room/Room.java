@@ -6,7 +6,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.alexdev.icarus.dao.mysql.groups.GroupDao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
-import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerDetails;
@@ -45,18 +44,18 @@ public class Room {
     public boolean hasRights(int userId, boolean ownerCheckOnly) {
 
         PlayerDetails details = PlayerManager.getPlayerData(userId);
-        
+
         if (details != null) {
 
             if (details.hasPermission("room_all_rights")) {
                 return true;
             }
         }
-        
+
         if (this.data.getOwnerId() == userId) {
             return true;
         } else {
-            
+
             if (!ownerCheckOnly) {
                 return this.rights.contains(Integer.valueOf(userId));
             }
@@ -136,24 +135,20 @@ public class Room {
         return null;
     }
 
-    public void dispose(boolean forceDisposal) {
+    public void dispose() {
+        
+        if (this.entityManager.getPlayers().size() > 0) {
+            return;
+        }
 
-        if (forceDisposal) {
+        this.cleanupRoomData();
 
-            this.cleanupRoomData();
+        if (this.data.getRoomType() != RoomType.PRIVATE) {
+            return;
+        }
+        
+        if (!PlayerManager.hasPlayer(this.data.getOwnerId())) {
             RoomManager.removeRoom(this.data.getId());
-
-        } else {
-
-            if (this.entityManager.getPlayers().size() > 0) {
-                return;
-            }
-
-            this.cleanupRoomData();
-
-            if (PlayerManager.getById(this.data.getOwnerId()) == null && this.data.getRoomType() == RoomType.PRIVATE) { 
-                RoomManager.removeRoom(this.data.getId());
-            }
         }
     }
 
@@ -161,10 +156,6 @@ public class Room {
 
         if (this.scheduler != null) {
             this.scheduler.cancelTasks();
-        }
-
-        if (this.rights != null) {
-            this.rights.clear();
         }
 
         this.entityManager.cleanupEntities();

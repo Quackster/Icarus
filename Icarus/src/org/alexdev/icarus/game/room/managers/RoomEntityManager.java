@@ -24,6 +24,12 @@ public class RoomEntityManager {
         this.entities = Lists.newArrayList();
     }
 
+    /**
+     * Adds an {@link Entity} to the room with the default door coordinates.
+     * The entity will appear to everybody who is in the room.
+     * 
+     * @param entity
+     */
     public void addEntity(Entity entity) {
 
         this.addEntity(entity, 
@@ -32,6 +38,15 @@ public class RoomEntityManager {
                 this.room.getModel().getDoorLocation().getRotation());
     }
     
+    /**
+     * Adds an {@link Entity} to the room with specified x, y coordinates and rotation.
+     * The entity will appear to everybody who is in the room.
+     * 
+     * @param entity - {@link Entity} the entity to add to the room
+     * @param x - {@link int} the x coordinate
+     * @param y - {@link int} the y coordinate
+     * @param rotation - {@link int} the rotation of the entity
+     */
     public void addEntity(Entity entity, int x, int y, int rotation) {
 
         if (entity.getType() == EntityType.PLAYER) {
@@ -109,23 +124,36 @@ public class RoomEntityManager {
     
     public List<Player> getPlayers() {
 
-        List<Player> sessions = Lists.newArrayList();
+        List<Player> players = Lists.newArrayList();
 
-        for (Entity entity : this.getEntities(EntityType.PLAYER)) {
-            Player player = (Player)entity;
-            sessions.add(player);
+        for (Player player : this.getEntitiesByClass(Player.class)) {
+            players.add(player);
         }
 
-        return sessions;
+        return players;
     }
 
-    public List<Entity> getEntities(EntityType type) {
+    public List<Entity> getEntitiesByType(EntityType type) {
         
         List<Entity> entities = Lists.newArrayList();
 
         for (Entity entity : this.entities) {
             if (entity.getType() == type) {
                 entities.add(entity);
+            }
+        }
+
+        return entities;
+    }
+    
+    public <T> List<T> getEntitiesByClass(Class<T> entityClass) {
+        
+        List<T> entities = Lists.newArrayList();
+
+        for (Entity entity : this.entities) {
+            
+            if (entity.getType().getEntityClass() == entityClass) {
+                entities.add(entityClass.cast(entity));
             }
         }
 

@@ -205,8 +205,8 @@ public class RoomDao {
         }
     }
 
-    public static void deleteRoom(Room room) {
-        Dao.getStorage().execute("DELETE FROM rooms WHERE id = " + room.getData().getId());
+    public static void deleteRoom(int roomId) {
+        Dao.getStorage().execute("DELETE FROM rooms WHERE id = " + roomId);
     }
 
     public static void updateRoom(Room room) {

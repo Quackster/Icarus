@@ -20,7 +20,7 @@ public class PlayerDetails {
     private Entity entity;
 
     public PlayerDetails(Entity entity) {
-        this.id = -1;//Util.randomInt(10, 900);
+        this.id = 0;
         this.authenticated = false;
         this.entity = entity;
     }

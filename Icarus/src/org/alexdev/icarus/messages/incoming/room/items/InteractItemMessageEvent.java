@@ -35,7 +35,7 @@ public class InteractItemMessageEvent implements MessageEvent {
             PluginManager.callEvent(PluginEvent.WALL_ITEM_INTERACT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
         }
 
-        if (player.getMetadata().getAsBool("debugfurniture")) {
+        if (player.getMetadata().getBoolean("debugfurniture")) {
             StringBuilder builder = new StringBuilder();
             builder.append("<b>Item settings</b>\n");
             builder.append("item_id: " + item.getId() + "\n");

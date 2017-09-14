@@ -55,6 +55,15 @@ public class PlayerManager {
         
         return null;
     }
+    
+    public static boolean hasPlayer(int userId) {
+        return authenticatedPlayersById.containsKey(userId);
+    }
+    
+    public static boolean hasPlayer(String name) {
+        return authenticatedPlayersByName.containsKey(name);
+    }
+
 
     public static PlayerDetails getPlayerData(int userId) {
 

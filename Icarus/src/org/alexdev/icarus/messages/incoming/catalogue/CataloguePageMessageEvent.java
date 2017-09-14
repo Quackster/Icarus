@@ -23,7 +23,7 @@ public class CataloguePageMessageEvent implements MessageEvent {
         
         request.readInt();
         
-        player.send(new CataloguePageMessageComposer(page, request.readString(), player.getMetadata().getAsBool("debugfurniture")));
+        player.send(new CataloguePageMessageComposer(page, request.readString(), player.getMetadata().getBoolean("debugfurniture")));
         player.send(new CatalogueDiscountComposer());
     }
 }

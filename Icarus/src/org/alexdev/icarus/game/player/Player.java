@@ -61,7 +61,7 @@ public class Player extends Entity {
                     }
                     
                     room.getEntityManager().removeEntity(this);
-                    room.dispose(false);
+                    room.dispose();
                     this.messenger.sendStatus(false);
                 }
                 break;
@@ -89,7 +89,7 @@ public class Player extends Entity {
         PluginManager.callEvent(PluginEvent.PLAYER_DISCONNECT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this) });
 
         for (Room room : RoomManager.getPlayerRooms(this.details.getId())) {
-            room.dispose(false); 
+            room.dispose(); 
         }
 
         PlayerManager.removePlayer(this);

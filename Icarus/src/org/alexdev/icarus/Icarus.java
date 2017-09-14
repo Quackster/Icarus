@@ -17,9 +17,10 @@ import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.server.api.IServerHandler;
+import org.alexdev.icarus.util.Metadata;
 import org.alexdev.icarus.util.Util;
 
-public class Icarus {
+public class Icarus extends Metadata {
 
     private static IServerHandler server;
 
@@ -70,7 +71,6 @@ public class Icarus {
  
             Log.println();
             Log.println("Settting up server");
-            
             
             if (server.listenSocket()) {
                 Log.println("Server is listening on " + serverIP + ":" + serverPort);

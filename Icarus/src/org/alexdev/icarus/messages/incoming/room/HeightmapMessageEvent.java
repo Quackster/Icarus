@@ -86,7 +86,7 @@ public class HeightmapMessageEvent implements MessageEvent {
         Group group = room.getGroup();
 
         if (group != null) {
-            if (player.getRoomUser().getMetadata().getAsBool("showGroupHomeroomDialog")) {
+            if (player.getRoomUser().getMetadata().getBoolean("showGroupHomeroomDialog")) {
                 player.getRoomUser().getMetadata().set("showGroupHomeroomDialog", false);
                 player.send(new NewGroupMessageComposer(room.getData().getId(), room.getData().getGroupId()));
             }

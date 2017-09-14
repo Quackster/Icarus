@@ -14,7 +14,7 @@ public enum EntityType {
         this.clazz = clazz;
     }
 
-    public Class<? extends Entity> getClazz() {
+    public Class<? extends Entity> getEntityClass() {
         return clazz;
     }
     
