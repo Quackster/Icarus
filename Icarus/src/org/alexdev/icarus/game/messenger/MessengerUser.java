@@ -9,7 +9,6 @@ public class MessengerUser {
 
     private int userId;
     private PlayerDetails details;
-    private Player player;
 
     public MessengerUser(int userId) {
         this.userId = userId;
@@ -70,7 +69,6 @@ public class MessengerUser {
     }
 
     public void dispose() {
-        this.player = null;
         this.details = null;
     }
 
