@@ -4,7 +4,7 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.game.room.RoomAction;
+import org.alexdev.icarus.game.room.enums.RoomAction;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.messages.outgoing.room.OwnerRightsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.RightsLevelMessageComposer;

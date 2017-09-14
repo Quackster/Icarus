@@ -6,7 +6,7 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.game.room.RoomAction;
+import org.alexdev.icarus.game.room.enums.RoomAction;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.groups.NewGroupMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.FloorMapMessageComposer;
@@ -72,11 +72,14 @@ public class HeightmapMessageEvent implements MessageEvent {
         player.send(new RoomPromotionMessageComposer(room));
         player.send(new FloorItemsMessageComposer(room.getItemManager().getFloorItems()));
         player.send(new WallItemsMessageComposer(room.getItemManager().getWallItems()));
-        player.send(new RoomDataMessageComposer(room, player, true, false));
+        //player.send(new RoomDataMessageComposer(room, player, true, false));
 
         player.getMessenger().sendStatus(false);
 
-        boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_ENTER_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(this) });
+        boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_ENTER_EVENT, new LuaValue[] { 
+                CoerceJavaToLua.coerce(player), 
+                CoerceJavaToLua.coerce(room) 
+        });
 
         if (isCancelled) {
             player.performRoomAction(RoomAction.LEAVE_ROOM, true);

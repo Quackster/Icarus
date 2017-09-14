@@ -2,8 +2,8 @@ package org.alexdev.icarus.game.room;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.alexdev.icarus.game.room.settings.RoomState;
-import org.alexdev.icarus.game.room.settings.RoomType;
+import org.alexdev.icarus.game.room.enums.RoomState;
+import org.alexdev.icarus.game.room.enums.RoomType;
 import org.alexdev.icarus.server.api.messages.Response;
 
 public class RoomData {
@@ -48,7 +48,7 @@ public class RoomData {
         this.room = room;
     }
     
-    public void fill(int id, RoomType type, int ownerId, String ownerName, String name, int state, String password, int usersNow, int usersMax,
+    public void fill(int id, RoomType type, int ownerId, String ownerName, String name, String state, String password, int usersNow, int usersMax,
             String description, int tradeState, int score, int category, int groupId, String model, String wall,
             String floor, String landscape, boolean allowPets, boolean allowPetsEat, boolean allowWalkthrough,
             boolean hideWall, int wallThickness, int floorThickness, String tagFormat, int chatType, int chatBalloon, int chatSpeed,
@@ -59,7 +59,7 @@ public class RoomData {
         this.ownerId = ownerId;
         this.ownerName = ownerName;
         this.name = name;
-        this.state = RoomState.getState(state);
+        this.state = RoomState.valueOf(state);
         this.password = password;
         this.usersNow = usersNow;
         this.usersMax = usersMax;

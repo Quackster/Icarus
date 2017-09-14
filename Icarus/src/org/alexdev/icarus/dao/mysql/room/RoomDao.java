@@ -13,7 +13,7 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomData;
 import org.alexdev.icarus.game.room.RoomManager;
-import org.alexdev.icarus.game.room.settings.RoomType;
+import org.alexdev.icarus.game.room.enums.RoomType;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.util.Util;
 
@@ -32,7 +32,8 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE room_type = " + RoomType.PUBLIC.getTypeCode(), sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE room_type = ?", sqlConnection);
+            preparedStatement.setString(1, RoomType.PUBLIC.name());
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -303,7 +304,7 @@ public class RoomDao {
 
     public static Room fill(ResultSet row) throws SQLException {
 
-        RoomType type = RoomType.getType(row.getInt("room_type"));
+        RoomType type = RoomType.valueOf(row.getString("room_type"));
 
         String ownerName = "";
 
@@ -314,7 +315,7 @@ public class RoomDao {
         Room instance = new Room();
 
         instance.getData().fill(row.getInt("id"), type, row.getInt("owner_id"), ownerName, row.getString("name"), 
-                row.getInt("state"), row.getString("password"), row.getInt("users_now"),
+                row.getString("state"), row.getString("password"), row.getInt("users_now"),
                 row.getInt("users_max"), row.getString("description"), row.getInt("trade_state"), row.getInt("score"), row.getInt("category"), 
                 row.getInt("group_id"), row.getString("model"), row.getString("wallpaper"), row.getString("floor"), row.getString("outside"), 
                 row.getBoolean("allow_pets"), row.getBoolean("allow_pets_eat"), row.getBoolean("allow_walkthrough"), row.getBoolean("hidewall"), 

@@ -7,7 +7,7 @@ import org.alexdev.icarus.game.messenger.MessengerUser;
 import org.alexdev.icarus.game.navigator.NavigatorRoomPopulator;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.game.room.settings.RoomState;
+import org.alexdev.icarus.game.room.enums.RoomState;
 import org.alexdev.icarus.util.GameSettings;
 
 import com.google.common.collect.Lists;

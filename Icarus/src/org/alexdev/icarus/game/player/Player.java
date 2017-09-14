@@ -9,8 +9,8 @@ import org.alexdev.icarus.game.player.club.ClubSubscription;
 import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.game.room.RoomAction;
 import org.alexdev.icarus.game.room.RoomManager;
+import org.alexdev.icarus.game.room.enums.RoomAction;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.HotelViewMessageComposer;
@@ -52,18 +52,23 @@ public class Player extends Entity {
                 
                 Room room = this.roomUser.getRoom();
                 boolean goHotelView = (boolean)value;
-    
-                if (goHotelView) {
-                    this.send(new HotelViewMessageComposer());
-                }
-    
-                PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this), CoerceJavaToLua.coerce(this.roomUser.getRoom()) });
-    
+                
                 if (room != null) {
+                                        
+                    PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { 
+                            CoerceJavaToLua.coerce(this), 
+                            CoerceJavaToLua.coerce(this.roomUser.getRoom()) 
+                    });
+                    
+                    if (goHotelView) {
+                        this.send(new HotelViewMessageComposer());
+                    }
+                    
                     room.getEntityManager().removeEntity(this);
                     room.dispose(false);
                     this.messenger.sendStatus(false);
-                }break;
+                }
+                break;
             }
     
             case FORWARD_ROOM: {

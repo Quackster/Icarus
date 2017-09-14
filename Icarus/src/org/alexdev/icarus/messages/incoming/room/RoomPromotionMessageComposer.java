@@ -37,6 +37,6 @@ public class RoomPromotionMessageComposer extends MessageComposer {
 
         this.response.writeInt(0);
         this.response.writeInt(0);
-        this.response.writeInt(0);//Unknown, came in build RELEASE63-201411181343-400753188
+        this.response.writeInt(0);
     }
 }

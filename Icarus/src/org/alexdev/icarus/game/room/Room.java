@@ -9,11 +9,11 @@ import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
 import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
+import org.alexdev.icarus.game.room.enums.RoomType;
 import org.alexdev.icarus.game.room.managers.RoomEntityManager;
 import org.alexdev.icarus.game.room.managers.RoomItemManager;
 import org.alexdev.icarus.game.room.model.RoomMapping;
 import org.alexdev.icarus.game.room.model.RoomModel;
-import org.alexdev.icarus.game.room.settings.RoomType;
 import org.alexdev.icarus.messages.MessageComposer;
 
 public class Room {

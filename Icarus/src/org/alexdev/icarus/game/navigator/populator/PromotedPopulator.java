@@ -7,7 +7,7 @@ import org.alexdev.icarus.game.navigator.NavigatorRoomPopulator;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
-import org.alexdev.icarus.game.room.settings.RoomType;
+import org.alexdev.icarus.game.room.enums.RoomType;
 
 public class PromotedPopulator extends NavigatorRoomPopulator {
 

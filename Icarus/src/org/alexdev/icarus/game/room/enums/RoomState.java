@@ -1,4 +1,4 @@
-package org.alexdev.icarus.game.room.settings;
+package org.alexdev.icarus.game.room.enums;
 
 public enum RoomState {
     
