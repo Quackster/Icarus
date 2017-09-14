@@ -17,7 +17,6 @@ public class CatalogueTab {
     private List<CatalogueTab> childTabs;
     
     public CatalogueTab(int id, int parentId, String caption, int iconColour, int iconImage, boolean enabled, int minRank, String link) {
-        
         this.id = id;
         this.parentId = parentId;
         this.caption = caption;

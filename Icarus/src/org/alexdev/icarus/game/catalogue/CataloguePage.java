@@ -16,7 +16,6 @@ public class CataloguePage {
     private List<CatalogueItem> items = null;
 
     public CataloguePage(int id, String caption, int parentId, String type, String layout, int minimum_rank, List<String> images, List<String> texts, List<CatalogueItem> items) {
-        super();
         this.id = id;
         this.caption = caption;
         this.parentId = parentId;
