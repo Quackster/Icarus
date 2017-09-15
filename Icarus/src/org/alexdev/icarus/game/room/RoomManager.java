@@ -150,7 +150,7 @@ public class RoomManager {
      *
      * @return the scheduler
      */
-    public static ScheduledExecutorService getScheduler() {
+    public static ScheduledExecutorService getScheduledPool() {
         return scheduler;
     }
 }

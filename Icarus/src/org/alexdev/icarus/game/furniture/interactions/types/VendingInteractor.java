@@ -32,11 +32,11 @@ public class VendingInteractor implements Interaction {
         item.setExtraData("1");
         item.updateStatus();
 
-        RoomManager.getScheduler().schedule(() -> {
+        RoomManager.getScheduledPool().schedule(() -> {
             roomUser.carryItem(item.getDefinition().getVendingId());
         }, 1, TimeUnit.SECONDS);
 
-        RoomManager.getScheduler().schedule(() -> {
+        RoomManager.getScheduledPool().schedule(() -> {
             item.setExtraData("0");
             item.updateStatus();
         }, 2, TimeUnit.SECONDS);

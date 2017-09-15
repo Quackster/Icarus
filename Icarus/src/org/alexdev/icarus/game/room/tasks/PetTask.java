@@ -17,8 +17,6 @@ public class PetTask implements RoomTask {
 
     public void execute() {
 
-        PlayerManager.sendMessage("test1");
-        
         List<Pet> pets = this.room.getEntityManager().getEntitiesByClass(Pet.class);
 
         if (pets.size() == 0) {

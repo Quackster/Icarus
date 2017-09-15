@@ -25,7 +25,7 @@ public class TeleportInteractor implements Interaction {
 
             roomUser.walkTo(item.getPosition().getSquareInFront().getX(), item.getPosition().getSquareInFront().getY());
 
-            RoomManager.getScheduler().schedule(() -> {
+            RoomManager.getScheduledPool().schedule(() -> {
                 item.setExtraData(TELEPORTER_CLOSE);
                 item.updateStatus();
             }, 1, TimeUnit.SECONDS);
@@ -55,14 +55,14 @@ public class TeleportInteractor implements Interaction {
         Item targetTeleporter = roomUser.getRoom().getItemManager().getItem(item.getTeleporterId());
 
         // Do teleporter flashing effects for the teleporter they hopped into
-        RoomManager.getScheduler().schedule(() -> {
+        RoomManager.getScheduledPool().schedule(() -> {
             item.setExtraData(TELEPORTER_EFFECTS);
             item.updateStatus();
 
         }, 1, TimeUnit.SECONDS);
 
         // Stop previous teleporter from flashing and do the effects for the new teleporter
-        RoomManager.getScheduler().schedule(() -> {
+        RoomManager.getScheduledPool().schedule(() -> {
             item.setExtraData(TELEPORTER_CLOSE);
             item.updateStatus();
 
@@ -73,7 +73,7 @@ public class TeleportInteractor implements Interaction {
 
 
         // Open up new teleporter and walk out of it
-        RoomManager.getScheduler().schedule(() -> {
+        RoomManager.getScheduledPool().schedule(() -> {
 
             if (targetTeleporter.getRoomId() != item.getRoomId()) {                
                 roomUser.setTeleporting(true);
@@ -98,13 +98,13 @@ public class TeleportInteractor implements Interaction {
         }, 3, TimeUnit.SECONDS);
 
         // Leave the teleporter
-        RoomManager.getScheduler().schedule(() -> {
+        RoomManager.getScheduledPool().schedule(() -> {
             roomUser.setWalkingAllowed(true);
             roomUser.walkTo(targetTeleporter.getPosition().getSquareInFront().getX(), targetTeleporter.getPosition().getSquareInFront().getY());
         }, 3500, TimeUnit.MILLISECONDS);
 
         // Close the teleporter
-        RoomManager.getScheduler().schedule(() -> {
+        RoomManager.getScheduledPool().schedule(() -> {
 
             if (targetTeleporter.getRoomId() == item.getRoomId()) {
                 targetTeleporter.setExtraData(TELEPORTER_CLOSE);
