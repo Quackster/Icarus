@@ -43,16 +43,16 @@ public class Position {
      * @param differentZ the other height
      * @return the height difference
      */
-    public double getHeightDifference(double differentZ) {
+    public static double getHeightDifference(double firstZ, double differentZ) {
         
         double bigger;
         double smaller;
         
-        if (differentZ > this.Z) {
+        if (differentZ > firstZ) {
             bigger = differentZ;
-            smaller = this.Z;
+            smaller = firstZ;
         } else {
-            bigger = this.Z;
+            bigger = firstZ;
             smaller = differentZ;
         }
         

@@ -117,9 +117,7 @@ public class RoomMapping {
         double currentHeight = this.getTile(current.getX(), current.getY()).getHeight();
         double nextHeight = this.getTile(neighbour.getX(), neighbour.getY()).getHeight();
 
-        boolean tooHigh = false;
-
-        if (current.getHeightDifference(neighbour.getZ()) > 1.0) {
+        if (Position.getHeightDifference(currentHeight, nextHeight) > 1.0) {
             return false;
         }
 
