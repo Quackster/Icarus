@@ -60,6 +60,18 @@ public class RoomTile {
         
         this.entity = entity;
     }
+    
+    public boolean isHeightValid(double height) {
+        
+        for (int i = 0; i < this.items.size(); i++) {          
+            Item item = this.items.get(i);
+            if (item.getPosition().getZ() < height) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
 
     public Item getHighestItem() {
         return highestItem;

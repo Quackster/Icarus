@@ -9,4 +9,6 @@ public class GameSettings {
     
     public static final int MAX_ROOMS_POPULAR = 30;
     public static final int MAX_ROOMS_SUB_CATEGORIES = 9;
+    
+    public static final double MINIMUM_WALK_UNDER_HEIGHT = 3;
 }

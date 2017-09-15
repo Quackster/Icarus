@@ -11,8 +11,10 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RemoveItemMessageComposer;
+import org.alexdev.icarus.util.GameSettings;
 
 public class RoomMapping {
 
@@ -33,7 +35,7 @@ public class RoomMapping {
         this.mapSizeX = this.room.getModel().getMapSizeX();
         this.mapSizeY = this.room.getModel().getMapSizeY();
         this.tiles = new RoomTile[this.mapSizeX][this.mapSizeY];
-        
+
         List<Entity> entities = this.room.getEntityManager().getEntities();
 
         for (Entity entity : entities) {
@@ -109,21 +111,16 @@ public class RoomMapping {
             return false;
         }
 
-        Item currentItem = this.getHighestItem(current.getX(), current.getY());
+        RoomTile currentTile = this.getTile(current.getX(), current.getY());
+        RoomTile nextTile = this.getTile(neighbour.getX(), neighbour.getY());
 
         double currentHeight = this.getTile(current.getX(), current.getY()).getHeight();
         double nextHeight = this.getTile(neighbour.getX(), neighbour.getY()).getHeight();
 
-        if (currentHeight > nextHeight) {
-            if ((currentHeight - nextHeight) > 1.0) {
-                return false;
-            }
-        }
+        boolean tooHigh = false;
 
-        if (nextHeight > currentHeight) {
-            if ((nextHeight - currentHeight) > 1.0) {
-                return false;
-            }
+        if (current.getHeightDifference(neighbour.getZ()) > 1.0) {
+            return false;
         }
 
         if (entity != null) {
@@ -134,7 +131,10 @@ public class RoomMapping {
                 }
 
                 if (!current.isMatch(entity.getRoomUser().getPosition())) {
-                    if (currentItem != null) {
+                    if (currentTile.getHighestItem() != null) {
+
+                        Item currentItem = currentTile.getHighestItem();
+
                         if (!isFinalMove) {
                             return currentItem.getDefinition().isWalkable() && !currentItem.getDefinition().allowSit() && currentItem.getDefinition().getInteractionType() != InteractionType.BED;
                         }
@@ -287,7 +287,7 @@ public class RoomMapping {
 
         item.updateStatus();
     }
-    
+
     /**
      * Gets the tile, will create it if it's null (within the valid heightmap size).
      *
@@ -302,14 +302,14 @@ public class RoomMapping {
         }
 
         RoomTile tile = this.tiles[x][y];
-        
+
         if (tile == null) {     
             this.tiles[x][y] = new RoomTile(this.room, x, y);
         }
-        
+
         return this.tiles[x][y];
     }
-    
+
     /**
      * Gets the tile height.
      *

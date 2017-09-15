@@ -53,14 +53,16 @@ public class RoomUser extends Metadata {
     private boolean isTeleporting;
     private boolean isRolling;
     private boolean isWalkingAllowed;
+    private boolean underneathItem;
     
     private Entity entity;
     private Room room;
     private Item currentItem;
+    
     private Position position;
-    private Position overridePosition;
     private Position goal;
     private Position next;
+    
     private AtomicInteger carryTimer;
     
     private HashMap<EntityStatus, String> statuses;
@@ -426,6 +428,7 @@ public class RoomUser extends Metadata {
 
         this.position = new Position(0, 0, 0);
         this.goal = new Position(0, 0, 0);
+        this.underneathItem = false;// = new Position(0, 0, 0);
 
         this.chatColor = 0;
         this.roomRequestedId = -1;
@@ -861,21 +864,11 @@ public class RoomUser extends Metadata {
         this.roomRequestedId = roomRequestedId;
     }
 
-    /**
-     * Gets the override position.
-     *
-     * @return the override position
-     */
-    public Position getOverridePosition() {
-        return overridePosition;
+    public boolean isUnderneathItem() {
+        return underneathItem;
     }
 
-    /**
-     * Sets the override position.
-     *
-     * @param overridePosition the new override position
-     */
-    public void setOverridePosition(Position overridePosition) {
-        this.overridePosition = overridePosition;
+    public void setUnderneathItem(boolean underneathItem) {
+        this.underneathItem = underneathItem;
     }
 }

@@ -11,6 +11,7 @@ import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
+import org.alexdev.icarus.util.GameSettings;
 import org.alexdev.icarus.util.Util;
 
 public class MovementTask implements Runnable {
@@ -62,6 +63,7 @@ public class MovementTask implements Runnable {
             if (roomEntity.getPath().size() > 0) {
 
                 Position next = roomEntity.getPath().pop();
+                roomEntity.setUnderneathItem(false);
 
                 if (!roomEntity.getRoom().getMapping().isTileWalkable(entity, next.getX(), next.getY())) {
 
@@ -81,7 +83,7 @@ public class MovementTask implements Runnable {
                 roomEntity.removeStatus(EntityStatus.SIT);
 
                 int rotation = Rotation.calculate(roomEntity.getPosition().getX(), roomEntity.getPosition().getY(), next.getX(), next.getY());
-                double height = this.room.getMapping().getTile(next.getX(), next.getY()).getHeight();
+                double height = previousTile.getHeight();
 
                 roomEntity.getPosition().setRotation(rotation);
                 roomEntity.setStatus(EntityStatus.MOVE, next.getX() + "," + next.getY() + "," + Util.getDecimalFormatter().format(height));

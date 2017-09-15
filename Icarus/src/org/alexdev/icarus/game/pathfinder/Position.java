@@ -36,6 +36,28 @@ public class Position {
         this.Y = y;
         this.Z = z;
     }
+    
+    /**
+     * Gets the height difference between another height variable
+     *
+     * @param differentZ the other height
+     * @return the height difference
+     */
+    public double getHeightDifference(double differentZ) {
+        
+        double bigger;
+        double smaller;
+        
+        if (differentZ > this.Z) {
+            bigger = differentZ;
+            smaller = this.Z;
+        } else {
+            bigger = this.Z;
+            smaller = differentZ;
+        }
+        
+        return (bigger - smaller);
+    }
 
     /**
      * Gets the x.
