@@ -16,6 +16,12 @@ public class NavigatorManager {
         categories = NavigatorDao.getCategories();
     }
     
+    /**
+     * Gets the tab.
+     *
+     * @param tabName the tab name
+     * @return the tab
+     */
     public static NavigatorTab getTab(String tabName) {
 
         Optional<NavigatorTab> navigatorTab = tabs.stream().filter(tab -> tab.getTabName().equals(tabName)).findFirst();
@@ -27,6 +33,11 @@ public class NavigatorManager {
         }
     }
 
+    /**
+     * Gets the parent tabs.
+     *
+     * @return the parent tabs
+     */
     public static List<NavigatorTab> getParentTabs() {
 
         try {
@@ -38,10 +49,20 @@ public class NavigatorManager {
         }
     }
     
+    /**
+     * Gets the categories.
+     *
+     * @return the categories
+     */
     public static List<NavigatorCategory> getCategories() {
         return categories;
     }
 
+    /**
+     * Gets the all tabs.
+     *
+     * @return the all tabs
+     */
     public static List<NavigatorTab> getAllTabs() {
         return tabs;
     }

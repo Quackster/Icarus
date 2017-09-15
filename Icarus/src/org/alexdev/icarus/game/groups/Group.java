@@ -17,7 +17,7 @@ public class Group {
     private boolean canMembersDecorate;
     private GroupAccessType accessType;
 
-    public Group(int id, String title, String description, String badge, int ownerId, int roomId, long created, int colourA, int colourB, boolean canMembersDecorate, int accessType) {
+    public Group(int id, String title, String description, String badge, int ownerId, int roomId, long created, int colourA, int colourB, boolean canMembersDecorate, GroupAccessType type) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -28,20 +28,9 @@ public class Group {
         this.colourA = colourA;
         this.colourB = colourB;
         this.canMembersDecorate = canMembersDecorate;
-        
-        if (accessType == 0) {
-            this.accessType = GroupAccessType.OPEN;
-        }
-        
-        if (accessType == 1) {
-            this.accessType = GroupAccessType.LOCKED;
-        }
-        
-        if (accessType == 2) {
-            this.accessType = GroupAccessType.PRIVATE;
-        }
+        this.accessType = type;
     }
-    
+
     public void delete() {
         GroupDao.deleteGroup(this.id);
     }

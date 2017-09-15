@@ -47,10 +47,10 @@ public class PlayerManager {
     }
 
     /**
-     * Gets the by id.
+     * Gets the {@link Player} by id.
      *
      * @param userId the user id
-     * @return the by id
+     * @return {@link Player} the by id
      */
     public static Player getById(int userId) {
 
@@ -62,10 +62,10 @@ public class PlayerManager {
     }
 
     /**
-     * Gets the by name.
+     * Gets the {@link Player} by name.
      *
      * @param name the name
-     * @return the by name
+     * @return {@link Player} the by name
      */
     public static Player getByName(String name) {
 
@@ -151,7 +151,7 @@ public class PlayerManager {
      * Checks for permission.
      *
      * @param rank the rank
-     * @param perm the perm
+     * @param perm the permission
      * @return true, if successful
      */
     public static boolean hasPermission(int rank, String perm) {

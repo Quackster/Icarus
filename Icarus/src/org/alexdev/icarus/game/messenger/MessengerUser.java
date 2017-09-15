@@ -15,6 +15,12 @@ public class MessengerUser {
         this.details = PlayerManager.getPlayerData(this.userId);
     }
 
+    /**
+     * Serialise the friend data.
+     *
+     * @param response the response
+     * @param forceOffline the force offline
+     */
     public void serialise(Response response, boolean forceOffline) {
 
         response.writeInt(this.details.getId());
@@ -54,10 +60,20 @@ public class MessengerUser {
         response.writeShort(0);
     }
 
+    /**
+     * Checks if is user online.
+     *
+     * @return true, if is user online
+     */
     public boolean isUserOnline() {
         return PlayerManager.hasPlayer(this.userId);
     }
     
+    /**
+     * In room.
+     *
+     * @return true, if successful
+     */
     public boolean inRoom() {
 
         if (this.isUserOnline()) {
@@ -68,18 +84,36 @@ public class MessengerUser {
         return false;
     }
 
+    /**
+     * Dispose.
+     */
     public void dispose() {
         this.details = null;
     }
 
+    /**
+     * Gets the player.
+     *
+     * @return the player
+     */
     public Player getPlayer() {
         return PlayerManager.getById(this.userId);
     }
 
+    /**
+     * Gets the details.
+     *
+     * @return the details
+     */
     public PlayerDetails getDetails() {
         return details;
     }
 
+    /**
+     * Gets the user id.
+     *
+     * @return the user id
+     */
     public int getUserId() {
         return userId;
     }

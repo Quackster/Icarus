@@ -19,6 +19,12 @@ public class Pathfinder {
             new Position(-1, -1, 0)
     };
     
+    /**
+     * Make path.
+     *
+     * @param entity the entity
+     * @return the linked list
+     */
     public static LinkedList<Position> makePath(Entity entity) {
 
         LinkedList<Position> squares = new LinkedList<>();
@@ -35,6 +41,12 @@ public class Pathfinder {
         return new LinkedList<Position>(Lists.reverse(squares));
     }
 
+    /**
+     * Make path reversed.
+     *
+     * @param entity the entity
+     * @return the pathfinder node
+     */
     private static PathfinderNode makePathReversed(Entity entity) {
         MinMaxPriorityQueue<PathfinderNode> openList = MinMaxPriorityQueue.maximumSize(256).create();
 

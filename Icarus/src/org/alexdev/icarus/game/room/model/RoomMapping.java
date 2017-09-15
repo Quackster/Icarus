@@ -239,7 +239,7 @@ public class RoomMapping {
     }
 
     /**
-     * Removes the item.
+     * Removes the item, will delete moodlight data if it's a moodlight
      *
      * @param item the item
      */

@@ -8,7 +8,7 @@ public class RoomPromotion {
     private String promotionDescription;
     private AtomicInteger promotionMinutesLeft;
     private Room room;
-    
+   
     public RoomPromotion(Room room, String promotionName, String promotionDescri) {
         this.room = room;
         this.promotionName = promotionName;
@@ -32,26 +32,56 @@ public class RoomPromotion {
         }
     }
     
+    /**
+     * Gets the promotion name.
+     *
+     * @return the promotion name
+     */
     public String getPromotionName() {
         return promotionName;
     }
 
+    /**
+     * Sets the promotion name.
+     *
+     * @param promotionName the new promotion name
+     */
     public void setPromotionName(String promotionName) {
         this.promotionName = promotionName;
     }
 
+    /**
+     * Gets the promotion description.
+     *
+     * @return the promotion description
+     */
     public String getPromotionDescription() {
         return promotionDescription;
     }
 
+    /**
+     * Sets the promotion description.
+     *
+     * @param promotionDescription the new promotion description
+     */
     public void setPromotionDescription(String promotionDescription) {
         this.promotionDescription = promotionDescription;
     }
 
+    /**
+     * Gets the promotion minutes left.
+     *
+     * @return the promotion minutes left
+     */
     public AtomicInteger getPromotionMinutesLeft() {
         return promotionMinutesLeft;
     }
 
+    /**
+     * Sets the promotion minutes left.
+     *
+     * @param promotionMinutesLeft the new promotion minutes left
+     */
     public void setPromotionMinutesLeft(AtomicInteger promotionMinutesLeft) {
         this.promotionMinutesLeft = promotionMinutesLeft;
     }

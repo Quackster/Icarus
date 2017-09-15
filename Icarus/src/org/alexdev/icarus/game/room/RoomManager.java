@@ -15,9 +15,11 @@ public class RoomManager {
 
     private static Map<Integer, Room> rooms;
     private static Map<Integer, Room> promotedRooms;
-    
     private static ScheduledExecutorService scheduler;
 
+    /**
+     * Load.
+     */
     public static void load() {
         
         rooms = new ConcurrentHashMap<Integer, Room>();
@@ -29,6 +31,11 @@ public class RoomManager {
         RoomDao.getPublicRooms(true);
     }
 
+    /**
+     * Adds the room.
+     *
+     * @param room the room
+     */
     public static void addRoom(Room room) {
 
         if (rooms.containsKey(room.getData().getId())) {
@@ -38,6 +45,12 @@ public class RoomManager {
         rooms.put(room.getData().getId(), room);
     }
 
+    /**
+     * Adds the promoted room.
+     *
+     * @param id the id
+     * @param room the room
+     */
     public static void addPromotedRoom(int id, Room room) {
 
         if (promotedRooms.containsKey(room.getData().getId())) {
@@ -47,6 +60,11 @@ public class RoomManager {
         promotedRooms.put(room.getData().getId(), room);
     }
     
+    /**
+     * Removes the room.
+     *
+     * @param id the id
+     */
     public static void removeRoom(int id) {
         
         rooms.remove(id);
@@ -56,10 +74,20 @@ public class RoomManager {
         }
     }
     
+    /**
+     * Removes the promoted room.
+     *
+     * @param id the id
+     */
     public static void removePromotedRoom(int id) {
         promotedRooms.remove(id);
     }
         
+    /**
+     * Gets the public rooms.
+     *
+     * @return the public rooms
+     */
     public static List<Room> getPublicRooms() {
         
         try {
@@ -69,6 +97,12 @@ public class RoomManager {
         }
     }
     
+    /**
+     * Gets the player rooms.
+     *
+     * @param userId the user id
+     * @return the player rooms
+     */
     public static List<Room> getPlayerRooms(int userId) {
         
         try {
@@ -78,6 +112,12 @@ public class RoomManager {
         }
     }
 
+    /**
+     * Gets the by room id.
+     *
+     * @param roomId the room id
+     * @return the by room id
+     */
     public static Room getByRoomId(int roomId) {
 
         if (rooms.containsKey(roomId)) {
@@ -87,14 +127,29 @@ public class RoomManager {
         return null;
     }
  
+    /**
+     * Gets the rooms.
+     *
+     * @return the rooms
+     */
     public static List<Room> getRooms() {  
         return rooms.values().stream().filter(room -> room != null).collect(Collectors.toList());
     }
     
+    /**
+     * Gets the promoted rooms.
+     *
+     * @return the promoted rooms
+     */
     public static List<Room> getPromotedRooms() {
         return promotedRooms.values().stream().filter(room -> room != null).collect(Collectors.toList());
     }
 
+    /**
+     * Gets the scheduler.
+     *
+     * @return the scheduler
+     */
     public static ScheduledExecutorService getScheduler() {
         return scheduler;
     }

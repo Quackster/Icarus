@@ -29,10 +29,6 @@ public class MessengerSearchMessageEvent implements MessageEvent {
             return;
         }
         
-        if (!messenger.hasInitalised()) {
-            return;
-        }
-        
         List<Integer> search = MessengerDao.search(searchQuery);
         List<MessengerUser> friends = Lists.newArrayList();
         List<MessengerUser> strangers = Lists.newArrayList();
