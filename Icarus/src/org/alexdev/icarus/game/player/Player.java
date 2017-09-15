@@ -99,14 +99,13 @@ public class Player extends Entity {
         }
 
         PluginManager.callEvent(PluginEvent.PLAYER_DISCONNECT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this) });
-
-        for (Room room : RoomManager.getPlayerRooms(this.details.getId())) {
+        PlayerManager.removePlayer(this);
+        
+for (Room room : RoomManager.getPlayerRooms(this.details.getId())) {
             room.cleanup(); 
         }
 
-        PlayerManager.removePlayer(this);
-        
-        this.destroyObjects();
+    this.destroyObjects();
     }
 
     /**

@@ -51,5 +51,7 @@ public class AuthenticateMessageEvent implements MessageEvent {
         
         player.getInventory().init();
         player.getMessenger().init();
+        
+        player.getDetails().setAuthenticated(true);
     }
 }

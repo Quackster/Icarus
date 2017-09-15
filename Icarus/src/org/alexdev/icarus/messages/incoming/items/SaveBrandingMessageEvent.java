@@ -32,6 +32,7 @@ public class SaveBrandingMessageEvent implements MessageEvent {
 
         Item item = room.getItemManager().getItem(brandingId);
         item.setExtraData(data);
+        item.updateStatus();
         item.save();
     }
 

@@ -223,7 +223,7 @@ public class Room {
             return;
         }
         
-        if (!PlayerManager.hasPlayer(this.data.getOwnerId())) {
+        if (PlayerManager.hasPlayer(this.data.getOwnerId())) {
             return;
         }
            

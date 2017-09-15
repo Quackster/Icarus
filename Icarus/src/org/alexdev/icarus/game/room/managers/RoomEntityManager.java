@@ -8,6 +8,7 @@ import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.user.RoomUser;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.user.RemoveUserMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserDisplayMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
@@ -214,9 +215,29 @@ public class RoomEntityManager {
     public <T extends Entity> T getEntityById(int id, Class<T> entityClass) {
 
         for (Entity entity : this.entities) {
-            if (entity.getType().getEntityClass() == entityClass) {
-                
+            if (entity.getType().getEntityClass().isAssignableFrom(entityClass)) {
                 if (entity.getDetails().getId() == id) {
+                    return entityClass.cast(entity);
+                }
+            }
+        }
+
+        return null;
+    }
+    
+    /**
+     * Gets the entity by virtual id.
+     *
+     * @param <T> the generic type
+     * @param virtualId the virtual id
+     * @param entityClass the entity class
+     * @return the entity by virtual id
+     */
+    public <T extends Entity> T getEntityByVirtualId(int virtualId, Class<T> entityClass) {
+
+        for (Entity entity : this.entities) {
+            if (entity.getType().getEntityClass().isAssignableFrom(entityClass)) {
+                if (entity.getRoomUser().getVirtualId() == virtualId) {
                     return entityClass.cast(entity);
                 }
             }
