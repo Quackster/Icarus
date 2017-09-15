@@ -8,12 +8,12 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomTile;
-import org.alexdev.icarus.game.room.scheduler.ScheduledTask;
+import org.alexdev.icarus.game.room.scheduler.RoomTask;
 import org.alexdev.icarus.messages.outgoing.room.items.SlideObjectMessageComposer;
 
 import com.google.common.collect.Lists;
 
-public class RollerTask implements ScheduledTask {
+public class RollerTask implements RoomTask {
 
     private Room room;
 

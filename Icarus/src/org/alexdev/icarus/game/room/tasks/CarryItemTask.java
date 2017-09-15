@@ -3,11 +3,12 @@ package org.alexdev.icarus.game.room.tasks;
 import java.util.List;
 
 import org.alexdev.icarus.game.entity.Entity;
+import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.game.room.scheduler.ScheduledTask;
+import org.alexdev.icarus.game.room.scheduler.RoomTask;
 import org.alexdev.icarus.game.room.user.RoomUser;
 
-public class CarryItemTask implements ScheduledTask {
+public class CarryItemTask implements RoomTask {
 
     private Room room;
 
@@ -21,7 +22,7 @@ public class CarryItemTask implements ScheduledTask {
             return;
         }
 
-        List<Entity> entities = this.room.getEntityManager().getEntities();
+        List<Entity> entities = this.room.getEntityManager().getEntitiesByType(EntityType.PLAYER, EntityType.BOT);
 
         for (int i = 0; i < entities.size(); i++) {
 
@@ -29,15 +30,15 @@ public class CarryItemTask implements ScheduledTask {
 
             RoomUser roomUser = entity.getRoomUser();
 
-            if (roomUser.getCarryTimer() > 0) {
-                roomUser.setCarryTimer(roomUser.getCarryTimer() - 1);
+            if (roomUser.getCarryTimer().get() > 0) {
+                roomUser.getCarryTimer().decrementAndGet();
             } else {
-                if (roomUser.getCarryTimer() == 0) {
+                
+                if (roomUser.getCarryTimer().get() == 0) {
+                    roomUser.getCarryTimer().set(-1);
                     roomUser.carryItem(0);
-                    roomUser.setCarryTimer(-1);
                 }
             }
-
         }
     }
 }

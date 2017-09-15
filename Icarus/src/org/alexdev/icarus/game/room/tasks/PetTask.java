@@ -3,10 +3,11 @@ package org.alexdev.icarus.game.room.tasks;
 import java.util.List;
 
 import org.alexdev.icarus.game.pets.Pet;
+import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.game.room.scheduler.ScheduledTask;
+import org.alexdev.icarus.game.room.scheduler.RoomTask;
 
-public class PetTask implements ScheduledTask {
+public class PetTask implements RoomTask {
 
     private Room room;
 
@@ -16,6 +17,8 @@ public class PetTask implements ScheduledTask {
 
     public void execute() {
 
+        PlayerManager.sendMessage("test1");
+        
         List<Pet> pets = this.room.getEntityManager().getEntitiesByClass(Pet.class);
 
         if (pets.size() == 0) {

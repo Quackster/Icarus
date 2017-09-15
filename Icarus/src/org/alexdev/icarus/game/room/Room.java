@@ -1,6 +1,7 @@
 package org.alexdev.icarus.game.room;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.alexdev.icarus.dao.mysql.groups.GroupDao;
@@ -15,8 +16,7 @@ import org.alexdev.icarus.game.room.managers.RoomEntityManager;
 import org.alexdev.icarus.game.room.managers.RoomItemManager;
 import org.alexdev.icarus.game.room.model.RoomMapping;
 import org.alexdev.icarus.game.room.model.RoomModel;
-import org.alexdev.icarus.game.room.scheduler.ScheduleTime;
-import org.alexdev.icarus.game.room.scheduler.Scheduler;
+import org.alexdev.icarus.game.room.scheduler.RoomScheduler;
 import org.alexdev.icarus.game.room.tasks.CarryItemTask;
 import org.alexdev.icarus.game.room.tasks.PetTask;
 import org.alexdev.icarus.game.room.tasks.RollerTask;
@@ -27,7 +27,7 @@ public class Room {
     private AtomicInteger virtualTicketCounter = new AtomicInteger(-1);
     private RoomData data;
     private RoomModel model;
-    private Scheduler scheduler;
+    private RoomScheduler scheduler;
     private RoomMapping mapping;
     private RoomPromotion promotion;
     private RoomItemManager itemManager;
@@ -37,7 +37,7 @@ public class Room {
     public Room() {
         this.data = new RoomData(this);
         this.mapping = new RoomMapping(this);
-        this.scheduler = new Scheduler(this);
+        this.scheduler = new RoomScheduler(this);
         this.itemManager = new RoomItemManager(this);
         this.entityManager = new RoomEntityManager(this);
         this.rights = RoomDao.getRoomRights(this.data.getId());
@@ -47,9 +47,9 @@ public class Room {
      * Register the tasks required for room functionality
      */
     public void scheduleEvents() {
-        this.scheduler.addScheduleEvent(ScheduleTime.ONE_SECOND, new CarryItemTask(this));
-        this.scheduler.addScheduleEvent(ScheduleTime.FOUR_SECONDS, new RollerTask(this));
-        this.scheduler.addScheduleEvent(ScheduleTime.FIVE_SECONDS, new PetTask(this));
+        this.scheduler.addScheduleEvent(1, TimeUnit.SECONDS, new CarryItemTask(this));
+        this.scheduler.addScheduleEvent(4, TimeUnit.SECONDS, new RollerTask(this));
+        this.scheduler.addScheduleEvent(5, TimeUnit.SECONDS, new PetTask(this));
     }
 
     /**
@@ -310,7 +310,7 @@ public class Room {
      *
      * @return the scheduler
      */
-    public Scheduler getScheduler() {
+    public RoomScheduler getScheduler() {
         return scheduler;
     }
 }

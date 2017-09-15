@@ -23,7 +23,6 @@ public class MessengerDeclineMessageEvent implements MessageEvent {
         } else {
             
             for (int i = 0; i < player.getMessenger().getRequests().size(); i++) {
-                
                 MessengerUser user = player.getMessenger().getRequests().get(i);
                 MessengerDao.removeRequest(user.getUserId(), player.getDetails().getId());
                 player.getMessenger().getRequests().remove(user);

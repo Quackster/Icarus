@@ -15,6 +15,7 @@ public class MessengerInitMessageEvent implements MessageEvent {
         player.send(new MessengerCategoriesMessageComposer());
         player.send(new MessengerRequestsMessageComposer(player, player.getMessenger().getRequests()));
         player.send(new FriendsListMessageComposer(player.getMessenger().getFriends()));
+        
         player.getMessenger().sendStatus(false);
     }
 

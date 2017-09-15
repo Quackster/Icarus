@@ -9,12 +9,11 @@ import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.model.Rotation;
-import org.alexdev.icarus.game.room.scheduler.ScheduledTask;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 import org.alexdev.icarus.util.Util;
 
-public class MovementTask implements ScheduledTask {
+public class MovementTask implements Runnable {
 
     private Room room;
 
@@ -23,7 +22,7 @@ public class MovementTask implements ScheduledTask {
     }
 
     @Override
-    public void execute() {
+    public void run() {
 
         if (this.room.getEntityManager().getEntities().size() == 0) {
             return;

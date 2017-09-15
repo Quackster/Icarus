@@ -2,6 +2,7 @@ package org.alexdev.icarus.game.room.user;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.commands.CommandManager;
@@ -43,14 +44,16 @@ public class RoomUser extends Metadata {
     private int chatCount;
     private int lookResetTime;
     private int teleportRoomId;
-    private int carryTimer;
     private int carryItem;
+    
     private long chatFloodTimer;
+    
     private boolean isWalking;
     private boolean needsUpdate;
     private boolean isTeleporting;
     private boolean isRolling;
     private boolean isWalkingAllowed;
+    
     private Entity entity;
     private Room room;
     private Item currentItem;
@@ -58,6 +61,8 @@ public class RoomUser extends Metadata {
     private Position overridePosition;
     private Position goal;
     private Position next;
+    private AtomicInteger carryTimer;
+    
     private HashMap<EntityStatus, String> statuses;
     private LinkedList<Position> path;
 
@@ -387,14 +392,15 @@ public class RoomUser extends Metadata {
             return;
         }
 
-        this.carryTimer = 0;
+        this.carryTimer.set(0);
         this.carryItem = vendingId;
 
-        if (vendingId > 0)
-            this.carryTimer = 240;
-        else
-            this.carryTimer = 0;
-
+        if (vendingId > 0) {
+            this.carryTimer.set(240);
+        } else {
+            this.carryTimer.set(0);
+        }
+        
         this.room.send(new CarryObjectComposer(this.virtualId, vendingId)); 
     }
 
@@ -427,7 +433,7 @@ public class RoomUser extends Metadata {
         this.danceId = 0;
         this.lookResetTime = -1;
         this.carryItem = 0;
-        this.carryTimer = -1;
+        this.carryTimer = new AtomicInteger(0);
 
         this.needsUpdate = false;
         this.isRolling = false;
@@ -725,17 +731,8 @@ public class RoomUser extends Metadata {
      *
      * @return the carry timer
      */
-    public int getCarryTimer() {
+    public AtomicInteger getCarryTimer() {
         return carryTimer;
-    }
-
-    /**
-     * Sets the carry timer.
-     *
-     * @param carryTimer the new carry timer
-     */
-    public void setCarryTimer(int carryTimer) {
-        this.carryTimer = carryTimer;
     }
 
     /**
