@@ -83,7 +83,7 @@ public class MovementTask implements Runnable {
                 roomEntity.removeStatus(EntityStatus.SIT);
 
                 int rotation = Rotation.calculate(roomEntity.getPosition().getX(), roomEntity.getPosition().getY(), next.getX(), next.getY());
-                double height = previousTile.getHeight();
+                double height = this.room.getMapping().getTile(next.getX(), next.getY()).getHeight();
 
                 roomEntity.getPosition().setRotation(rotation);
                 roomEntity.setStatus(EntityStatus.MOVE, next.getX() + "," + next.getY() + "," + Util.getDecimalFormatter().format(height));

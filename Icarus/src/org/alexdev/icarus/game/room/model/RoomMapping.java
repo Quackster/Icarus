@@ -118,6 +118,15 @@ public class RoomMapping {
         double nextHeight = this.getTile(neighbour.getX(), neighbour.getY()).getHeight();
 
         if (Position.getHeightDifference(currentHeight, nextHeight) > 1.0) {
+            
+            if (currentTile.isHeightValid()) {
+                return true;
+            }
+
+            if (nextTile.isHeightValid()) {
+                return true;
+            }
+            
             return false;
         }
 
@@ -184,6 +193,10 @@ public class RoomMapping {
                     return false;
                 }
             }
+        }
+        
+        if (tile.isHeightValid()) {
+            return true;
         }
 
         Item item = tile.getHighestItem();

@@ -6,6 +6,7 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.util.GameSettings;
 
 import com.google.common.collect.Lists;
 
@@ -59,6 +60,11 @@ public class RoomTile {
         }
         
         this.entity = entity;
+    }
+    
+
+    public boolean isHeightValid() {
+        return this.isHeightValid(GameSettings.MINIMUM_WALK_UNDER_HEIGHT);
     }
     
     public boolean isHeightValid(double height) {
