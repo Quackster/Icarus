@@ -9,6 +9,7 @@ import java.util.Map;
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.dao.mysql.pets.PetDao;
+import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.log.Log;
@@ -101,7 +102,8 @@ public class InventoryDao {
             resultSet = preparedStatement.getGeneratedKeys();
 
             if (resultSet != null && resultSet.next()) {
-                item = getItem(resultSet.getLong(1));
+                int inventoryItemId = resultSet.getInt(1);
+                return new Item(inventoryItemId, ownerId, itemId, 0, "", "", 0, 0, "");
             }
 
         } catch (SQLException e) {
@@ -148,8 +150,14 @@ public class InventoryDao {
     }
     
     public static Item fill(ResultSet row) throws Exception {
-        Item instance = new Item(row.getLong("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
-        return instance;
+        
+        Item item = new Item(row.getInt("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
+        
+        if (item.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
+            item.setTeleporterId(TeleporterDao.getPairId(item.getId()));
+        }
+        
+        return item;
     }
 
 

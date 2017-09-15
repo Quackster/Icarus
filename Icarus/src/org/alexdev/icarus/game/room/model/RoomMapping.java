@@ -11,16 +11,15 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RemoveItemMessageComposer;
-import org.alexdev.icarus.util.GameSettings;
 
 public class RoomMapping {
 
-    private Room room;
     private int mapSizeX;
     private int mapSizeY;
+    
+    private Room room;
     private RoomTile[][] tiles;
 
     public RoomMapping(Room room) {

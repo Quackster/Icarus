@@ -52,9 +52,9 @@ public class Item extends Metadata {
      * @param rotation the rotation
      * @param extraData the extra data
      */
-    public Item(long id, int userId, int itemId, int roomId, String x, String y, double z, int rotation, String extraData) {
+    public Item(int id, int userId, int itemId, int roomId, String x, String y, double z, int rotation, String extraData) {
         
-        this.id = (int)id;
+        this.id = id;
         this.ownerId = userId;
         this.ownerName = PlayerDao.getName(this.ownerId);
         this.itemId = itemId;
