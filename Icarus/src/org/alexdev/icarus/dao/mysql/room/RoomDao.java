@@ -32,7 +32,7 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE room_type = ?", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_data WHERE room_type = ?", sqlConnection);
             preparedStatement.setString(1, RoomType.PUBLIC.name());
             resultSet = preparedStatement.executeQuery();
 
@@ -75,7 +75,7 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE owner_id = " + userId, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_data WHERE owner_id = " + userId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -116,7 +116,7 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE id = " + roomId, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_data WHERE id = " + roomId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -206,7 +206,7 @@ public class RoomDao {
     }
 
     public static void deleteRoom(int roomId) {
-        Dao.getStorage().execute("DELETE FROM rooms WHERE id = " + roomId);
+        Dao.getStorage().execute("DELETE FROM room_data WHERE id = " + roomId);
     }
 
     public static void updateRoom(Room room) {
@@ -219,7 +219,7 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("UPDATE rooms SET name = ?, description = ?, "
+            preparedStatement = Dao.getStorage().prepare("UPDATE room_data SET name = ?, description = ?, "
                     + "state = ?, password = ?, users_max = ?, category = ?, tags = ?, trade_state = ?, allow_pets = ?, allow_pets_eat = ?, " 
                     + "allow_walkthrough = ?, hidewall = ?, wall_thickness = ?, floor_thickness = ?, who_can_mute = ?, who_can_kick = ?, who_can_ban = ?, "
                     + "chat_mode = ?, chat_size = ?, chat_speed = ?, chat_distance = ?, chat_flood = ?, wallpaper = ?, floor = ?, outside = ?, model = ?, group_id = ? WHERE id = ?", sqlConnection);

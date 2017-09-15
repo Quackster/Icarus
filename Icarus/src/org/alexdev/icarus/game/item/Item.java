@@ -58,15 +58,8 @@ public class Item extends Metadata {
         this.ownerId = userId;
         this.ownerName = PlayerDao.getName(this.ownerId);
         this.itemId = itemId;
-        
         this.roomId = roomId;
-        
-        if (extraData.length() > 0) {
-            this.setExtraData(extraData);
-        } else {
-            this.extraData = "";
-        }
-
+        this.extraData = extraData;
         this.itemUnderneath = null;
 
         if (this.getDefinition().getType().equals("i")) {
@@ -542,16 +535,6 @@ public class Item extends Metadata {
      * @param extraData the new extra data
      */
     public void setExtraData(String extraData) {
-
-        if (this.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
-
-            if (this.teleporterId == 0) {
-                this.teleporterId = Integer.valueOf(extraData);
-            }
-
-            this.extraData = "0";
-        }
-
         this.extraData = extraData;
     }
 

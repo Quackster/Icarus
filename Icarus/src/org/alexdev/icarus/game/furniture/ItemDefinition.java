@@ -1,6 +1,7 @@
 package org.alexdev.icarus.game.furniture;
 
 import org.alexdev.icarus.dao.mysql.item.InventoryDao;
+import org.alexdev.icarus.dao.mysql.item.TeleporterDao;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.player.Player;
@@ -83,15 +84,16 @@ public class ItemDefinition {
         if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
 
             Item secondTeleporter = InventoryDao.newItem(this.id, player.getDetails().getId(), "0");
-
-            inventoryItem.setExtraData(String.valueOf(secondTeleporter.getId()));
-            secondTeleporter.setExtraData(String.valueOf(inventoryItem.getId()));
-
+            
+            secondTeleporter.setTeleporterId(inventoryItem.getId());
+            inventoryItem.setTeleporterId(secondTeleporter.getId());
+            
             player.getInventory().addItem(secondTeleporter);
 
             inventoryItem.save();
             secondTeleporter.save();
 
+            TeleporterDao.savePair(inventoryItem.getId(), secondTeleporter.getId());
         }
 
         player.getInventory().addItem(inventoryItem);

@@ -65,7 +65,7 @@ public class ItemDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM items WHERE id = " + itemId, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM item_data WHERE id = " + itemId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -94,7 +94,7 @@ public class ItemDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM items WHERE room_id = " + roomId, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM item_data WHERE room_id = " + roomId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -134,7 +134,7 @@ public class ItemDao {
 
         try {
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("UPDATE items SET extra_data = ?, x = ?, y = ?, z = ?, rotation = ?, room_id = ? WHERE id = ?", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("UPDATE item_data SET extra_data = ?, x = ?, y = ?, z = ?, rotation = ?, room_id = ? WHERE id = ?", sqlConnection);
             preparedStatement.setString(1, extraData);
             preparedStatement.setString(2, x);
             preparedStatement.setString(3, y);
@@ -154,12 +154,18 @@ public class ItemDao {
     }
 
     public static void deleteItem(long id) {
-        Dao.getStorage().execute("DELETE FROM items WHERE id = " + id);
+        Dao.getStorage().execute("DELETE FROM item_data WHERE id = " + id);
     }
 
 
     public static Item fill(ResultSet row) throws Exception {
+        
         Item item = new Item(row.getLong("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
+
+        if (item.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
+            item.setTeleporterId(TeleporterDao.getPairId(item.getId()));
+        }
+        
         return item;
     }
 }

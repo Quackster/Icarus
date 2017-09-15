@@ -185,10 +185,6 @@ public class RoomMapping {
             }
         }
 
-        if (tile.isHeightValid()) {
-            return true;
-        }
-
         Item item = tile.getHighestItem();
 
         if (item != null) {
@@ -246,8 +242,8 @@ public class RoomMapping {
      */
     public void removeItem(Item item) {
 
-        item.getPosition().setX(-1);
-        item.getPosition().setY(-1);
+        item.getPosition().setX(0);
+        item.getPosition().setY(0);
 
         if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
             if (MoodlightDao.hasMoodlightData(item.getId())) {
