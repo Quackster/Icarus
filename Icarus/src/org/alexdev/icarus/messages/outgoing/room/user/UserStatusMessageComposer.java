@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.pathfinder.Position;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.util.Util;
@@ -52,7 +53,9 @@ public class UserStatusMessageComposer extends MessageComposer {
                     if (entity.getRoomUser().getNext() != null) {
 
                         Position next = entity.getRoomUser().getNext();
-                        entity.getRoomUser().getPosition().setZ(entity.getRoomUser().getRoom().getMapping().getTile(next.getX(), next.getY()).getHeight());
+                        double height = entity.getRoom().getMapping().getTile(next.getX(), next.getY()).getHeight();
+                     
+                        entity.getRoomUser().getPosition().setZ(height);
                         entity.getRoomUser().getPosition().setX(next.getX());
                         entity.getRoomUser().getPosition().setY(next.getY());
                     }

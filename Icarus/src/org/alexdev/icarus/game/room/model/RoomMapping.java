@@ -112,21 +112,11 @@ public class RoomMapping {
         }
 
         RoomTile currentTile = this.getTile(current.getX(), current.getY());
-        RoomTile nextTile = this.getTile(neighbour.getX(), neighbour.getY());
-
-        double currentHeight = this.getTile(current.getX(), current.getY()).getHeight();
-        double nextHeight = this.getTile(neighbour.getX(), neighbour.getY()).getHeight();
+        
+        double currentHeight = this.getTileHeight(current.getX(), current.getY());
+        double nextHeight = this.getTileHeight(neighbour.getX(), neighbour.getY());
 
         if (Position.getHeightDifference(currentHeight, nextHeight) > 1.0) {
-            
-            if (currentTile.isHeightValid()) {
-                return true;
-            }
-
-            if (nextTile.isHeightValid()) {
-                return true;
-            }
-            
             return false;
         }
 
@@ -194,7 +184,7 @@ public class RoomMapping {
                 }
             }
         }
-        
+
         if (tile.isHeightValid()) {
             return true;
         }
@@ -336,8 +326,6 @@ public class RoomMapping {
 
         return this.getTile(x, y).getHeight();
     }
-
-
 
     /**
      * Gets the highest item.

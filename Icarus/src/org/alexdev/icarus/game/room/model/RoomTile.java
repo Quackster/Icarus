@@ -76,7 +76,7 @@ public class RoomTile {
             }
         }
         
-        return true;
+        return false;//true;
     }
 
     public Item getHighestItem() {
