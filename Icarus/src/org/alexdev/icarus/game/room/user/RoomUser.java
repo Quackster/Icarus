@@ -433,7 +433,7 @@ public class RoomUser extends Metadata {
         this.danceId = 0;
         this.lookResetTime = -1;
         this.carryItem = 0;
-        this.carryTimer = new AtomicInteger(0);
+        this.carryTimer = new AtomicInteger(-1);
 
         this.needsUpdate = false;
         this.isRolling = false;

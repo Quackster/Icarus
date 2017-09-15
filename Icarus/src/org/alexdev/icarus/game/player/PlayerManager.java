@@ -133,13 +133,15 @@ public class PlayerManager {
      * @param player the player
      * @return true, if successful
      */
-    public static boolean checkForDuplicates(Player player) {
+    public static boolean kickDuplicates(Player player) {
 
         for (Player session : authenticatedPlayersById.values()) {
 
             if (session.getDetails().getId() == player.getDetails().getId()) {
                 if (session.getNetwork().getConnectionId() != player.getNetwork().getConnectionId()) { // user tries to login twice
-                    return true;
+                    session.dispose();
+                    session.getNetwork().close();
+                    break;
                 }
             }
         }

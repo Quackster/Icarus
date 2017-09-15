@@ -20,6 +20,7 @@ import org.alexdev.icarus.messages.incoming.groups.GroupPurchaseMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.ManageGroupMessageEvent;
 import org.alexdev.icarus.messages.incoming.handshake.*;
 import org.alexdev.icarus.messages.incoming.items.PurchaseOfferMessageEvent;
+import org.alexdev.icarus.messages.incoming.items.SaveBrandingMessageEvent;
 import org.alexdev.icarus.messages.incoming.messenger.*;
 import org.alexdev.icarus.messages.incoming.misc.*;
 import org.alexdev.icarus.messages.incoming.navigator.*;
@@ -223,6 +224,7 @@ public class MessageHandler {
         this.registerEvent(Incoming.ToggleMoodlightMessageEvent, new ToggleMoodlightMessageEvent());
         this.registerEvent(Incoming.SaveMoodlightPresetMessageEvent, new SaveMoodlightPresetMessageEvent());
         this.registerEvent(Incoming.PurchaseOfferMessageEvent, new PurchaseOfferMessageEvent());
+        this.registerEvent(Incoming.SaveBrandingMessageEvent, new SaveBrandingMessageEvent());
     }
     
     /**

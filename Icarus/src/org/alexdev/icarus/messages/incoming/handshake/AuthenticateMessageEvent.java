@@ -35,7 +35,7 @@ public class AuthenticateMessageEvent implements MessageEvent {
             return;
         }
         
-        if (PlayerManager.checkForDuplicates(player)) {
+        if (PlayerManager.kickDuplicates(player)) {
             player.getNetwork().close();
             return;
         }

@@ -97,6 +97,10 @@ public class ItemDefinition {
         player.getInventory().addItem(inventoryItem);
     }
     
+    public boolean isAdsFurni() {
+        return this.itemName.equals("ads_background");
+    }
+    
     public int getId() {
         return id;
     }

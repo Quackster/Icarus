@@ -84,4 +84,5 @@ public class Incoming {
     public static Integer ManageGroupMessageEvent = 266;
     public static Integer DeleteGroupMessageEvent = 3320;
     public static Integer StartTradingMessageEvent = 293;
+    public static Integer SaveBrandingMessageEvent = 2926;
 }
