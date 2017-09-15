@@ -18,6 +18,9 @@ import org.alexdev.icarus.messages.incoming.groups.GroupInfoMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.GroupCatalogueMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.GroupPurchaseMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.ManageGroupMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.edit.EditGroupAccessMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.edit.EditGroupColoursMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.edit.EditGroupTextMessageEvent;
 import org.alexdev.icarus.messages.incoming.handshake.*;
 import org.alexdev.icarus.messages.incoming.items.PurchaseOfferMessageEvent;
 import org.alexdev.icarus.messages.incoming.items.SaveBrandingMessageEvent;
@@ -237,6 +240,9 @@ public class MessageHandler {
         this.registerEvent(Incoming.GroupInfoMessageEvent, new GroupInfoMessageEvent());
         this.registerEvent(Incoming.DeleteGroupMessageEvent, new DeleteGroupMessageEvent());
         this.registerEvent(Incoming.ManageGroupMessageEvent, new ManageGroupMessageEvent());
+        this.registerEvent(Incoming.EditGroupTextMessageEvent, new EditGroupTextMessageEvent());
+        this.registerEvent(Incoming.EditGroupColoursMessageEvent, new EditGroupColoursMessageEvent());
+        this.registerEvent(Incoming.EditGroupAccessMessageEvent, new EditGroupAccessMessageEvent());
     }
     
     /**

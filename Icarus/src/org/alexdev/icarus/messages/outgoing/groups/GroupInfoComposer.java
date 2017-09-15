@@ -40,6 +40,6 @@ public class GroupInfoComposer extends MessageComposer {
         this.response.writeBool(this.newWindow); 
         this.response.writeBool(this.group.canMembersDecorate());
         this.response.writeInt(0); // Pending users
-        this.response.writeBool(false);//HabboTalk.
+        this.response.writeBool(false);
     }
 }

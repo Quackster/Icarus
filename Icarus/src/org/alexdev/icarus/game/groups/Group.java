@@ -34,6 +34,10 @@ public class Group {
     public void delete() {
         GroupDao.deleteGroup(this.id);
     }
+    
+    public void save() {
+        GroupDao.saveGroup(this);
+    }
 
     public int getId() {
         return id;

@@ -68,7 +68,7 @@ public class GroupDao {
             resultSet = preparedStatement.executeQuery();
             
             if (resultSet.next()) {
-                group = new Group(groupId, resultSet.getString("title"), resultSet.getString("description"), resultSet.getString("badge"), resultSet.getInt("owner_id"), resultSet.getInt("room_id"), resultSet.getInt("created"), resultSet.getInt("colour_a"), resultSet.getInt("colour_b"), false, GroupAccessType.valueOf(resultSet.getString("access_type")));
+                group = new Group(groupId, resultSet.getString("title"), resultSet.getString("description"), resultSet.getString("badge"), resultSet.getInt("owner_id"), resultSet.getInt("room_id"), resultSet.getInt("created"), resultSet.getInt("colour_a"), resultSet.getInt("colour_b"), resultSet.getInt("can_members_decorate") == 1, GroupAccessType.valueOf(resultSet.getString("access_type")));
             }
 
         } catch (Exception e) {
@@ -104,5 +104,36 @@ public class GroupDao {
             Storage.closeSilently(sqlConnection);
         }
         
+    }
+
+    public static void saveGroup(Group group) {
+        
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        
+        try {
+
+            sqlConnection = Dao.getStorage().getConnection();
+
+            preparedStatement = Dao.getStorage().prepare("UPDATE group_data SET title = ?, description = ?, badge = ?, room_id = ?, colour_a = ?, colour_b = ?, access_type = ?, can_members_decorate = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setString(1, group.getTitle());
+            preparedStatement.setString(2, group.getDescription());
+            preparedStatement.setString(3, group.getBadge());
+            preparedStatement.setInt(4, group.getRoomId());
+            preparedStatement.setInt(5, group.getColourA());
+            preparedStatement.setInt(6, group.getColourB());
+            preparedStatement.setString(7, group.getAccessType().name());
+            preparedStatement.setInt(8, group.canMembersDecorate() ? 1 : 0);
+            preparedStatement.setInt(9, group.getId());
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
     }
 }
