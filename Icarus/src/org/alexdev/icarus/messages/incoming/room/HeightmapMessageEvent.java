@@ -7,6 +7,7 @@ import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.enums.RoomAction;
+import org.alexdev.icarus.game.util.RoomUtil;
 import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.groups.NewGroupMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.FloorMapMessageComposer;
@@ -28,62 +29,6 @@ public class HeightmapMessageEvent implements MessageEvent {
     public void handle(Player player, ClientMessage request) {
 
         Room room = player.getRoomUser().getRoom();
-
-        if (room == null) {
-            return;
-        }
-        
-        if (room.getEntityManager().getEntities().contains(player)) {
-            return;
-        }
-
-        player.send(new HeightMapMessageComposer(room.getModel()));
-        player.send(new FloorMapMessageComposer(room));
-        
-        room.getEntityManager().addEntity(player);
-
-        player.send(new UserDisplayMessageComposer(room.getEntityManager().getEntities()));
-        player.send(new UserStatusMessageComposer(room.getEntityManager().getEntities()));
-
-        for (Player players : room.getEntityManager().getPlayers()) {
-            if (players.getRoomUser().isDancing()) {
-                player.send(new DanceMessageComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getDanceId()));
-            }
-
-            if (players.getRoomUser().getCarryItem() > 0) {
-                player.send(new CarryObjectComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getCarryItem())); 
-            }
-        }
-
-        if (player.getDetails().hasPermission("room_all_rights") || room.getData().getOwnerId() == player.getDetails().getId()) {
-            player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "4");
-        } else if (room.hasRights(player.getDetails().getId(), false)) {
-            player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "1");
-        }        
-
-        player.send(new WallOptionsMessageComposer(room.getData().hasHiddenWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
-        player.send(new RoomPromotionMessageComposer(room));
-        player.send(new FloorItemsMessageComposer(room.getItemManager().getFloorItems()));
-        player.send(new WallItemsMessageComposer(room.getItemManager().getWallItems()));
-
-        player.getMessenger().sendStatus(false);
-
-        boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_ENTER_EVENT, new LuaValue[] { 
-                CoerceJavaToLua.coerce(player), 
-                CoerceJavaToLua.coerce(room) 
-        });
-
-        if (isCancelled) {
-            player.performRoomAction(RoomAction.LEAVE_ROOM, true);
-        }
-
-        Group group = room.getGroup();
-
-        if (group != null) {
-            if (player.getRoomUser().getMetadata().getBoolean("showGroupHomeroomDialog")) {
-                player.getRoomUser().getMetadata().set("showGroupHomeroomDialog", false);
-                player.send(new NewGroupMessageComposer(room.getData().getId(), room.getData().getGroupId()));
-            }
-        }
+        RoomUtil.playerRoomMapEntry(player, room);
     }
 }

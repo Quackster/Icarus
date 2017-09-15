@@ -56,7 +56,7 @@ public class RoomEntityManager {
         roomUser.setVirtualId(this.room.getVirtualTicketCounter().incrementAndGet());
         roomUser.getPosition().setX(x);
         roomUser.getPosition().setY(y);
-        roomUser.getPosition().setZ(this.room.getModel().getHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
+        roomUser.getPosition().setZ(this.room.getMapping().getTileHeight(roomUser.getPosition().getX(), roomUser.getPosition().getY()));
         roomUser.getPosition().setRotation(rotation);
 
         this.room.send(new UserDisplayMessageComposer(entity));
@@ -81,7 +81,7 @@ public class RoomEntityManager {
             pet.getRoomUser().setVirtualId(this.room.getVirtualTicketCounter().incrementAndGet());
             pet.getRoomUser().getPosition().setX(pet.getX());
             pet.getRoomUser().getPosition().setY(pet.getY());
-            pet.getRoomUser().getPosition().setZ(this.room.getModel().getHeight(pet.getRoomUser().getPosition().getX(), pet.getRoomUser().getPosition().getY()));
+            pet.getRoomUser().getPosition().setZ(this.room.getMapping().getTileHeight(pet.getRoomUser().getPosition().getX(), pet.getRoomUser().getPosition().getY()));
             pet.getRoomUser().getPosition().setRotation(0);
             this.entities.add(pet);
         }

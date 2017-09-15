@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 
 import com.google.common.collect.Lists;
@@ -52,6 +53,11 @@ public class RoomTile {
     }
 
     public void setEntity(Entity entity) {
+        
+        if (new Position(x, y).isMatch(this.room.getModel().getDoorLocation())) {
+            return; // Don't override door otherwise people will get stuck
+        }
+        
         this.entity = entity;
     }
 

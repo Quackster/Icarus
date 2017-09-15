@@ -281,22 +281,8 @@ public class RoomMapping {
                     items.updateStatus();
                 }
             }
-        }
-        else {
-
-            double zOffset = 0.01;
-
-            Item highestItem = this.getHighestItem(item.getPosition().getX(), item.getPosition().getY());
-
-            if (highestItem != null) {
-                if (highestItem.getDefinition().allowStack()) {
-                    item.getPosition().setZ(this.getTileHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
-                } else {
-                    item.getPosition().setZ(highestItem.getPosition().getZ() + zOffset);
-                }
-            } else {
-                item.getPosition().setZ(this.room.getModel().getHeight(item.getPosition().getX(), item.getPosition().getY()) + zOffset);
-            }
+        } else {
+            item.getPosition().setZ(this.getTileHeight(item.getPosition().getX(), item.getPosition().getY()));
         }
 
         item.updateStatus();
