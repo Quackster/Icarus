@@ -88,4 +88,5 @@ public class Incoming {
     public static Integer EditGroupTextMessageEvent = 516;
     public static Integer EditGroupColoursMessageEvent = 1475;
     public static Integer EditGroupAccessMessageEvent = 2178;
+    public static Integer EditGroupBadgeMessageEvent = 1082;
 }

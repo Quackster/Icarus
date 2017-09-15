@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.pathfinder.Position;
-import org.alexdev.icarus.log.Log;
+import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.util.Util;
@@ -29,44 +29,44 @@ public class UserStatusMessageComposer extends MessageComposer {
     public void write() {
 
         this.response.init(Outgoing.UserStatusMessageComposer);
-
+        
         synchronized (this.users) {
 
             this.response.writeInt(this.users.size());
 
             for (Entity entity : this.users) {
 
-                this.response.writeInt(entity.getRoomUser().getVirtualId());
+                RoomUser roomUser = entity.getRoomUser();
+                this.response.writeInt(roomUser.getVirtualId());
                 
-                if (entity.getRoomUser().isWalking()) {
-
-                    if (entity.getRoomUser().getNext() == null) {
-                        entity.getRoomUser().stopWalking();
+                if (roomUser.isWalking()) {
+                    if (roomUser.getNext() == null) {
+                        roomUser.stopWalking();
                     }
                 }
 
-                this.response.writeInt(entity.getRoomUser().getPosition().getX());
-                this.response.writeInt(entity.getRoomUser().getPosition().getY());
-                this.response.writeString(Util.getDecimalFormatter().format(entity.getRoomUser().getPosition().getZ()));
+                this.response.writeInt(roomUser.getPosition().getX());
+                this.response.writeInt(roomUser.getPosition().getY());
+                this.response.writeString(Util.getDecimalFormatter().format(roomUser.getPosition().getZ()));
 
-                if (entity.getRoomUser().isWalking()) {
-                    if (entity.getRoomUser().getNext() != null) {
+                if (roomUser.isWalking()) {
+                    if (roomUser.getNext() != null) {
 
-                        Position next = entity.getRoomUser().getNext();
+                        Position next = roomUser.getNext();
                         double height = entity.getRoom().getMapping().getTile(next.getX(), next.getY()).getHeight();
                      
-                        entity.getRoomUser().getPosition().setZ(height);
-                        entity.getRoomUser().getPosition().setX(next.getX());
-                        entity.getRoomUser().getPosition().setY(next.getY());
+                        roomUser.getPosition().setX(next.getX());
+                        roomUser.getPosition().setY(next.getY());
+                        roomUser.getPosition().setZ(height);
                     }
                 }
 
-                this.response.writeInt(entity.getRoomUser().getPosition().getHeadRotation());
-                this.response.writeInt(entity.getRoomUser().getPosition().getBodyRotation());
+                this.response.writeInt(roomUser.getPosition().getHeadRotation());
+                this.response.writeInt(roomUser.getPosition().getBodyRotation());
 
                 String statusString = "/";
 
-                for (Entry<EntityStatus, String> status : entity.getRoomUser().getStatuses().entrySet()) {
+                for (Entry<EntityStatus, String> status : roomUser.getStatuses().entrySet()) {
 
                     statusString += status.getKey().getStatusCode();
 
@@ -79,10 +79,11 @@ public class UserStatusMessageComposer extends MessageComposer {
                 }
 
                 statusString += " ";
+                
                 this.response.writeString(statusString);
 
-                if (entity.getRoomUser().needsUpdate()) {
-                    entity.getRoomUser().setNeedUpdate(false);
+                if (roomUser.needsUpdate()) {
+                    roomUser.setNeedUpdate(false);
                 }
             }
         }

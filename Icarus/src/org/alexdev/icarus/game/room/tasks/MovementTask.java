@@ -11,7 +11,6 @@ import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
-import org.alexdev.icarus.util.GameSettings;
 import org.alexdev.icarus.util.Util;
 
 public class MovementTask implements Runnable {

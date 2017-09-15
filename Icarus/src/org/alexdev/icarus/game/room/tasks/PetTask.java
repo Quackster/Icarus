@@ -3,7 +3,6 @@ package org.alexdev.icarus.game.room.tasks;
 import java.util.List;
 
 import org.alexdev.icarus.game.pets.Pet;
-import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.scheduler.RoomTask;
 
