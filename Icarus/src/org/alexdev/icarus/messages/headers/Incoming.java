@@ -90,4 +90,9 @@ public class Incoming {
     public static Integer EditGroupColoursMessageEvent = 1475;
     public static Integer EditGroupAccessMessageEvent = 2178;
     public static Integer EditGroupBadgeMessageEvent = 1082;
+    public static Integer GroupMembershipRequestMessageEvent = 3749;
+    public static Integer GroupRemoveMemberMessageEvent = 2240;
+    public static Integer GroupMembershipRejectMessageEvent = 1308;
+    public static Integer GroupMembershipAcceptMessageEvent = 3136;
+    public static Integer GroupGiveAdminMessageEvent = 3116;
 }

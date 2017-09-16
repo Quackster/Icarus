@@ -3,10 +3,10 @@ package org.alexdev.icarus.game.groups.members;
 import java.util.List;
 import java.util.Map;
 
+import org.alexdev.icarus.dao.mysql.groups.GroupMemberDao;
 import org.alexdev.icarus.game.groups.Group;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 public class GroupMemberManager {
     
@@ -15,11 +15,7 @@ public class GroupMemberManager {
 
     public GroupMemberManager(Group group) {
         this.group = group;
-        this.groupMembers = Maps.newHashMap();
-        
-        for (GroupMemberType memberType : GroupMemberType.values()) {
-            this.groupMembers.put(memberType, Lists.newArrayList());
-        }
+        this.groupMembers = GroupMemberDao.getMembers(group.getId());
     }
 
     /**
@@ -29,7 +25,7 @@ public class GroupMemberManager {
      * @return the members by type
      */
     public List<Integer> getMembersByType(GroupMemberType memberType) {
-        return this.groupMembers.get(memberType);
+        return Lists.newArrayList(this.groupMembers.get(memberType));
     }
     
     /**
@@ -61,6 +57,24 @@ public class GroupMemberManager {
     }
     
     /**
+     * Checks if user is a member.
+     *
+     * @param userId the user id
+     * @return true, if the user is a member
+     */
+    public boolean isMember(int userId) {
+
+        for (Integer members : this.getMembers()) {
+            if (members == userId) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    
+    /**
      * Gets the members.
      *
      * @return the members
@@ -76,7 +90,7 @@ public class GroupMemberManager {
      * @return the member size
      */
     public int getMemberSize() {
-        return this.getMembersByTypes(GroupMemberType.ADMINISTRATOR, GroupMemberType.MEMBER).size();
+        return this.getMembers().size();
     }
     
     /**
@@ -89,6 +103,7 @@ public class GroupMemberManager {
     public void addMember(GroupMemberType type, int userId) {
         this.remove(userId);
         this.groupMembers.get(type).add(userId);
+        GroupMemberDao.createGroupMember(userId, this.group.getId(), type);
     }
     
     /**
@@ -97,6 +112,8 @@ public class GroupMemberManager {
      * @param userId the user id
      */
     public void remove(int userId) {
+        
+        GroupMemberDao.deleteMember(this.group.getId(), userId);
         
         for (List<Integer> members : this.groupMembers.values()) {
             members.remove(Integer.valueOf(userId));

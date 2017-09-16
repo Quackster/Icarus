@@ -18,11 +18,16 @@ import org.alexdev.icarus.messages.incoming.groups.GroupInfoMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.GroupCatalogueMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.GroupPurchaseMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.GroupManageDetailsMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.GroupManageMembersMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.edit.EditGroupAccessMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.edit.EditGroupBadgeMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.edit.EditGroupColoursMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.edit.EditGroupTextMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.members.GroupGiveAdminMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.members.GroupManageMembersMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.members.GroupMembershipAcceptMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.members.GroupMembershipRejectMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.members.GroupMembershipRequestMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.members.GroupRemoveMemberMessageEvent;
 import org.alexdev.icarus.messages.incoming.handshake.*;
 import org.alexdev.icarus.messages.incoming.items.PurchaseOfferMessageEvent;
 import org.alexdev.icarus.messages.incoming.items.SaveBrandingMessageEvent;
@@ -232,6 +237,11 @@ public class MessageHandler {
         this.registerEvent(Incoming.SaveBrandingMessageEvent, new SaveBrandingMessageEvent());
     }
     
+    /*[17-09-2017 02:09:23] [ICARUS] >> Received: 3136 / [0][0][0][2][0][0][0][2] -- accept
+[17-09-2017 02:09:25] [ICARUS] >> Received: 1308 / [0][0][0][2][0][0][0][2] -- reject
+
+*/
+    
     /**
      * Register group packets.
      */
@@ -243,6 +253,11 @@ public class MessageHandler {
         this.registerEvent(Incoming.DeleteGroupMessageEvent, new DeleteGroupMessageEvent());
         this.registerEvent(Incoming.GroupManageDetailsMessageEvent, new GroupManageDetailsMessageEvent());
         this.registerEvent(Incoming.GroupManageMembersMessageEvent, new GroupManageMembersMessageEvent());
+        this.registerEvent(Incoming.GroupMembershipRequestMessageEvent, new GroupMembershipRequestMessageEvent());
+        this.registerEvent(Incoming.GroupMembershipAcceptMessageEvent, new GroupMembershipAcceptMessageEvent());
+        this.registerEvent(Incoming.GroupMembershipRejectMessageEvent, new GroupMembershipRejectMessageEvent());
+        this.registerEvent(Incoming.GroupRemoveMemberMessageEvent, new GroupRemoveMemberMessageEvent());
+        this.registerEvent(Incoming.GroupGiveAdminMessageEvent, new GroupGiveAdminMessageEvent());
         this.registerEvent(Incoming.EditGroupTextMessageEvent, new EditGroupTextMessageEvent());
         this.registerEvent(Incoming.EditGroupColoursMessageEvent, new EditGroupColoursMessageEvent());
         this.registerEvent(Incoming.EditGroupAccessMessageEvent, new EditGroupAccessMessageEvent());

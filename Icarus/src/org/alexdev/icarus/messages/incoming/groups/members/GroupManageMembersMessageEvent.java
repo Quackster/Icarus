@@ -1,4 +1,4 @@
-package org.alexdev.icarus.messages.incoming.groups;
+package org.alexdev.icarus.messages.incoming.groups.members;
 
 import java.util.List;
 
@@ -49,8 +49,6 @@ public class GroupManageMembersMessageEvent implements MessageEvent {
             hasAccess = group.getMemberManager().isMemberType(player.getDetails().getId(), GroupMemberType.ADMINISTRATOR);
         }
 
-        Log.println("called!!");
-        
         player.send(new GroupManageMembersComposer(group, page, requestType, searchQuery, members, hasAccess));
     }
 }

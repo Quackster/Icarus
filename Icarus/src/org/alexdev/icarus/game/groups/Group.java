@@ -3,7 +3,6 @@ package org.alexdev.icarus.game.groups;
 import org.alexdev.icarus.dao.mysql.groups.GroupDao;
 import org.alexdev.icarus.game.groups.access.GroupAccessType;
 import org.alexdev.icarus.game.groups.members.GroupMemberManager;
-import org.alexdev.icarus.game.groups.members.GroupMemberType;
 
 public class Group {
 
