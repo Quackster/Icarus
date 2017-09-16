@@ -4,17 +4,17 @@ import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
 
-public class ManageGroupComposer extends MessageComposer {
+public class GroupManageDetailsComposer extends MessageComposer {
 
     private Group group;
 
-    public ManageGroupComposer(Group group) {
+    public GroupManageDetailsComposer(Group group) {
         this.group = group;
     }
 
     @Override
     public void write() {
-        this.response.init(Outgoing.ManageGroupComposer);
+        this.response.init(Outgoing.GroupManageDetailsComposer);
         this.response.writeInt(0);
         this.response.writeBool(true);
         this.response.writeInt(this.group.getId());
@@ -54,6 +54,6 @@ public class ManageGroupComposer extends MessageComposer {
         }
 
         this.response.writeString(this.group.getBadge());
-        this.response.writeInt(0); // Member count
+        this.response.writeInt(this.group.getMemberManager().getMemberSize()); // Member count
     }
 }

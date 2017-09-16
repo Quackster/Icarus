@@ -3,6 +3,7 @@ package org.alexdev.icarus.game.groups;
 import org.alexdev.icarus.dao.mysql.groups.GroupDao;
 import org.alexdev.icarus.game.groups.access.GroupAccessType;
 import org.alexdev.icarus.game.groups.members.GroupMemberManager;
+import org.alexdev.icarus.game.groups.members.GroupMemberType;
 
 public class Group {
 
@@ -14,10 +15,10 @@ public class Group {
     private int roomId;
     private int colourA;
     private int colourB;
-    
+
     private long created;
     private boolean canMembersDecorate;
-   
+
     private GroupAccessType accessType;
     private GroupMemberManager memberManager;
 
@@ -35,7 +36,7 @@ public class Group {
         this.accessType = type;
         this.memberManager = new GroupMemberManager(this);
     }
-    
+
     /**
      * Gets the member manager.
      *
@@ -51,7 +52,7 @@ public class Group {
     public void delete() {
         GroupDao.deleteGroup(this.id);
     }
-    
+
     /**
      * Save the group.
      */

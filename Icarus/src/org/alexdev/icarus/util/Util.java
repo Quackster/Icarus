@@ -15,6 +15,7 @@ import org.alexdev.icarus.Icarus;
 import org.ini4j.InvalidFileFormatException;
 import org.ini4j.Wini;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 public class Util {
@@ -121,38 +122,26 @@ public class Util {
         str = new String(receive);
         return str;
     }
+    
+    /* Taken from Comet, used for various pagination methods, turned into generic type*/
+    public static <T> List<List<T>> paginate(List<T> originalList, int chunkSize) {
+        List<List<T>> listOfChunks = Lists.newArrayList();
 
-    public static String left(final String str, final int len) {
-        if (str == null) {
-            return null;
+        for (int i = 0; i < originalList.size() / chunkSize; i++) {
+            listOfChunks.add(originalList.subList(i * chunkSize, i * chunkSize + chunkSize));
         }
-        if (len < 0) {
-            return "";
+
+        if (originalList.size() % chunkSize != 0) {
+            listOfChunks.add(originalList.subList(originalList.size() - originalList.size() % chunkSize, originalList.size()));
         }
-        if (str.length() <= len) {
-            return str;
-        }
-        return str.substring(0, len);
+
+        return listOfChunks;
     }
-
-    public static String right(final String str, final int len) {
-        if (str == null) {
-            return null;
-        }
-        if (len < 0) {
-            return "";
-        }
-        if (str.length() <= len) {
-            return str;
-        }
-        return str.substring(str.length() - len);
-    }
-
+    
     public static List<String> split(String str, String delim) {
         return new ArrayList<String>(Arrays.asList(str.split(delim)));
     }
     
-
     public static Wini getConfiguration() {
         return configuration;
     }

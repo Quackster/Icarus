@@ -81,7 +81,8 @@ public class Incoming {
     public static Integer GroupBadgeDialogMessageEvent = 121;//3706
     public static Integer GroupPurchaseMessageEvent = 1753;//2959
     public static Integer GroupInfoMessageEvent = 283;
-    public static Integer ManageGroupMessageEvent = 266;
+    public static Integer GroupManageDetailsMessageEvent = 266;
+    public static Integer GroupManageMembersMessageEvent = 139;
     public static Integer DeleteGroupMessageEvent = 3320;
     public static Integer StartTradingMessageEvent = 293;
     public static Integer SaveBrandingMessageEvent = 2926;

@@ -114,5 +114,6 @@ public class Outgoing {
     public static int GroupInfoMessageComposer = 2197;//815
     public static int AvatarAspectUpdateMessageComposer = 125;//884
     public static int GroupInfoComposer = 1530;
-    public static int ManageGroupComposer = 991;
+    public static int GroupManageDetailsComposer = 991;
+    public static int GroupManageMembersComposer = 3602;
 }

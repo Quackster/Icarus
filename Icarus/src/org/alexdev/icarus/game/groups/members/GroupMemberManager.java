@@ -61,6 +61,15 @@ public class GroupMemberManager {
     }
     
     /**
+     * Gets the members.
+     *
+     * @return the members
+     */
+    public List<Integer> getMembers() {
+        return this.getMembersByTypes(GroupMemberType.ADMINISTRATOR, GroupMemberType.MEMBER);
+    }
+    
+    /**
      * Gets the member size.
      *
      * @param type the type
@@ -90,7 +99,7 @@ public class GroupMemberManager {
     public void remove(int userId) {
         
         for (List<Integer> members : this.groupMembers.values()) {
-            members.remove(userId);
+            members.remove(Integer.valueOf(userId));
         }
     }
 
@@ -102,4 +111,5 @@ public class GroupMemberManager {
     public Group getGroup() {
         return group;
     }
+
 }

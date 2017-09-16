@@ -11,15 +11,20 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 public class GroupInfoComposer extends MessageComposer {
 
     private Group group;
-    private Player player;
     private int userId;
-    private boolean newWindow;
-
-    public GroupInfoComposer(Group group, Player player, boolean newWindow) {
+    
+    private boolean openNewWindow;
+    
+    private boolean isOwner;
+    private boolean isAdmin;
+    
+    public GroupInfoComposer(Group group, Player player, boolean openNewWindow) {
         this.group = group;
-        this.player = player;
         this.userId = player.getDetails().getId();
-        this.newWindow = newWindow;
+        this.openNewWindow = openNewWindow;
+        
+        this.isOwner = this.group.getOwnerId() == this.userId;
+        this.isAdmin = this.group.getMemberManager().isMemberType(this.userId, GroupMemberType.ADMINISTRATOR);
     }
 
     @Override
@@ -34,7 +39,7 @@ public class GroupInfoComposer extends MessageComposer {
         this.response.writeInt(this.group.getRoomId());
         this.response.writeString(RoomDao.getRoom(group.getRoomId(), false).getData().getName());
         
-        if (this.group.getMemberManager().isMemberType(this.userId, GroupMemberType.ADMINISTRATOR)) {
+        if (this.isAdmin) {
             this.response.writeInt(3);
         } else if (this.group.getMemberManager().isMemberType(this.userId, GroupMemberType.REQUEST)) {
             this.response.writeInt(2);
@@ -47,12 +52,12 @@ public class GroupInfoComposer extends MessageComposer {
         this.response.writeInt(this.group.getMemberManager().getMemberSize());
         this.response.writeBool(false);
         this.response.writeString("1-1-1970");
-        this.response.writeBool(this.group.getOwnerId() == player.getDetails().getId());
+        this.response.writeBool(this.isOwner);
         this.response.writeBool(this.group.getMemberManager().isMemberType(this.userId, GroupMemberType.ADMINISTRATOR));
         this.response.writeString(PlayerManager.getPlayerData(this.group.getOwnerId()).getName());
-        this.response.writeBool(this.newWindow); 
+        this.response.writeBool(this.openNewWindow); 
         this.response.writeBool(this.group.canMembersDecorate());
-        this.response.writeInt(this.group.getMemberManager().getMembersByType(GroupMemberType.REQUEST).size()); // Pending users
+        this.response.writeInt((this.isAdmin || this.isOwner) ? this.group.getMemberManager().getMembersByType(GroupMemberType.REQUEST).size() : 0); // Users waiting to be accepted (if any!)
         this.response.writeBool(false);
     }
 }
