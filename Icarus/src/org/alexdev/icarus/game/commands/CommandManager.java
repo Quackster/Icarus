@@ -12,6 +12,9 @@ public class CommandManager {
 
     private static Map<String[], Command> commands;
 
+    /**
+     * Load.
+     */
     public static void load() {
         commands = Maps.newHashMap();
         commands.put(new String[] { "about", "info" }, new AboutCommand());
@@ -21,6 +24,12 @@ public class CommandManager {
         commands.put(new String[] { "debugfurniture" }, new DebugFurniture());
     }
 
+    /**
+     * Gets the command.
+     *
+     * @param commandName the command name
+     * @return the command
+     */
     private static Command getCommand(String commandName) {
         
         for (Entry<String[], Command> entrySet : commands.entrySet()) {
@@ -35,6 +44,13 @@ public class CommandManager {
         return null;
     }
     
+    /**
+     * Checks for command.
+     *
+     * @param player the player
+     * @param message the message
+     * @return true, if successful
+     */
     public static boolean hasCommand(Player player, String message) {
 
         if (message.startsWith(":") && message.length() > 1) {
@@ -54,6 +70,12 @@ public class CommandManager {
         return false;
     }
 
+    /**
+     * Invoke command.
+     *
+     * @param player the player
+     * @param message the message
+     */
     public static void invokeCommand(Player player, String message) {
 
         String commandName = message.split(":")[1];
@@ -64,6 +86,11 @@ public class CommandManager {
         }
     }
 
+    /**
+     * Gets the commands.
+     *
+     * @return the commands
+     */
     public static Map<String[], Command> getCommands() {
         return commands;
     }

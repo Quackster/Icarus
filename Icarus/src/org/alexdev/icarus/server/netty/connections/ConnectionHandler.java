@@ -13,12 +13,16 @@ import org.jboss.netty.channel.SimpleChannelHandler;
 
 public class ConnectionHandler extends SimpleChannelHandler {
 
+    /** The session manager. */
     private SessionManager sessionManager;
 
     public ConnectionHandler(SessionManager sessionManager) {
         this.sessionManager = sessionManager;
     }
 
+    /* (non-Javadoc)
+     * @see org.jboss.netty.channel.SimpleChannelHandler#channelOpen(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.ChannelStateEvent)
+     */
     @Override
     public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent e) {
 
@@ -32,6 +36,9 @@ public class ConnectionHandler extends SimpleChannelHandler {
 
     } 
 
+    /* (non-Javadoc)
+     * @see org.jboss.netty.channel.SimpleChannelHandler#channelClosed(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.ChannelStateEvent)
+     */
     @Override
     public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) {
 
@@ -47,6 +54,9 @@ public class ConnectionHandler extends SimpleChannelHandler {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.jboss.netty.channel.SimpleChannelHandler#messageReceived(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.MessageEvent)
+     */
     @Override
     public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) {
 
@@ -72,6 +82,9 @@ public class ConnectionHandler extends SimpleChannelHandler {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.jboss.netty.channel.SimpleChannelHandler#exceptionCaught(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.ExceptionEvent)
+     */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {
         ctx.getChannel().close();

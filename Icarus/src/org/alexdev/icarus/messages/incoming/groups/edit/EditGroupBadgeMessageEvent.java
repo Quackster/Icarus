@@ -29,13 +29,11 @@ public class EditGroupBadgeMessageEvent implements MessageEvent {
             return;
         }
         
-        /*state count*/
         reader.readInt();
 
         int groupBase = reader.readInt();
         int groupBaseColour = reader.readInt();
         
-        /*group items length*/
         reader.readInt();
 
         List<Integer> groupItems = Lists.newArrayList();

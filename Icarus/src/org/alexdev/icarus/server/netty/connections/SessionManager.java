@@ -10,11 +10,17 @@ import org.jboss.netty.channel.Channel;
 public class SessionManager {
     
     private ConcurrentMap<Integer, Player> sessions;
-
+    
     public SessionManager() {
         sessions = new ConcurrentHashMap<Integer, Player>();
     }
     
+    /**
+     * Adds the session.
+     *
+     * @param channel the channel
+     * @return true, if successful
+     */
     public boolean addSession(Channel channel) {
         
         Player player = new Player(new NettyPlayerNetwork(channel, channel.getId()));
@@ -23,6 +29,11 @@ public class SessionManager {
         return sessions.putIfAbsent(channel.getId(), player) == null;
     }
 
+    /**
+     * Removes the session.
+     *
+     * @param channel the channel
+     */
     public void removeSession(Channel channel) { 
        
         try {
@@ -32,10 +43,21 @@ public class SessionManager {
         }
     }
 
+    /**
+     * Checks for session.
+     *
+     * @param channel the channel
+     * @return true, if successful
+     */
     public boolean hasSession(Channel channel) {
         return sessions.containsKey(channel.getId());
     }
 
+    /**
+     * Gets the sessions.
+     *
+     * @return the sessions
+     */
     public ConcurrentMap<Integer, Player> getSessions() {
         return sessions;
     }

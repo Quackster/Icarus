@@ -20,7 +20,6 @@ public class TargetedOffer {
     private String largeImage;
     private String smallImage;
     private long expiryDate;
-    
     private List<Integer> items;
     private List<Integer> blacklist;
     
@@ -50,58 +49,129 @@ public class TargetedOffer {
         }
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Gets the title.
+     *
+     * @return the title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Gets the description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Gets the cost credits.
+     *
+     * @return the cost credits
+     */
     public int getCostCredits() {
         return costCredits;
     }
 
+    /**
+     * Gets the cost activity points.
+     *
+     * @return the cost activity points
+     */
     public int getCostActivityPoints() {
         return costActivityPoints;
     }
 
+    /**
+     * Gets the activity points type.
+     *
+     * @return the activity points type
+     */
     public int getActivityPointsType() {
         return activityPointsType;
     }
 
+    /**
+     * Gets the purchase limit.
+     *
+     * @return the purchase limit
+     */
     public int getPurchaseLimit() {
         return purchaseLimit;
     }
 
+    /**
+     * Gets the large image.
+     *
+     * @return the large image
+     */
     public String getLargeImage() {
         return largeImage;
     }
 
+    /**
+     * Gets the small image.
+     *
+     * @return the small image
+     */
     public String getSmallImage() {
         return smallImage;
     }
 
+    /**
+     * Gets the expiry date.
+     *
+     * @return the expiry date
+     */
     public long getExpiryDate() {
         return expiryDate;
     }
     
+    /**
+     * Checks if is expired.
+     *
+     * @return true, if is expired
+     */
     public boolean isExpired() {
         return !(this.expiryDate > Util.getCurrentTimeSeconds());
     }
 
+    /**
+     * Gets the items.
+     *
+     * @return the items
+     */
     public List<Integer> getItems() {
         return items;
     }
 
+    /**
+     * Checks if is user blacklisted.
+     *
+     * @param userId the user id
+     * @return true, if is user blacklisted
+     */
     public boolean isUserBlacklisted(int userId) {
         return blacklist.contains(userId);
     }
 
+    /**
+     * Adds the user to blacklist.
+     *
+     * @param userId the user id
+     */
     public void addUserToBlacklist(int userId) {
         this.blacklist.add(userId);
         TargetedOfferDao.addUserToBlacklist(this.id, userId);

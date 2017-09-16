@@ -12,15 +12,20 @@ import org.alexdev.icarus.game.room.RoomManager;
 public class GameScheduler implements Runnable {
 
     private static AtomicLong tickRate = new AtomicLong();
-    
     private static ScheduledExecutorService scheduler;
     private static ScheduledFuture<?> gameScheduler;
     
+    /**
+     * Load.
+     */
     public static void load() {
         scheduler = createNewScheduler();
         gameScheduler = scheduler.scheduleAtFixedRate(new GameScheduler(), 0, 1, TimeUnit.SECONDS);
     }
     
+    /* (non-Javadoc)
+     * @see java.lang.Runnable#run()
+     */
     @Override
     public void run() {
         
@@ -35,14 +40,29 @@ public class GameScheduler implements Runnable {
         }
     }
 
+    /**
+     * Gets the scheduler.
+     *
+     * @return the scheduler
+     */
     public static ScheduledExecutorService getScheduler() {
         return scheduler;
     }
     
+    /**
+     * Gets the game scheduler.
+     *
+     * @return the game scheduler
+     */
     public static ScheduledFuture<?> getGameScheduler() {
         return gameScheduler;
     }
 
+    /**
+     * Creates the new scheduler.
+     *
+     * @return the scheduled executor service
+     */
     public static ScheduledExecutorService createNewScheduler() {
         return Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors() * 2);
     }
