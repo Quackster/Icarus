@@ -119,4 +119,5 @@ public class Outgoing {
     public static int GroupMembershipRequestedComposer = 1576;
     public static int UnknownGroupComposer = 1309;
     public static int GroupUpdateMemberComposer = 2896;
+    public static int RefreshFavouriteGroupComposer = 3611;
 }

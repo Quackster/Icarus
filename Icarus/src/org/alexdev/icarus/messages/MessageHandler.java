@@ -27,6 +27,7 @@ import org.alexdev.icarus.messages.incoming.groups.members.GroupManageMembersMes
 import org.alexdev.icarus.messages.incoming.groups.members.GroupMembershipAcceptMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.members.GroupMembershipRejectMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.members.GroupMembershipRequestMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.members.GroupRemoveAdminMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.members.GroupRemoveMemberMessageEvent;
 import org.alexdev.icarus.messages.incoming.handshake.*;
 import org.alexdev.icarus.messages.incoming.items.PurchaseOfferMessageEvent;
@@ -258,6 +259,7 @@ public class MessageHandler {
         this.registerEvent(Incoming.GroupMembershipRejectMessageEvent, new GroupMembershipRejectMessageEvent());
         this.registerEvent(Incoming.GroupRemoveMemberMessageEvent, new GroupRemoveMemberMessageEvent());
         this.registerEvent(Incoming.GroupGiveAdminMessageEvent, new GroupGiveAdminMessageEvent());
+        this.registerEvent(Incoming.GroupRemoveAdminMessageEvent, new GroupRemoveAdminMessageEvent());
         this.registerEvent(Incoming.EditGroupTextMessageEvent, new EditGroupTextMessageEvent());
         this.registerEvent(Incoming.EditGroupColoursMessageEvent, new EditGroupColoursMessageEvent());
         this.registerEvent(Incoming.EditGroupAccessMessageEvent, new EditGroupAccessMessageEvent());

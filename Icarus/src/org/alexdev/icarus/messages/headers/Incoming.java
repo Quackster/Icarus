@@ -95,4 +95,5 @@ public class Incoming {
     public static Integer GroupMembershipRejectMessageEvent = 1308;
     public static Integer GroupMembershipAcceptMessageEvent = 3136;
     public static Integer GroupGiveAdminMessageEvent = 3116;
+    public static Integer GroupRemoveAdminMessageEvent = 258;
 }

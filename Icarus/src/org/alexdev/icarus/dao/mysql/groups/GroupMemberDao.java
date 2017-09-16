@@ -8,8 +8,6 @@ import java.util.Map;
 
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
-import org.alexdev.icarus.game.groups.Group;
-import org.alexdev.icarus.game.groups.access.GroupAccessType;
 import org.alexdev.icarus.game.groups.members.GroupMemberType;
 import org.alexdev.icarus.log.Log;
 

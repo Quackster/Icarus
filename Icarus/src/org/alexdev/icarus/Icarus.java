@@ -237,7 +237,8 @@ public class Icarus extends Metadata {
         writer.println("one.dimmer.per.room=You can only have one dimmer per room!");
         writer.println("group.remove.administrator.denied=Sorry, only group creators can remove other administrators from the group.");
         writer.println("group.existing.member=Sorry, this user is already a group member.");
-        writer.println("group.only.creators=Sorry, only group creators can give administrator rights to other group members.");
+        writer.println("group.only.creators.add.admin=Sorry, only group creators can give administrator rights to other group members.");
+        writer.println("group.only.creators.remove.admin=Sorry, only group creators can remove administrator rights from other group members.");
         writer.println();
     }
 
