@@ -57,11 +57,11 @@ public class GroupMemberDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT user_id, member_type FROM group_members WHERE group_id = ? LIMIT 1", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT user_id, member_type FROM group_members WHERE group_id = ?", sqlConnection);
             preparedStatement.setInt(1, groupId);
             resultSet = preparedStatement.executeQuery();
             
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 GroupMemberType memberType = GroupMemberType.valueOf(resultSet.getString("member_type"));
                 groupMembers.get(memberType).add(resultSet.getInt("user_id"));
             }
@@ -88,8 +88,8 @@ public class GroupMemberDao {
             sqlConnection = Dao.getStorage().getConnection();
 
             preparedStatement = Dao.getStorage().prepare("DELETE FROM group_members WHERE user_id = ? AND group_id = ?", sqlConnection);
-            preparedStatement.setInt(1, groupId);
-            preparedStatement.setInt(2, userId);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, groupId);
             preparedStatement.execute();
 
         } catch (Exception e) {
