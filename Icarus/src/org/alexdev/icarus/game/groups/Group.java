@@ -2,6 +2,7 @@ package org.alexdev.icarus.game.groups;
 
 import org.alexdev.icarus.dao.mysql.groups.GroupDao;
 import org.alexdev.icarus.game.groups.access.GroupAccessType;
+import org.alexdev.icarus.game.groups.members.GroupMemberManager;
 
 public class Group {
 
@@ -15,25 +16,11 @@ public class Group {
     private int colourB;
     
     private long created;
-    
     private boolean canMembersDecorate;
+    
     private GroupAccessType accessType;
+    private GroupMemberManager memberManager;
 
-    /**
-     * Instantiates a new group.
-     *
-     * @param id the id
-     * @param title the title
-     * @param description the description
-     * @param badge the badge
-     * @param ownerId the owner id
-     * @param roomId the room id
-     * @param created the created
-     * @param colourA the colour A
-     * @param colourB the colour B
-     * @param canMembersDecorate the can members decorate
-     * @param type the type
-     */
     public Group(int id, String title, String description, String badge, int ownerId, int roomId, long created, int colourA, int colourB, boolean canMembersDecorate, GroupAccessType type) {
         this.id = id;
         this.title = title;
@@ -49,14 +36,14 @@ public class Group {
     }
 
     /**
-     * Delete.
+     * Delete the group.
      */
     public void delete() {
         GroupDao.deleteGroup(this.id);
     }
     
     /**
-     * Save.
+     * Save the group.
      */
     public void save() {
         GroupDao.saveGroup(this);

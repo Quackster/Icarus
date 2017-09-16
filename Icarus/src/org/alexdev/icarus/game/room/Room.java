@@ -8,6 +8,7 @@ import org.alexdev.icarus.dao.mysql.groups.GroupDao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
 import org.alexdev.icarus.game.groups.Group;
+import org.alexdev.icarus.game.groups.GroupManager;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.PlayerManager;
@@ -32,17 +33,18 @@ public class Room {
     private RoomPromotion promotion;
     private RoomItemManager itemManager;
     private RoomEntityManager entityManager;
+    private Group group;
     private List<Integer> rights;
 
-    public Room() {
-        this.data = new RoomData(this);
+    public Room(RoomData data) {
+        this.data = data;
         this.mapping = new RoomMapping(this);
         this.scheduler = new RoomScheduler(this);
         this.itemManager = new RoomItemManager(this);
         this.entityManager = new RoomEntityManager(this);
         this.rights = RoomDao.getRoomRights(this.data.getId());
     }
-    
+
     /**
      * Register the tasks required for room functionality
      */
@@ -71,7 +73,7 @@ public class Room {
         }
 
         if (this.data.getOwnerId() == userId) {
-            
+
             return true;
         } else {
 
@@ -174,26 +176,55 @@ public class Room {
     }
 
     /**
-     * Gets the group.
+     * Gets the group, if the room has no users, it will only load
+     * group information straight from the database.
      *
      * @return the group
      */
     public Group getGroup() {
-
-        if (this.data.getGroupId() > 0) {
-
-            Group group = GroupDao.getGroup(this.data.getGroupId());
-
-            if (group == null) {
-                this.data.setGroupId(0);
-                this.save();
+        
+        if (this.group == null) {
+            if (this.data.getGroupId() > 0) {
+                return GroupManager.getGroup(this.data.getGroupId());
+            } else {
                 return null;
             }
-
-            return group;
         }
 
-        return null;
+        return this.group;
+    }
+
+    /**
+     * Sets the group.
+     *
+     * @param group the new group
+     */
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    /**
+     * Load the full group information, called when
+     * the first player joins a room.
+     * 
+     * Calls GroupManager.loadGroup()
+     */
+    public void loadGroup() {
+         this.group = GroupManager.loadGroup(this.data.getGroupId());
+    }
+
+
+    /**
+     * Load the full group information, called when
+     * the first player joins a room.
+     * 
+     * Calls GroupManager.unloadGroup()
+     */
+    public void unloadGroup() {
+        if (this.group != null) {
+            this.group = null;
+            GroupManager.unloadGroup(this.data.getGroupId());
+        }
     }
 
     /**
@@ -206,7 +237,7 @@ public class Room {
      * is offline (if this parameter is met then the room will be unloaded).
      */
     public void cleanup() {
-        
+
         if (this.entityManager.getPlayers().size() > 0) {
             return;
         }
@@ -218,15 +249,16 @@ public class Room {
         this.entityManager.cleanupNonPlayableEntities();
         this.itemManager.getItems().clear();
         this.virtualTicketCounter.set(-1);
+        this.unloadGroup();
 
         if (this.data.getRoomType() != RoomType.PRIVATE) {
             return;
         }
-        
+
         if (PlayerManager.hasPlayer(this.data.getOwnerId())) {
             return;
         }
-           
+
         RoomManager.removeRoom(this.data.getId());
         this.destroyObjects();
     }

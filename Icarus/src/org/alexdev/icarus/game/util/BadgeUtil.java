@@ -4,10 +4,24 @@ import java.util.List;
 
 public class BadgeUtil {
     
+    /**
+     * Format group state.
+     *
+     * @param num the num
+     * @return the string
+     */
     private static String format(int num) {
         return (num < 10 ? "0" : "") + num;
     }
 
+    /**
+     * Generate the group badge.
+     *
+     * @param guildBase the guild base
+     * @param guildBaseColor the guild base color
+     * @param guildStates the guild states
+     * @return the string
+     */
     public static String generate(int guildBase, int guildBaseColor, List<Integer> guildStates) {
         String badgeImage = "b" + format(guildBase) + "" + format(guildBaseColor);
 

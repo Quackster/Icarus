@@ -1,12 +1,16 @@
 package org.alexdev.icarus.game.util;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.game.room.RoomData;
 import org.alexdev.icarus.game.room.enums.RoomAction;
+import org.alexdev.icarus.game.room.enums.RoomType;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.messages.incoming.room.RoomPromotionMessageComposer;
 import org.alexdev.icarus.messages.outgoing.groups.NewGroupMessageComposer;
@@ -25,11 +29,25 @@ import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserDisplayMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RoomUtil.
+ */
 public class RoomUtil {
 
+    /**
+     * Player room entry, this method without specifying
+     * coordinates will default to the default room model
+     * coords.
+     *
+     * @param player the player
+     * @param room the room
+     * @param password the password
+     */
     public static void playerRoomEntry(Player player, Room room, String password) {
         
         playerRoomEntry(player, room, 
@@ -38,6 +56,15 @@ public class RoomUtil {
                 room.getModel().getDoorLocation().getRotation());
     }
     
+    /**
+     * Player room entry.
+     *
+     * @param player the player
+     * @param room the room
+     * @param x the x
+     * @param y the y
+     * @param rotation the rotation
+     */
     public static void playerRoomEntry(Player player, Room room, int x, int y, int rotation) {
         
         if (player.inRoom()) {
@@ -87,6 +114,7 @@ public class RoomUtil {
             room.getMapping().regenerateCollisionMaps();
             room.getScheduler().scheduleTasks();
             room.getEntityManager().addPets();
+            room.loadGroup();
 
             boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_FIRST_ENTRY_EVENT, new LuaValue[] { 
                     CoerceJavaToLua.coerce(player), 
@@ -101,6 +129,12 @@ public class RoomUtil {
         room.getEntityManager().addEntity(player, x, y, rotation);
     }
 
+    /**
+     * Player room map entry.
+     *
+     * @param player the player
+     * @param room the room
+     */
     public static void playerRoomMapEntry(Player player, Room room) {
 
         if (room == null) {
@@ -111,7 +145,6 @@ public class RoomUtil {
         if (!room.getEntityManager().getEntities().contains(player)) {
             return;
         }
-        
         
         player.send(new HeightMapMessageComposer(room.getModel()));
         player.send(new FloorMapMessageComposer(room));
@@ -160,5 +193,81 @@ public class RoomUtil {
             }
         }
         
+    }
+    
+    /**
+     * Serialise room information.
+     *
+     * @param room the room
+     * @param response the response
+     * @param enterRoom the enter room
+     */
+    public static void serialise(Room room, Response response, boolean enterRoom) {
+        
+        RoomData data = room.getData();
+        
+        response.writeInt(data.getId());
+        response.writeString(data.getName());
+        response.writeInt(data.getOwnerId());
+        response.writeString(data.getOwnerName());
+        response.writeInt(data.getState().getStateCode());
+        response.writeInt(data.getUsersNow());
+        response.writeInt(data.getUsersMax());
+        response.writeString(data.getDescription());
+        response.writeInt(data.getTradeState());
+        response.writeInt(data.getScore());
+        response.writeInt(0);
+        response.writeInt(data.getCategory());
+        response.writeInt(data.getTags().length);
+
+        for (String tag : data.getTags()) {
+            response.writeString(tag);
+        }
+        
+        AtomicInteger roomListingType = new AtomicInteger(enterRoom ? 32 : 0);
+        
+        if (data.getThumbnail() != null) {
+            if (data.getThumbnail().length() > 0) {
+                roomListingType.getAndAdd(1);
+            }
+        }
+        
+        if (data.getRoomType() == RoomType.PRIVATE) {
+            roomListingType.getAndAdd(8);
+        }
+
+        if (data.isAllowPets()) { 
+            roomListingType.getAndAdd(16);
+        }
+        
+        if (room.getPromotion() != null) {
+            roomListingType.getAndAdd(4);
+        }
+        
+        if (room.getGroup() != null) {
+            roomListingType.getAndAdd(2);
+        }
+
+        response.writeInt(roomListingType.get());
+        
+        if (data.getThumbnail() != null) {
+            if (data.getThumbnail().length() > 0) {
+                response.writeString(data.getThumbnail());
+            }
+        }
+
+        Group group = room.getGroup();
+        
+        if (group != null) {
+            response.writeInt(group.getId());
+            response.writeString(group.getTitle());
+            response.writeString(group.getBadge());
+        }
+        
+        if (room.getPromotion() != null) {
+            response.writeString(room.getPromotion().getPromotionName());
+            response.writeString(room.getPromotion().getPromotionDescription());
+            response.writeInt(room.getPromotion().getPromotionMinutesLeft().get());
+        }
     }
 }

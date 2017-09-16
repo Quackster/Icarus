@@ -308,9 +308,7 @@ public class RoomDao {
             ownerName = PlayerDao.getName(row.getInt("owner_id"));
         }
 
-        Room instance = new Room();
-
-        instance.getData().fill(row.getInt("id"), type, row.getInt("owner_id"), ownerName, row.getString("name"), 
+        RoomData data = new RoomData(row.getInt("id"), type, row.getInt("owner_id"), ownerName, row.getString("name"), 
                 row.getString("state"), row.getString("password"), row.getInt("users_now"),
                 row.getInt("users_max"), row.getString("description"), row.getInt("trade_state"), row.getInt("score"), row.getInt("category"), 
                 row.getInt("group_id"), row.getString("model"), row.getString("wallpaper"), row.getString("floor"), row.getString("outside"), 
@@ -318,6 +316,6 @@ public class RoomDao {
                 row.getInt("wall_thickness"), row.getInt("floor_thickness"), row.getString("tags"), row.getInt("chat_mode"), row.getInt("chat_size"), row.getInt("chat_speed"),
                 row.getInt("chat_distance"), row.getInt("chat_flood"), row.getInt("who_can_mute"), row.getInt("who_can_kick"), row.getInt("who_can_ban"), row.getString("thumbnail"));
 
-        return instance;
+        return new Room(data);
     }
 }

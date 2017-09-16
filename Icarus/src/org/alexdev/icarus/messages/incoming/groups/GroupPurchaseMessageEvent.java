@@ -57,6 +57,7 @@ public class GroupPurchaseMessageEvent implements MessageEvent {
         Group group = GroupDao.createGroup(name, desc, badge, player.getDetails().getId(), roomId, Util.getCurrentTimeSeconds(), colourA, colourB);
         
         room.getData().setGroupId(group.getId());
+        room.loadGroup();
         room.save();
         
         player.send(new PurchaseNotificationMessageComposer());

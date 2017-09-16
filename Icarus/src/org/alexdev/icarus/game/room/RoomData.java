@@ -34,7 +34,6 @@ public class RoomData {
     private int wallThickness;
     private int floorThickness;
     private String[] tags;
-    private Room room;
     private int chatType;
     private int chatBalloon;
     private int chatSpeed;
@@ -43,10 +42,6 @@ public class RoomData {
     private int whoCanMute;
     private int whoCanKick;
     private int whoCanBan;
-    
-    public RoomData(Room room) {
-        this.room = room;
-    }
     
     /**
      * Fills the room data.
@@ -86,7 +81,7 @@ public class RoomData {
      * @param whoCanBan the who can ban
      * @param thumbnail the thumbnail
      */
-    public void fill(int id, RoomType type, int ownerId, String ownerName, String name, String state, String password, int usersNow, int usersMax,
+    public RoomData(int id, RoomType type, int ownerId, String ownerName, String name, String state, String password, int usersNow, int usersMax,
             String description, int tradeState, int score, int category, int groupId, String model, String wall,
             String floor, String landscape, boolean allowPets, boolean allowPetsEat, boolean allowWalkthrough,
             boolean hideWall, int wallThickness, int floorThickness, String tagFormat, int chatType, int chatBalloon, int chatSpeed,
@@ -125,77 +120,6 @@ public class RoomData {
         this.whoCanKick = whoCanKick;
         this.whoCanBan = whoCanBan;
         this.thumbnail = thumbnail;
-    }
-    
-    /**
-     * Serialise.
-     *
-     * @param response the response
-     * @param enterRoom the enter room
-     */
-    public void serialise(Response response, boolean enterRoom) {
-        
-        response.writeInt(id);
-        response.writeString(this.name);
-        response.writeInt(this.ownerId);
-        response.writeString(this.ownerName);
-        response.writeInt(this.state.getStateCode());
-        response.writeInt(this.usersNow);
-        response.writeInt(this.usersMax);
-        response.writeString(this.description);
-        response.writeInt(this.tradeState);
-        response.writeInt(this.score);
-        response.writeInt(0);
-        response.writeInt(this.category);
-        response.writeInt(this.tags.length);
-
-        for (String tag : this.tags) {
-            response.writeString(tag);
-        }
-        
-        AtomicInteger roomListingType = new AtomicInteger(enterRoom ? 32 : 0);
-        
-        if (this.thumbnail != null) {
-            if (this.thumbnail.length() > 0) {
-                roomListingType.getAndAdd(1);
-            }
-        }
-        
-        if (this.roomType == RoomType.PRIVATE) {
-            roomListingType.getAndAdd(8);
-        }
-
-        if (this.allowPets) { 
-            roomListingType.getAndAdd(16);
-        }
-        
-        if (this.room.getPromotion() != null) {
-            roomListingType.getAndAdd(4);
-        }
-        
-        if (this.room.getGroup() != null) {
-            roomListingType.getAndAdd(2);
-        }
-
-        response.writeInt(roomListingType.get());
-        
-        if (this.thumbnail != null) {
-            if (this.thumbnail.length() > 0) {
-                response.writeString(this.thumbnail);
-            }
-        }
-
-        if (this.room.getGroup() != null) {
-            response.writeInt(this.room.getGroup().getId());
-            response.writeString(this.room.getGroup().getTitle());
-            response.writeString(this.room.getGroup().getBadge());
-        }
-        
-        if (this.room.getPromotion() != null) {
-            response.writeString(this.room.getPromotion().getPromotionName());
-            response.writeString(this.room.getPromotion().getPromotionDescription());
-            response.writeInt(this.room.getPromotion().getPromotionMinutesLeft().get());
-        }
     }
     
     /**
@@ -292,7 +216,7 @@ public class RoomData {
      * Update users now.
      */
     public void updateUsersNow() {
-        this.usersNow = this.room.getEntityManager().getPlayers().size();
+        this.usersNow = RoomManager.getByRoomId(this.id).getEntityManager().getPlayers().size();
     }
     
     /**

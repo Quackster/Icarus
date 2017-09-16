@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.room;
 
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.game.util.RoomUtil;
 import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
 
@@ -23,7 +24,7 @@ public class RoomDataMessageComposer extends MessageComposer {
     public void write() {
         this.response.init(Outgoing.RoomDataMessageComposer);
         this.response.writeBool(this.isLoading);
-        this.room.getData().serialise(response, this.isLoading);
+        RoomUtil.serialise(this.room, this.response, this.isLoading);
         this.response.writeBool(this.checkEntry);
         this.response.writeBool(false); 
         this.response.writeBool(false);

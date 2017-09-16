@@ -5,6 +5,12 @@ import org.alexdev.icarus.server.api.messages.Response;
 
 public class ItemUtil {
 
+    /**
+     * Generate extra data depending on the type of item.
+     *
+     * @param item the item
+     * @param response the response
+     */
     public static void generateExtraData(Item item, Response response) {
 
         String extraData = item.getExtraData();

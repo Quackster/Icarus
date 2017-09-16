@@ -82,6 +82,36 @@ public class GroupDao {
         return group;
     }
     
+    public static Group getBasicGroupInfo(int groupId) {
+        
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        
+        Group group = null;
+        
+        try {
+
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("SELECT title, description, badge FROM group_data WHERE id = ? LIMIT 1", sqlConnection);
+            preparedStatement.setInt(1, groupId);
+            resultSet = preparedStatement.executeQuery();
+            
+            if (resultSet.next()) {
+                group = new Group(groupId, resultSet.getString("title"), resultSet.getString("description"), resultSet.getString("badge"), -1, -1, -1, -1, -1, false, null);
+            }
+
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+        
+        return group;
+    }
+    
     public static void deleteGroup(int id) {
         
         Connection sqlConnection = null;
