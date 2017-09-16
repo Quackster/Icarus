@@ -8,7 +8,6 @@ import org.alexdev.icarus.game.groups.Group;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-
 public class GroupMemberManager {
     
     private Group group;
@@ -67,8 +66,32 @@ public class GroupMemberManager {
      * @param type the type
      * @return the member size
      */
-    public int getMemberSize(GroupMemberType type) {
-        return this.groupMembers.get(type).size();
+    public int getMemberSize() {
+        return this.getMembersByTypes(GroupMemberType.ADMINISTRATOR, GroupMemberType.MEMBER).size();
+    }
+    
+    /**
+     * Adds the member, but will remove all traces of the member
+     * before adding them again.
+     *
+     * @param type the type
+     * @param userId the user id
+     */
+    public void addMember(GroupMemberType type, int userId) {
+        this.remove(userId);
+        this.groupMembers.get(type).add(userId);
+    }
+    
+    /**
+     * Removes all traces of the user.
+     *
+     * @param userId the user id
+     */
+    public void remove(int userId) {
+        
+        for (List<Integer> members : this.groupMembers.values()) {
+            members.remove(userId);
+        }
     }
 
     /**
