@@ -1,6 +1,5 @@
 package org.alexdev.icarus.messages.incoming.groups;
 
-import org.alexdev.icarus.dao.mysql.groups.GroupDao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.groups.GroupManager;

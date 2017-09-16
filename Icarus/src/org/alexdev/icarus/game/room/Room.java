@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.alexdev.icarus.dao.mysql.groups.GroupDao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
 import org.alexdev.icarus.game.groups.Group;

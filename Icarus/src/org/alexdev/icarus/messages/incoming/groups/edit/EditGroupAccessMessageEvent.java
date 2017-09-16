@@ -1,6 +1,5 @@
 package org.alexdev.icarus.messages.incoming.groups.edit;
 
-import org.alexdev.icarus.dao.mysql.groups.GroupDao;
 import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.groups.GroupManager;
 import org.alexdev.icarus.game.groups.access.GroupAccessType;

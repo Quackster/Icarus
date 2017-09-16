@@ -1,10 +1,7 @@
 package org.alexdev.icarus.game.room;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import org.alexdev.icarus.game.room.enums.RoomState;
 import org.alexdev.icarus.game.room.enums.RoomType;
-import org.alexdev.icarus.server.api.messages.Response;
 
 public class RoomData {
 

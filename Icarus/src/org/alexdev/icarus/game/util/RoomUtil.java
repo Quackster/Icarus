@@ -205,6 +205,7 @@ public class RoomUtil {
     public static void serialise(Room room, Response response, boolean enterRoom) {
         
         RoomData data = room.getData();
+        Group group = room.getGroup();
         
         response.writeInt(data.getId());
         response.writeString(data.getName());
@@ -244,7 +245,7 @@ public class RoomUtil {
             roomListingType.getAndAdd(4);
         }
         
-        if (room.getGroup() != null) {
+        if (group != null) {
             roomListingType.getAndAdd(2);
         }
 
@@ -255,8 +256,6 @@ public class RoomUtil {
                 response.writeString(data.getThumbnail());
             }
         }
-
-        Group group = room.getGroup();
         
         if (group != null) {
             response.writeInt(group.getId());

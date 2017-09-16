@@ -10,7 +10,6 @@ import org.alexdev.icarus.game.groups.types.GroupBase;
 import org.alexdev.icarus.game.groups.types.GroupBaseColour;
 import org.alexdev.icarus.game.groups.types.GroupSymbol;
 import org.alexdev.icarus.game.groups.types.GroupSymbolColour;
-import org.alexdev.icarus.log.Log;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -47,11 +46,9 @@ public class GroupManager {
     public static Group getGroup(int groupId) {
         
         if (groups.containsKey(groupId)) {
-            Log.println("load from memory");
             return groups.get(groupId);
         }
         
-        Log.println("load from db");
         return GroupDao.getGroup(groupId);
     }
 
