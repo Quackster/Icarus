@@ -58,6 +58,8 @@ public class MovementTask implements Runnable {
     private void processEntity(Entity entity) {
 
         RoomUser roomEntity = entity.getRoomUser();
+        
+        Position position = roomEntity.getPosition();
         Position goal = roomEntity.getGoal();
 
         if (roomEntity.isWalking()) { 
@@ -71,7 +73,7 @@ public class MovementTask implements Runnable {
                 }
 
                 RoomTile nextTile = roomEntity.getRoom().getMapping().getTile(next.getX(), next.getY());
-                RoomTile previousTile = roomEntity.getRoom().getMapping().getTile(roomEntity.getPosition().getX(), roomEntity.getPosition().getY());
+                RoomTile previousTile = roomEntity.getRoom().getMapping().getTile(position.getX(), position.getY());
 
                 previousTile.setEntity(null);
                 nextTile.setEntity(entity);   
@@ -79,7 +81,7 @@ public class MovementTask implements Runnable {
                 roomEntity.removeStatus(EntityStatus.LAY);
                 roomEntity.removeStatus(EntityStatus.SIT);
 
-                int rotation = Rotation.calculate(roomEntity.getPosition().getX(), roomEntity.getPosition().getY(), next.getX(), next.getY());
+                int rotation = Rotation.calculate(position.getX(), position.getY(), next.getX(), next.getY());
                 double height = this.room.getMapping().getTileHeight(next.getX(), next.getY());
 
                 roomEntity.getPosition().setRotation(rotation);
