@@ -72,6 +72,7 @@ public class MovementTask implements Runnable {
         Position goal = roomUser.getGoal();
 
         if (roomUser.isWalking()) {
+            
             // Apply next tile from the tile we removed from the list the cycle before
             if (roomUser.getNextPosition() != null) {
                 roomUser.getPosition().setX(roomUser.getNextPosition().getX());

@@ -36,7 +36,6 @@ public class UserStatusMessageComposer extends MessageComposer {
             for (Entity entity : this.users) {
                 
                 RoomUser roomUser = entity.getRoomUser();
-                
                 this.response.writeInt(roomUser.getVirtualId());
                 this.response.writeInt(roomUser.getPosition().getX());
                 this.response.writeInt(roomUser.getPosition().getY());
@@ -59,7 +58,6 @@ public class UserStatusMessageComposer extends MessageComposer {
                 }
 
                 statusString += " ";
-
                 this.response.writeString(statusString);
             }
         }
