@@ -60,7 +60,7 @@ public class RoomUser extends Metadata {
 
     private Position position;
     private Position goal;
-    private Position positionToSet;
+    private Position nextPositio;
 
     private AtomicInteger carryTimer;
 
@@ -316,9 +316,9 @@ public class RoomUser extends Metadata {
             return;
         }
         
-        if (this.positionToSet != null) {
-            this.position.setX(this.positionToSet.getX());
-            this.position.setY(this.positionToSet.getY());
+        if (this.nextPositio != null) {
+            this.position.setX(this.nextPositio.getX());
+            this.position.setY(this.nextPositio.getY());
             this.updateNewHeight(this.position);
             this.needsUpdate = true;
         }
@@ -471,8 +471,8 @@ public class RoomUser extends Metadata {
      *
      * @return the next
      */
-    public Position getPositionToSet() {
-        return positionToSet;
+    public Position getNextPosition() {
+        return nextPositio;
     }
 
     /**
@@ -480,8 +480,8 @@ public class RoomUser extends Metadata {
      *
      * @param next the new next
      */
-    public void setPositionToSet(Position next) {
-        this.positionToSet = next;
+    public void setNextPosition(Position next) {
+        this.nextPositio = next;
     }
 
     /**

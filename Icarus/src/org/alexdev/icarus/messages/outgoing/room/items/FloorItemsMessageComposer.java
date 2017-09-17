@@ -36,7 +36,7 @@ public class FloorItemsMessageComposer extends MessageComposer {
             this.response.writeInt(floorItem.getPosition().getX());
             this.response.writeInt(floorItem.getPosition().getY());
             this.response.writeInt(floorItem.getPosition().getRotation());
-            this.response.writeString("" + Util.getDecimalFormatter().format(floorItem.getPosition().getZ()));
+            this.response.writeString("" + Util.format(floorItem.getPosition().getZ()));
             this.response.writeString("");
   
             ItemUtil.generateExtraData(floorItem, this.response);

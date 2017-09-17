@@ -40,7 +40,7 @@ public class UserStatusMessageComposer extends MessageComposer {
                 this.response.writeInt(roomUser.getVirtualId());
                 this.response.writeInt(roomUser.getPosition().getX());
                 this.response.writeInt(roomUser.getPosition().getY());
-                this.response.writeString(Util.getDecimalFormatter().format(roomUser.getPosition().getZ()));
+                this.response.writeString(Util.format(roomUser.getPosition().getZ()));
                 this.response.writeInt(roomUser.getPosition().getHeadRotation());
                 this.response.writeInt(roomUser.getPosition().getBodyRotation());
 

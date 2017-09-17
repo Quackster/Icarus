@@ -154,7 +154,13 @@ public class Util {
         return habboConfig;
     }
 
-    public static DecimalFormat getDecimalFormatter() {
-        return decimalFormatter;
+    /**
+     * Round to two decimal places
+     * 
+     * @param decimal
+     * @return
+     */
+    public static double format(double decimal) {
+        return Math.round(decimal * 100.0) / 100.0;
     }
 }

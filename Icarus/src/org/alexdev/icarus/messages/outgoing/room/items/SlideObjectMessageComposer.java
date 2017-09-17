@@ -40,8 +40,8 @@ public class SlideObjectMessageComposer extends MessageComposer {
             this.response.writeInt(this.next.getY());
             this.response.writeInt(1);
             this.response.writeInt(this.item.getId());
-            this.response.writeString(Util.getDecimalFormatter().format(this.item.getPosition().getZ()));
-            this.response.writeString(Util.getDecimalFormatter().format(this.nextHeight));
+            this.response.writeString(Util.format(this.item.getPosition().getZ()));
+            this.response.writeString(Util.format(this.nextHeight));
             this.response.writeInt(this.rollerId);
         } else {
             this.response.writeInt(this.entity.getRoomUser().getPosition().getX());
@@ -52,8 +52,8 @@ public class SlideObjectMessageComposer extends MessageComposer {
             this.response.writeInt(this.rollerId);
             this.response.writeInt(2);
             this.response.writeInt(this.entity.getRoomUser().getVirtualId());
-            this.response.writeString(Util.getDecimalFormatter().format(this.entity.getRoomUser().getPosition().getZ()));
-            this.response.writeString(Util.getDecimalFormatter().format(this.nextHeight));
+            this.response.writeString(Util.format(this.entity.getRoomUser().getPosition().getZ()));
+            this.response.writeString(Util.format(this.nextHeight));
         }
     }
 }

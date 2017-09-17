@@ -73,10 +73,10 @@ public class MovementTask implements Runnable {
 
         if (roomUser.isWalking()) {
             // Apply next tile from the tile we removed from the list the cycle before
-            if (roomUser.getPositionToSet() != null) {
-                roomUser.getPosition().setX(roomUser.getPositionToSet().getX());
-                roomUser.getPosition().setY(roomUser.getPositionToSet().getY());
-                roomUser.updateNewHeight(roomUser.getPositionToSet());
+            if (roomUser.getNextPosition() != null) {
+                roomUser.getPosition().setX(roomUser.getNextPosition().getX());
+                roomUser.getPosition().setY(roomUser.getNextPosition().getY());
+                roomUser.updateNewHeight(roomUser.getNextPosition());
             }
             
             // We still have more tiles left, so lets continue moving
@@ -103,12 +103,12 @@ public class MovementTask implements Runnable {
                 double height = this.room.getMapping().getTileHeight(next.getX(), next.getY());
 
                 roomUser.getPosition().setRotation(rotation);
-                roomUser.setStatus(EntityStatus.MOVE, next.getX() + "," + next.getY() + "," + Util.getDecimalFormatter().format(height));
-                roomUser.setPositionToSet(next);
+                roomUser.setStatus(EntityStatus.MOVE, next.getX() + "," + next.getY() + "," + Util.format(height));
+                roomUser.setNextPosition(next);
             } else {
                 
                 // No more tiles left, so lets stop walking and interact with any furniture nearby
-                roomUser.setPositionToSet(null);
+                roomUser.setNextPosition(null);
                 roomUser.setWalking(false);
                 roomUser.removeStatus(EntityStatus.MOVE);
                 roomUser.handleNearbyItem();

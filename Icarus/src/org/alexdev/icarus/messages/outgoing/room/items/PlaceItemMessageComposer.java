@@ -26,7 +26,7 @@ public class PlaceItemMessageComposer extends MessageComposer {
             this.response.writeInt(this.item.getPosition().getX());
             this.response.writeInt(this.item.getPosition().getY());
             this.response.writeInt(this.item.getPosition().getRotation());
-            this.response.writeString("" + Util.getDecimalFormatter().format(item.getPosition().getZ()));
+            this.response.writeString("" + Util.format(item.getPosition().getZ()));
             this.response.writeString("");
 
             ItemUtil.generateExtraData(item, response);
