@@ -54,13 +54,13 @@ public class UserStatusMessageComposer extends MessageComposer {
 
                         Position next = roomUser.getNext();
                         double height = entity.getRoom().getMapping().getTile(next.getX(), next.getY()).getHeight();
-                     
+
                         roomUser.getPosition().setX(next.getX());
                         roomUser.getPosition().setY(next.getY());
                         roomUser.getPosition().setZ(height);
                     }
                 }
-
+                
                 this.response.writeInt(roomUser.getPosition().getHeadRotation());
                 this.response.writeInt(roomUser.getPosition().getBodyRotation());
 

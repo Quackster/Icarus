@@ -53,7 +53,6 @@ public class RoomUser extends Metadata {
     private boolean isTeleporting;
     private boolean isRolling;
     private boolean isWalkingAllowed;
-    private boolean underneathItem;
     
     private Entity entity;
     private Room room;
@@ -378,7 +377,7 @@ public class RoomUser extends Metadata {
         if (path.size() == 0) {
             return;
         }
-
+        
         this.path = path;
         this.isWalking = true;
     }
@@ -428,7 +427,6 @@ public class RoomUser extends Metadata {
 
         this.position = new Position(0, 0, 0);
         this.goal = new Position(0, 0, 0);
-        this.underneathItem = false;// = new Position(0, 0, 0);
 
         this.chatColor = 0;
         this.roomRequestedId = -1;
@@ -862,13 +860,5 @@ public class RoomUser extends Metadata {
      */
     public void setRequestedRoomId(int roomRequestedId) {
         this.roomRequestedId = roomRequestedId;
-    }
-
-    public boolean isUnderneathItem() {
-        return underneathItem;
-    }
-
-    public void setUnderneathItem(boolean underneathItem) {
-        this.underneathItem = underneathItem;
     }
 }

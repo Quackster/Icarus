@@ -57,42 +57,42 @@ public class MovementTask implements Runnable {
 
     private void processEntity(Entity entity) {
 
-        RoomUser roomEntity = entity.getRoomUser();
-        
-        Position position = roomEntity.getPosition();
-        Position goal = roomEntity.getGoal();
+        RoomUser roomUser = entity.getRoomUser();
 
-        if (roomEntity.isWalking()) {
-            if (roomEntity.getPath().size() > 0) {      
-                Position next = roomEntity.getPath().pop();
+        Position position = roomUser.getPosition();
+        Position goal = roomUser.getGoal();
 
-                if (!roomEntity.getRoom().getMapping().isTileWalkable(entity, next.getX(), next.getY())) {
-                    roomEntity.walkTo(goal.getX(), goal.getY());
+        if (roomUser.isWalking()) {
+            if (roomUser.getPath().size() > 0) {      
+                Position next = roomUser.getPath().pop();
+
+                if (!roomUser.getRoom().getMapping().isTileWalkable(entity, next.getX(), next.getY())) {
+                    roomUser.walkTo(goal.getX(), goal.getY());
                     this.processEntity(entity);
                     return;
                 }
 
-                RoomTile nextTile = roomEntity.getRoom().getMapping().getTile(next.getX(), next.getY());
-                RoomTile previousTile = roomEntity.getRoom().getMapping().getTile(position.getX(), position.getY());
+                RoomTile nextTile = roomUser.getRoom().getMapping().getTile(next.getX(), next.getY());
+                RoomTile previousTile = roomUser.getRoom().getMapping().getTile(position.getX(), position.getY());
 
                 previousTile.setEntity(null);
                 nextTile.setEntity(entity);   
 
-                roomEntity.removeStatus(EntityStatus.LAY);
-                roomEntity.removeStatus(EntityStatus.SIT);
+                roomUser.removeStatus(EntityStatus.LAY);
+                roomUser.removeStatus(EntityStatus.SIT);
 
                 int rotation = Rotation.calculate(position.getX(), position.getY(), next.getX(), next.getY());
                 double height = this.room.getMapping().getTileHeight(next.getX(), next.getY());
 
-                roomEntity.getPosition().setRotation(rotation);
-                roomEntity.setStatus(EntityStatus.MOVE, next.getX() + "," + next.getY() + "," + Util.getDecimalFormatter().format(height));
+                roomUser.getPosition().setRotation(rotation);
+                roomUser.setStatus(EntityStatus.MOVE, next.getX() + "," + next.getY() + "," + Util.getDecimalFormatter().format(height));
 
-                roomEntity.setNext(next);
+                roomUser.setNext(next);
             } else {
-                roomEntity.setNext(null);
+                roomUser.setNext(null);
             }
-            
-            roomEntity.setNeedsUpdate(true);
+
+            roomUser.setNeedsUpdate(true);
         }
     }
 }
