@@ -45,25 +45,25 @@ public class RoomUser extends Metadata {
     private int lookResetTime;
     private int teleportRoomId;
     private int carryItem;
-    
+
     private long chatFloodTimer;
-    
+
     private boolean isWalking;
     private boolean needsUpdate;
     private boolean isTeleporting;
     private boolean isRolling;
     private boolean isWalkingAllowed;
-    
+
     private Entity entity;
     private Room room;
     private Item currentItem;
-    
+
     private Position position;
     private Position goal;
-    private Position next;
-    
+    private Position positionToSet;
+
     private AtomicInteger carryTimer;
-    
+
     private HashMap<EntityStatus, String> statuses;
     private LinkedList<Position> path;
 
@@ -79,7 +79,7 @@ public class RoomUser extends Metadata {
 
         this.removeStatus(EntityStatus.MOVE);
 
-        this.next = null;
+        this.positionToSet = null;
         this.isWalking = false;
 
         this.updateCurrentItem();
@@ -178,7 +178,7 @@ public class RoomUser extends Metadata {
 
         this.statuses.put(status, value);
     }
-    
+
     /**
      * Chat without spam checking, only sends to self.
      *
@@ -190,7 +190,7 @@ public class RoomUser extends Metadata {
             ((Player)entity).send(new TalkMessageComposer(this, type, message, this.chatColor));
         }
     }
-    
+
     /**
      * Chat and broadcast message in room, supports spam checking.
      *
@@ -207,11 +207,11 @@ public class RoomUser extends Metadata {
             if (this.entity.getType() == EntityType.PET) {
                 composer = new TalkMessageComposer(this, type, message, 1);
             }
-            
+
             if (this.entity.getType() == EntityType.BOT) {
                 composer = new TalkMessageComposer(this, type, message, 2);
             }
-            
+
             this.room.send(composer);
             return;
         }
@@ -228,7 +228,7 @@ public class RoomUser extends Metadata {
                 }
             }
         }
-        
+
         RoomDao.saveChatlog(player, this.room.getData().getId(), type.name(), message);
 
         if (CommandManager.hasCommand(player, message)) {
@@ -245,7 +245,7 @@ public class RoomUser extends Metadata {
 
             message = playerMessage.getMessage();
         }
-        
+
         MessageComposer composer = new TalkMessageComposer(this, type, message, this.chatColor);
         this.room.send(composer);
 
@@ -316,10 +316,10 @@ public class RoomUser extends Metadata {
 
         // remove entity from previous tile
         this.room.getMapping().getTile(this.position.getX(), this.position.getY()).setEntity(null);
-        
+
         // set entity to new title
         this.room.getMapping().getTile(x, y).setEntity(this.entity);
-        
+
         this.position.setX(x);
         this.position.setY(y);
         this.position.setZ(this.room.getMapping().getTileHeight(x, y));
@@ -335,22 +335,6 @@ public class RoomUser extends Metadata {
      */
     public void walkTo(int X, int Y) {
 
-        if (this.room.getModel().hasInvalidCoordinates(X, Y)) {
-            return;
-        }
-
-        if (this.room.getModel().isBlocked(X, Y)) {
-            return;
-        }
-
-        if (!this.room.getMapping().isTileWalkable(this.entity, X, Y)) {
-            return;
-        }
-
-        if (this.position.isMatch(new Position(X, Y))) {
-            return;
-        }
-
         if (!this.isWalkingAllowed) {
             return;
         }
@@ -358,30 +342,25 @@ public class RoomUser extends Metadata {
         this.goal.setX(X);
         this.goal.setY(Y);
 
-        if (this.entity.getType() == EntityType.PLAYER) {
-
-            PluginManager.callEvent(PluginEvent.ROOM_WALK_REQUEST_EVENT, new LuaValue[] {  
-                    CoerceJavaToLua.coerce((Player)this.entity),
-                    CoerceJavaToLua.coerce(this.room),
-                    CoerceJavaToLua.coerce(this.position), 
-                    CoerceJavaToLua.coerce(this.goal) 
-            });
-        }
-
         LinkedList<Position> path = Pathfinder.makePath(this.entity);
 
-        if (path == null) {
-            return;
-        }
+        if (path.size() > 0) {
 
-        if (path.size() == 0) {
-            return;
+            if (this.entity.getType() == EntityType.PLAYER) {
+
+                PluginManager.callEvent(PluginEvent.ROOM_WALK_REQUEST_EVENT, new LuaValue[] {  
+                        CoerceJavaToLua.coerce((Player)this.entity),
+                        CoerceJavaToLua.coerce(this.room),
+                        CoerceJavaToLua.coerce(this.position), 
+                        CoerceJavaToLua.coerce(this.goal) 
+                });
+            }
+
+            this.path = path;
+            this.isWalking = true;
         }
-        
-        this.path = path;
-        this.isWalking = true;
     }
-    
+
 
     public void updateNewHeight(Position position) {
         double height = this.room.getMapping().getTile(position.getX(), position.getY()).getHeight();
@@ -407,7 +386,7 @@ public class RoomUser extends Metadata {
         } else {
             this.carryTimer.set(0);
         }
-        
+
         this.room.send(new CarryObjectComposer(this.virtualId, vendingId)); 
     }
 
@@ -447,11 +426,11 @@ public class RoomUser extends Metadata {
         this.isWalking = false;
         this.isWalkingAllowed = true;
         this.room = null;
-        
+
         this.getMetadata().clear();
 
     }
-    
+
     /**
      * Start dancing.
      *
@@ -461,7 +440,7 @@ public class RoomUser extends Metadata {
         this.danceId = danceId;
         this.room.send(new DanceMessageComposer(this.virtualId, danceId));
     }
-    
+
     /**
      * Stop dancing.
      */
@@ -510,8 +489,8 @@ public class RoomUser extends Metadata {
      *
      * @return the next
      */
-    public Position getNext() {
-        return next;
+    public Position getPositionToSet() {
+        return positionToSet;
     }
 
     /**
@@ -519,8 +498,8 @@ public class RoomUser extends Metadata {
      *
      * @param next the new next
      */
-    public void setNext(Position next) {
-        this.next = next;
+    public void setPositionToSet(Position next) {
+        this.positionToSet = next;
     }
 
     /**
@@ -538,7 +517,7 @@ public class RoomUser extends Metadata {
     public boolean isDancing() {
         return this.danceId != 0;
     }
-    
+
     /**
      * Gets the virtual id.
      *

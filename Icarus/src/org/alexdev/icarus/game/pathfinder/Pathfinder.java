@@ -27,6 +27,25 @@ public class Pathfinder {
      */
     public static LinkedList<Position> makePath(Entity entity) {
 
+        int X = entity.getRoomUser().getGoal().getX();
+        int Y = entity.getRoomUser().getGoal().getY();
+        
+        if (entity.getRoom().getModel().hasInvalidCoordinates(X, Y)) {
+            return Lists.newLinkedList();
+        }
+
+        if (entity.getRoom().getModel().isBlocked(X, Y)) {
+            return Lists.newLinkedList();
+        }
+
+        if (!entity.getRoom().getMapping().isTileWalkable(entity, X, Y)) {
+            return Lists.newLinkedList();
+        }
+
+        if (entity.getRoomUser().getPosition().isMatch(new Position(X, Y))) {
+            return Lists.newLinkedList();
+        }
+        
         LinkedList<Position> squares = new LinkedList<>();
 
         PathfinderNode nodes = makePathReversed(entity);

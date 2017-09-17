@@ -6,7 +6,6 @@ import java.util.Map.Entry;
 
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityStatus;
-import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
@@ -40,23 +39,21 @@ public class UserStatusMessageComposer extends MessageComposer {
                 this.response.writeInt(roomUser.getVirtualId());
 
                 if (roomUser.isWalking()) {
-                    if (roomUser.getNext() == null) {
+                    if (roomUser.getPositionToSet() == null) {
                         roomUser.stopWalking();
                     }
                 }
-
 
                 this.response.writeInt(roomUser.getPosition().getX());
                 this.response.writeInt(roomUser.getPosition().getY());
                 this.response.writeString(Util.getDecimalFormatter().format(roomUser.getPosition().getZ()));
 
                 if (roomUser.isWalking()) {
-                    if (roomUser.getNext() != null) {
-                        roomUser.getPosition().setX(roomUser.getNext().getX());
-                        roomUser.getPosition().setY(roomUser.getNext().getY());
-                        roomUser.updateNewHeight(roomUser.getNext());
+                    if (roomUser.getPositionToSet() != null) {
+                        roomUser.getPosition().setX(roomUser.getPositionToSet().getX());
+                        roomUser.getPosition().setY(roomUser.getPositionToSet().getY());
+                        roomUser.updateNewHeight(roomUser.getPositionToSet());
                     }
-                    
                 }
                 this.response.writeInt(roomUser.getPosition().getHeadRotation());
                 this.response.writeInt(roomUser.getPosition().getBodyRotation());

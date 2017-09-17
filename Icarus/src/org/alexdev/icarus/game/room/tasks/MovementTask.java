@@ -1,6 +1,5 @@
 package org.alexdev.icarus.game.room.tasks;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.game.entity.Entity;
@@ -10,28 +9,33 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.game.room.user.RoomUser;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 import org.alexdev.icarus.util.Util;
+
+import com.google.common.collect.Lists;
 
 public class MovementTask implements Runnable {
 
     private Room room;
-
+    private List<Entity> entitiesToUpdate;
+    
     public MovementTask(Room room) {
         this.room = room;
+        this.entitiesToUpdate = Lists.newArrayList();
     }
 
     @Override
     public void run() {
 
+        this.entitiesToUpdate.clear();
+        
         try {
             if (this.room.getEntityManager().getEntities().size() == 0) {
                 return;
             }
 
             List<Entity> entities = this.room.getEntityManager().getEntities();
-            List<Entity> entitiesToUpdate = new ArrayList<Entity>();
+
 
             for (int i = 0; i < entities.size(); i++) {
 
@@ -46,17 +50,16 @@ public class MovementTask implements Runnable {
 
                         if (roomEntity.getNeedsUpdate()) {
                             roomEntity.setNeedsUpdate(false);
-                            entitiesToUpdate.add(entity);
+                            this.entitiesToUpdate.add(entity);
                         }
                     }
                 }
             }
 
-            if (entitiesToUpdate.size() > 0) {
-                this.room.send(new UserStatusMessageComposer(entitiesToUpdate));
+            if (this.entitiesToUpdate.size() > 0) {
+                this.room.send(new UserStatusMessageComposer(this.entitiesToUpdate));
             }
         } catch (Exception e) {
-            // TODO Auto-geneitrated catch block
             e.printStackTrace();
         }
     }
@@ -70,8 +73,8 @@ public class MovementTask implements Runnable {
 
         if (roomUser.isWalking()) {
             if (roomUser.getPath().size() > 0) {
-                Position next = roomUser.getPath().pop();
                 
+                Position next = roomUser.getPath().pop();
                 
                 if (!roomUser.getRoom().getMapping().isTileWalkable(entity, next.getX(), next.getY())) {
                     roomUser.walkTo(goal.getX(), goal.getY());
@@ -93,10 +96,11 @@ public class MovementTask implements Runnable {
 
                 roomUser.getPosition().setRotation(rotation);
                 roomUser.setStatus(EntityStatus.MOVE, next.getX() + "," + next.getY() + "," + Util.getDecimalFormatter().format(height));
-                roomUser.setNext(next);
+                
+                roomUser.setPositionToSet(next);
                 roomUser.setNeedsUpdate(true);
             } else {
-                roomUser.setNext(null);
+                roomUser.setPositionToSet(null);
                 roomUser.setNeedsUpdate(true);
             }
         }
