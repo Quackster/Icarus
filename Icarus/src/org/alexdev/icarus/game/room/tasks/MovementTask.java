@@ -72,18 +72,20 @@ public class MovementTask implements Runnable {
         Position goal = roomUser.getGoal();
 
         if (roomUser.isWalking()) {
+            // Apply next tile from the tile we removed from the list the cycle before
             if (roomUser.getPositionToSet() != null) {
                 roomUser.getPosition().setX(roomUser.getPositionToSet().getX());
                 roomUser.getPosition().setY(roomUser.getPositionToSet().getY());
                 roomUser.updateNewHeight(roomUser.getPositionToSet());
             }
             
+            // We still have more tiles left, so lets continue moving
             if (roomUser.getPath().size() > 0) {
                 
                 Position next = roomUser.getPath().pop();
                 
                 if (!roomUser.getRoom().getMapping().isTileWalkable(entity, next.getX(), next.getY())) {
-                    roomUser.walkTo(goal.getX(), goal.getY());
+                    roomUser.walkTo(goal.getX(), goal.getY()); // Tile was invalid after we started walking, so lets try again!
                     this.processEntity(entity);
                     return;
                 }
@@ -104,6 +106,8 @@ public class MovementTask implements Runnable {
                 roomUser.setStatus(EntityStatus.MOVE, next.getX() + "," + next.getY() + "," + Util.getDecimalFormatter().format(height));
                 roomUser.setPositionToSet(next);
             } else {
+                
+                // No more tiles left, so lets stop walking and interact with any furniture nearby
                 roomUser.setPositionToSet(null);
                 roomUser.setWalking(false);
                 roomUser.removeStatus(EntityStatus.MOVE);
@@ -111,6 +115,7 @@ public class MovementTask implements Runnable {
                 
             }
             
+            // If we're walking, make sure to tell the server
             roomUser.setNeedsUpdate(true);
         }
     }
