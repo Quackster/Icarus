@@ -103,7 +103,7 @@ public class InventoryDao {
 
             if (resultSet != null && resultSet.next()) {
                 int inventoryItemId = resultSet.getInt(1);
-                return new Item(inventoryItemId, ownerId, itemId, 0, "", "", 0, 0, "");
+                return new Item(inventoryItemId, ownerId, itemId, 0, "0", "0", 0, 0, extraData);
             }
 
         } catch (SQLException e) {
