@@ -51,7 +51,7 @@ public class MovementTask implements Runnable {
         }
 
         if (entitiesToUpdate.size() > 0) {
-            room.send(new UserStatusMessageComposer(entitiesToUpdate));
+            this.room.send(new UserStatusMessageComposer(entitiesToUpdate));
         }
     }
 
@@ -62,7 +62,7 @@ public class MovementTask implements Runnable {
         Position position = roomEntity.getPosition();
         Position goal = roomEntity.getGoal();
 
-        if (roomEntity.isWalking()) { 
+        if (roomEntity.isWalking()) {
             if (roomEntity.getPath().size() > 0) {      
                 Position next = roomEntity.getPath().pop();
 
@@ -88,12 +88,11 @@ public class MovementTask implements Runnable {
                 roomEntity.setStatus(EntityStatus.MOVE, next.getX() + "," + next.getY() + "," + Util.getDecimalFormatter().format(height));
 
                 roomEntity.setNext(next);
-                roomEntity.setNeedsUpdate(true);
-            }
-            else {
+            } else {
                 roomEntity.setNext(null);
-                roomEntity.setNeedsUpdate(true);
             }
+            
+            roomEntity.setNeedsUpdate(true);
         }
     }
 }
