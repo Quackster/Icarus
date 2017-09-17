@@ -72,6 +72,12 @@ public class MovementTask implements Runnable {
         Position goal = roomUser.getGoal();
 
         if (roomUser.isWalking()) {
+            if (roomUser.getPositionToSet() != null) {
+                roomUser.getPosition().setX(roomUser.getPositionToSet().getX());
+                roomUser.getPosition().setY(roomUser.getPositionToSet().getY());
+                roomUser.updateNewHeight(roomUser.getPositionToSet());
+            }
+            
             if (roomUser.getPath().size() > 0) {
                 
                 Position next = roomUser.getPath().pop();
@@ -96,13 +102,16 @@ public class MovementTask implements Runnable {
 
                 roomUser.getPosition().setRotation(rotation);
                 roomUser.setStatus(EntityStatus.MOVE, next.getX() + "," + next.getY() + "," + Util.getDecimalFormatter().format(height));
-                
                 roomUser.setPositionToSet(next);
-                roomUser.setNeedsUpdate(true);
             } else {
                 roomUser.setPositionToSet(null);
-                roomUser.setNeedsUpdate(true);
+                roomUser.setWalking(false);
+                roomUser.removeStatus(EntityStatus.MOVE);
+                roomUser.handleNearbyItem();
+                
             }
+            
+            roomUser.setNeedsUpdate(true);
         }
     }
 }

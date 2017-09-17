@@ -73,34 +73,11 @@ public class RoomUser extends Metadata {
     }
 
     /**
-     * Stop walking.
-     */
-    public void stopWalking() {
-
-        this.removeStatus(EntityStatus.MOVE);
-
-        this.positionToSet = null;
-        this.isWalking = false;
-
-        this.updateCurrentItem();
-
-        if (this.entity.getType() == EntityType.PLAYER) {
-
-            PluginManager.callEvent(PluginEvent.ROOM_STOP_WALKING_EVENT, new LuaValue[] {  
-                    CoerceJavaToLua.coerce((Player)this.entity), 
-                    CoerceJavaToLua.coerce(this.room)
-            });
-        }
-
-        this.needsUpdate = true;
-    }
-
-    /**
      * Update current item.
      *
      * @return true, if successful
      */
-    public boolean updateCurrentItem() {
+    public boolean handleNearbyItem() {
 
         Item item = this.room.getMapping().getHighestItem(this.position.getX(), this.position.getY());
 
@@ -109,7 +86,7 @@ public class RoomUser extends Metadata {
         if (item != null) {
             if (item.canWalk()) {
                 this.currentItem = item;
-                this.triggerCurrentItem();
+                this.interactNearbyItem();
             } else {
                 no_current_item = true;
             }
@@ -128,7 +105,7 @@ public class RoomUser extends Metadata {
     /**
      * Trigger current item.
      */
-    public void triggerCurrentItem() {
+    public void interactNearbyItem() {
 
         if (this.currentItem == null) {
             this.removeStatus(EntityStatus.SIT);
@@ -338,6 +315,13 @@ public class RoomUser extends Metadata {
         if (!this.isWalkingAllowed) {
             return;
         }
+        
+        if (this.positionToSet != null) {
+            this.position.setX(this.positionToSet.getX());
+            this.position.setY(this.positionToSet.getY());
+            this.updateNewHeight(this.position);
+            this.needsUpdate = true;
+        }
 
         this.goal.setX(X);
         this.goal.setY(Y);
@@ -345,9 +329,7 @@ public class RoomUser extends Metadata {
         LinkedList<Position> path = Pathfinder.makePath(this.entity);
 
         if (path.size() > 0) {
-
             if (this.entity.getType() == EntityType.PLAYER) {
-
                 PluginManager.callEvent(PluginEvent.ROOM_WALK_REQUEST_EVENT, new LuaValue[] {  
                         CoerceJavaToLua.coerce((Player)this.entity),
                         CoerceJavaToLua.coerce(this.room),

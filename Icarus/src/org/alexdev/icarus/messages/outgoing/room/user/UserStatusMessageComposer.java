@@ -34,27 +34,13 @@ public class UserStatusMessageComposer extends MessageComposer {
             this.response.writeInt(this.users.size());
 
             for (Entity entity : this.users) {
-
+                
                 RoomUser roomUser = entity.getRoomUser();
+                
                 this.response.writeInt(roomUser.getVirtualId());
-
-                if (roomUser.isWalking()) {
-                    if (roomUser.getPositionToSet() == null) {
-                        roomUser.stopWalking();
-                    }
-                }
-
                 this.response.writeInt(roomUser.getPosition().getX());
                 this.response.writeInt(roomUser.getPosition().getY());
                 this.response.writeString(Util.getDecimalFormatter().format(roomUser.getPosition().getZ()));
-
-                if (roomUser.isWalking()) {
-                    if (roomUser.getPositionToSet() != null) {
-                        roomUser.getPosition().setX(roomUser.getPositionToSet().getX());
-                        roomUser.getPosition().setY(roomUser.getPositionToSet().getY());
-                        roomUser.updateNewHeight(roomUser.getPositionToSet());
-                    }
-                }
                 this.response.writeInt(roomUser.getPosition().getHeadRotation());
                 this.response.writeInt(roomUser.getPosition().getBodyRotation());
 
