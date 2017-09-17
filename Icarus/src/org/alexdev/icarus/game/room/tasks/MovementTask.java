@@ -69,15 +69,10 @@ public class MovementTask implements Runnable {
         Position goal = roomUser.getGoal();
 
         if (roomUser.isWalking()) {
-            if (roomUser.getNext() != null) {
-                roomUser.getPosition().setX(roomUser.getNext().getX());
-                roomUser.getPosition().setY(roomUser.getNext().getY());
-                roomUser.updateNewHeight(roomUser.getNext());
-            }
-            
-            if (roomUser.getPath().size() > 0) {      
+            if (roomUser.getPath().size() > 0) {
                 Position next = roomUser.getPath().pop();
-
+                
+                
                 if (!roomUser.getRoom().getMapping().isTileWalkable(entity, next.getX(), next.getY())) {
                     roomUser.walkTo(goal.getX(), goal.getY());
                     this.processEntity(entity);
@@ -98,7 +93,6 @@ public class MovementTask implements Runnable {
 
                 roomUser.getPosition().setRotation(rotation);
                 roomUser.setStatus(EntityStatus.MOVE, next.getX() + "," + next.getY() + "," + Util.getDecimalFormatter().format(height));
-
                 roomUser.setNext(next);
                 roomUser.setNeedsUpdate(true);
             } else {

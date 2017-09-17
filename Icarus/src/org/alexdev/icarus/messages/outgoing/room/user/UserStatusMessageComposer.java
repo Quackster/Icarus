@@ -45,6 +45,7 @@ public class UserStatusMessageComposer extends MessageComposer {
                     }
                 }
 
+
                 this.response.writeInt(roomUser.getPosition().getX());
                 this.response.writeInt(roomUser.getPosition().getY());
                 this.response.writeString(Util.getDecimalFormatter().format(roomUser.getPosition().getZ()));
@@ -54,10 +55,9 @@ public class UserStatusMessageComposer extends MessageComposer {
                         roomUser.getPosition().setX(roomUser.getNext().getX());
                         roomUser.getPosition().setY(roomUser.getNext().getY());
                         roomUser.updateNewHeight(roomUser.getNext());
-
                     }
+                    
                 }
-
                 this.response.writeInt(roomUser.getPosition().getHeadRotation());
                 this.response.writeInt(roomUser.getPosition().getBodyRotation());
 
