@@ -312,6 +312,11 @@ public class RoomData {
      * @return the wall
      */
     public String getWall() {
+        
+        if (this.wall.isEmpty()) {
+            return "0";
+        }
+        
         return wall;
     }
 
@@ -330,6 +335,11 @@ public class RoomData {
      * @return the floor
      */
     public String getFloor() {
+        
+        if (this.floor.isEmpty()) {
+            return "0";
+        }
+        
         return floor;
     }
 
