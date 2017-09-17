@@ -42,7 +42,8 @@ public class MovementTask implements Runnable {
 
                     RoomUser roomEntity = entity.getRoomUser();
 
-                    if (roomEntity.needsUpdate()) {
+                    if (roomEntity.getNeedsUpdate()) {
+                        roomEntity.setNeedsUpdate(false);
                         entitiesToUpdate.add(entity);
                     }
                 }
@@ -57,15 +58,14 @@ public class MovementTask implements Runnable {
     private void processEntity(Entity entity) {
 
         RoomUser roomEntity = entity.getRoomUser();
+        Position goal = roomEntity.getGoal();
 
         if (roomEntity.isWalking()) { 
             if (roomEntity.getPath().size() > 0) {      
                 Position next = roomEntity.getPath().pop();
 
                 if (!roomEntity.getRoom().getMapping().isTileWalkable(entity, next.getX(), next.getY())) {
-
-                    // Invalid tile so lets try again
-                    roomEntity.walkTo(roomEntity.getWalkingGoal().getX(), roomEntity.getWalkingGoal().getY());
+                    roomEntity.walkTo(goal.getX(), goal.getY());
                     this.processEntity(entity);
                     return;
                 }
@@ -86,12 +86,12 @@ public class MovementTask implements Runnable {
                 roomEntity.setStatus(EntityStatus.MOVE, next.getX() + "," + next.getY() + "," + Util.getDecimalFormatter().format(height));
 
                 roomEntity.setNext(next);
+                roomEntity.setNeedsUpdate(true);
             }
             else {
                 roomEntity.setNext(null);
+                roomEntity.setNeedsUpdate(true);
             }
-
-            roomEntity.setNeedUpdate(true);
         }
     }
 }

@@ -60,7 +60,7 @@ public class Pathfinder {
         PathfinderNode current = new PathfinderNode(entity.getRoomUser().getPosition());
         current.setCost(0);
 
-        Position end = entity.getRoomUser().getWalkingGoal();
+        Position end = entity.getRoomUser().getGoal();
         PathfinderNode finish = new PathfinderNode(end);
 
         map[current.getPosition().getX()][current.getPosition().getY()] = current;

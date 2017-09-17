@@ -81,10 +81,6 @@ public class UserStatusMessageComposer extends MessageComposer {
                 statusString += " ";
                 
                 this.response.writeString(statusString);
-
-                if (roomUser.needsUpdate()) {
-                    roomUser.setNeedUpdate(false);
-                }
             }
         }
     }

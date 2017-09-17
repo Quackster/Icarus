@@ -488,7 +488,7 @@ public class RoomUser extends Metadata {
      *
      * @return the walking goal
      */
-    public Position getWalkingGoal() {
+    public Position getGoal() {
         return goal;
     }
 
@@ -626,7 +626,7 @@ public class RoomUser extends Metadata {
      *
      * @return true, if successful
      */
-    public boolean needsUpdate() {
+    public boolean getNeedsUpdate() {
         return needsUpdate;
     }
 
