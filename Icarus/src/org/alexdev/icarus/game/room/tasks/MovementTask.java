@@ -10,6 +10,7 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.game.room.user.RoomUser;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 import org.alexdev.icarus.util.Util;
 
@@ -24,34 +25,39 @@ public class MovementTask implements Runnable {
     @Override
     public void run() {
 
-        if (this.room.getEntityManager().getEntities().size() == 0) {
-            return;
-        }
+        try {
+            if (this.room.getEntityManager().getEntities().size() == 0) {
+                return;
+            }
 
-        List<Entity> entities = this.room.getEntityManager().getEntities();
-        List<Entity> entitiesToUpdate = new ArrayList<Entity>();
+            List<Entity> entities = this.room.getEntityManager().getEntities();
+            List<Entity> entitiesToUpdate = new ArrayList<Entity>();
 
-        for (int i = 0; i < entities.size(); i++) {
+            for (int i = 0; i < entities.size(); i++) {
 
-            Entity entity = entities.get(i);
+                Entity entity = entities.get(i);
 
-            if (entity != null) {
-                if (entity.getRoomUser() != null) {
+                if (entity != null) {
+                    if (entity.getRoomUser() != null) {
 
-                    this.processEntity(entity);
+                        this.processEntity(entity);
 
-                    RoomUser roomEntity = entity.getRoomUser();
+                        RoomUser roomEntity = entity.getRoomUser();
 
-                    if (roomEntity.getNeedsUpdate()) {
-                        roomEntity.setNeedsUpdate(false);
-                        entitiesToUpdate.add(entity);
+                        if (roomEntity.getNeedsUpdate()) {
+                            roomEntity.setNeedsUpdate(false);
+                            entitiesToUpdate.add(entity);
+                        }
                     }
                 }
             }
-        }
 
-        if (entitiesToUpdate.size() > 0) {
-            this.room.send(new UserStatusMessageComposer(entitiesToUpdate));
+            if (entitiesToUpdate.size() > 0) {
+                this.room.send(new UserStatusMessageComposer(entitiesToUpdate));
+            }
+        } catch (Exception e) {
+            // TODO Auto-geneitrated catch block
+            e.printStackTrace();
         }
     }
 
@@ -63,6 +69,12 @@ public class MovementTask implements Runnable {
         Position goal = roomUser.getGoal();
 
         if (roomUser.isWalking()) {
+            if (roomUser.getNext() != null) {
+                roomUser.getPosition().setX(roomUser.getNext().getX());
+                roomUser.getPosition().setY(roomUser.getNext().getY());
+                roomUser.updateNewHeight(roomUser.getNext());
+            }
+            
             if (roomUser.getPath().size() > 0) {      
                 Position next = roomUser.getPath().pop();
 
@@ -88,11 +100,11 @@ public class MovementTask implements Runnable {
                 roomUser.setStatus(EntityStatus.MOVE, next.getX() + "," + next.getY() + "," + Util.getDecimalFormatter().format(height));
 
                 roomUser.setNext(next);
+                roomUser.setNeedsUpdate(true);
             } else {
                 roomUser.setNext(null);
+                roomUser.setNeedsUpdate(true);
             }
-
-            roomUser.setNeedsUpdate(true);
         }
     }
 }

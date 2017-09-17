@@ -29,7 +29,7 @@ public class UserStatusMessageComposer extends MessageComposer {
     public void write() {
 
         this.response.init(Outgoing.UserStatusMessageComposer);
-        
+
         synchronized (this.users) {
 
             this.response.writeInt(this.users.size());
@@ -38,7 +38,7 @@ public class UserStatusMessageComposer extends MessageComposer {
 
                 RoomUser roomUser = entity.getRoomUser();
                 this.response.writeInt(roomUser.getVirtualId());
-                
+
                 if (roomUser.isWalking()) {
                     if (roomUser.getNext() == null) {
                         roomUser.stopWalking();
@@ -51,16 +51,13 @@ public class UserStatusMessageComposer extends MessageComposer {
 
                 if (roomUser.isWalking()) {
                     if (roomUser.getNext() != null) {
+                        roomUser.getPosition().setX(roomUser.getNext().getX());
+                        roomUser.getPosition().setY(roomUser.getNext().getY());
+                        roomUser.updateNewHeight(roomUser.getNext());
 
-                        Position next = roomUser.getNext();
-                        double height = entity.getRoom().getMapping().getTile(next.getX(), next.getY()).getHeight();
-
-                        roomUser.getPosition().setX(next.getX());
-                        roomUser.getPosition().setY(next.getY());
-                        roomUser.getPosition().setZ(height);
                     }
                 }
-                
+
                 this.response.writeInt(roomUser.getPosition().getHeadRotation());
                 this.response.writeInt(roomUser.getPosition().getBodyRotation());
 
@@ -79,7 +76,7 @@ public class UserStatusMessageComposer extends MessageComposer {
                 }
 
                 statusString += " ";
-                
+
                 this.response.writeString(statusString);
             }
         }

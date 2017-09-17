@@ -141,7 +141,7 @@ public class RoomUser extends Metadata {
             }
         }
 
-        this.position.setZ(this.room.getMapping().getTile(this.position.getX(), this.position.getY()).getHeight());
+        this.updateNewHeight(this.position);
         this.needsUpdate = true;
     }
 
@@ -380,6 +380,12 @@ public class RoomUser extends Metadata {
         
         this.path = path;
         this.isWalking = true;
+    }
+    
+
+    public void updateNewHeight(Position position) {
+        double height = this.room.getMapping().getTile(position.getX(), position.getY()).getHeight();
+        this.position.setZ(height);
     }
 
     /**
