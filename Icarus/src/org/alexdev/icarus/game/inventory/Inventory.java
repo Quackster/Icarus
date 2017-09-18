@@ -37,10 +37,14 @@ public class Inventory {
      * Adds the item.
      *
      * @param item the item
+     * @param notification the notification
      */
-    public void addItem(Item item) {
+    public void addItem(Item item, InventoryNotification notification) {
         this.items.put(item.getId(), item);
-        this.player.send(new UnseenItemsNotificationComposer(item.getId(), 1));
+
+        if (notification == InventoryNotification.ALERT) {
+            this.player.send(new UnseenItemsNotificationComposer(item.getId(), 1));
+        }
     }
 
     /**
@@ -57,10 +61,14 @@ public class Inventory {
      * Adds the pet.
      *
      * @param pet the pet
+     * @param notification the notification
      */
-    public void addPet(Pet pet) {
+    public void addPet(Pet pet, InventoryNotification notification) {
         this.pets.put(pet.getId(), pet);
-        this.player.send(new UnseenItemsNotificationComposer(pet.getId(), 3));
+
+        if (notification == InventoryNotification.ALERT) {
+            this.player.send(new UnseenItemsNotificationComposer(pet.getId(), 3));
+        }
     }
 
     /**

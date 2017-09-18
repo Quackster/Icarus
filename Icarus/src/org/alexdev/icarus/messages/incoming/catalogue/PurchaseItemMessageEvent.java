@@ -5,6 +5,7 @@ import org.alexdev.icarus.game.catalogue.CatalogueBundledItem;
 import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.catalogue.CataloguePage;
+import org.alexdev.icarus.game.inventory.InventoryNotification;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.club.ClubManager;
@@ -74,7 +75,7 @@ public class PurchaseItemMessageEvent implements MessageEvent {
         int petId = PetDao.createPet(player.getDetails().getId(), petData[0], type, race, colour);
         Pet pet = new Pet(petId, petName, Pet.DEFAULT_LEVEL, Pet.DEFAULT_HAPPINESS, Pet.DEFAULT_EXPERIENCE, Pet.DEFAULT_ENERGY, player.getDetails().getId(), colour, race, type, false, -1, 0, false, (int)Util.getCurrentTimeSeconds(), 0, 0, 0);
         
-        player.getInventory().addPet(pet);
+        player.getInventory().addPet(pet, InventoryNotification.ALERT);
         player.getInventory().updatePets();
         
         player.send(new PurchaseNotificationMessageComposer());

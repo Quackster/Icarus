@@ -28,8 +28,9 @@ public class GroupRemoveAdminMessageEvent implements MessageEvent {
         }
         
         int userId = reader.readInt();
+        
         group.getMemberManager().addMember(GroupMemberType.MEMBER, userId);
         
-        player.send(new GroupUpdateMemberComposer(group.getId(), userId, 4));
+        player.send(new GroupUpdateMemberComposer(group.getId(), userId, 2));
     }
 }

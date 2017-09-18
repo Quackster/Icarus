@@ -1,5 +1,6 @@
 package org.alexdev.icarus.messages.incoming.pets;
 
+import org.alexdev.icarus.game.inventory.InventoryNotification;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
@@ -29,7 +30,7 @@ public class RemovePetMessageEvent implements MessageEvent {
         
         if (isPetOwner) {
             
-            player.getInventory().addPet(pet);
+            player.getInventory().addPet(pet,  InventoryNotification.NONE);
             player.getInventory().updatePets();
             
             pet.setRoomId(0);
@@ -46,7 +47,7 @@ public class RemovePetMessageEvent implements MessageEvent {
                 
                 Player petOwner = PlayerManager.getById(pet.getOwnerId());
                 
-                petOwner.getInventory().addPet(pet);
+                petOwner.getInventory().addPet(pet, InventoryNotification.NONE);
                 petOwner.getInventory().updatePets();
             }
         }

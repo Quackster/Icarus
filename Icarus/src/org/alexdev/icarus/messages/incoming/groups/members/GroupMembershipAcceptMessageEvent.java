@@ -37,7 +37,6 @@ public class GroupMembershipAcceptMessageEvent implements MessageEvent {
         }
         
         group.getMemberManager().addMember(GroupMemberType.MEMBER, userId);
-        
         Player user = PlayerManager.getById(userId);
         
         if (user != null) {

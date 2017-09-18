@@ -1,5 +1,6 @@
 package org.alexdev.icarus.messages.incoming.room.items;
 
+import org.alexdev.icarus.game.inventory.InventoryNotification;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.player.Player;
@@ -37,7 +38,7 @@ public class PickupItemMessageEvent implements MessageEvent {
 
             room.getMapping().removeItem(item);
             
-            player.getInventory().addItem(item);
+            player.getInventory().addItem(item, InventoryNotification.NONE);
             player.getInventory().updateItems();
         }
     }

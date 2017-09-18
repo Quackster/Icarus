@@ -3,6 +3,7 @@ package org.alexdev.icarus.game.furniture;
 import org.alexdev.icarus.dao.mysql.item.InventoryDao;
 import org.alexdev.icarus.dao.mysql.item.TeleporterDao;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
+import org.alexdev.icarus.game.inventory.InventoryNotification;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.util.Util;
@@ -88,7 +89,7 @@ public class ItemDefinition {
             secondTeleporter.setTeleporterId(inventoryItem.getId());
             inventoryItem.setTeleporterId(secondTeleporter.getId());
             
-            player.getInventory().addItem(secondTeleporter);
+            player.getInventory().addItem(secondTeleporter, InventoryNotification.ALERT);
 
             inventoryItem.save();
             secondTeleporter.save();
@@ -96,7 +97,7 @@ public class ItemDefinition {
             TeleporterDao.savePair(inventoryItem.getId(), secondTeleporter.getId());
         }
 
-        player.getInventory().addItem(inventoryItem);
+        player.getInventory().addItem(inventoryItem, InventoryNotification.ALERT);
     }
     
     public boolean isAdsFurni() {

@@ -101,8 +101,10 @@ public class GroupMemberManager {
      * @param userId the user id
      */
     public void addMember(GroupMemberType type, int userId) {
+        
         this.remove(userId);
         this.groupMembers.get(type).add(userId);
+        
         GroupMemberDao.createGroupMember(userId, this.group.getId(), type);
     }
     
