@@ -18,46 +18,32 @@ public class MessengerUser {
     /**
      * Serialise the friend data.
      *
-     * @param response the response
+     * @param msg the response
      * @param forceOffline the force offline
      */
-    public void serialise(Response response, boolean forceOffline) {
-
-        response.writeInt(this.details.getId());
-        response.writeString(this.details.getName());
+    public void serialise(Response msg, boolean forceOffline) {
+        msg.writeInt(this.getDetails().getId());
+        msg.writeString(this.getDetails().getName());
+        msg.writeInt(forceOffline ? false : this.isUserOnline());
+        msg.writeBool(forceOffline ? false : this.isUserOnline());
+        msg.writeBool(forceOffline ? false : this.inRoom());
 
         if (forceOffline) {
-            response.writeInt(false);
-            response.writeBool(false);
-            response.writeBool(false);
-            response.writeString("");
-            response.writeInt(0);
-            response.writeString("");  
+            msg.writeString("");
+            msg.writeInt(0);
+            msg.writeString("");  
         } else {
-
-            boolean isUserOnline = this.isUserOnline();
-            
-            response.writeInt(isUserOnline);
-            response.writeBool(isUserOnline);
-            response.writeBool(this.inRoom());  
-            
-            if (isUserOnline) {
-                response.writeString(this.details.getFigure());
-                response.writeInt(0);
-                response.writeString(this.details.getMission());
-            } else {
-                response.writeString("");
-                response.writeInt(0);
-                response.writeString("");                
-            }
+            msg.writeString(this.isUserOnline() ? this.getDetails().getFigure() : "");
+            msg.writeInt(0);
+            msg.writeString(this.isUserOnline() ? this.getDetails().getMission() : "");  
         }
 
-        response.writeString("");
-        response.writeString("");
-        response.writeBool(true);
-        response.writeBool(false);
-        response.writeBool(false);
-        response.writeShort(0);
+        msg.writeString("");
+        msg.writeString("");
+        msg.writeBool(true);
+        msg.writeBool(false);
+        msg.writeBool(false);
+        msg.writeShort(0); 
     }
 
     /**
