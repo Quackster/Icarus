@@ -5,6 +5,7 @@ import java.nio.charset.Charset;
 
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.server.api.messages.Response;
+import org.alexdev.icarus.server.api.messages.Serialisable;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBufferOutputStream;
 import org.jboss.netty.buffer.ChannelBuffers;
@@ -83,6 +84,11 @@ public class NettyResponse implements Response {
             Log.exception(e);
         }
     }
+    
+    @Override
+    public void writeObject(Serialisable serialise) {
+        serialise.compose(this);
+    }    
 
     public String getBodyString() {
         
@@ -120,5 +126,5 @@ public class NettyResponse implements Response {
         } catch (IOException e) {
             Log.exception(e);
         }
-    }    
+    }
 }

@@ -12,31 +12,26 @@ public class Position {
         this(0, 0, 0);
     }
 
-    /**
-     * Instantiates a new position.
-     *
-     * @param x the x
-     * @param y the y
-     */
     public Position(int x, int y) {
         this.X = x;
         this.Y = y;
         this.Z = 0;
     }
 
-    /**
-     * Instantiates a new position.
-     *
-     * @param x the x
-     * @param y the y
-     * @param z the z
-     */
     public Position(int x, int y, double z) {
         this.X = x;
         this.Y = y;
         this.Z = z;
     }
     
+    public Position(int x, int y, double z, int headRotation, int bodyRotation) {
+        this.X = x;
+        this.Y = y;
+        this.Z = z;
+        this.headRotation = headRotation;
+        this.bodyRotation = bodyRotation;
+    }
+
     /**
      * Gets the height difference between another height variable
      *
@@ -264,6 +259,15 @@ public class Position {
         }
 
         return square;
+    }
+    
+    /**
+     * Copies the position.
+     *
+     * @return the position
+     */
+    public Position copy() {
+        return new Position(this.X, this.Y, this.Z, this.headRotation, this.bodyRotation);
     }
 
     /**

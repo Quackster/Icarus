@@ -45,6 +45,13 @@ public interface Response {
     public void writeBool(Boolean obj);
     
     /**
+     * Write object.
+     *
+     * @param serialise the serialisable object.
+     */
+    public void writeObject(Serialisable serialise);
+    
+    /**
      * Gets the body string.
      *
      * @return the body string

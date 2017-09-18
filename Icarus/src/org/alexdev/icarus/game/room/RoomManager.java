@@ -24,7 +24,6 @@ public class RoomManager {
         
         rooms = new ConcurrentHashMap<Integer, Room>();
         promotedRooms = new ConcurrentHashMap<Integer, Room>();
-        
         scheduler = GameScheduler.createNewScheduler();
         
         RoomModelDao.getModels();
