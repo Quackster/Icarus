@@ -13,10 +13,10 @@ public class EntityState implements Serialisable {
     private int virtualId;
     private Position position;
     private String statusString;
-    
+     
     public EntityState(int virtualId, Position position, HashMap<EntityStatus, String> statuses) {
         this.virtualId = virtualId;
-        this.position = position;
+        this.position = position.copy();
         this.statusString = "/";
 
         for (Entry<EntityStatus, String> status :  statuses.entrySet()) {

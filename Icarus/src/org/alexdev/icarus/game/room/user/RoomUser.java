@@ -376,7 +376,7 @@ public class RoomUser extends Metadata {
      * Dispose.
      */
     public void dispose() {
-
+ 
         if (this.statuses != null) {
             this.statuses.clear();
         } else {
