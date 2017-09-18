@@ -16,13 +16,13 @@ import org.alexdev.icarus.game.pets.PetManager;
 import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.log.Log;
-import org.alexdev.icarus.server.api.IServerHandler;
+import org.alexdev.icarus.server.api.ServerHandler;
 import org.alexdev.icarus.util.Metadata;
 import org.alexdev.icarus.util.Util;
 
 public class Icarus extends Metadata {
 
-    private static IServerHandler server;
+    private static ServerHandler server;
 
     private static String serverIP;
     private static String rawConfigIP;
@@ -52,7 +52,7 @@ public class Icarus extends Metadata {
                 return;
             }
             
-            server = Class.forName(Icarus.getServerClassPath()).asSubclass(IServerHandler.class).newInstance();
+            server = Class.forName(Icarus.getServerClassPath()).asSubclass(ServerHandler.class).newInstance();
             server.setIp(serverIP);
             server.setPort(serverPort);
 
@@ -254,9 +254,9 @@ public class Icarus extends Metadata {
     /**
      * Returns the interface to the server handler
      * 
-     * @return {@link IServerHandler} interface
+     * @return {@link ServerHandler} interface
      */
-    public static IServerHandler getServer() {
+    public static ServerHandler getServer() {
         return server;
     }
 

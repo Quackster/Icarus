@@ -2,11 +2,11 @@ package org.alexdev.icarus.server.api;
 
 import org.alexdev.icarus.messages.MessageComposer;
 
-public abstract class IPlayerNetwork {
+public abstract class PlayerNetwork {
 
     private int connectionId;
  
-    public IPlayerNetwork(int connectionId) {
+    public PlayerNetwork(int connectionId) {
         this.connectionId = connectionId;
     }
     

@@ -4,7 +4,7 @@ import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
 
 import org.alexdev.icarus.log.Log;
-import org.alexdev.icarus.server.api.IServerHandler;
+import org.alexdev.icarus.server.api.ServerHandler;
 import org.alexdev.icarus.server.netty.codec.NetworkDecoder;
 import org.alexdev.icarus.server.netty.codec.NetworkEncoder;
 import org.alexdev.icarus.server.netty.connections.ConnectionHandler;
@@ -14,7 +14,7 @@ import org.jboss.netty.channel.ChannelException;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 
-public class NettyServer extends IServerHandler {
+public class NettyServer extends ServerHandler {
 
     private NioServerSocketChannelFactory factory;
     private ServerBootstrap bootstrap;

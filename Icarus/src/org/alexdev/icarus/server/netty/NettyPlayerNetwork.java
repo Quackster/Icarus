@@ -1,10 +1,10 @@
 package org.alexdev.icarus.server.netty;
 
 import org.alexdev.icarus.messages.MessageComposer;
-import org.alexdev.icarus.server.api.IPlayerNetwork;
+import org.alexdev.icarus.server.api.PlayerNetwork;
 import org.jboss.netty.channel.Channel;
 
-public class NettyPlayerNetwork extends IPlayerNetwork {
+public class NettyPlayerNetwork extends PlayerNetwork {
 
     private Channel channel;
 

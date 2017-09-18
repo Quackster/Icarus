@@ -16,7 +16,7 @@ import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.HotelViewMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RoomForwardComposer;
 import org.alexdev.icarus.messages.outgoing.user.BroadcastMessageAlertComposer;
-import org.alexdev.icarus.server.api.IPlayerNetwork;
+import org.alexdev.icarus.server.api.PlayerNetwork;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
@@ -24,14 +24,14 @@ public class Player extends Entity {
     
     private String machineId;
     private PlayerDetails details;
-    private IPlayerNetwork network;
+    private PlayerNetwork network;
     private RoomUser roomUser;
     private Messenger messenger;
     private Inventory inventory;
     private ClubSubscription subscription;
     private boolean loggedIn;
 
-    public Player(IPlayerNetwork network) {
+    public Player(PlayerNetwork network) {
         this.network = network;
         this.details = new PlayerDetails(this);
         this.roomUser = new RoomUser(this);
@@ -201,7 +201,7 @@ for (Room room : RoomManager.getPlayerRooms(this.details.getId())) {
      *
      * @return the network
      */
-    public IPlayerNetwork getNetwork() {
+    public PlayerNetwork getNetwork() {
         return network;
     }
 

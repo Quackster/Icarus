@@ -2,7 +2,7 @@ package org.alexdev.icarus.server.api;
 
 import org.alexdev.icarus.messages.MessageHandler;
 
-public abstract class IServerHandler {
+public abstract class ServerHandler {
     
     private int port;
     private String ip;
@@ -11,7 +11,7 @@ public abstract class IServerHandler {
     /**
      * Instantiates a new i server handler.
      */
-    public IServerHandler() {
+    public ServerHandler() {
         this.messages = new MessageHandler();
     }
     
