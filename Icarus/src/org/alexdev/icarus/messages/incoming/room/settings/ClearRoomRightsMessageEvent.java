@@ -10,7 +10,7 @@ import org.alexdev.icarus.messages.outgoing.room.RightsLevelMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.settings.RightsRemovedComposer;
 import org.alexdev.icarus.server.api.messages.ClientMessage;;
 
-public class RemoveAllRightsMessageEvent implements MessageEvent {
+public class ClearRoomRightsMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
