@@ -68,7 +68,7 @@ public class Player extends Entity {
             }
 
             room.getEntityManager().removeEntity(this);
-            room.cleanup();
+            room.dispose();
             
             this.messenger.sendStatus(false);
             
@@ -102,7 +102,7 @@ public class Player extends Entity {
         PlayerManager.removePlayer(this);
         
 for (Room room : RoomManager.getPlayerRooms(this.details.getId())) {
-            room.cleanup(); 
+            room.dispose(); 
         }
 
     this.destroyObjects();

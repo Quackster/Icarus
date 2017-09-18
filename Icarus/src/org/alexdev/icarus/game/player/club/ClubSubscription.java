@@ -19,6 +19,13 @@ public class ClubSubscription {
         this.player = player;
     }
 
+    /**
+     * Update.
+     *
+     * @param userId the user id
+     * @param expireTime the expire time
+     * @param boughtTime the bought time
+     */
     public void update(int userId, long expireTime, long boughtTime) {
         this.userId = userId;
         this.expireTime = expireTime;
@@ -36,6 +43,11 @@ public class ClubSubscription {
         this.difference = this.expireTime - Util.getCurrentTimeSeconds();
     }
 
+    /**
+     * Checks for subscription.
+     *
+     * @return true, if successful
+     */
     public boolean hasSubscription() {
         
         if (this.userId == -1) {
@@ -53,6 +65,11 @@ public class ClubSubscription {
         return true;
     }
 
+    /**
+     * Gets the days left.
+     *
+     * @return the days left
+     */
     public int getDaysLeft() {
 
         if (this.hasSubscription()) {
@@ -68,6 +85,11 @@ public class ClubSubscription {
         return 0;
     }
 
+    /**
+     * Gets the months left.
+     *
+     * @return the months left
+     */
     public int getMonthsLeft() {
 
         if (this.hasSubscription()) {
@@ -83,6 +105,11 @@ public class ClubSubscription {
         return 0;
     }
 
+    /**
+     * Gets the years left.
+     *
+     * @return the years left
+     */
     public int getYearsLeft() {
 
         if (this.hasSubscription()) {
@@ -98,26 +125,54 @@ public class ClubSubscription {
         return 0;
     }
 
+    /**
+     * Gets the expire time.
+     *
+     * @return the expire time
+     */
     public long getExpireTime() {
         return expireTime;
     }
 
+    /**
+     * Sets the expire time.
+     *
+     * @param expireTime the new expire time
+     */
     public void setExpireTime(long expireTime) {
         this.expireTime = expireTime;
     }
 
+    /**
+     * Gets the bought time.
+     *
+     * @return the bought time
+     */
     public long getBoughtTime() {
         return boughtTime;
     }
 
+    /**
+     * Sets the bought time.
+     *
+     * @param boughtTime the new bought time
+     */
     public void setBoughtTime(long boughtTime) {
         this.boughtTime = boughtTime;
     }
 
+    /**
+     * Gets the difference.
+     *
+     * @return the difference
+     */
     public long getDifference() {
         return this.difference;
     }
 
+    /**
+     * Send subscription status.
+     */
     public void sendSubscriptionStatus() {
         this.player.send(new SubscriptionMessageComposer(this.player));
         this.player.send(new UserRightsComposer(this.player.getSubscription().hasSubscription(), this.player.getDetails().getRank()));

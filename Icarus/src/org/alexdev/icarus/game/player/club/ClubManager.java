@@ -10,6 +10,13 @@ import org.alexdev.icarus.util.Util;
 
 public class ClubManager {
 
+    /**
+     * Handle purchase.
+     *
+     * @param player the player
+     * @param bundleItem the bundle item
+     * @param amount the amount
+     */
     public static void handlePurchase(Player player, CatalogueBundledItem bundleItem, int amount) {
         
         int daysPurchased = 30 * amount;
@@ -29,6 +36,12 @@ public class ClubManager {
     }
     
 
+    /**
+     * Purchase days.
+     *
+     * @param player the player
+     * @param daysPurchased the days purchased
+     */
     public static void purchaseDays(Player player, int daysPurchased) {
 
         long currentTime = Util.getCurrentTimeSeconds();

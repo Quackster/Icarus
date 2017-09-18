@@ -4,6 +4,12 @@ import org.alexdev.icarus.dao.mysql.room.MoodlightDao;
 
 public class MoodlightManager {
     
+    /**
+     * Gets the moodlight data.
+     *
+     * @param itemId the item id
+     * @return the moodlight data
+     */
     public static MoodlightData getMoodlightData(int itemId) {
         
         MoodlightData data = null;
@@ -17,6 +23,12 @@ public class MoodlightManager {
         return data;
     }
     
+    /**
+     * Checks if is valid intensity.
+     *
+     * @param intensity the intensity
+     * @return true, if is valid intensity
+     */
     public static boolean isValidIntensity(int intensity) {
         
         if (intensity < 0 || intensity > 255) {
@@ -26,6 +38,12 @@ public class MoodlightManager {
         return true;
     }
     
+    /**
+     * Checks if is valid color.
+     *
+     * @param colorCode the color code
+     * @return true, if is valid color
+     */
     public static boolean isValidColor(String colorCode) {
         
         switch (colorCode) {

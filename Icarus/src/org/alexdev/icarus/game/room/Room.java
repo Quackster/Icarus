@@ -235,7 +235,7 @@ public class Room {
      * The third being that the owner of the room 
      * is offline (if this parameter is met then the room will be unloaded).
      */
-    public void cleanup() {
+    public void dispose() {
 
         if (this.entityManager.getPlayers().size() > 0) {
             return;

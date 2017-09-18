@@ -11,6 +11,8 @@ import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.util.Util;
 
+import com.google.common.collect.Lists;
+
 public class UserStatusMessageComposer extends MessageComposer {
 
     private List<Entity> users;
@@ -21,45 +23,42 @@ public class UserStatusMessageComposer extends MessageComposer {
 
 
     public UserStatusMessageComposer(List<Entity> users) {
-        this.users = users;
+        this.users = Lists.newArrayList(users);
     }
 
     @Override
     public void write() {
 
         this.response.init(Outgoing.UserStatusMessageComposer);
+        this.response.writeInt(this.users.size());
 
-        synchronized (this.users) {
+        for (Entity entity : this.users) {
 
-            this.response.writeInt(this.users.size());
+            RoomUser roomUser = entity.getRoomUser();
+            this.response.writeInt(roomUser.getVirtualId());
+            this.response.writeInt(roomUser.getPosition().getX());
+            this.response.writeInt(roomUser.getPosition().getY());
+            this.response.writeString(Util.format(roomUser.getPosition().getZ()));
+            this.response.writeInt(roomUser.getPosition().getHeadRotation());
+            this.response.writeInt(roomUser.getPosition().getBodyRotation());
 
-            for (Entity entity : this.users) {
-                
-                RoomUser roomUser = entity.getRoomUser();
-                this.response.writeInt(roomUser.getVirtualId());
-                this.response.writeInt(roomUser.getPosition().getX());
-                this.response.writeInt(roomUser.getPosition().getY());
-                this.response.writeString(Util.format(roomUser.getPosition().getZ()));
-                this.response.writeInt(roomUser.getPosition().getHeadRotation());
-                this.response.writeInt(roomUser.getPosition().getBodyRotation());
+            String statusString = "/";
 
-                String statusString = "/";
+            for (Entry<EntityStatus, String> status : roomUser.getStatuses().entrySet()) {
 
-                for (Entry<EntityStatus, String> status : roomUser.getStatuses().entrySet()) {
+                statusString += status.getKey().getStatusCode();
 
-                    statusString += status.getKey().getStatusCode();
-
-                    if (status.getValue().length() > 0) {
-                        statusString += " ";
-                        statusString += status.getValue();
-                    }
-
-                    statusString += "/";
+                if (status.getValue().length() > 0) {
+                    statusString += " ";
+                    statusString += status.getValue();
                 }
 
-                statusString += " ";
-                this.response.writeString(statusString);
+                statusString += "/";
             }
+
+            statusString += "/";
+            
+            this.response.writeString(statusString);
         }
     }
 }

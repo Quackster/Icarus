@@ -12,13 +12,9 @@ public enum ChatType {
         
         if (this == CHAT) {
             return Outgoing.ChatMessageComposer;
-        }
-        
-        if (this == SHOUT) {
+        } else if (this == SHOUT) {
             return Outgoing.ShoutMessageComposer;
-        }
-        
-        if (this == WHISPER) {
+        } else if (this == WHISPER) {
             return Outgoing.WhisperMessageComposer;
         }
         
@@ -26,16 +22,12 @@ public enum ChatType {
     }
 
     public PluginEvent getEvent() {
-
+        
         if (this == CHAT) {
             return PluginEvent.ROOM_PLAYER_CHAT_EVENT;
-        }
-        
-        if (this == SHOUT) {
+        } else if (this == SHOUT) {
             return PluginEvent.ROOM_PLAYER_SHOUT_EVENT;
-        }
-        
-        if (this == WHISPER) {
+        }else if (this == WHISPER) {
             return PluginEvent.ROOM_PLAYER_WHISPER_EVENT;
         }
         
