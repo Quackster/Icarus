@@ -191,7 +191,6 @@ public class RoomEntityManager {
         List<Entity> entities = Lists.newArrayList();
 
         for (Entity entity : this.entities) {
-
             for (EntityType type : types) {
                 if (type.equals(entity.getType())) {
                     entities.add(entity);

@@ -49,7 +49,7 @@ public class UserStatusMessageComposer extends MessageComposer {
 
                     statusString += status.getKey().getStatusCode();
 
-                    if (!status.getValue().isEmpty()) {
+                    if (status.getValue().length() > 0) {
                         statusString += " ";
                         statusString += status.getValue();
                     }

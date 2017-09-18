@@ -8,13 +8,13 @@ import org.alexdev.icarus.server.netty.NettyPlayerNetwork;
 import org.jboss.netty.channel.Channel;
 
 public class SessionManager {
-    
+
     private ConcurrentMap<Integer, Player> sessions;
-    
+
     public SessionManager() {
         sessions = new ConcurrentHashMap<Integer, Player>();
     }
-    
+
     /**
      * Adds the session.
      *
@@ -22,7 +22,7 @@ public class SessionManager {
      * @return true, if successful
      */
     public boolean addSession(Channel channel) {
-        
+
         Player player = new Player(new NettyPlayerNetwork(channel, channel.getId()));
         channel.setAttachment(player);
 
@@ -35,11 +35,9 @@ public class SessionManager {
      * @param channel the channel
      */
     public void removeSession(Channel channel) { 
-       
-        try {
+
+        if (sessions.containsKey(channel.getId())) {
             sessions.remove(channel.getId());
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
