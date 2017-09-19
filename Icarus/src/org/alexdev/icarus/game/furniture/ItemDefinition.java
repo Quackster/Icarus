@@ -10,6 +10,7 @@ import org.alexdev.icarus.util.Util;
 
 public class ItemDefinition {
 
+    /** The id. */
     private int id;
     private String publicName;
     private String itemName;
@@ -27,7 +28,7 @@ public class ItemDefinition {
     private boolean allowGift;
     private boolean allowInventoryStack;
     private InteractionType interactionType;
-    private int interationModes;
+    private int interactionModes;
     private String[] vendingIds;
     private double[] variableHeight;
 
@@ -43,7 +44,6 @@ public class ItemDefinition {
         this.width = width;
         this.length = length;
         this.height = stackHeight;
-        //this.canStack = canStack;
         this.canSit = canSit;
         this.isWalkable = isWalkable;
         this.spriteId = spriteId;
@@ -53,7 +53,7 @@ public class ItemDefinition {
         this.allowGift = allowGift;
         this.allowInventoryStack = allowInventoryStack;
         this.interactionType = interactionType;
-        this.interationModes = interationModes;
+        this.interactionModes = interationModes;
         this.vendingIds = vendingIds.isEmpty() ? new String[0] : vendingIds.split(",");
 
         if (adjustableHeights.length() > 0) {
@@ -70,6 +70,12 @@ public class ItemDefinition {
         }
     }   
 
+    /**
+     * Handle definition purchase.
+     *
+     * @param player the player
+     * @param extraData the extra data
+     */
     public void handleDefinitionPurchase(Player player, String extraData) {
         
         Item inventoryItem = InventoryDao.newItem(this.id, player.getDetails().getId(), extraData);
@@ -100,38 +106,83 @@ public class ItemDefinition {
         player.getInventory().addItem(inventoryItem, InventoryNotification.ALERT);
     }
     
+    /**
+     * Checks if is ads furni.
+     *
+     * @return true, if is ads furni
+     */
     public boolean isAdsFurni() {
         return this.itemName.equals("ads_background");
     }
     
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Gets the public name.
+     *
+     * @return the public name
+     */
     public String getPublicName() {
         return publicName;
     }
 
+    /**
+     * Gets the item name.
+     *
+     * @return the item name
+     */
     public String getItemName() {
         return itemName;
     }
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Gets the width.
+     *
+     * @return the width
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * Gets the length.
+     *
+     * @return the length
+     */
     public int getLength() {
         return length;
     }
 
+    /**
+     * Gets the height.
+     *
+     * @return the height
+     */
     public double getHeight() {
         return height;
     }
 
+    /**
+     * Allow stack.
+     *
+     * @return true, if successful
+     */
     public boolean allowStack() {
 
         if (this.canSit) {
@@ -153,50 +204,110 @@ public class ItemDefinition {
         return true;
     }
 
+    /**
+     * Allow sit.
+     *
+     * @return true, if successful
+     */
     public boolean allowSit() {
         return canSit;
     }
 
+    /**
+     * Checks if is walkable.
+     *
+     * @return true, if is walkable
+     */
     public boolean isWalkable() {
         return isWalkable;
     }
 
+    /**
+     * Gets the sprite id.
+     *
+     * @return the sprite id
+     */
     public int getSpriteId() {
         return spriteId;
     }
 
+    /**
+     * Allow recycle.
+     *
+     * @return true, if successful
+     */
     public boolean allowRecycle() {
         return allowRecycle;
     }
 
+    /**
+     * Allow trade.
+     *
+     * @return true, if successful
+     */
     public boolean allowTrade() {
         return allowTrade;
     }
 
+    /**
+     * Allow marketplace sell.
+     *
+     * @return true, if successful
+     */
     public boolean allowMarketplaceSell() {
         return allowMarketplaceSell;
     }
 
+    /**
+     * Allow gift.
+     *
+     * @return true, if successful
+     */
     public boolean allowGift() {
         return allowGift;
     }
 
+    /**
+     * Allow inventory stack.
+     *
+     * @return true, if successful
+     */
     public boolean allowInventoryStack() {
         return allowInventoryStack;
     }
 
+    /**
+     * Checks if is roller.
+     *
+     * @return true, if is roller
+     */
     public boolean isRoller() {
         return interactionType == InteractionType.ROLLER;
     }
 
+    /**
+     * Gets the interaction type.
+     *
+     * @return the interaction type
+     */
     public InteractionType getInteractionType() {
         return interactionType;
     }
 
-    public int getInterationModes() {
-        return interationModes;
+    /**
+     * Gets the interaction modes.
+     *
+     * @return the interaction modes
+     */
+    public int getInteractionModes() {
+        return interactionModes;
     }
 
+    /**
+     * Gets the vending id.
+     *
+     * @return the vending id
+     */
     public int getVendingId() {
 
         if (this.vendingIds.length > 0) {
@@ -207,6 +318,11 @@ public class ItemDefinition {
         return -1;
     }
 
+    /**
+     * Gets the variable height.
+     *
+     * @return the variable height
+     */
     public double[] getVariableHeight() {
         return variableHeight;
     }

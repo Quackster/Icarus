@@ -14,6 +14,15 @@ public class Rotation {
     }
     */
     
+    /**
+     * Calculate.
+     *
+     * @param x1 the x 1
+     * @param y1 the y 1
+     * @param X2 the x2
+     * @param Y2 the y2
+     * @return the int
+     */
     public static int calculate(int x1, int y1, int X2, int Y2) {
         int rotation = 0;
 

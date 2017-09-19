@@ -12,7 +12,7 @@ public class DefaultInteractor implements Interaction {
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {
         
-        int modes = item.getDefinition().getInterationModes();
+        int modes = item.getDefinition().getInteractionModes();
         int current_mode = Util.isNumber(item.getExtraData()) ? Integer.valueOf(item.getExtraData()) : 0;
         int new_mode = current_mode + 1;
         

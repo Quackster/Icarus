@@ -238,11 +238,6 @@ public class MessageHandler {
         this.registerEvent(Incoming.SaveBrandingMessageEvent, new SaveBrandingMessageEvent());
     }
     
-    /*[17-09-2017 02:09:23] [ICARUS] >> Received: 3136 / [0][0][0][2][0][0][0][2] -- accept
-[17-09-2017 02:09:25] [ICARUS] >> Received: 1308 / [0][0][0][2][0][0][0][2] -- reject
-
-*/
-    
     /**
      * Register group packets.
      */

@@ -42,7 +42,7 @@ public class FloorItemsMessageComposer extends MessageComposer {
             ItemUtil.generateExtraData(floorItem, this.response);
 
             this.response.writeInt(-1);
-            this.response.writeInt(floorItem.getDefinition().getInterationModes() > 0 ? 1 : 0);
+            this.response.writeInt(floorItem.getDefinition().getInteractionModes() > 0 ? 1 : 0);
             this.response.writeInt(floorItem.getOwnerId());
         }
     }

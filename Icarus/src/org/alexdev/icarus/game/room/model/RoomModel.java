@@ -25,18 +25,14 @@ public class RoomModel {
     
     public final static int OPEN = 0;
     public final static int CLOSED = 1;
-
+    
     private String name;
     private String heightmap;
-
     private Position doorLocation;
-
     private int mapSizeX;
     private int mapSizeY;
-
     private int[][] squares;
     private double[][] squareHeight;
-    
     private String relativeHeightmap;
 
     public RoomModel(String name, String heightmap, int doorX, int doorY, int doorZ, int doorRot) {
@@ -85,6 +81,9 @@ public class RoomModel {
         this.generateRelativeHeightmap();
     }
 
+    /**
+     * Generate relative heightmap.
+     */
     private void generateRelativeHeightmap() {
 
         StringBuilder relativeMap = new StringBuilder();
@@ -126,6 +125,12 @@ public class RoomModel {
         this.relativeHeightmap = relativeMap.toString();
     }
 
+    /**
+     * Parses the.
+     *
+     * @param input the input
+     * @return the double
+     */
     public static double parse(char input) {
 
         switch (input) {
@@ -201,14 +206,32 @@ public class RoomModel {
         }
     }
 
+    /**
+     * Gets the height.
+     *
+     * @param point the point
+     * @return the height
+     */
     public double getHeight(Position point) {
         return squareHeight[point.getX()][point.getY()];
     }
 
+    /**
+     * Gets the height map.
+     *
+     * @return the height map
+     */
     public String getHeightMap() {
         return heightmap;
     }
 
+    /**
+     * Checks for invalid coordinates.
+     *
+     * @param x the x
+     * @param y the y
+     * @return true, if successful
+     */
     public boolean hasInvalidCoordinates(int x, int y) {
         if (x >= this.mapSizeX) {
             return true;
@@ -229,38 +252,87 @@ public class RoomModel {
         return false;
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the door location.
+     *
+     * @return the door location
+     */
     public Position getDoorLocation() {
         return doorLocation;
     }
 
+    /**
+     * Gets the map size X.
+     *
+     * @return the map size X
+     */
     public int getMapSizeX() {
         return mapSizeX;
     }
 
+    /**
+     * Gets the map size Y.
+     *
+     * @return the map size Y
+     */
     public int getMapSizeY() {
         return mapSizeY;
     }
 
+    /**
+     * Gets the height.
+     *
+     * @param x the x
+     * @param y the y
+     * @return the height
+     */
     public double getHeight(int x, int y) {
         return squareHeight[x][y];
     }
 
+    /**
+     * Checks if is blocked.
+     *
+     * @param x the x
+     * @param y the y
+     * @return true, if is blocked
+     */
     public boolean isBlocked(int x, int y) {
         return squares[x][y] == RoomModel.CLOSED;
     }
 
+    /**
+     * Gets the relative heightmap.
+     *
+     * @return the relative heightmap
+     */
     public String getRelativeHeightmap() {
         return relativeHeightmap;
     }
 
+    /**
+     * Sets the relative heightmap.
+     *
+     * @param relativeHeightmap the new relative heightmap
+     */
     public void setRelativeHeightmap(String relativeHeightmap) {
         this.relativeHeightmap = relativeHeightmap;
     }
 
+    /**
+     * Gets the wall height.
+     *
+     * @return the wall height
+     */
     public int getWallHeight() {
         return -1;
     }

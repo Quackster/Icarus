@@ -12,6 +12,9 @@ public class ItemManager {
     private static Map<Integer, ItemDefinition> furnitureIds;
     private static Map<Integer, ItemDefinition> furnitureSpriteIds;
 
+    /**
+     * Load all item definitions.
+     */
     public static void load() {
         furnitureIds = ItemDao.getFurniture();
         furnitureSpriteIds = Maps.newHashMap();
@@ -21,6 +24,12 @@ public class ItemManager {
         }
     }
 
+    /**
+     * Gets the furniture by id.
+     *
+     * @param id the id
+     * @return the furniture by id
+     */
     public static ItemDefinition getFurnitureById(int id) {
 
         if (furnitureIds.containsKey(id)) {
@@ -30,6 +39,12 @@ public class ItemManager {
         return null;
     }
 
+    /**
+     * Gets the furniture by sprite id.
+     *
+     * @param id the id
+     * @return the furniture by sprite id
+     */
     public static ItemDefinition getFurnitureBySpriteId(int id) {
 
         if (furnitureIds.containsKey(id)) {

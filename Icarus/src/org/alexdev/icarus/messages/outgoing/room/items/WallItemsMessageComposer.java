@@ -33,7 +33,7 @@ public class WallItemsMessageComposer extends MessageComposer {
             this.response.writeString(wallItem.getWallPosition());
             this.response.writeString(wallItem.getExtraData());
             this.response.writeInt(-1);
-            this.response.writeInt(wallItem.getDefinition().getInterationModes() > 0 ? 1 : 0);
+            this.response.writeInt(wallItem.getDefinition().getInteractionModes() > 0 ? 1 : 0);
             this.response.writeInt(wallItem.getOwnerId());
         }
     }

@@ -32,7 +32,7 @@ public class PlaceItemMessageComposer extends MessageComposer {
             ItemUtil.generateExtraData(item, response);
 
             this.response.writeInt(-1);
-            this.response.writeInt(this.item.getDefinition().getInterationModes() > 0 ? 1 : 0);
+            this.response.writeInt(this.item.getDefinition().getInteractionModes() > 0 ? 1 : 0);
             this.response.writeInt(this.item.getOwnerId());
             this.response.writeString(this.item.getOwnerName());
 
@@ -45,7 +45,7 @@ public class PlaceItemMessageComposer extends MessageComposer {
             this.response.writeString(item.getWallPosition());
             this.response.writeString(item.getExtraData());
             this.response.writeInt(-1);
-            this.response.writeInt(item.getDefinition().getInterationModes() > 0 ? 1 : 0);
+            this.response.writeInt(item.getDefinition().getInteractionModes() > 0 ? 1 : 0);
             this.response.writeInt(this.item.getOwnerId());
             this.response.writeString(this.item.getOwnerName());
         }
