@@ -11,10 +11,21 @@ public enum RoomType {
         this.typeCode = typeCode;
     }
     
+    /**
+     * Gets the type code.
+     *
+     * @return the type code
+     */
     public int getTypeCode() {
         return typeCode;
     }
     
+    /**
+     * Gets the type.
+     *
+     * @param type the type
+     * @return the type
+     */
     public static RoomType getType(int type) {
         
         for (RoomType state : values()) {

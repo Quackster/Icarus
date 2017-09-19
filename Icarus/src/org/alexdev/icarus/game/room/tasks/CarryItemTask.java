@@ -6,16 +6,19 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.scheduler.RoomTask;
+import org.alexdev.icarus.game.room.scheduler.TaskType;
 import org.alexdev.icarus.game.room.user.RoomUser;
 
 public class CarryItemTask implements RoomTask {
 
     private Room room;
+    private TaskType type;
 
     public CarryItemTask(Room room) {
         this.room = room;
     }
 
+    @Override
     public void execute() {
 
         if (this.room.getEntityManager().getEntities().size() == 0) {
@@ -40,5 +43,15 @@ public class CarryItemTask implements RoomTask {
                 }
             }
         }
+    }
+
+    @Override
+    public TaskType getType() {
+        return type;
+    }
+
+    @Override
+    public void setThreadType(TaskType type) {
+        this.type = type;
     }
 }

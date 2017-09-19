@@ -9,6 +9,7 @@ import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.scheduler.RoomTask;
+import org.alexdev.icarus.game.room.scheduler.TaskType;
 import org.alexdev.icarus.messages.outgoing.room.items.SlideObjectMessageComposer;
 
 import com.google.common.collect.Lists;
@@ -16,11 +17,13 @@ import com.google.common.collect.Lists;
 public class RollerTask implements RoomTask {
 
     private Room room;
+    private TaskType type;
 
     public RollerTask(Room room) {
         this.room = room;
     }
 
+    @Override
     public void execute() {
 
         boolean redoMap = false;
@@ -141,5 +144,15 @@ public class RollerTask implements RoomTask {
                 this.room.getMapping().regenerateCollisionMaps();
             }
         }
+    }
+    
+    @Override
+    public TaskType getType() {
+        return type;
+    }
+
+    @Override
+    public void setThreadType(TaskType type) {
+        this.type = type;
     }
 }

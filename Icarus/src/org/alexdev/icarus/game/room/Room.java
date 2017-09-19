@@ -17,6 +17,7 @@ import org.alexdev.icarus.game.room.managers.RoomItemManager;
 import org.alexdev.icarus.game.room.model.RoomMapping;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.game.room.scheduler.RoomScheduler;
+import org.alexdev.icarus.game.room.scheduler.TaskType;
 import org.alexdev.icarus.game.room.tasks.CarryItemTask;
 import org.alexdev.icarus.game.room.tasks.PetTask;
 import org.alexdev.icarus.game.room.tasks.RollerTask;
@@ -48,9 +49,10 @@ public class Room {
      * Register the tasks required for room functionality
      */
     public void scheduleEvents() {
-        this.scheduler.addScheduleEvent(1, TimeUnit.SECONDS, new CarryItemTask(this));
-        this.scheduler.addScheduleEvent(4, TimeUnit.SECONDS, new RollerTask(this));
-        this.scheduler.addScheduleEvent(5, TimeUnit.SECONDS, new PetTask(this));
+        this.scheduler.scheduleEvent(1, TimeUnit.SECONDS, TaskType.REPEAT, new CarryItemTask(this));
+        this.scheduler.scheduleEvent(4, TimeUnit.SECONDS, TaskType.REPEAT, new RollerTask(this));
+        this.scheduler.scheduleEvent(5, TimeUnit.SECONDS, TaskType.REPEAT, new PetTask(this));
+        this.scheduler.scheduleEvent(1, TimeUnit.SECONDS, TaskType.REPEAT, new CarryItemTask(this));
     }
 
     /**
@@ -259,6 +261,7 @@ public class Room {
         }
 
         RoomManager.removeRoom(this.data.getId());
+        
         this.destroyObjects();
     }
 

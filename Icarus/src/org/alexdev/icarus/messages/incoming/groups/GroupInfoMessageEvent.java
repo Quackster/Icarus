@@ -12,13 +12,7 @@ public class GroupInfoMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
         
-        int groupId = reader.readInt();
-        
-        if (!(groupId > 0)) {
-            return;
-        }
-        
-        Group group = GroupManager.getGroup(groupId);
+        Group group = GroupManager.getGroup(reader.readInt());
         
         if (group == null) {
             return;

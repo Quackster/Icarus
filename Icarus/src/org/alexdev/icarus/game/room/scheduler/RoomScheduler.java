@@ -29,7 +29,7 @@ public class RoomScheduler implements Runnable {
     public RoomScheduler (Room room) {
         this.room = room;
         this.counter = new AtomicLong();
-        this.tasks = Maps.newHashMap();
+        this.tasks = Maps.newConcurrentMap();
         this.movementTask = new MovementTask(room);
     }
 
@@ -47,6 +47,8 @@ public class RoomScheduler implements Runnable {
                     for (RoomTask task : kvp.getValue()) {
                         task.execute();
                     }
+                    
+                    
                 }
             }
             
@@ -102,7 +104,7 @@ public class RoomScheduler implements Runnable {
      * @param measurement the measurement
      * @param task the task
      */
-    public void addScheduleEvent(int number, TimeUnit measurement, RoomTask task) {
+    public void scheduleEvent(int number, TimeUnit measurement,TaskType taskType, RoomTask task) {
         
         long taskInSeconds = measurement.toSeconds(number);
         
@@ -111,5 +113,25 @@ public class RoomScheduler implements Runnable {
         }
         
         this.tasks.get(taskInSeconds).add(task);
+    }
+    
+    /**
+     * Gets the task by class.
+     *
+     * @param <T> the generic type
+     * @param taskClass the task class
+     * @return the task by class
+     */
+    public <T> T getTaskByClass(Class<T> taskClass) {
+        
+        for (List<RoomTask> taskDurationList : this.tasks.values()) {
+            for (RoomTask task : taskDurationList) {
+                if (task.getClass().isAssignableFrom(taskClass)) {
+                    return taskClass.cast(task);
+                }
+            }
+        }
+        
+        return null;
     }
 }
