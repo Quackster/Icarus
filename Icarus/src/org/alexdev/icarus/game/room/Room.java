@@ -9,7 +9,6 @@ import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
 import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.groups.GroupManager;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.enums.RoomType;
 import org.alexdev.icarus.game.room.managers.RoomEntityManager;
@@ -56,7 +55,7 @@ public class Room {
     }
 
     /**
-     * Checks for rights.
+     * Checks for rights, including ownership.
      *
      * @param userId the user id
      * @param ownerCheckOnly the owner check only
@@ -71,6 +70,12 @@ public class Room {
         }
     }
     
+    /**
+     * Checks for ownership.
+     *
+     * @param userId the user id
+     * @return true, if successful
+     */
     public boolean hasOwnership(int userId) {
         return this.data.getOwnerId() == userId;
     }
