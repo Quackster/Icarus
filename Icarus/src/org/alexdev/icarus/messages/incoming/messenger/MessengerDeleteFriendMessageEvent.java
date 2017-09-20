@@ -23,14 +23,14 @@ public class MessengerDeleteFriendMessageEvent implements MessageEvent {
                 MessengerUser friend = player.getMessenger().getFriend(friendId);
 
                 if (friend.isUserOnline()) {
-                    friend.getPlayer().getMessenger().removeFriend(player.getDetails().getId());
-                    friend.getPlayer().send(new RemoveFriendMessageComposer(player.getDetails().getId()));
+                    friend.getPlayer().getMessenger().removeFriend(player.getEntityId());
+                    friend.getPlayer().send(new RemoveFriendMessageComposer(player.getEntityId()));
                 }    
                 
                 player.getMessenger().removeFriend(friendId);
                 player.send(new RemoveFriendMessageComposer(friendId));
                 
-                MessengerDao.removeFriend(friendId, player.getDetails().getId());
+                MessengerDao.removeFriend(friendId, player.getEntityId());
             }
         }
     }

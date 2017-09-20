@@ -31,13 +31,13 @@ public class MessengerRequestMessageEvent implements MessageEvent {
 
         //TODO: Check if they have blocked friend requests
 
-        if (MessengerDao.newRequest(player.getDetails().getId(), userId)) {
+        if (MessengerDao.newRequest(player.getEntityId(), userId)) {
 
             MessengerUser user = new MessengerUser(userId);
             player.getMessenger().getRequests().add(user);
 
             if (user.isUserOnline()) {
-                user.getPlayer().send(new MessengerSendRequest(player.getDetails().getId(), player.getDetails().getName(), player.getDetails().getFigure()));
+                user.getPlayer().send(new MessengerSendRequest(player.getEntityId(), player.getDetails().getName(), player.getDetails().getFigure()));
             }
         }
     }

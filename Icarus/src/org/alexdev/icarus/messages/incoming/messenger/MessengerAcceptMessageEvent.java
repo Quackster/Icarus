@@ -16,7 +16,7 @@ public class MessengerAcceptMessageEvent implements MessageEvent {
     
         for (int i = 0; i < amount; i++) {
             
-            int toId = player.getDetails().getId();
+            int toId = player.getEntityId();
             int fromId = request.readInt();
             
             MessengerDao.removeRequest(fromId, toId);

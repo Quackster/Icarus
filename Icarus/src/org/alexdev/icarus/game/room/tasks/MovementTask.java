@@ -17,53 +17,53 @@ import com.google.common.collect.Lists;
 public class MovementTask implements Runnable {
 
     private Room room;
-    private List<Entity> entitiesToUpdate;
-    
+
     public MovementTask(Room room) {
         this.room = room;
-        this.entitiesToUpdate = Lists.newArrayList();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Runnable#run()
+     */
     @Override
     public void run() {
 
-        this.entitiesToUpdate.clear();
-        
-        try {
-            if (this.room.getEntityManager().getEntities().size() == 0) {
-                return;
-            }
+        if (this.room.getEntityManager().getEntities().size() == 0) {
+            return;
+        }
 
-            List<Entity> entities = this.room.getEntityManager().getEntities();
+        List<Entity> entities = this.room.getEntityManager().getEntities();
+        List<Entity> entitiesToUpdate = Lists.newArrayList();
 
+        for (int i = 0; i < entities.size(); i++) {
 
-            for (int i = 0; i < entities.size(); i++) {
+            Entity entity = entities.get(i);
 
-                Entity entity = entities.get(i);
+            if (entity != null) {
+                if (entity.getRoomUser() != null) {
 
-                if (entity != null) {
-                    if (entity.getRoomUser() != null) {
+                    this.processEntity(entity);
 
-                        this.processEntity(entity);
+                    RoomUser roomEntity = entity.getRoomUser();
 
-                        RoomUser roomEntity = entity.getRoomUser();
-
-                        if (roomEntity.getNeedsUpdate()) {
-                            roomEntity.setNeedsUpdate(false);
-                            this.entitiesToUpdate.add(entity);
-                        }
+                    if (roomEntity.getNeedsUpdate()) {
+                        roomEntity.setNeedsUpdate(false);
+                        entitiesToUpdate.add(entity);
                     }
                 }
             }
+        }
 
-            if (this.entitiesToUpdate.size() > 0) {
-                this.room.send(new UserStatusMessageComposer(this.entitiesToUpdate));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (entitiesToUpdate.size() > 0) {
+            this.room.send(new UserStatusMessageComposer(entitiesToUpdate));
         }
     }
 
+    /**
+     * Process entity.
+     *
+     * @param entity the entity
+     */
     private void processEntity(Entity entity) {
 
         RoomUser roomUser = entity.getRoomUser();
@@ -72,19 +72,19 @@ public class MovementTask implements Runnable {
         Position goal = roomUser.getGoal();
 
         if (roomUser.isWalking()) {
-            
+
             // Apply next tile from the tile we removed from the list the cycle before
             if (roomUser.getNextPosition() != null) {
                 roomUser.getPosition().setX(roomUser.getNextPosition().getX());
                 roomUser.getPosition().setY(roomUser.getNextPosition().getY());
                 roomUser.updateNewHeight(roomUser.getNextPosition());
             }
-            
+
             // We still have more tiles left, so lets continue moving
             if (roomUser.getPath().size() > 0) {
-                
+
                 Position next = roomUser.getPath().pop();
-                
+
                 if (!roomUser.getRoom().getMapping().isTileWalkable(entity, next.getX(), next.getY())) {
                     roomUser.walkTo(goal.getX(), goal.getY()); // Tile was invalid after we started walking, so lets try again!
                     this.processEntity(entity);
@@ -107,15 +107,15 @@ public class MovementTask implements Runnable {
                 roomUser.setStatus(EntityStatus.MOVE, next.getX() + "," + next.getY() + "," + Util.format(height));
                 roomUser.setNextPosition(next);
             } else {
-                
+
                 // No more tiles left, so lets stop walking and interact with any furniture nearby
                 roomUser.setNextPosition(null);
                 roomUser.setWalking(false);
                 roomUser.removeStatus(EntityStatus.MOVE);
                 roomUser.handleNearbyItem();
-                
+
             }
-            
+
             // If we're walking, make sure to tell the server
             roomUser.setNeedsUpdate(true);
         }

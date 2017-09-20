@@ -33,7 +33,7 @@ public class WelcomeMessageEvent implements MessageEvent {
                 return;
             }
             
-            if (!offer.isUserBlacklisted(player.getDetails().getId())) {
+            if (!offer.isUserBlacklisted(player.getEntityId())) {
                 player.send(new TargettedOfferDataComposer(offer));
             }
         }

@@ -10,6 +10,11 @@ public class AdjustableHeightInteractor implements Interaction {
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {
         
+        if (item.getDefinition().requiresRights()) {
+            
+            return;
+        }
+        
         int modes = item.getDefinition().getVariableHeight().length;
         int current_mode = Util.isNumber(item.getExtraData()) ? Integer.valueOf(item.getExtraData()) : 0;
         int new_mode = current_mode + 1;
@@ -25,6 +30,7 @@ public class AdjustableHeightInteractor implements Interaction {
         item.save();
         
         item.getRoom().getMapping().regenerateCollisionMaps();
+        item.updateEntities();
         
     }
     

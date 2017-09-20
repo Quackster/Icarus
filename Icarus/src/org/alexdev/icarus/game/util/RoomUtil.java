@@ -90,16 +90,16 @@ public class RoomUtil {
             player.send(new RoomSpacesMessageComposer("wallpaper", room.getData().getWall()));
         }
         
-        boolean isOwner = roomUser.getRoom().hasRights(player.getDetails().getId(), true);
+        boolean isOwner = roomUser.getRoom().hasOwnership(player.getEntityId());
  
         player.send(new RoomSpacesMessageComposer("landscape", room.getData().getLandscape()));
         player.send(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
         
-        if (isOwner) {
+        if (isOwner || player.getDetails().hasPermission("room_all_rights")) {
             player.send(new RightsLevelMessageComposer(4));
             player.send(new OwnerRightsMessageComposer());
 
-        } else if (roomUser.getRoom().hasRights(player.getDetails().getId(), false)) {
+        } else if (roomUser.getRoom().hasRights(player.getEntityId())) {
             player.send(new RightsLevelMessageComposer(1));
 
         } else {
@@ -162,9 +162,9 @@ public class RoomUtil {
             }
         }
 
-        if (player.getDetails().hasPermission("room_all_rights") || room.getData().getOwnerId() == player.getDetails().getId()) {
+        if (player.getDetails().hasPermission("room_all_rights") || room.getData().getOwnerId() == player.getEntityId()) {
             player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "4");
-        } else if (room.hasRights(player.getDetails().getId(), false)) {
+        } else if (room.hasRights(player.getEntityId())) {
             player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "1");
         }        
 

@@ -19,7 +19,7 @@ public class MessengerTalkMessageEvent implements MessageEvent {
         int friendId = request.readInt();
         String message = request.readString();
         
-        InstantMessage msg = new InstantMessage(player.getDetails().getId(), friendId, message);
+        InstantMessage msg = new InstantMessage(player.getEntityId(), friendId, message);
         
         boolean isCancelled = PluginManager.callEvent(PluginEvent.MESSENGER_TALK_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(msg) });
         
@@ -37,7 +37,7 @@ public class MessengerTalkMessageEvent implements MessageEvent {
         MessengerUser friend = player.getMessenger().getFriend(friendId);
         
         if (friend.isUserOnline()) {
-            friend.getPlayer().send(new MessengerMessageComposer(player.getDetails().getId(), message));
+            friend.getPlayer().send(new MessengerMessageComposer(player.getEntityId(), message));
         } else {
             // TODO: Offline messaging
         }

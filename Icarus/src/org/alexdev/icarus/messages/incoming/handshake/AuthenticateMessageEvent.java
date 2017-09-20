@@ -47,7 +47,7 @@ public class AuthenticateMessageEvent implements MessageEvent {
         player.send(new AvailabilityMessageComposer());
         
         PlayerManager.addPlayer(player);
-        RoomDao.getPlayerRooms(player.getDetails().getId(), true);
+        RoomDao.getPlayerRooms(player.getEntityId(), true);
         
         player.getInventory().init();
         player.getMessenger().init();

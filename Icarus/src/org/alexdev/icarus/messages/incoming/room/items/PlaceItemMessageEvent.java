@@ -26,7 +26,7 @@ public class PlaceItemMessageEvent implements MessageEvent {
             return;
         }
 
-        if (!room.hasRights(player.getDetails().getId(), false)) {
+        if (!room.hasRights(player.getEntityId()) && !player.getDetails().hasPermission("room_all_rights")) {
             return;
         }
 
@@ -52,13 +52,11 @@ public class PlaceItemMessageEvent implements MessageEvent {
         }
 
         if (item.getType() == ItemType.WALL) {
-            
             String[] pos = input.split(":")[1].split(" ");
             item.parseWallPosition(pos[2] + "," + pos[0].substring(2) + " " + pos[1].substring(2));
         }
 
         if (item.getType() == ItemType.FLOOR) {
-
             int x = Integer.parseInt(data[1]);
             int y = Integer.parseInt(data[2]);
             int rotation = Integer.parseInt(data[3]);

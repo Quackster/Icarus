@@ -22,8 +22,8 @@ public class GroupRemoveMemberMessageEvent implements MessageEvent {
             return;
         }
         
-        boolean isOwner = group.getOwnerId() == player.getDetails().getId();
-        boolean isAdmin = group.getMemberManager().isMemberType(player.getDetails().getId(), GroupMemberType.ADMINISTRATOR);
+        boolean isOwner = group.getOwnerId() == player.getEntityId();
+        boolean isAdmin = group.getMemberManager().isMemberType(player.getEntityId(), GroupMemberType.ADMINISTRATOR);
    
         if (!isOwner && !isAdmin) {
             return;

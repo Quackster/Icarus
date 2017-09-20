@@ -30,7 +30,7 @@ public class GroupPurchaseMessageEvent implements MessageEvent {
         
         Room room = RoomManager.getByRoomId(roomId);
         
-        if (!room.hasRights(player.getDetails().getId(), true)) {
+        if (!room.hasOwnership(player.getEntityId())) {
             return;
         }
         
@@ -54,7 +54,7 @@ public class GroupPurchaseMessageEvent implements MessageEvent {
         }
 
         String badge = BadgeUtil.generate(groupBase, groupBaseColour, groupItems);
-        Group group = GroupDao.createGroup(name, desc, badge, player.getDetails().getId(), roomId, Util.getCurrentTimeSeconds(), colourA, colourB);
+        Group group = GroupDao.createGroup(name, desc, badge, player.getEntityId(), roomId, Util.getCurrentTimeSeconds(), colourA, colourB);
         
         room.getData().setGroupId(group.getId());
         room.loadGroup();

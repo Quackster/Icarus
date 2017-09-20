@@ -62,28 +62,17 @@ public class Room {
      * @param ownerCheckOnly the owner check only
      * @return true, if successful
      */
-    public boolean hasRights(int userId, boolean ownerCheckOnly) {
-
-        PlayerDetails details = PlayerManager.getPlayerData(userId);
-
-        if (details != null) {
-
-            if (details.hasPermission("room_all_rights")) {
-                return true;
-            }
-        }
+    public boolean hasRights(int userId) {
 
         if (this.data.getOwnerId() == userId) {
-
             return true;
         } else {
-
-            if (!ownerCheckOnly) {
-                return this.rights.contains(Integer.valueOf(userId));
-            }
+            return this.rights.contains(Integer.valueOf(userId));
         }
-
-        return false;
+    }
+    
+    public boolean hasOwnership(int userId) {
+        return this.data.getOwnerId() == userId;
     }
 
     /**
@@ -95,7 +84,7 @@ public class Room {
 
         for (Player player : this.getEntityManager().getPlayers()) {
 
-            if (this.hasRights(player.getDetails().getId(), false)) {
+            if (this.hasRights(player.getEntityId())) {
                 player.send(response);
             }
         }
@@ -347,4 +336,5 @@ public class Room {
     public RoomScheduler getScheduler() {
         return scheduler;
     }
+
 }

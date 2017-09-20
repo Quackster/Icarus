@@ -17,6 +17,15 @@ public abstract class Entity extends Metadata {
     public abstract PlayerDetails getDetails();
     
     /**
+     * Gets the player id
+     * 
+     * @return the id
+     */
+    public int getEntityId() {
+        return this.getDetails().getId();
+    }
+    
+    /**
      * Gets the room user.
      *
      * @return the room user

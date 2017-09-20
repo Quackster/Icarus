@@ -35,5 +35,4 @@ public class DefaultInteractor implements Interaction {
             roomUser.getPosition().setRotation(item.getPosition().getRotation());
         }
     }
-
 }

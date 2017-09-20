@@ -28,7 +28,7 @@ public class PlayerManager {
     public static void addPlayer(Player player) {
 
         if (player.getDetails().isAuthenticated()) {
-            authenticatedPlayersById.put(player.getDetails().getId(), player);
+            authenticatedPlayersById.put(player.getEntityId(), player);
             authenticatedPlayersByName.put(player.getDetails().getName(), player);
         }
     }
@@ -41,7 +41,7 @@ public class PlayerManager {
     public static void removePlayer(Player player) {
 
         if (player.getDetails().isAuthenticated()) {
-            authenticatedPlayersById.remove(player.getDetails().getId());
+            authenticatedPlayersById.remove(player.getEntityId());
             authenticatedPlayersByName.remove(player.getDetails().getName());
         }
     }
@@ -137,7 +137,7 @@ public class PlayerManager {
 
         for (Player session : authenticatedPlayersById.values()) {
 
-            if (session.getDetails().getId() == player.getDetails().getId()) {
+            if (session.getDetails().getId() == player.getEntityId()) {
                 if (session.getNetwork().getConnectionId() != player.getNetwork().getConnectionId()) { // user tries to login twice
                     //session.dispose();
                     session.getNetwork().close();

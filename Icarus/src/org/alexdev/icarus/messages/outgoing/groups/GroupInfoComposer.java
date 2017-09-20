@@ -20,7 +20,7 @@ public class GroupInfoComposer extends MessageComposer {
     
     public GroupInfoComposer(Group group, Player player, boolean openNewWindow) {
         this.group = group;
-        this.userId = player.getDetails().getId();
+        this.userId = player.getEntityId();
         this.openNewWindow = openNewWindow;
         
         this.isOwner = this.group.getOwnerId() == this.userId;

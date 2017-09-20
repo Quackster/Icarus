@@ -21,13 +21,13 @@ public class GiveRightsMessageEvent implements MessageEvent {
             return;
         }
 
-        if (!room.hasRights(player.getDetails().getId(), true)) {
+        if (!room.hasOwnership(player.getEntityId())&& !player.getDetails().hasPermission("room_all_rights")) {
             return;
         }
 
         int userId = reader.readInt();
 
-        if (room.hasRights(userId, false)) {
+        if (room.hasRights(userId)) {
             return;
         }
 

@@ -26,7 +26,7 @@ public class DeleteGroupMessageEvent implements MessageEvent {
             return;
         }
         
-        if (group.getOwnerId() != player.getDetails().getId()) {
+        if (group.getOwnerId() != player.getEntityId()) {
             return;
         }
         

@@ -72,8 +72,8 @@ public class PurchaseItemMessageEvent implements MessageEvent {
         int race = Integer.valueOf(petData[1]);
         String colour = petData[2];
         
-        int petId = PetDao.createPet(player.getDetails().getId(), petData[0], type, race, colour);
-        Pet pet = new Pet(petId, petName, Pet.DEFAULT_LEVEL, Pet.DEFAULT_HAPPINESS, Pet.DEFAULT_EXPERIENCE, Pet.DEFAULT_ENERGY, player.getDetails().getId(), colour, race, type, false, -1, 0, false, (int)Util.getCurrentTimeSeconds(), 0, 0, 0);
+        int petId = PetDao.createPet(player.getEntityId(), petData[0], type, race, colour);
+        Pet pet = new Pet(petId, petName, Pet.DEFAULT_LEVEL, Pet.DEFAULT_HAPPINESS, Pet.DEFAULT_EXPERIENCE, Pet.DEFAULT_ENERGY, player.getEntityId(), colour, race, type, false, -1, 0, false, (int)Util.getCurrentTimeSeconds(), 0, 0, 0);
         
         player.getInventory().addPet(pet, InventoryNotification.ALERT);
         player.getInventory().updatePets();

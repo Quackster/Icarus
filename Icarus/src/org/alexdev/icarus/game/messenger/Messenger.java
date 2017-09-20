@@ -19,8 +19,8 @@ public class Messenger {
     }
 
     public void init() {
-        this.friends = MessengerDao.getFriends(this.player.getDetails().getId());
-        this.requests = MessengerDao.getRequests(this.player.getDetails().getId());
+        this.friends = MessengerDao.getFriends(this.player.getEntityId());
+        this.requests = MessengerDao.getRequests(this.player.getEntityId());
     }
 
     /**
@@ -95,7 +95,7 @@ public class Messenger {
      */
     public void sendStatus(boolean forceOffline) {
 
-        MessageComposer message = new MessengerUpdateMessageComposer(new MessengerUser(this.player.getDetails().getId()), forceOffline);
+        MessageComposer message = new MessengerUpdateMessageComposer(new MessengerUser(this.player.getEntityId()), forceOffline);
 
         for (MessengerUser friend : this.friends) {
             if (friend.isUserOnline() ) {

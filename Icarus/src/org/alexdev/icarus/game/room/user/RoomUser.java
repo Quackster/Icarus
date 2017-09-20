@@ -25,7 +25,6 @@ import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageCompos
 import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.TalkMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 import org.alexdev.icarus.util.GameSettings;
 import org.alexdev.icarus.util.Metadata;
 import org.alexdev.icarus.util.Util;
@@ -482,13 +481,6 @@ public class RoomUser extends Metadata {
      */
     public void setNextPosition(Position next) {
         this.nextPositio = next;
-    }
-
-    /**
-     * Update status.
-     */
-    public void updateStatus() {
-        this.room.send(new UserStatusMessageComposer(this.entity));
     }
 
     /**

@@ -35,6 +35,6 @@ public class PurchaseOfferMessageEvent implements MessageEvent {
         player.getDetails().sendCredits();
         player.send(new PurchaseNotificationMessageComposer());
         
-        offer.addUserToBlacklist(player.getDetails().getId());
+        offer.addUserToBlacklist(player.getEntityId());
     }
 }

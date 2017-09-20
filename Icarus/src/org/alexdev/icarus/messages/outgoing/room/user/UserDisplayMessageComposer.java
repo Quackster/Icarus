@@ -1,6 +1,5 @@
 package org.alexdev.icarus.messages.outgoing.room.user;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.alexdev.icarus.game.entity.EntityType;
@@ -12,11 +11,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 public class UserDisplayMessageComposer extends MessageComposer {
 
     private List<Entity> entities;
-
-    public UserDisplayMessageComposer(Entity entity) {
-        this(Arrays.asList(new Entity[] { entity }));
-    }
-
+    
     public UserDisplayMessageComposer(List<Entity> entities) {
         this.entities = entities;
     }

@@ -11,7 +11,7 @@ public class PlacePetMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
         
-        if (!player.getRoom().getData().isAllowPets() && !player.getRoom().hasRights(player.getDetails().getId(), true)) {
+        if (!player.getRoom().getData().isAllowPets() && !player.getRoom().hasOwnership(player.getEntityId())) {
             return;
         }
         

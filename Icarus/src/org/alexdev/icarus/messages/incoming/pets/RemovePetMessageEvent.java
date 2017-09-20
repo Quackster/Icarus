@@ -26,7 +26,7 @@ public class RemovePetMessageEvent implements MessageEvent {
         
         player.getRoom().getEntityManager().removeEntity(pet);
 
-        boolean isPetOwner = player.getDetails().getId() == pet.getOwnerId();
+        boolean isPetOwner = player.getEntityId() == pet.getOwnerId();
         
         if (isPetOwner) {
             

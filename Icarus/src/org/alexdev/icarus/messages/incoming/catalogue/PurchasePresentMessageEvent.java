@@ -41,7 +41,7 @@ public class PurchasePresentMessageEvent implements MessageEvent {
         giftExtraData.append(Character.toString((char)5));
         giftExtraData.append(presentMessage);
         giftExtraData.append(Character.toString((char)5));
-        giftExtraData.append(player.getDetails().getId());
+        giftExtraData.append(player.getEntityId());
         giftExtraData.append(Character.toString((char)5));
         giftExtraData.append(definition.getId());
         giftExtraData.append(Character.toString((char)5));
@@ -51,7 +51,7 @@ public class PurchasePresentMessageEvent implements MessageEvent {
         giftExtraData.append(Character.toString((char)5));
         giftExtraData.append(colour);
         
-        Item inventoryItem = InventoryDao.newItem(bundleItem.getItemDefinition().getId(), player.getDetails().getId(), giftExtraData.toString());
+        Item inventoryItem = InventoryDao.newItem(bundleItem.getItemDefinition().getId(), player.getEntityId(), giftExtraData.toString());
         
         player.getInventory().addItem(inventoryItem);
         player.send(new PurchaseNotificationMessageComposer(bundleItem));*/

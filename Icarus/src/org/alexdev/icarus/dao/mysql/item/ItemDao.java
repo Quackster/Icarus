@@ -37,7 +37,7 @@ public class ItemDao {
                         resultSet.getInt("width"), resultSet.getInt("length"), resultSet.getDouble("stack_height"), resultSet.getInt("can_stack") == 1,
                         resultSet.getInt("can_sit") == 1, resultSet.getInt("is_walkable") == 1, resultSet.getInt("sprite_id"), resultSet.getInt("allow_recycle") == 1, 
                         resultSet.getInt("allow_trade") == 1, resultSet.getInt("allow_marketplace_sell") == 1, resultSet.getInt("allow_gift") == 1, 
-                        resultSet.getInt("allow_inventory_stack") == 1, InteractionType.getType(resultSet.getString("interaction_type")), resultSet.getInt("interaction_modes_count"),
+                        resultSet.getInt("allow_inventory_stack") == 1, InteractionType.getType(resultSet.getString("interaction_type")), resultSet.getInt("requires_rights") == 1, resultSet.getInt("interaction_modes_count"),
                         resultSet.getString("vending_ids"), resultSet.getString("variable_heights")));
                 
             }

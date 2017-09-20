@@ -29,8 +29,8 @@ public class Inventory {
      * Initiates the inventory items
      */
     public void init() {
-        this.items = InventoryDao.getInventoryItems(this.player.getDetails().getId());
-        this.pets = InventoryDao.getInventoryPets(this.player.getDetails().getId());
+        this.items = InventoryDao.getInventoryItems(this.player.getEntityId());
+        this.pets = InventoryDao.getInventoryPets(this.player.getEntityId());
     }
 
     /**

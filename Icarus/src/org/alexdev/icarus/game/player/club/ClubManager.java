@@ -49,13 +49,13 @@ public class ClubManager {
         
         if (player.getSubscription().hasSubscription()) {
             newExpireTime += player.getSubscription().getExpireTime();
-            ClubDao.update(player.getDetails().getId(), newExpireTime, currentTime);
+            ClubDao.update(player.getEntityId(), newExpireTime, currentTime);
         } else {
             newExpireTime += currentTime;
-            ClubDao.create(player.getDetails().getId(), newExpireTime, currentTime);
+            ClubDao.create(player.getEntityId(), newExpireTime, currentTime);
         }
    
-        player.getSubscription().update(player.getDetails().getId(), newExpireTime, currentTime);
+        player.getSubscription().update(player.getEntityId(), newExpireTime, currentTime);
         player.getSubscription().sendSubscriptionStatus();
     }
 }

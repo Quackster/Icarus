@@ -42,10 +42,10 @@ public class GroupManageMembersMessageEvent implements MessageEvent {
         }
 
 
-        boolean hasAccess = group.getOwnerId() == player.getDetails().getId();
+        boolean hasAccess = group.getOwnerId() == player.getEntityId();
 
         if (!hasAccess) {
-            hasAccess = group.getMemberManager().isMemberType(player.getDetails().getId(), GroupMemberType.ADMINISTRATOR);
+            hasAccess = group.getMemberManager().isMemberType(player.getEntityId(), GroupMemberType.ADMINISTRATOR);
         }
 
         player.send(new GroupManageMembersComposer(group, page, requestType, searchQuery, members, hasAccess));

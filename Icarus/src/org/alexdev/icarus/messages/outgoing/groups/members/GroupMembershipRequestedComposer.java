@@ -19,7 +19,7 @@ public class GroupMembershipRequestedComposer extends MessageComposer {
         this.response.init(Outgoing.GroupMembershipRequestedComposer);
         this.response.writeInt(this.groupId);
         this.response.writeInt(3);
-        this.response.writeInt(this.player.getDetails().getId());
+        this.response.writeInt(this.player.getEntityId());
         this.response.writeString(this.player.getDetails().getName());
         this.response.writeString(this.player.getDetails().getFigure());
         this.response.writeString("");

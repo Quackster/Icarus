@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2017 at 05:33 PM
+-- Generation Time: Sep 20, 2017 at 04:57 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -12581,15 +12581,17 @@ CREATE TABLE `group_data` (
   `created` bigint(20) NOT NULL,
   `colour_a` int(11) NOT NULL,
   `colour_b` int(11) NOT NULL,
-  `access_type` enum('OPEN','LOCKED','PRIVATE','') NOT NULL DEFAULT 'OPEN'
+  `access_type` enum('OPEN','LOCKED','PRIVATE','') NOT NULL DEFAULT 'OPEN',
+  `can_members_decorate` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `group_data`
 --
 
-INSERT INTO `group_data` (`id`, `title`, `description`, `badge`, `owner_id`, `room_id`, `created`, `colour_a`, `colour_b`, `access_type`) VALUES
-(1, 'Alex\'s Fantastic Group', 'Fantastic groups and where to find them', 'b0524s60174s40222s41220s00000', 5, 3, 1505279665, 1, 1, '');
+INSERT INTO `group_data` (`id`, `title`, `description`, `badge`, `owner_id`, `room_id`, `created`, `colour_a`, `colour_b`, `access_type`, `can_members_decorate`) VALUES
+(1, 'Alex\'s Fantastic Group', 'Fantastic groups and where to find them', 'b0524s60174s40222s41220s00000', 5, 3, 1505279665, 1, 1, 'OPEN', 1),
+(2, 'Alex\'s Group', 'this description says something witty and cool', 'b1310s14234s00000s00000s00000', 5, 3, 1505493950, 119, 103, 'OPEN', 0);
 
 -- --------------------------------------------------------
 
@@ -13094,6 +13096,25 @@ INSERT INTO `group_items` (`id`, `firstvalue`, `secondvalue`, `type`, `enabled`)
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `group_members`
+--
+
+CREATE TABLE `group_members` (
+  `group_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `member_type` enum('REQUEST','MEMBER','ADMINISTRATOR','') NOT NULL DEFAULT 'MEMBER'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `group_members`
+--
+
+INSERT INTO `group_members` (`group_id`, `user_id`, `member_type`) VALUES
+(2, 6, 'ADMINISTRATOR');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `item_data`
 --
 
@@ -13115,16 +13136,12 @@ CREATE TABLE `item_data` (
 --
 
 INSERT INTO `item_data` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`, `y`, `z`, `rotation`, `extra_data`) VALUES
-(1, 5, 5, 4095, 1, '11', '10', 0.03, 1, 'state	0	imageUrl	/c_images/album3809/wl15_c.png	offsetX	-704	offsetY	184	offsetZ	8700'),
+(1, 5, 5, 4095, 1, '11', '10', 0.03, 1, 'state	0	imageUrl	/c_images/album3809/wl15_c.png	offsetX	-704	offsetY	186	offsetZ	8700'),
 (2, 5, 5, 4095, 1, '11', '10', 0.01, 1, 'state	0	imageUrl	/c_images/album3809/wl15_d.png	offsetX	-253	offsetY	443	offsetZ	8700'),
-(3, 5, 5, 4095, 1, '11', '10', 0.05, 1, 'state	0	imageUrl	/c_images/album3809/wl15_b.png	offsetX	-253	offsetY	187	offsetZ	8700'),
+(3, 5, 5, 4095, 1, '11', '10', 0.05, 1, 'state	0	imageUrl	/c_images/album3809/wl15_b.png	offsetX	-253	offsetY	186	offsetZ	8700'),
 (4, 5, 5, 4095, 1, '1', '22', 6.01, 1, 'state	0	imageUrl	/c_images/album3809/wl15_a.png	offsetX	-335	offsetY	222	offsetZ	8700'),
-(5, 5, 5, 4095, 1, '20', '19', 0.01, 1, 'state	0	imageUrl	/c_images/album3809/wl15_e.png	offsetX	-720	offsetY	187	offsetZ	8700'),
-(16, 5, 5, 1433, 1, '1', '27', 6.01, 2, '17'),
-(17, 5, 5, 1433, 1, '11', '21', 0.01, 2, '16'),
-(18, 5, 5, 1577, 1, '11', '17', 0.1, 2, '19'),
-(19, 5, 5, 1577, 1, '11', '15', 4.049999999999999, 2, '18'),
-(84, 5, 5, 72, 1, '12', '15', 4, 2, '1');
+(5, 5, 5, 4095, 1, '20', '19', 0.01, 1, 'state	0	imageUrl	/c_images/album3809/wl15_e.png	offsetX	-720	offsetY	188	offsetZ	8700'),
+(6, 5, 5, 2801, 3, '2', '6', 0, 0, '2');
 
 -- --------------------------------------------------------
 
@@ -13292,7 +13309,7 @@ CREATE TABLE `pet_data` (
 INSERT INTO `pet_data` (`id`, `owner_id`, `room_id`, `pet_name`, `race_id`, `type`, `colour`, `scratches`, `level`, `happiness`, `experience`, `energy`, `x`, `y`, `saddled`, `any_rider`, `hair_style`, `hair_colour`, `birthday`) VALUES
 (8, 5, 0, 'Doggo', 4, 3, 'FFFFFF', 0, 1, 100, 0, 100, 7, 4, 'false', 'false', -1, 0, 1504921602),
 (9, 2, 0, 'Cat', 0, 1, '84A95F', 0, 1, 100, 0, 100, 1, 8, 'false', 'false', -1, 0, 1504922776),
-(10, 5, 0, 'Sparky', 0, 7, 'CCCCCC', 0, 1, 100, 0, 100, 6, 8, 'false', 'false', -1, 0, 1505315514);
+(10, 5, 0, 'Sparky', 0, 7, 'CCCCCC', 0, 1, 100, 0, 100, 13, 12, 'false', 'false', -1, 0, 1505315514);
 
 -- --------------------------------------------------------
 
@@ -13774,7 +13791,9 @@ INSERT INTO `room_chatlogs` (`id`, `user`, `room_id`, `timestamp`, `message_type
 (3764, 'Alex', 1, 1505476388, 0, ':debugfurniture'),
 (3765, 'Alex', 1, 1505478263, 0, ':debugfurniture'),
 (3766, 'Alex', 1, 1505488717, 0, ':debugfurniture'),
-(3767, 'Alex', 1, 1505489104, 0, ':debugfurniture');
+(3767, 'Alex', 1, 1505489104, 0, ':debugfurniture'),
+(3768, 'Bot', 3, 1505580325, 0, 'hey mah nigga'),
+(3769, 'Alex', 1, 1505741936, 0, 'xdxdxdxd');
 
 -- --------------------------------------------------------
 
@@ -13826,8 +13845,8 @@ CREATE TABLE `room_data` (
 INSERT INTO `room_data` (`id`, `name`, `room_type`, `date_created`, `owner_id`, `group_id`, `thumbnail`, `description`, `password`, `users_now`, `users_max`, `model`, `wallpaper`, `floor`, `outside`, `tags`, `trade_state`, `state`, `score`, `category`, `allow_pets`, `allow_pets_eat`, `allow_walkthrough`, `hidewall`, `wall_thickness`, `floor_thickness`, `chat_mode`, `chat_size`, `chat_speed`, `chat_flood`, `chat_distance`, `who_can_mute`, `who_can_kick`, `who_can_ban`) VALUES
 (1, 'Welcome Lobby', 'PUBLIC', '2017-03-20 20:15:27', -1, 0, 'thumbnails/picture3.png', '', '', 0, 25, 'welcome_lobby', '0', '0', '0.0', '', 0, 'OPEN', 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0),
 (2, 'Chill Lounge', 'PUBLIC', '2017-03-20 20:19:36', -1, 0, 'thumbnails/picture2.png', '', '', 0, 25, 'model_h', '105', '608', '0.0', '', 0, 'OPEN', 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0),
-(3, 'Alex\'s Room', 'PRIVATE', '2017-09-08 02:49:35', 5, 0, NULL, 'ayy lmao', '', 0, 10, 'model_b', '0', '0', '0', 'habbo,icarus', 0, 'OPEN', 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 2, 1, 30, 0, 0, 0),
-(5, 'test', 'PRIVATE', '2017-09-13 10:10:44', 5, 0, NULL, '', '', 0, 10, 'model_a', '0', '0', '0', '', 0, 'OPEN', 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 30, 0, 0, 0);
+(3, 'Alex\'s Room', 'PRIVATE', '2017-09-08 02:49:35', 5, 2, NULL, 'ayy lmao', '', 0, 10, 'model_b', '507', '110', '0', 'habbo,icarus', 0, 'OPEN', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 30, 0, 0, 0),
+(5, 'test', 'PRIVATE', '2017-09-13 10:10:44', 5, 0, NULL, '', '', 0, 10, 'dynamic_model_5', '0', '0', '0', '', 0, 'OPEN', 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -13933,6 +13952,13 @@ CREATE TABLE `room_models_dynamic` (
   `heightmap` text NOT NULL,
   `wall_height` int(11) NOT NULL DEFAULT '-1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `room_models_dynamic`
+--
+
+INSERT INTO `room_models_dynamic` (`id`, `door_x`, `door_y`, `door_z`, `door_dir`, `heightmap`, `wall_height`) VALUES
+('dynamic_model_5', 3, 2, 4, 2, 'xxxxxxxxxxxxx{13}xxxx44444444x{13}xxx444444444x{13}xxxx44444444x{13}xxxx44444444x{13}xxxx44444444x{13}xxxx44444444x{13}xxxx44444444x{13}xxxx33333333x{13}xxxx22222222x{13}xxxx22222222x{13}xxxx22222222x{13}xxxx22222222x{13}xxxx22222222x{13}xxxxxxxxxxxxx{13}xxxxxxxxxxxxx', -1);
 
 -- --------------------------------------------------------
 
@@ -14098,8 +14124,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `rank`, `join_date`, `last_online`, `sso_ticket`, `email`, `mission`, `gender`, `figure`, `credits`, `home_room`) VALUES
-(2, 'Bot', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 1, 44324323, 1490046606, 'sso-icarus-N9HqmlVodG-G5LbUs-d2jg64NEAk', NULL, 'eating more cake, k?', 'M', 'ha-1012-91.hd-180-7.ch-3015-1426.lg-275-64.hr-831-61', 370, 0),
-(5, 'Alex', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 7, 1489384512, 1491544401, 'sso-icarus-WvfG7QzIXT-h9rOxU-lPIo51VHjU', 'we3rejfpef3@cefc.com', 'Icarus alpha tester', 'M', 'ca-3187-79.hd-180-1.ch-3030-1408.sh-290-64.lg-270-90.ha-3291-73.hr-3260-45.cc-3075-90', 4995, 0);
+(2, 'Bot', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 1, 44324323, 1490046606, 'sso-icarus-dlKfTnJ5RN-mg74bw-nx4JCi3AK1', NULL, 'eating more cake, k?', 'M', 'ha-1012-91.hd-180-7.ch-3015-1426.lg-275-64.hr-831-61', 370, 0),
+(5, 'Alex', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 7, 1489384512, 1491544401, 'sso-icarus-UEt6KbGxgl-XScs6l-NKqMoYxeZg', 'we3rejfpef3@cefc.com', 'Icarus alpha tester', 'M', 'ca-3187-79.hd-180-1.ch-3030-1408.sh-290-64.lg-270-90.ha-3291-73.hr-3260-45.cc-3075-90', 4995, 0),
+(6, 'test', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 1, NULL, NULL, 'sso-icarus-I82U9DEgOw-PImA0t-rHtKEX5zYy', NULL, '', 'M', 'ch-210-66.lg-270-82.hd-180-1.sh-290-80.hr-100-45', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -14337,17 +14364,17 @@ ALTER TABLE `catalog_pages`
 -- AUTO_INCREMENT for table `furniture`
 --
 ALTER TABLE `furniture`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=757369159;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=757369158;
 --
 -- AUTO_INCREMENT for table `group_data`
 --
 ALTER TABLE `group_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `item_data`
 --
 ALTER TABLE `item_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `messenger_friendships`
 --
@@ -14387,7 +14414,7 @@ ALTER TABLE `rooms_newbie`
 -- AUTO_INCREMENT for table `room_chatlogs`
 --
 ALTER TABLE `room_chatlogs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3768;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3770;
 --
 -- AUTO_INCREMENT for table `room_data`
 --
@@ -14397,7 +14424,7 @@ ALTER TABLE `room_data`
 -- AUTO_INCREMENT for table `room_items_moodlight`
 --
 ALTER TABLE `room_items_moodlight`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `room_rights`
 --
@@ -14437,7 +14464,7 @@ ALTER TABLE `targeted_offers_blacklist`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `users_permissions`
 --

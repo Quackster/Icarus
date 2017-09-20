@@ -10,7 +10,6 @@ import org.alexdev.icarus.util.Util;
 
 public class ItemDefinition {
 
-    /** The id. */
     private int id;
     private String publicName;
     private String itemName;
@@ -28,6 +27,7 @@ public class ItemDefinition {
     private boolean allowGift;
     private boolean allowInventoryStack;
     private InteractionType interactionType;
+    private boolean requiresRights;
     private int interactionModes;
     private String[] vendingIds;
     private double[] variableHeight;
@@ -35,7 +35,7 @@ public class ItemDefinition {
     public ItemDefinition(int id, String publicName, String itemName, String type, int width, int length, double stackHeight,
             boolean canStack, boolean canSit, boolean isWalkable, int spriteId, boolean allowRecycle,
             boolean allowTrade, boolean allowMarketplaceSell, boolean allowGift, boolean allowInventoryStack,
-            InteractionType interactionType, int interationModes, String vendingIds, String adjustableHeights) {
+            InteractionType interactionType, boolean requiresRights, int interationModes, String vendingIds, String adjustableHeights) {
 
         this.id = id;
         this.publicName = publicName;
@@ -53,6 +53,7 @@ public class ItemDefinition {
         this.allowGift = allowGift;
         this.allowInventoryStack = allowInventoryStack;
         this.interactionType = interactionType;
+        this.setRequiresRights(requiresRights);
         this.interactionModes = interationModes;
         this.vendingIds = vendingIds.isEmpty() ? new String[0] : vendingIds.split(",");
 
@@ -78,7 +79,7 @@ public class ItemDefinition {
      */
     public void handleDefinitionPurchase(Player player, String extraData) {
         
-        Item inventoryItem = InventoryDao.newItem(this.id, player.getDetails().getId(), extraData);
+        Item inventoryItem = InventoryDao.newItem(this.id, player.getEntityId(), extraData);
 
         if (inventoryItem.getDefinition().getInteractionType() == InteractionType.JUKEBOX) {
             inventoryItem.setExtraData("0");
@@ -90,7 +91,7 @@ public class ItemDefinition {
 
         if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
 
-            Item secondTeleporter = InventoryDao.newItem(this.id, player.getDetails().getId(), "0");
+            Item secondTeleporter = InventoryDao.newItem(this.id, player.getEntityId(), "0");
             
             secondTeleporter.setTeleporterId(inventoryItem.getId());
             inventoryItem.setTeleporterId(secondTeleporter.getId());
@@ -292,6 +293,14 @@ public class ItemDefinition {
      */
     public InteractionType getInteractionType() {
         return interactionType;
+    }
+
+    public boolean requiresRights() {
+        return requiresRights;
+    }
+
+    public void setRequiresRights(boolean requiresRights) {
+        this.requiresRights = requiresRights;
     }
 
     /**

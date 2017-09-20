@@ -25,7 +25,7 @@ public class GroupMembershipRequestMessageEvent implements MessageEvent {
             return;
         }
         
-        if (group.getMemberManager().isMember(player.getDetails().getId())) {
+        if (group.getMemberManager().isMember(player.getEntityId())) {
             return;
         }
 
@@ -34,7 +34,7 @@ public class GroupMembershipRequestMessageEvent implements MessageEvent {
         }
 
         if (group.getAccessType() == GroupAccessType.LOCKED) {
-            group.getMemberManager().addMember(GroupMemberType.REQUEST, player.getDetails().getId());
+            group.getMemberManager().addMember(GroupMemberType.REQUEST, player.getEntityId());
 
             List<Integer> groupOfficials = group.getMemberManager().getMembersByType(GroupMemberType.ADMINISTRATOR);
             groupOfficials.add(group.getOwnerId());
@@ -50,8 +50,8 @@ public class GroupMembershipRequestMessageEvent implements MessageEvent {
         }
 
         if (group.getAccessType() == GroupAccessType.OPEN) {
-            group.getMemberManager().addMember(GroupMemberType.MEMBER, player.getDetails().getId());
-            player.send(new RefreshFavouriteGroupComposer(player.getDetails().getId()));
+            group.getMemberManager().addMember(GroupMemberType.MEMBER, player.getEntityId());
+            player.send(new RefreshFavouriteGroupComposer(player.getEntityId()));
         }
         
         player.send(new GroupInfoComposer(group, player, false));   

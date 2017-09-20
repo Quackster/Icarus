@@ -39,19 +39,6 @@ public class Item extends Metadata {
     private int widthX = 0;
     private int widthY = 0;
    
-    /**
-     * Instantiates a new item.
-     *
-     * @param id the id
-     * @param userId the user id
-     * @param itemId the item id
-     * @param roomId the room id
-     * @param x the x
-     * @param y the y
-     * @param z the z
-     * @param rotation the rotation
-     * @param extraData the extra data
-     */
     public Item(int id, int userId, int itemId, int roomId, String x, String y, double z, int rotation, String extraData) {
         
         this.id = id;

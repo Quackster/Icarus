@@ -19,7 +19,7 @@ public class SaveBrandingMessageEvent implements MessageEvent {
             return;
         }
         
-        if (!room.hasRights(player.getDetails().getId(), true)) {
+        if (!room.hasOwnership(player.getEntityId())) {
             return;
         }
         

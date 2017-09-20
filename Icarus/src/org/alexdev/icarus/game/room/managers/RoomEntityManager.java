@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.room.managers;
 
+import java.util.Arrays;
 import java.util.List;
 import org.alexdev.icarus.dao.mysql.pets.PetDao;
 import org.alexdev.icarus.game.entity.Entity;
@@ -58,8 +59,8 @@ public class RoomEntityManager {
         roomUser.getPosition().setRotation(rotation);
         roomUser.updateNewHeight(roomUser.getPosition());
         
-        this.room.send(new UserDisplayMessageComposer(entity));
-        this.room.send(new UserStatusMessageComposer(entity));
+        this.room.send(new UserDisplayMessageComposer(Arrays.asList(new Entity[] { entity })));
+        this.room.send(new UserStatusMessageComposer(Arrays.asList(new Entity[] { entity })));
 
         if (!this.entities.contains(entity)) {
             this.entities.add(entity);

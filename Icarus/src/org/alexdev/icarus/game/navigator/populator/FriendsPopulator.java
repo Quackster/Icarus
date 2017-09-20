@@ -31,7 +31,7 @@ public class FriendsPopulator extends NavigatorRoomPopulator {
             Room room = friendRooms.get(i);
 
             if (room.getData().getState() == RoomState.INVISIBLE) {
-                if (!room.hasRights(player.getDetails().getId(), false)) {
+                if (!room.hasRights(player.getEntityId())) {
                     friendRooms.remove(room);
                 }
             }

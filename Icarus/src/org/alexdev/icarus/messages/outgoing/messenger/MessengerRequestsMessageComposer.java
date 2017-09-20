@@ -20,7 +20,7 @@ public class MessengerRequestsMessageComposer extends MessageComposer {
     @Override
     public void write() {
         this.response.init(Outgoing.MessengerRequestsMessageComposer);
-        this.response.writeInt(this.player.getDetails().getId());
+        this.response.writeInt(this.player.getEntityId());
         this.response.writeInt(this.requests.size()); 
 
         for (MessengerUser user : this.requests) {
