@@ -90,16 +90,17 @@ public class RoomUtil {
             player.send(new RoomSpacesMessageComposer("wallpaper", room.getData().getWall()));
         }
         
-        boolean isOwner = roomUser.getRoom().hasOwnership(player.getEntityId());
+        boolean isOwner = (roomUser.getRoom().hasOwnership(player.getEntityId()) 
+                || player.getDetails().hasPermission("room_all_rights"));
  
         player.send(new RoomSpacesMessageComposer("landscape", room.getData().getLandscape()));
         player.send(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
         
-        if (isOwner || player.getDetails().hasPermission("room_all_rights")) {
+        if (isOwner) {
             player.send(new RightsLevelMessageComposer(4));
             player.send(new OwnerRightsMessageComposer());
 
-        } else if (roomUser.getRoom().hasRights(player.getEntityId())) {
+        } else if (room.hasRights(player.getEntityId())) {
             player.send(new RightsLevelMessageComposer(1));
 
         } else {
