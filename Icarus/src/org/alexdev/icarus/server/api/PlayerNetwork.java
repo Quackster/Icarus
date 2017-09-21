@@ -39,4 +39,12 @@ public abstract class PlayerNetwork {
     public void setConnectionId(int connectionId) {
         this.connectionId = connectionId;
     }
+
+    /**
+     * Adds the pipeline stage.
+     *
+     * @param object the object
+     */
+    public abstract void addPipelineStage(Object object);
+   
 }

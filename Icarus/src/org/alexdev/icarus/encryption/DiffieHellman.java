@@ -10,15 +10,15 @@ import java.util.Random;
 public class DiffieHellman {
     public int BITLENGTH = 30;
 
-    public BigInteger Prime;
-    public BigInteger Generator;
+    private BigInteger Prime;
+    private BigInteger Generator;
 
-    public BigInteger PrivateKey;
-    public BigInteger PublicKey;
+    private BigInteger PrivateKey;
+    private BigInteger PublicKey;
 
     public BigInteger PublicClientKey;
 
-    public BigInteger SharedKey;
+    private BigInteger SharedKey;
 
     public DiffieHellman() {
         this.InitDH();
@@ -85,5 +85,33 @@ public class DiffieHellman {
         this.PublicClientKey = new BigInteger(ckey);
 
         this.SharedKey = this.PublicClientKey.modPow(this.PrivateKey, this.Prime);
+    }
+
+    public int getBITLENGTH() {
+        return BITLENGTH;
+    }
+
+    public BigInteger getPrime() {
+        return Prime;
+    }
+
+    public BigInteger getGenerator() {
+        return Generator;
+    }
+
+    public BigInteger getPrivateKey() {
+        return PrivateKey;
+    }
+
+    public BigInteger getPublicKey() {
+        return PublicKey;
+    }
+
+    public BigInteger getPublicClientKey() {
+        return PublicClientKey;
+    }
+
+    public BigInteger getSharedKey() {
+        return SharedKey;
     }
 }

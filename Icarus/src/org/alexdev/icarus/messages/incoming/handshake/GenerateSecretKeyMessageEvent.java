@@ -13,12 +13,12 @@ public class GenerateSecretKeyMessageEvent implements MessageEvent {
         
         String cipherPublicKey = reader.readString();
         String plaintextKey = Util.getRSA().Decrypt(cipherPublicKey).replace(Character.toString((char) 0), "");
-        String publicKey = Util.getRSA().Sign(player.getDiffieHellman().PublicKey.toString());
+        String publicKey = Util.getRSA().Sign(player.getDiffieHellman().getPublicKey().toString());
         
         player.send(new SecretKeyMessageComposer(publicKey));
 
         player.getDiffieHellman().GenerateSharedKey(plaintextKey);
-        player.setRC4(player.getDiffieHellman().SharedKey.toByteArray());
+        player.setRC4(player.getDiffieHellman().getSharedKey().toByteArray());
 
     }
 

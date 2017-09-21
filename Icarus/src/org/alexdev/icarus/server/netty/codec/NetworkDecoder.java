@@ -41,15 +41,6 @@ public class NetworkDecoder extends FrameDecoder {
                 return null;
             }
             
-            if (channel.getAttachment() instanceof Player) {
-                
-                RC4 instance = ((Player)channel.getAttachment()).getRC4();
-                
-                if (instance != null) {
-                    buffer = instance.decipher(buffer);
-                }
-            }
-            
             byte[] length = buffer.readBytes(4).array();
 
             if (length[0] == 60) {

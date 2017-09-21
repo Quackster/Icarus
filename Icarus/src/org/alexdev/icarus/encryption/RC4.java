@@ -56,11 +56,12 @@ public class RC4 {
 
     public ChannelBuffer decipher(ChannelBuffer bytes) {
 
-        ChannelBuffer result = ChannelBuffers.EMPTY_BUFFER;
+        ChannelBuffer result = ChannelBuffers.dynamicBuffer();
         
-        while (bytes.readable())
+        while (bytes.readableBytes() > 0) {
             result.writeByte((byte) (bytes.readByte() ^ next()));
-
+        }
+        
         return result;
     }
 }

@@ -23,7 +23,7 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
 public class Player extends Entity {
-    
+
     private String machineId;
     private PlayerDetails details;
     private PlayerNetwork network;
@@ -31,10 +31,10 @@ public class Player extends Entity {
     private Messenger messenger;
     private Inventory inventory;
     private ClubSubscription subscription;
-    
+
     private DiffieHellman diffieHellman;
     private RC4 rc4;
-    
+
     private boolean loggedIn;
 
     public Player(PlayerNetwork network) {
@@ -76,9 +76,9 @@ public class Player extends Entity {
 
             room.getEntityManager().removeEntity(this);
             room.dispose();
-            
+
             this.messenger.sendStatus(false);
-            
+
             break;
 
         }
@@ -107,12 +107,12 @@ public class Player extends Entity {
 
         PluginManager.callEvent(PluginEvent.PLAYER_DISCONNECT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this) });
         PlayerManager.removePlayer(this);
-        
-for (Room room : RoomManager.getPlayerRooms(this.details.getId())) {
+
+        for (Room room : RoomManager.getPlayerRooms(this.details.getId())) {
             room.dispose(); 
         }
 
-    this.destroyObjects();
+        this.destroyObjects();
     }
 
     /**
@@ -250,13 +250,13 @@ for (Room room : RoomManager.getPlayerRooms(this.details.getId())) {
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }
-
-
-    public RC4 getRC4() {
-        return rc4;
-    }
-
+    /**
+     * Sets the rc4.
+     *
+     * @param sharedKey the new rc4
+     */
     public void setRC4(byte[] sharedKey) {
         this.rc4 = new RC4(sharedKey);
+        this.network.addPipelineStage(this.rc4);
     }
 }
