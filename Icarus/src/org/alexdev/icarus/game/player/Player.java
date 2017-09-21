@@ -33,8 +33,6 @@ public class Player extends Entity {
     private ClubSubscription subscription;
 
     private DiffieHellman diffieHellman;
-    private RC4 rc4;
-
     private boolean loggedIn;
 
     public Player(PlayerNetwork network) {
@@ -261,7 +259,6 @@ public class Player extends Entity {
      * @param sharedKey the new rc4
      */
     public void setRC4(byte[] sharedKey) {
-        this.rc4 = new RC4(sharedKey);
-        this.network.addPipelineStage(this.rc4);
+        this.network.addPipelineStage(new RC4(sharedKey));
     }
 }
