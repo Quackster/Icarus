@@ -2,6 +2,8 @@ package org.alexdev.icarus.game.player;
 
 import java.util.List;
 import org.alexdev.icarus.game.entity.EntityType;
+import org.alexdev.icarus.encryption.DiffieHellman;
+import org.alexdev.icarus.encryption.RC4;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.inventory.Inventory;
 import org.alexdev.icarus.game.messenger.Messenger;
@@ -12,10 +14,10 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.enums.RoomAction;
 import org.alexdev.icarus.game.room.user.RoomUser;
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.HotelViewMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RoomForwardComposer;
 import org.alexdev.icarus.messages.outgoing.user.BroadcastMessageAlertComposer;
+import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.PlayerNetwork;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
@@ -29,6 +31,10 @@ public class Player extends Entity {
     private Messenger messenger;
     private Inventory inventory;
     private ClubSubscription subscription;
+    
+    private DiffieHellman diffieHellman;
+    private RC4 rc4;
+    
     private boolean loggedIn;
 
     public Player(PlayerNetwork network) {
@@ -38,6 +44,7 @@ public class Player extends Entity {
         this.messenger = new Messenger(this);
         this.inventory = new Inventory(this);
         this.subscription = new ClubSubscription(this);
+        this.diffieHellman = new DiffieHellman();
     }
 
     /**
@@ -223,6 +230,9 @@ for (Room room : RoomManager.getPlayerRooms(this.details.getId())) {
         this.network.send(response);
     }
 
+    public DiffieHellman getDiffieHellman() {
+        return diffieHellman;
+    }
     /**
      * Checks if is logged in.
      *
@@ -239,5 +249,14 @@ for (Room room : RoomManager.getPlayerRooms(this.details.getId())) {
      */
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
+    }
+
+
+    public RC4 getRC4() {
+        return rc4;
+    }
+
+    public void setRC4(byte[] sharedKey) {
+        this.rc4 = new RC4(sharedKey);
     }
 }

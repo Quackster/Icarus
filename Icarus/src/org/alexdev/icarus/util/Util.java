@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.alexdev.icarus.Icarus;
+import org.alexdev.icarus.encryption.RSA;
 import org.ini4j.InvalidFileFormatException;
 import org.ini4j.Wini;
 
@@ -25,6 +26,8 @@ public class Util {
     private static String language;
     private static Wini locale;
     private static Map<String, String> composerPaths;
+    
+    private static RSA rsa;
 
     /**
      * Load.
@@ -39,6 +42,7 @@ public class Util {
         secureRandom = new SecureRandom();
         language = locale.get("Locale", "language", String.class);
         composerPaths = Maps.newHashMap();
+        rsa = new RSA();
     }
 
     /**
@@ -268,5 +272,9 @@ public class Util {
      */
     public static double format(double decimal) {
         return Math.round(decimal * 100.0) / 100.0;
+    }
+
+    public static RSA getRSA() {
+        return rsa;
     }
 }

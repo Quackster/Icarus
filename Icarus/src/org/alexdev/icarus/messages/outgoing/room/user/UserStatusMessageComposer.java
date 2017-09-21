@@ -3,8 +3,8 @@ package org.alexdev.icarus.messages.outgoing.room.user;
 import java.util.List;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.room.EntityState;
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
+import org.alexdev.icarus.messages.types.MessageComposer;
 
 import com.google.common.collect.Lists;
 

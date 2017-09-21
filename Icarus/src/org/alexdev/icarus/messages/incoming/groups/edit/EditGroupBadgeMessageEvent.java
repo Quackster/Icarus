@@ -6,8 +6,8 @@ import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.groups.GroupManager;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.util.BadgeUtil;
-import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.groups.GroupInfoComposer;
+import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 import com.google.common.collect.Lists;

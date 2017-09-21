@@ -20,7 +20,7 @@
 package org.alexdev.icarus.server.netty.codec;
 
 import org.alexdev.icarus.log.Log;
-import org.alexdev.icarus.messages.MessageComposer;
+import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.util.Util;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;

@@ -6,8 +6,8 @@ import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.groups.members.GroupMemberType;
 import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.PlayerManager;
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
+import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.util.GameSettings;
 import org.alexdev.icarus.util.Util;
 

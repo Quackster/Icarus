@@ -5,8 +5,8 @@ import java.util.Optional;
 
 import org.alexdev.icarus.dao.mysql.player.MessengerDao;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.outgoing.messenger.MessengerUpdateMessageComposer;
+import org.alexdev.icarus.messages.types.MessageComposer;
 
 public class Messenger {
 

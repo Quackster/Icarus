@@ -5,8 +5,8 @@ import org.alexdev.icarus.game.catalogue.targetedoffer.TargetedOffer;
 import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.game.furniture.ItemManager;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessageComposer;
+import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class PurchaseOfferMessageEvent implements MessageEvent {

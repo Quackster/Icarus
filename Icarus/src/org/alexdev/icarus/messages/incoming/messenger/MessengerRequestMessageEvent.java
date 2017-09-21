@@ -4,8 +4,8 @@ import org.alexdev.icarus.dao.mysql.player.MessengerDao;
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.game.messenger.MessengerUser;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.messenger.MessengerSendRequest;
+import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class MessengerRequestMessageEvent implements MessageEvent {

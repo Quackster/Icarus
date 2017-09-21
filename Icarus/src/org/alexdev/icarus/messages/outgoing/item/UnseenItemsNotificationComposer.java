@@ -1,7 +1,7 @@
 package org.alexdev.icarus.messages.outgoing.item;
 
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
+import org.alexdev.icarus.messages.types.MessageComposer;
 
 public class UnseenItemsNotificationComposer extends MessageComposer {
 

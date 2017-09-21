@@ -1,8 +1,8 @@
 package org.alexdev.icarus.messages.outgoing.room.user;
 
 import org.alexdev.icarus.game.entity.Entity;
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
+import org.alexdev.icarus.messages.types.MessageComposer;
 
 public class UserChangeComposer extends MessageComposer {
 

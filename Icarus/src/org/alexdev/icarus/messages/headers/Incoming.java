@@ -1,8 +1,10 @@
 package org.alexdev.icarus.messages.headers;
 
 public class Incoming {
-
+    
     public static Integer VersionCheckMessageEvent = 4000;//4000
+    public static Integer InitCryptoMessageEvent = 3347;//4000
+    public static Integer GenerateSecretKeyMessageEvent = 412;
     public static Integer UniqueIDMessageEvent = 921;//2701
     public static Integer AuthenticateMessageEvent = 286;//1029
     public static Integer InfoRetrieveMessageEvent = 2401;//2078

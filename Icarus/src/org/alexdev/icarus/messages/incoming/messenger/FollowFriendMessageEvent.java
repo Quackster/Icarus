@@ -1,9 +1,9 @@
 package org.alexdev.icarus.messages.incoming.messenger;
 
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.messenger.FollowBuddyMessageComposer;
 import org.alexdev.icarus.messages.outgoing.messenger.FollowErrorMessageComposer;
+import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class FollowFriendMessageEvent implements MessageEvent {

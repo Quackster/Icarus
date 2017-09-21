@@ -2,10 +2,10 @@ package org.alexdev.icarus.messages.incoming.room.floorplan;
 
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.room.floorplan.FloorPlanFloorMapComposer;
 import org.alexdev.icarus.messages.outgoing.room.floorplan.FloorPlanRoomVisualComposer;
 import org.alexdev.icarus.messages.outgoing.room.floorplan.FloorPlanSendDoorComposer;
+import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class FloorPlanPropertiesMessageEvent implements MessageEvent {

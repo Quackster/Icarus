@@ -20,7 +20,7 @@ import org.alexdev.icarus.game.room.scheduler.TaskType;
 import org.alexdev.icarus.game.room.tasks.CarryItemTask;
 import org.alexdev.icarus.game.room.tasks.PetTask;
 import org.alexdev.icarus.game.room.tasks.RollerTask;
-import org.alexdev.icarus.messages.MessageComposer;
+import org.alexdev.icarus.messages.types.MessageComposer;
 
 public class Room {
 

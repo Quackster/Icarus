@@ -5,8 +5,8 @@ import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.groups.members.GroupMemberType;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
+import org.alexdev.icarus.messages.types.MessageComposer;
 
 public class GroupInfoComposer extends MessageComposer {
 

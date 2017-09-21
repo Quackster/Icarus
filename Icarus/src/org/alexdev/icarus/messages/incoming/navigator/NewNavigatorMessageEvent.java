@@ -2,11 +2,11 @@ package org.alexdev.icarus.messages.incoming.navigator;
 
 import org.alexdev.icarus.game.navigator.NavigatorManager;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.navigator.FlatCategoriesMessageComposer;
 import org.alexdev.icarus.messages.outgoing.navigator.NavigatorCategories;
 import org.alexdev.icarus.messages.outgoing.navigator.NavigatorMetaDataComposer;
 import org.alexdev.icarus.messages.outgoing.navigator.NavigatorPreferencesComposer;
+import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class NewNavigatorMessageEvent implements MessageEvent {

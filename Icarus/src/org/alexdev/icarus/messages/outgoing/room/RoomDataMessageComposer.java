@@ -3,8 +3,8 @@ package org.alexdev.icarus.messages.outgoing.room;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.util.RoomUtil;
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
+import org.alexdev.icarus.messages.types.MessageComposer;
 
 public class RoomDataMessageComposer extends MessageComposer {
 

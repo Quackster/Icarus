@@ -3,8 +3,8 @@ package org.alexdev.icarus.messages.outgoing.room.items;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.util.ItemUtil;
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
+import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.util.Util;
 
 public class MoveItemMessageComposer extends MessageComposer {

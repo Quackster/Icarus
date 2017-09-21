@@ -3,8 +3,8 @@ package org.alexdev.icarus.messages.outgoing.catalogue;
 import java.util.List;
 
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
+import org.alexdev.icarus.messages.types.MessageComposer;
 
 public class CataloguePromotionRoomsComposer extends MessageComposer {
 

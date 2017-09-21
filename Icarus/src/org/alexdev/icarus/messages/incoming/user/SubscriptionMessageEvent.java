@@ -2,7 +2,7 @@ package org.alexdev.icarus.messages.incoming.user;
 
 import org.alexdev.icarus.dao.mysql.catalogue.ClubDao;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.messages.MessageEvent;
+import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class SubscriptionMessageEvent implements MessageEvent {

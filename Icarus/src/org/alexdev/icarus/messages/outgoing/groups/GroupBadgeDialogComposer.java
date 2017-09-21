@@ -8,8 +8,8 @@ import org.alexdev.icarus.game.groups.types.GroupBase;
 import org.alexdev.icarus.game.groups.types.GroupBaseColour;
 import org.alexdev.icarus.game.groups.types.GroupSymbol;
 import org.alexdev.icarus.game.groups.types.GroupSymbolColour;
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
+import org.alexdev.icarus.messages.types.MessageComposer;
 
 public class GroupBadgeDialogComposer extends MessageComposer {
 

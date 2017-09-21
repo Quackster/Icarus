@@ -1,8 +1,8 @@
 package org.alexdev.icarus.messages.outgoing.item;
 
 import org.alexdev.icarus.game.catalogue.targetedoffer.TargetedOffer;
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
+import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.util.Util;
 
 public class TargettedOfferDataComposer extends MessageComposer {

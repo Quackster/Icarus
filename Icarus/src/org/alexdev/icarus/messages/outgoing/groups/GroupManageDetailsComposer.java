@@ -1,8 +1,8 @@
 package org.alexdev.icarus.messages.outgoing.groups;
 
 import org.alexdev.icarus.game.groups.Group;
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
+import org.alexdev.icarus.messages.types.MessageComposer;
 
 public class GroupManageDetailsComposer extends MessageComposer {
 

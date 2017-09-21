@@ -3,8 +3,8 @@ package org.alexdev.icarus.messages.outgoing.messenger;
 import java.util.List;
 
 import org.alexdev.icarus.game.messenger.MessengerUser;
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
+import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
 public class MessengerSearchMessageComposer extends MessageComposer {

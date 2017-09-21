@@ -1,7 +1,7 @@
 package org.alexdev.icarus.messages.outgoing.navigator;
 
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
+import org.alexdev.icarus.messages.types.MessageComposer;
 
 public class NavigatorPromoteCategoriesComposer extends MessageComposer {
 

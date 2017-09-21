@@ -120,4 +120,5 @@ public class Outgoing {
     public static int UnknownGroupComposer = 3186;//1309
     public static int GroupUpdateMemberComposer = 3263;//2896
     public static int RefreshFavouriteGroupComposer = 1579;//3611
+    public static int InitCryptoMessageComposer = 2904;
 }

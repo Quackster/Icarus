@@ -1,7 +1,7 @@
 package org.alexdev.icarus.messages.outgoing.room.settings;
 
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
+import org.alexdev.icarus.messages.types.MessageComposer;
 
 public class RightsAssignedComposer extends MessageComposer {
 

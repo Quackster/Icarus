@@ -3,8 +3,8 @@ package org.alexdev.icarus.messages.incoming.navigator;
 import org.alexdev.icarus.dao.mysql.navigator.NavigatorDao;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.navigator.CreateRoomMessageComposer;
+import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class CreateRoomMessageEvent implements MessageEvent {

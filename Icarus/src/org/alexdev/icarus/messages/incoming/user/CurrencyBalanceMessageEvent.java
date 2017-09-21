@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.user.ActivityPointsComposer;
 import org.alexdev.icarus.messages.outgoing.user.CreditsMessageComposer;
+import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class CurrencyBalanceMessageEvent implements MessageEvent {

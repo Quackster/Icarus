@@ -1,6 +1,6 @@
 package org.alexdev.icarus.server.netty;
 
-import org.alexdev.icarus.messages.MessageComposer;
+import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.PlayerNetwork;
 import org.jboss.netty.channel.Channel;
 

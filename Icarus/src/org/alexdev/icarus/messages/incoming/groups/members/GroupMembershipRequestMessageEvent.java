@@ -8,10 +8,10 @@ import org.alexdev.icarus.game.groups.access.GroupAccessType;
 import org.alexdev.icarus.game.groups.members.GroupMemberType;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
-import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.groups.GroupInfoComposer;
 import org.alexdev.icarus.messages.outgoing.groups.RefreshFavouriteGroupComposer;
 import org.alexdev.icarus.messages.outgoing.groups.members.GroupMembershipRequestedComposer;
+import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class GroupMembershipRequestMessageEvent implements MessageEvent {

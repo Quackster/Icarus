@@ -1,8 +1,8 @@
 package org.alexdev.icarus.messages.outgoing.pets;
 
 import org.alexdev.icarus.game.pets.Pet;
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
+import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.util.Util;
 
 public class PetInformationComposer extends MessageComposer {

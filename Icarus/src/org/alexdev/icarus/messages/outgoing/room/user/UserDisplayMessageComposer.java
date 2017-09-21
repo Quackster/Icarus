@@ -5,8 +5,8 @@ import java.util.List;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.entity.Entity;
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
+import org.alexdev.icarus.messages.types.MessageComposer;
 
 public class UserDisplayMessageComposer extends MessageComposer {
 

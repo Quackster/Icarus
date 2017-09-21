@@ -1,10 +1,10 @@
 package org.alexdev.icarus.messages.incoming.user;
 
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.messages.MessageEvent;
 import org.alexdev.icarus.messages.outgoing.room.user.UserChangeComposer;
 import org.alexdev.icarus.messages.outgoing.user.AvatarAspectUpdateComposer;
 import org.alexdev.icarus.messages.outgoing.user.UserObjectMessageComposer;
+import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 public class ChangeAppearanceMessageEvent implements MessageEvent {

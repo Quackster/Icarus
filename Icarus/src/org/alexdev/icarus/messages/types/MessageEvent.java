@@ -1,4 +1,4 @@
-package org.alexdev.icarus.messages;
+package org.alexdev.icarus.messages.types;
 
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.server.api.messages.ClientMessage;

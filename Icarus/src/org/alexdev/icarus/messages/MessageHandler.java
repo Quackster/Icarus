@@ -63,6 +63,7 @@ import org.alexdev.icarus.messages.incoming.room.settings.SaveRoomMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.user.*;
 import org.alexdev.icarus.messages.incoming.trading.StartTradingMessageEvent;
 import org.alexdev.icarus.messages.incoming.user.*;
+import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
 import com.google.common.collect.Lists;
@@ -80,9 +81,7 @@ public class MessageHandler {
         this.registerComposerPackages();
     }
     public void register() {
-        
         this.messages.clear();
-        
         this.registerHandshakePackets();
         this.registerUserPackets();
         this.registerMiscPackets();
@@ -103,10 +102,12 @@ public class MessageHandler {
      */
     private void registerHandshakePackets() {
         this.registerEvent(Incoming.VersionCheckMessageEvent, new VersionCheckMessageEvent());
+        this.registerEvent(Incoming.InitCryptoMessageEvent, new InitCryptoMessageEvent());
+        this.registerEvent(Incoming.GenerateSecretKeyMessageEvent, new GenerateSecretKeyMessageEvent());
         this.registerEvent(Incoming.UniqueIDMessageEvent, new UniqueIDMessageEvent());
         this.registerEvent(Incoming.AuthenticateMessageEvent, new AuthenticateMessageEvent());
     }
-    
+
     /**
      * Register user packets.
      */
@@ -118,7 +119,7 @@ public class MessageHandler {
         this.registerEvent(Incoming.NavigatorPromoteRoomCategories, new WelcomeMessageEvent());
         this.registerEvent(Incoming.HabboClubCenterMessageEvent, new HabboClubCenterMessageEvent());
     }
-    
+
     /**
      * Register messenger.
      */
@@ -133,7 +134,7 @@ public class MessageHandler {
         this.registerEvent(Incoming.MessengerUpdateMessageEvent, new MessengerUpdateMessageEvent());
         this.registerEvent(Incoming.FollowFriendMessageEvent, new FollowFriendMessageEvent());
     }
-    
+
     /**
      * Register navigator packets.
      */
@@ -152,7 +153,7 @@ public class MessageHandler {
         this.registerEvent(Incoming.EventLogMessageEvent, new EventLogMessageEvent());
         this.registerEvent(Incoming.LatencyTestMessageEvent, new LatencyTestMessageEvent());
     }
-    
+
     /**
      * Register room packets.
      */
@@ -169,7 +170,7 @@ public class MessageHandler {
         this.registerEvent(Incoming.AnswerDoorbellMessageEvent, new DoorbellAnswerMessageEvent());
         this.registerEvent(Incoming.EnterDoorbellMessageEvent, new DoorbellEnterMessageEvent());
     }
-    
+
     /**
      * Register room setting packets.
      */
@@ -183,7 +184,7 @@ public class MessageHandler {
         this.registerEvent(Incoming.DeleteRoomMessageEvent, new DeleteRoomMessageEvent());
         this.registerEvent(Incoming.ClearRoomRightsMessageEvent, new ClearRoomRightsMessageEvent());
     }
-    
+
     /**
      * Register room floorplan packets.
      */
@@ -191,7 +192,7 @@ public class MessageHandler {
         this.registerEvent(Incoming.FloorPlanPropertiesMessageEvent, new FloorPlanPropertiesMessageEvent());
         this.registerEvent(Incoming.SaveFloorPlanMessageEvent, new SaveFloorPlanMessageEvent());
     }
-    
+
     /**
      * Register catalogue packets.
      */
@@ -204,7 +205,7 @@ public class MessageHandler {
         this.registerEvent(Incoming.PromotableRoomsMessageEvent, new PromotableRoomsMessageEvent());
         this.registerEvent(Incoming.PurchaseRoomPromotionMessageEvent, new PurchaseRoomPromotionMessageEvent());
     }
-    
+
     /**
      * Register pet packets.
      */
@@ -215,7 +216,7 @@ public class MessageHandler {
         this.registerEvent(Incoming.PetInfoMessageEvent, new PetInformationMessageEvent());
         this.registerEvent(Incoming.RemovePetMessageEvent, new RemovePetMessageEvent());
     }
-    
+
     /**
      * Register item packets.
      */
@@ -235,7 +236,7 @@ public class MessageHandler {
         this.registerEvent(Incoming.PurchaseOfferMessageEvent, new PurchaseOfferMessageEvent());
         this.registerEvent(Incoming.SaveBrandingMessageEvent, new SaveBrandingMessageEvent());
     }
-    
+
     /**
      * Register group packets.
      */
@@ -258,31 +259,33 @@ public class MessageHandler {
         this.registerEvent(Incoming.EditGroupAccessMessageEvent, new EditGroupAccessMessageEvent());
         this.registerEvent(Incoming.EditGroupBadgeMessageEvent, new EditGroupBadgeMessageEvent());
     }
-    
+
     /**
      * Register trade packets.
      */
     private void registerTradePackets() {
         this.registerEvent(Incoming.StartTradingMessageEvent, new StartTradingMessageEvent());
     }
-    
+
     /**
      * Register composer packages.
      */
     private void registerComposerPackages() {
-         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.catalogue");
-         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.handshake");
-         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.item");
-         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.messenger");
-         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.navigator");
-         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room");
-         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.floorplan");
-         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.settings");
-         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.groups");
-         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.items");
-         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.notify");
-         this.composerPackages.add("org.alexdev.icarus.messages.outgoing.user");
-     }
+        this.composerPackages.clear();
+        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.catalogue");
+        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.handshake");
+        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.item");
+        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.messenger");
+        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.navigator");
+        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.groups");
+        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.groups.members");
+        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room");
+        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.items");
+        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.notify");
+        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.floorplan");
+        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.settings");
+        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.user");
+    }
 
     /**
      * Register event.
@@ -291,11 +294,11 @@ public class MessageHandler {
      * @param messageEvent the message event
      */
     private void registerEvent(Integer header, MessageEvent messageEvent) {
-        
+
         if (!this.messages.containsKey(header)) {
             this.messages.put(header, Lists.newArrayList());
         }
-        
+
         this.messages.get(header).add(messageEvent);
     }
 
@@ -306,7 +309,7 @@ public class MessageHandler {
      * @param message the message
      */
     public void handleRequest(Player player, ClientMessage message) {
-        
+
         if (this.messages.containsKey(message.getMessageId())) {
 
             for (MessageEvent event : this.messages.get(message.getMessageId())) {

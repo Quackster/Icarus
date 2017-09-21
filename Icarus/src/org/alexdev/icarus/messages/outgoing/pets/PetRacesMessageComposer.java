@@ -3,8 +3,8 @@ package org.alexdev.icarus.messages.outgoing.pets;
 import java.util.List;
 
 import org.alexdev.icarus.game.pets.PetRace;
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
+import org.alexdev.icarus.messages.types.MessageComposer;
 
 public class PetRacesMessageComposer extends MessageComposer {
 

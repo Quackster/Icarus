@@ -21,6 +21,8 @@ package org.alexdev.icarus.server.netty.codec;
 
 import java.nio.ByteBuffer;
 
+import org.alexdev.icarus.encryption.RC4;
+import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.server.netty.streams.NettyRequest;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.channel.Channel;
@@ -32,11 +34,20 @@ public class NetworkDecoder extends FrameDecoder {
     @Override
     protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) {
         
-        try  {        
+        try {
             
             if (buffer.readableBytes() < 6) {
                 channel.close();
                 return null;
+            }
+            
+            if (channel.getAttachment() instanceof Player) {
+                
+                RC4 instance = ((Player)channel.getAttachment()).getRC4();
+                
+                if (instance != null) {
+                    buffer = instance.decipher(buffer);
+                }
             }
             
             byte[] length = buffer.readBytes(4).array();

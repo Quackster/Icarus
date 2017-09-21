@@ -3,8 +3,8 @@ package org.alexdev.icarus.messages.outgoing.room.floorplan;
 import java.util.List;
 
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.messages.MessageComposer;
 import org.alexdev.icarus.messages.headers.Outgoing;
+import org.alexdev.icarus.messages.types.MessageComposer;
 
 public class FloorPlanFloorMapComposer extends MessageComposer {
 

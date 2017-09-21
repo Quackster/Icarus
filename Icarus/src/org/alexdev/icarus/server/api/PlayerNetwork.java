@@ -1,6 +1,6 @@
 package org.alexdev.icarus.server.api;
 
-import org.alexdev.icarus.messages.MessageComposer;
+import org.alexdev.icarus.messages.types.MessageComposer;
 
 public abstract class PlayerNetwork {
 
