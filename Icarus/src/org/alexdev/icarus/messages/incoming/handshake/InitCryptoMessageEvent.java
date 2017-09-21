@@ -13,8 +13,8 @@ public class InitCryptoMessageEvent implements MessageEvent {
     public void handle(Player player, ClientMessage reader) {
 
         DiffieHellman dh = player.getDiffieHellman();
-        String prime = Util.getRSA().Sign(dh.getPrime().toString());
-        String generator = Util.getRSA().Sign(dh.getGenerator().toString());
+        String prime = Util.getRSA().sign(dh.getPrime().toString());
+        String generator = Util.getRSA().sign(dh.getGenerator().toString());
         
         player.send(new InitCryptoMessageComposer(prime, generator));
     }

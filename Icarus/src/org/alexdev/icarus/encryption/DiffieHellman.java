@@ -8,33 +8,31 @@ import java.math.BigInteger;
 import java.util.Random;
 
 public class DiffieHellman {
-    public int BITLENGTH = 30;
+    
+    private int BITLENGTH = 30;
 
     private BigInteger Prime;
     private BigInteger Generator;
-
     private BigInteger PrivateKey;
     private BigInteger PublicKey;
-
-    public BigInteger PublicClientKey;
-
+    private BigInteger PublicClientKey;
     private BigInteger SharedKey;
 
+
     public DiffieHellman() {
-        this.InitDH();
+        this.create();
     }
 
     public DiffieHellman(int b) {
         this.BITLENGTH = b;
-
-        this.InitDH();
+        this.create();
     }
 
     public DiffieHellman(BigInteger prime, BigInteger generator) {
         this.Prime = prime;
         this.Generator = generator;
 
-        this.PrivateKey = new BigInteger(GenerateRandomHexString(BITLENGTH), 16);
+        this.PrivateKey = new BigInteger(generateRandomHexString(BITLENGTH), 16);
 
         if (this.Generator.intValue() > this.Prime.intValue()) {
             BigInteger temp = this.Prime;
@@ -45,7 +43,13 @@ public class DiffieHellman {
         this.PublicKey = this.Generator.modPow(this.PrivateKey, this.Prime);
     }
 
-    public static String GenerateRandomHexString(int len) {
+    /**
+     * Generate random hex string.
+     *
+     * @param len the len
+     * @return the string
+     */
+    public static String generateRandomHexString(int len) {
         int rand = 0;
         String result = "";
 
@@ -58,14 +62,17 @@ public class DiffieHellman {
         return result;
     }
 
-    private void InitDH() {
+    /**
+     * Inits the DH.
+     */
+    private void create() {
         this.PublicKey = BigInteger.valueOf(0);
         Random random = new Random();
         while (this.PublicKey.intValue() == 0) {
             this.Prime = BigInteger.probablePrime(BITLENGTH, random);
             this.Generator = BigInteger.probablePrime(BITLENGTH, random);
 
-            this.PrivateKey = new BigInteger(GenerateRandomHexString(BITLENGTH), 16);
+            this.PrivateKey = new BigInteger(generateRandomHexString(BITLENGTH), 16);
 
             if (this.PrivateKey.intValue() < 1) {
                 continue;
@@ -81,36 +88,75 @@ public class DiffieHellman {
         }
     }
 
-    public void GenerateSharedKey(String ckey) {
+    /**
+     * Generate shared key.
+     *
+     * @param ckey the ckey
+     */
+    public void generateSharedKey(String ckey) {
         this.PublicClientKey = new BigInteger(ckey);
-
         this.SharedKey = this.PublicClientKey.modPow(this.PrivateKey, this.Prime);
     }
 
+    /**
+     * Gets the bitlength.
+     *
+     * @return the bitlength
+     */
     public int getBITLENGTH() {
         return BITLENGTH;
     }
 
+    /**
+     * Gets the prime.
+     *
+     * @return the prime
+     */
     public BigInteger getPrime() {
         return Prime;
     }
 
+    /**
+     * Gets the generator.
+     *
+     * @return the generator
+     */
     public BigInteger getGenerator() {
         return Generator;
     }
 
+    /**
+     * Gets the private key.
+     *
+     * @return the private key
+     */
     public BigInteger getPrivateKey() {
         return PrivateKey;
     }
 
+    /**
+     * Gets the public key.
+     *
+     * @return the public key
+     */
     public BigInteger getPublicKey() {
         return PublicKey;
     }
 
+    /**
+     * Gets the public client key.
+     *
+     * @return the public client key
+     */
     public BigInteger getPublicClientKey() {
         return PublicClientKey;
     }
 
+    /**
+     * Gets the shared key.
+     *
+     * @return the shared key
+     */
     public BigInteger getSharedKey() {
         return SharedKey;
     }

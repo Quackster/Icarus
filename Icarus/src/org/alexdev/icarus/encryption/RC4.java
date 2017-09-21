@@ -8,7 +8,9 @@ import org.jboss.netty.buffer.ChannelBuffers;
  * (from Morgoth, thanks Jordan!)
  */
 public class RC4 {
+    
     private static final int POOL_SIZE = 256;
+
     private int i = 0;
     private int j = 0;
     private int[] table;
@@ -19,10 +21,14 @@ public class RC4 {
 
     public RC4(byte[] key) {
         this.table = new int[POOL_SIZE];
-
         this.init(key);
     }
 
+    /**
+     * Inits the.
+     *
+     * @param key the key
+     */
     public void init(byte[] key) {
         this.i = 0;
         this.j = 0;
@@ -40,12 +46,23 @@ public class RC4 {
         this.j = 0;
     }
 
+    /**
+     * Swap.
+     *
+     * @param a the a
+     * @param b the b
+     */
     public void swap(int a, int b) {
         int k = this.table[a];
         this.table[a] = this.table[b];
         this.table[b] = k;
     }
 
+    /**
+     * Next.
+     *
+     * @return the byte
+     */
     public byte next() {
         i = ++i & (POOL_SIZE - 1);
         j = (j + table[i]) & (POOL_SIZE - 1);
@@ -54,6 +71,12 @@ public class RC4 {
         return (byte) table[(table[i] + table[j]) & (POOL_SIZE - 1)];
     }
 
+    /**
+     * Decipher.
+     *
+     * @param bytes the bytes
+     * @return the channel buffer
+     */
     public ChannelBuffer decipher(ChannelBuffer bytes) {
 
         ChannelBuffer result = ChannelBuffers.dynamicBuffer();

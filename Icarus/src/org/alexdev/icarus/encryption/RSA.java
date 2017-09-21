@@ -2,26 +2,26 @@ package org.alexdev.icarus.encryption;
 
 import java.math.BigInteger;
 
+// TODO: Auto-generated Javadoc
 /**
  * Edited: 11/25/2015 (Scott Stamp).
  * (from Morgoth, thanks Jordan!)
  */
 public class RSA {
     
-    public BigInteger Exponent; // public exponent
-    public BigInteger n; // modulus
+    public BigInteger Exponent;
+    public BigInteger n;
     public BigInteger Private;
-    
+
     public boolean Decryptable;
     public boolean Encryptable;
-    
+
     private String privateKey;
     private String publicKey;
-    private String modulus;
     
+    private String modulus;
     private boolean canEncrypt = false;
     private boolean canDecrypt = false;
-    
     private BigInteger Zero = new BigInteger("0");
 
     public RSA() {
@@ -33,11 +33,22 @@ public class RSA {
         Decryptable = (Encryptable && Private != Zero && Private != null);
     }
 
-    public int GetBlockSize() {
+    /**
+     * Gets the block size.
+     *
+     * @return the block size
+     */
+    public int getBlockSize() {
         return (n.bitLength() + 7) / 8;
     }
 
-    public BigInteger DoPublic(BigInteger x) {
+    /**
+     * Do public.
+     *
+     * @param x the x
+     * @return the big integer
+     */
+    public BigInteger doPublic(BigInteger x) {
         if (this.Encryptable) {
             return x.modPow(new BigInteger(this.Exponent + ""), this.n);
         }
@@ -45,14 +56,20 @@ public class RSA {
         return Zero;
     }
 
-    public String Encrypt(String text) {
-        BigInteger m = new BigInteger(this.pkcs1pad2(text.getBytes(), this.GetBlockSize()));
+    /**
+     * Encrypt.
+     *
+     * @param text the text
+     * @return the string
+     */
+    public String encrypt(String text) {
+        BigInteger m = new BigInteger(this.pkcs1pad2(text.getBytes(), this.getBlockSize()));
 
         if (m.equals(Zero)) {
             return null;
         }
 
-        BigInteger c = this.DoPublic(m);
+        BigInteger c = this.doPublic(m);
 
         if (c.equals(Zero)) {
             return null;
@@ -67,8 +84,14 @@ public class RSA {
         return "0" + result;
     }
 
-    public String Sign(String text) {
-        BigInteger m = new BigInteger(this.pkcs1pad2(text.getBytes(), this.GetBlockSize()));
+    /**
+     * Sign.
+     *
+     * @param text the text
+     * @return the string
+     */
+    public String sign(String text) {
+        BigInteger m = new BigInteger(this.pkcs1pad2(text.getBytes(), this.getBlockSize()));
 
         if (m.equals(Zero)) {
             return null;
@@ -89,6 +112,13 @@ public class RSA {
         return "0" + result;
     }
 
+    /**
+     * Pkcs 1 pad 2.
+     *
+     * @param data the data
+     * @param n the n
+     * @return the byte[]
+     */
     private byte[] pkcs1pad2(byte[] data, int n) {
         byte[] bytes = new byte[n];
 
@@ -110,6 +140,12 @@ public class RSA {
         return bytes;
     }
 
+    /**
+     * Do private.
+     *
+     * @param x the x
+     * @return the big integer
+     */
     public BigInteger DoPrivate(BigInteger x) {
         if (this.Decryptable) {
             return x.modPow(this.Private, this.n);
@@ -118,7 +154,13 @@ public class RSA {
         return Zero;
     }
 
-    public String Decrypt(String ctext) {
+    /**
+     * Decrypt.
+     *
+     * @param ctext the ctext
+     * @return the string
+     */
+    public String decrypt(String ctext) {
         BigInteger c = new BigInteger(ctext, 16);
         BigInteger m = this.DoPrivate(c);
 
@@ -126,7 +168,7 @@ public class RSA {
             return null;
         }
 
-        byte[] bytes = this.pkcs1unpad2(m, this.GetBlockSize());
+        byte[] bytes = this.pkcs1unpad2(m, this.getBlockSize());
 
         if (bytes == null) {
             return null;
@@ -136,9 +178,11 @@ public class RSA {
     }
 
     /**
-     * @param src
-     * @param n
-     * @return
+     * Pkcs 1 unpad 2.
+     *
+     * @param src the src
+     * @param n the n
+     * @return the byte[]
      */
     private byte[] pkcs1unpad2(BigInteger src, int n) {
         byte[] bytes = src.toByteArray();
@@ -171,90 +215,200 @@ public class RSA {
         return out;
     }
 
+    /**
+     * Gets the exponent.
+     *
+     * @return the exponent
+     */
     public BigInteger getExponent() {
         return Exponent;
     }
 
+    /**
+     * Sets the exponent.
+     *
+     * @param exponent the new exponent
+     */
     public void setExponent(BigInteger exponent) {
         Exponent = exponent;
     }
 
+    /**
+     * Gets the n.
+     *
+     * @return the n
+     */
     public BigInteger getN() {
         return n;
     }
 
+    /**
+     * Sets the n.
+     *
+     * @param n the new n
+     */
     public void setN(BigInteger n) {
         this.n = n;
     }
 
+    /**
+     * Gets the private.
+     *
+     * @return the private
+     */
     public BigInteger getPrivate() {
         return Private;
     }
 
+    /**
+     * Sets the private.
+     *
+     * @param private1 the new private
+     */
     public void setPrivate(BigInteger private1) {
         Private = private1;
     }
 
+    /**
+     * Checks if is decryptable.
+     *
+     * @return true, if is decryptable
+     */
     public boolean isDecryptable() {
         return Decryptable;
     }
 
+    /**
+     * Sets the decryptable.
+     *
+     * @param decryptable the new decryptable
+     */
     public void setDecryptable(boolean decryptable) {
         Decryptable = decryptable;
     }
 
+    /**
+     * Checks if is encryptable.
+     *
+     * @return true, if is encryptable
+     */
     public boolean isEncryptable() {
         return Encryptable;
     }
 
+    /**
+     * Sets the encryptable.
+     *
+     * @param encryptable the new encryptable
+     */
     public void setEncryptable(boolean encryptable) {
         Encryptable = encryptable;
     }
 
+    /**
+     * Gets the private key.
+     *
+     * @return the private key
+     */
     public String getPrivateKey() {
         return privateKey;
     }
 
+    /**
+     * Sets the private key.
+     *
+     * @param privateKey the new private key
+     */
     public void setPrivateKey(String privateKey) {
         this.privateKey = privateKey;
     }
 
+    /**
+     * Gets the public key.
+     *
+     * @return the public key
+     */
     public String getPublicKey() {
         return publicKey;
     }
 
+    /**
+     * Sets the public key.
+     *
+     * @param publicKey the new public key
+     */
     public void setPublicKey(String publicKey) {
         this.publicKey = publicKey;
     }
 
+    /**
+     * Gets the modulus.
+     *
+     * @return the modulus
+     */
     public String getModulus() {
         return modulus;
     }
 
+    /**
+     * Sets the modulus.
+     *
+     * @param modulus the new modulus
+     */
     public void setModulus(String modulus) {
         this.modulus = modulus;
     }
 
+    /**
+     * Checks if is can encrypt.
+     *
+     * @return true, if is can encrypt
+     */
     public boolean isCanEncrypt() {
         return canEncrypt;
     }
 
+    /**
+     * Sets the can encrypt.
+     *
+     * @param canEncrypt the new can encrypt
+     */
     public void setCanEncrypt(boolean canEncrypt) {
         this.canEncrypt = canEncrypt;
     }
 
+    /**
+     * Checks if is can decrypt.
+     *
+     * @return true, if is can decrypt
+     */
     public boolean isCanDecrypt() {
         return canDecrypt;
     }
 
+    /**
+     * Sets the can decrypt.
+     *
+     * @param canDecrypt the new can decrypt
+     */
     public void setCanDecrypt(boolean canDecrypt) {
         this.canDecrypt = canDecrypt;
     }
 
+    /**
+     * Gets the zero.
+     *
+     * @return the zero
+     */
     public BigInteger getZero() {
         return Zero;
     }
 
+    /**
+     * Sets the zero.
+     *
+     * @param zero the new zero
+     */
     public void setZero(BigInteger zero) {
         Zero = zero;
     }
