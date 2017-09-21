@@ -230,6 +230,11 @@ public class Player extends Entity {
         this.network.send(response);
     }
 
+    /**
+     * Gets the diffie hellman session instance
+     *
+     * @return the diffie hellman
+     */
     public DiffieHellman getDiffieHellman() {
         return diffieHellman;
     }

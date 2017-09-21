@@ -2,7 +2,6 @@ package org.alexdev.icarus.messages.incoming.handshake;
 
 import org.alexdev.icarus.encryption.DiffieHellman;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.handshake.InitCryptoMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;

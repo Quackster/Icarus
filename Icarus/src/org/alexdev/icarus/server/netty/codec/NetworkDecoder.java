@@ -21,8 +21,6 @@ package org.alexdev.icarus.server.netty.codec;
 
 import java.nio.ByteBuffer;
 
-import org.alexdev.icarus.encryption.RC4;
-import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.server.netty.streams.NettyRequest;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.channel.Channel;
