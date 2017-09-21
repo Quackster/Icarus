@@ -168,8 +168,6 @@ public class MessageHandler {
         this.registerEvent(Incoming.StopTypingMessageEvent, new TypingStatusMessageEvent());
         this.registerEvent(Incoming.AnswerDoorbellMessageEvent, new DoorbellAnswerMessageEvent());
         this.registerEvent(Incoming.EnterDoorbellMessageEvent, new DoorbellEnterMessageEvent());
-        this.registerEvent(Incoming.RoomThumbnailMessageEvent, new RoomThumbnailMessageEvent());
-        this.registerEvent(Incoming.RoomCameraMessageEvent, new RoomThumbnailMessageEvent());
     }
     
     /**
