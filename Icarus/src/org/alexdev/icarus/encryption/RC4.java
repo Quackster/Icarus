@@ -63,4 +63,21 @@ public class RC4 {
 
         return (byte) table[(table[i] + table[j]) & (POOL_SIZE - 1)];
     }
+    
+    /**
+     * Decipher the incoming message.
+     *
+     * @param array the array
+     * @return the byte[]
+     */
+    public byte[] decipher(byte[] array) {
+        
+        byte[] result = new byte[array.length];
+        
+        for (int i = 0; i < array.length; i++) {
+            result[i] = (byte) (array[i] ^ this.next());
+        }
+        
+        return result;
+    }
 }
