@@ -1,8 +1,5 @@
 package org.alexdev.icarus.encryption;
 
-import org.jboss.netty.buffer.ChannelBuffer;
-import org.jboss.netty.buffer.ChannelBuffers;
-
 public class RC4 {
     
     private static final int POOL_SIZE = 256;
@@ -65,22 +62,5 @@ public class RC4 {
         swap(i, j);
 
         return (byte) table[(table[i] + table[j]) & (POOL_SIZE - 1)];
-    }
-
-    /**
-     * Decipher.
-     *
-     * @param bytes the bytes
-     * @return the channel buffer
-     */
-    public ChannelBuffer decipher(ChannelBuffer bytes) {
-
-        ChannelBuffer result = ChannelBuffers.dynamicBuffer();
-        
-        while (bytes.readableBytes() > 0) {
-            result.writeByte((byte) (bytes.readByte() ^ next()));
-        }
-        
-        return result;
     }
 }

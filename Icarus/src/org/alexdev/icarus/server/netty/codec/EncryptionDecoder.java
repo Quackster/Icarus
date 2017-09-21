@@ -2,6 +2,7 @@ package org.alexdev.icarus.server.netty.codec;
 
 import org.alexdev.icarus.encryption.RC4;
 import org.jboss.netty.buffer.ChannelBuffer;
+import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.handler.codec.frame.FrameDecoder;
@@ -16,6 +17,13 @@ public class EncryptionDecoder extends FrameDecoder {
 
     @Override
     protected ChannelBuffer decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) {
-        return rc4.decipher(buffer);
+        
+        ChannelBuffer result = ChannelBuffers.dynamicBuffer();
+        
+        while (buffer.readableBytes() > 0) {
+            result.writeByte((byte) (buffer.readByte() ^ this.rc4.next()));
+        }
+        
+        return result;
     }
 }
