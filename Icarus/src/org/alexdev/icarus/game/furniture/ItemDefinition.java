@@ -88,6 +88,10 @@ public class ItemDefinition {
         if (inventoryItem.getDefinition().getInteractionType() == InteractionType.GATE) {
             inventoryItem.setExtraData("0");
         }
+        
+        if (inventoryItem.getDefinition().getInteractionType() == InteractionType.MANNEQUIN) {
+            inventoryItem.setExtraData("m" + (char)5 + ".ch-210-1321.lg-285-92" + (char)5 + "Default Mannequin");
+        }
 
         if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
 

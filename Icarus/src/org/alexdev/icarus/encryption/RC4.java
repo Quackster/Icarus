@@ -3,10 +3,6 @@ package org.alexdev.icarus.encryption;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 
-/**
- * Edited: 11/25/2015 (Scott Stamp).
- * (from Morgoth, thanks Jordan!)
- */
 public class RC4 {
     
     private static final int POOL_SIZE = 256;

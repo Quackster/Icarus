@@ -1,9 +1,5 @@
 package org.alexdev.icarus.encryption;
 
-/**
- * Edited: 11/25/2015 (Scott Stamp).
- * (from Morgoth, thanks Jordan!)
- */
 import java.math.BigInteger;
 import java.util.Random;
 

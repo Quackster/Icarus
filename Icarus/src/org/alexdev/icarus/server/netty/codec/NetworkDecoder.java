@@ -32,7 +32,7 @@ public class NetworkDecoder extends FrameDecoder {
     @Override
     protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) {
         
-        try {
+        try  {        
             
             if (buffer.readableBytes() < 6) {
                 channel.close();

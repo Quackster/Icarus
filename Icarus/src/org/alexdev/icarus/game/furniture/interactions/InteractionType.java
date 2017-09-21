@@ -6,6 +6,7 @@ import org.alexdev.icarus.game.furniture.interactions.types.DefaultInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.DiceInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.DimmerInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.GateInteractor;
+import org.alexdev.icarus.game.furniture.interactions.types.MannequinInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.TeleportInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.VendingInteractor;
 
@@ -119,7 +120,7 @@ public enum InteractionType {
     WIRESPLITTER(null),
     WIRESTANDARD(null),
     GIFT(null),
-    MANNEQUIN(null),
+    MANNEQUIN(new MannequinInteractor()),
     GLD_GATE(null),
     BG_COLORBACKGROUND(null),
     ADS_FURNITURE(null),

@@ -14,12 +14,9 @@ public class NettyRequest implements ClientMessage {
         this.header = (short) messageId;
         this.buffer = (buffer == null || buffer.readableBytes() == 0) ? ChannelBuffers.EMPTY_BUFFER : buffer;
     }
-
-    public int readShort() {
-        return buffer.readShort();
-    }
-
+    
     public Integer readInt() {
+        
         try {
             return buffer.readInt();
         } catch (Exception e) {
@@ -27,8 +24,8 @@ public class NettyRequest implements ClientMessage {
         }
     }
     
-
     public boolean readIntAsBool() {
+        
         try {
             return buffer.readInt() == 1;
         } catch (Exception e) {
@@ -37,10 +34,10 @@ public class NettyRequest implements ClientMessage {
     }
 
     public boolean readBoolean()  {
+        
         try {
             return buffer.readByte() == 1;
-        }
-        catch (Exception e)    {
+        } catch (Exception e)    {
             return false;
         }
     }
@@ -48,7 +45,7 @@ public class NettyRequest implements ClientMessage {
     public String readString() {
         
         try {
-            int length = this.readShort();
+            int length = this.buffer.readShort();
             byte[] data = this.buffer.readBytes(length).array();
 
             return new String(data);

@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.util;
 
+import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.server.api.messages.Response;
 
@@ -29,16 +30,40 @@ public class ItemUtil {
                 for (int i = 0; i <= count - 1; i++) {
                     response.writeString(adsData[i]);
                 }
-                
+
             } else {
                 response.writeInt(0);
             }
-            
-        } else {
-
-            response.writeInt(1);
-            response.writeInt(0);
-            response.writeString(extraData);
+            return;
         }
+
+        if (item.getDefinition().getInteractionType() == InteractionType.MANNEQUIN) {
+
+            response.writeInt(0);
+            response.writeInt(1);
+            response.writeInt(3);
+
+            if (item.getExtraData().contains(Character.toString((char)5))) {
+                String[] mannequinData = item.getExtraData().split(Character.toString((char)5));
+                response.writeString("GENDER");
+                response.writeString(mannequinData[0]);
+                response.writeString("FIGURE");
+                response.writeString(mannequinData[1]);
+                response.writeString("OUTFIT_NAME");
+                response.writeString(mannequinData[2]);
+            } else {
+                response.writeString("GENDER");
+                response.writeString("");
+                response.writeString("FIGURE");
+                response.writeString("");
+                response.writeString("OUTFIT_NAME");
+                response.writeString("");
+            }
+            return;
+        }
+
+        response.writeInt(1);
+        response.writeInt(0);
+        response.writeString(extraData);
     }
 }

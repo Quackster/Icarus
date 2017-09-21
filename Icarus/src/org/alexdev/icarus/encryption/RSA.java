@@ -2,11 +2,6 @@ package org.alexdev.icarus.encryption;
 
 import java.math.BigInteger;
 
-// TODO: Auto-generated Javadoc
-/**
- * Edited: 11/25/2015 (Scott Stamp).
- * (from Morgoth, thanks Jordan!)
- */
 public class RSA {
     
     public BigInteger Exponent;

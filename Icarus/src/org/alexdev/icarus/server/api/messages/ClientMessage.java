@@ -3,13 +3,6 @@ package org.alexdev.icarus.server.api.messages;
 public interface ClientMessage {
 
     /**
-     * Read short.
-     *
-     * @return the int
-     */
-    public int readShort();
-    
-    /**
      * Read integer.
      *
      * @return the integer

@@ -7,7 +7,7 @@ public class BadgeUtil {
     /**
      * Format group state.
      *
-     * @param num the num
+     * @param num the number
      * @return the string
      */
     private static String format(int num) {

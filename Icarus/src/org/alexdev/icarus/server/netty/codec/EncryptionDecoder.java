@@ -15,7 +15,7 @@ public class EncryptionDecoder extends FrameDecoder {
     }
 
     @Override
-    protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) {
+    protected ChannelBuffer decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) {
         return rc4.decipher(buffer);
     }
 }
