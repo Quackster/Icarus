@@ -5,12 +5,10 @@ import java.util.List;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.scheduler.RoomTask;
-import org.alexdev.icarus.game.room.scheduler.TaskType;
 
 public class PetTask implements RoomTask {
 
     private Room room;
-    private TaskType type;
 
     public PetTask(Room room) {
         this.room = room;
@@ -35,15 +33,5 @@ public class PetTask implements RoomTask {
 
 
         }
-    }
-    
-    @Override
-    public TaskType getType() {
-        return type;
-    }
-
-    @Override
-    public void setThreadType(TaskType type) {
-        this.type = type;
     }
 }
