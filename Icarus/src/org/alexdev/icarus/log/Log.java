@@ -13,35 +13,71 @@ public class Log {
 
     private final static String PREFIX = "ICARUS";
 
+    /**
+     * Startup.
+     */
     public static void startup() {
 
         output("", false);
         output("-----------------------------------------", false);
-        output("-- SERVER BOOT TIME: " + DateTime.formatDateTime(), false);
+        output("-- SERVER BOOT TIME: " + formatDateTime(), false);
         output("-----------------------------------------", false);
         output("", false);
 
-        println("Icarus - Habbo Hotel PRODUCTION63 Server");
-        println("Loading server...");
-        println();
+        info("Icarus - Habbo Hotel PRODUCTION63 Server");
+        info("Loading server...");
+        info();
     }
 
+    /**
+     * Format date time.
+     *
+     * @return the string
+     */
+    private static String formatDateTime() {
+        return "01-01-1970 01:01:01";
+    }
+
+    /**
+     * Generate data format.
+     *
+     * @return the string
+     */
     private static String generateDataFormat() {
-        return "[" + DateTime.formatDateTime() + "]";//DateTime.now();
+        return "[" + formatDateTime() + "]";//DateTime.now();
     }
 
-    public static void println() {
+    /**
+     * Info.
+     */
+    public static void info() {
         output(generateDataFormat() + " [" + PREFIX + "] ");
     }
 
-    public static void println(Object format)  {
+    /**
+     * Info.
+     *
+     * @param format the format
+     */
+    public static void info(Object format)  {
         output(generateDataFormat() + " [" + PREFIX + "] >> " + format.toString());
     }
 
+    /**
+     * Output.
+     *
+     * @param string the string
+     */
     private static void output(String string) {
         output(string, true);
     }
 
+    /**
+     * Output.
+     *
+     * @param string the string
+     * @param log the log
+     */
     private static void output(String string, boolean log) {
 
         if (log) {
@@ -51,39 +87,46 @@ public class Log {
         if (Util.getConfiguration().get("Logging", "log.output", boolean.class)) {
             writeToFile("log/output.log", string);
         }
-
     }
 
+    /**
+     * Exception.
+     *
+     * @param e the e
+     */
     public static void exception(Exception e) {
 
-        println("---------------------------------------------");
-        println("Error has occured!");
+        info("---------------------------------------------");
+        info("Error has occured!");
         StringWriter sw = new StringWriter();
         e.printStackTrace(new PrintWriter(sw));
         String exceptionAsString = sw.toString();
         output(exceptionAsString, false);
         e.printStackTrace();
-        println("---------------------------------------------");
+        info("---------------------------------------------");
 
         if (Util.getConfiguration().get("Logging", "log.errors", boolean.class)) {
             writeToFile("log/error.log", "---------------------------------------------");
-            writeToFile("log/error.log", " " + DateTime.formatDateTime() + " - Error has occured!");
+            writeToFile("log/error.log", " " + formatDateTime() + " - Error has occured!");
             writeToFile("log/error.log", exceptionAsString);
         }
     }
     
+    /**
+     * Write to file.
+     *
+     * @param dir the dir
+     * @param string the string
+     */
     private static void writeToFile(String dir, String string) {
 
         File file = new File(dir);
         
         try {
-
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
-        } catch (Exception e1) {
-
-        }
+        } catch (Exception e1) { }
 
         try {
             if (!file.exists()) {     
@@ -95,10 +138,8 @@ public class Log {
             writer.flush();
             writer.close();
 
-
         } catch (IOException e1) {
             e1.printStackTrace();
         }
     }
-
 }

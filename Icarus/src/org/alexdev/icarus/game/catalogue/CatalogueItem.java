@@ -68,7 +68,7 @@ public class CatalogueItem {
 
                                 this.items.add(new CatalogueBundledItem(this, aPresetData, aAmount, aItemId));
                             } catch (Exception ignored) {
-                                Log.println("Invalid item data for catalog item: " + this.id);
+                                Log.info("Invalid item data for catalog item: " + this.id);
                             }
                         }
                     }

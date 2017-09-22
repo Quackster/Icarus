@@ -214,7 +214,7 @@ public class Item extends Metadata {
             this.lengthY = Integer.valueOf(y_data[1]);
 
         } catch (NumberFormatException e) {
-            Log.println("Error parsing wall item for item Id: " + this.id);
+            Log.info("Error parsing wall item for item Id: " + this.id);
         }
     }
 

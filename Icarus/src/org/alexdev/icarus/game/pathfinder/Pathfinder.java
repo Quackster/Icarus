@@ -42,7 +42,7 @@ public class Pathfinder {
             return Lists.newLinkedList();
         }
 
-        if (entity.getRoomUser().getPosition().isMatch(new Position(X, Y))) {
+        if (entity.getRoomUser().getPosition().equals(new Position(X, Y))) {
             return Lists.newLinkedList();
         }
         

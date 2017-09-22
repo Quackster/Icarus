@@ -35,9 +35,7 @@ public class RoomMapping {
         this.mapSizeY = this.room.getModel().getMapSizeY();
         this.tiles = new RoomTile[this.mapSizeX][this.mapSizeY];
 
-        List<Entity> entities = this.room.getEntityManager().getEntities();
-
-        for (Entity entity : entities) {
+        for (Entity entity : this.room.getEntityManager().getEntities()) {
             this.getTile(entity.getRoomUser().getPosition().getX(), entity.getRoomUser().getPosition().getY()).addEntity(entity);
         }
 
@@ -119,13 +117,13 @@ public class RoomMapping {
         }
 
         if (entity != null) {
-            if (!current.isMatch(this.room.getModel().getDoorLocation())) {
+            if (!current.equals(this.room.getModel().getDoorLocation())) {
 
                 if (!this.isTileWalkable(current.getX(), current.getY(), entity)) {
                     return false;
                 }
 
-                if (!current.isMatch(entity.getRoomUser().getPosition())) {
+                if (!current.equals(entity.getRoomUser().getPosition())) {
                     if (currentTile.getHighestItem() != null) {
 
                         Item currentItem = currentTile.getHighestItem();

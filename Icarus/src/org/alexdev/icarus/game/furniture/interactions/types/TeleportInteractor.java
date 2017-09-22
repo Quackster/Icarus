@@ -18,7 +18,7 @@ public class TeleportInteractor implements Interaction {
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {
 
-        if (item.getPosition().isMatch(roomUser.getPosition())) {
+        if (item.getPosition().equals(roomUser.getPosition())) {
 
             item.setExtraData(TELEPORTER_OPEN);
             item.updateStatus();
@@ -34,7 +34,7 @@ public class TeleportInteractor implements Interaction {
 
         Position front = item.getPosition().getSquareInFront();
 
-        if (!front.isMatch(roomUser.getPosition())) {
+        if (!front.equals(roomUser.getPosition())) {
 
 
             Item targetTeleporter = roomUser.getRoom().getItemManager().getItem(item.getTeleporterId());

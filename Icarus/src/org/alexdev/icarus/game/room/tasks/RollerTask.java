@@ -1,6 +1,5 @@
 package org.alexdev.icarus.game.room.tasks;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -50,17 +49,14 @@ public class RollerTask implements RoomTask {
         for (Item roller : rollers) {
 
             Set<Item> items = this.room.getMapping().getTile(roller.getPosition().getX(), roller.getPosition().getY()).getItems();
-            Iterator<Item> itemIterate = items.iterator();
 
-            while (itemIterate.hasNext()) {
-
-                Item item = itemIterate.next();
+            for(Item item : items) {
 
                 if (rollingItems.contains(item)) {
                     continue;
                 }
 
-                if (item.getPosition().isMatch(roller.getPosition()) && item.getPosition().getZ() > roller.getPosition().getZ()) {
+                if (item.getPosition().equals(roller.getPosition()) && item.getPosition().getZ() > roller.getPosition().getZ()) {
 
                     Position front = roller.getPosition().getSquareInFront();
 
@@ -122,7 +118,7 @@ public class RollerTask implements RoomTask {
                     continue;
                 }
 
-                if (entity.getRoomUser().getPosition().isMatch(roller.getPosition()) && entity.getRoomUser().getPosition().getZ() > roller.getPosition().getZ()) {
+                if (entity.getRoomUser().getPosition().equals(roller.getPosition()) && entity.getRoomUser().getPosition().getZ() > roller.getPosition().getZ()) {
                     entity.getRoomUser().setRolling(true);
 
                     Position front = roller.getPosition().getSquareInFront();
@@ -138,6 +134,10 @@ public class RollerTask implements RoomTask {
                     entity.getRoomUser().getPosition().setY(front.getY());
                     entity.getRoomUser().getPosition().setZ(nextHeight);
                     entity.getRoomUser().setNeedUpdate(true);
+
+                    if (entity.getRoomUser().getCurrentItem() != null) {
+                        entity.getRoomUser().handleNearbyItem();
+                    }
                 }
 
             }

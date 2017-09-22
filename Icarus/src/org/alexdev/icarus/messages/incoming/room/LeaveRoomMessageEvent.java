@@ -11,7 +11,7 @@ public class LeaveRoomMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage request) {
        
-        Log.println("LEAVE ROOM EVENT CALLED!");
+        Log.info("LEAVE ROOM EVENT CALLED!");
         
         player.performRoomAction(RoomAction.LEAVE_ROOM, true);
     }

@@ -89,7 +89,7 @@ public class RoomTile {
      */
     public void addEntity(Entity entity) {
         
-        if (new Position(this.x, this.y).isMatch(this.room.getModel().getDoorLocation())) {
+        if (new Position(this.x, this.y).equals(this.room.getModel().getDoorLocation())) {
             return;
         }
         

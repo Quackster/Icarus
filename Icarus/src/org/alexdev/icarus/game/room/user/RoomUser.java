@@ -19,7 +19,6 @@ import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.Rotation;
-import org.alexdev.icarus.log.DateTime;
 import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
@@ -196,7 +195,7 @@ public class RoomUser extends Metadata {
         boolean isStaff = player.getDetails().hasPermission("moderator");
 
         if (spamCheck) {
-            if (DateTime.getTimeSeconds() < this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
+            if (Util.getCurrentTimeSeconds() < this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
 
                 if (!isStaff) {
                     player.send(new FloodFilterMessageComposer(GameSettings.CHAT_FLOOD_WAIT));
@@ -237,7 +236,7 @@ public class RoomUser extends Metadata {
         if (spamCheck) {
             if (!player.getDetails().hasPermission("moderator")) {
 
-                if (DateTime.getTimeSeconds() > this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
+                if (Util.getCurrentTimeSeconds() > this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
                     this.chatCount = 0;
                 } else {
                     this.chatCount = this.chatCount + 1;

@@ -276,8 +276,18 @@ public class Position {
      * @param point the point
      * @return true, if is match
      */
-    public boolean isMatch(Position point) {    
-        return (this.X == point.getX() && this.Y == point.getY());
+    @Override
+    public boolean equals(Object obj) { 
+        
+        if (obj instanceof Position) {
+            Position position = (Position) obj;
+            
+            if (position.getX() == this.X && position.getY() == this.Y) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     /* (non-Javadoc)

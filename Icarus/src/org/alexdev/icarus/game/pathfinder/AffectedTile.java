@@ -5,6 +5,16 @@ import java.util.List;
 
 public class AffectedTile {
 
+    /**
+     * Gets the affected tiles.
+     *
+     * @param length the length
+     * @param width the width
+     * @param posX the pos X
+     * @param posY the pos Y
+     * @param rotation the rotation
+     * @return the affected tiles
+     */
     public static List<Position> getAffectedTiles(int length, int width, int posX, int posY, int rotation) {
         
         List<Position> points = new ArrayList<Position>();

@@ -4,10 +4,16 @@ import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.messages.headers.Outgoing;
 
 public enum ChatType {
+    
     CHAT,
     SHOUT,
     WHISPER;
 
+    /**
+     * Gets the chat header.
+     *
+     * @return the chat header
+     */
     public int getHeader() {
         
         if (this == CHAT) {
@@ -21,6 +27,11 @@ public enum ChatType {
         return -1;
     }
 
+    /**
+     * Gets the event.
+     *
+     * @return the event
+     */
     public PluginEvent getEvent() {
         
         if (this == CHAT) {

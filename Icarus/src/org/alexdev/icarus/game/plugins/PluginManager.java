@@ -52,7 +52,7 @@ public class PluginManager {
         LuaTable table = (LuaTable) tableValue;
 
         if (table.len().toint() > 0) {
-            Log.println();
+            Log.info();
         } else {
             return;
         }
@@ -62,7 +62,7 @@ public class PluginManager {
             loadPlugin(value.toString());
         }
 
-        Log.println("Loaded " + plugins.size() + " plugin(s)!");
+        Log.info("Loaded " + plugins.size() + " plugin(s)!");
     }
 
     private static void loadPlugin(String path) {

@@ -36,7 +36,7 @@ end
 --]]
 function cmdReloadOffers(rcon_data)
     
-    log:println(" [Rcon] Catalogue offers reloaded")
+    log:info(" [Rcon] Catalogue offers reloaded")
 
     catalogueManager:reloadOffers()
     

@@ -31,7 +31,7 @@ public class ConnectionHandler extends SimpleChannelHandler {
         Player player = (Player) ctx.getChannel().getAttachment();
 
         if (Util.getConfiguration().get("Logging", "log.connections", Boolean.class)) {
-            Log.println("[" + player.getNetwork().getConnectionId() + "] Connection from " + ctx.getChannel().getRemoteAddress().toString().replace("/", "").split(":")[0]);
+            Log.info("[" + player.getNetwork().getConnectionId() + "] Connection from " + ctx.getChannel().getRemoteAddress().toString().replace("/", "").split(":")[0]);
         }
 
     } 
@@ -47,7 +47,7 @@ public class ConnectionHandler extends SimpleChannelHandler {
         Player player = (Player) ctx.getChannel().getAttachment();
 
         if (Util.getConfiguration().get("Logging", "log.connections", Boolean.class)) {
-            Log.println("[" + player.getNetwork().getConnectionId() + "] Disconnection from " + ctx.getChannel().getRemoteAddress().toString().replace("/", "").split(":")[0]);
+            Log.info("[" + player.getNetwork().getConnectionId() + "] Disconnection from " + ctx.getChannel().getRemoteAddress().toString().replace("/", "").split(":")[0]);
         }
 
         player.dispose();
@@ -70,7 +70,7 @@ public class ConnectionHandler extends SimpleChannelHandler {
             }
 
             if (Util.getConfiguration().get("Logging", "log.received.packets", Boolean.class)) {
-                    Log.println("Received: " + request.getMessageId() + " / " + request.getMessageBody());
+                    Log.info("Received: " + request.getMessageId() + " / " + request.getMessageBody());
             }
 
             if (player != null){

@@ -16,7 +16,7 @@ public class VendingInteractor implements Interaction {
         // Can't get to the vending machine unless we're close
         Position front = item.getPosition().getSquareInFront();
 
-        if (!front.isMatch(roomUser.getPosition())) {
+        if (!front.equals(roomUser.getPosition())) {
             roomUser.walkTo(front.getX(), front.getY());
             return;
         }

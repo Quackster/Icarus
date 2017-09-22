@@ -51,7 +51,7 @@ public class NetworkEncoder extends SimpleChannelHandler {
                 }
 
                 if (Util.getConfiguration().get("Logging", "log.sent.packets", Boolean.class)) {
-                    Log.println("SENT: " + msg.getResponse().getHeader() + " / " + msg.getResponse().getBodyString());
+                    Log.info("SENT: " + msg.getResponse().getHeader() + " / " + msg.getResponse().getBodyString());
                 }
 
                 Channels.write(ctx, e.getFuture(), ChannelBuffers.copiedBuffer((ChannelBuffer)msg.getResponse().get()));

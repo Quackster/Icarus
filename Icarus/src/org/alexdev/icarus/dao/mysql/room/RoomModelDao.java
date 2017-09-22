@@ -41,7 +41,7 @@ public class RoomModelDao {
 
         } catch (Exception e) {
             try {
-                Log.println("Error with model: " + resultSet.getString("id"));
+                Log.info("Error with model: " + resultSet.getString("id"));
             } catch (SQLException e1) {
                 Log.exception(e1);
             }
@@ -73,7 +73,7 @@ public class RoomModelDao {
 
         } catch (Exception e) {
             try {
-                Log.println("Error with model: " + resultSet.getString("id"));
+                Log.info("Error with model: " + resultSet.getString("id"));
             } catch (SQLException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();

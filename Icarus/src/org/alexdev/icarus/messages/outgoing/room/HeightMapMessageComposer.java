@@ -42,7 +42,7 @@ public class HeightMapMessageComposer extends MessageComposer {
                         
                         int intValue = (int)pos;
                         
-                        Log.println(intValue);
+                        Log.info(intValue);
                         
                         height = (intValue - 87);
                     }

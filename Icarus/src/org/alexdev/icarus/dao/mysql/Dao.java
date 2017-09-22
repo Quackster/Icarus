@@ -14,7 +14,7 @@ public class Dao  {
      */
     public static boolean connect() {
 
-        Log.println("Connecting to MySQL server");
+        Log.info("Connecting to MySQL server");
         
         storage = new Storage(Util.getConfiguration().get("Database", "mysql.hostname", String.class), 
                 Util.getConfiguration().get("Database", "mysql.username", String.class), 
@@ -24,12 +24,12 @@ public class Dao  {
         isConnected = storage.isConnected();
 
         if (!isConnected) {
-            Log.println("Could not connect");
+            Log.info("Could not connect");
         } else {
-            Log.println("Connection to MySQL was a success");
+            Log.info("Connection to MySQL was a success");
         }
         
-        Log.println();
+        Log.info();
         
         return isConnected;
     }

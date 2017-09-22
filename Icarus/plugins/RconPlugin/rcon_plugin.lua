@@ -24,7 +24,7 @@ rcon_password = "jellybaby"
 function onEnable(plugin)
 
     -- If you want, use log.println() to show everyone this method being called
-    log:println(string.format('[Lua] Initialising plugin %s by %s', plugin:getName(), plugin:getAuthor()))
+    log:info(string.format('[Lua] Initialising plugin %s by %s', plugin:getName(), plugin:getAuthor()))
     listenServer()
 
 end

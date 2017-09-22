@@ -22,7 +22,7 @@ public class PetInformationMessageEvent implements MessageEvent {
         Pet pet = room.getEntityManager().getEntityById(reader.readInt(), Pet.class);
         
         if (pet == null) {
-            Log.println("test?!");
+            Log.info("test?!");
             return;
         }
         

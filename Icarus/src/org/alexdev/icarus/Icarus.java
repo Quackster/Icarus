@@ -56,7 +56,7 @@ public class Icarus extends Metadata {
             server.setIp(serverIP);
             server.setPort(serverPort);
 
-            Log.println("Setting up game");
+            Log.info("Setting up game");
 
             RoomManager.load();
             NavigatorManager.load();
@@ -69,13 +69,13 @@ public class Icarus extends Metadata {
             PluginManager.load();
             Util.createComposerLookup();
  
-            Log.println();
-            Log.println("Settting up server");
+            Log.info();
+            Log.info("Settting up server");
             
             if (server.listenSocket()) {
-                Log.println("Server is listening on " + serverIP + ":" + serverPort);
+                Log.info("Server is listening on " + serverIP + ":" + serverPort);
             } else {
-                Log.println("Server could not listen on " + serverPort + ":" + serverPort + ", please double check everything is correct in icarus.properties");
+                Log.info("Server could not listen on " + serverPort + ":" + serverPort + ", please double check everything is correct in icarus.properties");
             }
 
         } catch (Exception e) {
