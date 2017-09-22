@@ -18,7 +18,7 @@ public class RoomMapping {
 
     private int mapSizeX;
     private int mapSizeY;
-    
+
     private Room room;
     private RoomTile[][] tiles;
 
@@ -38,7 +38,7 @@ public class RoomMapping {
         List<Entity> entities = this.room.getEntityManager().getEntities();
 
         for (Entity entity : entities) {
-            this.getTile(entity.getRoomUser().getPosition().getX(), entity.getRoomUser().getPosition().getY()).setEntity(entity);
+            this.getTile(entity.getRoomUser().getPosition().getX(), entity.getRoomUser().getPosition().getY()).addEntity(entity);
         }
 
         List<Item> items = this.room.getItemManager().getFloorItems();
@@ -111,7 +111,7 @@ public class RoomMapping {
         }
 
         RoomTile currentTile = this.getTile(current.getX(), current.getY());
-        
+
         double currentHeight = this.getTileHeight(current.getX(), current.getY());
         double nextHeight = this.getTileHeight(neighbour.getX(), neighbour.getY());
 
@@ -171,16 +171,14 @@ public class RoomMapping {
             return false;
         }
 
-        if (tile.getEntity() != null) {
+        if (tile.getEntities().size() > 0) {
 
             if (this.room.getData().isAllowWalkthrough()) {
                 return true;
             }
 
-            if (entity != null) {
-                if (tile.getEntity() != entity) {
-                    return false;
-                }
+            if (!tile.containsEntity(entity)) {
+                return false;
             }
         }
 

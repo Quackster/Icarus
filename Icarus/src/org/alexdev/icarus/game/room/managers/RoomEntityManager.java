@@ -67,7 +67,7 @@ public class RoomEntityManager {
             this.room.getData().updateUsersNow();
         }
 
-        this.room.getMapping().getTile(x, y).setEntity(entity);
+        this.room.getMapping().getTile(x, y).addEntity(entity);
     }
 
     /**

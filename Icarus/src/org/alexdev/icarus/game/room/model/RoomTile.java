@@ -1,28 +1,29 @@
 package org.alexdev.icarus.game.room.model;
 
 import java.util.List;
+import java.util.Set;
 
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.util.GameSettings;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 public class RoomTile {
 
     private double height = 0;
     private boolean overrideLock = false;
     
-    private List<Item> items;
+    private Set<Item> items;
+    private Set<Entity> entities;
+    
     private Room room;
     
     private Item highestItem = null;
     private Item itemUnderneath = null;
-    
-    private Entity entity;
-    
+
     private int x;
     private int y;
     
@@ -31,7 +32,8 @@ public class RoomTile {
         this.x = x;
         this.y = y;
         this.height = this.room.getModel().getHeight(x, y);
-        this.items = Lists.newArrayList();
+        this.items = Sets.newHashSet();
+        this.entities = Sets.newHashSet();
     }
     
     /**
@@ -66,7 +68,7 @@ public class RoomTile {
      *
      * @return the items
      */
-    public List<Item> getItems() {
+    public Set<Item> getItems() {
         return items;
     }
 
@@ -75,8 +77,8 @@ public class RoomTile {
      *
      * @return the entity
      */
-    public Entity getEntity() {
-        return entity;
+    public Set<Entity> getEntities() {
+        return entities;
     }
 
     /**
@@ -84,46 +86,26 @@ public class RoomTile {
      *
      * @param entity the new entity
      */
-    public void setEntity(Entity entity) {
+    public void addEntity(Entity entity) {
         
         if (new Position(x, y).isMatch(this.room.getModel().getDoorLocation())) {
-            return; // Don't override door otherwise people will get stuck
+            return;
         }
         
-        this.entity = entity;
+        this.entities.add(entity);
     }
     
-
-    /**
-     * Checks if is height valid.
-     *
-     * @return true, if is height valid
-     */
-    public boolean isHeightValid() {
-        return this.isHeightValid(GameSettings.MINIMUM_WALK_UNDER_HEIGHT);
+    public boolean containsEntity(Entity entity) {
+        
+        return this.entities.contains(entity);
     }
+
+    public boolean removeEntity(Entity entity) {
+        
+        return this.entities.remove(entity);
+    }
+
     
-    /**
-     * Checks if is height valid.
-     *
-     * @param height the height
-     * @return true, if is height valid
-     */
-    public boolean isHeightValid(double height) {
-        
-        for (int i = 0; i < this.items.size(); i++) {    
-            
-            Item item = this.items.get(i);
-            
-            if (item.getPosition().getZ() < height) {
-                return false;
-            }
-        }
-        
-        return false;
-    }
-   
-
     /**
      * Gets the highest item.
      *

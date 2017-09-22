@@ -27,7 +27,6 @@ public class PurchaseOfferMessageEvent implements MessageEvent {
         }
         
         for (int definitionId : offer.getItems()) {
-            
             ItemDefinition definition = ItemManager.getFurnitureById(definitionId);
             definition.handleDefinitionPurchase(player, "");
         }

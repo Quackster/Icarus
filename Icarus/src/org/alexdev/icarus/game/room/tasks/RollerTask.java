@@ -1,6 +1,8 @@
 package org.alexdev.icarus.game.room.tasks;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
@@ -18,7 +20,6 @@ public class RollerTask implements RoomTask {
 
     private Room room;
     private TaskType type;
-
     public RollerTask(Room room) {
         this.room = room;
     }
@@ -48,11 +49,12 @@ public class RollerTask implements RoomTask {
 
         for (Item roller : rollers) {
 
-            List<Item> items = this.room.getMapping().getTile(roller.getPosition().getX(), roller.getPosition().getY()).getItems();
+            Set<Item> items = this.room.getMapping().getTile(roller.getPosition().getX(), roller.getPosition().getY()).getItems();
+            Iterator<Item> itemIterate = items.iterator();
 
-            for (int i = 0; i < items.size(); i++) {
+            while (itemIterate.hasNext()) {
 
-                Item item = items.get(i);
+                Item item = itemIterate.next();
 
                 if (rollingItems.contains(item)) {
                     continue;
@@ -145,7 +147,7 @@ public class RollerTask implements RoomTask {
             }
         }
     }
-    
+
     @Override
     public TaskType getType() {
         return type;

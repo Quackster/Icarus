@@ -120,7 +120,8 @@ public class MessengerDao {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-
+        boolean success = false;
+        
         if (!requestExists(fromId, toId)) {
 
             try {
@@ -130,9 +131,7 @@ public class MessengerDao {
                 preparedStatement.setInt(1, toId);
                 preparedStatement.setInt(2, fromId);
                 preparedStatement.execute();
-
-                return true;
-
+                success = true;
             } catch (SQLException e) {
                 Log.exception(e);
             } finally {
@@ -142,7 +141,7 @@ public class MessengerDao {
             }
         }
 
-        return false;
+        return success;
     }
 
     public static boolean requestExists(int fromId, int toId) {

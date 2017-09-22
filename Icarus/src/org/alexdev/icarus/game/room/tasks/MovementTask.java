@@ -91,11 +91,11 @@ public class MovementTask implements Runnable {
                     return;
                 }
 
-                RoomTile nextTile = roomUser.getRoom().getMapping().getTile(next.getX(), next.getY());
                 RoomTile previousTile = roomUser.getRoom().getMapping().getTile(position.getX(), position.getY());
+                RoomTile nextTile = roomUser.getRoom().getMapping().getTile(next.getX(), next.getY());
 
-                previousTile.setEntity(null);
-                nextTile.setEntity(entity);   
+                previousTile.removeEntity(entity);
+                nextTile.addEntity(entity);
 
                 roomUser.removeStatus(EntityStatus.LAY);
                 roomUser.removeStatus(EntityStatus.SIT);

@@ -290,11 +290,8 @@ public class RoomUser extends Metadata {
             return;
         }
 
-        // remove entity from previous tile
-        this.room.getMapping().getTile(this.position.getX(), this.position.getY()).setEntity(null);
-
-        // set entity to new title
-        this.room.getMapping().getTile(x, y).setEntity(this.entity);
+        this.room.getMapping().getTile(this.position.getX(), this.position.getY()).removeEntity(this.entity);
+        this.room.getMapping().getTile(x, y).addEntity(this.entity);
 
         this.position.setX(x);
         this.position.setY(y);
@@ -343,6 +340,11 @@ public class RoomUser extends Metadata {
     }
 
 
+    /**
+     * Update new height.
+     *
+     * @param position the position
+     */
     public void updateNewHeight(Position position) {
         double height = this.room.getMapping().getTile(position.getX(), position.getY()).getHeight();
         this.position.setZ(height);
