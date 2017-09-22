@@ -38,7 +38,7 @@ public class Pathfinder {
             return Lists.newLinkedList();
         }
 
-        if (!entity.getRoom().getMapping().isTileWalkable(entity, X, Y)) {
+        if (!entity.getRoom().getMapping().isTileWalkable(X, Y, entity)) {
             return Lists.newLinkedList();
         }
 

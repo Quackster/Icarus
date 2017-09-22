@@ -84,7 +84,6 @@ public class RoomMapping {
                     if (affectedTile.getHeight() <= item.getTotalHeight()) {
                         affectedTile.setHeight(item.getTotalHeight());
                         affectedTile.setHighestItem(item);
-
                     }
                 }
             }
@@ -102,11 +101,11 @@ public class RoomMapping {
      */
     public boolean isValidStep(Entity entity, Position current, Position neighbour, boolean isFinalMove) {
 
-        if (!this.isTileWalkable(entity, current.getX(), current.getY())) {
+        if (!this.isTileWalkable(current.getX(), current.getY(), entity)) {
             return false;
         }
 
-        if (!this.isTileWalkable(entity, neighbour.getX(), neighbour.getY())) {
+        if (!this.isTileWalkable(neighbour.getX(), neighbour.getY(), entity)) {
             return false;
         }
 
@@ -122,7 +121,7 @@ public class RoomMapping {
         if (entity != null) {
             if (!current.isMatch(this.room.getModel().getDoorLocation())) {
 
-                if (!this.isTileWalkable(entity, current.getX(), current.getY())) {
+                if (!this.isTileWalkable(current.getX(), current.getY(), entity)) {
                     return false;
                 }
 
@@ -155,7 +154,7 @@ public class RoomMapping {
      * @param y the y
      * @return true, if is tile walkable
      */
-    public boolean isTileWalkable(Entity entity, int x, int y) {
+    public boolean isTileWalkable(int x, int y, Entity entity) {
 
         if (this.room.getModel().hasInvalidCoordinates(x, y)) {
             return false;
@@ -174,7 +173,11 @@ public class RoomMapping {
         if (tile.getEntities().size() > 0) {
 
             if (this.room.getData().isAllowWalkthrough()) {
-                return true;
+                if (entity != null) {
+                    return true;
+                } else {
+                    return false; // dont allow items from rollers to roll into users
+                }
             }
 
             if (!tile.containsEntity(entity)) {

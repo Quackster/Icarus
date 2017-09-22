@@ -64,7 +64,7 @@ public class RollerTask implements RoomTask {
 
                     Position front = roller.getPosition().getSquareInFront();
 
-                    if (!this.room.getMapping().isTileWalkable(null, front.getX(), front.getY())) {
+                    if (!this.room.getMapping().isTileWalkable(front.getX(), front.getY(), null)) {
                         continue;
                     }
 

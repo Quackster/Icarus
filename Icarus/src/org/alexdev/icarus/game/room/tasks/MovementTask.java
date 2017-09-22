@@ -85,7 +85,7 @@ public class MovementTask implements Runnable {
 
                 Position next = roomUser.getPath().pop();
 
-                if (!roomUser.getRoom().getMapping().isTileWalkable(entity, next.getX(), next.getY())) {
+                if (!roomUser.getRoom().getMapping().isTileWalkable(next.getX(), next.getY(), entity)) {
                     roomUser.walkTo(goal.getX(), goal.getY()); // Tile was invalid after we started walking, so lets try again!
                     this.processEntity(entity);
                     return;

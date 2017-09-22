@@ -1,6 +1,5 @@
 package org.alexdev.icarus.game.room.model;
 
-import java.util.List;
 import java.util.Set;
 
 import org.alexdev.icarus.game.entity.Entity;
@@ -8,7 +7,6 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 public class RoomTile {
@@ -20,7 +18,6 @@ public class RoomTile {
     private Set<Entity> entities;
     
     private Room room;
-    
     private Item highestItem = null;
     private Item itemUnderneath = null;
 
@@ -31,6 +28,10 @@ public class RoomTile {
         this.room = room;
         this.x = x;
         this.y = y;
+        this.reset();
+    }
+    
+    public void reset() {
         this.height = this.room.getModel().getHeight(x, y);
         this.items = Sets.newHashSet();
         this.entities = Sets.newHashSet();
@@ -88,18 +89,30 @@ public class RoomTile {
      */
     public void addEntity(Entity entity) {
         
-        if (new Position(x, y).isMatch(this.room.getModel().getDoorLocation())) {
+        if (new Position(this.x, this.y).isMatch(this.room.getModel().getDoorLocation())) {
             return;
         }
         
         this.entities.add(entity);
     }
     
+    /**
+     * Contains the entity.
+     *
+     * @param entity the entity
+     * @return true, if successful
+     */
     public boolean containsEntity(Entity entity) {
         
         return this.entities.contains(entity);
     }
 
+    /**
+     * Removes the entity.
+     *
+     * @param entity the entity
+     * @return true, if successful
+     */
     public boolean removeEntity(Entity entity) {
         
         return this.entities.remove(entity);
