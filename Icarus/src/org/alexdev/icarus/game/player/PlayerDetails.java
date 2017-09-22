@@ -221,15 +221,6 @@ public class PlayerDetails {
     }
 
     /**
-     * Sets the entity.
-     *
-     * @param entity the new entity
-     */
-    public void setEntity(Entity entity) {
-        this.entity = entity;
-    }
-
-    /**
      * Gets the achievement points.
      *
      * @return the achievement points
