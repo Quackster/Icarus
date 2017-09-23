@@ -17,7 +17,7 @@ import com.google.common.collect.Lists;
 public class RollerTask implements RoomTask {
 
     private Room room;
-    
+
     public RollerTask(Room room) {
         this.room = room;
     }
@@ -99,7 +99,6 @@ public class RollerTask implements RoomTask {
                     item.getPosition().setY(front.getY());
                     item.getPosition().setZ(nextHeight);
                     item.save();
-
                     redoMap = true;
 
                 }
@@ -121,12 +120,19 @@ public class RollerTask implements RoomTask {
                     entity.getRoomUser().setRolling(true);
 
                     Position front = roller.getPosition().getSquareInFront();
-                    double nextHeight = this.room.getMapping().getTile(front.getX(), front.getY()).getHeight();
 
                     if (!this.room.getMapping().isValidStep(entity, entity.getRoomUser().getPosition(), front, false)) {
                         continue;
                     }
 
+                    RoomTile nextTile = this.room.getMapping().getTile(front.getX(), front.getY());
+                    RoomTile previousTile = this.room.getMapping().getTile(entity.getRoomUser().getPosition().getX(), entity.getRoomUser().getPosition().getY());
+
+                    previousTile.removeEntity(entity);
+                    nextTile.addEntity(entity);
+                    
+                    double nextHeight = nextTile.getHeight();
+                    
                     this.room.send(new SlideObjectMessageComposer(entity, front, roller.getId(), nextHeight));
 
                     entity.getRoomUser().getPosition().setX(front.getX());
