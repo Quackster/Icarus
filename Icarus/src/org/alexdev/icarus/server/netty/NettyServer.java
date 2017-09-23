@@ -7,6 +7,7 @@ import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.server.api.ServerHandler;
 import org.alexdev.icarus.server.netty.codec.NetworkDecoder;
 import org.alexdev.icarus.server.netty.codec.NetworkEncoder;
+import org.alexdev.icarus.server.netty.codec.PolicyDecoder;
 import org.alexdev.icarus.server.netty.connections.ConnectionHandler;
 import org.alexdev.icarus.server.netty.connections.SessionManager;
 import org.jboss.netty.bootstrap.ServerBootstrap;
@@ -38,8 +39,9 @@ public class NettyServer extends ServerHandler {
         
         ChannelPipeline pipeline = this.bootstrap.getPipeline();
 
-        pipeline.addLast("encoder", new NetworkEncoder());
-        pipeline.addLast("decoder", new NetworkDecoder());
+        pipeline.addLast("policyDecoder", new PolicyDecoder());
+        pipeline.addLast("gameEncoder", new NetworkEncoder());
+        pipeline.addLast("gameDecoder", new NetworkDecoder());
         pipeline.addLast("handler", new ConnectionHandler(this.sessionManager));
         
         try {

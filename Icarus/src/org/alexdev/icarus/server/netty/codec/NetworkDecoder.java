@@ -1,7 +1,5 @@
 package org.alexdev.icarus.server.netty.codec;
 
-import java.nio.ByteBuffer;
-
 import org.alexdev.icarus.server.netty.streams.NettyRequest;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.channel.Channel;
@@ -17,25 +15,18 @@ public class NetworkDecoder extends FrameDecoder {
             return null;
         }
 
-        byte[] length = buffer.readBytes(4).array();
+        buffer.markReaderIndex();
+        int length = buffer.readInt();
 
-        if (length[0] == 60) {
-            
-            buffer.discardReadBytes();
-            channel.write("<?xml version=\"1.0\"?>\r\n"
-                    + "<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n"
-                    + "<cross-domain-policy>\r\n"
-                    + "<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n"
-                    + "</cross-domain-policy>\0");
+        if (buffer.readableBytes() < length) {
+            buffer.resetReaderIndex();
+            return null;
+        }
 
-        } else {
-
-            int messageLength = ByteBuffer.wrap(length).asIntBuffer().get();
-            ChannelBuffer messageBuffer = buffer.readBytes(messageLength);
-            Short header = messageBuffer.readShort();
-            return new NettyRequest(header, messageBuffer);
-        }    
-
-        return null;
+        if (length < 0) {
+            return null;
+        }
+        
+        return new NettyRequest(buffer.readBytes(length));
     }
 }

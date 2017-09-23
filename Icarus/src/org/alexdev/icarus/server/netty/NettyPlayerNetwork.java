@@ -19,7 +19,7 @@ public class NettyPlayerNetwork extends PlayerNetwork {
     public void addPipelineStage(Object object) {
 
         if (object instanceof RC4) {
-            this.channel.getPipeline().addBefore("decoder", "gameCrypto", new EncryptionDecoder((RC4)object));
+            this.channel.getPipeline().addBefore("gameDecoder", "gameCrypto", new EncryptionDecoder((RC4)object));
         }
     }
 

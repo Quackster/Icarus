@@ -10,8 +10,8 @@ public class NettyRequest implements ClientMessage {
     private int header;
     public ChannelBuffer buffer;
     
-    public NettyRequest(int messageId, ChannelBuffer buffer) {
-        this.header = (short) messageId;
+    public NettyRequest(ChannelBuffer buffer) {
+        this.header = buffer.readShort();
         this.buffer = (buffer == null || buffer.readableBytes() == 0) ? ChannelBuffers.EMPTY_BUFFER : buffer;
     }
     
