@@ -3,7 +3,7 @@ package org.alexdev.icarus.encryption;
 import java.math.BigInteger;
 
 public class RSA {
-    
+
     public BigInteger Exponent;
     public BigInteger n;
     public BigInteger Private;
@@ -13,7 +13,7 @@ public class RSA {
 
     private String privateKey;
     private String publicKey;
-    
+
     private String modulus;
     private boolean canEncrypt = false;
     private boolean canDecrypt = false;
@@ -163,7 +163,7 @@ public class RSA {
             return null;
         }
 
-        byte[] bytes = this.pkcs1unpad2(m, this.getBlockSize());
+        byte[] bytes = this.pkcs1unpad2(m);
 
         if (bytes == null) {
             return null;
@@ -174,14 +174,52 @@ public class RSA {
 
     /**
      * Pkcs 1 unpad 2.
+     * 
+     * Fixed by Joopie. https://github.com/Joopie1994/habbo-encryption/blob/master/HabboEncryption/Security/Cryptography/RSACrypto.cs#L173
+     * Context:         http://forum.ragezone.com/f331/icarus-production-java-server-mysql-1087933-post8823721/#post8823721
      *
      * @param src the src
      * @param n the n
      * @return the byte[]
      */
-    private byte[] pkcs1unpad2(BigInteger src, int n) {
-        byte[] bytes = src.toByteArray();
-        byte[] out;
+    private byte[] pkcs1unpad2(BigInteger bigInteger) {
+        
+        byte[] src = bigInteger.toByteArray();
+        byte[] dst = null;
+        
+        if (src[0] == 2) {
+
+            byte[] temp = new byte[src.length + 1];
+
+            temp[0] = 0;
+
+            for (int i = 0; i < src.length; i++) {
+                temp[i + 1] = src[i];
+            }
+
+            src = temp;
+        }
+
+        if (src[0] == 0 && src[1] == 2) {
+
+            int startIndex = 2;
+
+            do
+            {
+                if (src.length < startIndex) {
+                    return null;
+                }
+            }
+            while (src[startIndex++] != 0);
+
+            dst = new byte[src.length - startIndex];
+
+            for (int i = 0; i < dst.length; i++) {
+                dst[i] = src[i + startIndex];
+            }
+        }
+
+        /*byte[] out;
         int i = 0;
 
         while (i < bytes.length && bytes[i] == 0) {
@@ -206,10 +244,12 @@ public class RSA {
         while (++i < bytes.length) {
             out[p++] = (bytes[i]);
         }
+        
+        return out*/
 
-        return out;
+        return dst;
     }
-
+    
     /**
      * Gets the exponent.
      *
@@ -228,6 +268,8 @@ public class RSA {
         Exponent = exponent;
     }
 
+    
+    
     /**
      * Gets the n.
      *
