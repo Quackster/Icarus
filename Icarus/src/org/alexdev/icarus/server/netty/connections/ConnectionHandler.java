@@ -13,20 +13,13 @@ import org.jboss.netty.channel.SimpleChannelHandler;
 
 public class ConnectionHandler extends SimpleChannelHandler {
 
-    /** The session manager. */
-    private SessionManager sessionManager;
-
-    public ConnectionHandler(SessionManager sessionManager) {
-        this.sessionManager = sessionManager;
-    }
-
     /* (non-Javadoc)
      * @see org.jboss.netty.channel.SimpleChannelHandler#channelOpen(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.ChannelStateEvent)
      */
     @Override
     public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent e) {
 
-        sessionManager.addSession(ctx.getChannel());
+        //sessionManager.addSession(ctx.getChannel());
 
         Player player = (Player) ctx.getChannel().getAttachment();
 
@@ -42,7 +35,7 @@ public class ConnectionHandler extends SimpleChannelHandler {
     @Override
     public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) {
 
-        sessionManager.removeSession(ctx.getChannel());
+        //sessionManager.removeSession(ctx.getChannel());
 
         Player player = (Player) ctx.getChannel().getAttachment();
 

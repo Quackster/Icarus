@@ -9,7 +9,6 @@ import org.alexdev.icarus.server.netty.codec.NetworkDecoder;
 import org.alexdev.icarus.server.netty.codec.NetworkEncoder;
 import org.alexdev.icarus.server.netty.codec.PolicyDecoder;
 import org.alexdev.icarus.server.netty.connections.ConnectionHandler;
-import org.alexdev.icarus.server.netty.connections.SessionManager;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.ChannelException;
 import org.jboss.netty.channel.ChannelPipeline;
@@ -19,11 +18,9 @@ public class NettyServer extends ServerHandler {
 
     private NioServerSocketChannelFactory factory;
     private ServerBootstrap bootstrap;
-    private SessionManager sessionManager;
 
     public NettyServer() {
         super();
-        this.sessionManager = new SessionManager();
     }
 
     @Override
@@ -42,7 +39,7 @@ public class NettyServer extends ServerHandler {
         pipeline.addLast("policyDecoder", new PolicyDecoder());
         pipeline.addLast("gameEncoder", new NetworkEncoder());
         pipeline.addLast("gameDecoder", new NetworkDecoder());
-        pipeline.addLast("handler", new ConnectionHandler(this.sessionManager));
+        pipeline.addLast("handler", new ConnectionHandler());
         
         try {
             this.bootstrap.bind(new InetSocketAddress(this.getIp(), this.getPort()));
