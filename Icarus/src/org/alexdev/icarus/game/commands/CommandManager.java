@@ -19,7 +19,7 @@ public class CommandManager {
         commands = Maps.newHashMap();
         commands.put(new String[] { "about", "info" }, new AboutCommand());
         commands.put(new String[] { "sit" }, new SitCommand());
-        commands.put(new String[] { "help" }, new HelpCommand());
+        commands.put(new String[] { "help", "commands" }, new HelpCommand());
         commands.put(new String[] { "reloadplugins" }, new ReloadPlugins());
         commands.put(new String[] { "debugfurniture" }, new DebugFurniture());
     }
@@ -59,14 +59,27 @@ public class CommandManager {
             Command cmd = getCommand(commandName);
             
             if (cmd != null) {
-                for (String permission : cmd.getPermissions()) {                   
-                    if (player.getDetails().hasPermission(permission)) {    
-                        return true;
-                    }
-                }
+                return CommandManager.hasCommandPermission(player, cmd);
             }
         }
 
+        return false;
+    }
+    
+    /**
+     * Checks for command permission.
+     *
+     * @param player the player
+     * @param cmd the command
+     * @return true, if successful
+     */
+    public static boolean hasCommandPermission(Player player, Command cmd) {
+        for (String permission : cmd.getPermissions()) {                   
+            if (player.getDetails().hasPermission(permission)) {    
+                return true;
+            }
+        }
+        
         return false;
     }
 

@@ -50,6 +50,7 @@ import org.alexdev.icarus.messages.incoming.room.items.MoodlightInteractMessageE
 import org.alexdev.icarus.messages.incoming.room.items.MoveItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.PickupItemMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.PlaceItemMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.items.SaveMannequinMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.SaveMoodlightPresetMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.ToggleMoodlightMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.settings.DeleteRoomMessageEvent;
@@ -235,6 +236,7 @@ public class MessageHandler {
         this.registerEvent(Incoming.SaveMoodlightPresetMessageEvent, new SaveMoodlightPresetMessageEvent());
         this.registerEvent(Incoming.PurchaseOfferMessageEvent, new PurchaseOfferMessageEvent());
         this.registerEvent(Incoming.SaveBrandingMessageEvent, new SaveBrandingMessageEvent());
+        this.registerEvent(Incoming.SaveMannequinMessageEvent, new SaveMannequinMessageEvent());
     }
 
     /**

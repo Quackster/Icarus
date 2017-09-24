@@ -96,4 +96,5 @@ public class Incoming {
     public static Integer GroupMembershipAcceptMessageEvent = 2891;//3136
     public static Integer GroupGiveAdminMessageEvent = 1587;//3116
     public static Integer GroupRemoveAdminMessageEvent = 2542;//258
+    public static Integer SaveMannequinMessageEvent = 190;
 }

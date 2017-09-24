@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.alexdev.icarus.util.Util;
 
@@ -35,7 +37,8 @@ public class Log {
      * @return the string
      */
     private static String formatDateTime() {
-        return "01-01-1970 01:01:01";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(new Date());
     }
 
     /**

@@ -14,6 +14,7 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.enums.RoomAction;
 import org.alexdev.icarus.game.room.user.RoomUser;
+import org.alexdev.icarus.messages.incoming.user.MOTDNotificationMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.HotelViewMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RoomForwardComposer;
 import org.alexdev.icarus.messages.outgoing.user.BroadcastMessageAlertComposer;
@@ -64,8 +65,8 @@ public class Player extends Entity {
             }
 
             PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { 
-                    CoerceJavaToLua.coerce(this), 
-                    CoerceJavaToLua.coerce(this.roomUser.getRoom()) 
+                CoerceJavaToLua.coerce(this), 
+                CoerceJavaToLua.coerce(this.roomUser.getRoom()) 
             });
 
             if (goHotelView) {
@@ -217,6 +218,15 @@ public class Player extends Entity {
      */
     public void sendMessage(String message) {
         this.send(new BroadcastMessageAlertComposer(message));
+    }
+    
+    /**
+     * Send notification.
+     *
+     * @param message the message
+     */
+    public void sendNotification(String message) {
+        this.send(new MOTDNotificationMessageComposer(message));
     }
 
     /**

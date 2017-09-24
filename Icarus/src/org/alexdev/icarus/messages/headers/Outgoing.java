@@ -3,6 +3,7 @@ package org.alexdev.icarus.messages.headers;
 public class Outgoing {
     
     public static int AuthenticationOKMessageComposer = 3054;//1294
+    public static int InitCryptoMessageComposer = 2904;
     public static int CreateRoomMessageComposer = 3230;//912
     public static int CreditsMessageComposer = 1556;//1662
     public static int FlatCategoriesMessageComposer = 2986;//845
@@ -120,5 +121,5 @@ public class Outgoing {
     public static int UnknownGroupComposer = 3186;//1309
     public static int GroupUpdateMemberComposer = 3263;//2896
     public static int RefreshFavouriteGroupComposer = 1579;//3611
-    public static int InitCryptoMessageComposer = 2904;
+    public static int MOTDNotificationMessageComposer = 408;
 }
