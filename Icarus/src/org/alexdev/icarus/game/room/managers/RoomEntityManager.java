@@ -53,12 +53,12 @@ public class RoomEntityManager {
         RoomUser roomUser = entity.getRoomUser();
 
         roomUser.setRoom(this.room);
-        roomUser.setVirtualId(this.room.getVirtualTicketCounter().incrementAndGet());
+        roomUser.setVirtualId(this.generateVirtualId());
         roomUser.getPosition().setX(x);
         roomUser.getPosition().setY(y);
         roomUser.getPosition().setRotation(rotation);
         roomUser.updateNewHeight(roomUser.getPosition());
-        
+
         this.room.send(new UserDisplayMessageComposer(Arrays.asList(new Entity[] { entity })));
         this.room.send(new UserStatusMessageComposer(Arrays.asList(new Entity[] { entity })));
 
@@ -77,7 +77,7 @@ public class RoomEntityManager {
     public void addPets() {
         for (Pet pet : PetDao.getRoomPets(this.room.getData().getId())) {
             pet.getRoomUser().setRoom(this.room);
-            pet.getRoomUser().setVirtualId(this.room.getVirtualTicketCounter().incrementAndGet());
+            pet.getRoomUser().setVirtualId(this.generateVirtualId());
             pet.getRoomUser().getPosition().setX(pet.getX());
             pet.getRoomUser().getPosition().setY(pet.getY());
             pet.getRoomUser().getPosition().setRotation(0);
@@ -128,7 +128,7 @@ public class RoomEntityManager {
         if (this.entities != null) {
 
             List<Entity> nonPlayableEntities = this.getNonPlayable();
-            
+
             for (int i = 0; i < nonPlayableEntities.size(); i++) {
                 Entity entity = nonPlayableEntities.get(i);
                 entity.dispose();
@@ -146,7 +146,7 @@ public class RoomEntityManager {
     public List<Player> getPlayers() {
         return this.getEntitiesByClass(Player.class);
     }
-    
+
     /**
      * Return the list of non playable entities in this room.
      *  
@@ -222,7 +222,24 @@ public class RoomEntityManager {
 
         return null;
     }
-    
+
+    /**
+     * Generate the virtual id, will reuse old virtual ids that may
+     * or may not have been used before.
+     *
+     * @return the virtual room id
+     */
+    public int generateVirtualId() {
+
+        int virtualId = 0;
+
+        while (this.getEntityByVirtualId(virtualId) != null) {
+            virtualId++;
+        }
+        
+        return virtualId;
+    }
+
     /**
      * Gets the entity by virtual id.
      *
@@ -231,13 +248,11 @@ public class RoomEntityManager {
      * @param entityClass the entity class
      * @return the entity by virtual id
      */
-    public <T extends Entity> T getEntityByVirtualId(int virtualId, Class<T> entityClass) {
+    public Entity getEntityByVirtualId(int virtualId) {
 
         for (Entity entity : this.entities) {
-            if (entity.getType().getEntityClass().isAssignableFrom(entityClass)) {
-                if (entity.getRoomUser().getVirtualId() == virtualId) {
-                    return entityClass.cast(entity);
-                }
+            if (entity.getRoomUser().getVirtualId() == virtualId) {
+                return entity;
             }
         }
 

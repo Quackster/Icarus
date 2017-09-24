@@ -2,7 +2,6 @@ package org.alexdev.icarus.game.room;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
@@ -24,7 +23,6 @@ import org.alexdev.icarus.messages.types.MessageComposer;
 
 public class Room {
 
-    private AtomicInteger virtualTicketCounter = new AtomicInteger(-1);
     private RoomData data;
     private RoomModel model;
     private RoomScheduler scheduler;
@@ -51,7 +49,7 @@ public class Room {
         this.scheduler.scheduleEvent(1, TimeUnit.SECONDS, TaskType.REPEAT, new CarryItemTask(this));
         this.scheduler.scheduleEvent(4, TimeUnit.SECONDS, TaskType.REPEAT, new RollerTask(this));
         this.scheduler.scheduleEvent(5, TimeUnit.SECONDS, TaskType.REPEAT, new PetTask(this));
-        //this.scheduler.scheduleEvent(1, TimeUnit.SECONDS, TaskType.REPEAT, new CarryItemTask(this));
+        this.scheduler.scheduleEvent(1, TimeUnit.SECONDS, TaskType.REPEAT, new CarryItemTask(this));
     }
 
     /**
@@ -243,7 +241,6 @@ public class Room {
 
         this.entityManager.cleanupNonPlayableEntities();
         this.itemManager.getItems().clear();
-        this.virtualTicketCounter.set(-1);
         this.unloadGroup();
 
         if (this.data.getRoomType() != RoomType.PRIVATE) {
@@ -263,7 +260,6 @@ public class Room {
         this.entityManager = null;
         this.scheduler = null;
         this.itemManager = null;
-        this.virtualTicketCounter = null;
         this.promotion = null;
         this.data = null;
         this.mapping = null;
@@ -322,15 +318,6 @@ public class Room {
      */
     public RoomItemManager getItemManager() {
         return itemManager;
-    }
-
-    /**
-     * Gets the virtual ticket counter.
-     *
-     * @return the virtual ticket counter
-     */
-    public AtomicInteger getVirtualTicketCounter() {
-        return virtualTicketCounter;
     }
 
     /**
