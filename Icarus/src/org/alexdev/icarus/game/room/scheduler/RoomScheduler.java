@@ -1,8 +1,10 @@
 package org.alexdev.icarus.game.room.scheduler;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
@@ -20,7 +22,7 @@ public class RoomScheduler implements Runnable {
     private ScheduledFuture<?> walkingScheduledTask;
     private ScheduledFuture<?> roomScheduledTasks;
     
-    private Map<Long, List<RoomTask>> tasks;
+    private Map<Long, ConcurrentLinkedQueue<RoomTask>> tasks;
     
     private Room room;
     private MovementTask movementTask;
@@ -41,7 +43,7 @@ public class RoomScheduler implements Runnable {
         
         try {
      
-            for (Entry<Long, List<RoomTask>> kvp : this.tasks.entrySet()) {
+            for (Entry<Long, ConcurrentLinkedQueue<RoomTask>> kvp : this.tasks.entrySet()) {
 
                 if (this.counter.get() % kvp.getKey() == 0) {    
                     for (RoomTask task : kvp.getValue()) {
@@ -109,7 +111,7 @@ public class RoomScheduler implements Runnable {
         long taskInSeconds = measurement.toSeconds(number);
         
         if (!this.tasks.containsKey(taskInSeconds)) {
-            this.tasks.put(taskInSeconds, Lists.newArrayList());
+            this.tasks.put(taskInSeconds, new ConcurrentLinkedQueue<>());
         }
         
         this.tasks.get(taskInSeconds).add(task);
@@ -124,14 +126,34 @@ public class RoomScheduler implements Runnable {
      */
     public <T> T getTaskByClass(Class<T> taskClass) {
         
-        for (List<RoomTask> taskDurationList : this.tasks.values()) {
+        for (ConcurrentLinkedQueue<RoomTask> taskDurationList : this.tasks.values()) {
             for (RoomTask task : taskDurationList) {
-                if (task.getClass().isAssignableFrom(taskClass)) {
+                if (task.getClass().equals(taskClass)) {
+                    Log.info("- " + taskClass.getSimpleName() + " / getTaskByClass");
                     return taskClass.cast(task);
                 }
             }
         }
         
         return null;
+    }
+    
+    /**
+     * Remove the task by class.
+     *
+     * @param <T> the generic type
+     * @param taskClass the task class
+     * @return the task by class
+     */
+    public void deleteTaskByClass(Class<? extends RoomTask> taskClass) {
+        
+        for (ConcurrentLinkedQueue<RoomTask> taskDurationList : this.tasks.values()) {
+            for (RoomTask task : taskDurationList) {
+                if (task.getClass().equals(taskClass)) {
+                    Log.info("- " + taskClass.getSimpleName() + " / deleteTaskByClass");
+                    taskDurationList.remove(task);
+                }
+            }
+        }
     }
 }
