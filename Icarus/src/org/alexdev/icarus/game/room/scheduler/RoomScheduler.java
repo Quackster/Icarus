@@ -129,7 +129,6 @@ public class RoomScheduler implements Runnable {
         for (ConcurrentLinkedQueue<RoomTask> taskDurationList : this.tasks.values()) {
             for (RoomTask task : taskDurationList) {
                 if (task.getClass().equals(taskClass)) {
-                    Log.info("- " + taskClass.getSimpleName() + " / getTaskByClass");
                     return taskClass.cast(task);
                 }
             }
@@ -150,7 +149,6 @@ public class RoomScheduler implements Runnable {
         for (ConcurrentLinkedQueue<RoomTask> taskDurationList : this.tasks.values()) {
             for (RoomTask task : taskDurationList) {
                 if (task.getClass().equals(taskClass)) {
-                    Log.info("- " + taskClass.getSimpleName() + " / deleteTaskByClass");
                     taskDurationList.remove(task);
                 }
             }
