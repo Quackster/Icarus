@@ -11,11 +11,17 @@ public class DefaultInteractor implements Interaction {
 
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {
-        
+
+        if (item.getDefinition().requiresRights()) {
+            if (!roomUser.getRoom().hasRights(roomUser.getEntity().getEntityId()) && !roomUser.getEntity().getDetails().hasPermission("room_all_rights")) {
+                return;
+            }
+        }
+
         int modes = item.getDefinition().getInteractionModes();
         int current_mode = Util.isNumber(item.getExtraData()) ? Integer.valueOf(item.getExtraData()) : 0;
         int new_mode = current_mode + 1;
-        
+
         if (new_mode >= modes) {
             current_mode = 0;
         } else {
@@ -26,10 +32,10 @@ public class DefaultInteractor implements Interaction {
         item.updateStatus();
         item.save();
     }
-    
+
     @Override
     public void onStopWalking(Item item, RoomUser roomUser) {
-        
+
         if (item.getDefinition().allowSit()) {
             roomUser.setStatus(EntityStatus.SIT, roomUser.getEntity().getType() == EntityType.PET ? "0.5" : "1.0");
             roomUser.getPosition().setRotation(item.getPosition().getRotation());

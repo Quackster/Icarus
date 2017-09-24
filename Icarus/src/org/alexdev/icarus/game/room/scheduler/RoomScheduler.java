@@ -145,7 +145,7 @@ public class RoomScheduler implements Runnable {
      * @param taskClass the task class
      * @return the task by class
      */
-    public void deleteTaskByClass(Class<? extends RoomTask> taskClass) {
+    public void removeTask(Class<? extends RoomTask> taskClass) {
         
         for (ConcurrentLinkedQueue<RoomTask> taskDurationList : this.tasks.values()) {
             for (RoomTask task : taskDurationList) {
