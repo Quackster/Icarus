@@ -6,7 +6,7 @@ import org.alexdev.icarus.game.player.Player;
 public class AboutCommand extends Command {
 
     @Override
-    public void handleCommand(Player player, String message) {
+    public void handleCommand(Player player, String message, String[] args) {
         
         StringBuilder about = new StringBuilder();
         about.append("Icarus server written by Quackster, powered by Java among other things!\n\n");

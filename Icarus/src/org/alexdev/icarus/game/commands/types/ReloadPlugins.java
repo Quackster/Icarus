@@ -7,7 +7,7 @@ import org.alexdev.icarus.game.plugins.PluginManager;
 public class ReloadPlugins extends Command {
 
     @Override
-    public void handleCommand(Player player, String message) {
+    public void handleCommand(Player player, String message, String[] args) {
         PluginManager.disposePlugins();
         PluginManager.load();
     }

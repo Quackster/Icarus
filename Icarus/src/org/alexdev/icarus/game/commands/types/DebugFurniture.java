@@ -7,7 +7,7 @@ import org.alexdev.icarus.game.room.user.ChatType;
 public class DebugFurniture extends Command {
 
     @Override
-    public void handleCommand(Player player, String message) {
+    public void handleCommand(Player player, String message, String[] args) {
         
         if (!player.getMetadata().hasMetadata("debugfurniture")) {
             player.getMetadata().set("debugfurniture", false);

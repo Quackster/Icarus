@@ -22,6 +22,7 @@ public class CommandManager {
         commands.put(new String[] { "help", "commands" }, new HelpCommand());
         commands.put(new String[] { "reloadplugins" }, new ReloadPlugins());
         commands.put(new String[] { "debugfurniture" }, new DebugFurniture());
+        commands.put(new String[] { "rollerspeed" }, new RollerSpeed());
     }
 
     /**
@@ -55,7 +56,7 @@ public class CommandManager {
 
         if (message.startsWith(":") && message.length() > 1) {
 
-            String commandName = message.split(":")[1];
+            String commandName = message.split(":")[1].split(" ")[0];
             Command cmd = getCommand(commandName);
             
             if (cmd != null) {
@@ -91,11 +92,17 @@ public class CommandManager {
      */
     public static void invokeCommand(Player player, String message) {
 
-        String commandName = message.split(":")[1];
+        String commandName = message.split(":")[1].split(" ")[0];
         Command cmd = getCommand(commandName);
         
+        String[] args = new String[0];
+        
+        if (message.length() > (commandName.length() + 2)) {
+            args = message.replace(":" + commandName + " ", "").split(" ");
+        }
+        
         if (cmd != null) {
-            cmd.handleCommand(player, message);
+            cmd.handleCommand(player, message, args);
         }
     }
 

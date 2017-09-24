@@ -8,7 +8,7 @@ import org.alexdev.icarus.game.room.user.RoomUser;
 public class SitCommand extends Command {
 
     @Override
-    public void handleCommand(Player player, String message) {
+    public void handleCommand(Player player, String message, String[] args) {
         
         RoomUser roomUser = player.getRoomUser();
         

@@ -26,7 +26,7 @@ public abstract class Command {
      * @param player the player
      * @param message the message
      */
-    public abstract void handleCommand(Player player, String message);
+    public abstract void handleCommand(Player player, String message, String[] args);
 
     /**
      * Gets the permissions.

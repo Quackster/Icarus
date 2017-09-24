@@ -9,7 +9,7 @@ import org.alexdev.icarus.game.player.Player;
 public class HelpCommand extends Command {
 
     @Override
-    public void handleCommand(Player player, String message) {
+    public void handleCommand(Player player, String message, String[] args) {
         
         StringBuilder about = new StringBuilder();
         about.append("Commands:\n\n");
