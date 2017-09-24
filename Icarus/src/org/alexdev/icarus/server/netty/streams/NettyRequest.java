@@ -3,7 +3,6 @@ package org.alexdev.icarus.server.netty.streams;
 import java.nio.charset.Charset;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.jboss.netty.buffer.ChannelBuffer;
-import org.jboss.netty.buffer.ChannelBuffers;
 
 public class NettyRequest implements ClientMessage {
 
@@ -11,14 +10,14 @@ public class NettyRequest implements ClientMessage {
     public ChannelBuffer buffer;
     
     public NettyRequest(ChannelBuffer buffer) {
+        this.buffer = buffer;
         this.header = buffer.readShort();
-        this.buffer = (buffer == null || buffer.readableBytes() == 0) ? ChannelBuffers.EMPTY_BUFFER : buffer;
     }
     
     public Integer readInt() {
         
         try {
-            return buffer.readInt();
+            return this.buffer.readInt();
         } catch (Exception e) {
             return 0;
         }
@@ -27,7 +26,7 @@ public class NettyRequest implements ClientMessage {
     public boolean readIntAsBool() {
         
         try {
-            return buffer.readInt() == 1;
+            return this.buffer.readInt() == 1;
         } catch (Exception e) {
             return false;
         }
@@ -36,7 +35,7 @@ public class NettyRequest implements ClientMessage {
     public boolean readBoolean()  {
         
         try {
-            return buffer.readByte() == 1;
+            return this.buffer.readByte() == 1;
         } catch (Exception e)    {
             return false;
         }

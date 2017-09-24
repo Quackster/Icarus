@@ -3,8 +3,10 @@ package org.alexdev.icarus.server.netty.connections;
 import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.log.Log;
+import org.alexdev.icarus.server.netty.NettyPlayerNetwork;
 import org.alexdev.icarus.server.netty.streams.NettyRequest;
 import org.alexdev.icarus.util.Util;
+import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.ChannelStateEvent;
 import org.jboss.netty.channel.ExceptionEvent;
@@ -19,12 +21,13 @@ public class ConnectionHandler extends SimpleChannelHandler {
     @Override
     public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent e) {
 
-        //sessionManager.addSession(ctx.getChannel());
+        Channel channel = ctx.getChannel();
 
-        Player player = (Player) ctx.getChannel().getAttachment();
+        Player player = new Player(new NettyPlayerNetwork(channel, channel.getId()));
+        channel.setAttachment(player);
 
         if (Util.getConfiguration().get("Logging", "log.connections", Boolean.class)) {
-            Log.info("[" + player.getNetwork().getConnectionId() + "] Connection from " + ctx.getChannel().getRemoteAddress().toString().replace("/", "").split(":")[0]);
+            Log.info("[" + player.getNetwork().getConnectionId() + "] Connection from " + channel.getRemoteAddress().toString().replace("/", "").split(":")[0]);
         }
 
     } 
@@ -34,9 +37,7 @@ public class ConnectionHandler extends SimpleChannelHandler {
      */
     @Override
     public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) {
-
-        //sessionManager.removeSession(ctx.getChannel());
-
+        
         Player player = (Player) ctx.getChannel().getAttachment();
 
         if (Util.getConfiguration().get("Logging", "log.connections", Boolean.class)) {
