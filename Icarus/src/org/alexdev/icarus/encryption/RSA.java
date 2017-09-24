@@ -190,13 +190,8 @@ public class RSA {
         if (src[0] == 2) {
 
             byte[] temp = new byte[src.length + 1];
-
-            temp[0] = 0;
-
-            for (int i = 0; i < src.length; i++) {
-                temp[i + 1] = src[i];
-            }
-
+            System.arraycopy(src, 0, temp, 1, src.length);
+            
             src = temp;
         }
 
@@ -213,10 +208,8 @@ public class RSA {
             while (src[startIndex++] != 0);
 
             dst = new byte[src.length - startIndex];
-
-            for (int i = 0; i < dst.length; i++) {
-                dst[i] = src[i + startIndex];
-            }
+            System.arraycopy(src, startIndex, dst, 0, dst.length);
+                    
         }
 
         /*byte[] out;
