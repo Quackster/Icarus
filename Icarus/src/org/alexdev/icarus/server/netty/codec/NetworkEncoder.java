@@ -37,6 +37,10 @@ public class NetworkEncoder extends SimpleChannelHandler {
     public void writeRequested(ChannelHandlerContext ctx, MessageEvent e) {
 
         try {
+            
+            if (!ctx.getChannel().isOpen()) {
+                return;
+            }
 
             if (e.getMessage() instanceof String) {
                 Channels.write(ctx, e.getFuture(), ChannelBuffers.copiedBuffer((String) e.getMessage(),  Charsets.ISO_8859_1));

@@ -81,7 +81,7 @@ public class ConnectionHandler extends SimpleChannelHandler {
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {
-        ctx.getChannel().close();
+        Log.exception(e.getCause());
     }
 
 }

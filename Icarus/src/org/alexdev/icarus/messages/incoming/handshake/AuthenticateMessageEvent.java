@@ -21,9 +21,9 @@ public class AuthenticateMessageEvent implements MessageEvent {
             return;
         }
         
-        String sso = request.readString();
+        boolean loginSuccess = PlayerDao.login(player, request.readString());
         
-        boolean loginSuccess = PlayerDao.login(player, sso);
+        PlayerDao.clearTicket(player.getDetails().getId());
         
         if (!loginSuccess) {
             player.getNetwork().close();

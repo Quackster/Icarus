@@ -36,7 +36,7 @@ public class NettyServer extends ServerHandler {
         
         ChannelPipeline pipeline = this.bootstrap.getPipeline();
 
-        pipeline.addLast("policyDecoder", new PolicyDecoder());
+        //pipeline.addFirst("policyDecoder", new PolicyDecoder());
         pipeline.addLast("gameEncoder", new NetworkEncoder());
         pipeline.addLast("gameDecoder", new NetworkDecoder());
         pipeline.addLast("handler", new ConnectionHandler());

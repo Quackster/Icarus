@@ -11,22 +11,38 @@ public class NetworkDecoder extends FrameDecoder {
     @Override
     protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) {
 
+        buffer.markReaderIndex();
+
         if (buffer.readableBytes() < 6) {
             return null;
         }
 
-        buffer.markReaderIndex();
-        int length = buffer.readInt();
+        byte delimiter = buffer.readByte();
+        buffer.resetReaderIndex();
 
-        if (buffer.readableBytes() < length) {
-            buffer.resetReaderIndex();
-            return null;
-        }
+        if (delimiter == 60) {
+            channel.write("<?xml version=\"1.0\"?>\r\n"
+                    + "<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n"
+                    + "<cross-domain-policy>\r\n"
+                    + "<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n"
+                    + "</cross-domain-policy>\0");
+        } else {
 
-        if (length < 0) {
-            return null;
+            buffer.markReaderIndex();
+            int length = buffer.readInt();
+
+            if (buffer.readableBytes() < length) {
+                buffer.resetReaderIndex();
+                return null;
+            }
+
+            if (length < 0) {
+                return null;
+            }
+
+            return new NettyRequest(buffer.readBytes(length));
         }
         
-        return new NettyRequest(buffer.readBytes(length));
+        return null;
     }
 }

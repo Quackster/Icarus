@@ -27,7 +27,7 @@ public class PolicyDecoder extends FrameDecoder {
                     + "</cross-domain-policy>\0");
         } else {
             
-            channel.getPipeline().remove(this);
+            ctx.getChannel().getPipeline().removeFirst();
             
             NetworkDecoder decoder = (NetworkDecoder) channel.getPipeline().get("gameDecoder");
             return decoder.decode(ctx, channel, buffer);

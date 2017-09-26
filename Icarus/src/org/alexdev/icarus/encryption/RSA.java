@@ -199,8 +199,7 @@ public class RSA {
 
             int startIndex = 2;
 
-            do
-            {
+            do {
                 if (src.length < startIndex) {
                     return null;
                 }

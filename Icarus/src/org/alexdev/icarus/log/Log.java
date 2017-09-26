@@ -97,7 +97,7 @@ public class Log {
      *
      * @param e the e
      */
-    public static void exception(Exception e) {
+    public static void exception(Throwable e) {
 
         info("---------------------------------------------");
         info("Error has occured!");

@@ -1,7 +1,5 @@
 package org.alexdev.icarus.game.room.scheduler;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -14,7 +12,6 @@ import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.tasks.MovementTask;
 import org.alexdev.icarus.log.Log;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 public class RoomScheduler implements Runnable {
