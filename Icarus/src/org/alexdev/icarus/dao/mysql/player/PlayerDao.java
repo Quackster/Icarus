@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 import org.alexdev.icarus.game.player.PlayerDetails;
@@ -187,7 +188,7 @@ public class PlayerDao {
 
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("UPDATE users SET sso_ticket = ? WHERE id = ?", sqlConnection);
-            preparedStatement.setString(1, "");
+            preparedStatement.setNull(1, Types.VARCHAR);
             preparedStatement.setInt(2, userId);
             preparedStatement.execute();
 
