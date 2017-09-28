@@ -198,6 +198,11 @@ public class Icarus extends Metadata {
         writer.println();
         writer.println("afk.room.kick=1800");
         writer.println();
+        writer.println("[Room]");
+        writer.println("room.thumbnail.path=D:/xampp/htdocs/c_images/thumbnails/");
+        writer.println("room.thumbnail.url=thumbnails/{filename}");
+        writer.println("room.thumbnail.filename=room_{id}_{generatedId}.png");
+        writer.println();
         writer.println("[Debug]");
         writer.println("debug.enable=true");
         writer.println();

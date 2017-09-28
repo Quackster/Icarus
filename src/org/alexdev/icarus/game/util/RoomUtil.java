@@ -67,10 +67,6 @@ public class RoomUtil {
      */
     public static void playerRoomEntry(Player player, Room room, int x, int y, int rotation) {
         
-        if (player.inRoom()) {
-            player.performRoomAction(RoomAction.LEAVE_ROOM, false);
-        }
-
         RoomUser roomUser = player.getRoomUser();
 
         roomUser.setRoom(room);

@@ -182,7 +182,27 @@ public class Util {
     public static String removeNonAlphaNumeric(String caption) {
         return caption.replaceAll("[^A-Za-z0-9]", "");
     }
-
+    
+    /**
+     * Generate random string.
+     *
+     * @param len the len
+     * @return the string
+     */
+    public static String generateRandomString(int len) {
+        
+        String CHAR_LIST = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        
+        StringBuffer randStr = new StringBuffer();
+        
+        for (int i = 0; i < len; i++) {
+            int number = Util.randomInt(0, CHAR_LIST.length());
+            char ch = CHAR_LIST.charAt(number);
+            randStr.append(ch);
+        }
+        return randStr.toString();
+    }
+    
     /**
      * Read to end.
      *

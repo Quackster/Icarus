@@ -237,7 +237,7 @@ public class Room {
         this.itemManager.getItems().clear();
         this.unloadGroup();
 
-        if (this.data.getRoomType() != RoomType.PRIVATE) {
+        if (this.data.getRoomType() == RoomType.PUBLIC) {
             return;
         }
 
@@ -246,7 +246,6 @@ public class Room {
         }
 
         RoomManager.removeRoom(this.data.getId());
-        
         this.destroyObjects();
     }
 

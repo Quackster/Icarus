@@ -7,7 +7,6 @@ import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.server.api.ServerHandler;
 import org.alexdev.icarus.server.netty.codec.NetworkDecoder;
 import org.alexdev.icarus.server.netty.codec.NetworkEncoder;
-import org.alexdev.icarus.server.netty.codec.PolicyDecoder;
 import org.alexdev.icarus.server.netty.connections.ConnectionHandler;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.ChannelException;

@@ -210,13 +210,6 @@ public class RoomData {
     }
     
     /**
-     * Update users now.
-     */
-    public void updateUsersNow() {
-        this.usersNow = RoomManager.getByRoomId(this.id).getEntityManager().getPlayers().size();
-    }
-    
-    /**
      * Gets the users max.
      *
      * @return the users max

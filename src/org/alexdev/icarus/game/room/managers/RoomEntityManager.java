@@ -64,7 +64,7 @@ public class RoomEntityManager {
 
         if (!this.entities.contains(entity)) {
             this.entities.add(entity);
-            this.room.getData().updateUsersNow();
+            this.room.getData().setUsersNow(this.getPlayers().size());
         }
 
         this.room.getMapping().getTile(x, y).addEntity(entity);
@@ -100,7 +100,7 @@ public class RoomEntityManager {
 
         if (this.entities != null) {
             this.entities.remove(entity);
-            this.room.getData().updateUsersNow();
+            this.room.getData().setUsersNow(this.getPlayers().size());
         }
 
         if (this.getPlayers().size() > 0) {

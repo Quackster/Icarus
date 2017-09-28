@@ -116,7 +116,7 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_data WHERE id = " + roomId, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_data WHERE id = " + roomId + " LIMIT 1", sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -222,7 +222,7 @@ public class RoomDao {
             preparedStatement = Dao.getStorage().prepare("UPDATE room_data SET name = ?, description = ?, "
                     + "state = ?, password = ?, users_max = ?, category = ?, tags = ?, trade_state = ?, allow_pets = ?, allow_pets_eat = ?, " 
                     + "allow_walkthrough = ?, hidewall = ?, wall_thickness = ?, floor_thickness = ?, who_can_mute = ?, who_can_kick = ?, who_can_ban = ?, "
-                    + "chat_mode = ?, chat_size = ?, chat_speed = ?, chat_distance = ?, chat_flood = ?, wallpaper = ?, floor = ?, outside = ?, model = ?, group_id = ? WHERE id = ?", sqlConnection);
+                    + "chat_mode = ?, chat_size = ?, chat_speed = ?, chat_distance = ?, chat_flood = ?, wallpaper = ?, floor = ?, outside = ?, model = ?, group_id = ?, thumbnail = ? WHERE id = ? LIMIT 1", sqlConnection);
 
             preparedStatement.setString(1, data.getName());
             preparedStatement.setString(2, data.getDescription());
@@ -251,7 +251,8 @@ public class RoomDao {
             preparedStatement.setString(25, data.getLandscape());
             preparedStatement.setString(26, data.getModel());
             preparedStatement.setInt(27, data.getGroupId());
-            preparedStatement.setInt(28, data.getId());
+            preparedStatement.setString(28, data.getThumbnail());
+            preparedStatement.setInt(29, data.getId());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

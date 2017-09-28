@@ -396,7 +396,7 @@ public class RoomUser extends Metadata {
         this.goal = new Position(0, 0, 0);
 
         this.chatColor = 0;
-        this.roomRequestedId = -1;
+        //this.roomRequestedId = -1;
         this.virtualId = -1;
         this.danceId = 0;
         this.lookResetTime = -1;

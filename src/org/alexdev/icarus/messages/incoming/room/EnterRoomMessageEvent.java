@@ -23,6 +23,10 @@ public class EnterRoomMessageEvent implements MessageEvent {
     public void handle(Player player, ClientMessage request) {
 
         int roomId = request.readInt();
+
+        if (player.inRoom()) {
+            player.performRoomAction(RoomAction.LEAVE_ROOM, false);
+        }        
         
         Room room = RoomDao.getRoom(roomId, true);
                 
