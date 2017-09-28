@@ -12,3 +12,6 @@ icarus.sql
 /log/*
 /bin/*
 /bin/
+habbohotel.properties
+icarus.properties
+locale.ini
