@@ -10,6 +10,7 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.room.Room;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class RoomItemManager {
 
@@ -18,6 +19,7 @@ public class RoomItemManager {
     
     public RoomItemManager(Room room) {
         this.room = room;
+        this.items = Maps.newHashMap();
     }
     
     /**
@@ -79,7 +81,6 @@ public class RoomItemManager {
         
         if (this.items != null) {
             this.items.clear();
-            this.items = null;
         }
         
         this.items = ItemDao.getRoomItems(room.getData().getId());
