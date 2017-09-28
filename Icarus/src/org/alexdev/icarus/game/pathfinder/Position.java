@@ -202,7 +202,7 @@ public class Position {
      * @return the square in front
      */
     public Position getSquareInFront() {
-        Position square = new Position(this.X, this.Y);
+        Position square = this.copy();
 
         if (this.bodyRotation == 0) {
             square.Y--;
@@ -223,9 +223,8 @@ public class Position {
      * @return the square left
      */
     public Position getSquareLeft() {
-
-        Position square = new Position(this.X, this.Y);
-
+        Position square = this.copy();
+        
         if (this.bodyRotation == 0) {
             square.X--;
         } else if (this.bodyRotation == 2) {
@@ -245,8 +244,7 @@ public class Position {
      * @return the square right
      */
     public Position getSquareRight() {
-
-        Position square = new Position(this.X, this.Y);
+        Position square = this.copy();
 
         if (this.bodyRotation == 0) {
             square.X++;
