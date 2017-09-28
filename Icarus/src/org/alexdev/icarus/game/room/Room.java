@@ -10,15 +10,10 @@ import org.alexdev.icarus.game.groups.GroupManager;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.enums.RoomType;
-import org.alexdev.icarus.game.room.managers.RoomEntityManager;
-import org.alexdev.icarus.game.room.managers.RoomItemManager;
-import org.alexdev.icarus.game.room.model.RoomMapping;
-import org.alexdev.icarus.game.room.model.RoomModel;
-import org.alexdev.icarus.game.room.scheduler.RoomScheduler;
-import org.alexdev.icarus.game.room.scheduler.TaskType;
-import org.alexdev.icarus.game.room.tasks.CarryItemTask;
-import org.alexdev.icarus.game.room.tasks.PetTask;
-import org.alexdev.icarus.game.room.tasks.RollerTask;
+import org.alexdev.icarus.game.room.managers.*;
+import org.alexdev.icarus.game.room.model.*;
+import org.alexdev.icarus.game.room.scheduler.*;
+import org.alexdev.icarus.game.room.tasks.*;
 import org.alexdev.icarus.messages.types.MessageComposer;
 
 public class Room {
