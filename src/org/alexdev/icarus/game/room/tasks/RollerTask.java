@@ -138,10 +138,7 @@ public class RollerTask implements RoomTask {
                     entity.getRoomUser().getPosition().setX(front.getX());
                     entity.getRoomUser().getPosition().setY(front.getY());
                     entity.getRoomUser().getPosition().setZ(nextHeight);
-
-                    if (entity.getRoomUser().getCurrentItem() != null) {
-                        entity.getRoomUser().handleNearbyItem();
-                    }
+                    entity.getRoomUser().checkNearbyItem();
                 }
 
             }

@@ -11,6 +11,7 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RemoveItemMessageComposer;
 
@@ -71,7 +72,7 @@ public class RoomMapping {
                 tile.setHeight(item.getTotalHeight());
                 tile.setHighestItem(item);
 
-                for (Position affected : item.getAffectedTiles()) {
+                for (Position affected : item.getAffectedTiles(false)) {
 
                     RoomTile affectedTile = this.getTile(affected.getX(), affected.getY());
 
@@ -212,7 +213,7 @@ public class RoomMapping {
 
         this.room.send(new PlaceItemMessageComposer(item));
 
-        item.updateEntities();
+        item.updateEntities(null);
         item.save();
     }
 
@@ -222,14 +223,14 @@ public class RoomMapping {
      * @param item the item
      * @param rotation_only the rotation only
      */
-    public void updateItemPosition(Item item, boolean rotation_only) {
+    public void updateItemPosition(Position previous, Item item, boolean rotation_only) {
 
         if (item.getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, rotation_only);
             this.regenerateCollisionMaps();
         }
 
-        item.updateEntities();
+        item.updateEntities(previous);
         item.save();
     }
 
@@ -240,9 +241,9 @@ public class RoomMapping {
      */
     public void removeItem(Item item) {
 
-        item.getPosition().setX(0);
-        item.getPosition().setY(0);
-
+        this.room.getItemManager().getItems().remove(item.getId());
+        this.regenerateCollisionMaps();
+        
         if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
             if (MoodlightDao.hasMoodlightData(item.getId())) {
                 MoodlightDao.deleteMoodlightData(item.getId());
@@ -250,12 +251,13 @@ public class RoomMapping {
 
             item.setExtraData("");
         }
-
-        this.room.getItemManager().getItems().remove(item.getId());
-        this.regenerateCollisionMaps();
-
-        item.updateEntities();
+        
+        item.updateEntities(null);
         item.setRoomId(0);
+        
+        item.getPosition().setX(0);
+        item.getPosition().setY(0);
+        
         item.save();
 
         this.room.send(new RemoveItemMessageComposer(item));

@@ -39,7 +39,7 @@ public class BedInteractor implements Interaction {
                 }
             }
             
-            roomUser.interactNearbyItem();
+            roomUser.checkNearbyItem();
             
         }
     }

@@ -75,7 +75,7 @@ public class RoomUser extends Metadata {
      *
      * @return true, if successful
      */
-    public boolean handleNearbyItem() {
+    public void checkNearbyItem() {
 
         Item item = this.room.getMapping().getHighestItem(this.position.getX(), this.position.getY());
 
@@ -84,7 +84,6 @@ public class RoomUser extends Metadata {
         if (item != null) {
             if (item.canWalk()) {
                 this.currentItem = item;
-                this.interactNearbyItem();
             } else {
                 no_current_item = true;
             }
@@ -94,16 +93,15 @@ public class RoomUser extends Metadata {
 
         if (no_current_item) {
             this.currentItem = null;
-            return false;
         }
 
-        return true;
+        this.interactNearbyItem();
     }
 
     /**
      * Trigger current item.
      */
-    public void interactNearbyItem() {
+    private void interactNearbyItem() {
 
         if (this.currentItem == null) {
             this.removeStatus(EntityStatus.SIT);

@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.incoming.room.items;
 
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
+import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.types.MessageEvent;
@@ -28,6 +29,8 @@ public class MoveItemMessageEvent implements MessageEvent {
             return;
         }
 
+        Position previous = null;
+        
         boolean rotation_only = false;
 
         if (item.getType() == ItemType.FLOOR) {
@@ -36,10 +39,13 @@ public class MoveItemMessageEvent implements MessageEvent {
             int y = reader.readInt();
             int rotation = reader.readInt();
 
+            previous = item.getPosition().copy();
+            
             if (item.getPosition().getX() == x && item.getPosition().getY() == y) {
                 rotation_only = true;
+                previous = null;
             }
-
+            
             item.getPosition().setX(x);
             item.getPosition().setY(y);
             item.getPosition().setRotation(rotation);
@@ -52,6 +58,6 @@ public class MoveItemMessageEvent implements MessageEvent {
 
         }
         
-        room.getMapping().updateItemPosition(item, rotation_only);
+        room.getMapping().updateItemPosition(previous, item, rotation_only);
     }
 }
