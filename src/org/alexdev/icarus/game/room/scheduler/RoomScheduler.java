@@ -20,7 +20,7 @@ public class RoomScheduler implements Runnable {
     private ScheduledFuture<?> roomScheduledTasks;
     
     private Map<Long, ConcurrentLinkedQueue<RoomTask>> tasks;
-    
+
     private Room room;
     private MovementTask movementTask;
     private AtomicLong counter;
@@ -106,6 +106,7 @@ public class RoomScheduler implements Runnable {
      *
      * @param number the number
      * @param measurement the measurement
+     * @param taskType the task type
      * @param task the task
      */
     public void scheduleEvent(int number, TimeUnit measurement,TaskType taskType, RoomTask task) {
@@ -142,7 +143,6 @@ public class RoomScheduler implements Runnable {
     /**
      * Remove the task by class.
      *
-     * @param <T> the generic type
      * @param taskClass the task class
      * @return the task by class
      */
@@ -157,15 +157,20 @@ public class RoomScheduler implements Runnable {
         }
     }
 
+
     /**
-     * @return the disabled
+     * Checks if is disabled.
+     *
+     * @return true, if is disabled
      */
     public boolean isDisabled() {
         return disabled;
     }
 
     /**
-     * @param disabled the disabled to set
+     * Sets the disabled.
+     *
+     * @param disabled the new disabled
      */
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
