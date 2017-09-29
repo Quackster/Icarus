@@ -54,4 +54,6 @@ public interface ClientMessage {
      * @return the message id
      */
     public int getMessageId();
+    
+    public int getLength();
 }

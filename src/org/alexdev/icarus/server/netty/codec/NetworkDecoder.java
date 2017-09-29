@@ -40,7 +40,7 @@ public class NetworkDecoder extends FrameDecoder {
                 return null;
             }
 
-            return new NettyRequest(buffer.readBytes(length));
+            return new NettyRequest(length, buffer.readBytes(length));
         }
         
         return null;
