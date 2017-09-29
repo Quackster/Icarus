@@ -122,4 +122,5 @@ public class Outgoing {
     public static int GroupUpdateMemberComposer = 3263;//2896
     public static int RefreshFavouriteGroupComposer = 1579;//3611
     public static int MOTDNotificationMessageComposer = 408;
+    public static int ThumbnailMessageComposer = 1101;
 }

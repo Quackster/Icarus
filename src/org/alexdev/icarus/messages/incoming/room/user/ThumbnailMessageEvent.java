@@ -5,6 +5,7 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.notify.RoomInfoUpdatedMessageComposer;
+import org.alexdev.icarus.messages.outgoing.room.user.ThumbnailMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.alexdev.icarus.util.Util;
@@ -37,16 +38,18 @@ public class ThumbnailMessageEvent implements MessageEvent {
         
         try {
             
-            byte[] msg = reader.getRawMessage();  
+            final int length = reader.readInt();
+            final byte[] payload = reader.readBytes(length);
             
             FileOutputStream fos = new FileOutputStream(templateFilePath + templateFileName);
-            fos.write(msg);
+            fos.write(payload);
             fos.close();
 
         } catch (Exception e) {
             Log.exception(e);
         }
         
+        player.send(new ThumbnailMessageComposer());
         room.send(new RoomInfoUpdatedMessageComposer(room.getData().getId()));
 
         /*int count = reader.readInt();
