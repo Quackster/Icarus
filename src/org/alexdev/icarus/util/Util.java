@@ -189,9 +189,15 @@ public class Util {
      * @param len the len
      * @return the string
      */
-    public static String generateRandomString(int len) {
+    public static String generateRandomString(int len, boolean uppercase) {
         
-        String CHAR_LIST = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        String CHAR_LIST = null;
+        
+        if (uppercase) {
+            CHAR_LIST = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        } else {
+            CHAR_LIST = "abcdefghijklmnopqrstuvwxyz1234567890";
+        }
         
         StringBuffer randStr = new StringBuffer();
         
@@ -202,7 +208,7 @@ public class Util {
         }
         return randStr.toString();
     }
-    
+
     /**
      * Read to end.
      *

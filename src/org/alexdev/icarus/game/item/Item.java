@@ -1,6 +1,7 @@
 package org.alexdev.icarus.game.item;
 
 import java.util.List;
+import java.util.Set;
 
 import org.alexdev.icarus.dao.mysql.item.ItemDao;
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
@@ -21,6 +22,7 @@ import org.alexdev.icarus.util.Metadata;
 import org.alexdev.icarus.util.Util;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 public class Item extends Metadata {
 
@@ -130,24 +132,24 @@ public class Item extends Metadata {
             return;
         }
 
-        List<Entity> entitiesToUpdate = Lists.newArrayList();
+        Set<Entity> entitiesToUpdate = Sets.newHashSet();
 
         if (previous != null) {
             for (Position position : this.getAffectedTiles(previous, true)) {
+                
                 RoomTile tile = room.getMapping().getTile(position.getX(), position.getY());
 
                 if (tile != null) {
-                    Log.info("debug 1");
                     entitiesToUpdate.addAll(tile.getEntities());
                 }
             }
         }
 
         for (Position position : this.getAffectedTiles(true)) {
+            
             RoomTile tile = room.getMapping().getTile(position.getX(), position.getY());
 
             if (tile != null) {
-                Log.info("debug 2: " + tile.getEntities().size());
                 entitiesToUpdate.addAll(tile.getEntities());
             }
         }
@@ -155,24 +157,6 @@ public class Item extends Metadata {
         for (Entity entity : entitiesToUpdate) {
             entity.getRoomUser().checkNearbyItem();
         }
-    }
-
-    /**
-     * Check if specified coordinates collide with the item.
-     *
-     * @param x the x
-     * @param y the y
-     * @return {@link boolean} - true if item exits within these coordinates
-     */
-    private boolean hasEntityCollision(int x, int y) {
-
-        for (Position tile : this.getAffectedTiles(true)) {
-            if (tile.getX() == x && tile.getY() == y) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**

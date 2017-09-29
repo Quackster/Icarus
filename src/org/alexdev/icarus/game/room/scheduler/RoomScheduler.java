@@ -24,6 +24,8 @@ public class RoomScheduler implements Runnable {
     private Room room;
     private MovementTask movementTask;
     private AtomicLong counter;
+    
+    private boolean disabled;
 
     public RoomScheduler (Room room) {
         this.room = room;
@@ -38,6 +40,10 @@ public class RoomScheduler implements Runnable {
     @Override
     public void run() {
         
+        if (this.disabled) {
+            return;
+        }
+        
         try {
      
             for (Entry<Long, ConcurrentLinkedQueue<RoomTask>> kvp : this.tasks.entrySet()) {
@@ -46,8 +52,6 @@ public class RoomScheduler implements Runnable {
                     for (RoomTask task : kvp.getValue()) {
                         task.execute();
                     }
-                    
-                    
                 }
             }
             
@@ -94,6 +98,7 @@ public class RoomScheduler implements Runnable {
         
         this.tasks.clear();
         this.counter.set(0);
+        this.disabled = true;
     }
 
     /**
@@ -150,5 +155,19 @@ public class RoomScheduler implements Runnable {
                 }
             }
         }
+    }
+
+    /**
+     * @return the disabled
+     */
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    /**
+     * @param disabled the disabled to set
+     */
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 }

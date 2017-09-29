@@ -1,7 +1,5 @@
 package org.alexdev.icarus.messages.incoming.room.user;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
@@ -30,12 +28,8 @@ public class ThumbnailMessageEvent implements MessageEvent {
         String templateFilePath = Util.getGameConfig().get("Room", "room.thumbnail.path", String.class);
         String templateFileUrl = Util.getGameConfig().get("Room", "room.thumbnail.url", String.class);
 
-        /*writer.println("room.thumbnail.path=D:/xampp/htdocs/c_images/thumbnails/");
-        writer.println("room.thumbnail.url=thumbnails/{filename}");
-        writer.println("room.thumbnail.filename=room_{id}_{generatedId}.png");*/
-
         templateFileName = templateFileName.replace("{id}", player.getRoom().getData().getId() + "");
-        templateFileName = templateFileName.replace("{generatedId}", Util.generateRandomString(10));
+        templateFileName = templateFileName.replace("{generatedId}", Util.generateRandomString(10, false));
         templateFileUrl = templateFileUrl.replace("{filename}", templateFileName);
         
         room.getData().setThumbnail(templateFileUrl);
@@ -45,18 +39,9 @@ public class ThumbnailMessageEvent implements MessageEvent {
             
             byte[] msg = reader.getRawMessage();  
             
-            /*File file = new File("lol.png");
-            FileInputStream is = new FileInputStream(file);
-            
-            byte fileContent[] = new byte[(int)file.length()];
-            is.read(fileContent);
-            msg  = fileContent;*/
-
             FileOutputStream fos = new FileOutputStream(templateFilePath + templateFileName);
             fos.write(msg);
             fos.close();
-            
-            //is.close();
 
         } catch (Exception e) {
             Log.exception(e);
