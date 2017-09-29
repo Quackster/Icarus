@@ -10,10 +10,12 @@ public class NettyRequest implements ClientMessage {
 
     private int header;
     public ChannelBuffer buffer;
+    private int length;
     
-    public NettyRequest(ChannelBuffer buffer) {
+    public NettyRequest(int length, ChannelBuffer buffer) {
         this.buffer = buffer;
         this.header = buffer.readShort();
+        this.length = length;
     }
     
     public Integer readInt() {
@@ -63,11 +65,10 @@ public class NettyRequest implements ClientMessage {
             return null;
         }
     }
-    
-    @Override
+
     public byte[] getRawMessage() {
-        byte[] complete = this.buffer.array();
         
+        byte[] complete = this.buffer.array();
         return Arrays.copyOfRange(complete, 6, complete.length); 
     }
 
@@ -88,5 +89,9 @@ public class NettyRequest implements ClientMessage {
 
     public int getMessageId() {
         return header;
+    }
+
+    public int getLength() {
+        return length;
     }
 }
