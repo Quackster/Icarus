@@ -69,6 +69,10 @@ public class ItemDefinition {
         } else {
             this.variableHeight = new double[0];
         }
+        
+        if (height == 0 || height == 0.01) {
+            height = 0.001;
+        }
     }   
 
     /**

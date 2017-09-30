@@ -13,6 +13,7 @@ import org.alexdev.icarus.game.room.enums.RoomAction;
 import org.alexdev.icarus.game.room.enums.RoomType;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.messages.incoming.room.RoomPromotionMessageComposer;
+import org.alexdev.icarus.messages.outgoing.PhotoPriceComposer;
 import org.alexdev.icarus.messages.outgoing.groups.NewGroupMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.FloorMapMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.HeightMapMessageComposer;

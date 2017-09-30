@@ -49,6 +49,7 @@ public class ThumbnailMessageEvent implements MessageEvent {
             
             FileOutputStream fos = new FileOutputStream(templateFilePath + templateFileName);
             fos.write(payload);
+            fos.flush();
             fos.close();
 
         } catch (Exception e) {

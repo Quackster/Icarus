@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.headers.Incoming;
+import org.alexdev.icarus.messages.incoming.camera.PhotoPricingMessageEvent;
+import org.alexdev.icarus.messages.incoming.camera.PreviewPhotoMessageEvent;
+import org.alexdev.icarus.messages.incoming.camera.PurchasePhotoMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.CatalogueMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.CataloguePageMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.GiftingSettingsMessageEvent;
@@ -72,7 +75,7 @@ import com.google.common.collect.Maps;
 
 public class MessageHandler {
 
-    private HashMap<Integer, List<MessageEvent>> messages;
+    private HashMap<Short, List<MessageEvent>> messages;
     private List<String> composerPackages;
 
     public MessageHandler() {
@@ -96,8 +99,9 @@ public class MessageHandler {
         this.registerRoomFloorplanPackets();
         this.registerGroupPackets();
         this.registerTradePackets();
+        this.registerCameraPackets();
     }
-
+    
     /**
      * Register handshake packets.
      */
@@ -262,6 +266,15 @@ public class MessageHandler {
         this.registerEvent(Incoming.EditGroupAccessMessageEvent, new EditGroupAccessMessageEvent());
         this.registerEvent(Incoming.EditGroupBadgeMessageEvent, new EditGroupBadgeMessageEvent());
     }
+    
+    /**
+     * Register camera packets.
+     */
+    private void registerCameraPackets() {
+        this.registerEvent(Incoming.PhotoPricingMessageEvent, new PhotoPricingMessageEvent());
+        this.registerEvent(Incoming.PreviewPhotoMessageEvent, new PreviewPhotoMessageEvent());
+        this.registerEvent(Incoming.PurchasePhotoMessageEvent, new PurchasePhotoMessageEvent());
+    }
 
     /**
      * Register trade packets.
@@ -296,7 +309,7 @@ public class MessageHandler {
      * @param header the header
      * @param messageEvent the message event
      */
-    private void registerEvent(Integer header, MessageEvent messageEvent) {
+    private void registerEvent(Short header, MessageEvent messageEvent) {
 
         if (!this.messages.containsKey(header)) {
             this.messages.put(header, Lists.newArrayList());
@@ -326,7 +339,7 @@ public class MessageHandler {
      *
      * @return the messages
      */
-    public HashMap<Integer, List<MessageEvent>> getMessages() {
+    public HashMap<Short, List<MessageEvent>> getMessages() {
         return messages;
     }
 

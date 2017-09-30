@@ -97,34 +97,14 @@ public class Item extends Metadata {
         return affectedTiles;
     }
 
-    /**
-     * Gets the affected tiles, from a different position
-     *
-     * @param position the position
-     * @param includeFirstPosition the include first position of the item (by default this function only returns every affected tile except the main position).
-     * @return the affected tiles
-     */
-    public List<Position> getAffectedTiles(Position position, boolean includeFirstPosition) {
-
-        if (this.type == ItemType.WALL) {
-            return Lists.newArrayList();
-        }
-
-        List<Position> affectedTiles = AffectedTile.getAffectedTiles(this.getDefinition().getLength(), this.getDefinition().getWidth(), position.getX(), position.getY(), position.getRotation());
-
-        if (includeFirstPosition) {
-            affectedTiles.add(position.copy());
-        }
-
-        return affectedTiles;
-    }
-
 
     /**
      * Updates entities who are or were sitting/laying/standing on this furniture.
      * @param previous 
      */
-    public void updateEntities(Position previous) {
+    public void updateEntities() {
+
+        List<Entity> affected_players = Lists.newArrayList();
 
         Room room = this.getRoom();
 
@@ -132,31 +112,54 @@ public class Item extends Metadata {
             return;
         }
 
-        Set<Entity> entitiesToUpdate = Sets.newHashSet();
+        for (Entity entity : this.getRoom().getEntityManager().getEntities()) {
 
-        if (previous != null) {
-            for (Position position : this.getAffectedTiles(previous, true)) {
-                
-                RoomTile tile = room.getMapping().getTile(position.getX(), position.getY());
+            if (entity.getRoomUser().getCurrentItem() != null) {
+                if (entity.getRoomUser().getCurrentItem().getId() == this.id) {
 
-                if (tile != null) {
-                    entitiesToUpdate.addAll(tile.getEntities());
+                    // Item doesn't exist within player
+                    if (!hasEntityCollision(entity.getRoomUser().getPosition().getX(), entity.getRoomUser().getPosition().getY())) {
+                        entity.getRoomUser().setCurrentItem(null);
+                    }
+
+                    affected_players.add(entity);
+
+                    // Extra check if a furniture is on a rug... sometimes it bugs up ;)
+                } else if (hasEntityCollision(entity.getRoomUser().getPosition().getX(), entity.getRoomUser().getPosition().getY())) {
+                    entity.getRoomUser().setCurrentItem(this);
+                    affected_players.add(entity);
                 }
             }
-        }
 
-        for (Position position : this.getAffectedTiles(true)) {
-            
-            RoomTile tile = room.getMapping().getTile(position.getX(), position.getY());
-
-            if (tile != null) {
-                entitiesToUpdate.addAll(tile.getEntities());
+            // Moved item inside a player
+            else if (hasEntityCollision(entity.getRoomUser().getPosition().getX(), entity.getRoomUser().getPosition().getY())) {
+                entity.getRoomUser().setCurrentItem(this);
+                affected_players.add(entity);
             }
         }
 
-        for (Entity entity : entitiesToUpdate) {
+        // Trigger item update for affected players
+        for (Entity entity : affected_players) {
             entity.getRoomUser().checkNearbyItem();
         }
+    }
+
+    /**
+     * Check if specified coordinates collide with the item.
+     *
+     * @param x the x
+     * @param y the y
+     * @return {@link boolean} - true if item exits within these coordinates
+     */
+    private boolean hasEntityCollision(int x, int y) {
+
+        for (Position tile : this.getAffectedTiles(true)) {
+            if (tile.getX() == x && tile.getY() == y) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

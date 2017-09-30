@@ -29,7 +29,7 @@ public class AdjustableHeightInteractor implements Interaction {
         item.save();
 
         item.getRoom().getMapping().regenerateCollisionMaps();
-        item.updateEntities(null);
+        item.updateEntities();
 
     }
 

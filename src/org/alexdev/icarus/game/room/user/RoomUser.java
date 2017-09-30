@@ -104,33 +104,27 @@ public class RoomUser extends Metadata {
      */
     private void interactNearbyItem() {
 
-        boolean updateUser = false;
-
         if (this.currentItem == null) {
-            
+
             if (this.containsStatus(EntityStatus.LAY)) {
                 this.removeStatus(EntityStatus.LAY);
-                updateUser = true;
             }
 
             if (this.containsStatus(EntityStatus.SIT)) {
                 this.removeStatus(EntityStatus.SIT);
-                updateUser = true;
             }
-            
+
         } else {
-            
+
             Interaction handler = this.currentItem.getDefinition().getInteractionType().getHandler();
 
             if (handler != null) {
-                updateUser = handler.onStopWalking(this.currentItem, this);
+                handler.onStopWalking(this.currentItem, this);
             }
         }
 
-        if (updateUser) {
-            this.updateNewHeight(this.position);
-            this.needsUpdate = true;
-        }
+        this.updateNewHeight(this.position);
+        this.needsUpdate = true;
     }
 
     /**

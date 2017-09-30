@@ -30,25 +30,25 @@ public class MoveItemMessageEvent implements MessageEvent {
         }
 
         Position previous = null;
-        
-        boolean rotation_only = false;
-
+        boolean rotation = false;
+ 
         if (item.getType() == ItemType.FLOOR) {
 
             int x = reader.readInt();
             int y = reader.readInt();
-            int rotation = reader.readInt();
-
-            previous = item.getPosition().copy();
+            int direction = reader.readInt();
             
             if (item.getPosition().getX() == x && item.getPosition().getY() == y) {
-                rotation_only = true;
-                previous = null;
+                rotation = true;
+            }
+            
+            if (!rotation) {
+                previous = item.getPosition().copy();          
             }
             
             item.getPosition().setX(x);
             item.getPosition().setY(y);
-            item.getPosition().setRotation(rotation);
+            item.getPosition().setRotation(direction);
         } 
         
         if (item.getType() == ItemType.WALL) {
@@ -58,6 +58,6 @@ public class MoveItemMessageEvent implements MessageEvent {
 
         }
         
-        room.getMapping().updateItemPosition(previous, item, rotation_only);
+        room.getMapping().updateItemPosition(previous, item, rotation);
     }
 }

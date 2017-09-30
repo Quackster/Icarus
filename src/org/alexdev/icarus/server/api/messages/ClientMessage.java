@@ -53,7 +53,7 @@ public interface ClientMessage {
      *
      * @return the message id
      */
-    public int getMessageId();
+    public short getMessageId();
     
     public int getLength();
 }

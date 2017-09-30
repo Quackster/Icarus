@@ -13,7 +13,7 @@ import org.jboss.netty.buffer.ChannelBuffers;
 public class NettyResponse implements Response {
     
     private boolean finalised;
-    private int id;
+    private short id;
     private ChannelBufferOutputStream bodystream;
     private ChannelBuffer body;
 
@@ -21,7 +21,7 @@ public class NettyResponse implements Response {
      * @see org.alexdev.icarus.server.api.messages.Response#init(int)
      */
     @Override
-    public void init(int id) {
+    public void init(short id) {
 
         this.id = id;
         this.finalised = false;

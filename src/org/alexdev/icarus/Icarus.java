@@ -200,12 +200,14 @@ public class Icarus extends Metadata {
         writer.println();
         writer.println("[Camera]");
         writer.println("camera.enabled=true");
+        writer.println("camera.path=D:/xampp/htdocs/c_images/camera_photos/");
+        writer.println("camera.filename=room_{id}_{username}_{generatedId}.png");
         writer.println();
         writer.println("[Thumbnail]");
         writer.println("thumbnail.create.enabled=true");
-        writer.println("room.thumbnail.path=D:/xampp/htdocs/c_images/thumbnails/");
-        writer.println("room.thumbnail.url=thumbnails/{filename}");
-        writer.println("room.thumbnail.filename=room_{id}_{generatedId}.png");
+        writer.println("thumbnail.path=D:/xampp/htdocs/c_images/thumbnails/");
+        writer.println("thumbnail.url=thumbnails/{filename}");
+        writer.println("thumbnail.filename=room_{id}_{generatedId}.png");
         writer.println();
         writer.println("[Debug]");
         writer.println("debug.enable=true");
@@ -243,6 +245,7 @@ public class Icarus extends Metadata {
         writer.println("language=English");
         writer.println();
         writer.println("[English]");
+        writer.println("camera.error=Oops! Could not process the photo, relog maybe?");
         writer.println("one.dimmer.per.room=You can only have one dimmer per room!");
         writer.println("group.remove.administrator.denied=Sorry, only group creators can remove other administrators from the group.");
         writer.println("group.existing.member=Sorry, this user is already a group member.");

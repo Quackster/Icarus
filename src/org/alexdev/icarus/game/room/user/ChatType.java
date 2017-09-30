@@ -14,7 +14,7 @@ public enum ChatType {
      *
      * @return the chat header
      */
-    public int getHeader() {
+    public short getHeader() {
         
         if (this == CHAT) {
             return Outgoing.ChatMessageComposer;

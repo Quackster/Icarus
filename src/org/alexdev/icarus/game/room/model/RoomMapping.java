@@ -212,7 +212,7 @@ public class RoomMapping {
 
         this.room.send(new PlaceItemMessageComposer(item));
 
-        item.updateEntities(null);
+        item.updateEntities();
         item.save();
     }
 
@@ -229,7 +229,7 @@ public class RoomMapping {
             this.regenerateCollisionMaps();
         }
 
-        item.updateEntities(previous);
+        item.updateEntities();
         item.save();
     }
 
@@ -251,7 +251,7 @@ public class RoomMapping {
             item.setExtraData("");
         }
         
-        item.updateEntities(null);
+        item.updateEntities();
         item.setRoomId(0);
         
         item.getPosition().setX(0);
@@ -266,11 +266,11 @@ public class RoomMapping {
      * Handle item adjustment.
      *
      * @param item the item
-     * @param rotation_only the rotation only
+     * @param rotation the rotation only
      */
-    private void handleItemAdjustment(Item item, boolean rotation_only) {
+    private void handleItemAdjustment(Item item, boolean rotation) {
 
-        if (rotation_only) {
+        if (rotation) {
             for (Item items : this.getTile(item.getPosition().getX(), item.getPosition().getY()).getItems()) {
                 if (items != item && items.getPosition().getZ() >= item.getPosition().getZ()) {
                     items.getPosition().setRotation(item.getPosition().getRotation());
@@ -278,7 +278,7 @@ public class RoomMapping {
                 }
             }
         } else {
-            item.getPosition().setZ(this.getTileHeight(item.getPosition().getX(), item.getPosition().getY()));
+            item.getPosition().setZ(this.getTileHeight(item.getPosition().getX(), item.getPosition().getY()) + 0.001);
         }
 
         item.updateStatus();

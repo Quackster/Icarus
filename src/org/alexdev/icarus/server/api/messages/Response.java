@@ -7,7 +7,7 @@ public interface Response {
      *
      * @param id the id
      */
-    public void init(int id);
+    public void init(short id);
     
     /**
      * Write string.

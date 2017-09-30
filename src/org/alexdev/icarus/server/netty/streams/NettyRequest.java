@@ -8,7 +8,7 @@ import org.jboss.netty.buffer.ChannelBuffer;
 
 public class NettyRequest implements ClientMessage {
 
-    private int header;
+    private short header;
     public ChannelBuffer buffer;
     private int length;
     
@@ -87,7 +87,7 @@ public class NettyRequest implements ClientMessage {
         return buffer;
     }
 
-    public int getMessageId() {
+    public short getMessageId() {
         return header;
     }
 
