@@ -27,11 +27,11 @@ public class InteractItemMessageEvent implements MessageEvent {
             item.getDefinition().getInteractionType().getHandler().onUseItem(item, player.getRoomUser());
         }
 
-        if (item.getType() == ItemType.FLOOR) {
+        if (item.getDefinition().getType() == ItemType.FLOOR) {
             PluginManager.callEvent(PluginEvent.FLOOR_ITEM_INTERACT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
         } 
 
-        if (item.getType() == ItemType.WALL) {
+        if (item.getDefinition().getType() == ItemType.WALL) {
             PluginManager.callEvent(PluginEvent.WALL_ITEM_INTERACT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
         }
 

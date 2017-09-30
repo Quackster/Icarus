@@ -18,7 +18,7 @@ public class PlaceItemMessageComposer extends MessageComposer {
     @Override
     public void write() {
 
-        if (this.item.getType() == ItemType.FLOOR) {
+        if (this.item.getDefinition().getType() == ItemType.FLOOR) {
             this.response.init(Outgoing.PlaceFloorItemMessageComposer); 
 
             this.response.writeInt(this.item.getId());
@@ -38,7 +38,7 @@ public class PlaceItemMessageComposer extends MessageComposer {
 
         }
 
-        if (this.item.getType() == ItemType.WALL) {
+        if (this.item.getDefinition().getType() == ItemType.WALL) {
             this.response.init(Outgoing.PlaceWallItemMessageComposer);
             this.response.writeString(item.getId() + "");
             this.response.writeInt(item.getDefinition().getSpriteId());

@@ -18,7 +18,7 @@ public class MoveItemMessageComposer extends MessageComposer {
     @Override
     public void write() {
 
-        if (this.item.getType() == ItemType.FLOOR) {
+        if (this.item.getDefinition().getType() == ItemType.FLOOR) {
             this.response.init(Outgoing.MoveFloorItemMessageComposer); 
             this.response.writeInt(this.item.getId());
             this.response.writeInt(this.item.getDefinition().getSpriteId());
@@ -36,7 +36,7 @@ public class MoveItemMessageComposer extends MessageComposer {
             this.response.writeString(this.item.getOwnerName());
         }
 
-        if (this.item.getType() == ItemType.WALL) {
+        if (this.item.getDefinition().getType() == ItemType.WALL) {
             this.response.init(Outgoing.MoveWallItemMessageComposer);
             this.response.writeString(item.getId() + "");
             this.response.writeInt(item.getDefinition().getSpriteId());

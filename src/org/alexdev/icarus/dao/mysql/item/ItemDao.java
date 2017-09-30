@@ -117,7 +117,7 @@ public class ItemDao {
         String x = item.getPosition().getX() + "";
         String y = item.getPosition().getY() + "";
 
-        if (item.getType() == ItemType.WALL) {
+        if (item.getDefinition().getType() == ItemType.WALL) {
             x = item.getSide() + "," + item.getWidthX() + "," + item.getWidthY();
             y = item.getLengthX() + "," + item.getLengthY();
         }

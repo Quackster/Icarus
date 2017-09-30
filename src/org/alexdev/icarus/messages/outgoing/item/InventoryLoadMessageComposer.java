@@ -27,7 +27,7 @@ public class InventoryLoadMessageComposer extends MessageComposer {
 
         for (Item item : this.wallItems) {
             this.response.writeInt(item.getId());
-            this.response.writeString(item.getDefinition().getType().toUpperCase());
+            this.response.writeString(item.getDefinition().getType().toString().toUpperCase());
             this.response.writeInt(item.getId());
             this.response.writeInt(item.getDefinition().getSpriteId());
 
@@ -53,7 +53,7 @@ public class InventoryLoadMessageComposer extends MessageComposer {
 
         for (Item item : floorItems) {
             this.response.writeInt(item.getId());
-            this.response.writeString(item.getDefinition().getType().toUpperCase());
+            this.response.writeString(item.getDefinition().getType().toString().toUpperCase());
             this.response.writeInt(item.getId());
             this.response.writeInt(item.getDefinition().getSpriteId());
 

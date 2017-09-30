@@ -30,7 +30,7 @@ public class PickupItemMessageEvent implements MessageEvent {
             return;
         }
 
-        if (item.getType() == ItemType.FLOOR || item.getType() == ItemType.WALL) {
+        if (item.getDefinition().getType() == ItemType.FLOOR || item.getDefinition().getType() == ItemType.WALL) {
 
             room.getMapping().removeItem(item);
             

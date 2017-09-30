@@ -205,7 +205,7 @@ public class RoomMapping {
 
         this.room.getItemManager().getItems().put(item.getId(), item);
 
-        if (item.getType() == ItemType.FLOOR) {
+        if (item.getDefinition().getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, false);
             this.regenerateCollisionMaps();
         }
@@ -224,7 +224,7 @@ public class RoomMapping {
      */
     public void updateItemPosition(Position previous, Item item, boolean rotation_only) {
 
-        if (item.getType() == ItemType.FLOOR) {
+        if (item.getDefinition().getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, rotation_only);
             this.regenerateCollisionMaps();
         }

@@ -5,6 +5,7 @@ import org.alexdev.icarus.dao.mysql.item.TeleporterDao;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.inventory.InventoryNotification;
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.util.Util;
 
@@ -13,7 +14,7 @@ public class ItemDefinition {
     private int id;
     private String publicName;
     private String itemName;
-    private String type;
+    private ItemType type;
     private int width;
     private int length;
     private double height;
@@ -40,7 +41,7 @@ public class ItemDefinition {
         this.id = id;
         this.publicName = publicName;
         this.itemName = itemName;
-        this.type = type;
+        this.type = ItemType.getType(type);
         this.width = width;
         this.length = length;
         this.height = stackHeight;
@@ -156,7 +157,7 @@ public class ItemDefinition {
      *
      * @return the type
      */
-    public String getType() {
+    public ItemType getType() {
         return type;
     }
 

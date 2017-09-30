@@ -16,11 +16,11 @@ public class RemoveItemMessageComposer extends MessageComposer {
     @Override
     public void write() {
         
-        if (this.item.getType() == ItemType.FLOOR) {
+        if (this.item.getDefinition().getType() == ItemType.FLOOR) {
             this.response.init(Outgoing.RemoveItemMessageComposer);
         }
         
-        if (this.item.getType() == ItemType.WALL) {
+        if (this.item.getDefinition().getType() == ItemType.WALL) {
             this.response.init(Outgoing.RemoveWallItemMessageComposer);
         }
         
@@ -28,7 +28,7 @@ public class RemoveItemMessageComposer extends MessageComposer {
         this.response.writeBool(false);
         this.response.writeInt(item.getOwnerId());
 
-        if (this.item.getType() == ItemType.FLOOR) {
+        if (this.item.getDefinition().getType() == ItemType.FLOOR) {
             this.response.writeInt(0);
         }
     }

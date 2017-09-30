@@ -28,7 +28,7 @@ public class RoomItemManager {
      * @return the floor items
      */
     public List<Item> getFloorItems() {
-        return items.values().stream().filter(item -> item.getType() == ItemType.FLOOR).collect(Collectors.toList());
+        return items.values().stream().filter(item -> item.getDefinition().getType() == ItemType.FLOOR).collect(Collectors.toList());
     }
 
     /**
@@ -37,7 +37,7 @@ public class RoomItemManager {
      * @return the wall items
      */
     public List<Item> getWallItems() {
-        return items.values().stream().filter(item -> item.getType() == ItemType.WALL).collect(Collectors.toList());
+        return items.values().stream().filter(item -> item.getDefinition().getType() == ItemType.WALL).collect(Collectors.toList());
     }
 
     /**

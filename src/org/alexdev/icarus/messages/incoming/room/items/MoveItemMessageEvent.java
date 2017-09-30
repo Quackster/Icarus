@@ -32,7 +32,7 @@ public class MoveItemMessageEvent implements MessageEvent {
         Position previous = null;
         boolean rotation = false;
  
-        if (item.getType() == ItemType.FLOOR) {
+        if (item.getDefinition().getType() == ItemType.FLOOR) {
 
             int x = reader.readInt();
             int y = reader.readInt();
@@ -51,7 +51,7 @@ public class MoveItemMessageEvent implements MessageEvent {
             item.getPosition().setRotation(direction);
         } 
         
-        if (item.getType() == ItemType.WALL) {
+        if (item.getDefinition().getType() == ItemType.WALL) {
             String input = reader.readString();
             String[] pos = input.split(":")[1].split(" ");
             item.parseWallPosition(pos[2] + "," + pos[0].substring(2) + " " + pos[1].substring(2));

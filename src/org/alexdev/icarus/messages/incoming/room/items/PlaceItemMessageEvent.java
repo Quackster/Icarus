@@ -51,12 +51,12 @@ public class PlaceItemMessageEvent implements MessageEvent {
             }
         }
 
-        if (item.getType() == ItemType.WALL) {
+        if (item.getDefinition().getType() == ItemType.WALL) {
             String[] pos = input.split(":")[1].split(" ");
             item.parseWallPosition(pos[2] + "," + pos[0].substring(2) + " " + pos[1].substring(2));
         }
 
-        if (item.getType() == ItemType.FLOOR) {
+        if (item.getDefinition().getType() == ItemType.FLOOR) {
             int x = Integer.parseInt(data[1]);
             int y = Integer.parseInt(data[2]);
             int rotation = Integer.parseInt(data[3]);
@@ -74,11 +74,11 @@ public class PlaceItemMessageEvent implements MessageEvent {
         player.getInventory().remove(item);
         player.getInventory().updateItems();
 
-        if (item.getType() == ItemType.FLOOR) {
+        if (item.getDefinition().getType() == ItemType.FLOOR) {
             PluginManager.callEvent(PluginEvent.PLACE_FLOOR_ITEM_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
         } 
         
-        if (item.getType() == ItemType.WALL) {
+        if (item.getDefinition().getType() == ItemType.WALL) {
             PluginManager.callEvent(PluginEvent.PLACE_WALL_ITEM_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
         }
     }

@@ -127,7 +127,7 @@ public class Inventory {
      * @return the floor items
      */
     public List<Item> getFloorItems() {
-        return items.values().stream().filter(item -> item != null && item.getType() == ItemType.FLOOR).collect(Collectors.toList());
+        return items.values().stream().filter(item -> item != null && item.getDefinition().getType() == ItemType.FLOOR).collect(Collectors.toList());
     }
 
     /**
@@ -145,7 +145,7 @@ public class Inventory {
      * @return the wall items
      */
     public List<Item> getWallItems() {
-        return items.values().stream().filter(item -> item != null && item.getType() == ItemType.WALL).collect(Collectors.toList());
+        return items.values().stream().filter(item -> item != null && item.getDefinition().getType() == ItemType.WALL).collect(Collectors.toList());
     }
 
     /**

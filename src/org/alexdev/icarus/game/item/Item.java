@@ -1,8 +1,6 @@
 package org.alexdev.icarus.game.item;
 
 import java.util.List;
-import java.util.Set;
-
 import org.alexdev.icarus.dao.mysql.item.ItemDao;
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.dao.mysql.room.MoodlightDao;
@@ -15,14 +13,12 @@ import org.alexdev.icarus.game.pathfinder.AffectedTile;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
-import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.items.MoveItemMessageComposer;
 import org.alexdev.icarus.util.Metadata;
 import org.alexdev.icarus.util.Util;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 public class Item extends Metadata {
 
@@ -33,7 +29,6 @@ public class Item extends Metadata {
     private int roomId;
     private Position position;
     private String extraData;
-    private ItemType type;
     private Item itemUnderneath;
     private int teleporterId = 0;
     private int lengthX = 0;
@@ -51,25 +46,16 @@ public class Item extends Metadata {
         this.roomId = roomId;
         this.extraData = extraData;
         this.itemUnderneath = null;
-
-        if (this.getDefinition().getType().equals("i")) {
-            this.type = ItemType.WALL;
-        } else if (this.getDefinition().getType().equals("s")) {
-            this.type = ItemType.FLOOR;
-        } else {
-            this.type = ItemType.OTHER;
-        }
-
         this.position = new Position();
 
-        if (this.type == ItemType.FLOOR) {
+        if (this.getDefinition().getType() == ItemType.FLOOR) {
             this.position.setX(Integer.parseInt(x));
             this.position.setY(Integer.parseInt(y));
             this.position.setZ(z);
             this.position.setRotation(rotation);
         }
 
-        if (this.type == ItemType.WALL) {
+        if (this.getDefinition().getType() == ItemType.WALL) {
             if (this.roomId > 0) {
                 this.parseWallPosition(x + " " + y);
             }
@@ -84,7 +70,7 @@ public class Item extends Metadata {
      */
     public List<Position> getAffectedTiles(boolean includeFirstPosition) {
 
-        if (this.type == ItemType.WALL) {
+        if (this.getDefinition().getType() == ItemType.WALL) {
             return Lists.newArrayList();
         }
 
@@ -232,7 +218,7 @@ public class Item extends Metadata {
      */
     public String getWallPosition() {
 
-        if (this.type == ItemType.WALL) {
+        if (this.getDefinition().getType() == ItemType.WALL) {
             return ":w=" + this.widthX + "," + this.widthY + " " + "l=" + this.lengthX + "," + this.lengthY + " " + this.side;
         }
 
@@ -530,15 +516,6 @@ public class Item extends Metadata {
      */
     public void setExtraData(String extraData) {
         this.extraData = extraData;
-    }
-
-    /**
-     * Gets the type.
-     *
-     * @return the type
-     */
-    public ItemType getType() {
-        return type;
     }
 
     /**
