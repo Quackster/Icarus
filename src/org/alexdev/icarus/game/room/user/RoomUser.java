@@ -19,6 +19,7 @@ import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.Rotation;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
@@ -103,19 +104,34 @@ public class RoomUser extends Metadata {
      */
     private void interactNearbyItem() {
 
+        boolean updateUser = false;
+
         if (this.currentItem == null) {
-            this.removeStatus(EntityStatus.SIT);
-            this.removeStatus(EntityStatus.LAY);
+            
+            if (this.containsStatus(EntityStatus.LAY)) {
+                this.removeStatus(EntityStatus.LAY);
+                updateUser = true;
+            }
+
+            if (this.containsStatus(EntityStatus.SIT)) {
+                this.removeStatus(EntityStatus.SIT);
+                updateUser = true;
+            }
+            
         } else {
+            
             Interaction handler = this.currentItem.getDefinition().getInteractionType().getHandler();
 
             if (handler != null) {
                 handler.onStopWalking(this.currentItem, this);
+                updateUser = true;
             }
         }
 
-        this.updateNewHeight(this.position);
-        this.needsUpdate = true;
+        if (updateUser) {
+            this.updateNewHeight(this.position);
+            this.needsUpdate = true;
+        }
     }
 
     /**
@@ -308,7 +324,7 @@ public class RoomUser extends Metadata {
         if (!this.isWalkingAllowed) {
             return;
         }
-        
+
         if (this.nextPositio != null) {
             this.position.setX(this.nextPositio.getX());
             this.position.setY(this.nextPositio.getY());
@@ -374,7 +390,7 @@ public class RoomUser extends Metadata {
      * Dispose.
      */
     public void dispose() {
- 
+
         if (this.statuses != null) {
             this.statuses.clear();
         } else {

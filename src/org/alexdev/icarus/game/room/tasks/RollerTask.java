@@ -134,11 +134,12 @@ public class RollerTask implements RoomTask {
                     double nextHeight = nextTile.getHeight();
                     
                     this.room.send(new SlideObjectMessageComposer(entity, front, roller.getId(), nextHeight));
-
+                    
+                    entity.getRoomUser().checkNearbyItem();
                     entity.getRoomUser().getPosition().setX(front.getX());
                     entity.getRoomUser().getPosition().setY(front.getY());
                     entity.getRoomUser().getPosition().setZ(nextHeight);
-                    entity.getRoomUser().checkNearbyItem();
+                    
                 }
 
             }

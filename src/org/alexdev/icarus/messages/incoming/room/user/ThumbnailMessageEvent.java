@@ -31,9 +31,9 @@ public class ThumbnailMessageEvent implements MessageEvent {
             return;
         }
 
-        String templateFileName = Util.getGameConfig().get("Thumbnail", "room.thumbnail.filename", String.class);
-        String templateFilePath = Util.getGameConfig().get("Thumbnail", "room.thumbnail.path", String.class);
-        String templateFileUrl = Util.getGameConfig().get("Thumbnail", "room.thumbnail.url", String.class);
+        String templateFileName = Util.getGameConfig().get("Thumbnail", "thumbnail.filename", String.class);
+        String templateFilePath = Util.getGameConfig().get("Thumbnail", "thumbnail.path", String.class);
+        String templateFileUrl = Util.getGameConfig().get("Thumbnail", "thumbnail.url", String.class);
 
         templateFileName = templateFileName.replace("{id}", player.getRoom().getData().getId() + "");
         templateFileName = templateFileName.replace("{generatedId}", Util.generateRandomString(10, false));

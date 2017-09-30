@@ -217,6 +217,15 @@ public class ItemDefinition {
     public boolean allowSit() {
         return canSit;
     }
+    
+    /**
+     * Allow sit or lay.
+     *
+     * @return true, if successful
+     */
+    public boolean allowSitOrLay() {
+        return canSit || this.interactionType == InteractionType.BED;
+    }
 
     /**
      * Checks if is walkable.
