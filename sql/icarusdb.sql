@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 20, 2017 at 04:57 PM
+-- Generation Time: Sep 30, 2017 at 04:53 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -12563,7 +12563,8 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (757369154, 'paris_c15_vegstall1', 'paris_c15_vegstall1', 's', 1, 1, '0', '0', '0', '0', 757369154, '1', '1', '1', '1', '1', 'default', 2, '0', 0, '0', -1, 0, '1', '', NULL),
 (757369155, 'paris_c15_vegstall2', 'paris_c15_vegstall2', 's', 1, 1, '0', '0', '0', '0', 757369155, '1', '1', '1', '1', '1', 'default', 2, '0', 0, '0', -1, 0, '1', '', NULL),
 (757369156, 'paris_c15_vegstall3', 'paris_c15_vegstall3', 's', 1, 1, '0', '0', '0', '0', 757369156, '1', '1', '1', '1', '1', 'default', 2, '0', 0, '0', -1, 0, '1', '', NULL),
-(757369157, 'paris_c15_wall', 'paris_c15_wall', 'i', 1, 1, '0', '0', '0', '0', 757369157, '1', '1', '1', '1', '1', 'default', 3, '0', 0, '0', -1, 0, '1', '', NULL);
+(757369157, 'paris_c15_wall', 'paris_c15_wall', 'i', 1, 1, '0', '0', '0', '0', 757369157, '1', '1', '1', '1', '1', 'default', 3, '0', 0, '0', -1, 0, '1', '', NULL),
+(757369158, 'Photo', 'external_image_wallitem_poster', 'i', 1, 1, '1', '0', '0', '0', 4581, '1', '1', '1', '1', '1', 'camera_photo', 1, '0', 0, '0', -1, 0, '1', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -12591,7 +12592,7 @@ CREATE TABLE `group_data` (
 
 INSERT INTO `group_data` (`id`, `title`, `description`, `badge`, `owner_id`, `room_id`, `created`, `colour_a`, `colour_b`, `access_type`, `can_members_decorate`) VALUES
 (1, 'Alex\'s Fantastic Group', 'Fantastic groups and where to find them', 'b0524s60174s40222s41220s00000', 5, 3, 1505279665, 1, 1, 'OPEN', 1),
-(2, 'Alex\'s Group', 'this description says something witty and cool', 'b1310s14234s00000s00000s00000', 5, 3, 1505493950, 119, 103, 'OPEN', 0);
+(2, 'Alex\'s Group', 'this description says something witty and cool', 'b1310s14234s00000s00000s00000', 5, 3, 1505493950, 119, 103, 'PRIVATE', 0);
 
 -- --------------------------------------------------------
 
@@ -13105,13 +13106,6 @@ CREATE TABLE `group_members` (
   `member_type` enum('REQUEST','MEMBER','ADMINISTRATOR','') NOT NULL DEFAULT 'MEMBER'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `group_members`
---
-
-INSERT INTO `group_members` (`group_id`, `user_id`, `member_type`) VALUES
-(2, 6, 'ADMINISTRATOR');
-
 -- --------------------------------------------------------
 
 --
@@ -13141,7 +13135,150 @@ INSERT INTO `item_data` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`,
 (3, 5, 5, 4095, 1, '11', '10', 0.05, 1, 'state	0	imageUrl	/c_images/album3809/wl15_b.png	offsetX	-253	offsetY	186	offsetZ	8700'),
 (4, 5, 5, 4095, 1, '1', '22', 6.01, 1, 'state	0	imageUrl	/c_images/album3809/wl15_a.png	offsetX	-335	offsetY	222	offsetZ	8700'),
 (5, 5, 5, 4095, 1, '20', '19', 0.01, 1, 'state	0	imageUrl	/c_images/album3809/wl15_e.png	offsetX	-720	offsetY	188	offsetZ	8700'),
-(6, 5, 5, 2801, 3, '2', '6', 0, 0, '2');
+(9, 5, 5, 3338, 0, '0', '0', 1.011, 3, 'mca-3187-79.ch-3030-1408.sh-290-64.lg-270-90.cc-3075-90.Default Mannequin'),
+(10, 5, 5, 1481, 0, '0', '0', 1.9999999999999998, 0, '0'),
+(11, 5, 5, 429, 0, '0', '0', 0, 0, ''),
+(12, 5, 5, 2178, 0, 'r,3,4', '0,30', 0, 0, ''),
+(13, 5, 5, 1030, 0, '0', '0', 1.01, 4, '0'),
+(14, 5, 5, 696, 0, '0', '0', 0.32999999999999996, 0, ''),
+(15, 5, 5, 1532, 0, '0', '0', 0.019000000000000006, 0, '2'),
+(16, 5, 5, 1532, 0, '0', '0', 0.62, 0, '1'),
+(17, 5, 5, 1532, 0, '0', '0', 0.019000000000000006, 0, ''),
+(18, 5, 5, 1036, 1, '18', '15', 4.3, 0, '1'),
+(19, 5, 5, 1036, 1, '18', '15', 2.3, 0, ''),
+(20, 5, 5, 1036, 3, '4', '5', 0.003, 2, ''),
+(21, 5, 5, 1036, 1, '18', '15', 3.3, 0, ''),
+(22, 5, 5, 1036, 3, '4', '6', 0.003, 2, ''),
+(23, 5, 5, 1036, 1, '18', '15', 6.3, 0, ''),
+(24, 5, 5, 1036, 1, '18', '15', 1.3, 0, ''),
+(25, 5, 5, 1036, 1, '18', '15', 0.3, 0, ''),
+(26, 5, 5, 1036, 1, '18', '15', 5.3, 0, ''),
+(27, 5, 5, 1036, 3, '4', '7', 0.003, 2, ''),
+(28, 5, 5, 1664, 0, 'l,0,8', '2,31', 0, 0, '2'),
+(29, 5, 5, 1663, 0, 'l,4,3', '3,32', 0, 0, '2'),
+(30, 5, 5, 3077, 0, 'r,6,0', '11,37', 0, 0, '1'),
+(31, 5, 5, 4683, 0, '0', '0', 6.8, 0, '3'),
+(32, 2, 2, 428, 6, '5', '10', 0, 6, ''),
+(33, 2, 2, 428, 6, '4', '10', 0, 0, ''),
+(34, 2, 2, 428, 6, '6', '9', 0, 4, ''),
+(35, 2, 2, 428, 6, '6', '10', 0, 6, ''),
+(36, 2, 2, 428, 6, '6', '8', 0, 4, ''),
+(37, 2, 2, 428, 6, '6', '7', 0, 4, ''),
+(38, 2, 2, 428, 6, '5', '7', 0, 2, ''),
+(39, 2, 2, 428, 6, '4', '7', 0, 2, ''),
+(40, 2, 2, 428, 6, '4', '8', 0, 0, ''),
+(41, 2, 2, 428, 6, '4', '9', 0, 0, ''),
+(42, 5, 5, 427, 1, '16', '15', 0, 0, ''),
+(43, 5, 5, 427, 1, '16', '16', 0, 0, ''),
+(44, 5, 5, 427, 1, '16', '17', 0, 0, ''),
+(45, 5, 5, 427, 1, '18', '11', 0, 4, ''),
+(46, 5, 5, 427, 1, '17', '10', 0, 2, ''),
+(47, 5, 5, 427, 0, '0', '0', 0.002, 0, ''),
+(48, 5, 5, 427, 0, '0', '0', 0.002, 0, ''),
+(49, 5, 5, 427, 1, '18', '10', 0, 4, ''),
+(50, 5, 5, 427, 1, '18', '15', 0, 4, ''),
+(51, 5, 5, 427, 1, '18', '12', 0, 4, ''),
+(52, 5, 5, 427, 1, '18', '13', 0, 4, ''),
+(53, 5, 5, 427, 1, '18', '14', 0, 4, ''),
+(54, 5, 5, 427, 1, '17', '18', 0, 6, ''),
+(55, 5, 5, 427, 1, '18', '18', 0, 6, ''),
+(56, 5, 5, 427, 1, '18', '17', 0, 4, ''),
+(57, 5, 5, 427, 1, '18', '16', 0, 4, ''),
+(58, 5, 5, 427, 5, '6', '6', 4, 0, ''),
+(59, 5, 5, 427, 5, '6', '1', 4, 0, ''),
+(60, 5, 5, 427, 5, '6', '2', 4, 0, ''),
+(61, 5, 5, 427, 5, '6', '3', 4, 0, ''),
+(62, 5, 5, 427, 5, '6', '4', 4, 0, ''),
+(63, 5, 5, 427, 5, '6', '5', 4, 0, ''),
+(64, 5, 5, 427, 0, '0', '0', 0.002, 0, ''),
+(65, 5, 5, 427, 0, '0', '0', 0.002, 0, ''),
+(66, 5, 5, 427, 1, '16', '18', 0, 0, ''),
+(67, 5, 5, 427, 1, '16', '10', 0, 2, ''),
+(68, 5, 5, 427, 1, '16', '11', 0, 0, ''),
+(69, 5, 5, 427, 1, '16', '12', 0, 0, ''),
+(70, 5, 5, 427, 1, '16', '13', 0, 0, ''),
+(71, 5, 5, 427, 1, '16', '14', 0, 0, ''),
+(72, 5, 5, 1037, 3, '10', '1', 0.005, 4, '2'),
+(73, 5, 5, 987, 0, '0', '0', 0, 0, ''),
+(74, 5, 5, 987, 0, '0', '0', 0, 0, ''),
+(75, 5, 5, 987, 0, '0', '0', 0, 0, ''),
+(76, 5, 5, 987, 0, '0', '0', 0, 0, ''),
+(77, 5, 5, 987, 0, '0', '0', 0, 0, ''),
+(78, 5, 5, 987, 0, '0', '0', 0, 0, ''),
+(79, 5, 5, 987, 0, '0', '0', 0, 0, ''),
+(80, 5, 5, 987, 0, '0', '0', 0, 0, ''),
+(81, 5, 5, 987, 0, '0', '0', 0, 0, ''),
+(82, 5, 5, 987, 0, '0', '0', 0, 0, ''),
+(83, 5, 5, 987, 0, '0', '0', 0, 0, ''),
+(84, 5, 5, 987, 0, '0', '0', 0, 0, ''),
+(85, 5, 5, 987, 0, '0', '0', 0, 0, ''),
+(86, 5, 5, 987, 0, '0', '0', 0, 0, ''),
+(87, 5, 5, 987, 0, '0', '0', 0, 0, ''),
+(88, 5, 5, 987, 3, '3', '8', 0.04, 0, ''),
+(89, 5, 5, 987, 3, '4', '5', 0.001, 0, ''),
+(90, 5, 5, 987, 3, '5', '4', 0.015000000000000003, 0, ''),
+(91, 5, 5, 987, 3, '8', '4', 0.001, 0, ''),
+(92, 5, 5, 987, 3, '7', '8', 0.001, 0, ''),
+(93, 5, 5, 987, 3, '9', '8', 0.021000000000000008, 0, ''),
+(94, 5, 5, 987, 3, '9', '1', 0.003, 0, ''),
+(95, 5, 5, 987, 3, '8', '1', 0.001, 0, '2'),
+(96, 5, 5, 987, 3, '9', '6', 0.019000000000000006, 0, ''),
+(97, 5, 5, 987, 3, '9', '4', 0.003, 0, ''),
+(98, 5, 5, 987, 3, '5', '1', 0.01, 0, ''),
+(99, 5, 5, 987, 3, '7', '6', 0.017000000000000005, 0, ''),
+(100, 5, 5, 987, 3, '4', '8', 0, 0, ''),
+(101, 5, 5, 987, 3, '1', '8', 0, 0, ''),
+(102, 5, 5, 987, 3, '1', '5', 0, 0, ''),
+(103, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(104, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(105, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(106, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(107, 5, 5, 1671, 3, 'r,11,0', '3,29', 0, 0, ''),
+(108, 5, 5, 1671, 3, 'r,10,0', '4,29', 0, 0, ''),
+(109, 5, 5, 1671, 3, 'r,9,0', '5,30', 0, 0, ''),
+(110, 5, 5, 1671, 3, 'r,8,0', '6,30', 0, 0, ''),
+(111, 5, 5, 1671, 3, 'r,7,0', '6,30', 0, 0, ''),
+(112, 5, 5, 1671, 3, 'r,6,0', '6,30', 0, 0, ''),
+(113, 5, 5, 1671, 3, 'r,5,0', '8,31', 0, 0, ''),
+(114, 5, 5, 1671, 3, 'l,4,1', '7,31', 0, 0, ''),
+(115, 5, 5, 1671, 3, 'l,4,2', '7,31', 0, 0, ''),
+(116, 5, 5, 1671, 3, 'l,4,3', '8,31', 0, 0, ''),
+(117, 5, 5, 1671, 3, 'l,4,4', '8,31', 0, 0, ''),
+(118, 5, 5, 1671, 3, 'r,4,4', '5,30', 0, 0, ''),
+(119, 5, 5, 1671, 3, 'r,3,4', '6,30', 0, 0, ''),
+(120, 5, 5, 1671, 3, 'r,2,4', '7,31', 0, 0, '1'),
+(121, 5, 5, 1671, 3, 'r,1,4', '8,31', 0, 0, ''),
+(122, 5, 5, 1671, 3, 'l,0,5', '7,31', 0, 0, ''),
+(123, 5, 5, 1671, 3, 'l,0,6', '7,31', 0, 0, ''),
+(124, 5, 5, 1671, 3, 'l,0,7', '7,31', 0, 0, ''),
+(125, 5, 5, 1671, 3, 'l,0,8', '8,31', 0, 0, '2'),
+(126, 5, 5, 1671, 3, 'l,0,9', '8,31', 0, 0, ''),
+(127, 5, 5, 1671, 3, 'l,0,10', '8,31', 0, 0, ''),
+(128, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(129, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(130, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(131, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(132, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(133, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(134, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(135, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(136, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(137, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(138, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(139, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(140, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(141, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(142, 5, 5, 1671, 0, '0', '0', 0, 0, ''),
+(145, 5, 5, 988, 3, '7', '3', 0.012, 0, '2'),
+(146, 5, 5, 1474, 3, '6', '2', 0.03, 0, '1'),
+(147, 5, 5, 1041, 3, '1', '7', 0.01, 2, ''),
+(148, 5, 5, 1036, 3, '1', '6', 0.01, 0, ''),
+(149, 5, 5, 1036, 3, '1', '10', 0.01, 0, ''),
+(150, 5, 5, 1040, 3, '4', '7', 1.0039999999999998, 2, '2'),
+(151, 5, 5, 1078, 3, '5', '1', 0.03, 0, ''),
+(152, 5, 5, 1041, 3, '6', '1', 0.012, 4, '3'),
+(153, 5, 5, 1041, 3, '5', '2', 0.012, 2, '3'),
+(168, 5, 5, 757369158, 3, 'r,2,4', '3,36', 0, 0, '{\"w\":\"room_3_Alex_wr1vkh7kwk.png\",\"t\":\"1506780479170\",\"u\":\"5\",\"n\":\"Alex\",\"s\":\"5\",\"m\":\"\"}');
 
 -- --------------------------------------------------------
 
@@ -13179,7 +13316,9 @@ CREATE TABLE `messenger_friendships` (
 --
 
 INSERT INTO `messenger_friendships` (`id`, `sender`, `receiver`) VALUES
-(1, 2, 5);
+(1, 2, 5),
+(2, 6, 5),
+(3, 6, 2);
 
 -- --------------------------------------------------------
 
@@ -13793,7 +13932,38 @@ INSERT INTO `room_chatlogs` (`id`, `user`, `room_id`, `timestamp`, `message_type
 (3766, 'Alex', 1, 1505488717, 0, ':debugfurniture'),
 (3767, 'Alex', 1, 1505489104, 0, ':debugfurniture'),
 (3768, 'Bot', 3, 1505580325, 0, 'hey mah nigga'),
-(3769, 'Alex', 1, 1505741936, 0, 'xdxdxdxd');
+(3769, 'Alex', 1, 1505741936, 0, 'xdxdxdxd'),
+(3770, 'Alex', 1, 1505960378, 0, 'xddddddd'),
+(3771, 'Alex', 1, 1506047939, 0, 'lol'),
+(3772, 'lolwut', 6, 1506131169, 0, 'You can type here to talk!'),
+(3773, 'lolwut', 6, 1506131171, 0, ':o'),
+(3774, 'Alex', 1, 1506243076, 0, ':help'),
+(3775, 'Alex', 1, 1506243080, 0, ':commands'),
+(3776, 'Alex', 3, 1506243138, 0, ':commands'),
+(3777, 'Alex', 1, 1506243683, 0, ':help'),
+(3778, 'Alex', 6, 1506249418, 0, ':rollerspeed 1'),
+(3779, 'Alex', 6, 1506249444, 0, ':help'),
+(3780, 'Alex', 6, 1506249499, 0, ':rollertask 1'),
+(3781, 'Alex', 6, 1506249504, 0, ':rollerspeed 1'),
+(3782, 'Alex', 6, 1506249575, 0, ':rollerspeed'),
+(3783, 'Alex', 6, 1506249741, 0, ':rollerspeed 10'),
+(3784, 'Alex', 6, 1506249794, 0, ':rollerspeed 1'),
+(3785, 'Alex', 6, 1506249839, 0, ':rollerspeed 1'),
+(3786, 'Alex', 6, 1506249993, 0, ':rollerspeed 300'),
+(3787, 'Alex', 6, 1506250005, 0, ':rollerspeed 1'),
+(3788, 'Alex', 6, 1506250029, 0, ':rollerspeed 500'),
+(3789, 'Alex', 6, 1506250047, 0, ':rollerspeed 300'),
+(3790, 'Alex', 6, 1506250083, 0, ':rollerspeed 2000'),
+(3791, 'Alex', 6, 1506250112, 0, ':rollerspeed 900'),
+(3792, 'Alex', 6, 1506250129, 0, ':rollerspeed 10'),
+(3793, 'Alex', 6, 1506250168, 0, ':rollerspeed 700'),
+(3794, 'Alex', 6, 1506250185, 0, ':rollerspeed 1'),
+(3795, 'Alex', 6, 1506250190, 0, ':rollerspeed 1000'),
+(3796, 'Alex', 6, 1506250208, 0, ':rollerspeed -100'),
+(3797, 'Alex', 6, 1506250259, 0, ':rollerspeed 100000000000000000'),
+(3798, 'Alex', 6, 1506250267, 0, ':rollerspeed 99999'),
+(3799, 'Alex', 5, 1506532554, 0, ':rollerspeed 1'),
+(3800, 'Alex', 5, 1506532625, 0, ':rollerspeed 1');
 
 -- --------------------------------------------------------
 
@@ -13843,10 +14013,11 @@ CREATE TABLE `room_data` (
 --
 
 INSERT INTO `room_data` (`id`, `name`, `room_type`, `date_created`, `owner_id`, `group_id`, `thumbnail`, `description`, `password`, `users_now`, `users_max`, `model`, `wallpaper`, `floor`, `outside`, `tags`, `trade_state`, `state`, `score`, `category`, `allow_pets`, `allow_pets_eat`, `allow_walkthrough`, `hidewall`, `wall_thickness`, `floor_thickness`, `chat_mode`, `chat_size`, `chat_speed`, `chat_flood`, `chat_distance`, `who_can_mute`, `who_can_kick`, `who_can_ban`) VALUES
-(1, 'Welcome Lobby', 'PUBLIC', '2017-03-20 20:15:27', -1, 0, 'thumbnails/picture3.png', '', '', 0, 25, 'welcome_lobby', '0', '0', '0.0', '', 0, 'OPEN', 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0),
-(2, 'Chill Lounge', 'PUBLIC', '2017-03-20 20:19:36', -1, 0, 'thumbnails/picture2.png', '', '', 0, 25, 'model_h', '105', '608', '0.0', '', 0, 'OPEN', 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0),
-(3, 'Alex\'s Room', 'PRIVATE', '2017-09-08 02:49:35', 5, 2, NULL, 'ayy lmao', '', 0, 10, 'model_b', '507', '110', '0', 'habbo,icarus', 0, 'OPEN', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 30, 0, 0, 0),
-(5, 'test', 'PRIVATE', '2017-09-13 10:10:44', 5, 0, NULL, '', '', 0, 10, 'dynamic_model_5', '0', '0', '0', '', 0, 'OPEN', 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0);
+(1, 'Welcome Lobby', 'PUBLIC', '2017-03-20 20:15:27', -1, 0, 'thumbnails/room_1_co65sjp76x.png', '', '', 0, 25, 'welcome_lobby', '0', '0', '0.0', '', 0, 'OPEN', 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0),
+(2, 'Chill Lounge', 'PUBLIC', '2017-03-20 20:19:36', -1, 0, 'thumbnails/picture2.png', '', '', 0, 25, 'dynamic_model_2', '105', '608', '0.0', '', 0, 'OPEN', 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0),
+(3, 'Alex\'s Room', 'PRIVATE', '2017-09-08 02:49:35', 5, 2, 'thumbnails/room_3_db6xhzo1bb.png', 'ayy lmao', '', 0, 10, 'model_b', '216', '110', '1.2', 'habbo,icarus', 0, 'OPEN', 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 2, 1, 30, 0, 0, 0),
+(5, 'test', 'PRIVATE', '2017-09-13 10:10:44', 5, 0, NULL, '', '', 0, 10, 'dynamic_model_5', '0', '0', '0', '', 0, 'OPEN', 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
+(6, 'lolwut\'s room', 'PRIVATE', '2017-09-23 01:42:04', 2, 0, NULL, '', '', 0, 30, 'model_3', '0', '0', '0', '', 2, 'OPEN', 0, 8, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 30, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -13958,6 +14129,7 @@ CREATE TABLE `room_models_dynamic` (
 --
 
 INSERT INTO `room_models_dynamic` (`id`, `door_x`, `door_y`, `door_z`, `door_dir`, `heightmap`, `wall_height`) VALUES
+('dynamic_model_2', 4, 4, 1, 2, 'xxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxx{13}xxxxx111111xxxxxxxxxx{13}xxxxx111111xxxxxxxxxx{13}xxxx1111111xxxxxxxxxx{13}xxxxx111111xxxxxxxxxx{13}xxxxx111111xxxxxxxxxx{13}xxxxx000000xxxxxxxxxx{13}xxxxx000000xxxxxxxxxx{13}xxx00000000xxxxxxxxxx{13}xxx00000000xxxxxxxxxx{13}xxx00000000xxxxxxxxxx{13}xxx00000000xxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxx', -1),
 ('dynamic_model_5', 3, 2, 4, 2, 'xxxxxxxxxxxxx{13}xxxx44444444x{13}xxx444444444x{13}xxxx44444444x{13}xxxx44444444x{13}xxxx44444444x{13}xxxx44444444x{13}xxxx44444444x{13}xxxx33333333x{13}xxxx22222222x{13}xxxx22222222x{13}xxxx22222222x{13}xxxx22222222x{13}xxxx22222222x{13}xxxxxxxxxxxxx{13}xxxxxxxxxxxxx', -1);
 
 -- --------------------------------------------------------
@@ -14124,9 +14296,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `rank`, `join_date`, `last_online`, `sso_ticket`, `email`, `mission`, `gender`, `figure`, `credits`, `home_room`) VALUES
-(2, 'Bot', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 1, 44324323, 1490046606, 'sso-icarus-dlKfTnJ5RN-mg74bw-nx4JCi3AK1', NULL, 'eating more cake, k?', 'M', 'ha-1012-91.hd-180-7.ch-3015-1426.lg-275-64.hr-831-61', 370, 0),
-(5, 'Alex', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 7, 1489384512, 1491544401, 'sso-icarus-UEt6KbGxgl-XScs6l-NKqMoYxeZg', 'we3rejfpef3@cefc.com', 'Icarus alpha tester', 'M', 'ca-3187-79.hd-180-1.ch-3030-1408.sh-290-64.lg-270-90.ha-3291-73.hr-3260-45.cc-3075-90', 4995, 0),
-(6, 'test', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 1, NULL, NULL, 'sso-icarus-I82U9DEgOw-PImA0t-rHtKEX5zYy', NULL, '', 'M', 'ch-210-66.lg-270-82.hd-180-1.sh-290-80.hr-100-45', 0, 0);
+(2, 'lolwut', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 1, 44324323, 1490046606, 'sso-icarus-yzLX4Dob9V-AJ9yeF-sHDvi2nThP', 'lol@test.com', 'eating more cake, k?', 'M', 'hr-889-39.lg-270-64.sh-906-83-25.hd-200-1371', 370, 0),
+(5, 'Alex', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 7, 1489384512, 1491544401, NULL, 'test@alex.com', 'Icarus alpha tester', 'M', 'ca-3187-79.hd-180-1.ch-3030-1408.sh-290-64.lg-270-90.ha-3291-73.hr-3260-45.cc-3075-90', 4995, 0),
+(6, 'test', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 1, NULL, NULL, 'sso-icarus-KeEz0cOP4s-MyB9bR-byiuIn3kf7', 'test@test.com', '', 'M', 'ch-210-66.lg-270-82.hd-180-1.sh-290-80.hr-100-45', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -14172,7 +14344,8 @@ CREATE TABLE `users_subscriptions` (
 --
 
 INSERT INTO `users_subscriptions` (`id`, `user_id`, `bought_time`, `expire_time`) VALUES
-(1, 5, 1504798458, 1507390458);
+(1, 5, 1504798458, 1507390458),
+(2, 2, 1506130890, 1508722890);
 
 --
 -- Indexes for dumped tables
@@ -14364,7 +14537,7 @@ ALTER TABLE `catalog_pages`
 -- AUTO_INCREMENT for table `furniture`
 --
 ALTER TABLE `furniture`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=757369158;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=757369159;
 --
 -- AUTO_INCREMENT for table `group_data`
 --
@@ -14374,12 +14547,12 @@ ALTER TABLE `group_data`
 -- AUTO_INCREMENT for table `item_data`
 --
 ALTER TABLE `item_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
 --
 -- AUTO_INCREMENT for table `messenger_friendships`
 --
 ALTER TABLE `messenger_friendships`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `messenger_messages`
 --
@@ -14414,12 +14587,12 @@ ALTER TABLE `rooms_newbie`
 -- AUTO_INCREMENT for table `room_chatlogs`
 --
 ALTER TABLE `room_chatlogs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3770;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3801;
 --
 -- AUTO_INCREMENT for table `room_data`
 --
 ALTER TABLE `room_data`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `room_items_moodlight`
 --
@@ -14474,7 +14647,7 @@ ALTER TABLE `users_permissions`
 -- AUTO_INCREMENT for table `users_subscriptions`
 --
 ALTER TABLE `users_subscriptions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.PhotoPriceComposer;
 import org.alexdev.icarus.messages.outgoing.camera.PhotoPreviewComposer;
@@ -20,6 +21,12 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
             return;
         }
         
+        Room room = player.getRoomUser().getRoom();
+
+        if (room == null) {
+            return;
+        }
+        
         final int photoLength = reader.readInt();
         final byte[] photoPayload = reader.readBytes(photoLength);
         
@@ -27,11 +34,12 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
             player.sendMessage(Util.getLocale("camera.error"));
             return;
         }
-        
+
         String fileName = Util.getGameConfig().get("Camera", "camera.filename", String.class);
         String filePath = Util.getGameConfig().get("Camera", "camera.path", String.class);
 
         fileName = fileName.replace("{username}", player.getDetails().getName());
+        fileName = fileName.replace("{id}", room.getData().getId() + "");
         fileName = fileName.replace("{generatedId}", Util.generateRandomString(10, false));
         
         try {
@@ -41,10 +49,10 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
             fos.flush();
             fos.close();
             
-            fos = new FileOutputStream(filePath + fileName.replace(".png", "_small.png"));
+            /*fos = new FileOutputStream(filePath + fileName.replace(".png", "_small.png"));
             fos.write(photoPayload);
             fos.flush();
-            fos.close();
+            fos.close();*/
 
         } catch (Exception e) {
             Log.exception(e);

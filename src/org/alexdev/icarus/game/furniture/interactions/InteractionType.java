@@ -154,7 +154,8 @@ public enum InteractionType {
     DEMONMONKEY(null),
     BEARBABY(null),
     TERRIERBABY(null),
-    GNOME(null);
+    GNOME(null),
+    CAMERA_PHOTO(null);
 
     private Interaction interaction;
     
@@ -168,7 +169,7 @@ public enum InteractionType {
     
     public static InteractionType getType(String databaseType) {
         try {
-            return InteractionType.valueOf(databaseType.toUpperCase().replace("_", ""));
+            return InteractionType.valueOf(databaseType.toUpperCase());
         } catch (Exception e) {
             return InteractionType.DEFAULT;
         }

@@ -12,6 +12,7 @@ public class AboutCommand extends Command {
         about.append("Icarus server written by Quackster, powered by Java among other things!\n\n");
         about.append("With the help of:\n\n");
         about.append("- Leon\n");
+        about.append("- Spreedblood\n");
         about.append("- Glaceon\n");
         player.sendMessage(about.toString());
     }
