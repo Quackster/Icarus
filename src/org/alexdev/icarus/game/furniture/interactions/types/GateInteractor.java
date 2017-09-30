@@ -16,8 +16,5 @@ public class GateInteractor implements Interaction {
     }
 
     @Override
-    public void onStopWalking(Item item, RoomUser roomUser) {
-        // TODO Auto-generated method stub
-        
-    }
+    public boolean onStopWalking(Item item, RoomUser roomUser) { return false; }
 }

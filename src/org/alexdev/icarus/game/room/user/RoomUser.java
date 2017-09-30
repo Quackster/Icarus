@@ -123,8 +123,7 @@ public class RoomUser extends Metadata {
             Interaction handler = this.currentItem.getDefinition().getInteractionType().getHandler();
 
             if (handler != null) {
-                handler.onStopWalking(this.currentItem, this);
-                updateUser = true;
+                updateUser = handler.onStopWalking(this.currentItem, this);
             }
         }
 

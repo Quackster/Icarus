@@ -7,15 +7,9 @@ import org.alexdev.icarus.game.room.user.RoomUser;
 public class MannequinInteractor implements Interaction {
 
     @Override
-    public void onUseItem(Item item, RoomUser roomUser) {
-        // TODO Auto-generated method stub
-        
-    }
+    public void onUseItem(Item item, RoomUser roomUser) { }
 
     @Override
-    public void onStopWalking(Item item, RoomUser roomUser) {
-        // TODO Auto-generated method stub
-        
-    }
+    public boolean onStopWalking(Item item, RoomUser roomUser) { return false; }
 
 }

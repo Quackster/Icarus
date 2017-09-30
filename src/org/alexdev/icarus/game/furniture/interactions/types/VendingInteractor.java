@@ -43,5 +43,5 @@ public class VendingInteractor implements Interaction {
     }
 
     @Override
-    public void onStopWalking(Item item, RoomUser roomUser) { }
+    public boolean onStopWalking(Item item, RoomUser roomUser) { return false; }
 }
