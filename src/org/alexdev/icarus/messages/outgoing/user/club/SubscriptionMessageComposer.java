@@ -1,4 +1,4 @@
-package org.alexdev.icarus.messages.outgoing.user;
+package org.alexdev.icarus.messages.outgoing.user.club;
 
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.headers.Outgoing;

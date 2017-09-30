@@ -1,7 +1,7 @@
 package org.alexdev.icarus.messages.incoming.user;
 
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.messages.outgoing.user.HabboClubCenterComposer;
+import org.alexdev.icarus.messages.outgoing.user.club.HabboClubCenterComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
