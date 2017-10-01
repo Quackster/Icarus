@@ -1,5 +1,6 @@
 package org.alexdev.icarus.messages.incoming.room.user;
 
+import java.io.File;
 import java.io.FileOutputStream;
 
 import org.alexdev.icarus.game.GameScheduler;
@@ -31,6 +32,25 @@ public class ThumbnailMessageEvent implements MessageEvent {
 
         if (!room.hasOwnership(player.getEntityId()) && !player.getDetails().hasPermission("room_all_rights")) {
             return;
+        }
+        
+        if (room.getData().getThumbnail() != null && room.getData().getThumbnail().length() > 0) {
+
+            final String fileName = room.getData().getThumbnail().split("/")[1];
+            final String filePath = Util.getGameConfig().get("Thumbnail", "thumbnail.path", String.class);
+            
+            GameScheduler.getScheduler().execute(() -> {
+                try {
+                    File file = new File(filePath + fileName);
+                    
+                    if (file.exists()) {
+                        file.delete();
+                    }
+                    
+                } catch (Exception e) {
+                    Log.exception(e);
+                }
+            });
         }
 
         String templateFileName = Util.getGameConfig().get("Thumbnail", "thumbnail.filename", String.class);
