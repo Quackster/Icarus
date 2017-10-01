@@ -305,6 +305,20 @@ public class Item extends Metadata {
 
         return currentHeight;
     }
+    
+    
+    public boolean isGateOpen() {
+        
+        if (this.getDefinition().getInteractionType() == InteractionType.GATE) {
+            if (this.extraData.equals("1")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        return false;
+    }
 
     /**
      * Gets the id.

@@ -109,7 +109,7 @@ public class RoomUtil {
 
             room.getItemManager().refreshRoomFurniture();
             room.getMapping().regenerateCollisionMaps();
-            room.getScheduler().scheduleTasks();
+            room.scheduleEvents();
             room.getEntityManager().addPets();
             room.loadGroup();
 
@@ -189,7 +189,6 @@ public class RoomUtil {
                 player.send(new NewGroupMessageComposer(room.getData().getId(), room.getData().getGroupId()));
             }
         }
-        
     }
     
     /**

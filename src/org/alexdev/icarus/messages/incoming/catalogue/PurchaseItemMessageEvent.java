@@ -33,11 +33,7 @@ public class PurchaseItemMessageEvent implements MessageEvent {
         CatalogueItem item = page.getItem(itemId);
 
         if (item.getDisplayName().startsWith("a0 pet")) {
-
             this.purchasePet(player, item, extraData);
-            
-            
-            
         } else {
             this.purchase(player, item, extraData, request);
         }

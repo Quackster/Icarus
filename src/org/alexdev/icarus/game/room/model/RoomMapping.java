@@ -68,7 +68,7 @@ public class RoomMapping {
 
                 item.setItemUnderneath(tile.getHighestItem());
 
-                tile.setHeight(item.getTotalHeight());
+                tile.setHeight(item.getTotalHeight() + 0.001);
                 tile.setHighestItem(item);
 
                 for (Position affected : item.getAffectedTiles(false)) {
@@ -80,7 +80,7 @@ public class RoomMapping {
                     }
 
                     if (affectedTile.getHeight() <= item.getTotalHeight()) {
-                        affectedTile.setHeight(item.getTotalHeight());
+                        affectedTile.setHeight(item.getTotalHeight() + 0.001);
                         affectedTile.setHighestItem(item);
                     }
                 }
@@ -129,7 +129,10 @@ public class RoomMapping {
                         Item currentItem = currentTile.getHighestItem();
 
                         if (!isFinalMove) {
-                            return currentItem.getDefinition().isWalkable() && !currentItem.getDefinition().allowSit() && currentItem.getDefinition().getInteractionType() != InteractionType.BED;
+                            return currentItem.getDefinition().isWalkable() && 
+                                    !currentItem.getDefinition().allowSit() && 
+                                    currentItem.getDefinition().getInteractionType() != InteractionType.BED || 
+                                    (currentItem.getDefinition().getInteractionType() == InteractionType.GATE && currentItem.getExtraData().equals("1"));
                         }
 
                         if (isFinalMove) {
@@ -278,7 +281,7 @@ public class RoomMapping {
                 }
             }
         } else {
-            item.getPosition().setZ(this.getTileHeight(item.getPosition().getX(), item.getPosition().getY()) + 0.001);
+            item.getPosition().setZ(this.getTileHeight(item.getPosition().getX(), item.getPosition().getY()));
         }
 
         item.updateStatus();
