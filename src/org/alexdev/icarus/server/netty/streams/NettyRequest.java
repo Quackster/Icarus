@@ -60,7 +60,7 @@ public class NettyRequest implements ClientMessage {
         
         try {
             int length = this.buffer.readShort();
-            byte[] data = this.buffer.readBytes(length).array();
+            byte[] data = this.readBytes(length);
 
             return new String(data);
         } catch (Exception e) {
@@ -74,7 +74,11 @@ public class NettyRequest implements ClientMessage {
     public byte[] readBytes(int len) {
         
         try {
-            return this.buffer.readBytes(len).array();
+            
+            byte[] payload = new byte[len];
+            this.buffer.readBytes(payload);
+            return payload;
+
         } catch (Exception e) {
             return null;
         }
@@ -85,7 +89,7 @@ public class NettyRequest implements ClientMessage {
      */
     public String getMessageBody() {
         
-        String consoleText = new String(buffer.toString(Charset.defaultCharset()));
+        String consoleText = new String(this.buffer.toString(Charset.defaultCharset()));
 
         for (int i = 0; i < 13; i++) { 
             consoleText = consoleText.replace(Character.toString((char)i), "[" + i + "]");

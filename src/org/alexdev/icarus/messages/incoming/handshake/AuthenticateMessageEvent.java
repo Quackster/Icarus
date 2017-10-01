@@ -17,20 +17,14 @@ public class AuthenticateMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage request) {
         
-        if (player.getDetails().isAuthenticated()) {
+        if (player.getDetails().isAuthenticated() || player.getRc4() == null) {
             return;
         }
         
         boolean loginSuccess = PlayerDao.login(player, request.readString());
-        
         PlayerDao.clearTicket(player.getDetails().getId());
         
-        if (!loginSuccess) {
-            player.getNetwork().close();
-            return;
-        }
-        
-        if (player.getMachineId() == null) {
+        if (!loginSuccess || player.getMachineId() == null) {
             player.getNetwork().close();
             return;
         }
