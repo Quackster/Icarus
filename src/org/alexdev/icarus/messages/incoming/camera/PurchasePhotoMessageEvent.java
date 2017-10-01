@@ -25,9 +25,6 @@ public class PurchasePhotoMessageEvent implements MessageEvent {
         extraData.append("\"s\":\"" + player.getEntityId() + "\",");
         extraData.append("\"m\":\"\"");
         extraData.append("}");
-        
-        //"{"t":" + System.currentTimeMillis() + ","u":"" + code + "","n":"" + client.getPlayer().getData().getUsername() + "","m":\"\",\"s\":" + client.getPlayer().getId() + ","w":"" + CometSettings.cameraPhotoUrl.replace("%photoId%", code) + ""}";
-        // {"w":"room_1_JeOnokPsDn.png", "n":"Spreed", "s":"1", "u":"1", "t":"779"}
 
         definition.handleDefinitionPurchase(player, extraData.toString());
         
