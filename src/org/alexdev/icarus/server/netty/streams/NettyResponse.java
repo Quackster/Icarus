@@ -14,6 +14,7 @@ public class NettyResponse implements Response {
     
     private boolean finalised;
     private short id;
+    
     private ChannelBufferOutputStream bodystream;
     private ChannelBuffer body;
 

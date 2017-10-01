@@ -38,9 +38,6 @@ public interface ClientMessage {
      */
     public byte[] readBytes(int len);
     
-    
-    public byte[] getRawMessage();
-    
     /**
      * Gets the message body.
      *
