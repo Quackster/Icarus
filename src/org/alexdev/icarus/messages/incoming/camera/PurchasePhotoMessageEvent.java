@@ -30,6 +30,8 @@ public class PurchasePhotoMessageEvent implements MessageEvent {
         // {"w":"room_1_JeOnokPsDn.png", "n":"Spreed", "s":"1", "u":"1", "t":"779"}
 
         definition.handleDefinitionPurchase(player, extraData.toString());
+        
+        player.getRoomUser().getMetadata().remove("latestPhotoUrl");
         player.send(new PurchasedPhotoComposer());
     }
 
