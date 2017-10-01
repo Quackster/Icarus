@@ -19,5 +19,4 @@ public class DanceMessageComposer extends MessageComposer {
         this.response.writeInt(this.virtualId);
         this.response.writeInt(this.danceId);
     }
-
 }
