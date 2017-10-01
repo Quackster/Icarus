@@ -7,6 +7,7 @@ import org.alexdev.icarus.game.inventory.InventoryNotification;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.util.Util;
 
 public class ItemDefinition {
@@ -90,7 +91,7 @@ public class ItemDefinition {
             inventoryItem.setExtraData("0");
         }
 
-        if (inventoryItem.getDefinition().getInteractionType() == InteractionType.GATE) {
+        if (inventoryItem.getDefinition().getInteractionType() == InteractionType.GATE || inventoryItem.getDefinition().getInteractionType() == InteractionType.ONEWAYGATE) {
             inventoryItem.setExtraData("0");
         }
         

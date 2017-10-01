@@ -828,12 +828,4 @@ public class RoomUser extends Metadata {
     public void setRequestedRoomId(int roomRequestedId) {
         this.roomRequestedId = roomRequestedId;
     }
-
-    public void stopWalking() {
-        
-        for (Item item : this.room.getMapping().getTile(this.position.getX(), this.position.getY()).getItems()) {
-            
-            Log.info("item: " + item.getDefinition().getItemName() + ", height: " + item.getTotalHeight());
-        }
-    }
 }

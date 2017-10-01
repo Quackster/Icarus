@@ -161,21 +161,16 @@ public class Item extends Metadata {
             return true;
         }
 
-        if (definition.getInteractionType() == InteractionType.GATE) {
-            if (this.extraData.equals("1")) {
+        if (definition.getInteractionType() == InteractionType.GATE || 
+                definition.getInteractionType() == InteractionType.ONEWAYGATE || 
+                definition.getInteractionType() == InteractionType.TELEPORT) {
+
+            if (this.getExtraData().equals("1")) {
                 return true;
             } else {
                 return false;
             }
         }
-
-        if (definition.getInteractionType() == InteractionType.TELEPORT) {
-            if (this.extraData.equals("1")) {
-                return true;
-            } else {
-                return false;
-            }
-        }        
 
         if (definition.allowSit()) {
             return true;
@@ -295,29 +290,17 @@ public class Item extends Metadata {
 
         if (!this.getDefinition().allowSit()) {
             if (this.getDefinition().getInteractionType() != InteractionType.GATE) {
-                if (this.getDefinition().getInteractionType() != InteractionType.TELEPORT) {
-                    if (this.getDefinition().getInteractionType() != InteractionType.BED) {
-                        currentHeight += this.getDefinition().getHeight();
+                if (this.getDefinition().getInteractionType() != InteractionType.ONEWAYGATE) {
+                    if (this.getDefinition().getInteractionType() != InteractionType.TELEPORT) {
+                        if (this.getDefinition().getInteractionType() != InteractionType.BED) {
+                            currentHeight += this.getDefinition().getHeight();
+                        }
                     }
                 }
             }
         }
 
         return currentHeight;
-    }
-    
-    
-    public boolean isGateOpen() {
-        
-        if (this.getDefinition().getInteractionType() == InteractionType.GATE) {
-            if (this.extraData.equals("1")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        return false;
     }
 
     /**
@@ -529,6 +512,9 @@ public class Item extends Metadata {
      * @param extraData the new extra data
      */
     public void setExtraData(String extraData) {
+
+        Log.info("new data: " + extraData);
+
         this.extraData = extraData;
     }
 

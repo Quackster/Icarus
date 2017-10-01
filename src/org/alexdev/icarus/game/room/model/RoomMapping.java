@@ -132,7 +132,8 @@ public class RoomMapping {
                             return currentItem.getDefinition().isWalkable() && 
                                     !currentItem.getDefinition().allowSit() && 
                                     currentItem.getDefinition().getInteractionType() != InteractionType.BED || 
-                                    (currentItem.getDefinition().getInteractionType() == InteractionType.GATE && currentItem.getExtraData().equals("1"));
+                                    (currentItem.getDefinition().getInteractionType() == InteractionType.GATE && currentItem.getExtraData().equals("1")) || 
+                                    (currentItem.getDefinition().getInteractionType() == InteractionType.ONEWAYGATE && currentItem.getExtraData().equals("1"));
                         }
 
                         if (isFinalMove) {
@@ -181,11 +182,6 @@ public class RoomMapping {
 
         if (tile.getEntities().size() > 0) {
             if (this.room.getData().isAllowWalkthrough()) {
-                /*if (entity != null) {
-                    return true;
-                } else {
-                    return false; // dont allow items from rollers to roll into usersanyways
-                }*/
                 return true;
                 
             } else {

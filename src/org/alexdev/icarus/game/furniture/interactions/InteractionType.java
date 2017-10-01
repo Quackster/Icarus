@@ -7,8 +7,10 @@ import org.alexdev.icarus.game.furniture.interactions.types.DiceInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.DimmerInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.GateInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.MannequinInteractor;
+import org.alexdev.icarus.game.furniture.interactions.types.OneWayGateInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.TeleportInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.VendingInteractor;
+import org.alexdev.icarus.log.Log;
 
 public enum InteractionType {
 
@@ -23,7 +25,7 @@ public enum InteractionType {
     VENDINGMACHINE(new VendingInteractor()),
     ADJUSTABLEHEIGHT(new AdjustableHeightInteractor()),
     ALERT(null),
-    ONEWAYGATE(null),
+    ONEWAYGATE(new OneWayGateInteractor()),
     LOVESHUFFLER(null),
     HABBOWHEEL(null),
     DICE(new DiceInteractor()),
@@ -169,7 +171,12 @@ public enum InteractionType {
     
     public static InteractionType getType(String databaseType) {
         try {
-            return InteractionType.valueOf(databaseType.toUpperCase());
+            
+            /*if (databaseType.contains("gate")) {
+                Log.info("DB TYPE: " + databaseType + " value: " + InteractionType.valueOf(databaseType.toUpperCase().replace("_", "")));
+            }*/
+            
+            return InteractionType.valueOf(databaseType.toUpperCase().replace("_", ""));
         } catch (Exception e) {
             return InteractionType.DEFAULT;
         }

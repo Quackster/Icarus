@@ -15,6 +15,7 @@ public class TeleportInteractor implements Interaction {
     public static final String TELEPORTER_CLOSE = "0";
     public static final String TELEPORTER_OPEN = "1";
     public static final String TELEPORTER_EFFECTS = "2";
+    
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {
 
@@ -35,7 +36,6 @@ public class TeleportInteractor implements Interaction {
         Position front = item.getPosition().getSquareInFront();
 
         if (!front.equals(roomUser.getPosition())) {
-
 
             Item targetTeleporter = roomUser.getRoom().getItemManager().getItem(item.getTeleporterId());
 

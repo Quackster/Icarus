@@ -101,6 +101,7 @@ public class MessageHandler {
         this.registerGroupPackets();
         this.registerTradePackets();
         this.registerCameraPackets();
+        this.registerItemInteractionPackets();
     }
     
     /**
@@ -237,12 +238,16 @@ public class MessageHandler {
         this.registerEvent(Incoming.InteractFloorItemMessageEvent, new InteractItemMessageEvent());
         this.registerEvent(Incoming.InteractWallItemMessageEvent, new InteractItemMessageEvent());
         this.registerEvent(Incoming.DropItemMessageEvent, new DropItemMessageEvent());
+        this.registerEvent(Incoming.PurchaseOfferMessageEvent, new PurchaseOfferMessageEvent());
+    }
+    
+    private void registerItemInteractionPackets() {
+        this.registerEvent(Incoming.SaveBrandingMessageEvent, new SaveBrandingMessageEvent());
+        this.registerEvent(Incoming.SaveMannequinMessageEvent, new SaveMannequinMessageEvent());
+        this.registerEvent(Incoming.UseOneWayGateMessageEvent, new InteractItemMessageEvent());
         this.registerEvent(Incoming.MoodlightInteractMessageEvent, new MoodlightInteractMessageEvent());
         this.registerEvent(Incoming.ToggleMoodlightMessageEvent, new ToggleMoodlightMessageEvent());
         this.registerEvent(Incoming.SaveMoodlightPresetMessageEvent, new SaveMoodlightPresetMessageEvent());
-        this.registerEvent(Incoming.PurchaseOfferMessageEvent, new PurchaseOfferMessageEvent());
-        this.registerEvent(Incoming.SaveBrandingMessageEvent, new SaveBrandingMessageEvent());
-        this.registerEvent(Incoming.SaveMannequinMessageEvent, new SaveMannequinMessageEvent());
     }
 
     /**

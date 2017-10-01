@@ -5,6 +5,7 @@ import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.luaj.vm2.LuaValue;
@@ -22,7 +23,7 @@ public class InteractItemMessageEvent implements MessageEvent {
         if (item == null) {
             return;
         }
-
+        
         if (item.getDefinition().getInteractionType().getHandler() != null) {
             item.getDefinition().getInteractionType().getHandler().onUseItem(item, player.getRoomUser());
         }
@@ -39,6 +40,7 @@ public class InteractItemMessageEvent implements MessageEvent {
             StringBuilder builder = new StringBuilder();
             builder.append("<b>Item settings</b>\n");
             builder.append("item_id: " + item.getId() + "\n");
+            builder.append("exta_data: " + item.getExtraData() + "\n");
             builder.append("owner_id: " + item.getOwnerId() + "\n");
             builder.append("height: " + item.getPosition().getZ() + "\n");
             builder.append("\r");
