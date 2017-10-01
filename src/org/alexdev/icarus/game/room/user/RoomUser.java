@@ -19,6 +19,7 @@ import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.Rotation;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
@@ -826,5 +827,13 @@ public class RoomUser extends Metadata {
      */
     public void setRequestedRoomId(int roomRequestedId) {
         this.roomRequestedId = roomRequestedId;
+    }
+
+    public void stopWalking() {
+        
+        for (Item item : this.room.getMapping().getTile(this.position.getX(), this.position.getY()).getItems()) {
+            
+            Log.info("item: " + item.getDefinition().getItemName() + ", height: " + item.getTotalHeight());
+        }
     }
 }

@@ -47,7 +47,7 @@ public class RollerTask implements RoomTask {
 
         for (Item roller : rollers) {
 
-            Set<Item> items = this.room.getMapping().getTile(roller.getPosition().getX(), roller.getPosition().getY()).getItems();
+            List<Item> items = this.room.getMapping().getTile(roller.getPosition().getX(), roller.getPosition().getY()).getItems();
 
             for(Item item : items) {
 

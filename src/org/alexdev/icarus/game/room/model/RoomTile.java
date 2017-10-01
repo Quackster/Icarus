@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.room.model;
 
+import java.util.List;
 import java.util.Set;
 
 import org.alexdev.icarus.game.entity.Entity;
@@ -7,6 +8,7 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 public class RoomTile {
@@ -14,7 +16,7 @@ public class RoomTile {
     private double height = 0;
     private boolean overrideLock = false;
     
-    private Set<Item> items;
+    private List<Item> items;
     private Set<Entity> entities;
     
     private Room room;
@@ -33,7 +35,7 @@ public class RoomTile {
     
     public void reset() {
         this.height = this.room.getModel().getHeight(x, y);
-        this.items = Sets.newHashSet();
+        this.items = Lists.newArrayList();
         this.entities = Sets.newHashSet();
     }
     
@@ -69,7 +71,7 @@ public class RoomTile {
      *
      * @return the items
      */
-    public Set<Item> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
