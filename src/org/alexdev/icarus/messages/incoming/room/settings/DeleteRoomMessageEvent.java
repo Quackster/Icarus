@@ -1,15 +1,20 @@
 package org.alexdev.icarus.messages.incoming.room.settings;
 
+import java.io.File;
+
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
+import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.inventory.InventoryNotification;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.enums.RoomAction;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
+import org.alexdev.icarus.util.Util;
 
 public class DeleteRoomMessageEvent implements MessageEvent {
 
@@ -43,5 +48,24 @@ public class DeleteRoomMessageEvent implements MessageEvent {
         RoomDao.deleteRoom(roomId);
         RoomModelDao.deleteCustomModel(roomId);
         RoomManager.removeRoom(roomId);
+        
+        if (room.getData().getThumbnail() != null && room.getData().getThumbnail().length() > 0) {
+
+            final String fileName = room.getData().getThumbnail().split("/")[1];
+            final String filePath = Util.getGameConfig().get("Thumbnail", "thumbnail.path", String.class);
+            
+            GameScheduler.getScheduler().execute(() -> {
+                try {
+                    File file = new File(filePath + fileName);
+                    
+                    if (file.exists()) {
+                        file.delete();
+                    }
+                    
+                } catch (Exception e) {
+                    Log.exception(e);
+                }
+            });
+        }
     }
 }

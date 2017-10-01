@@ -11,4 +11,6 @@ public class GameSettings {
     public static final int MAX_ROOMS_SUB_CATEGORIES = 9;
 
     public static final int GROUP_MEMBERS_PER_PAGE = 14;
+    
+    public static final double FURNITURE_OFFSET = 0.001;
 }

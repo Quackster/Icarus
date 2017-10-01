@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.headers.Incoming;
+import org.alexdev.icarus.messages.incoming.camera.DeletePhotoMessageEvent;
 import org.alexdev.icarus.messages.incoming.camera.PhotoPricingMessageEvent;
 import org.alexdev.icarus.messages.incoming.camera.PreviewPhotoMessageEvent;
 import org.alexdev.icarus.messages.incoming.camera.PurchasePhotoMessageEvent;
@@ -274,6 +275,7 @@ public class MessageHandler {
         this.registerEvent(Incoming.PhotoPricingMessageEvent, new PhotoPricingMessageEvent());
         this.registerEvent(Incoming.PreviewPhotoMessageEvent, new PreviewPhotoMessageEvent());
         this.registerEvent(Incoming.PurchasePhotoMessageEvent, new PurchasePhotoMessageEvent());
+        this.registerEvent(Incoming.DeletePhotoMessageEvent, new DeletePhotoMessageEvent());
     }
 
     /**

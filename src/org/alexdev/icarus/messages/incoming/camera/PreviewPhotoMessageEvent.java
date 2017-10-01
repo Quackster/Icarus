@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.incoming.camera;
 
 import java.io.FileOutputStream;
 
+import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.log.Log;
@@ -14,20 +15,20 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-        
+
         if (!Util.getGameConfig().get("Camera", "camera.enabled", Boolean.class)) {
             return;
         }
-        
+
         Room room = player.getRoomUser().getRoom();
 
         if (room == null) {
             return;
         }
-        
+
         final int photoLength = reader.readInt();
         final byte[] photoPayload = reader.readBytes(photoLength);
-        
+
         if (!new String(photoPayload).contains("‰PNG")) {
             player.sendMessage(Util.getLocale("camera.error"));
             return;
@@ -40,22 +41,20 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
         fileName = fileName.replace("{id}", room.getData().getId() + "");
         fileName = fileName.replace("{generatedId}", Util.generateRandomString(10, false));
         
-        try {
-              
-            FileOutputStream fos = new FileOutputStream(filePath + fileName);
-            fos.write(photoPayload);
-            fos.flush();
-            fos.close();
-            
-            /*fos = new FileOutputStream(filePath + fileName.replace(".png", "_small.png"));
-            fos.write(photoPayload);
-            fos.flush();
-            fos.close();*/
+        final String newFileName = fileName;
 
-        } catch (Exception e) {
-            Log.exception(e);
-        }
-        
+        GameScheduler.getScheduler().execute(() -> {
+            try {
+                FileOutputStream fos = new FileOutputStream(filePath + newFileName);
+                fos.write(photoPayload);
+                fos.flush();
+                fos.close();
+                
+            } catch (Exception e) {
+                Log.exception(e);
+            }
+        });
+
         player.getRoomUser().getMetadata().set("latestPhotoUrl", fileName);
         player.send(new PhotoPreviewComposer(fileName));
     }

@@ -21,7 +21,7 @@ public class DefaultInteractor implements Interaction {
         int modes = item.getDefinition().getInteractionModes();
 
         if (modes > 0) {
-
+            
             int currentMode = Util.isNumber(item.getExtraData()) ? Integer.valueOf(item.getExtraData()) : 0;
             int newMode = currentMode + 1;
 
@@ -43,7 +43,7 @@ public class DefaultInteractor implements Interaction {
         boolean updateUser = false;
 
         if (!item.getDefinition().allowSitOrLay()) {
-
+            
             if (roomUser.containsStatus(EntityStatus.LAY)) {
                 roomUser.removeStatus(EntityStatus.LAY);
                 updateUser = true;

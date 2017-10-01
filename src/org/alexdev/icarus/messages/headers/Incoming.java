@@ -99,6 +99,7 @@ public class Incoming {
     public static short SaveMannequinMessageEvent = 190;
     public static short ThumbnailMessageEvent = 2046;
     public static short PreviewPhotoMessageEvent = 1184;
-    public static Short PhotoPricingMessageEvent = 654;
-    public static Short PurchasePhotoMessageEvent = 1554;
+    public static short PhotoPricingMessageEvent = 654;
+    public static short PurchasePhotoMessageEvent = 1554;
+    public static short DeletePhotoMessageEvent = 2506;
 }

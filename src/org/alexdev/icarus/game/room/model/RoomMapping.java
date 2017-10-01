@@ -13,6 +13,7 @@ import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RemoveItemMessageComposer;
+import org.alexdev.icarus.util.GameSettings;
 
 public class RoomMapping {
 
@@ -68,7 +69,7 @@ public class RoomMapping {
 
                 item.setItemUnderneath(tile.getHighestItem());
 
-                tile.setHeight(item.getTotalHeight() + 0.001);
+                tile.setHeight(item.getTotalHeight() + GameSettings.FURNITURE_OFFSET);
                 tile.setHighestItem(item);
 
                 for (Position affected : item.getAffectedTiles(false)) {
@@ -80,7 +81,7 @@ public class RoomMapping {
                     }
 
                     if (affectedTile.getHeight() <= item.getTotalHeight()) {
-                        affectedTile.setHeight(item.getTotalHeight() + 0.001);
+                        affectedTile.setHeight(item.getTotalHeight() + GameSettings.FURNITURE_OFFSET);
                         affectedTile.setHighestItem(item);
                     }
                 }
@@ -171,21 +172,6 @@ public class RoomMapping {
             return false;
         }
 
-        if (tile.getEntities().size() > 0) {
-
-            if (this.room.getData().isAllowWalkthrough()) {
-                if (entity != null) {
-                    return true;
-                } else {
-                    return false; // dont allow items from rollers to roll into users
-                }
-            }
-
-            if (!tile.containsEntity(entity)) {
-                return false;
-            }
-        }
-
         Item item = tile.getHighestItem();
 
         if (item != null) {
@@ -194,6 +180,22 @@ public class RoomMapping {
             }
         }
 
+        if (tile.getEntities().size() > 0) {
+            if (this.room.getData().isAllowWalkthrough()) {
+                /*if (entity != null) {
+                    return true;
+                } else {
+                    return false; // dont allow items from rollers to roll into usersanyways
+                }*/
+                return true;
+                
+            } else {
+                
+                if (!tile.containsEntity(entity)) {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
@@ -245,7 +247,7 @@ public class RoomMapping {
 
         this.room.getItemManager().getItems().remove(item.getId());
         this.regenerateCollisionMaps();
-        
+
         if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
             if (MoodlightDao.hasMoodlightData(item.getId())) {
                 MoodlightDao.deleteMoodlightData(item.getId());
@@ -253,13 +255,13 @@ public class RoomMapping {
 
             item.setExtraData("");
         }
-        
+
         item.updateEntities();
         item.setRoomId(0);
-        
+
         item.getPosition().setX(0);
         item.getPosition().setY(0);
-        
+
         item.save();
 
         this.room.send(new RemoveItemMessageComposer(item));

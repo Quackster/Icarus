@@ -7,10 +7,7 @@ import org.alexdev.icarus.game.room.user.RoomUser;
 public class DimmerInteractor implements Interaction {
 
     @Override
-    public void onUseItem(Item item, RoomUser roomUser) {
-        // TODO Auto-generated method stub
-        
-    }
+    public void onUseItem(Item item, RoomUser roomUser) { }
 
     @Override
     public boolean onStopWalking(Item item, RoomUser roomUser) { return false; }

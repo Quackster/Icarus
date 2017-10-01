@@ -1,6 +1,8 @@
 package org.alexdev.icarus.messages.incoming.room.user;
 
 import java.io.FileOutputStream;
+
+import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.log.Log;
@@ -42,19 +44,20 @@ public class ThumbnailMessageEvent implements MessageEvent {
         room.getData().setThumbnail(templateFileUrl);
         room.save();
         
-        try {
-            
-            final int length = reader.readInt();
-            final byte[] payload = reader.readBytes(length);
-            
-            FileOutputStream fos = new FileOutputStream(templateFilePath + templateFileName);
-            fos.write(payload);
-            fos.flush();
-            fos.close();
-
-        } catch (Exception e) {
-            Log.exception(e);
-        }
+        final int length = reader.readInt();
+        final byte[] payload = reader.readBytes(length);
+        final String fileName = templateFileName;
+        
+        GameScheduler.getScheduler().execute(() -> {
+            try {
+                FileOutputStream fos = new FileOutputStream(templateFilePath + fileName);
+                fos.write(payload);
+                fos.flush();
+                fos.close();
+            } catch (Exception e) {
+                Log.exception(e);
+            }
+        });
         
         player.send(new ThumbnailMessageComposer());
         room.send(new RoomInfoUpdatedMessageComposer(room.getData().getId()));

@@ -21,14 +21,12 @@ public class RoomScheduler implements Runnable {
     
     private Map<Long, ConcurrentLinkedQueue<RoomTask>> tasks;
 
-    private Room room;
     private MovementTask movementTask;
     private AtomicLong counter;
     
     private boolean disabled;
 
     public RoomScheduler (Room room) {
-        this.room = room;
         this.counter = new AtomicLong();
         this.tasks = Maps.newConcurrentMap();
         this.movementTask = new MovementTask(room);
