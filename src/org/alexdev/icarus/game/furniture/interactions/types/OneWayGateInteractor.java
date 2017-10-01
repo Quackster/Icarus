@@ -7,7 +7,6 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.user.RoomUser;
-import org.alexdev.icarus.log.Log;
 
 public class OneWayGateInteractor implements Interaction {
 

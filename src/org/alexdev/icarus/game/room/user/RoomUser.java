@@ -10,6 +10,7 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.furniture.interactions.Interaction;
+import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.messenger.InstantMessage;
 import org.alexdev.icarus.game.pathfinder.Pathfinder;
@@ -18,6 +19,7 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageComposer;
@@ -323,6 +325,14 @@ public class RoomUser extends Metadata {
             this.position.setY(this.nextPositio.getY());
             this.updateNewHeight(this.position);
             this.needsUpdate = true;
+        }
+        
+        RoomTile tile = this.room.getMapping().getTile(X, Y);
+        
+        if (tile != null && tile.getHighestItem() != null) {
+            if (tile.getHighestItem().getDefinition().getInteractionType() == InteractionType.ONEWAYGATE) {
+                return;
+            }
         }
 
         this.goal.setX(X);
