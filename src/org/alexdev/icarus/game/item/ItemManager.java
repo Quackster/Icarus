@@ -1,4 +1,4 @@
-package org.alexdev.icarus.game.furniture;
+package org.alexdev.icarus.game.item;
 
 import java.util.Map;
 import java.util.Map.Entry;

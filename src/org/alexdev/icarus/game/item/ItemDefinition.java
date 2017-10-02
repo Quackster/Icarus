@@ -1,11 +1,9 @@
-package org.alexdev.icarus.game.furniture;
+package org.alexdev.icarus.game.item;
 
 import org.alexdev.icarus.dao.mysql.item.InventoryDao;
 import org.alexdev.icarus.dao.mysql.item.TeleporterDao;
-import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.inventory.InventoryNotification;
-import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.ItemType;
+import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.util.Util;
 
@@ -18,6 +16,7 @@ public class ItemDefinition {
     private int width;
     private int length;
     private double height;
+    private boolean canStack;
     private boolean canSit;
     private boolean isWalkable;
     private int spriteId;
@@ -44,6 +43,7 @@ public class ItemDefinition {
         this.width = width;
         this.length = length;
         this.height = stackHeight;
+        this.canStack = canStack;
         this.canSit = canSit;
         this.isWalkable = isWalkable;
         this.spriteId = spriteId;
@@ -194,7 +194,7 @@ public class ItemDefinition {
      */
     public boolean allowStack() {
 
-        if (this.canSit) {
+        /*if (this.canSit) {
             return false;
         }
 
@@ -212,15 +212,9 @@ public class ItemDefinition {
         }
         if (this.interactionType == InteractionType.BED) {
             return false;
-        }
+        }*/
         
-        /*!this.getDefinition().allowSit()) {
-            if (this.getDefinition().getInteractionType() != InteractionType.GATE) {
-                if (this.getDefinition().getInteractionType() != InteractionType.ONEWAYGATE) {
-                    if (this.getDefinition().getInteractionType() != InteractionType.TELEPORT) {
-                        if (this.getDefinition().getInteractionType() != InteractionType.BED*/
-
-        return true;
+        return canStack;
     }
 
     /**

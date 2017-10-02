@@ -1,15 +1,15 @@
-package org.alexdev.icarus.game.furniture.interactions;
+package org.alexdev.icarus.game.item.interactions;
 
-import org.alexdev.icarus.game.furniture.interactions.types.AdjustableHeightInteractor;
-import org.alexdev.icarus.game.furniture.interactions.types.BedInteractor;
-import org.alexdev.icarus.game.furniture.interactions.types.DefaultInteractor;
-import org.alexdev.icarus.game.furniture.interactions.types.DiceInteractor;
-import org.alexdev.icarus.game.furniture.interactions.types.DimmerInteractor;
-import org.alexdev.icarus.game.furniture.interactions.types.GateInteractor;
-import org.alexdev.icarus.game.furniture.interactions.types.MannequinInteractor;
-import org.alexdev.icarus.game.furniture.interactions.types.OneWayGateInteractor;
-import org.alexdev.icarus.game.furniture.interactions.types.TeleportInteractor;
-import org.alexdev.icarus.game.furniture.interactions.types.VendingInteractor;
+import org.alexdev.icarus.game.item.interactions.types.AdjustableHeightInteractor;
+import org.alexdev.icarus.game.item.interactions.types.BedInteractor;
+import org.alexdev.icarus.game.item.interactions.types.DefaultInteractor;
+import org.alexdev.icarus.game.item.interactions.types.DiceInteractor;
+import org.alexdev.icarus.game.item.interactions.types.DimmerInteractor;
+import org.alexdev.icarus.game.item.interactions.types.GateInteractor;
+import org.alexdev.icarus.game.item.interactions.types.MannequinInteractor;
+import org.alexdev.icarus.game.item.interactions.types.OneWayGateInteractor;
+import org.alexdev.icarus.game.item.interactions.types.TeleportInteractor;
+import org.alexdev.icarus.game.item.interactions.types.VendingInteractor;
 
 public enum InteractionType {
 

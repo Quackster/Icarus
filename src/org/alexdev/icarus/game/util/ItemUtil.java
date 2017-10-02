@@ -1,7 +1,7 @@
 package org.alexdev.icarus.game.util;
 
-import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.server.api.messages.Response;
 
 public class ItemUtil {

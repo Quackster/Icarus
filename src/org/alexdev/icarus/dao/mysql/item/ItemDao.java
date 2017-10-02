@@ -7,10 +7,10 @@ import java.util.Map;
 
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
-import org.alexdev.icarus.game.furniture.ItemDefinition;
-import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.ItemDefinition;
 import org.alexdev.icarus.game.item.ItemType;
+import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.log.Log;
 
 import com.google.common.collect.Maps;

@@ -5,10 +5,8 @@ import org.alexdev.icarus.dao.mysql.item.ItemDao;
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.dao.mysql.room.MoodlightDao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
-import org.alexdev.icarus.game.furniture.ItemDefinition;
 import org.alexdev.icarus.game.entity.Entity;
-import org.alexdev.icarus.game.furniture.ItemManager;
-import org.alexdev.icarus.game.furniture.interactions.InteractionType;
+import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.pathfinder.AffectedTile;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
@@ -149,11 +147,21 @@ public class Item extends Metadata {
     }
 
     /**
-     * Is this item walkable or not.
+     * Checks if is walkable, will also check against database.
      *
-     * @return {@link boolean} - true if walkable
+     * @return true, if is walkable
      */
-    public boolean canWalk() {
+    public boolean isWalkable() {
+        return this.isWalkable(true);
+    }
+    
+    /**
+     * Checks if is walkable.
+     *
+     * @param checkDefinition should we check against the "walkable" definition in database?
+     * @return true, if is walkable
+     */
+    public boolean isWalkable(boolean checkDefinition) {
 
         ItemDefinition definition = this.getDefinition();
 
@@ -176,7 +184,7 @@ public class Item extends Metadata {
             return true;
         }
 
-        if (definition.isWalkable()) {
+        if (checkDefinition && definition.isWalkable()) {
             return true;
         }
 

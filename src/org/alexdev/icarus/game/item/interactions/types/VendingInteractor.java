@@ -1,9 +1,9 @@
-package org.alexdev.icarus.game.furniture.interactions.types;
+package org.alexdev.icarus.game.item.interactions.types;
 
 import java.util.concurrent.TimeUnit;
 
-import org.alexdev.icarus.game.furniture.interactions.Interaction;
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.interactions.Interaction;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.user.RoomUser;

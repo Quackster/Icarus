@@ -1,7 +1,7 @@
 package org.alexdev.icarus.game.catalogue;
 
-import org.alexdev.icarus.game.furniture.ItemDefinition;
-import org.alexdev.icarus.game.furniture.ItemManager;
+import org.alexdev.icarus.game.item.ItemDefinition;
+import org.alexdev.icarus.game.item.ItemManager;
 
 public class CatalogueBundledItem {
 

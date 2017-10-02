@@ -1,4 +1,4 @@
-package org.alexdev.icarus.game.furniture.interactions;
+package org.alexdev.icarus.game.item.interactions;
 
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.room.user.RoomUser;

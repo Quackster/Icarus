@@ -1,11 +1,11 @@
-package org.alexdev.icarus.game.furniture.interactions.types;
+package org.alexdev.icarus.game.item.interactions.types;
 
 import java.util.List;
 
 import org.alexdev.icarus.game.entity.EntityStatus;
-import org.alexdev.icarus.game.furniture.interactions.Interaction;
-import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.interactions.Interaction;
+import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.user.RoomUser;
 

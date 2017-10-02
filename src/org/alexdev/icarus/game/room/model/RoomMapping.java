@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.room.MoodlightDao;
 import org.alexdev.icarus.game.entity.Entity;
-import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
+import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
@@ -127,11 +127,11 @@ public class RoomMapping {
                         Item currentItem = currentTile.getHighestItem();
 
                         if (!isFinalMove) {
-                            return currentItem.getDefinition().isWalkable() && !currentItem.canWalk();
+                            return currentItem.getDefinition().isWalkable() && !currentItem.isWalkable(false);
                         }
 
                         if (isFinalMove) {
-                            return currentItem.canWalk();
+                            return currentItem.isWalkable();
 
                         }
                     }
@@ -169,7 +169,7 @@ public class RoomMapping {
         Item item = tile.getHighestItem();
 
         if (item != null) {
-            if (!item.canWalk()) {
+            if (!item.isWalkable()) {
                 return false;
             }
         }

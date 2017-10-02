@@ -2,8 +2,8 @@ package org.alexdev.icarus.messages.outgoing.item;
 
 import java.util.List;
 
-import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 

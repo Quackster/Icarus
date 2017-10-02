@@ -1,7 +1,7 @@
-package org.alexdev.icarus.game.furniture.interactions.types;
+package org.alexdev.icarus.game.item.interactions.types;
 
-import org.alexdev.icarus.game.furniture.interactions.Interaction;
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.interactions.Interaction;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.util.Util;
 

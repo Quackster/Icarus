@@ -9,9 +9,9 @@ import org.alexdev.icarus.game.commands.CommandManager;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.entity.EntityType;
-import org.alexdev.icarus.game.furniture.interactions.Interaction;
-import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.interactions.Interaction;
+import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.messenger.InstantMessage;
 import org.alexdev.icarus.game.pathfinder.Pathfinder;
 import org.alexdev.icarus.game.pathfinder.Position;
@@ -84,7 +84,7 @@ public class RoomUser extends Metadata {
         boolean no_current_item = false;
 
         if (item != null) {
-            if (item.canWalk()) {
+            if (item.isWalkable()) {
                 this.currentItem = item;
             } else {
                 no_current_item = true;

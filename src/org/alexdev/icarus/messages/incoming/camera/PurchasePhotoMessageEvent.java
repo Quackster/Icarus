@@ -1,7 +1,7 @@
 package org.alexdev.icarus.messages.incoming.camera;
 
-import org.alexdev.icarus.game.furniture.ItemDefinition;
-import org.alexdev.icarus.game.furniture.ItemManager;
+import org.alexdev.icarus.game.item.ItemDefinition;
+import org.alexdev.icarus.game.item.ItemManager;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.outgoing.camera.PurchasedPhotoComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;

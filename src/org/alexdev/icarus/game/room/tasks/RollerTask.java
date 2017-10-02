@@ -3,8 +3,8 @@ package org.alexdev.icarus.game.room.tasks;
 import java.util.List;
 
 import org.alexdev.icarus.game.entity.Entity;
-import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomTile;

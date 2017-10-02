@@ -2,8 +2,8 @@ package org.alexdev.icarus.messages.incoming.room.items;
 
 import java.util.List;
 
-import org.alexdev.icarus.game.furniture.interactions.InteractionType;
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.item.moodlight.MoodlightData;
 import org.alexdev.icarus.game.item.moodlight.MoodlightManager;
 import org.alexdev.icarus.game.player.Player;
