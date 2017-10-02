@@ -10,5 +10,5 @@ public class DimmerInteractor implements Interaction {
     public void onUseItem(Item item, RoomUser roomUser) { }
 
     @Override
-    public boolean onStopWalking(Item item, RoomUser roomUser) { return false; }
+    public void onStopWalking(Item item, RoomUser roomUser) { }
 }

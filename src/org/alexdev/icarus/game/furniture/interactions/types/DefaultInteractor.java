@@ -38,20 +38,16 @@ public class DefaultInteractor implements Interaction {
     }
 
     @Override
-    public boolean onStopWalking(Item item, RoomUser roomUser) {
-
-        boolean updateUser = false;
+    public void onStopWalking(Item item, RoomUser roomUser) {
 
         if (!item.getDefinition().allowSitOrLay()) {
             
             if (roomUser.containsStatus(EntityStatus.LAY)) {
                 roomUser.removeStatus(EntityStatus.LAY);
-                updateUser = true;
             }
 
             if (roomUser.containsStatus(EntityStatus.SIT)) {
                 roomUser.removeStatus(EntityStatus.SIT);
-                updateUser = true;
             }
         }
 
@@ -59,9 +55,6 @@ public class DefaultInteractor implements Interaction {
 
             roomUser.setStatus(EntityStatus.SIT, roomUser.getEntity().getType() == EntityType.PET ? "0.5" : "1.0");
             roomUser.getPosition().setRotation(item.getPosition().getRotation());
-            updateUser = true;
         }
-
-        return updateUser;
     }
 }

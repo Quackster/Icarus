@@ -38,6 +38,6 @@ public class OneWayGateInteractor implements Interaction {
     }
 
     @Override
-    public boolean onStopWalking(Item item, RoomUser roomUser) { return false; }
+    public void onStopWalking(Item item, RoomUser roomUser) { }
 
 }

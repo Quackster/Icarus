@@ -19,5 +19,5 @@ public interface Interaction {
      * @param item the item
      * @param roomUser the room user
      */
-    public boolean onStopWalking(final Item item, final RoomUser roomUser);
+    public void onStopWalking(final Item item, final RoomUser roomUser);
 }

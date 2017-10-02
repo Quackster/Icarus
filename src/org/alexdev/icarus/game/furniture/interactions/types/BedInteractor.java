@@ -17,17 +17,14 @@ public class BedInteractor implements Interaction {
     public void onUseItem(Item item, RoomUser roomUser) { }
 
     @Override
-    public boolean onStopWalking(Item item, RoomUser roomUser) {
+    public void onStopWalking(Item item, RoomUser roomUser) {
         
-        boolean updateUser = false;
-
         if (isValidPillowTile(item, roomUser.getPosition())) {
 
             roomUser.getPosition().setRotation(item.getPosition().getRotation());
             roomUser.removeStatus(EntityStatus.DANCE);
             roomUser.removeStatus(EntityStatus.LAY);
             roomUser.setStatus(EntityStatus.LAY, "1.5");
-            updateUser = true;
             
         } else {
 
@@ -44,8 +41,6 @@ public class BedInteractor implements Interaction {
             
             roomUser.checkNearbyItem();
         }
-        
-        return updateUser;
     }
 
     public static boolean isValidPillowTile(Item item, Position position) {
