@@ -79,10 +79,8 @@ public class RoomMapping {
                         continue;
                     }
 
-                    //if (affectedTile.getHeight() <= item.getTotalHeight()) {
-                        affectedTile.setHeight(item.getTotalHeight() + GameSettings.FURNITURE_OFFSET);
-                        affectedTile.setHighestItem(item);
-                    //}
+                    affectedTile.setHeight(item.getTotalHeight() + GameSettings.FURNITURE_OFFSET);
+                    affectedTile.setHighestItem(item);
                 }
             }
         }
@@ -129,11 +127,7 @@ public class RoomMapping {
                         Item currentItem = currentTile.getHighestItem();
 
                         if (!isFinalMove) {
-                            return currentItem.getDefinition().isWalkable() && 
-                                    !currentItem.getDefinition().allowSit() && 
-                                    currentItem.getDefinition().getInteractionType() != InteractionType.BED || 
-                                    (currentItem.getDefinition().getInteractionType() == InteractionType.GATE && currentItem.getExtraData().equals("1")) || 
-                                    (currentItem.getDefinition().getInteractionType() == InteractionType.ONEWAYGATE && currentItem.getExtraData().equals("1"));
+                            return currentItem.getDefinition().isWalkable() && !currentItem.canWalk();
                         }
 
                         if (isFinalMove) {
@@ -183,9 +177,9 @@ public class RoomMapping {
         if (tile.getEntities().size() > 0) {
             if (this.room.getData().isAllowWalkthrough()) {
                 return true;
-                
+
             } else {
-                
+
                 if (!tile.containsEntity(entity)) {
                     return false;
                 }
@@ -204,13 +198,12 @@ public class RoomMapping {
         item.setRoomId(this.room.getData().getId());
 
         this.room.getItemManager().getItems().put(item.getId(), item);
+        this.room.send(new PlaceItemMessageComposer(item));
 
         if (item.getDefinition().getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, false);
             this.regenerateCollisionMaps();
         }
-
-        this.room.send(new PlaceItemMessageComposer(item));
 
         item.updateEntities();
         item.save();
@@ -271,12 +264,14 @@ public class RoomMapping {
     private void handleItemAdjustment(Item item, boolean rotation) {
 
         if (rotation) {
+
             for (Item items : this.getTile(item.getPosition().getX(), item.getPosition().getY()).getItems()) {
                 if (items != item && items.getPosition().getZ() >= item.getPosition().getZ()) {
                     items.getPosition().setRotation(item.getPosition().getRotation());
                     items.updateStatus();
                 }
             }
+
         } else {
             item.getPosition().setZ(this.getTileHeight(item.getPosition().getX(), item.getPosition().getY()) + GameSettings.FURNITURE_OFFSET);
         }

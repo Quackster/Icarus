@@ -1,7 +1,6 @@
 package org.alexdev.icarus.game.room.tasks;
 
 import java.util.List;
-import java.util.Set;
 
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.furniture.interactions.InteractionType;

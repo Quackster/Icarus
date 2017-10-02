@@ -10,7 +10,6 @@ import org.alexdev.icarus.game.furniture.interactions.types.MannequinInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.OneWayGateInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.TeleportInteractor;
 import org.alexdev.icarus.game.furniture.interactions.types.VendingInteractor;
-import org.alexdev.icarus.log.Log;
 
 public enum InteractionType {
 

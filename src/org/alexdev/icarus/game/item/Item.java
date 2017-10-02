@@ -288,16 +288,8 @@ public class Item extends Metadata {
 
         currentHeight += this.position.getZ();
 
-        if (!this.getDefinition().allowSit()) {
-            if (this.getDefinition().getInteractionType() != InteractionType.GATE) {
-                if (this.getDefinition().getInteractionType() != InteractionType.ONEWAYGATE) {
-                    if (this.getDefinition().getInteractionType() != InteractionType.TELEPORT) {
-                        if (this.getDefinition().getInteractionType() != InteractionType.BED) {
+        if (this.getDefinition().allowStack()) {
                             currentHeight += this.getDefinition().getHeight();
-                        }
-                    }
-                }
-            }
         }
 
         return currentHeight;
