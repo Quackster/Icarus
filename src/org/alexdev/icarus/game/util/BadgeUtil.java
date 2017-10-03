@@ -23,6 +23,7 @@ public class BadgeUtil {
      * @return the string
      */
     public static String generate(int guildBase, int guildBaseColor, List<Integer> guildStates) {
+        
         String badgeImage = "b" + format(guildBase) + "" + format(guildBaseColor);
 
         for (int i = 0; i < 3 * 4; i += 3) {

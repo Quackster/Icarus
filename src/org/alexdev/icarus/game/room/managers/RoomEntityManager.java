@@ -110,6 +110,7 @@ public class RoomEntityManager {
      * with their saved coordinates from the database.
      */
     public void addPets() {
+        
         for (Pet pet : PetDao.getRoomPets(this.room.getData().getId())) {
             pet.getRoomUser().setRoom(this.room);
             pet.getRoomUser().setVirtualId(this.generateVirtualId());

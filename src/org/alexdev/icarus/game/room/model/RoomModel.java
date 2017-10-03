@@ -22,10 +22,10 @@ package org.alexdev.icarus.game.room.model;
 import org.alexdev.icarus.game.pathfinder.Position;
 
 public class RoomModel {
-    
+
     public final static int OPEN = 0;
     public final static int CLOSED = 1;
-    
+
     private String name;
     private String heightmap;
     private Position doorLocation;
@@ -43,20 +43,30 @@ public class RoomModel {
         this.doorLocation = new Position(doorX, doorY, doorZ);
         this.doorLocation.setRotation(doorRot);
 
-        String[] temporary = heightmap.split("\\{13}");
+        this.squares = new int[mapSizeX][mapSizeY];
+        this.squareHeight = new double[mapSizeX][mapSizeY];
+
+        this.generateHeightmapLookups();
+        this.generateRelativeHeightmap();
+    }
+
+    /**
+     * Generate heightmap lookups.
+     */
+    private void generateHeightmapLookups() {
+
+        String[] temporary = this.heightmap.split("\\{13}");
 
         this.mapSizeX = temporary[0].length();
         this.mapSizeY = temporary.length;
-        this.squares = new int[mapSizeX][mapSizeY];
-        this.squareHeight = new double[mapSizeX][mapSizeY];
 
         for (int y = 0; y < mapSizeY; y++) {
 
             String line = temporary[y];
-                
+
             line = line.replace(Character.toString((char)10), "");
             line = line.replace(Character.toString((char)13), "");
-            
+
             int x = 0;
 
             for (char square : line.toCharArray()) {
@@ -68,7 +78,7 @@ public class RoomModel {
                     this.squares[x][y] = OPEN;
                     this.squareHeight[x][y] = parse(square);
                 }
-                
+
                 if (x == this.doorLocation.getX() && y == this.doorLocation.getY()) {
                     this.squares[x][y] = OPEN; 
                     this.squareHeight[x][y] = this.doorLocation.getZ();
@@ -77,15 +87,12 @@ public class RoomModel {
                 x++;
             }
         }
-
-        this.generateRelativeHeightmap();
     }
-
+    
     /**
      * Generate relative heightmap.
      */
     private void generateRelativeHeightmap() {
-
         StringBuilder relativeMap = new StringBuilder();
 
         for (int y = 0; y < mapSizeY; y++) {
@@ -98,7 +105,7 @@ public class RoomModel {
                     } else {
                         relativeMap.append((int)this.doorLocation.getZ());
                     }
-                    
+
                     continue;
                 }
 
@@ -114,7 +121,7 @@ public class RoomModel {
                 } else {
                     relativeMap.append((int)height);
                 }
-                
+
                 this.squares[x][y] = OPEN;
 
             }
