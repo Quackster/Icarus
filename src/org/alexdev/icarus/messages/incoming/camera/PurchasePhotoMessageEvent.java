@@ -1,5 +1,8 @@
 package org.alexdev.icarus.messages.incoming.camera;
 
+import org.alexdev.icarus.dao.mysql.item.InventoryDao;
+import org.alexdev.icarus.game.inventory.InventoryNotification;
+import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemDefinition;
 import org.alexdev.icarus.game.item.ItemManager;
 import org.alexdev.icarus.game.player.Player;
@@ -26,7 +29,10 @@ public class PurchasePhotoMessageEvent implements MessageEvent {
         extraData.append("\"m\":\"\"");
         extraData.append("}");
 
-        definition.handleDefinitionPurchase(player, extraData.toString());
+        Item photo = InventoryDao.newItem(photoId, player.getEntityId(), extraData.toString());
+        
+        player.getInventory().addItem(photo, InventoryNotification.ALERT);
+        player.getInventory().updateItems();
         
         player.getRoomUser().getMetadata().remove("latestPhotoUrl");
         player.send(new PurchasedPhotoComposer());
