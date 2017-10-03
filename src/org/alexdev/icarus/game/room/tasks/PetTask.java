@@ -6,7 +6,7 @@ import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.scheduler.RoomTask;
 
-public class PetTask implements RoomTask {
+public class PetTask extends RoomTask {
 
     private Room room;
 

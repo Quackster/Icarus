@@ -15,7 +15,7 @@ import org.alexdev.icarus.messages.outgoing.room.items.SlideObjectMessageCompose
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
-public class RollerTask implements RoomTask {
+public class RollerTask extends RoomTask {
 
     private Room room;
 

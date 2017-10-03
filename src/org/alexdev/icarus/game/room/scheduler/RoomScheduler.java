@@ -51,6 +51,10 @@ public class RoomScheduler implements Runnable {
                     
                     for (RoomTask task : kvp.getValue()) {
                         task.execute();
+                        
+                        if (task.getTaskType() == TaskType.RUN_ONCE) {
+                            this.removeTask(task.getClass());
+                        }
                     }
                 }
             }
@@ -116,6 +120,8 @@ public class RoomScheduler implements Runnable {
      * @param task the task
      */
     public void scheduleEvent(int number, TimeUnit measurement,TaskType taskType, RoomTask task) {
+        
+        task.setTaskType(taskType);
         
         long taskInSeconds = measurement.toSeconds(number);
         

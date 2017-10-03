@@ -8,7 +8,7 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.scheduler.RoomTask;
 import org.alexdev.icarus.game.room.user.RoomUser;
 
-public class CarryItemTask implements RoomTask {
+public class CarryItemTask extends RoomTask {
 
     private Room room;
 
