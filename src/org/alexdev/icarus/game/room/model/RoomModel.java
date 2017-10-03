@@ -43,9 +43,6 @@ public class RoomModel {
         this.doorLocation = new Position(doorX, doorY, doorZ);
         this.doorLocation.setRotation(doorRot);
 
-        this.squares = new int[mapSizeX][mapSizeY];
-        this.squareHeight = new double[mapSizeX][mapSizeY];
-
         this.generateHeightmapLookups();
         this.generateRelativeHeightmap();
     }
@@ -59,7 +56,10 @@ public class RoomModel {
 
         this.mapSizeX = temporary[0].length();
         this.mapSizeY = temporary.length;
-
+        
+        this.squares = new int[mapSizeX][mapSizeY];
+        this.squareHeight = new double[mapSizeX][mapSizeY];
+        
         for (int y = 0; y < mapSizeY; y++) {
 
             String line = temporary[y];

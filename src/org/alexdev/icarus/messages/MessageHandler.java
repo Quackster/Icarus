@@ -26,242 +26,277 @@ import org.alexdev.icarus.messages.incoming.trading.StartTradingMessageEvent;
 import org.alexdev.icarus.messages.incoming.user.*;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-
+import org.alexdev.icarus.util.ClassFinder;
 
 public class MessageHandler {
 
-    private HashMap<Short, List<MessageEvent>> messages;
-    private List<String> composerPackages;
+    private static HashMap<Short, List<MessageEvent>> messages;
+    private static HashMap<String, String> composerPaths;
+    
+    private static List<String> composerPackages;
 
-    public MessageHandler() {
-        this.messages = new HashMap<>();
-        this.composerPackages = new ArrayList<>();
-        this.register();
-        this.registerComposerPackages();
+    public static void load() throws Exception {
+        messages = new HashMap<>();
+        composerPaths = new HashMap<>();
+        composerPackages = new ArrayList<>();
+        
+        register();
+        registerComposerPackages();
+        createComposerLookup();
     }
-    public void register() {
-        this.messages.clear();
-        this.registerHandshakePackets();
-        this.registerUserPackets();
-        this.registerMiscPackets();
-        this.registerMessenger();
-        this.registerNavigatorPackets();
-        this.registerRoomPackets();
-        this.registerCataloguePackets();
-        this.registerItemPackets();
-        this.registerPetPackets();
-        this.registerRoomSettingPackets();
-        this.registerRoomFloorplanPackets();
-        this.registerGroupPackets();
-        this.registerTradePackets();
-        this.registerCameraPackets();
-        this.registerItemInteractionPackets();
+    
+    public static void register() {
+        messages.clear();
+        registerHandshakePackets();
+        registerUserPackets();
+        registerMiscPackets();
+        registerMessenger();
+        registerNavigatorPackets();
+        registerRoomPackets();
+        registerCataloguePackets();
+        registerItemPackets();
+        registerPetPackets();
+        registerRoomSettingPackets();
+        registerRoomFloorplanPackets();
+        registerGroupPackets();
+        registerTradePackets();
+        registerCameraPackets();
+        registerItemInteractionPackets();
     }
     
     /**
      * Register handshake packets.
      */
-    private void registerHandshakePackets() {
-        this.registerEvent(Incoming.VersionCheckMessageEvent, new VersionCheckMessageEvent());
-        this.registerEvent(Incoming.InitCryptoMessageEvent, new InitCryptoMessageEvent());
-        this.registerEvent(Incoming.GenerateSecretKeyMessageEvent, new GenerateSecretKeyMessageEvent());
-        this.registerEvent(Incoming.UniqueIDMessageEvent, new UniqueIDMessageEvent());
-        this.registerEvent(Incoming.AuthenticateMessageEvent, new AuthenticateMessageEvent());
+    private static void registerHandshakePackets() {
+        registerEvent(Incoming.VersionCheckMessageEvent, new VersionCheckMessageEvent());
+        registerEvent(Incoming.InitCryptoMessageEvent, new InitCryptoMessageEvent());
+        registerEvent(Incoming.GenerateSecretKeyMessageEvent, new GenerateSecretKeyMessageEvent());
+        registerEvent(Incoming.UniqueIDMessageEvent, new UniqueIDMessageEvent());
+        registerEvent(Incoming.AuthenticateMessageEvent, new AuthenticateMessageEvent());
     }
 
     /**
      * Register user packets.
      */
-    private void registerUserPackets() {
-        this.registerEvent(Incoming.InfoRetrieveMessageEvent, new InfoRetrieveMessageEvent());
-        this.registerEvent(Incoming.CurrencyBalanceMessageEvent, new CurrencyBalanceMessageEvent());
-        this.registerEvent(Incoming.ChangeAppearanceMessageEvent, new ChangeAppearanceMessageEvent());
-        this.registerEvent(Incoming.SubscriptionMessageEvent, new SubscriptionMessageEvent());
-        this.registerEvent(Incoming.NavigatorPromoteRoomCategories, new WelcomeMessageEvent());
-        this.registerEvent(Incoming.HabboClubCenterMessageEvent, new HabboClubCenterMessageEvent());
+    private static void registerUserPackets() {
+        registerEvent(Incoming.InfoRetrieveMessageEvent, new InfoRetrieveMessageEvent());
+        registerEvent(Incoming.CurrencyBalanceMessageEvent, new CurrencyBalanceMessageEvent());
+        registerEvent(Incoming.ChangeAppearanceMessageEvent, new ChangeAppearanceMessageEvent());
+        registerEvent(Incoming.SubscriptionMessageEvent, new SubscriptionMessageEvent());
+        registerEvent(Incoming.NavigatorPromoteRoomCategories, new WelcomeMessageEvent());
+        registerEvent(Incoming.HabboClubCenterMessageEvent, new HabboClubCenterMessageEvent());
     }
 
     /**
      * Register messenger.
      */
-    private void registerMessenger() {
-        this.registerEvent(Incoming.MessengerInitMessageEvent, new MessengerInitMessageEvent());
-        this.registerEvent(Incoming.MessengerSearchMessageEvent, new MessengerSearchMessageEvent());
-        this.registerEvent(Incoming.MessengerRequestMessageEvent, new MessengerRequestMessageEvent());
-        this.registerEvent(Incoming.MessengerAcceptMessageEvent, new MessengerAcceptMessageEvent());
-        this.registerEvent(Incoming.MessengerDeclineMessageEvent, new MessengerDeclineMessageEvent());
-        this.registerEvent(Incoming.MessengerDeleteFriendMessageEvent, new MessengerDeleteFriendMessageEvent());
-        this.registerEvent(Incoming.MessengerTalkMessageEvent, new MessengerTalkMessageEvent());
-        this.registerEvent(Incoming.MessengerUpdateMessageEvent, new MessengerUpdateMessageEvent());
-        this.registerEvent(Incoming.FollowFriendMessageEvent, new FollowFriendMessageEvent());
+    private static void registerMessenger() {
+        registerEvent(Incoming.MessengerInitMessageEvent, new MessengerInitMessageEvent());
+        registerEvent(Incoming.MessengerSearchMessageEvent, new MessengerSearchMessageEvent());
+        registerEvent(Incoming.MessengerRequestMessageEvent, new MessengerRequestMessageEvent());
+        registerEvent(Incoming.MessengerAcceptMessageEvent, new MessengerAcceptMessageEvent());
+        registerEvent(Incoming.MessengerDeclineMessageEvent, new MessengerDeclineMessageEvent());
+        registerEvent(Incoming.MessengerDeleteFriendMessageEvent, new MessengerDeleteFriendMessageEvent());
+        registerEvent(Incoming.MessengerTalkMessageEvent, new MessengerTalkMessageEvent());
+        registerEvent(Incoming.MessengerUpdateMessageEvent, new MessengerUpdateMessageEvent());
+        registerEvent(Incoming.FollowFriendMessageEvent, new FollowFriendMessageEvent());
     }
 
     /**
      * Register navigator packets.
      */
-    private void registerNavigatorPackets() {
-        this.registerEvent(Incoming.NewNavigatorMessageEvent, new NewNavigatorMessageEvent());
-        this.registerEvent(Incoming.NavigatorPromoteRoomCategories, new NavigatorPromoteCategoriesMessageEvent());
-        this.registerEvent(Incoming.SearchNewNavigatorEvent, new SearchNewNavigatorEvent());
-        this.registerEvent(Incoming.CreateRoomMessageEvent, new CreateRoomMessageEvent());
-        this.registerEvent(Incoming.CanCreateRoomMessageEvent, new CanCreateRoomMessageEvent());
+    private static void registerNavigatorPackets() {
+        registerEvent(Incoming.NewNavigatorMessageEvent, new NewNavigatorMessageEvent());
+        registerEvent(Incoming.NavigatorPromoteRoomCategories, new NavigatorPromoteCategoriesMessageEvent());
+        registerEvent(Incoming.SearchNewNavigatorEvent, new SearchNewNavigatorEvent());
+        registerEvent(Incoming.CreateRoomMessageEvent, new CreateRoomMessageEvent());
+        registerEvent(Incoming.CanCreateRoomMessageEvent, new CanCreateRoomMessageEvent());
     }
 
     /**
      * Register misc packets.
      */
-    private void registerMiscPackets() {
-        this.registerEvent(Incoming.EventLogMessageEvent, new EventLogMessageEvent());
-        this.registerEvent(Incoming.LatencyTestMessageEvent, new LatencyTestMessageEvent());
+    private static void registerMiscPackets() {
+        registerEvent(Incoming.EventLogMessageEvent, new EventLogMessageEvent());
+        registerEvent(Incoming.LatencyTestMessageEvent, new LatencyTestMessageEvent());
     }
 
     /**
      * Register room packets.
      */
-    private void registerRoomPackets() {
-        this.registerEvent(Incoming.EnterRoomMessageEvent, new EnterRoomMessageEvent());
-        this.registerEvent(Incoming.HeightMapMessageEvent, new HeightmapMessageEvent());
-        this.registerEvent(Incoming.UserWalkMessageEvent, new UserWalkMessageEvent());
-        this.registerEvent(Incoming.LeaveRoomMessageEvent, new LeaveRoomMessageEvent());
-        this.registerEvent(Incoming.ChatMessageEvent, new ChatMessageEvent());
-        this.registerEvent(Incoming.ShoutMessageEvent, new ShoutMessageEvent());
-        this.registerEvent(Incoming.DanceMessageEvent, new DanceMessageEvent());
-        this.registerEvent(Incoming.StartTypingMessageEvent, new TypingStatusMessageEvent());
-        this.registerEvent(Incoming.StopTypingMessageEvent, new TypingStatusMessageEvent());
-        this.registerEvent(Incoming.AnswerDoorbellMessageEvent, new DoorbellAnswerMessageEvent());
-        this.registerEvent(Incoming.EnterDoorbellMessageEvent, new DoorbellEnterMessageEvent());
-        this.registerEvent(Incoming.ThumbnailMessageEvent, new ThumbnailMessageEvent());
+    private static void registerRoomPackets() {
+        registerEvent(Incoming.EnterRoomMessageEvent, new EnterRoomMessageEvent());
+        registerEvent(Incoming.HeightMapMessageEvent, new HeightmapMessageEvent());
+        registerEvent(Incoming.UserWalkMessageEvent, new UserWalkMessageEvent());
+        registerEvent(Incoming.LeaveRoomMessageEvent, new LeaveRoomMessageEvent());
+        registerEvent(Incoming.ChatMessageEvent, new ChatMessageEvent());
+        registerEvent(Incoming.ShoutMessageEvent, new ShoutMessageEvent());
+        registerEvent(Incoming.DanceMessageEvent, new DanceMessageEvent());
+        registerEvent(Incoming.StartTypingMessageEvent, new TypingStatusMessageEvent());
+        registerEvent(Incoming.StopTypingMessageEvent, new TypingStatusMessageEvent());
+        registerEvent(Incoming.AnswerDoorbellMessageEvent, new DoorbellAnswerMessageEvent());
+        registerEvent(Incoming.EnterDoorbellMessageEvent, new DoorbellEnterMessageEvent());
+        registerEvent(Incoming.ThumbnailMessageEvent, new ThumbnailMessageEvent());
     }
 
     /**
      * Register room setting packets.
      */
-    private void registerRoomSettingPackets() {
-        this.registerEvent(Incoming.RoomInfoMessageEvent, new RoomInfoMessageEvent());
-        this.registerEvent(Incoming.SaveRoomMessageEvent, new SaveRoomMessageEvent());
-        this.registerEvent(Incoming.RoomEditInfoMessageEvent, new RoomEditMessageEvent());
-        this.registerEvent(Incoming.RoomRightsMessageEvent, new RoomRightsMessageEvent());
-        this.registerEvent(Incoming.RemoveRightsMessageEvent, new RemoveRightsMessageEvent());
-        this.registerEvent(Incoming.GiveRightsMessageEvent, new GiveRightsMessageEvent());
-        this.registerEvent(Incoming.DeleteRoomMessageEvent, new DeleteRoomMessageEvent());
-        this.registerEvent(Incoming.ClearRoomRightsMessageEvent, new ClearRoomRightsMessageEvent());
+    private static void registerRoomSettingPackets() {
+        registerEvent(Incoming.RoomInfoMessageEvent, new RoomInfoMessageEvent());
+        registerEvent(Incoming.SaveRoomMessageEvent, new SaveRoomMessageEvent());
+        registerEvent(Incoming.RoomEditInfoMessageEvent, new RoomEditMessageEvent());
+        registerEvent(Incoming.RoomRightsMessageEvent, new RoomRightsMessageEvent());
+        registerEvent(Incoming.RemoveRightsMessageEvent, new RemoveRightsMessageEvent());
+        registerEvent(Incoming.GiveRightsMessageEvent, new GiveRightsMessageEvent());
+        registerEvent(Incoming.DeleteRoomMessageEvent, new DeleteRoomMessageEvent());
+        registerEvent(Incoming.ClearRoomRightsMessageEvent, new ClearRoomRightsMessageEvent());
     }
 
     /**
      * Register room floorplan packets.
      */
-    private void registerRoomFloorplanPackets() {
-        this.registerEvent(Incoming.FloorPlanPropertiesMessageEvent, new FloorPlanPropertiesMessageEvent());
-        this.registerEvent(Incoming.SaveFloorPlanMessageEvent, new SaveFloorPlanMessageEvent());
+    private static void registerRoomFloorplanPackets() {
+        registerEvent(Incoming.FloorPlanPropertiesMessageEvent, new FloorPlanPropertiesMessageEvent());
+        registerEvent(Incoming.SaveFloorPlanMessageEvent, new SaveFloorPlanMessageEvent());
     }
 
     /**
      * Register catalogue packets.
      */
-    private void registerCataloguePackets() {
-        this.registerEvent(Incoming.CatalogueTabMessageEvent, new CatalogueMessageEvent());
-        this.registerEvent(Incoming.CataloguePageMessageEvent, new CataloguePageMessageEvent());
-        this.registerEvent(Incoming.PurchaseObjectMessageEvent, new PurchaseItemMessageEvent());
-        this.registerEvent(Incoming.PurchasePresentMessageEvent, new PurchasePresentMessageEvent());
-        this.registerEvent(Incoming.GiftingSettingsMessageEvent, new GiftingSettingsMessageEvent());
-        this.registerEvent(Incoming.PromotableRoomsMessageEvent, new PromotableRoomsMessageEvent());
-        this.registerEvent(Incoming.PurchaseRoomPromotionMessageEvent, new PurchaseRoomPromotionMessageEvent());
+    private static void registerCataloguePackets() {
+        registerEvent(Incoming.CatalogueTabMessageEvent, new CatalogueMessageEvent());
+        registerEvent(Incoming.CataloguePageMessageEvent, new CataloguePageMessageEvent());
+        registerEvent(Incoming.PurchaseObjectMessageEvent, new PurchaseItemMessageEvent());
+        registerEvent(Incoming.PurchasePresentMessageEvent, new PurchasePresentMessageEvent());
+        registerEvent(Incoming.GiftingSettingsMessageEvent, new GiftingSettingsMessageEvent());
+        registerEvent(Incoming.PromotableRoomsMessageEvent, new PromotableRoomsMessageEvent());
+        registerEvent(Incoming.PurchaseRoomPromotionMessageEvent, new PurchaseRoomPromotionMessageEvent());
     }
 
     /**
      * Register pet packets.
      */
-    private void registerPetPackets() {
-        this.registerEvent(Incoming.PlacePetMessageEvent, new PlacePetMessageEvent());
-        this.registerEvent(Incoming.PetRacesMessageEvent, new PetRacesMessageEvent());
-        this.registerEvent(Incoming.VerifyPetNameMessageEvent, new VerifyPetNameMessageEvent());
-        this.registerEvent(Incoming.PetInfoMessageEvent, new PetInformationMessageEvent());
-        this.registerEvent(Incoming.RemovePetMessageEvent, new RemovePetMessageEvent());
+    private static void registerPetPackets() {
+        registerEvent(Incoming.PlacePetMessageEvent, new PlacePetMessageEvent());
+        registerEvent(Incoming.PetRacesMessageEvent, new PetRacesMessageEvent());
+        registerEvent(Incoming.VerifyPetNameMessageEvent, new VerifyPetNameMessageEvent());
+        registerEvent(Incoming.PetInfoMessageEvent, new PetInformationMessageEvent());
+        registerEvent(Incoming.RemovePetMessageEvent, new RemovePetMessageEvent());
     }
 
     /**
      * Register item packets.
      */
-    private void registerItemPackets() {
-        this.registerEvent(Incoming.InventoryMessageEvent, new InventoryMessageEvent());
-        this.registerEvent(Incoming.PlaceItemMessageEvent, new PlaceItemMessageEvent());
-        this.registerEvent(Incoming.MoveItemMessageEvent, new MoveItemMessageEvent());
-        this.registerEvent(Incoming.PickupItemMessageEvent, new PickupItemMessageEvent());
-        this.registerEvent(Incoming.ApplyDecorationMessageEvent, new ApplyDecorationMessageEvent());
-        this.registerEvent(Incoming.MoveWallItemMessageEvent, new MoveItemMessageEvent());
-        this.registerEvent(Incoming.InteractFloorItemMessageEvent, new InteractItemMessageEvent());
-        this.registerEvent(Incoming.InteractWallItemMessageEvent, new InteractItemMessageEvent());
-        this.registerEvent(Incoming.DropItemMessageEvent, new DropItemMessageEvent());
-        this.registerEvent(Incoming.PurchaseOfferMessageEvent, new PurchaseOfferMessageEvent());
+    private static void registerItemPackets() {
+        registerEvent(Incoming.InventoryMessageEvent, new InventoryMessageEvent());
+        registerEvent(Incoming.PlaceItemMessageEvent, new PlaceItemMessageEvent());
+        registerEvent(Incoming.MoveItemMessageEvent, new MoveItemMessageEvent());
+        registerEvent(Incoming.PickupItemMessageEvent, new PickupItemMessageEvent());
+        registerEvent(Incoming.ApplyDecorationMessageEvent, new ApplyDecorationMessageEvent());
+        registerEvent(Incoming.MoveWallItemMessageEvent, new MoveItemMessageEvent());
+        registerEvent(Incoming.InteractFloorItemMessageEvent, new InteractItemMessageEvent());
+        registerEvent(Incoming.InteractWallItemMessageEvent, new InteractItemMessageEvent());
+        registerEvent(Incoming.DropItemMessageEvent, new DropItemMessageEvent());
+        registerEvent(Incoming.PurchaseOfferMessageEvent, new PurchaseOfferMessageEvent());
     }
     
-    private void registerItemInteractionPackets() {
-        this.registerEvent(Incoming.SaveBrandingMessageEvent, new SaveBrandingMessageEvent());
-        this.registerEvent(Incoming.SaveMannequinMessageEvent, new SaveMannequinMessageEvent());
-        this.registerEvent(Incoming.UseOneWayGateMessageEvent, new InteractItemMessageEvent());
-        this.registerEvent(Incoming.MoodlightInteractMessageEvent, new MoodlightInteractMessageEvent());
-        this.registerEvent(Incoming.ToggleMoodlightMessageEvent, new ToggleMoodlightMessageEvent());
-        this.registerEvent(Incoming.SaveMoodlightPresetMessageEvent, new SaveMoodlightPresetMessageEvent());
+    private static void registerItemInteractionPackets() {
+        registerEvent(Incoming.SaveBrandingMessageEvent, new SaveBrandingMessageEvent());
+        registerEvent(Incoming.SaveMannequinMessageEvent, new SaveMannequinMessageEvent());
+        registerEvent(Incoming.UseOneWayGateMessageEvent, new InteractItemMessageEvent());
+        registerEvent(Incoming.MoodlightInteractMessageEvent, new MoodlightInteractMessageEvent());
+        registerEvent(Incoming.ToggleMoodlightMessageEvent, new ToggleMoodlightMessageEvent());
+        registerEvent(Incoming.SaveMoodlightPresetMessageEvent, new SaveMoodlightPresetMessageEvent());
     }
 
     /**
      * Register group packets.
      */
-    private void registerGroupPackets() {
-        this.registerEvent(Incoming.GroupCatalogueMessageEvent, new GroupCatalogueMessageEvent());
-        this.registerEvent(Incoming.GroupBadgeDialogMessageEvent, new GroupBadgeDialogMessageEvent());
-        this.registerEvent(Incoming.GroupPurchaseMessageEvent, new GroupPurchaseMessageEvent());
-        this.registerEvent(Incoming.GroupInfoMessageEvent, new GroupInfoMessageEvent());
-        this.registerEvent(Incoming.DeleteGroupMessageEvent, new DeleteGroupMessageEvent());
-        this.registerEvent(Incoming.GroupManageDetailsMessageEvent, new GroupManageDetailsMessageEvent());
-        this.registerEvent(Incoming.GroupManageMembersMessageEvent, new GroupManageMembersMessageEvent());
-        this.registerEvent(Incoming.GroupMembershipRequestMessageEvent, new GroupMembershipRequestMessageEvent());
-        this.registerEvent(Incoming.GroupMembershipAcceptMessageEvent, new GroupMembershipAcceptMessageEvent());
-        this.registerEvent(Incoming.GroupMembershipRejectMessageEvent, new GroupMembershipRejectMessageEvent());
-        this.registerEvent(Incoming.GroupRemoveMemberMessageEvent, new GroupRemoveMemberMessageEvent());
-        this.registerEvent(Incoming.GroupGiveAdminMessageEvent, new GroupGiveAdminMessageEvent());
-        this.registerEvent(Incoming.GroupRemoveAdminMessageEvent, new GroupRemoveAdminMessageEvent());
-        this.registerEvent(Incoming.EditGroupTextMessageEvent, new EditGroupTextMessageEvent());
-        this.registerEvent(Incoming.EditGroupColoursMessageEvent, new EditGroupColoursMessageEvent());
-        this.registerEvent(Incoming.EditGroupAccessMessageEvent, new EditGroupAccessMessageEvent());
-        this.registerEvent(Incoming.EditGroupBadgeMessageEvent, new EditGroupBadgeMessageEvent());
+    private static void registerGroupPackets() {
+        registerEvent(Incoming.GroupCatalogueMessageEvent, new GroupCatalogueMessageEvent());
+        registerEvent(Incoming.GroupBadgeDialogMessageEvent, new GroupBadgeDialogMessageEvent());
+        registerEvent(Incoming.GroupPurchaseMessageEvent, new GroupPurchaseMessageEvent());
+        registerEvent(Incoming.GroupInfoMessageEvent, new GroupInfoMessageEvent());
+        registerEvent(Incoming.DeleteGroupMessageEvent, new DeleteGroupMessageEvent());
+        registerEvent(Incoming.GroupManageDetailsMessageEvent, new GroupManageDetailsMessageEvent());
+        registerEvent(Incoming.GroupManageMembersMessageEvent, new GroupManageMembersMessageEvent());
+        registerEvent(Incoming.GroupMembershipRequestMessageEvent, new GroupMembershipRequestMessageEvent());
+        registerEvent(Incoming.GroupMembershipAcceptMessageEvent, new GroupMembershipAcceptMessageEvent());
+        registerEvent(Incoming.GroupMembershipRejectMessageEvent, new GroupMembershipRejectMessageEvent());
+        registerEvent(Incoming.GroupRemoveMemberMessageEvent, new GroupRemoveMemberMessageEvent());
+        registerEvent(Incoming.GroupGiveAdminMessageEvent, new GroupGiveAdminMessageEvent());
+        registerEvent(Incoming.GroupRemoveAdminMessageEvent, new GroupRemoveAdminMessageEvent());
+        registerEvent(Incoming.EditGroupTextMessageEvent, new EditGroupTextMessageEvent());
+        registerEvent(Incoming.EditGroupColoursMessageEvent, new EditGroupColoursMessageEvent());
+        registerEvent(Incoming.EditGroupAccessMessageEvent, new EditGroupAccessMessageEvent());
+        registerEvent(Incoming.EditGroupBadgeMessageEvent, new EditGroupBadgeMessageEvent());
     }
     
     /**
      * Register camera packets.
      */
-    private void registerCameraPackets() {
-        this.registerEvent(Incoming.PhotoPricingMessageEvent, new PhotoPricingMessageEvent());
-        this.registerEvent(Incoming.PreviewPhotoMessageEvent, new PreviewPhotoMessageEvent());
-        this.registerEvent(Incoming.PurchasePhotoMessageEvent, new PurchasePhotoMessageEvent());
-        this.registerEvent(Incoming.DeletePhotoMessageEvent, new DeletePhotoMessageEvent());
+    private static void registerCameraPackets() {
+        registerEvent(Incoming.PhotoPricingMessageEvent, new PhotoPricingMessageEvent());
+        registerEvent(Incoming.PreviewPhotoMessageEvent, new PreviewPhotoMessageEvent());
+        registerEvent(Incoming.PurchasePhotoMessageEvent, new PurchasePhotoMessageEvent());
+        registerEvent(Incoming.DeletePhotoMessageEvent, new DeletePhotoMessageEvent());
     }
 
     /**
      * Register trade packets.
      */
-    private void registerTradePackets() {
-        this.registerEvent(Incoming.StartTradingMessageEvent, new StartTradingMessageEvent());
+    private static void registerTradePackets() {
+        registerEvent(Incoming.StartTradingMessageEvent, new StartTradingMessageEvent());
     }
 
     /**
      * Register composer packages.
      */
-    private void registerComposerPackages() {
-        this.composerPackages.clear();
-        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.catalogue");
-        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.handshake");
-        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.item");
-        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.messenger");
-        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.navigator");
-        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.groups");
-        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.groups.members");
-        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room");
-        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.items");
-        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.notify");
-        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.floorplan");
-        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.room.settings");
-        this.composerPackages.add("org.alexdev.icarus.messages.outgoing.user");
+    private static void registerComposerPackages() {
+        composerPackages.clear();
+        composerPackages.add("org.alexdev.icarus.messages.outgoing.catalogue");
+        composerPackages.add("org.alexdev.icarus.messages.outgoing.handshake");
+        composerPackages.add("org.alexdev.icarus.messages.outgoing.item");
+        composerPackages.add("org.alexdev.icarus.messages.outgoing.messenger");
+        composerPackages.add("org.alexdev.icarus.messages.outgoing.navigator");
+        composerPackages.add("org.alexdev.icarus.messages.outgoing.groups");
+        composerPackages.add("org.alexdev.icarus.messages.outgoing.groups.members");
+        composerPackages.add("org.alexdev.icarus.messages.outgoing.room");
+        composerPackages.add("org.alexdev.icarus.messages.outgoing.room.items");
+        composerPackages.add("org.alexdev.icarus.messages.outgoing.room.notify");
+        composerPackages.add("org.alexdev.icarus.messages.outgoing.room.floorplan");
+        composerPackages.add("org.alexdev.icarus.messages.outgoing.room.settings");
+        composerPackages.add("org.alexdev.icarus.messages.outgoing.user");
+    }
+    
+    /**
+     * Gets the composer.
+     *
+     * @param className the class name
+     * @return the composer
+     */
+    public static String getComposer(String className) {
+
+        if (composerPaths.containsKey(className)) {
+            return composerPaths.get(className);
+        }
+
+        return null;
+    }
+
+    /**
+     * Creates the composer lookup.
+     *
+     * @throws Exception the exception
+     */
+    public static void createComposerLookup() throws Exception {
+
+        for (String packages : composerPackages) {
+            for (Class<?> clazz : ClassFinder.getClasses(packages)) {
+                composerPaths.put(clazz.getSimpleName(), clazz.getName());
+            }
+        }
     }
 
     /**
@@ -270,13 +305,13 @@ public class MessageHandler {
      * @param header the header
      * @param messageEvent the message event
      */
-    private void registerEvent(Short header, MessageEvent messageEvent) {
+    private static void registerEvent(Short header, MessageEvent messageEvent) {
 
-        if (!this.messages.containsKey(header)) {
-            this.messages.put(header, new ArrayList<>());
+        if (!messages.containsKey(header)) {
+            messages.put(header, new ArrayList<>());
         }
 
-        this.messages.get(header).add(messageEvent);
+        messages.get(header).add(messageEvent);
     }
 
     /**
@@ -285,11 +320,11 @@ public class MessageHandler {
      * @param player the player
      * @param message the message
      */
-    public void handleRequest(Player player, ClientMessage message) {
+    public static void handleRequest(Player player, ClientMessage message) {
 
-        if (this.messages.containsKey(message.getMessageId())) {
+        if (messages.containsKey(message.getMessageId())) {
 
-            for (MessageEvent event : this.messages.get(message.getMessageId())) {
+            for (MessageEvent event : messages.get(message.getMessageId())) {
                 event.handle(player, message);
             }
         }
@@ -300,7 +335,7 @@ public class MessageHandler {
      *
      * @return the messages
      */
-    public HashMap<Short, List<MessageEvent>> getMessages() {
+    public static HashMap<Short, List<MessageEvent>> getMessages() {
         return messages;
     }
 
@@ -309,7 +344,7 @@ public class MessageHandler {
      *
      * @return the composer packages
      */
-    public List<String> getComposerPackages() {
+    public static List<String> getComposerPackages() {
         return composerPackages;
     }
 }

@@ -53,7 +53,13 @@ public class RoomEntityManager {
      * @param rotation - {@link int} the rotation of the entity
      */
     public void addEntity(Entity entity, int x, int y, int rotation) {
-
+    
+        if (entity.getType() == EntityType.PLAYER) {
+            if (this.room.getEntityManager().getPlayers().size() == 0) {
+                this.beginRoomEntry(entity);
+            }
+        }
+        
         RoomUser roomUser = entity.getRoomUser();
 
         roomUser.setRoom(this.room);
@@ -72,12 +78,6 @@ public class RoomEntityManager {
         }
 
         this.room.getMapping().getTile(x, y).addEntity(entity);
-        
-        if (entity.getType() == EntityType.PLAYER) {
-            if (this.room.getEntityManager().getPlayers().size() == 0) {
-                this.beginRoomEntry(entity);
-            }
-        }
     }
 
     /**

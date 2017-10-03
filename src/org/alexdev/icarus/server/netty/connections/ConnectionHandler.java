@@ -1,8 +1,8 @@
 package org.alexdev.icarus.server.netty.connections;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.log.Log;
+import org.alexdev.icarus.messages.MessageHandler;
 import org.alexdev.icarus.server.netty.NettyPlayerNetwork;
 import org.alexdev.icarus.server.netty.streams.NettyRequest;
 import org.alexdev.icarus.util.Util;
@@ -68,7 +68,7 @@ public class ConnectionHandler extends SimpleChannelHandler {
             }
 
             if (player != null){
-                Icarus.getServer().getMessageHandler().handleRequest(player, request);
+                MessageHandler.handleRequest(player, request);
             }
 
         } catch (Exception ex) {

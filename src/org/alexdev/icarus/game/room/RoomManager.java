@@ -10,7 +10,6 @@ import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
 import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.room.enums.RoomType;
-import org.alexdev.icarus.log.Log;
 
 public class RoomManager {
 
@@ -23,8 +22,8 @@ public class RoomManager {
      */
     public static void load() {
         
-        rooms = new ConcurrentHashMap<Integer, Room>();
-        promotedRooms = new ConcurrentHashMap<Integer, Room>();
+        rooms = new ConcurrentHashMap<>();
+        promotedRooms = new ConcurrentHashMap<>();
         scheduler = GameScheduler.createNewScheduler();
         
         RoomModelDao.getModels();
@@ -80,7 +79,7 @@ public class RoomManager {
      * @param id the id
      */
     public static void removePromotedRoom(int id) {
-        promotedRooms.remove(id);
+        promotedRooms.remove(Integer.valueOf(id));
     }
         
     /**

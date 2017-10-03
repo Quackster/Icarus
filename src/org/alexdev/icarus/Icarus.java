@@ -16,6 +16,7 @@ import org.alexdev.icarus.game.pets.PetManager;
 import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.log.Log;
+import org.alexdev.icarus.messages.MessageHandler;
 import org.alexdev.icarus.server.api.ServerHandler;
 import org.alexdev.icarus.util.Metadata;
 import org.alexdev.icarus.util.Util;
@@ -26,7 +27,9 @@ public class Icarus extends Metadata {
 
     private static String serverIP;
     private static String rawConfigIP;
+    
     private static int serverPort;
+    private static long startupTime;
 
     /**
      * Main call of Java application
@@ -34,6 +37,8 @@ public class Icarus extends Metadata {
      */
     public static void main(String[] args) {
 
+        startupTime = Util.getCurrentTimeSeconds();
+        
         try {
 
             createConfig();
@@ -67,7 +72,7 @@ public class Icarus extends Metadata {
             GroupManager.load();
             CommandManager.load();
             PluginManager.load();
-            Util.createComposerLookup();
+            MessageHandler.load();
  
             Log.info();
             Log.info("Settting up server");
@@ -289,6 +294,15 @@ public class Icarus extends Metadata {
      */
     public static int getServerPort() {
         return serverPort;
+    }
+
+    /**
+     * Gets the startup time.
+     *
+     * @return the startup time
+     */
+    public static long getStartupTime() {
+        return startupTime;
     }
    
 }

@@ -5,14 +5,15 @@ import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
-import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.encryption.RSA;
+import org.alexdev.icarus.log.Log;
 import org.ini4j.InvalidFileFormatException;
 import org.ini4j.Wini;
 
@@ -23,8 +24,6 @@ public class Util {
     private static Wini habboConfig;
     private static String language;
     private static Wini locale;
-    private static Map<String, String> composerPaths;
-    
     private static RSA rsa;
 
     /**
@@ -39,39 +38,9 @@ public class Util {
         locale =  new Wini(new File("locale.ini"));
         secureRandom = new SecureRandom();
         language = locale.get("Locale", "language", String.class);
-        composerPaths = new HashMap<>();
         rsa = new RSA();
     }
-
-    /**
-     * Creates the composer lookup.
-     *
-     * @throws Exception the exception
-     */
-    public static void createComposerLookup() throws Exception {
-
-        for (String packages : Icarus.getServer().getMessageHandler().getComposerPackages()) {
-            for (Class<?> clazz : ClassFinder.getClasses(packages)) {
-                composerPaths.put(clazz.getSimpleName(), clazz.getName());
-            }
-        }
-    }
-
-    /**
-     * Gets the composer.
-     *
-     * @param className the class name
-     * @return the composer
-     */
-    public static String getComposer(String className) {
-
-        if (composerPaths.containsKey(className)) {
-            return composerPaths.get(className);
-        }
-
-        return null;
-    }
-
+    
     /**
      * Gets the current time in seconds.
      *
@@ -81,6 +50,48 @@ public class Util {
         return (int) (System.currentTimeMillis() / 1000);
     }
 
+    /**
+     * Gets the readable timestamp.
+     *
+     * @param timestamp the timestamp
+     * @return the readable timestamp
+     */
+    public static String getReadableTimestamp(long timestamp) {
+        try {
+            
+            Date startDate = new Date();
+            startDate.setTime(timestamp*1000);
+            
+            Date endDate = new Date();
+            
+            //milliseconds
+            long different = endDate.getTime() - startDate.getTime();
+
+            long secondsInMilli = 1000;
+            long minutesInMilli = secondsInMilli * 60;
+            long hoursInMilli = minutesInMilli * 60;
+            long daysInMilli = hoursInMilli * 24;
+
+            long elapsedDays = different / daysInMilli;
+            different = different % daysInMilli;
+
+            long elapsedHours = different / hoursInMilli;
+            different = different % hoursInMilli;
+
+            long elapsedMinutes = different / minutesInMilli;
+            different = different % minutesInMilli;
+
+            long elapsedSeconds = different / secondsInMilli;
+
+            return elapsedDays + " days, " + elapsedHours + " hours, " + elapsedMinutes + " minutes, " + elapsedSeconds + " seconds";
+        }
+        catch (Exception e){
+            Log.exception(e);
+        }
+        
+        return null;
+    }
+    
     /**
      * Gets the locale.
      *
@@ -251,6 +262,16 @@ public class Util {
     }
     
     /**
+     * Round to two decimal places.
+     *
+     * @param decimal the decimal
+     * @return the double
+     */
+    public static double format(double decimal) {
+        return Math.round(decimal * 100.0) / 100.0;
+    }
+    
+    /**
      * Split.
      *
      * @param str the string
@@ -287,17 +308,12 @@ public class Util {
     public static Wini getGameConfig() {
         return habboConfig;
     }
-
+    
     /**
-     * Round to two decimal places.
+     * Gets the rsa.
      *
-     * @param decimal the decimal
-     * @return the double
+     * @return the rsa
      */
-    public static double format(double decimal) {
-        return Math.round(decimal * 100.0) / 100.0;
-    }
-
     public static RSA getRSA() {
         return rsa;
     }
