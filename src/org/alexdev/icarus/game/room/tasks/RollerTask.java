@@ -9,6 +9,7 @@ import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.scheduler.RoomTask;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.items.SlideObjectMessageComposer;
 
 import com.google.common.collect.Lists;
@@ -26,22 +27,19 @@ public class RollerTask implements RoomTask {
 
         boolean redoMap = false;
 
-        if (room.getEntityManager().getEntities().size() == 0) {
+        Log.info("hello?");
+        
+        if (this.room.getEntityManager().getEntities().size() == 0) {
             return;
         }
 
         List<Item> rollers = room.getItemManager().getItems(InteractionType.ROLLER);
-        List<Entity> entities = this.room.getEntityManager().getEntities();
-
-        for (int i = 0; i < entities.size(); i++) {
-
-            Entity entity = entities.get(i);
-
-            if (entity.getRoomUser().isRolling()) {
-                entity.getRoomUser().setRolling(false);
-            }
+        
+        if (!(rollers.size() > 0)) {
+            return;
         }
-
+        
+        List<Entity> entities = this.room.getEntityManager().getEntities();
         List<Item> rollingItems = Lists.newArrayList();
 
         for (Item roller : rollers) {
@@ -108,6 +106,7 @@ public class RollerTask implements RoomTask {
                 Entity entity = entities.get(i);
 
                 if (entity.getRoomUser().isRolling()) {
+                    entity.getRoomUser().setRolling(false);
                     continue;
                 }
 
