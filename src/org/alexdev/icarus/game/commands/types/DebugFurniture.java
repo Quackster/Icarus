@@ -5,7 +5,12 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.user.ChatType;
 
 public class DebugFurniture extends Command {
-
+    
+    @Override
+    public void addPermissions() {
+        this.permissions.add("administrator");
+    }
+        
     @Override
     public void handleCommand(Player player, String message, String[] args) {
         
@@ -17,8 +22,9 @@ public class DebugFurniture extends Command {
         player.getRoomUser().chatSelf(ChatType.WHISPER, "I have turned " + (player.getMetadata().getBoolean("debugfurniture") ? "on" : "off") + " the debug furniture command.");
     }
 
+
     @Override
-    public void addPermissions() {
-        this.permissions.add("administrator");
+    public String getDescription() {
+        return "Allow finding the ID's of items easier.";
     }
 }

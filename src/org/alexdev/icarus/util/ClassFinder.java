@@ -36,7 +36,7 @@ public class ClassFinder {
             classes.addAll(findClasses(directory, packageName));
         }
 
-        return classes.toArray(new Class[classes.size()]);
+        return classes.parallelStream().toArray(Class[]::new);
     }
 
     /**

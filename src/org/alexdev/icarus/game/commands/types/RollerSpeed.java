@@ -16,6 +16,11 @@ public class RollerSpeed extends Command {
     }
 
     @Override
+    public void addArguments() {
+        this.arguments.add("seconds");
+    }
+
+    @Override
     public void handleCommand(Player player, String message, String[] args) {
 
         if (player.getRoom() == null) {
@@ -40,5 +45,11 @@ public class RollerSpeed extends Command {
         
         room.getScheduler().removeTask(RollerTask.class);
         room.getScheduler().scheduleEvent(speed, TimeUnit.SECONDS, TaskType.REPEAT, new RollerTask(room));
+    }
+    
+
+    @Override
+    public String getDescription() {
+        return "Sets the speed of errors by given seconds.";
     }
 }

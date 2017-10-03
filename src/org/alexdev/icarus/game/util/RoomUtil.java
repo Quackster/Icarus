@@ -103,26 +103,6 @@ public class RoomUtil {
             player.send(new RightsLevelMessageComposer(0));
         }
         
-        boolean firstUserEntry = !(room.getEntityManager().getPlayers().size() > 0);
-        
-        if (firstUserEntry) {
-
-            room.getItemManager().refreshRoomFurniture();
-            room.getMapping().regenerateCollisionMaps();
-            room.scheduleEvents();
-            room.getEntityManager().addPets();
-            room.loadGroup();
-
-            boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_FIRST_ENTRY_EVENT, new LuaValue[] { 
-                    CoerceJavaToLua.coerce(player), 
-                    CoerceJavaToLua.coerce(room) 
-            });
-
-            if (isCancelled) {
-                player.performRoomAction(RoomAction.LEAVE_ROOM, true);
-            }
-        }
-        
         room.getEntityManager().addEntity(player, x, y, rotation);
     }
 

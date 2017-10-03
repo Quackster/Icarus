@@ -8,11 +8,16 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.game.plugins.PluginEvent;
+import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.game.room.enums.RoomAction;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.messages.outgoing.room.user.RemoveUserMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserDisplayMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
+import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
 public class RoomEntityManager {
 
@@ -67,6 +72,37 @@ public class RoomEntityManager {
         }
 
         this.room.getMapping().getTile(x, y).addEntity(entity);
+        
+        if (entity.getType() == EntityType.PLAYER) {
+            if (this.room.getEntityManager().getPlayers().size() == 0) {
+                this.beginRoomEntry(entity);
+            }
+        }
+    }
+
+    /**
+     * Begin room entry.
+     *
+     * @param entity the entity
+     */
+    private void beginRoomEntry(Entity entity) {
+
+        Player player = (Player) entity;;
+        
+        this.room.getItemManager().refreshRoomFurniture();
+        this.room.getMapping().regenerateCollisionMaps();
+        this.room.scheduleEvents();
+        this.room.getEntityManager().addPets();
+        this.room.loadGroup();
+
+        boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_FIRST_ENTRY_EVENT, new LuaValue[] { 
+            CoerceJavaToLua.coerce(player), 
+            CoerceJavaToLua.coerce(this.room) 
+        });
+
+        if (isCancelled) {
+            player.performRoomAction(RoomAction.LEAVE_ROOM, true);
+        }
     }
 
     /**

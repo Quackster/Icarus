@@ -8,6 +8,11 @@ import org.alexdev.icarus.game.room.user.RoomUser;
 public class SitCommand extends Command {
 
     @Override
+    public void addPermissions() {
+        this.permissions.add("user");
+    }
+    
+    @Override
     public void handleCommand(Player player, String message, String[] args) {
         
         RoomUser roomUser = player.getRoomUser();
@@ -34,9 +39,10 @@ public class SitCommand extends Command {
             roomUser.setNeedUpdate(true);
         }  
     }
+    
 
     @Override
-    public void addPermissions() {
-        this.permissions.add("user");
+    public String getDescription() {
+        return "Sit anywhere.";
     }
 }

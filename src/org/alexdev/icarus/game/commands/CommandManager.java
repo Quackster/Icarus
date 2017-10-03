@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import org.alexdev.icarus.game.commands.types.*;
 import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.util.Util;
 
 public class CommandManager {
 
@@ -31,19 +32,19 @@ public class CommandManager {
      * @return the command
      */
     private static Command getCommand(String commandName) {
-        
+
         for (Entry<String[], Command> entrySet : commands.entrySet()) {
             for (String name : entrySet.getKey()) {
-                
+
                 if (commandName.equalsIgnoreCase(name)) {
                     return entrySet.getValue();
                 }
             }
         }
-        
+
         return null;
     }
-    
+
     /**
      * Checks for command.
      *
@@ -57,7 +58,7 @@ public class CommandManager {
 
             String commandName = message.split(":")[1].split(" ")[0];
             Command cmd = getCommand(commandName);
-            
+
             if (cmd != null) {
                 return CommandManager.hasCommandPermission(player, cmd);
             }
@@ -65,7 +66,7 @@ public class CommandManager {
 
         return false;
     }
-    
+
     /**
      * Checks for command permission.
      *
@@ -74,12 +75,17 @@ public class CommandManager {
      * @return true, if successful
      */
     public static boolean hasCommandPermission(Player player, Command cmd) {
-        for (String permission : cmd.getPermissions()) {                   
-            if (player.getDetails().hasPermission(permission)) {    
-                return true;
+
+        if (cmd.getPermissions().length > 0) {
+            for (String permission : cmd.getPermissions()) {                   
+                if (player.getDetails().hasPermission(permission)) {    
+                    return true;
+                }
             }
+        } else {
+            return true;
         }
-        
+
         return false;
     }
 
@@ -93,14 +99,20 @@ public class CommandManager {
 
         String commandName = message.split(":")[1].split(" ")[0];
         Command cmd = getCommand(commandName);
-        
+
         String[] args = new String[0];
-        
+
         if (message.length() > (commandName.length() + 2)) {
             args = message.replace(":" + commandName + " ", "").split(" ");
         }
-        
+
         if (cmd != null) {
+            
+            if (args.length < cmd.getArguments().length) {
+                player.sendMessage(Util.getLocale("player.commands.no.args"));
+                return;
+            }
+            
             cmd.handleCommand(player, message, args);
         }
     }

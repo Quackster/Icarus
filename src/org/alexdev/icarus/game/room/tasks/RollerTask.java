@@ -71,7 +71,6 @@ public class RollerTask extends RoomTask {
 
                             // If the next tile/front tile is not a roller, we need to adjust the sliding so the stacked items
                             // don't float, so we subtract the stack height of the roller
-
                             boolean subtractRollerHeight = false;
 
                             if (frontTile.getHighestItem() != null) {
@@ -95,6 +94,7 @@ public class RollerTask extends RoomTask {
                     item.getPosition().setY(front.getY());
                     item.getPosition().setZ(nextHeight);
                     item.save();
+                    
                     redoMap = true;
                 }
             }
