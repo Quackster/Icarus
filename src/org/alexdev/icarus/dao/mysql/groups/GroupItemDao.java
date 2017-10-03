@@ -1,6 +1,5 @@
 package org.alexdev.icarus.dao.mysql.groups;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +17,16 @@ import org.alexdev.icarus.log.Log;
 
 public class GroupItemDao {
     
+    /**
+     * Gets the group items.
+     *
+     * @param bases the bases
+     * @param symbols the symbols
+     * @param baseColours the base colours
+     * @param symbolColours the symbol colours
+     * @param backgroundColours the background colours
+     * @return the group items
+     */
     public static void getGroupItems(List<GroupBase> bases, List<GroupSymbol> symbols, List<GroupBaseColour> baseColours, Map<Integer, GroupSymbolColour> symbolColours, Map<Integer, GroupBackgroundColour> backgroundColours) {
         
         Connection sqlConnection = null;

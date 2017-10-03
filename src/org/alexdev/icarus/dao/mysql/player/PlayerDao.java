@@ -19,6 +19,12 @@ import com.google.common.collect.Lists;
 
 public class PlayerDao {
     
+    /**
+     * Gets the details.
+     *
+     * @param userId the user id
+     * @return the details
+     */
     public static PlayerDetails getDetails(int userId) {
 
         PlayerDetails details = new PlayerDetails(null);
@@ -57,6 +63,13 @@ public class PlayerDao {
         return details;
     }
 
+    /**
+     * Login.
+     *
+     * @param player the player
+     * @param ssoTicket the sso ticket
+     * @return true, if successful
+     */
     public static boolean login(Player player, String ssoTicket) {
         
         boolean success = false;
@@ -89,6 +102,12 @@ public class PlayerDao {
         return success;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @param username the username
+     * @return the id
+     */
     public static int getId(String username) {
 
         int id = -1;
@@ -119,6 +138,12 @@ public class PlayerDao {
         return id;    
     }
     
+    /**
+     * Gets the name.
+     *
+     * @param id the id
+     * @return the name
+     */
     public static String getName(int id) {
 
         String name = null;
@@ -150,6 +175,11 @@ public class PlayerDao {
         return name;    
     }
 
+    /**
+     * Save.
+     *
+     * @param details the details
+     */
     public static void save(PlayerDetails details) {
         
         Connection sqlConnection = null;
@@ -178,6 +208,11 @@ public class PlayerDao {
         }
     }
     
+    /**
+     * Clear ticket.
+     *
+     * @param userId the user id
+     */
     public static void clearTicket(int userId) {
         
         Connection sqlConnection = null;
@@ -201,6 +236,11 @@ public class PlayerDao {
         }
     }
     
+    /**
+     * Gets the permissions.
+     *
+     * @return the permissions
+     */
     public static List<Permission> getPermissions() {
         List<Permission> permissions = Lists.newArrayList();
 
@@ -234,6 +274,14 @@ public class PlayerDao {
         return permissions;
     }
         
+    /**
+     * Fill.
+     *
+     * @param details the details
+     * @param row the row
+     * @return the player details
+     * @throws SQLException the SQL exception
+     */
     public static PlayerDetails fill(PlayerDetails details, ResultSet row) throws SQLException {
         details.fill(row.getInt("id"), row.getString("username"), row.getString("mission"),  row.getString("figure"), row.getString("gender"), row.getInt("rank"), row.getInt("credits"), row.getInt("home_room"));
         return details;

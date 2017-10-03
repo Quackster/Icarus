@@ -10,6 +10,12 @@ import org.alexdev.icarus.log.Log;
 
 public class TeleporterDao {
 
+    /**
+     * Gets the pair id.
+     *
+     * @param id the id
+     * @return the pair id
+     */
     public static int getPairId(int id) {
         
         Connection sqlConnection = null;
@@ -45,6 +51,12 @@ public class TeleporterDao {
         return 0;
     }
 
+    /**
+     * Save pair.
+     *
+     * @param item1 the item 1
+     * @param item2 the item 2
+     */
     public static void savePair(int item1, int item2) {
         
         Connection sqlConnection = null;

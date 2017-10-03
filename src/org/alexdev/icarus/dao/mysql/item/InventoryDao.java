@@ -18,6 +18,12 @@ import com.google.common.collect.Maps;
 
 public class InventoryDao {
     
+    /**
+     * Gets the inventory items.
+     *
+     * @param userId the user id
+     * @return the inventory items
+     */
     public static Map<Integer, Item> getInventoryItems(int userId) {
 
         Map<Integer, Item> items = Maps.newHashMap();
@@ -50,6 +56,12 @@ public class InventoryDao {
         return items;
     }
 
+    /**
+     * Gets the item.
+     *
+     * @param id the id
+     * @return the item
+     */
     public static Item getItem(long id) {
 
         Connection sqlConnection = null;
@@ -81,6 +93,14 @@ public class InventoryDao {
         return item;
     }
 
+    /**
+     * New item.
+     *
+     * @param itemId the item id
+     * @param ownerId the owner id
+     * @param extraData the extra data
+     * @return the item
+     */
     public static Item newItem(int itemId, int ownerId, String extraData) {
 
         Connection sqlConnection = null;
@@ -117,6 +137,12 @@ public class InventoryDao {
         return item;
     }
     
+    /**
+     * Gets the inventory pets.
+     *
+     * @param id the id
+     * @return the inventory pets
+     */
     public static Map<Integer, Pet> getInventoryPets(int id) {
 
         Map<Integer, Pet> items = Maps.newHashMap();
@@ -149,6 +175,13 @@ public class InventoryDao {
         return items;
     }
     
+    /**
+     * Fill.
+     *
+     * @param row the row
+     * @return the item
+     * @throws Exception the exception
+     */
     public static Item fill(ResultSet row) throws Exception {
         
         Item item = new Item(row.getInt("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));

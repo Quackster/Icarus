@@ -11,6 +11,12 @@ import org.alexdev.icarus.log.Log;
 
 public class MoodlightDao {
 
+    /**
+     * Checks for moodlight data.
+     *
+     * @param itemId the item id
+     * @return true, if successful
+     */
     public static boolean hasMoodlightData(int itemId) {
 
         boolean exists = false;
@@ -41,6 +47,12 @@ public class MoodlightDao {
         return exists;
     }
     
+    /**
+     * Gets the moodlight data.
+     *
+     * @param itemId the item id
+     * @return the moodlight data
+     */
     public static MoodlightData getMoodlightData(int itemId) {
 
         MoodlightData data = null;
@@ -72,6 +84,11 @@ public class MoodlightDao {
         return data;
     }
 
+    /**
+     * Save moodlight data.
+     *
+     * @param data the data
+     */
     public static void saveMoodlightData(MoodlightData data) {
 
         Connection sqlConnection = null;
@@ -99,6 +116,11 @@ public class MoodlightDao {
     }
 
     
+    /**
+     * New moodlight data.
+     *
+     * @param itemId the item id
+     */
     public static void newMoodlightData(int itemId) {
 
         Connection sqlConnection = null;
@@ -125,6 +147,11 @@ public class MoodlightDao {
         }
     }
     
+    /**
+     * Delete moodlight data.
+     *
+     * @param itemId the item id
+     */
     public static void deleteMoodlightData(int itemId) {
 
         Connection sqlConnection = null;
@@ -146,6 +173,13 @@ public class MoodlightDao {
         }
     }
 
+    /**
+     * Fill.
+     *
+     * @param row the row
+     * @return the moodlight data
+     * @throws Exception the exception
+     */
     public static MoodlightData fill(ResultSet row) throws Exception {
         MoodlightData data = new MoodlightData(row.getInt("item_id"), row.getInt("current_preset"), row.getInt("enabled") == 1, row.getString("preset_one"), row.getString("preset_two"), row.getString("preset_three"));
         return data;

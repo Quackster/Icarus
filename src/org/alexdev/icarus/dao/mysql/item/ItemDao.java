@@ -17,6 +17,11 @@ import com.google.common.collect.Maps;
 
 public class ItemDao {
 
+    /**
+     * Gets the furniture.
+     *
+     * @return the furniture
+     */
     public static Map<Integer, ItemDefinition> getFurniture() {
 
         Map<Integer, ItemDefinition> furni = Maps.newHashMap();
@@ -54,6 +59,12 @@ public class ItemDao {
 
     }
     
+    /**
+     * Gets the item.
+     *
+     * @param itemId the item id
+     * @return the item
+     */
     public static Item getItem(int itemId) {
 
         Item item = null;
@@ -83,6 +94,12 @@ public class ItemDao {
         return item;
     }
 
+    /**
+     * Gets the room items.
+     *
+     * @param roomId the room id
+     * @return the room items
+     */
     public static Map<Integer, Item> getRoomItems(int roomId) {
 
         Map<Integer, Item> items = Maps.newHashMap();
@@ -112,6 +129,11 @@ public class ItemDao {
         return items;
     }
 
+    /**
+     * Save item.
+     *
+     * @param item the item
+     */
     public static void saveItem(Item item) {
 
         String x = item.getPosition().getX() + "";
@@ -153,11 +175,23 @@ public class ItemDao {
         }
     }
 
+    /**
+     * Delete item.
+     *
+     * @param id the id
+     */
     public static void deleteItem(long id) {
         Dao.getStorage().execute("DELETE FROM item_data WHERE id = " + id);
     }
 
 
+    /**
+     * Fill.
+     *
+     * @param row the row
+     * @return the item
+     * @throws Exception the exception
+     */
     public static Item fill(ResultSet row) throws Exception {
         
         Item item = new Item(row.getInt("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));

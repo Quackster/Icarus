@@ -17,6 +17,11 @@ import com.google.common.collect.Maps;
 
 public class TargetedOfferDao {
 
+    /**
+     * Gets the offers.
+     *
+     * @return the offers
+     */
     public static Map<Integer, TargetedOffer> getOffers() {
         
         Map<Integer, TargetedOffer> offers = Maps.newHashMap();
@@ -50,6 +55,12 @@ public class TargetedOfferDao {
         return offers;
     }
     
+    /**
+     * Gets the offer blacklist.
+     *
+     * @param id the id
+     * @return the offer blacklist
+     */
     public static List<Integer> getOfferBlacklist(int id) {
         
         List<Integer> blacklist = Lists.newArrayList();
@@ -82,6 +93,12 @@ public class TargetedOfferDao {
         return blacklist;
     }
     
+    /**
+     * Adds the user to blacklist.
+     *
+     * @param offerId the offer id
+     * @param userId the user id
+     */
     public static void addUserToBlacklist(int offerId, int userId) {
         
         Connection sqlConnection = null;

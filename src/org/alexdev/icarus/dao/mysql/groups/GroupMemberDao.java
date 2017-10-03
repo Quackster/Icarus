@@ -16,6 +16,13 @@ import com.google.common.collect.Maps;
 
 public class GroupMemberDao {
 
+    /**
+     * Creates the group member.
+     *
+     * @param userId the user id
+     * @param groupId the group id
+     * @param memberType the member type
+     */
     public static void createGroupMember(int userId, int groupId, GroupMemberType memberType) {
         
         Connection sqlConnection = null;
@@ -42,6 +49,12 @@ public class GroupMemberDao {
         
     }
 
+    /**
+     * Gets the members.
+     *
+     * @param groupId the group id
+     * @return the members
+     */
     public static Map<GroupMemberType, List<Integer>> getMembers(int groupId) {
         
         Map<GroupMemberType, List<Integer>> groupMembers = Maps.newHashMap();
@@ -77,6 +90,12 @@ public class GroupMemberDao {
         return groupMembers;
     }
     
+    /**
+     * Delete member.
+     *
+     * @param groupId the group id
+     * @param userId the user id
+     */
     public static void deleteMember(int groupId, int userId) {
         
         Connection sqlConnection = null;

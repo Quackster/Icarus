@@ -12,6 +12,19 @@ import org.alexdev.icarus.log.Log;
 
 public class GroupDao {
 
+    /**
+     * Creates the group.
+     *
+     * @param title the title
+     * @param description the description
+     * @param badge the badge
+     * @param ownerId the owner id
+     * @param roomId the room id
+     * @param created the created
+     * @param colourA the colour A
+     * @param colourB the colour B
+     * @return the group
+     */
     public static Group createGroup(String title, String description, String badge, int ownerId, int roomId, long created, int colourA, int colourB) {
         
         Connection sqlConnection = null;
@@ -52,6 +65,12 @@ public class GroupDao {
         return new Group(groupId, title, description, badge, ownerId, roomId, created, colourA, colourB, false, GroupAccessType.OPEN);
     }
 
+    /**
+     * Gets the group.
+     *
+     * @param groupId the group id
+     * @return the group
+     */
     public static Group getGroup(int groupId) {
         
         Connection sqlConnection = null;
@@ -82,6 +101,11 @@ public class GroupDao {
         return group;
     }
     
+    /**
+     * Delete group.
+     *
+     * @param id the id
+     */
     public static void deleteGroup(int id) {
         
         Connection sqlConnection = null;
@@ -106,6 +130,11 @@ public class GroupDao {
         
     }
 
+    /**
+     * Save group.
+     *
+     * @param group the group
+     */
     public static void saveGroup(Group group) {
         
         Connection sqlConnection = null;

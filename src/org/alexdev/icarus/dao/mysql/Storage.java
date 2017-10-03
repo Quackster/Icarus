@@ -41,6 +41,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Prepare.
+     *
+     * @param query the query
+     * @param conn the conn
+     * @return the prepared statement
+     * @throws SQLException the SQL exception
+     */
     public PreparedStatement prepare(String query, Connection conn) throws SQLException {
 
         try {
@@ -56,6 +64,11 @@ public class Storage {
         return null;
     }
     
+    /**
+     * Execute.
+     *
+     * @param query the query
+     */
     public void execute(String query) {
         
         Connection sqlConnection = null;
@@ -77,6 +90,12 @@ public class Storage {
         }
     }
     
+    /**
+     * Gets the string.
+     *
+     * @param query the query
+     * @return the string
+     */
     public String getString(String query) {
         
         String value = null;
@@ -106,6 +125,9 @@ public class Storage {
         return value;
     }
     
+    /**
+     * Check driver.
+     */
     public void checkDriver() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -114,10 +136,20 @@ public class Storage {
         }
     }
 
+    /**
+     * Gets the connection count.
+     *
+     * @return the connection count
+     */
     public int getConnectionCount() {
         return this.connections.getTotalLeased();
     }
 
+    /**
+     * Gets the connection.
+     *
+     * @return the connection
+     */
     public Connection getConnection() {
 
         try {
@@ -129,10 +161,20 @@ public class Storage {
         return null;
     }
 
+    /**
+     * Checks if is connected.
+     *
+     * @return true, if is connected
+     */
     public boolean isConnected() {
         return this.isConnected;
     }
 
+    /**
+     * Close silently.
+     *
+     * @param resultSet the result set
+     */
     public static void closeSilently(ResultSet resultSet) {
         try {
             resultSet.close();
@@ -140,6 +182,11 @@ public class Storage {
         
     }
 
+    /**
+     * Close silently.
+     *
+     * @param preparedStatement the prepared statement
+     */
     public static void closeSilently(PreparedStatement preparedStatement) {
         try {
             preparedStatement.close();
@@ -147,6 +194,11 @@ public class Storage {
         
     }
 
+    /**
+     * Close silently.
+     *
+     * @param sqlConnection the sql connection
+     */
     public static void closeSilently(Connection sqlConnection) {
         try {
             sqlConnection.close();

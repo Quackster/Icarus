@@ -16,6 +16,12 @@ import com.google.common.collect.Lists;
 
 public class CatalogueDao {
 
+    /**
+     * Gets the catalog tabs.
+     *
+     * @param parentId the parent id
+     * @return the catalog tabs
+     */
     public static List<CatalogueTab> getCatalogTabs(int parentId) {
 
         List<CatalogueTab> tabs = Lists.newArrayList();
@@ -49,6 +55,11 @@ public class CatalogueDao {
         return tabs;
     }
 
+    /**
+     * Gets the catalogue pages.
+     *
+     * @return the catalogue pages
+     */
     public static List<CataloguePage> getCataloguePages() {
 
         List<CataloguePage> pages = Lists.newArrayList();
@@ -79,6 +90,11 @@ public class CatalogueDao {
         return pages;
     }
 
+    /**
+     * Gets the catalogue items.
+     *
+     * @return the catalogue items
+     */
     public static List<CatalogueItem> getCatalogueItems() {
 
         List<CatalogueItem> items = Lists.newArrayList();
@@ -113,6 +129,13 @@ public class CatalogueDao {
         return items;
     }
 
+    /**
+     * Fill.
+     *
+     * @param row the row
+     * @return the catalogue page
+     * @throws Exception the exception
+     */
     public static CataloguePage fill(ResultSet row) throws Exception {
         
         List<String> images = Lists.newArrayList();

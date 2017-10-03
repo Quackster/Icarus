@@ -17,10 +17,21 @@ public class RoomModelDao {
 
     private static HashMap<String, RoomModel> roomModels;
     
+    /**
+     * Gets the model.
+     *
+     * @param model the model
+     * @return the model
+     */
     public static RoomModel getModel(String model) {
         return roomModels.get(model);
     }
     
+    /**
+     * Gets the models.
+     *
+     * @return the models
+     */
     public static void getModels() {
 
         roomModels = Maps.newHashMap();
@@ -53,6 +64,12 @@ public class RoomModelDao {
         }
     }
     
+    /**
+     * Gets the custom model.
+     *
+     * @param roomId the room id
+     * @return the custom model
+     */
     public static RoomModel getCustomModel(int roomId) {
 
         RoomModel model = null;
@@ -75,7 +92,6 @@ public class RoomModelDao {
             try {
                 Log.info("Error with model: " + resultSet.getString("id"));
             } catch (SQLException e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
             Log.exception(e);
@@ -88,6 +104,12 @@ public class RoomModelDao {
         return model;
     }
 
+    /**
+     * New custom model.
+     *
+     * @param roomId the room id
+     * @param model the model
+     */
     public static void newCustomModel(int roomId, RoomModel model) {
 
         deleteCustomModel(roomId);
@@ -118,6 +140,11 @@ public class RoomModelDao {
         }
     }
 
+    /**
+     * Delete custom model.
+     *
+     * @param roomId the room id
+     */
     public static void deleteCustomModel(int roomId) {
 
         Connection sqlConnection = null;

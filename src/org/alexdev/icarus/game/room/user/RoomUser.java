@@ -72,9 +72,7 @@ public class RoomUser extends Metadata {
     }
 
     /**
-     * Update current item.
-     *
-     * @return true, if successful
+     * Check nearby item.
      */
     public void checkNearbyItem() {
 

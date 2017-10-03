@@ -21,6 +21,12 @@ import com.google.common.collect.Lists;
 
 public class RoomDao {
     
+    /**
+     * Gets the public rooms.
+     *
+     * @param storeInMemory the store in memory
+     * @return the public rooms
+     */
     public static List<Room> getPublicRooms(boolean storeInMemory) {
 
         List<Room> rooms = Lists.newArrayList();
@@ -64,6 +70,13 @@ public class RoomDao {
         return rooms;
     }
 
+    /**
+     * Gets the player rooms.
+     *
+     * @param userId the user id
+     * @param storeInMemory the store in memory
+     * @return the player rooms
+     */
     public static List<Room> getPlayerRooms(int userId, boolean storeInMemory) {
 
         List<Room> rooms = Lists.newArrayList();
@@ -106,6 +119,13 @@ public class RoomDao {
         return rooms;
     }
 
+    /**
+     * Gets the room.
+     *
+     * @param roomId the room id
+     * @param storeInMemory the store in memory
+     * @return the room
+     */
     public static Room getRoom(int roomId, boolean storeInMemory) {
 
         Room room = null;
@@ -145,6 +165,12 @@ public class RoomDao {
         return room;
     }
 
+    /**
+     * Gets the room rights.
+     *
+     * @param roomId the room id
+     * @return the room rights
+     */
     public static List<Integer> getRoomRights(int roomId) {
 
         List<Integer> rooms = Lists.newArrayList();
@@ -175,14 +201,31 @@ public class RoomDao {
         return rooms;
     }
 
+    /**
+     * Clear room rights.
+     *
+     * @param roomId the room id
+     */
     public static void clearRoomRights(int roomId) {
         Dao.getStorage().execute("DELETE FROM room_rights WHERE room_id = '" + roomId + "'");
     }
 
+    /**
+     * Removes the room rights.
+     *
+     * @param roomId the room id
+     * @param userId the user id
+     */
     public static void removeRoomRights(int roomId, int userId) {
         Dao.getStorage().execute("DELETE FROM room_rights WHERE room_id = '" + roomId + "' AND user_id = '" + userId + "'");
     }
 
+    /**
+     * Adds the room rights.
+     *
+     * @param roomId the room id
+     * @param userId the user id
+     */
     public static void addRoomRights(int roomId, int userId) {
 
         Connection sqlConnection = null;
@@ -205,10 +248,20 @@ public class RoomDao {
         }
     }
 
+    /**
+     * Delete room.
+     *
+     * @param roomId the room id
+     */
     public static void deleteRoom(int roomId) {
         Dao.getStorage().execute("DELETE FROM room_data WHERE id = " + roomId);
     }
 
+    /**
+     * Update room.
+     *
+     * @param room the room
+     */
     public static void updateRoom(Room room) {
 
         RoomData data = room.getData();
@@ -264,6 +317,14 @@ public class RoomDao {
         }
     }
 
+    /**
+     * Save chatlog.
+     *
+     * @param chatter the chatter
+     * @param roomId the room id
+     * @param chatType the chat type
+     * @param message the message
+     */
     public static void saveChatlog(Player chatter, int roomId, String chatType, String message) {
 
         Connection sqlConnection = null;
@@ -299,6 +360,13 @@ public class RoomDao {
         }
     }
 
+    /**
+     * Fill.
+     *
+     * @param row the row
+     * @return the room
+     * @throws SQLException the SQL exception
+     */
     public static Room fill(ResultSet row) throws SQLException {
 
         RoomType type = RoomType.valueOf(row.getString("room_type"));

@@ -15,6 +15,12 @@ import com.google.common.collect.Lists;
 
 public class MessengerDao {
 
+    /**
+     * Gets the friends.
+     *
+     * @param userId the user id
+     * @return the friends
+     */
     public static List<MessengerUser> getFriends(int userId) {
 
         List<MessengerUser> friends = Lists.newArrayList();
@@ -54,6 +60,12 @@ public class MessengerDao {
     }
 
 
+    /**
+     * Gets the requests.
+     *
+     * @param userId the user id
+     * @return the requests
+     */
     public static List<MessengerUser> getRequests(int userId) {
 
         List<MessengerUser> users = Lists.newArrayList();
@@ -83,6 +95,12 @@ public class MessengerDao {
         return users;
     }
 
+    /**
+     * Search.
+     *
+     * @param query the query
+     * @return the list
+     */
     public static List<Integer> search(String query) {
 
         List<Integer> users = Lists.newArrayList();
@@ -115,6 +133,13 @@ public class MessengerDao {
         return users;
     }
 
+    /**
+     * New request.
+     *
+     * @param fromId the from id
+     * @param toId the to id
+     * @return true, if successful
+     */
     public static boolean newRequest(int fromId, int toId) {
 
         Connection sqlConnection = null;
@@ -144,6 +169,13 @@ public class MessengerDao {
         return success;
     }
 
+    /**
+     * Request exists.
+     *
+     * @param fromId the from id
+     * @param toId the to id
+     * @return true, if successful
+     */
     public static boolean requestExists(int fromId, int toId) {
 
         boolean exists = false;
@@ -173,14 +205,33 @@ public class MessengerDao {
         return exists;
     }
 
+    /**
+     * Removes the request.
+     *
+     * @param fromId the from id
+     * @param toId the to id
+     */
     public static void removeRequest(int fromId, int toId) {
         Dao.getStorage().execute("DELETE FROM messenger_requests WHERE from_id = " + fromId + " AND to_id = " + toId);
     }
 
+    /**
+     * Removes the friend.
+     *
+     * @param friendId the friend id
+     * @param userId the user id
+     */
     public static void removeFriend(int friendId, int userId) {
         Dao.getStorage().execute("DELETE FROM messenger_friendships WHERE (sender = " + userId + " AND receiver = " + friendId + ") OR (receiver = " + userId + " AND sender = " + friendId + ")");
     }
 
+    /**
+     * New friend.
+     *
+     * @param sender the sender
+     * @param receiver the receiver
+     * @return true, if successful
+     */
     public static boolean newFriend(int sender, int receiver) {
 
         Connection sqlConnection = null;

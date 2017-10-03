@@ -10,6 +10,12 @@ import org.alexdev.icarus.log.Log;
 
 public class ClubDao {
 
+    /**
+     * Gets the subscription.
+     *
+     * @param userId the user id
+     * @return the subscription
+     */
     public static long[] getSubscription(int userId) {
 
         long[] subscriptionData = null;
@@ -43,6 +49,13 @@ public class ClubDao {
         return subscriptionData;
     }
 
+    /**
+     * Creates the.
+     *
+     * @param userId the user id
+     * @param expireTime the expire time
+     * @param boughtTime the bought time
+     */
     public static void create(int userId, long expireTime, long boughtTime) {
 
         Connection sqlConnection = null;
@@ -67,6 +80,13 @@ public class ClubDao {
         }
     }
 
+    /**
+     * Update.
+     *
+     * @param userId the user id
+     * @param expireTime the expire time
+     * @param boughtTime the bought time
+     */
     public static void update(int userId, long expireTime, long boughtTime) {
 
         Connection sqlConnection = null;
@@ -91,6 +111,11 @@ public class ClubDao {
         }
     }
 
+    /**
+     * Delete.
+     *
+     * @param userId the user id
+     */
     public static void delete(int userId) {
 
         Connection sqlConnection = null;

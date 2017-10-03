@@ -19,6 +19,11 @@ import com.google.common.collect.Maps;
 
 public class PetDao {
 
+    /**
+     * Gets the pet races.
+     *
+     * @return the pet races
+     */
     public static Map<Integer, List<PetRace>> getPetRaces() {
 
         Map<Integer, List<PetRace>> races = Maps.newHashMap();
@@ -55,6 +60,16 @@ public class PetDao {
         return races;
     }
 
+    /**
+     * Creates the pet.
+     *
+     * @param ownerId the owner id
+     * @param petName the pet name
+     * @param type the type
+     * @param race the race
+     * @param colour the colour
+     * @return the int
+     */
     public static int createPet(int ownerId, String petName, int type, int race, String colour) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -95,6 +110,12 @@ public class PetDao {
         return 0;
     }
 
+    /**
+     * Gets the room pets.
+     *
+     * @param roomId the room id
+     * @return the room pets
+     */
     public static List<Pet> getRoomPets(int roomId) {
 
         List<Pet> pets = Lists.newArrayList();
@@ -124,6 +145,11 @@ public class PetDao {
         return pets;
     }
 
+    /**
+     * Save pet.
+     *
+     * @param pet the pet
+     */
     public static void savePet(Pet pet) {
 
         Connection sqlConnection = null;
@@ -150,6 +176,11 @@ public class PetDao {
         }
     }
     
+    /**
+     * Save pet position.
+     *
+     * @param pet the pet
+     */
     public static void savePetPosition(Pet pet) {
 
         Connection sqlConnection = null;
@@ -176,6 +207,13 @@ public class PetDao {
         }
     }
 
+    /**
+     * Fill.
+     *
+     * @param data the data
+     * @return the pet
+     * @throws SQLException the SQL exception
+     */
     public static Pet fill(ResultSet data) throws SQLException {
         Pet pet = new Pet(data.getInt("id"), data.getString("pet_name"), data.getInt("level"), data.getInt("happiness"), data.getInt("experience"), data.getInt("energy"), data.getInt("owner_id"), data.getString("colour"), data.getInt("race_id"), data.getInt("type"), data.getBoolean("saddled"), data.getInt("hair_style"), data.getInt("hair_colour"), data.getBoolean("any_rider"), data.getInt("birthday"), data.getInt("room_id"), data.getInt("x"), data.getInt("y"));
         return pet;

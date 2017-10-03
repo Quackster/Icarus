@@ -215,7 +215,7 @@ public class RoomMapping {
      * @param item the item
      * @param rotation_only the rotation only
      */
-    public void updateItemPosition(Position previous, Item item, boolean rotation_only) {
+    public void updateItemPosition(Item item, boolean rotation_only) {
 
         if (item.getDefinition().getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, rotation_only);

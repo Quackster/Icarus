@@ -19,6 +19,18 @@ import com.google.common.collect.Lists;
 
 public class NavigatorDao {
 
+    /**
+     * Creates the room.
+     *
+     * @param player the player
+     * @param name the name
+     * @param description the description
+     * @param model the model
+     * @param category the category
+     * @param usersMax the users max
+     * @param tradeState the trade state
+     * @return the room
+     */
     public static Room createRoom(Player player, String name, String description, String model, int category, int usersMax, int tradeState) {
 
         Connection sqlConnection = null;
@@ -56,6 +68,12 @@ public class NavigatorDao {
         return null;
     }
     
+    /**
+     * Gets the tabs.
+     *
+     * @param childId the child id
+     * @return the tabs
+     */
     public static List<NavigatorTab> getTabs(int childId) {
 
         List<NavigatorTab> tabs = Lists.newArrayList();
@@ -89,6 +107,11 @@ public class NavigatorDao {
         return tabs;
     }
 
+    /**
+     * Gets the categories.
+     *
+     * @return the categories
+     */
     public static List<NavigatorCategory> getCategories() {
 
         List<NavigatorCategory> categories = Lists.newArrayList();
@@ -118,6 +141,13 @@ public class NavigatorDao {
         return categories;
     }
 
+    /**
+     * Fill.
+     *
+     * @param set the set
+     * @return the navigator tab
+     * @throws SQLException the SQL exception
+     */
     public static NavigatorTab fill(ResultSet set) throws SQLException {
 
         NavigatorTab instance = new NavigatorTab();
