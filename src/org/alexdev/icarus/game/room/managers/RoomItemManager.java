@@ -60,7 +60,9 @@ public class RoomItemManager {
     }
 
     /**
-     * Gets the item.
+     * Gets the item, will try and find from database if the Item is
+     * not loaded, the item loaded from the database may not be from the same room as
+     * the room defined in this instance.
      *
      * @param itemId the item id
      * @return the item
@@ -83,7 +85,7 @@ public class RoomItemManager {
             this.items.clear();
         }
         
-        this.items = ItemDao.getRoomItems(room.getData().getId());
+        this.items = ItemDao.getRoomItems(this.room.getData().getId());
     } 
     
     /**

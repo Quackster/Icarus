@@ -99,7 +99,7 @@ public class Util {
      * @param param the param
      * @return true, if is null or empty
      */
-    public boolean isNullOrEmpty(String param) { 
+    public static boolean isNullOrEmpty(String param) { 
         return param == null || param.trim().length() == 0;
     }
 

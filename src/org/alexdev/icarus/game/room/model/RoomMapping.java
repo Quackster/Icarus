@@ -57,7 +57,7 @@ public class RoomMapping {
 
             item.setItemUnderneath(null);
 
-            RoomTile tile = this.getTile(item.getPosition().getX(), item.getPosition().getY());
+            RoomTile tile = item.getTile();
 
             if (tile == null) {
                 return;

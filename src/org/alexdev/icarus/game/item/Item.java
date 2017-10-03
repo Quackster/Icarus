@@ -11,6 +11,7 @@ import org.alexdev.icarus.game.pathfinder.AffectedTile;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
+import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.items.MoveItemMessageComposer;
 import org.alexdev.icarus.util.Metadata;
@@ -525,6 +526,22 @@ public class Item extends Metadata {
      */
     public Position getPosition() {
         return this.position;
+    }
+    
+    /**
+     * Gets the tile.
+     *
+     * @return the tile
+     */
+    public RoomTile getTile() {
+        
+        Room room = this.getRoom();
+        
+        if (room == null) {
+            return null;
+        }
+        
+        return room.getMapping().getTile(this.position.getX(), this.position.getY());
     }
 
     /**

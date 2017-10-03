@@ -18,6 +18,7 @@ import org.alexdev.icarus.messages.incoming.user.MOTDNotificationMessageComposer
 import org.alexdev.icarus.messages.outgoing.room.user.HotelViewMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RoomForwardComposer;
 import org.alexdev.icarus.messages.outgoing.user.BroadcastMessageAlertComposer;
+import org.alexdev.icarus.messages.outgoing.user.RoomNotificationComposer;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.PlayerNetwork;
 import org.luaj.vm2.LuaValue;
@@ -220,6 +221,19 @@ public class Player extends Entity {
      */
     public void sendMessage(String message) {
         this.send(new BroadcastMessageAlertComposer(message));
+    }
+    
+    /**
+     * Send custom message.
+     *
+     * @param title the title
+     * @param message the message
+     * @param image the image
+     * @param hotelName the hotel name
+     * @param url the url
+     */
+    public void sendCustomMessage(String title, String message, String image, String hotelName, String url) {
+        this.send(new RoomNotificationComposer(title, message, image, hotelName, url));
     }
     
     /**

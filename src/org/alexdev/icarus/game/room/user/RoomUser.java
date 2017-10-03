@@ -461,6 +461,15 @@ public class RoomUser extends Metadata {
     public void setPosition(Position position) {
         this.position = position;
     }
+    
+    /**
+     * Gets the tile.
+     *
+     * @return the tile
+     */
+    public RoomTile getTile() {
+        return this.room.getMapping().getTile(this.position.getX(), this.position.getY());
+    }
 
     /**
      * Gets the walking goal.

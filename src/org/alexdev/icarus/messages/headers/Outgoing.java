@@ -126,4 +126,5 @@ public class Outgoing {
     public static short PhotoPreviewComposer = 3115;
     public static short PhotoPriceComposer = 953;
     public static short PurchasedPhotoComposer = 3859;
+    public static short RoomNotificationComposer = 3531;
 }

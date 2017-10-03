@@ -9,12 +9,15 @@ public class AboutCommand extends Command {
     public void handleCommand(Player player, String message, String[] args) {
         
         StringBuilder about = new StringBuilder();
-        about.append("Icarus server written by Quackster, powered by Java among other things!\n\n");
-        about.append("With the help of:\n\n");
+        about.append("Icarus server written by Quackster, powered by Java!\n\n");
+        about.append("<b>With the help of:</b>\n\n");
         about.append("- Leon\n");
+        about.append("- Sledmore\n");
         about.append("- Spreedblood\n");
         about.append("- Glaceon\n");
-        player.sendMessage(about.toString());
+        about.append("- Nillus\n");
+        
+        player.sendCustomMessage("Powered by Icarus Server", about.toString(), "icarus", "Development Thread", "http://");
     }
 
     @Override

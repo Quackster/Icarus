@@ -86,7 +86,6 @@ public class PluginManager {
     private static void loadPlugin(String path) throws PluginException {
 
         Globals globals = JsePlatform.standardGlobals();
-        //registerGlobalVariables(globals);
         LuaValue chunk = globals.loadfile("plugins" + File.separator + path);
         chunk.call();
 
@@ -96,15 +95,7 @@ public class PluginManager {
             return;
         }
 
-        /*LuaValue eventsValue = globals.get("event_register");
-
-        if (!eventsValue.istable()) {
-            return;
-
-        }*/
-
         LuaTable details = (LuaTable) detailsValue;
-        //LuaTable events = (LuaTable) eventsValue;
 
         Plugin plugin = new Plugin(
                 details.get("name").toString(), 
@@ -127,10 +118,6 @@ public class PluginManager {
             pluginEventRegister.invoke();
         }
 
-        /*for (int i = 0; i < events.len().toint(); i++) {
-            PluginEvent event = PluginEvent.valueOf(events.get(i + 1).toString());
-            registeredPluginEvents.get(event).add(plugin);
-        }*/
         plugins.add(plugin);
     }
 
