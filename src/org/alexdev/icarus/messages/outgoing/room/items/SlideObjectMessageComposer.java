@@ -31,8 +31,9 @@ public class SlideObjectMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
+        
         this.response.init(Outgoing.SlideObjectMessageComposer);
-
+        
         if (this.item != null) {
             this.response.writeInt(this.item.getPosition().getX());
             this.response.writeInt(this.item.getPosition().getY());
@@ -49,6 +50,8 @@ public class SlideObjectMessageComposer extends MessageComposer {
             this.response.writeInt(this.next.getX());
             this.response.writeInt(this.next.getY());
             this.response.writeInt(0);
+            
+            
             this.response.writeInt(this.rollerId);
             this.response.writeInt(2);
             this.response.writeInt(this.entity.getRoomUser().getVirtualId());

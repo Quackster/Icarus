@@ -202,7 +202,6 @@ public class Icarus extends Metadata {
         writer.println("camera.enabled=true");
         writer.println("camera.path=D:/xampp/htdocs/c_images/camera_photos/");
         writer.println("camera.filename=room_{id}_{username}_{generatedId}.png");
-        //writer.println("remove.file.photo.delete=true");
         writer.println();
         writer.println("[Thumbnail]");
         writer.println("thumbnail.create.enabled=true");

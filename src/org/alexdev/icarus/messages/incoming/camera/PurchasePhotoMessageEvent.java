@@ -3,8 +3,6 @@ package org.alexdev.icarus.messages.incoming.camera;
 import org.alexdev.icarus.dao.mysql.item.InventoryDao;
 import org.alexdev.icarus.game.inventory.InventoryNotification;
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.ItemDefinition;
-import org.alexdev.icarus.game.item.ItemManager;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.outgoing.camera.PurchasedPhotoComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
@@ -16,9 +14,7 @@ public class PurchasePhotoMessageEvent implements MessageEvent {
     public void handle(Player player, ClientMessage reader) {
         
         int photoId = 757369158; // top LUL amirite??
-        
-        ItemDefinition definition = ItemManager.getFurnitureById(photoId);
-        
+
         StringBuilder extraData = new StringBuilder();
         extraData.append("{");
         extraData.append("\"w\":\"" + player.getRoomUser().getMetadata().getString("latestPhotoUrl") + "\",");

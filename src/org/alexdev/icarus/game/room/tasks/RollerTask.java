@@ -7,7 +7,6 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.pathfinder.Position;
-import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.scheduler.RoomTask;
@@ -130,7 +129,6 @@ public class RollerTask implements RoomTask {
                     nextTile.addEntity(entity);
                     
                     double nextHeight = nextTile.getHeight();
-                    
                     this.room.send(new SlideObjectMessageComposer(entity, front, roller.getId(), nextHeight));
                     
                     entity.getRoomUser().checkNearbyItem();

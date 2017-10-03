@@ -39,6 +39,7 @@ public class RoomScheduler implements Runnable {
     public void run() {
         
         if (this.disabled) {
+            this.cancelTasks();
             return;
         }
         
@@ -58,7 +59,7 @@ public class RoomScheduler implements Runnable {
             
         } catch (Exception e) {
             Log.exception(e);
-            this.roomScheduledTasks.cancel(true);
+            this.cancelTasks();
         }
         
     }
@@ -69,12 +70,20 @@ public class RoomScheduler implements Runnable {
      */
     public void scheduleTasks() {
 
+        boolean taskStarted = false;
+        
         if (this.roomScheduledTasks == null) {
             this.roomScheduledTasks = RoomManager.getScheduledPool().scheduleAtFixedRate(this, 0, 1, TimeUnit.SECONDS);
+            taskStarted = true;
         }
         
         if (this.walkingScheduledTask == null) {
             this.walkingScheduledTask = RoomManager.getScheduledPool().scheduleAtFixedRate(this.movementTask, 0, 500, TimeUnit.MILLISECONDS);
+            taskStarted = true;
+        }
+        
+        if (taskStarted) {
+            this.disabled = false;
         }
     }
 
