@@ -10,8 +10,6 @@ import org.alexdev.icarus.game.util.RoomUtil;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 
-import com.google.common.collect.Lists;
-
 public class SearchResultSetComposer extends MessageComposer {
 
     private Player player;
@@ -53,7 +51,7 @@ public class SearchResultSetComposer extends MessageComposer {
                 this.response.writeBool(roomLimit ? tab.isClosed() : false); // force collapsed
                 this.response.writeInt(tab.isThumbnail());
                 
-                List<Room> rooms = Lists.newArrayList();
+                List<Room> rooms = new ArrayList<>();
                 
                 if (tab.getRoomPopulator() == null) {
                     this.response.writeInt(0);

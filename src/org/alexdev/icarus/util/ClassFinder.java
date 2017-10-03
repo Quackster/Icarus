@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import com.google.common.collect.Lists;
-
 public class ClassFinder {
     /**
      * Scans all classes accessible from the context class loader which belong to the given package and subpackages.
@@ -25,14 +23,14 @@ public class ClassFinder {
 
         Enumeration<URL> resources = classLoader.getResources(path);
 
-        List<File> dirs = Lists.newArrayList();
+        List<File> dirs = new ArrayList<>();
 
         while (resources.hasMoreElements()) {
             URL resource = resources.nextElement();
             dirs.add(new File(resource.getFile()));
         }
 
-        ArrayList<Class<?>> classes = Lists.newArrayList();
+        ArrayList<Class<?>> classes = new ArrayList<>();
 
         for (File directory : dirs) {
             classes.addAll(findClasses(directory, packageName));
@@ -51,7 +49,7 @@ public class ClassFinder {
      */
     private static List<Class<?>> findClasses(File directory, String packageName) throws ClassNotFoundException {
 
-        List<Class<?>> classes = Lists.newArrayList();
+        List<Class<?>> classes = new ArrayList<>();
 
         if (!directory.exists()) {
             return classes;

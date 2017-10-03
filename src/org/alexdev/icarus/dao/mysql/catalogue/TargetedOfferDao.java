@@ -3,6 +3,8 @@ package org.alexdev.icarus.dao.mysql.catalogue;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +13,6 @@ import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.catalogue.targetedoffer.TargetedOffer;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.util.Util;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 public class TargetedOfferDao {
 
@@ -24,7 +23,7 @@ public class TargetedOfferDao {
      */
     public static Map<Integer, TargetedOffer> getOffers() {
         
-        Map<Integer, TargetedOffer> offers = Maps.newHashMap();
+        Map<Integer, TargetedOffer> offers = new HashMap<>();
         
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -63,7 +62,7 @@ public class TargetedOfferDao {
      */
     public static List<Integer> getOfferBlacklist(int id) {
         
-        List<Integer> blacklist = Lists.newArrayList();
+        List<Integer> blacklist = new ArrayList<>();
         
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;

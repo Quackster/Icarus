@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.room.managers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.alexdev.icarus.dao.mysql.pets.PetDao;
@@ -13,8 +14,6 @@ import org.alexdev.icarus.messages.outgoing.room.user.RemoveUserMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserDisplayMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 
-import com.google.common.collect.Lists;
-
 public class RoomEntityManager {
 
     private Room room;
@@ -22,7 +21,7 @@ public class RoomEntityManager {
 
     public RoomEntityManager(Room room) {
         this.room = room;
-        this.entities = Lists.newArrayList();
+        this.entities = new ArrayList<>();
     }
 
     /**
@@ -112,7 +111,7 @@ public class RoomEntityManager {
             pet.savePosition();
         }
 
-        entity.getRoomUser().dispose();
+        entity.getRoomUser().clearUserData();
     }
 
 
@@ -165,7 +164,7 @@ public class RoomEntityManager {
      */
     public <T extends Entity> List<T> getEntitiesByClass(Class<T> entityClass) {
 
-        List<T> entities = Lists.newArrayList();
+        List<T> entities = new ArrayList<>();
 
         for (Entity entity : this.entities) {
 
@@ -188,7 +187,7 @@ public class RoomEntityManager {
 
     public List<Entity> getEntitiesByType(EntityType... types) {
 
-        List<Entity> entities = Lists.newArrayList();
+        List<Entity> entities = new ArrayList<>();
 
         for (Entity entity : this.entities) {
             for (EntityType type : types) {

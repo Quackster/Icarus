@@ -2,6 +2,7 @@ package org.alexdev.icarus.game.room.scheduler;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -11,8 +12,6 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.tasks.MovementTask;
 import org.alexdev.icarus.log.Log;
-
-import com.google.common.collect.Maps;
 
 public class RoomScheduler implements Runnable {
     
@@ -27,8 +26,9 @@ public class RoomScheduler implements Runnable {
     private boolean disabled;
 
     public RoomScheduler (Room room) {
+        this.tasks = new ConcurrentHashMap<>();
+        
         this.counter = new AtomicLong();
-        this.tasks = Maps.newConcurrentMap();
         this.movementTask = new MovementTask(room);
     }
 

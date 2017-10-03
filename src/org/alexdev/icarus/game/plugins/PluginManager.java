@@ -1,6 +1,7 @@
 package org.alexdev.icarus.game.plugins;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,6 @@ import org.luaj.vm2.Varargs;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 public class PluginManager {
@@ -29,11 +29,11 @@ public class PluginManager {
      */
     public static void load() {
 
-        plugins = Lists.newArrayList();
+        plugins = new ArrayList<>();
         registeredPluginEvents = Maps.newConcurrentMap();
 
         for (PluginEvent event : PluginEvent.values()) {
-            registeredPluginEvents.put(event, Lists.newArrayList());
+            registeredPluginEvents.put(event, new ArrayList<>());
         }
 
         getPluginFiles();

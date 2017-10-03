@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,9 +16,6 @@ import org.alexdev.icarus.game.pets.PetRace;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.util.Util;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
 public class PetDao {
 
     /**
@@ -26,7 +25,7 @@ public class PetDao {
      */
     public static Map<Integer, List<PetRace>> getPetRaces() {
 
-        Map<Integer, List<PetRace>> races = Maps.newHashMap();
+        Map<Integer, List<PetRace>> races = new HashMap<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -43,7 +42,7 @@ public class PetDao {
                 PetRace race = new PetRace(resultSet.getInt("race_id"), resultSet.getInt("colour1"), resultSet.getInt("colour2"), resultSet.getInt("has1colour") == 1, resultSet.getInt("has2colour") == 1);
 
                 if (!races.containsKey(race.getRaceId())) {
-                    races.put(race.getRaceId(), Lists.newArrayList());
+                    races.put(race.getRaceId(), new ArrayList<>());
                 }
 
                 races.get(race.getRaceId()).add(race);
@@ -118,7 +117,7 @@ public class PetDao {
      */
     public static List<Pet> getRoomPets(int roomId) {
 
-        List<Pet> pets = Lists.newArrayList();
+        List<Pet> pets = new ArrayList<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;

@@ -1,11 +1,10 @@
 package org.alexdev.icarus.game.item;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.alexdev.icarus.dao.mysql.item.ItemDao;
-
-import com.google.common.collect.Maps;
 
 public class ItemManager {
 
@@ -17,7 +16,7 @@ public class ItemManager {
      */
     public static void load() {
         furnitureIds = ItemDao.getFurniture();
-        furnitureSpriteIds = Maps.newHashMap();
+        furnitureSpriteIds = new HashMap<>();
 
         for (Entry<Integer, ItemDefinition> set : furnitureIds.entrySet()) {
             furnitureSpriteIds.put(set.getValue().getSpriteId(), set.getValue());

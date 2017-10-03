@@ -1,78 +1,32 @@
 package org.alexdev.icarus.messages;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.headers.Incoming;
-import org.alexdev.icarus.messages.incoming.camera.DeletePhotoMessageEvent;
-import org.alexdev.icarus.messages.incoming.camera.PhotoPricingMessageEvent;
-import org.alexdev.icarus.messages.incoming.camera.PreviewPhotoMessageEvent;
-import org.alexdev.icarus.messages.incoming.camera.PurchasePhotoMessageEvent;
-import org.alexdev.icarus.messages.incoming.catalogue.CatalogueMessageEvent;
-import org.alexdev.icarus.messages.incoming.catalogue.CataloguePageMessageEvent;
-import org.alexdev.icarus.messages.incoming.catalogue.GiftingSettingsMessageEvent;
-import org.alexdev.icarus.messages.incoming.catalogue.PromotableRoomsMessageEvent;
-import org.alexdev.icarus.messages.incoming.catalogue.PurchaseItemMessageEvent;
-import org.alexdev.icarus.messages.incoming.catalogue.PurchasePresentMessageEvent;
-import org.alexdev.icarus.messages.incoming.catalogue.PurchaseRoomPromotionMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.DeleteGroupMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.GroupBadgeDialogMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.GroupInfoMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.GroupCatalogueMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.GroupPurchaseMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.GroupManageDetailsMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.edit.EditGroupAccessMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.edit.EditGroupBadgeMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.edit.EditGroupColoursMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.edit.EditGroupTextMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.members.GroupGiveAdminMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.members.GroupManageMembersMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.members.GroupMembershipAcceptMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.members.GroupMembershipRejectMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.members.GroupMembershipRequestMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.members.GroupRemoveAdminMessageEvent;
-import org.alexdev.icarus.messages.incoming.groups.members.GroupRemoveMemberMessageEvent;
+import org.alexdev.icarus.messages.incoming.camera.*;
+import org.alexdev.icarus.messages.incoming.catalogue.*;
+import org.alexdev.icarus.messages.incoming.groups.*;
+import org.alexdev.icarus.messages.incoming.groups.edit.*;
+import org.alexdev.icarus.messages.incoming.groups.members.*;
 import org.alexdev.icarus.messages.incoming.handshake.*;
-import org.alexdev.icarus.messages.incoming.items.PurchaseOfferMessageEvent;
-import org.alexdev.icarus.messages.incoming.items.SaveBrandingMessageEvent;
+import org.alexdev.icarus.messages.incoming.items.*;
 import org.alexdev.icarus.messages.incoming.messenger.*;
 import org.alexdev.icarus.messages.incoming.misc.*;
 import org.alexdev.icarus.messages.incoming.navigator.*;
-import org.alexdev.icarus.messages.incoming.pets.PetInformationMessageEvent;
-import org.alexdev.icarus.messages.incoming.pets.PetRacesMessageEvent;
-import org.alexdev.icarus.messages.incoming.pets.PlacePetMessageEvent;
-import org.alexdev.icarus.messages.incoming.pets.RemovePetMessageEvent;
-import org.alexdev.icarus.messages.incoming.pets.VerifyPetNameMessageEvent;
+import org.alexdev.icarus.messages.incoming.pets.*;
 import org.alexdev.icarus.messages.incoming.room.*;
-import org.alexdev.icarus.messages.incoming.room.floorplan.FloorPlanPropertiesMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.floorplan.SaveFloorPlanMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.items.ApplyDecorationMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.items.InteractItemMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.items.InventoryMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.items.MoodlightInteractMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.items.MoveItemMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.items.PickupItemMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.items.PlaceItemMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.items.SaveMannequinMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.items.SaveMoodlightPresetMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.items.ToggleMoodlightMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.settings.DeleteRoomMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.settings.GiveRightsMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.settings.ClearRoomRightsMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.settings.RemoveRightsMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.settings.RoomInfoMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.settings.RoomRightsMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.settings.RoomEditMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.settings.SaveRoomMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.floorplan.*;
+import org.alexdev.icarus.messages.incoming.room.items.*;
+import org.alexdev.icarus.messages.incoming.room.settings.*;
 import org.alexdev.icarus.messages.incoming.room.user.*;
 import org.alexdev.icarus.messages.incoming.trading.StartTradingMessageEvent;
 import org.alexdev.icarus.messages.incoming.user.*;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 public class MessageHandler {
 
@@ -80,8 +34,8 @@ public class MessageHandler {
     private List<String> composerPackages;
 
     public MessageHandler() {
-        this.messages = Maps.newHashMap();
-        this.composerPackages = Lists.newArrayList();
+        this.messages = new HashMap<>();
+        this.composerPackages = new ArrayList<>();
         this.register();
         this.registerComposerPackages();
     }
@@ -319,7 +273,7 @@ public class MessageHandler {
     private void registerEvent(Short header, MessageEvent messageEvent) {
 
         if (!this.messages.containsKey(header)) {
-            this.messages.put(header, Lists.newArrayList());
+            this.messages.put(header, new ArrayList<>());
         }
 
         this.messages.get(header).add(messageEvent);

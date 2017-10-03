@@ -1,15 +1,14 @@
 package org.alexdev.icarus.util;
 
+import java.util.HashMap;
 import java.util.Map;
-
-import com.google.common.collect.Maps;
 
 public class Metadata {
 
     private Map<String, Object> data;
     
     public Metadata() {
-        this.data = Maps.newHashMap();
+        this.data = new HashMap<>();
     }
     
     /**

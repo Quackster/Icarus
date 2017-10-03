@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.alexdev.icarus.dao.mysql.Dao;
@@ -13,8 +14,6 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.log.Log;
-
-import com.google.common.collect.Maps;
 
 public class InventoryDao {
     
@@ -26,7 +25,7 @@ public class InventoryDao {
      */
     public static Map<Integer, Item> getInventoryItems(int userId) {
 
-        Map<Integer, Item> items = Maps.newHashMap();
+        Map<Integer, Item> items = new HashMap<>();
         
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -145,7 +144,7 @@ public class InventoryDao {
      */
     public static Map<Integer, Pet> getInventoryPets(int id) {
 
-        Map<Integer, Pet> items = Maps.newHashMap();
+        Map<Integer, Pet> items = new HashMap<>();
         
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;

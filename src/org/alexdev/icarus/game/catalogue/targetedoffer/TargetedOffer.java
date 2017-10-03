@@ -1,12 +1,11 @@
 package org.alexdev.icarus.game.catalogue.targetedoffer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.catalogue.TargetedOfferDao;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.util.Util;
-
-import com.google.common.collect.Lists;
 
 public class TargetedOffer {
 
@@ -35,7 +34,7 @@ public class TargetedOffer {
         this.largeImage = largeImage;
         this.smallImage = smallImage;
         this.expiryDate = expiryDate;
-        this.items = Lists.newArrayList();
+        this.items = new ArrayList<>();
         this.blacklist = TargetedOfferDao.getOfferBlacklist(this.id);
         
         try {

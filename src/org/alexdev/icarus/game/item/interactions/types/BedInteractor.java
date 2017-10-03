@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.item.interactions.types;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.game.entity.EntityStatus;
@@ -8,8 +9,6 @@ import org.alexdev.icarus.game.item.interactions.Interaction;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.user.RoomUser;
-
-import com.google.common.collect.Lists;
 
 public class BedInteractor implements Interaction {
 
@@ -75,7 +74,7 @@ public class BedInteractor implements Interaction {
 
     public static List<Position> getValidPillowTiles(Item item) {
 
-        List<Position> tiles = Lists.newArrayList();
+        List<Position> tiles = new ArrayList<>();
         tiles.add(new Position(item.getPosition().getX(), item.getPosition().getY()));
 
         int validPillowX = -1;

@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.room.tasks;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -11,9 +12,6 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.scheduler.RoomTask;
 import org.alexdev.icarus.messages.outgoing.room.items.SlideObjectMessageComposer;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 public class RollerTask extends RoomTask {
 
@@ -32,23 +30,24 @@ public class RollerTask extends RoomTask {
             return;
         }
 
-        Set<Entity> blacklist = Sets.newHashSet();
-        List<Item> rollers = room.getItemManager().getItems(InteractionType.ROLLER);
+        List<Item> rollers = this.room.getItemManager().getItems(InteractionType.ROLLER);
         
         if (!(rollers.size() > 0)) {
             return;
         }
         
+        Set<Entity> entityBlacklist = new HashSet<>();
+        Set<Item> itemBlacklist = new HashSet<>();
+        
         List<Entity> entities = this.room.getEntityManager().getEntities();
-        List<Item> rollingItems = Lists.newArrayList();
-
+        
         for (Item roller : rollers) {
 
             List<Item> items = roller.getTile().getItems();
 
             for(Item item : items) {
 
-                if (rollingItems.contains(item)) {
+                if (itemBlacklist.contains(item)) {
                     continue;
                 }
 
@@ -60,7 +59,7 @@ public class RollerTask extends RoomTask {
                         continue;
                     }
 
-                    rollingItems.add(item);
+                    itemBlacklist.add(item);
 
                     RoomTile frontTile = this.room.getMapping().getTile(front.getX(), front.getY());
                     double nextHeight = frontTile.getHeight();
@@ -97,7 +96,6 @@ public class RollerTask extends RoomTask {
                     item.getPosition().setZ(nextHeight);
                     item.save();
                     redoMap = true;
-
                 }
             }
 
@@ -105,7 +103,7 @@ public class RollerTask extends RoomTask {
 
                 Entity entity = entities.get(i);
 
-                if (blacklist.contains(entity)) {
+                if (entityBlacklist.contains(entity)) {
                     continue;
                 }
                 
@@ -116,7 +114,7 @@ public class RollerTask extends RoomTask {
                 if (entity.getRoomUser().getPosition().equals(roller.getPosition()) && entity.getRoomUser().getPosition().getZ() > roller.getPosition().getZ()) {
 
                     Position front = roller.getPosition().getSquareInFront();
-                    blacklist.add(entity);
+                    entityBlacklist.add(entity);
 
                     if (!this.room.getMapping().isValidStep(entity, entity.getRoomUser().getPosition(), front, false)) {
                         continue;
@@ -135,9 +133,7 @@ public class RollerTask extends RoomTask {
                     entity.getRoomUser().getPosition().setX(front.getX());
                     entity.getRoomUser().getPosition().setY(front.getY());
                     entity.getRoomUser().getPosition().setZ(nextHeight);
-                    
                 }
-
             }
 
             if (redoMap) {

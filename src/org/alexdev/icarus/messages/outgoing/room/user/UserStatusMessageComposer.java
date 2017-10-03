@@ -1,12 +1,11 @@
 package org.alexdev.icarus.messages.outgoing.room.user;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.room.EntityState;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
-
-import com.google.common.collect.Lists;
 
 public class UserStatusMessageComposer extends MessageComposer {
 
@@ -18,7 +17,7 @@ public class UserStatusMessageComposer extends MessageComposer {
     
     private void createEntityStates(List<Entity> entities) {
         
-        this.states = Lists.newArrayList();
+        this.states = new ArrayList<>();
         
         for (Entity user : entities) {
             this.states.add(new EntityState(

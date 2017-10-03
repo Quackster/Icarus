@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.navigator.populator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
@@ -10,14 +11,12 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.enums.RoomState;
 import org.alexdev.icarus.util.GameSettings;
 
-import com.google.common.collect.Lists;
-
 public class FriendsPopulator extends NavigatorRoomPopulator {
 
     @Override
     public List<Room> generateListing(boolean limit, Player player) {
 
-        List<Room> friendRooms = Lists.newArrayList();
+        List<Room> friendRooms = new ArrayList<>();
 
         for (MessengerUser friend : player.getMessenger().getFriends()) {
 

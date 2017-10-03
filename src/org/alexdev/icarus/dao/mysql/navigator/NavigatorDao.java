@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.Dao;
@@ -14,8 +15,6 @@ import org.alexdev.icarus.game.navigator.NavigatorTab;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.log.Log;
-
-import com.google.common.collect.Lists;
 
 public class NavigatorDao {
 
@@ -76,7 +75,7 @@ public class NavigatorDao {
      */
     public static List<NavigatorTab> getTabs(int childId) {
 
-        List<NavigatorTab> tabs = Lists.newArrayList();
+        List<NavigatorTab> tabs = new ArrayList<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -114,7 +113,7 @@ public class NavigatorDao {
      */
     public static List<NavigatorCategory> getCategories() {
 
-        List<NavigatorCategory> categories = Lists.newArrayList();
+        List<NavigatorCategory> categories = new ArrayList<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;

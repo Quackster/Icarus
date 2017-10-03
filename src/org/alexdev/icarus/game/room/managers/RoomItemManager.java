@@ -1,5 +1,7 @@
 package org.alexdev.icarus.game.room.managers;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -9,8 +11,6 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.room.Room;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 public class RoomItemManager {
 
@@ -19,7 +19,7 @@ public class RoomItemManager {
     
     public RoomItemManager(Room room) {
         this.room = room;
-        this.items = Maps.newHashMap();
+        this.items = new HashMap<>();
     }
     
     /**
@@ -55,7 +55,7 @@ public class RoomItemManager {
                     .collect(Collectors.toList());
 
         } catch (Exception e) {
-            return Lists.newArrayList();
+            return new ArrayList<>();
         }
     }
 

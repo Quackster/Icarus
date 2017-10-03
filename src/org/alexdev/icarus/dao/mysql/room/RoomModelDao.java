@@ -11,8 +11,6 @@ import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.log.Log;
 
-import com.google.common.collect.Maps;
-
 public class RoomModelDao {
 
     private static HashMap<String, RoomModel> roomModels;
@@ -34,7 +32,7 @@ public class RoomModelDao {
      */
     public static void getModels() {
 
-        roomModels = Maps.newHashMap();
+        roomModels = new HashMap<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;

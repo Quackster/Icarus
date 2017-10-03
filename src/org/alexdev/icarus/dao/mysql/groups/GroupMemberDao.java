@@ -3,6 +3,8 @@ package org.alexdev.icarus.dao.mysql.groups;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,9 +12,6 @@ import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.groups.members.GroupMemberType;
 import org.alexdev.icarus.log.Log;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 public class GroupMemberDao {
 
@@ -57,10 +56,10 @@ public class GroupMemberDao {
      */
     public static Map<GroupMemberType, List<Integer>> getMembers(int groupId) {
         
-        Map<GroupMemberType, List<Integer>> groupMembers = Maps.newHashMap();
+        Map<GroupMemberType, List<Integer>> groupMembers = new HashMap<>();
 
         for (GroupMemberType memberType : GroupMemberType.values()) {
-            groupMembers.put(memberType, Lists.newArrayList());
+            groupMembers.put(memberType, new ArrayList<>());
         }
         
         Connection sqlConnection = null;

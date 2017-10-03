@@ -1,12 +1,11 @@
 package org.alexdev.icarus.game.commands;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.alexdev.icarus.game.commands.types.*;
 import org.alexdev.icarus.game.player.Player;
-
-import com.google.common.collect.Maps;
 
 public class CommandManager {
 
@@ -16,7 +15,7 @@ public class CommandManager {
      * Load.
      */
     public static void load() {
-        commands = Maps.newHashMap();
+        commands = new HashMap<>();
         commands.put(new String[] { "about", "info" }, new AboutCommand());
         commands.put(new String[] { "sit" }, new SitCommand());
         commands.put(new String[] { "help", "commands" }, new HelpCommand());

@@ -32,9 +32,6 @@ import org.alexdev.icarus.util.Util;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
 public class RoomUser extends Metadata {
 
     private int virtualId;
@@ -67,7 +64,7 @@ public class RoomUser extends Metadata {
     private LinkedList<Position> path;
 
     public RoomUser(Entity entity) {
-        this.dispose();
+        this.clearUserData();
         this.entity = entity;
     }
 
@@ -388,39 +385,29 @@ public class RoomUser extends Metadata {
     /**
      * Dispose.
      */
-    public void dispose() {
-
-        if (this.statuses != null) {
-            this.statuses.clear();
-        } else {
-            this.statuses = Maps.newHashMap();
-        }
-
-        if (this.path != null) {
-            this.path.clear();
-        } else {
-            this.path = Lists.newLinkedList();
-        }
-
+    public void clearUserData() {
         this.position = null;
         this.goal = null;
+        this.room = null;
+
+        this.statuses = new HashMap<>();
+        this.path = new LinkedList<>();
 
         this.position = new Position(0, 0, 0);
         this.goal = new Position(0, 0, 0);
-
-        this.chatColor = 0;
-        //this.roomRequestedId = -1;
-        this.virtualId = -1;
-        this.danceId = 0;
-        this.lookResetTime = -1;
-        this.carryItem = 0;
         this.carryTimer = new AtomicInteger(-1);
+        
+        this.lookResetTime = -1;
+        this.virtualId = -1;
+        
+        this.chatColor = 0;
+        this.danceId = 0;
+        this.carryItem = 0;
 
         this.needsUpdate = false;
         this.isWalking = false;
         this.isWalkingAllowed = true;
-        this.room = null;
-
+        
         this.getMetadata().clear();
 
     }

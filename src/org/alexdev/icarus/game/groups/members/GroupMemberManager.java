@@ -1,12 +1,11 @@
 package org.alexdev.icarus.game.groups.members;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.alexdev.icarus.dao.mysql.groups.GroupMemberDao;
 import org.alexdev.icarus.game.groups.Group;
-
-import com.google.common.collect.Lists;
 
 public class GroupMemberManager {
     
@@ -25,7 +24,7 @@ public class GroupMemberManager {
      * @return the members by type
      */
     public List<Integer> getMembersByType(GroupMemberType memberType) {
-        return Lists.newArrayList(this.groupMembers.get(memberType));
+        return new ArrayList<>(this.groupMembers.get(memberType));
     }
     
     /**
@@ -36,7 +35,7 @@ public class GroupMemberManager {
      */
     public List<Integer> getMembersByTypes(GroupMemberType... types) {
         
-        List<Integer> members = Lists.newArrayList();
+        List<Integer> members = new ArrayList<>();
         
         for (GroupMemberType memberType : types) {
             members.addAll(this.groupMembers.get(memberType));

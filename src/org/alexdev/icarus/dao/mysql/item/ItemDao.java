@@ -3,6 +3,7 @@ package org.alexdev.icarus.dao.mysql.item;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.alexdev.icarus.dao.mysql.Dao;
@@ -13,8 +14,6 @@ import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.log.Log;
 
-import com.google.common.collect.Maps;
-
 public class ItemDao {
 
     /**
@@ -24,7 +23,7 @@ public class ItemDao {
      */
     public static Map<Integer, ItemDefinition> getFurniture() {
 
-        Map<Integer, ItemDefinition> furni = Maps.newHashMap();
+        Map<Integer, ItemDefinition> furni = new HashMap<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -102,7 +101,7 @@ public class ItemDao {
      */
     public static Map<Integer, Item> getRoomItems(int roomId) {
 
-        Map<Integer, Item> items = Maps.newHashMap();
+        Map<Integer, Item> items = new HashMap<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;

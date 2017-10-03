@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.game.player.PlayerDetails;
@@ -14,8 +15,6 @@ import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.moderation.Permission;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.log.Log;
-
-import com.google.common.collect.Lists;
 
 public class PlayerDao {
     
@@ -242,7 +241,7 @@ public class PlayerDao {
      * @return the permissions
      */
     public static List<Permission> getPermissions() {
-        List<Permission> permissions = Lists.newArrayList();
+        List<Permission> permissions = new ArrayList<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;

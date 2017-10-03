@@ -1,5 +1,7 @@
 package org.alexdev.icarus.game.groups;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,9 +12,6 @@ import org.alexdev.icarus.game.groups.types.GroupBase;
 import org.alexdev.icarus.game.groups.types.GroupBaseColour;
 import org.alexdev.icarus.game.groups.types.GroupSymbol;
 import org.alexdev.icarus.game.groups.types.GroupSymbolColour;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 public class GroupManager {
 
@@ -27,12 +26,12 @@ public class GroupManager {
      * Load all group symbols.
      */
     public static void load() {
-        bases = Lists.newArrayList();
-        symbols = Lists.newArrayList();
-        baseColours = Lists.newArrayList();
-        symbolColours = Maps.newHashMap();
-        backgroundColours = Maps.newHashMap();
-        groups = Maps.newHashMap();
+        bases = new ArrayList<>();
+        symbols = new ArrayList<>();
+        baseColours = new ArrayList<>();
+        symbolColours = new HashMap<>();
+        backgroundColours = new HashMap<>();
+        groups = new HashMap<>();
 
         GroupItemDao.getGroupItems(bases, symbols, baseColours, symbolColours, backgroundColours);
     }

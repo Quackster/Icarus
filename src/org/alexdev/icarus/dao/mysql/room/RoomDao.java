@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.Dao;
@@ -17,8 +18,6 @@ import org.alexdev.icarus.game.room.enums.RoomType;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.util.Util;
 
-import com.google.common.collect.Lists;
-
 public class RoomDao {
     
     /**
@@ -29,7 +28,7 @@ public class RoomDao {
      */
     public static List<Room> getPublicRooms(boolean storeInMemory) {
 
-        List<Room> rooms = Lists.newArrayList();
+        List<Room> rooms = new ArrayList<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -79,7 +78,7 @@ public class RoomDao {
      */
     public static List<Room> getPlayerRooms(int userId, boolean storeInMemory) {
 
-        List<Room> rooms = Lists.newArrayList();
+        List<Room> rooms = new ArrayList<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -173,7 +172,7 @@ public class RoomDao {
      */
     public static List<Integer> getRoomRights(int roomId) {
 
-        List<Integer> rooms = Lists.newArrayList();
+        List<Integer> rooms = new ArrayList<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;

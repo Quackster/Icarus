@@ -1,5 +1,6 @@
 package org.alexdev.icarus.messages.incoming.groups;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.groups.GroupDao;
@@ -15,8 +16,6 @@ import org.alexdev.icarus.messages.outgoing.groups.NewGroupMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.alexdev.icarus.util.Util;
-
-import com.google.common.collect.Lists;
 
 public class GroupPurchaseMessageEvent implements MessageEvent {
 
@@ -47,7 +46,7 @@ public class GroupPurchaseMessageEvent implements MessageEvent {
         int groupBaseColour = reader.readInt();
         int groupItemsLength = reader.readInt() * 3;
 
-        List<Integer> groupItems = Lists.newArrayList();
+        List<Integer> groupItems = new ArrayList<>();
 
         for (int i = 0; i < (groupItemsLength); i++) {
             groupItems.add(reader.readInt());

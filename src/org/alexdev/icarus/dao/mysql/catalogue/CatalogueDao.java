@@ -3,6 +3,7 @@ package org.alexdev.icarus.dao.mysql.catalogue;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -12,7 +13,6 @@ import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.game.catalogue.CataloguePage;
 import org.alexdev.icarus.game.catalogue.CatalogueTab;
 import org.alexdev.icarus.log.Log;
-import com.google.common.collect.Lists;
 
 public class CatalogueDao {
 
@@ -24,7 +24,7 @@ public class CatalogueDao {
      */
     public static List<CatalogueTab> getCatalogTabs(int parentId) {
 
-        List<CatalogueTab> tabs = Lists.newArrayList();
+        List<CatalogueTab> tabs = new ArrayList<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -62,7 +62,7 @@ public class CatalogueDao {
      */
     public static List<CataloguePage> getCataloguePages() {
 
-        List<CataloguePage> pages = Lists.newArrayList();
+        List<CataloguePage> pages = new ArrayList<>();
         
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -97,7 +97,7 @@ public class CatalogueDao {
      */
     public static List<CatalogueItem> getCatalogueItems() {
 
-        List<CatalogueItem> items = Lists.newArrayList();
+        List<CatalogueItem> items = new ArrayList<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -138,8 +138,8 @@ public class CatalogueDao {
      */
     public static CataloguePage fill(ResultSet row) throws Exception {
         
-        List<String> images = Lists.newArrayList();
-        List<String> texts = Lists.newArrayList();
+        List<String> images = new ArrayList<>();
+        List<String> texts = new ArrayList<>();
         
         String rawImages = row.getString("page_images");
         String rawTexts = row.getString("page_texts");

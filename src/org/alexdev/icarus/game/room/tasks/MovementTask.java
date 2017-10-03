@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.room.tasks;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.game.entity.Entity;
@@ -11,8 +12,6 @@ import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 import org.alexdev.icarus.util.Util;
-
-import com.google.common.collect.Lists;
 
 public class MovementTask implements Runnable {
 
@@ -33,7 +32,7 @@ public class MovementTask implements Runnable {
         }
 
         List<Entity> entities = this.room.getEntityManager().getEntities();
-        List<Entity> entitiesToUpdate = Lists.newArrayList();
+        List<Entity> entitiesToUpdate = new ArrayList<>();
 
         for (int i = 0; i < entities.size(); i++) {
 

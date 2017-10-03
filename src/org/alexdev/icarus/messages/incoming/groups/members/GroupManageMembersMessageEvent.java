@@ -1,5 +1,6 @@
 package org.alexdev.icarus.messages.incoming.groups.members;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.game.groups.Group;
@@ -9,8 +10,6 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.outgoing.groups.GroupManageMembersComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-
-import com.google.common.collect.Lists;
 
 public class GroupManageMembersMessageEvent implements MessageEvent {
 
@@ -31,13 +30,13 @@ public class GroupManageMembersMessageEvent implements MessageEvent {
 
         switch (requestType) {
         default:
-            members = Lists.newArrayList(group.getMemberManager().getMembers());
+            members = new ArrayList<>(group.getMemberManager().getMembers());
             break;
         case 1:
-            members = Lists.newArrayList(group.getMemberManager().getMembersByType(GroupMemberType.ADMINISTRATOR));
+            members = new ArrayList<>(group.getMemberManager().getMembersByType(GroupMemberType.ADMINISTRATOR));
             break;
         case 2:
-            members = Lists.newArrayList(group.getMemberManager().getMembersByType(GroupMemberType.REQUEST));
+            members = new ArrayList<>(group.getMemberManager().getMembersByType(GroupMemberType.REQUEST));
             break;
         }
 

@@ -1,8 +1,7 @@
 package org.alexdev.icarus.game.catalogue;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import com.google.common.collect.Lists;
 
 public class CatalogueTab {
 
@@ -24,7 +23,7 @@ public class CatalogueTab {
         this.iconImage = iconImage;
         this.enabled = enabled;
         this.minRank = minRank;
-        this.childTabs = Lists.newArrayList();
+        this.childTabs = new ArrayList<>();
         this.link = link;
     }
 

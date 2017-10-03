@@ -8,8 +8,6 @@ import java.util.List;
 
 import org.alexdev.icarus.server.api.messages.Response;
 
-import com.google.common.collect.Lists;
-
 public class CatalogueItem {
 
     private int id;
@@ -47,7 +45,7 @@ public class CatalogueItem {
         this.limitedTotal = limitedStack;
         this.limitedSells = limitedSells;
         this.hasOffer = hasOffer;
-        this.items = Lists.newArrayList();
+        this.items = new ArrayList<>();
 
         // This has been taken from Comet, cus it's the best <3
         if (items.size() == 0) {

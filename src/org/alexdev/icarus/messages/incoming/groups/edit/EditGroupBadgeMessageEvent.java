@@ -1,5 +1,6 @@
 package org.alexdev.icarus.messages.incoming.groups.edit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.game.groups.Group;
@@ -9,8 +10,6 @@ import org.alexdev.icarus.game.util.BadgeUtil;
 import org.alexdev.icarus.messages.outgoing.groups.GroupInfoComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-
-import com.google.common.collect.Lists;
 
 public class EditGroupBadgeMessageEvent implements MessageEvent {
 
@@ -36,7 +35,7 @@ public class EditGroupBadgeMessageEvent implements MessageEvent {
         
         reader.readInt();
 
-        List<Integer> groupItems = Lists.newArrayList();
+        List<Integer> groupItems = new ArrayList<>();
 
         for (int i = 0; i < 12; i++) {
             groupItems.add(reader.readInt());

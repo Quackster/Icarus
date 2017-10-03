@@ -2,11 +2,11 @@ package org.alexdev.icarus.game.player;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.game.moderation.Permission;
-import com.google.common.collect.Maps;
 
 public class PlayerManager {
 
@@ -15,8 +15,8 @@ public class PlayerManager {
     private static Map<String, Player> authenticatedPlayersByName;
 
     static {
-        authenticatedPlayersById = Maps.newConcurrentMap();
-        authenticatedPlayersByName = Maps.newConcurrentMap();
+        authenticatedPlayersById = new ConcurrentHashMap<>();
+        authenticatedPlayersByName = new ConcurrentHashMap<>();
         permissions = PlayerDao.getPermissions();
     }
 

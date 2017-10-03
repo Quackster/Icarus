@@ -1,5 +1,6 @@
 package org.alexdev.icarus.messages.incoming.messenger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.player.MessengerDao;
@@ -9,8 +10,6 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.outgoing.messenger.MessengerSearchMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-
-import com.google.common.collect.Lists;
 
 public class MessengerSearchMessageEvent implements MessageEvent {
 
@@ -30,8 +29,8 @@ public class MessengerSearchMessageEvent implements MessageEvent {
         }
         
         List<Integer> search = MessengerDao.search(searchQuery);
-        List<MessengerUser> friends = Lists.newArrayList();
-        List<MessengerUser> strangers = Lists.newArrayList();
+        List<MessengerUser> friends = new ArrayList<>();
+        List<MessengerUser> strangers = new ArrayList<>();
 
         for (Integer id : search) {
 

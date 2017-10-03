@@ -4,14 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.messenger.MessengerUser;
 import org.alexdev.icarus.log.Log;
-
-import com.google.common.collect.Lists;
 
 public class MessengerDao {
 
@@ -23,7 +22,7 @@ public class MessengerDao {
      */
     public static List<MessengerUser> getFriends(int userId) {
 
-        List<MessengerUser> friends = Lists.newArrayList();
+        List<MessengerUser> friends = new ArrayList<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -68,7 +67,7 @@ public class MessengerDao {
      */
     public static List<MessengerUser> getRequests(int userId) {
 
-        List<MessengerUser> users = Lists.newArrayList();
+        List<MessengerUser> users = new ArrayList<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -103,7 +102,7 @@ public class MessengerDao {
      */
     public static List<Integer> search(String query) {
 
-        List<Integer> users = Lists.newArrayList();
+        List<Integer> users = new ArrayList<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;

@@ -1,5 +1,7 @@
 package org.alexdev.icarus.game.room.model;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -7,9 +9,6 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 public class RoomTile {
 
@@ -33,10 +32,14 @@ public class RoomTile {
         this.reset();
     }
     
+    /**
+     * Reset the tile, will apply height and wipe any existing items
+     * or entities.
+     */
     public void reset() {
-        this.height = this.room.getModel().getHeight(x, y);
-        this.items = Lists.newArrayList();
-        this.entities = Sets.newHashSet();
+        this.height = this.room.getModel().getHeight(this.x, this.y);
+        this.items = new ArrayList<>();
+        this.entities = new HashSet<>();
     }
     
     /**

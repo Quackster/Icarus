@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,9 +15,6 @@ import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.encryption.RSA;
 import org.ini4j.InvalidFileFormatException;
 import org.ini4j.Wini;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 public class Util {
 
@@ -41,7 +39,7 @@ public class Util {
         locale =  new Wini(new File("locale.ini"));
         secureRandom = new SecureRandom();
         language = locale.get("Locale", "language", String.class);
-        composerPaths = Maps.newHashMap();
+        composerPaths = new HashMap<>();
         rsa = new RSA();
     }
 
@@ -239,7 +237,7 @@ public class Util {
      */
     /* Taken from Comet, used for various pagination methods, turned into generic type*/
     public static <T> List<List<T>> paginate(List<T> originalList, int chunkSize) {
-        List<List<T>> listOfChunks = Lists.newArrayList();
+        List<List<T>> listOfChunks = new ArrayList<>();
 
         for (int i = 0; i < originalList.size() / chunkSize; i++) {
             listOfChunks.add(originalList.subList(i * chunkSize, i * chunkSize + chunkSize));

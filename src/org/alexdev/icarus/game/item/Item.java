@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.item;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.alexdev.icarus.dao.mysql.item.ItemDao;
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
@@ -16,8 +17,6 @@ import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.items.MoveItemMessageComposer;
 import org.alexdev.icarus.util.Metadata;
 import org.alexdev.icarus.util.Util;
-
-import com.google.common.collect.Lists;
 
 public class Item extends Metadata {
 
@@ -70,7 +69,7 @@ public class Item extends Metadata {
     public List<Position> getAffectedTiles(boolean includeFirstPosition) {
 
         if (this.getDefinition().getType() == ItemType.WALL) {
-            return Lists.newArrayList();
+            return new ArrayList<>();
         }
 
         List<Position> affectedTiles = AffectedTile.getAffectedTiles(this.getDefinition().getLength(), this.getDefinition().getWidth(), this.position.getX(), this.position.getY(), this.position.getRotation());
@@ -89,7 +88,7 @@ public class Item extends Metadata {
      */
     public void updateEntities() {
 
-        List<Entity> affected_players = Lists.newArrayList();
+        List<Entity> affected_players = new ArrayList<>();
 
         Room room = this.getRoom();
 
@@ -236,7 +235,7 @@ public class Item extends Metadata {
      */
     public List<Item> getItemsBeneath() {
 
-        List<Item> items = Lists.newArrayList();
+        List<Item> items = new ArrayList<>();
 
         Item item = this;
 

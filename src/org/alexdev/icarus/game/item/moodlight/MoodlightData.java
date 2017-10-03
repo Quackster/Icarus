@@ -1,10 +1,9 @@
 package org.alexdev.icarus.game.item.moodlight;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.room.MoodlightDao;
-
-import com.google.common.collect.Lists;
 
 public class MoodlightData {
 
@@ -18,7 +17,7 @@ public class MoodlightData {
         this.currentPreset = currentPresent;
         this.enabled = enabled;
         
-        this.presets = Lists.newArrayList();
+        this.presets = new ArrayList<>();
         this.presets.add(new MoodlightPreset(preset1));
         this.presets.add(new MoodlightPreset(preset2));
         this.presets.add(new MoodlightPreset(preset3));

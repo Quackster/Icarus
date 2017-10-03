@@ -31,19 +31,19 @@ public class Pathfinder {
         int Y = entity.getRoomUser().getGoal().getY();
         
         if (entity.getRoom().getModel().hasInvalidCoordinates(X, Y)) {
-            return Lists.newLinkedList();
+            return new LinkedList<>();
         }
 
         if (entity.getRoom().getModel().isBlocked(X, Y)) {
-            return Lists.newLinkedList();
+            return new LinkedList<>();
         }
 
         if (!entity.getRoom().getMapping().isTileWalkable(X, Y, entity)) {
-            return Lists.newLinkedList();
+            return new LinkedList<>();
         }
 
         if (entity.getRoomUser().getPosition().equals(new Position(X, Y))) {
-            return Lists.newLinkedList();
+            return new LinkedList<>();
         }
         
         LinkedList<Position> squares = new LinkedList<>();
