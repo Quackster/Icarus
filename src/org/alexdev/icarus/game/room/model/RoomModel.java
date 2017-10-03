@@ -93,6 +93,7 @@ public class RoomModel {
      * Generate relative heightmap.
      */
     private void generateRelativeHeightmap() {
+        
         StringBuilder relativeMap = new StringBuilder();
 
         for (int y = 0; y < mapSizeY; y++) {

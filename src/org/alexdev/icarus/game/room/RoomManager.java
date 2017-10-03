@@ -66,9 +66,7 @@ public class RoomManager {
      * @param id the id
      */
     public static void removeRoom(int id) {
-        
-        Log.info("remove room: " + id);
-        
+   
         rooms.remove(Integer.valueOf(id));
         
         if (promotedRooms.containsKey(id)) {

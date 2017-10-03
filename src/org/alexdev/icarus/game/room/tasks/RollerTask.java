@@ -43,7 +43,7 @@ public class RollerTask extends RoomTask {
         
         for (Item roller : rollers) {
 
-            List<Item> items = roller.getTile().getItems();
+            Set<Item> items = roller.getTile().getItems();
 
             for(Item item : items) {
 
