@@ -51,7 +51,6 @@ public class RoomUser extends Metadata {
     private boolean isWalking;
     private boolean needsUpdate;
     private boolean isTeleporting;
-    private boolean isRolling;
     private boolean isWalkingAllowed;
 
     private Entity entity;
@@ -420,7 +419,6 @@ public class RoomUser extends Metadata {
         this.carryTimer = new AtomicInteger(-1);
 
         this.needsUpdate = false;
-        this.isRolling = false;
         this.isWalking = false;
         this.isWalkingAllowed = true;
         this.room = null;
@@ -728,24 +726,6 @@ public class RoomUser extends Metadata {
      */
     public void setCarryItem(int carryItem) {
         this.carryItem = carryItem;
-    }
-
-    /**
-     * Checks if is rolling.
-     *
-     * @return true, if is rolling
-     */
-    public boolean isRolling() {
-        return isRolling;
-    }
-
-    /**
-     * Sets the rolling.
-     *
-     * @param isRolling the new rolling
-     */
-    public void setRolling(boolean isRolling) {
-        this.isRolling = isRolling;
     }
 
     /**

@@ -1,18 +1,20 @@
 package org.alexdev.icarus.game.room.tasks;
 
 import java.util.List;
+import java.util.Set;
 
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.pathfinder.Position;
+import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.scheduler.RoomTask;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.items.SlideObjectMessageComposer;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 public class RollerTask implements RoomTask {
 
@@ -27,12 +29,11 @@ public class RollerTask implements RoomTask {
 
         boolean redoMap = false;
 
-        Log.info("hello?");
-        
         if (this.room.getEntityManager().getEntities().size() == 0) {
             return;
         }
 
+        Set<Entity> blacklist = Sets.newHashSet();
         List<Item> rollers = room.getItemManager().getItems(InteractionType.ROLLER);
         
         if (!(rollers.size() > 0)) {
@@ -105,19 +106,18 @@ public class RollerTask implements RoomTask {
 
                 Entity entity = entities.get(i);
 
-                if (entity.getRoomUser().isRolling()) {
-                    entity.getRoomUser().setRolling(false);
+                if (blacklist.contains(entity)) {
                     continue;
                 }
-
+                
                 if (entity.getRoomUser().isWalking()) {
                     continue;
                 }
 
                 if (entity.getRoomUser().getPosition().equals(roller.getPosition()) && entity.getRoomUser().getPosition().getZ() > roller.getPosition().getZ()) {
-                    entity.getRoomUser().setRolling(true);
 
                     Position front = roller.getPosition().getSquareInFront();
+                    blacklist.add(entity);
 
                     if (!this.room.getMapping().isValidStep(entity, entity.getRoomUser().getPosition(), front, false)) {
                         continue;
