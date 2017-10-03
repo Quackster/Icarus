@@ -4,8 +4,6 @@ plugin_details = {
     path = "plugins/RconPlugin"
 }
 
-event_register = { }
-
 event_files = {
     "rcon_handler.lua",
     "command_handler.lua"
@@ -21,7 +19,7 @@ rcon_password = "jellybaby"
 	param: plugin instance
 	return: none
 --]]
-function onEnable(plugin)
+function onEnable()
 
     -- If you want, use log.println() to show everyone this method being called
     log:info(string.format('[Lua] Initialising plugin %s by %s', plugin:getName(), plugin:getAuthor()))

@@ -3,21 +3,12 @@ package org.alexdev.icarus.game.plugins;
 import java.util.concurrent.TimeUnit;
 
 import org.alexdev.icarus.game.GameScheduler;
+import org.alexdev.icarus.log.Log;
 import org.luaj.vm2.LuaFunction;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 
 public class PluginScheduler {
-
-    /**
-     * Command to run a Lua script on a delay
-     * 
-     * @param seconds - the amount of seconds to tick before the task is run
-     * @param functionObject - the {@link LuaValue} of the function
-     */
-    public static void runTaskLater(int seconds, Object functionObject) {
-        runTaskLater(seconds, functionObject, new LuaTable());
-    }
 
     /**
      * Command to run a Lua script on a delay with parameters defined by a {@link LuaTable}
@@ -51,21 +42,11 @@ public class PluginScheduler {
                 function.invoke(LuaValue.varargsOf(parameterValues));
             }, seconds, TimeUnit.SECONDS);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Log.exception(e);
         }
     }
     
-    /**
-     * Command to run a Lua script on a delay but asynchronously without delay.
-     * 
-     * @param seconds - the amount of seconds to tick before the task is run
-     * @param functionObject - the {@link LuaValue} of the function
-     */
-    public static void runTaskAsynchronously(Object functionObject) {
-        runTaskAsynchronously(functionObject, new LuaTable());
-    }
-    
+
     /**
      * Command to run a Lua script on a delay with parameters defined by a {@link LuaTable} 
      * but it's called asynchronously without delay.
@@ -99,8 +80,7 @@ public class PluginScheduler {
                 function.invoke(LuaValue.varargsOf(parameterValues));
             });
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Log.exception(e);
         }
     }
 }
