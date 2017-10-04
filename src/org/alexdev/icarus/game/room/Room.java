@@ -64,7 +64,7 @@ public class Room extends Metadata {
             return this.rights.contains(Integer.valueOf(userId));
         }
     }
-    
+
     /**
      * Checks for ownership.
      *
@@ -127,12 +127,15 @@ public class Room extends Metadata {
     public void save() {
         RoomDao.update(this);
     }
-    
+
     /**
-     * Save.
+     * Save the room metadata, will only call if there's objects that allow to be saved, exist.
      */
     public void saveMetadata() {
-        RoomDao.updateMetadata(this);
+
+        if (this.getMetadata().getMap().size() > 0) {
+            RoomDao.updateMetadata(this);
+        }
     }
 
     /**
@@ -179,7 +182,7 @@ public class Room extends Metadata {
      * @return the group
      */
     public Group getGroup() {
-        
+
         if (this.group == null) {
             if (this.data.getGroupId() > 0) {
                 return GroupManager.getGroup(this.data.getGroupId());
@@ -207,7 +210,7 @@ public class Room extends Metadata {
      * Calls GroupManager.loadGroup()
      */
     public void loadGroup() {
-         this.group = GroupManager.loadGroup(this.data.getGroupId());
+        this.group = GroupManager.loadGroup(this.data.getGroupId());
     }
 
 

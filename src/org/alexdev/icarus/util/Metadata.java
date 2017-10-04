@@ -2,10 +2,8 @@ package org.alexdev.icarus.util;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import org.alexdev.icarus.game.room.Room;
+import java.util.Map.Entry;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -13,14 +11,10 @@ import com.google.gson.reflect.TypeToken;
 public class Metadata {
 
     private Gson gson = new Gson();
-    private Map<String, Object> data;
+    private Map<String, MetadataValue> data;
     
     public Metadata() {
         this.data = new HashMap<>();
-    }
-    
-    public Metadata(HashMap<String, Object> metadata) {
-        this.data = metadata;
     }
     
     /**
@@ -29,6 +23,20 @@ public class Metadata {
      * @return the string
      */
     public String toJson() {
+        
+        Map<String, Object> map = new HashMap<>(); 
+        
+        for (Entry<String, MetadataValue> set : this.data.entrySet()) {
+            
+            Object val = set.getValue().getValue();
+            
+            if (!Util.allowSerialise(val)) {
+                continue;
+            }
+            
+            map.put(set.getKey(), set.getValue().getValue());
+        }
+        
         return gson.toJson(this.data);
     }
     
@@ -38,8 +46,13 @@ public class Metadata {
      * @param json the json
      */
     public void fromJson(String json) {
+        
         Type type = new TypeToken<Map<String, Object>>(){}.getType();
-        this.data = this.gson.fromJson(json, type);
+        Map<String, Object> map = this.gson.fromJson(json, type);
+        
+        for (Entry<String, Object> set : map.entrySet()) {
+            this.data.put(set.getKey(), new MetadataValue(set.getValue(), true));
+        }
     }
     
     /**
@@ -54,11 +67,24 @@ public class Metadata {
     /**
      * Sets a value in a Map, will override a value if the key exists.
      * 
-     * @param key - {@link String}
-     * @param obj - {@link Object}
+     * @param key - the key
+     * @param obj - the value
      */
     public void set(String key, Object obj) {
-        data.put(key, obj);
+        data.put(key, new MetadataValue(obj, false));
+    }
+    
+
+    /**
+     * Sets the value in a Map, will override a value if the key exists.
+     * Will also save the data in a database if allowSave is true;
+     *
+     * @param key - the key
+     * @param obj - the value
+     * @param allowSave should this value be saved to the database
+     */
+    public void set(String key, Object obj, boolean allowSave) {
+        data.put(key, new MetadataValue(obj, allowSave));
     }
     
     /**
@@ -131,7 +157,7 @@ public class Metadata {
             return false;
         }
         
-        return (boolean)data.get(string);
+        return (boolean)data.get(string).getValue();
     }
     
     /**
@@ -155,7 +181,7 @@ public class Metadata {
      *
      * @return the map
      */
-    public Map<String, Object> getMap() {
+    public Map<String, MetadataValue> getMap() {
         return data;
     }
 }

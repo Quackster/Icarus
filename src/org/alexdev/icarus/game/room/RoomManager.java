@@ -66,7 +66,13 @@ public class RoomManager {
      */
     public static void removeRoom(int id) {
    
-        rooms.remove(Integer.valueOf(id));
+        if (rooms.containsKey(id)) {
+            
+            Room room = getByRoomId(id);
+            room.saveMetadata();
+            
+            rooms.remove(Integer.valueOf(id));
+        }
         
         if (promotedRooms.containsKey(id)) {
             removePromotedRoom(id);

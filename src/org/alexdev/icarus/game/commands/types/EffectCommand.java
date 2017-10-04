@@ -8,8 +8,8 @@ public class EffectCommand extends Command {
     @Override
     public void handleCommand(Player player, String message, String[] args) {
         
-        /*player.getRoom().getMetadata().set("enableEffectCommand", true);
-        player.getRoom().saveMetadata();*/
+        player.getRoom().getMetadata().set("enableEffectCommand", true, true); // the second "true" will flag as yes to save in DB
+        player.getRoom().saveMetadata();
 
     }
 
@@ -22,5 +22,4 @@ public class EffectCommand extends Command {
     public void addPermissions() {
         this.permissions.add("user");
     }
-
 }
