@@ -1,7 +1,6 @@
 package org.alexdev.icarus.messages.incoming.catalogue;
 
 import org.alexdev.icarus.dao.mysql.pets.PetDao;
-import org.alexdev.icarus.game.catalogue.CatalogueBundledItem;
 import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.catalogue.CataloguePage;
@@ -123,18 +122,18 @@ public class PurchaseItemMessageEvent implements MessageEvent {
             player.getDetails().sendCredits();
         }
 
-        for (CatalogueBundledItem bundleItem : item.getItems()) {
+        //for (CatalogueBundledItem bundleItem : item.getItems()) {
 
-            if (bundleItem.getCatalogueItem().getDisplayName().startsWith("DEAL_HC_")) {
-                ClubManager.handlePurchase(player, bundleItem, amount);
+            if (item.getDisplayName().startsWith("DEAL_HC_")) {
+                ClubManager.handlePurchase(player, item, amount);
                 return;
             }
 
             for (int i = 0; i < amount; i++) {
-                bundleItem.getItemDefinition().handleDefinitionPurchase(player, extraData);
+                item.getItemDefinition().handleDefinitionPurchase(player, extraData);
             }
 
-            player.send(new PurchaseNotificationMessageComposer(bundleItem));
-        }
+            player.send(new PurchaseNotificationMessageComposer(item));
+        //}
     }
 }

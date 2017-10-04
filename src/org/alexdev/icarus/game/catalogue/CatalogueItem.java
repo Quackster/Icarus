@@ -1,25 +1,21 @@
 package org.alexdev.icarus.game.catalogue;
 
 import org.alexdev.icarus.game.item.ItemDefinition;
+import org.alexdev.icarus.game.item.ItemManager;
 import org.alexdev.icarus.log.Log;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.alexdev.icarus.server.api.messages.Response;
 
 public class CatalogueItem {
 
     private int id;
     private int pageId;
-    private String itemId;
+    private Integer itemId;
     private String itemName;
     private int costCredits;
     private int costPixels;
     private int costOther;
     private int amount;
     private int subscriptionStatus;
-    private int songId;
     private String extraData;
     private String badge;
 
@@ -27,75 +23,27 @@ public class CatalogueItem {
     private int limitedSells;
 
     private boolean hasOffer;
-    private List<CatalogueBundledItem> items;
 
-    public CatalogueItem(int id, int pageId, String itemIds, String catalogueName, int costCredits, int costPixels, int costOther, int amount, int subscriptionStatus, int songId, String extraData, String badage, int limitedStack, int limitedSells, boolean hasOffer) {
-        this.id = id;
-        this.pageId = pageId;
-        this.itemId = itemIds;
-        this.itemName = catalogueName;
-        this.costCredits = costCredits;
-        this.costPixels = costPixels;
-        this.setCostOther(costOther);
-        this.amount = amount;
-        this.subscriptionStatus = subscriptionStatus;
-        this.songId = songId;
-        this.extraData = extraData;
-        this.badge = badage;
-        this.limitedTotal = limitedStack;
-        this.limitedSells = limitedSells;
-        this.hasOffer = hasOffer;
-        this.items = new ArrayList<>();
-
-        // This has been taken from Comet, cus it's the best <3
-        if (items.size() == 0) {
-            if (!this.itemId.equals("-1")) {
-
-                if (itemId.contains(",")) {
-                    String[] split = itemId.replace("\n", "").split(",");
-
-                    for (String str : split) {
-                        if (!str.equals("")) {
-                            String[] parts = str.split(":");
-                            if (parts.length != 3) continue;
-
-                            try {
-                                final int aItemId = Integer.parseInt(parts[0]);
-                                final int aAmount = Integer.parseInt(parts[1]);
-                                final String aPresetData = parts[2];
-
-                                this.items.add(new CatalogueBundledItem(this, aPresetData, aAmount, aItemId));
-                            } catch (Exception ignored) {
-                                Log.info("Invalid item data for catalog item: " + this.id);
-                            }
-                        }
-                    }
-                } else {
-                    this.items.add(new CatalogueBundledItem(this, this.extraData, this.amount, Integer.valueOf(this.itemId)));
-                }
-            }
+    public CatalogueItem(int id, int pageId, String itemIds, String catalogueName, int costCredits, int costPixels, int costOther, int amount, String extraData, String badage, int limitedStack, int limitedSells, boolean hasOffer) {
+        try {
+            this.id = id;
+            this.pageId = pageId;
+            this.itemId = Integer.valueOf(itemIds);
+            this.itemName = catalogueName;
+            this.costCredits = costCredits;
+            this.costPixels = costPixels;
+            this.setCostOther(costOther);
+            this.amount = amount;
+            this.extraData = extraData;
+            this.badge = badage;
+            this.limitedTotal = limitedStack;
+            this.limitedSells = limitedSells;
+            this.hasOffer = hasOffer;
+            this.subscriptionStatus = 0;
+        } catch (NumberFormatException e) {
+            Log.info("Error loading furniture definition: " + this.id);
+            e.printStackTrace();
         }
-
-        if (this.getItems().size() == 0) {
-            return;
-        }
-
-        List<CatalogueBundledItem> itemsToRemove = new ArrayList<>();
-
-        for (CatalogueBundledItem catalogBundledItem : this.items) {
-
-            ItemDefinition itemDefinition = catalogBundledItem.getItemDefinition();
-
-            if (itemDefinition == null) {
-                itemsToRemove.add(catalogBundledItem);
-            }
-        }
-
-        for (CatalogueBundledItem itemToRemove : itemsToRemove) {
-            this.items.remove(itemToRemove);
-        }
-
-        itemsToRemove.clear();
     }
 
     // All credits to Leon for this structure.
@@ -145,10 +93,10 @@ public class CatalogueItem {
          * 
          */
         
-        final ItemDefinition firstItem = this.itemId.equals("-1") ? null : this.getItems().get(0).getItemDefinition();
+        final ItemDefinition def = this.getItemDefinition();
 
         response.writeInt(this.getId());
-        response.writeString(this.getDisplayName() + (debugFurniture ? " (Definition Id " + (firstItem != null ? this.getItems().get(0).getItemDefinition().getId() : "") + ")" : ""));
+        response.writeString(this.getDisplayName() + (debugFurniture ? " (Definition Id " + def.getId() + ")" : ""));
         response.writeBool(false);
 
         response.writeInt(this.getCostCredits());
@@ -164,19 +112,19 @@ public class CatalogueItem {
             response.writeInt(0);
         }
 
-        response.writeBool(firstItem != null && firstItem.allowGift());
+        response.writeBool(def.allowGift());
 
         if (!this.hasBadge()) {
-            response.writeInt(this.getItems().size());
+            response.writeInt(1);//this.getItems().size());
         } else {
-            response.writeInt(this.isBadgeOnly() ? 1 : this.getItems().size() + 1);
+            response.writeInt(1);//this.isBadgeOnly() ? 1 : this.getItems().size() + 1);
             response.writeString("b");
             response.writeString(this.getBadge());
         }
 
         if (!this.isBadgeOnly()) {
-            for (CatalogueBundledItem bundledItem : this.getItems()) {
-                ItemDefinition def = bundledItem.getItemDefinition();
+            /*for (CatalogueBundledItem bundledItem : this.getItems()) {
+                ItemDefinition def = bundledItem.getItemDefinition();*/
 
                 response.writeString(def.getType());
                 response.writeInt(def.getSpriteId());
@@ -184,10 +132,10 @@ public class CatalogueItem {
                 if (this.getDisplayName().contains("wallpaper_single") || this.getDisplayName().contains("floor_single") || this.getDisplayName().contains("landscape_single")) {
                     response.writeString(this.getDisplayName().split("_")[2]);
                 } else {
-                    response.writeString(bundledItem.getExtraData());
+                    response.writeString(this.extraData);
                 }
 
-                response.writeInt(bundledItem.getAmount());
+                response.writeInt(this.amount);
 
                 response.writeBool(this.getLimitedTotal() != 0);
 
@@ -195,13 +143,21 @@ public class CatalogueItem {
                     response.writeInt(this.getLimitedTotal());
                     response.writeInt(this.getLimitedTotal() - this.getLimitedSells());
                 }
-            }
+            /*}*/
         }
 
         response.writeInt(this.subscriptionStatus);
         response.writeBool(!(this.getLimitedTotal() > 0) && this.allowOffer());
         response.writeBool(false);
-        response.writeString("");
+        response.writeString("test.png");
+    }
+
+    private boolean isBadgeOnly() {
+        return getItemDefinition() == null;
+    }
+
+    public ItemDefinition getItemDefinition() {
+         return ItemManager.getFurnitureById(this.itemId);
     }
 
     public int getId() {
@@ -211,12 +167,8 @@ public class CatalogueItem {
         return pageId;
     }
 
-    public String getItemId() {
+    public Integer getItemId() {
         return itemId;
-    }
-
-    public List<CatalogueBundledItem> getItems() {
-        return items;
     }
 
     public String getDisplayName() {
@@ -245,11 +197,7 @@ public class CatalogueItem {
     public int getSubscriptionStatus() {
         return subscriptionStatus;
     }
-
-    public int getSongId() {
-        return songId;
-    }
-
+    
     public String getExtraData() {
         return extraData;
     }
@@ -276,10 +224,6 @@ public class CatalogueItem {
 
     public boolean hasBadge() {
         return !(this.badge.isEmpty());
-    }
-
-    public boolean isBadgeOnly() {
-        return this.items.size() == 0 && this.hasBadge();
     }
 
     public boolean hasOffer() {

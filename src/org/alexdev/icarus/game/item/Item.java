@@ -181,6 +181,7 @@ public class Item extends Metadata {
         }
 
         if (definition.allowSit()) {
+            Log.info("sit plz");
             return true;
         }
 

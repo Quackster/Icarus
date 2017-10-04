@@ -3,7 +3,7 @@ package org.alexdev.icarus.game.player.club;
 import java.util.concurrent.TimeUnit;
 
 import org.alexdev.icarus.dao.mysql.catalogue.ClubDao;
-import org.alexdev.icarus.game.catalogue.CatalogueBundledItem;
+import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessageComposer;
 import org.alexdev.icarus.util.Util;
@@ -14,13 +14,13 @@ public class ClubManager {
      * Handle purchase.
      *
      * @param player the player
-     * @param bundleItem the bundle item
+     * @param item the bundle item
      * @param amount the amount
      */
-    public static void handlePurchase(Player player, CatalogueBundledItem bundleItem, int amount) {
+    public static void handlePurchase(Player player, CatalogueItem item, int amount) {
         
         int daysPurchased = 30 * amount;
-        String catalogueName = bundleItem.getCatalogueItem().getDisplayName();
+        String catalogueName = item.getDisplayName();
         
         if (catalogueName.equals("DEAL_HC_2")) {
             daysPurchased = daysPurchased * 3;
@@ -30,7 +30,7 @@ public class ClubManager {
             daysPurchased = daysPurchased * 6;
         }
         
-        player.send(new PurchaseNotificationMessageComposer(bundleItem));
+        player.send(new PurchaseNotificationMessageComposer(item));
         
         purchaseDays(player, daysPurchased);
     }

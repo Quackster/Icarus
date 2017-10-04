@@ -8,18 +8,16 @@ public class CatalogueTab {
     private int id;
     private int parentId;
     private String caption;
-    private int iconColour;
     private int iconImage;
     private boolean enabled;
     private int minRank;
     private String link;
     private List<CatalogueTab> childTabs;
     
-    public CatalogueTab(int id, int parentId, String caption, int iconColour, int iconImage, boolean enabled, int minRank, String link) {
+    public CatalogueTab(int id, int parentId, String caption, int iconImage, boolean enabled, int minRank, String link) {
         this.id = id;
         this.parentId = parentId;
         this.caption = caption;
-        this.iconColour = iconColour;
         this.iconImage = iconImage;
         this.enabled = enabled;
         this.minRank = minRank;
@@ -37,10 +35,6 @@ public class CatalogueTab {
 
     public String getCaption() {
         return caption;
-    }
-
-    public int getIconColour() {
-        return iconColour;
     }
 
     public int getIconImage() {

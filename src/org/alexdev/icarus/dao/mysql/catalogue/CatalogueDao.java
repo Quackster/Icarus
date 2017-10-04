@@ -39,7 +39,7 @@ public class CatalogueDao {
             while (resultSet.next()) {
 
                 CatalogueTab tab = new CatalogueTab(resultSet.getInt("id"), resultSet.getInt("parent_id"), resultSet.getString("caption"), 
-                        resultSet.getInt("icon_color"), resultSet.getInt("icon_image"), true, resultSet.getInt("min_rank"), resultSet.getString("link"));
+                        resultSet.getInt("icon_image"), true, resultSet.getInt("min_rank"), resultSet.getString("page_link"));
 
                 tabs.add(tab);
             }
@@ -106,14 +106,14 @@ public class CatalogueDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT id, page_id, item_ids, catalog_name, cost_credits, cost_pixels, cost_snow, amount, vip, achievement, song_id, limited_sells, limited_stack, offer_active, extradata, badge_id, flat_id FROM catalog_items", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM catalog_items", sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
 
-                CatalogueItem item = new CatalogueItem(resultSet.getInt("id"), resultSet.getInt("page_id"), resultSet.getString("item_ids"), resultSet.getString("catalog_name"), 
-                        resultSet.getInt("cost_credits"), resultSet.getInt("cost_pixels"), resultSet.getInt("cost_snow"), resultSet.getInt("amount"), resultSet.getInt("vip"), resultSet.getInt("song_id"), 
-                        resultSet.getString("extradata"), resultSet.getString("badge_id"), resultSet.getInt("limited_stack"), resultSet.getInt("limited_sells"), resultSet.getInt("offer_active") == 1);
+                CatalogueItem item = new CatalogueItem(resultSet.getInt("id"), resultSet.getInt("page_id"), resultSet.getString("item_id"), resultSet.getString("catalog_name"), 
+                        resultSet.getInt("cost_credits"), resultSet.getInt("cost_pixels"), resultSet.getInt("cost_diamonds"), resultSet.getInt("amount"),
+                        resultSet.getString("extradata"), resultSet.getString("badge"), resultSet.getInt("limited_stack"), resultSet.getInt("limited_sells"), resultSet.getInt("offer_active") == 1);
 
                 items.add(item);
             }
@@ -141,23 +141,23 @@ public class CatalogueDao {
         List<String> images = new ArrayList<>();
         List<String> texts = new ArrayList<>();
         
-        String rawImages = row.getString("page_images");
-        String rawTexts = row.getString("page_texts");
+        String rawImages = row.getString("page_strings_1");
+        String rawTexts = row.getString("page_strings_2");
         
-        for (String image : rawImages.split("\\{}")) {
+        for (String image : rawImages.split("\\|")) {
             images.add(image);
         }
         
-        for (String text : rawTexts.split("\\{}")) {
+        for (String text : rawTexts.split("\\|")) {
             
-            if (text.endsWith("==")) {
+            /*if (text.endsWith("==")) {
                 text = new String(Base64.getDecoder().decode(text));
-            }
+            }*/
             
             texts.add(text);
         }
         
-        CataloguePage page = new CataloguePage(row.getInt("id"), row.getString("caption"), row.getInt("parent_id"), row.getString("type"), row.getString("page_layout"), row.getInt("min_rank"), images, texts, null);
+        CataloguePage page = new CataloguePage(row.getInt("id"), row.getString("caption"), row.getInt("parent_id"), "DEFAULT", row.getString("page_layout"), row.getInt("min_rank"), images, texts, null);
         return page;
     }
 }

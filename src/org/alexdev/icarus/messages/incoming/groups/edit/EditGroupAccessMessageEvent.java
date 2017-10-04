@@ -26,7 +26,7 @@ public class EditGroupAccessMessageEvent implements MessageEvent {
         }
         
         GroupAccessType accessType = GroupAccessType.getTypeById(reader.readInt());
-        boolean canMembersDecorate = reader.readIntAsBool();
+        boolean canMembersDecorate = !reader.readIntAsBool();
         
         group.setAccessType(accessType);
         group.setCanMembersDecorate(canMembersDecorate);

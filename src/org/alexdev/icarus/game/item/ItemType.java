@@ -6,7 +6,8 @@ public enum ItemType {
     BADGE("b"),
     EFFECT("e"),
     BOT("r"),
-    PET("p");
+    PET("p"),
+    CLUB("h");
     
     private String type;
 

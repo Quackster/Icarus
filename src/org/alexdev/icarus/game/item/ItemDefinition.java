@@ -194,7 +194,7 @@ public class ItemDefinition {
      */
     public boolean allowStack() {
 
-        /*if (this.canSit) {
+        if (this.canSit) {
             return false;
         }
 
@@ -212,7 +212,7 @@ public class ItemDefinition {
         }
         if (this.interactionType == InteractionType.BED) {
             return false;
-        }*/
+        }
         
         return canStack;
     }
