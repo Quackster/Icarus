@@ -20,7 +20,7 @@ public abstract class Command {
     /**
      * Adds the permissions.
      */
-    public void addPermissions() { };
+    public abstract void addPermissions();
     
     /**
      * Adds the argument names, must be overridden

@@ -9,6 +9,7 @@ import org.alexdev.icarus.messages.outgoing.handshake.AvailabilityMessageCompose
 import org.alexdev.icarus.messages.outgoing.handshake.UniqueMachineIDMessageComposer;
 import org.alexdev.icarus.messages.outgoing.user.HomeRoomMessageComposer;
 import org.alexdev.icarus.messages.outgoing.user.LandingWidgetMessageComposer;
+import org.alexdev.icarus.messages.outgoing.user.effects.EffectsMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
@@ -24,22 +25,11 @@ public class AuthenticateMessageEvent implements MessageEvent {
         boolean loginSuccess = PlayerDao.login(player, request.readString());
         PlayerDao.clearTicket(player.getDetails().getId());
         
-        if (!loginSuccess || player.getMachineId() == null) {
+        if (!loginSuccess || player.getMachineId() == null || PlayerManager.kickDuplicates(player)) {
             player.getNetwork().close();
             return;
         }
-        
-        if (PlayerManager.kickDuplicates(player)) {
-            player.getNetwork().close();
-            return;
-        }
-   
-        player.send(new UniqueMachineIDMessageComposer(player.getMachineId()));
-        player.send(new AuthenticationOKMessageComposer());
-        player.send(new HomeRoomMessageComposer(2, false));
-        player.send(new LandingWidgetMessageComposer());
-        player.send(new AvailabilityMessageComposer());
-        
+           
         PlayerManager.addPlayer(player);
         RoomDao.getPlayerRooms(player.getEntityId(), true);
         
@@ -47,5 +37,13 @@ public class AuthenticateMessageEvent implements MessageEvent {
         player.getMessenger().init();
         
         player.getDetails().setAuthenticated(true);
+        
+        player.send(new UniqueMachineIDMessageComposer(player.getMachineId()));
+        player.send(new AuthenticationOKMessageComposer());
+        player.send(new EffectsMessageComposer(player.getInventory().getEffects()));
+        player.send(new HomeRoomMessageComposer(2, false));
+        player.send(new LandingWidgetMessageComposer());
+        player.send(new AvailabilityMessageComposer());
+
     }
 }

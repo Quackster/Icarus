@@ -241,7 +241,7 @@ public class Player extends Entity {
      *
      * @param message the message
      */
-    public void sendNotification(String message) {
+    public void sendMOTD(String message) {
         this.send(new MOTDNotificationMessageComposer(message));
     }
 

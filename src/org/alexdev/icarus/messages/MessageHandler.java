@@ -199,6 +199,7 @@ public class MessageHandler {
         registerEvent(Incoming.InteractWallItemMessageEvent, new InteractItemMessageEvent());
         registerEvent(Incoming.DropItemMessageEvent, new DropItemMessageEvent());
         registerEvent(Incoming.PurchaseOfferMessageEvent, new PurchaseOfferMessageEvent());
+        registerEvent(Incoming.ApplyEffectMessageEvent, new ApplyEffectMessageEvent());
     }
     
     private static void registerItemInteractionPackets() {

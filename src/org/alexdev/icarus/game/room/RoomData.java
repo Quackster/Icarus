@@ -2,8 +2,9 @@ package org.alexdev.icarus.game.room;
 
 import org.alexdev.icarus.game.room.enums.RoomState;
 import org.alexdev.icarus.game.room.enums.RoomType;
+import org.alexdev.icarus.util.Metadata;
 
-public class RoomData {
+public class RoomData extends Metadata {
 
     private int id;
     private RoomType roomType;

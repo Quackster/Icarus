@@ -32,6 +32,6 @@ public class DanceMessageEvent implements MessageEvent {
             roomUser.carryItem(0); // remove anything they were carrying
         }
 
-        roomUser.startDancing(danceId);
+        roomUser.applyDance(danceId);
     }
 }

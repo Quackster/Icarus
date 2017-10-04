@@ -12,6 +12,7 @@ import org.alexdev.icarus.game.room.RoomData;
 import org.alexdev.icarus.game.room.enums.RoomAction;
 import org.alexdev.icarus.game.room.enums.RoomType;
 import org.alexdev.icarus.game.room.user.RoomUser;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.incoming.room.RoomPromotionMessageComposer;
 import org.alexdev.icarus.messages.outgoing.groups.NewGroupMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.FloorMapMessageComposer;
@@ -29,6 +30,7 @@ import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserDisplayMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
+import org.alexdev.icarus.messages.outgoing.user.effects.EffectMessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
@@ -130,10 +132,14 @@ public class RoomUtil {
         player.send(new UserStatusMessageComposer(room.getEntityManager().getEntities()));
 
         for (Player players : room.getEntityManager().getPlayers()) {
-            if (players.getRoomUser().isDancing()) {
+            if (players.getRoomUser().getDanceId() > 0) {
                 player.send(new DanceMessageComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getDanceId()));
             }
 
+            if (players.getRoomUser().getEffectId() > 0) {
+                player.send(new EffectMessageComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getVirtualId()));
+            }
+            
             if (players.getRoomUser().getCarryItem() > 0) {
                 player.send(new CarryObjectComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getCarryItem())); 
             }
@@ -168,6 +174,10 @@ public class RoomUtil {
                 player.getRoomUser().getMetadata().set("showGroupHomeroomDialog", false);
                 player.send(new NewGroupMessageComposer(room.getData().getId(), room.getData().getGroupId()));
             }
+        }
+        
+        if (player.getRoom().getMetadata().getMap().size() > 0) {
+            Log.info("hi!");
         }
     }
     

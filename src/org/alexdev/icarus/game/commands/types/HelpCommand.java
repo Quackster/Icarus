@@ -40,7 +40,7 @@ public class HelpCommand extends Command {
             about.append(" - " + command.getDescription() + "\n");
         }
 
-        player.sendNotification(about.toString());
+        player.sendMOTD(about.toString());
     }
     
 

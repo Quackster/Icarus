@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.room;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -15,8 +16,9 @@ import org.alexdev.icarus.game.room.model.*;
 import org.alexdev.icarus.game.room.scheduler.*;
 import org.alexdev.icarus.game.room.tasks.*;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.util.Metadata;
 
-public class Room {
+public class Room extends Metadata {
 
     private RoomData data;
     private RoomModel model;
@@ -123,7 +125,14 @@ public class Room {
      * Save.
      */
     public void save() {
-        RoomDao.updateRoom(this);
+        RoomDao.update(this);
+    }
+    
+    /**
+     * Save.
+     */
+    public void saveMetadata() {
+        RoomDao.updateMetadata(this);
     }
 
     /**

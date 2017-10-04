@@ -1,10 +1,12 @@
 package org.alexdev.icarus.game.inventory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.alexdev.icarus.dao.mysql.item.InventoryDao;
+import org.alexdev.icarus.game.inventory.effects.Effect;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.pets.Pet;
@@ -18,8 +20,11 @@ import org.alexdev.icarus.messages.outgoing.pets.PetInventoryMessageComposer;
 public class Inventory {
 
     private Player player;
+    
     private Map<Integer, Pet> pets;
     private Map<Integer, Item> items;
+    
+    private List<Effect> effects;
 
     public Inventory(Player player) {
         this.player = player;
@@ -29,6 +34,11 @@ public class Inventory {
      * Initiates the inventory items
      */
     public void init() {
+        this.effects = new ArrayList<>();
+        
+        Effect effect = new Effect(2, 1000, true, 1000, 10);
+        this.effects.add(effect);
+        
         this.items = InventoryDao.getInventoryItems(this.player.getEntityId());
         this.pets = InventoryDao.getInventoryPets(this.player.getEntityId());
     }
@@ -156,5 +166,14 @@ public class Inventory {
      */
     public Pet getPet(int id) {
         return this.pets.get(id);
+    }
+
+    /**
+     * Gets the effects.
+     *
+     * @return the effects
+     */
+    public List<Effect> getEffects() {
+        return effects;
     }
 }

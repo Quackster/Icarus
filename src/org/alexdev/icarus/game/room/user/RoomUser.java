@@ -25,6 +25,7 @@ import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageCompos
 import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.TalkMessageComposer;
+import org.alexdev.icarus.messages.outgoing.user.effects.EffectMessageComposer;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.util.GameSettings;
 import org.alexdev.icarus.util.Metadata;
@@ -36,7 +37,10 @@ public class RoomUser extends Metadata {
 
     private int virtualId;
     private int chatColor;
+
     private int danceId;
+    private int effectId;
+
     private int roomRequestedId;
     private int chatCount;
     private int lookResetTime;
@@ -319,9 +323,9 @@ public class RoomUser extends Metadata {
             this.updateNewHeight(this.position);
             this.needsUpdate = true;
         }
-        
+
         RoomTile tile = this.room.getMapping().getTile(X, Y);
-        
+
         if (tile != null && tile.getHighestItem() != null) {
             if (tile.getHighestItem().getDefinition().getInteractionType() == InteractionType.ONEWAYGATE) {
                 return;
@@ -396,10 +400,10 @@ public class RoomUser extends Metadata {
         this.position = new Position(0, 0, 0);
         this.goal = new Position(0, 0, 0);
         this.carryTimer = new AtomicInteger(-1);
-        
+
         this.lookResetTime = -1;
         this.virtualId = -1;
-        
+
         this.chatColor = 0;
         this.danceId = 0;
         this.carryItem = 0;
@@ -407,26 +411,44 @@ public class RoomUser extends Metadata {
         this.needsUpdate = false;
         this.isWalking = false;
         this.isWalkingAllowed = true;
-        
+
         this.getMetadata().clear();
 
     }
 
     /**
-     * Start dancing.
+     * Start dancing, will be ignored if the user has an effect activated.
      *
      * @param danceId the dance id
      */
-    public void startDancing(int danceId) {
+    public void applyDance(int danceId) {
+        
+        if (this.effectId > 0) {
+            return;
+        }
+        
         this.danceId = danceId;
-        this.room.send(new DanceMessageComposer(this.virtualId, danceId));
+        
+        if (this.room != null) {
+            this.room.send(new DanceMessageComposer(this.virtualId, this.danceId));
+        }
     }
 
     /**
-     * Stop dancing.
+     * Apply effect, will force the user to stop dancing.
+     *
+     * @param effectId the effect id
      */
-    public void stopDancing() {
-        this.startDancing(0);
+    public void applyEffect(int effectId) {
+        this.effectId = effectId;
+        
+        if (this.danceId > 0) {
+            this.applyDance(0);
+        }
+        
+        if (this.room != null) {
+            this.room.send(new EffectMessageComposer(this.virtualId, this.effectId));
+        }
     }
 
     /**
@@ -446,7 +468,7 @@ public class RoomUser extends Metadata {
     public void setPosition(Position position) {
         this.position = position;
     }
-    
+
     /**
      * Gets the tile.
      *
@@ -490,15 +512,6 @@ public class RoomUser extends Metadata {
      */
     public void setNextPosition(Position next) {
         this.nextPositio = next;
-    }
-
-    /**
-     * Checks if is dancing.
-     *
-     * @return true, if is dancing
-     */
-    public boolean isDancing() {
-        return this.danceId != 0;
     }
 
     /**
@@ -547,12 +560,12 @@ public class RoomUser extends Metadata {
     }
 
     /**
-     * Sets the dance id.
+     * Gets the effect id.
      *
-     * @param danceId the new dance id
+     * @return the effect id
      */
-    public void setDanceId(int danceId) {
-        this.danceId = danceId;
+    public int getEffectId() {
+        return effectId;
     }
 
     /**

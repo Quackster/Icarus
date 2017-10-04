@@ -201,7 +201,7 @@ public class CatalogueItem {
         response.writeInt(this.subscriptionStatus);
         response.writeBool(!(this.getLimitedTotal() > 0) && this.allowOffer());
         response.writeBool(false);
-        response.writeString("catalogue/pet_turtle.png");
+        response.writeString("");
     }
 
     public int getId() {

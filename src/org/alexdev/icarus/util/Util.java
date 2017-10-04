@@ -5,12 +5,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.security.SecureRandom;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.alexdev.icarus.encryption.RSA;
 import org.alexdev.icarus.log.Log;

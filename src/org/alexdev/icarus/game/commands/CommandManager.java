@@ -17,6 +17,7 @@ public class CommandManager {
      */
     public static void load() {
         commands = new HashMap<>();
+        commands.put(new String[] { "effect" }, new EffectCommand());
         commands.put(new String[] { "about", "info" }, new AboutCommand());
         commands.put(new String[] { "sit" }, new SitCommand());
         commands.put(new String[] { "help", "commands" }, new HelpCommand());
