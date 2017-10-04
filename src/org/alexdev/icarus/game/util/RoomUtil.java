@@ -175,10 +175,6 @@ public class RoomUtil {
                 player.send(new NewGroupMessageComposer(room.getData().getId(), room.getData().getGroupId()));
             }
         }
-        
-        if (player.getRoom().getMetadata().getMap().size() > 0) {
-            Log.info("hi!");
-        }
     }
     
     /**

@@ -15,7 +15,7 @@ public class MetadataValue {
      *
      * @return the value
      */
-    public Object getValue() {
+    public Object getObject() {
         return value;
     }
 

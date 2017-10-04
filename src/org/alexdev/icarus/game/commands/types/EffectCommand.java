@@ -8,8 +8,15 @@ public class EffectCommand extends Command {
     @Override
     public void handleCommand(Player player, String message, String[] args) {
         
-        player.getRoom().getMetadata().set("enableEffectCommand", true, true); // the second "true" will flag as yes to save in DB
-        player.getRoom().saveMetadata();
+        //player.getRoom().getMetadata().set("enableEffectCommand", true, true); // the second "true" will flag as yes to save in DB
+        //player.getRoom().saveMetadata();
+        
+        if (player.getRoom() == null) {
+            return;
+        }
+        
+        int effectId = Integer.valueOf(args[0]);
+        player.getRoomUser().applyEffect(effectId);
 
     }
 
@@ -21,5 +28,10 @@ public class EffectCommand extends Command {
     @Override
     public void addPermissions() {
         this.permissions.add("user");
+    }
+    
+    @Override
+    public void addArguments() {
+        this.arguments.add("id");
     }
 }

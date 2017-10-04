@@ -419,7 +419,6 @@ public class RoomDao {
         
         if (metadata.length() > 0) {
             room.getMetadata().fromJson(metadata);
-            Log.info(" lol? " + room.getMetadata().getBoolean("enableEffectCommand"));
         }
         
         return room;

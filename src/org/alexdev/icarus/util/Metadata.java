@@ -27,17 +27,10 @@ public class Metadata {
         Map<String, Object> map = new HashMap<>(); 
         
         for (Entry<String, MetadataValue> set : this.data.entrySet()) {
-            
-            Object val = set.getValue().getValue();
-            
-            if (!Util.allowSerialise(val)) {
-                continue;
-            }
-            
-            map.put(set.getKey(), set.getValue().getValue());
+            map.put(set.getKey(), set.getValue().getObject());
         }
         
-        return gson.toJson(this.data);
+        return gson.toJson(map);
     }
     
     /**
@@ -157,7 +150,7 @@ public class Metadata {
             return false;
         }
         
-        return (boolean)data.get(string).getValue();
+        return (boolean)data.get(string).getObject();
     }
     
     /**
