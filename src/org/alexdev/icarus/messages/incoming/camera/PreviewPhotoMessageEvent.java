@@ -29,7 +29,7 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
         final int photoLength = reader.readInt();
         final byte[] photoPayload = reader.readBytes(photoLength);
 
-        if (!new String(photoPayload).contains("‰PNG")) {
+        if (!new String(photoPayload).contains("PNG")) {
             player.sendMessage(Util.getLocale("camera.error"));
             return;
         }
@@ -55,7 +55,7 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
             }
         });
 
-        player.getRoomUser().getMetadata().set("latestPhotoUrl", fileName);
+        player.getMetadata().set("latestPhotoUrl", fileName);
         player.send(new PhotoPreviewComposer(fileName));
     }
 }
