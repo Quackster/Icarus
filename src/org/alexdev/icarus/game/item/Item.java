@@ -512,9 +512,6 @@ public class Item extends Metadata {
      * @param extraData the new extra data
      */
     public void setExtraData(String extraData) {
-
-        Log.info("new data: " + extraData);
-
         this.extraData = extraData;
     }
 

@@ -64,7 +64,6 @@ public class Util {
             
             Date endDate = new Date();
             
-            //milliseconds
             long different = endDate.getTime() - startDate.getTime();
 
             long secondsInMilli = 1000;

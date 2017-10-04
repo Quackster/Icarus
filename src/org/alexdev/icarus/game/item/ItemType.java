@@ -3,7 +3,10 @@ package org.alexdev.icarus.game.item;
 public enum ItemType {
     FLOOR("s"),
     WALL("i"),
-    BADGE("b");
+    BADGE("b"),
+    EFFECT("e"),
+    BOT("r"),
+    PET("p");
     
     private String type;
 
