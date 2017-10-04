@@ -62,7 +62,7 @@ public class GroupPurchaseMessageEvent implements MessageEvent {
         player.send(new PurchaseNotificationMessageComposer());
 
         if (player.getRoomUser().getRoomId() != room.getData().getId()) {
-            player.getRoomUser().set("showGroupHomeroomDialog", true);
+            player.getMetadata().set("showGroupHomeroomDialog", true);
             player.performRoomAction(RoomAction.FORWARD_ROOM, roomId);
             
         } else {

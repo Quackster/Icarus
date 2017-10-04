@@ -28,12 +28,11 @@ import org.alexdev.icarus.messages.outgoing.room.user.TalkMessageComposer;
 import org.alexdev.icarus.messages.outgoing.user.effects.EffectMessageComposer;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.util.GameSettings;
-import org.alexdev.icarus.util.Metadata;
 import org.alexdev.icarus.util.Util;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
-public class RoomUser extends Metadata {
+public class RoomUser {
 
     private int virtualId;
     private int chatColor;
@@ -411,8 +410,6 @@ public class RoomUser extends Metadata {
         this.needsUpdate = false;
         this.isWalking = false;
         this.isWalkingAllowed = true;
-
-        this.getMetadata().clear();
 
     }
 
