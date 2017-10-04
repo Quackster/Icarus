@@ -13,11 +13,11 @@ public class PurchasePhotoMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
         
-        int photoId = 757369158; // top LUL amirite??
+        int photoId = 6359;//757369158
 
         StringBuilder extraData = new StringBuilder();
         extraData.append("{");
-        extraData.append("\"w\":\"" + player.getRoomUser().getMetadata().getString("latestPhotoUrl") + "\",");
+        extraData.append("\"w\":\"" + player.getMetadata().getString("latestPhotoUrl") + "\",");
         extraData.append("\"t\":\"" + System.currentTimeMillis() + "\",");
         extraData.append("\"u\":\"" + player.getEntityId() + "\",");
         extraData.append("\"n\":\"" + player.getDetails().getName() + "\",");
@@ -30,7 +30,10 @@ public class PurchasePhotoMessageEvent implements MessageEvent {
         player.getInventory().addItem(photo, InventoryNotification.ALERT);
         player.getInventory().updateItems();
         
-        player.getRoomUser().getMetadata().remove("latestPhotoUrl");
+        player.getDetails().setCredits(-50);
+        player.getDetails().sendCredits();
+        
+        player.getMetadata().remove("latestPhotoUrl");
         player.send(new PurchasedPhotoComposer());
     }
 
