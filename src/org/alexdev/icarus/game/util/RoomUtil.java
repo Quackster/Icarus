@@ -12,33 +12,16 @@ import org.alexdev.icarus.game.room.RoomData;
 import org.alexdev.icarus.game.room.enums.RoomAction;
 import org.alexdev.icarus.game.room.enums.RoomType;
 import org.alexdev.icarus.game.room.user.RoomUser;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.incoming.room.RoomPromotionMessageComposer;
 import org.alexdev.icarus.messages.outgoing.groups.NewGroupMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.FloorMapMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.HeightMapMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.OwnerRightsMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.RightsLevelMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.RoomModelMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.RoomOwnerRightsComposer;
-import org.alexdev.icarus.messages.outgoing.room.RoomRatingMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.RoomSpacesMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.WallOptionsMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.items.FloorItemsMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.items.WallItemsMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectComposer;
-import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.user.UserDisplayMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
-import org.alexdev.icarus.messages.outgoing.user.effects.EffectMessageComposer;
+import org.alexdev.icarus.messages.outgoing.room.*;
+import org.alexdev.icarus.messages.outgoing.room.items.*;
+import org.alexdev.icarus.messages.outgoing.room.user.*;
+import org.alexdev.icarus.messages.outgoing.user.effects.*;
 import org.alexdev.icarus.server.api.messages.Response;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class RoomUtil.
- */
 public class RoomUtil {
 
     /**
