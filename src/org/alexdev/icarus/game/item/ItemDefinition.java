@@ -70,7 +70,7 @@ public class ItemDefinition {
             this.variableHeight = new double[0];
         }
         
-        if (height == 0 || height == 0.01) {
+        if (height == 0 || height == 0.01 || !allowStack()) {
             height = 0.001;
         }
     }   

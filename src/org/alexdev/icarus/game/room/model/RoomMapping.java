@@ -65,7 +65,7 @@ public class RoomMapping {
 
             tile.getItems().add(item);
 
-            if (tile.getHeight() <= item.getTotalHeight()) {
+            if (tile.getHeight() < item.getTotalHeight()) {
 
                 item.setItemUnderneath(tile.getHighestItem());
                 tile.setHeight(item.getTotalHeight() + GameSettings.FURNITURE_OFFSET);
@@ -110,7 +110,7 @@ public class RoomMapping {
         double currentHeight = this.getTileHeight(current.getX(), current.getY());
         double nextHeight = this.getTileHeight(neighbour.getX(), neighbour.getY());
 
-        if (Position.getHeightDifference(currentHeight, nextHeight) > 1.5) {
+        if (Position.getHeightDifference(currentHeight, nextHeight) > 1.0) {
             return false;
         }
 
@@ -249,6 +249,7 @@ public class RoomMapping {
 
         item.getPosition().setX(0);
         item.getPosition().setY(0);
+        item.getPosition().setZ(0);
 
         item.save();
 
