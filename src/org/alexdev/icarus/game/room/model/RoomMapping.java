@@ -11,7 +11,6 @@ import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RemoveItemMessageComposer;
 import org.alexdev.icarus.util.GameSettings;
@@ -111,8 +110,7 @@ public class RoomMapping {
         double currentHeight = this.getTileHeight(current.getX(), current.getY());
         double nextHeight = this.getTileHeight(neighbour.getX(), neighbour.getY());
 
-        if (Position.getHeightDifference(currentHeight, nextHeight) > 1.0) {
-            Log.info("no: " + currentHeight + " -- " + nextHeight);
+        if (Position.getHeightDifference(currentHeight, nextHeight) > 1.5) {
             return false;
         }
 
