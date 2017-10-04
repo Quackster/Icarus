@@ -97,7 +97,7 @@ public class Metadata {
      * @return {@link Object}
      */
     public Object get(String key) {
-        return data.get(key);
+        return data.get(key).getObject();
     }
 
     /**
@@ -110,7 +110,7 @@ public class Metadata {
      * @return {@link Object}
      */
     public <T> T get(String key, Class<T> type) {
-        return type.cast(data.get(key));
+        return type.cast(data.get(key).getObject());
     }
     
     /**
@@ -121,7 +121,7 @@ public class Metadata {
      * @return {@link Object}
      */
     public int getInt(String key) {
-        return Integer.valueOf(data.get(key).toString());
+        return Integer.valueOf(data.get(key).getObject().toString());
     }
     
     /**
@@ -132,7 +132,7 @@ public class Metadata {
      * @return {@link Object}
      */
     public String getString(String key) {
-        return data.get(key).toString();
+        return data.get(key).getObject().toString();
     }    
 
     /**
