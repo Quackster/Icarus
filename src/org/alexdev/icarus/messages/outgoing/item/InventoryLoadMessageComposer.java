@@ -39,7 +39,7 @@ public class InventoryLoadMessageComposer extends MessageComposer {
             this.response.writeBool(false);
             this.response.writeInt(-1);
             
-            if (item.getDefinition().getType() == ItemType.WALL) {
+            if (item.getDefinition().getType() != ItemType.WALL) {
                 this.response.writeString("");
                 this.response.writeInt(0);
             }
