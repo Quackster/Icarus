@@ -158,10 +158,10 @@ public class Item extends Metadata {
     /**
      * Checks if is walkable.
      *
-     * @param checkDefinition should we check against the "walkable" definition in database?
+     * @param includeWalkableWhitelist should we check against the "walkable" definition in database?
      * @return true, if is walkable
      */
-    public boolean isWalkable(boolean checkDefinition) {
+    public boolean isWalkable(boolean includeWalkableWhitelist) {
 
         ItemDefinition definition = this.getDefinition();
 
@@ -181,11 +181,10 @@ public class Item extends Metadata {
         }
 
         if (definition.allowSit()) {
-            Log.info("sit plz");
             return true;
         }
 
-        if (checkDefinition && definition.isWalkable()) {
+        if (includeWalkableWhitelist && definition.isWalkable()) {
             return true;
         }
 

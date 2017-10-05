@@ -5,10 +5,14 @@ import java.util.List;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
+import org.alexdev.icarus.game.pathfinder.AffectedTile;
+import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.game.room.model.RoomTile;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.alexdev.icarus.util.Util;
@@ -57,9 +61,26 @@ public class PlaceItemMessageEvent implements MessageEvent {
         }
 
         if (item.getDefinition().getType() == ItemType.FLOOR) {
+
             int x = Integer.parseInt(data[1]);
             int y = Integer.parseInt(data[2]);
             int rotation = Integer.parseInt(data[3]);
+
+            if (!item.isWalkable(false)) {
+                List<Position> positions = AffectedTile.getAffectedTiles(item.getDefinition().getLength(), item.getDefinition().getWidth(), x, y, rotation);
+                positions.add(new Position(x, y));
+
+                for (Position position : positions) {
+                    RoomTile tile = room.getMapping().getTile(position.getX(), position.getY());
+
+                    if (tile.getEntities().size() > 0) {
+                        // Oops! Can't place on top of users, sorry!
+                        return;
+                    }
+                }
+            }
+
+
             double height = player.getRoomUser().getRoom().getModel().getHeight(x, y);
 
             item.getPosition().setX(x);
@@ -77,7 +98,7 @@ public class PlaceItemMessageEvent implements MessageEvent {
         if (item.getDefinition().getType() == ItemType.FLOOR) {
             PluginManager.callEvent(PluginEvent.PLACE_FLOOR_ITEM_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
         } 
-        
+
         if (item.getDefinition().getType() == ItemType.WALL) {
             PluginManager.callEvent(PluginEvent.PLACE_WALL_ITEM_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
         }

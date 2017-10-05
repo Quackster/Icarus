@@ -166,6 +166,19 @@ public class RoomMapping {
             return false;
         }
 
+        if (tile.getEntities().size() > 0) {
+            if (this.room.getData().isAllowWalkthrough()) {
+                return true;
+
+            } else {
+                if (!tile.containsEntity(entity)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }
+
         Item item = tile.getHighestItem();
 
         if (item != null) {
@@ -174,17 +187,6 @@ public class RoomMapping {
             }
         }
 
-        if (tile.getEntities().size() > 0) {
-            if (this.room.getData().isAllowWalkthrough()) {
-                return true;
-
-            } else {
-
-                if (!tile.containsEntity(entity)) {
-                    return false;
-                }
-            }
-        }
         return true;
     }
 
