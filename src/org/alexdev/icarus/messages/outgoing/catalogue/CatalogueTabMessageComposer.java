@@ -12,10 +12,12 @@ public class CatalogueTabMessageComposer extends MessageComposer {
 
     private String type;
     private List<CatalogueTab> parentTabs;
+    //private boolean debugCatalog;
 
-    public CatalogueTabMessageComposer(String type, List<CatalogueTab> parentTabs) {
+    public CatalogueTabMessageComposer(/*boolean debugCatalog, */String type, List<CatalogueTab> parentTabs) {
         this.type = type;
         this.parentTabs = parentTabs;
+        //this.debugCatalog = debugCatalog;
     }
 
     @Override
@@ -44,7 +46,7 @@ public class CatalogueTabMessageComposer extends MessageComposer {
         this.response.writeInt(tab.getIconImage());
         this.response.writeInt(tab.getId());
         this.response.writeString(tab.getLink().equals("undefined") ? Util.removeNonAlphaNumeric(tab.getCaption().toLowerCase()).replace(" ", "_") : tab.getLink());
-        this.response.writeString(tab.getCaption());
+        this.response.writeString(tab.getCaption() + " (" + tab.getId() + ")");
         this.response.writeInt(0);
     }
 

@@ -32,19 +32,19 @@ public class MessageHandler {
 
     private static HashMap<Short, List<MessageEvent>> messages;
     private static HashMap<String, String> composerPaths;
-    
+
     private static List<String> composerPackages;
 
     public static void load() throws Exception {
         messages = new HashMap<>();
         composerPaths = new HashMap<>();
         composerPackages = new ArrayList<>();
-        
+
         register();
         registerComposerPackages();
         createComposerLookup();
     }
-    
+
     public static void register() {
         messages.clear();
         registerHandshakePackets();
@@ -63,7 +63,7 @@ public class MessageHandler {
         registerCameraPackets();
         registerItemInteractionPackets();
     }
-    
+
     /**
      * Register handshake packets.
      */
@@ -165,7 +165,7 @@ public class MessageHandler {
      * Register catalogue packets.
      */
     private static void registerCataloguePackets() {
-        registerEvent(Incoming.CatalogueTabMessageEvent, new CatalogueMessageEvent());
+        registerEvent(Incoming.CatalogueTabMessageEvent, new CatalogueTabsMessageEvent());
         registerEvent(Incoming.CataloguePageMessageEvent, new CataloguePageMessageEvent());
         registerEvent(Incoming.PurchaseObjectMessageEvent, new PurchaseItemMessageEvent());
         registerEvent(Incoming.PurchasePresentMessageEvent, new PurchasePresentMessageEvent());
@@ -201,7 +201,7 @@ public class MessageHandler {
         registerEvent(Incoming.PurchaseOfferMessageEvent, new PurchaseOfferMessageEvent());
         registerEvent(Incoming.ApplyEffectMessageEvent, new ApplyEffectMessageEvent());
     }
-    
+
     private static void registerItemInteractionPackets() {
         registerEvent(Incoming.SaveBrandingMessageEvent, new SaveBrandingMessageEvent());
         registerEvent(Incoming.SaveMannequinMessageEvent, new SaveMannequinMessageEvent());
@@ -233,7 +233,7 @@ public class MessageHandler {
         registerEvent(Incoming.EditGroupAccessMessageEvent, new EditGroupAccessMessageEvent());
         registerEvent(Incoming.EditGroupBadgeMessageEvent, new EditGroupBadgeMessageEvent());
     }
-    
+
     /**
      * Register camera packets.
      */
@@ -270,7 +270,7 @@ public class MessageHandler {
         composerPackages.add("org.alexdev.icarus.messages.outgoing.room.settings");
         composerPackages.add("org.alexdev.icarus.messages.outgoing.user");
     }
-    
+
     /**
      * Gets the composer.
      *
@@ -322,10 +322,20 @@ public class MessageHandler {
      * @param message the message
      */
     public static void handleRequest(Player player, ClientMessage message) {
+        invoke(player, message.getMessageId(), message);
+    }
 
-        if (messages.containsKey(message.getMessageId())) {
+    /**
+     * Invoke the request.
+     *
+     * @param player the player
+     * @param messageId the message id
+     * @param message the message
+     */
+    public static void invoke(Player player, short messageId, ClientMessage message) {
+        if (messages.containsKey(messageId)) {
 
-            for (MessageEvent event : messages.get(message.getMessageId())) {
+            for (MessageEvent event : messages.get(messageId)) {
                 event.handle(player, message);
             }
         }

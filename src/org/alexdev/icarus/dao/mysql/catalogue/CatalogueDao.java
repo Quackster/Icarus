@@ -32,11 +32,14 @@ public class CatalogueDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM catalog_pages WHERE parent_id = " + parentId, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM catalog_pages WHERE parent_id = ? AND enabled = ? ORDER BY order_num ASC", sqlConnection);
+            preparedStatement.setInt(1, parentId);
+            preparedStatement.setString(2, "1");
+            
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-
+                
                 CatalogueTab tab = new CatalogueTab(resultSet.getInt("id"), resultSet.getInt("parent_id"), resultSet.getString("caption"), 
                         resultSet.getInt("icon_image"), true, resultSet.getInt("min_rank"), resultSet.getString("page_link"));
 

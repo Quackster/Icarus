@@ -2,6 +2,7 @@ package org.alexdev.icarus.game.catalogue;
 
 import org.alexdev.icarus.game.item.ItemDefinition;
 import org.alexdev.icarus.game.item.ItemManager;
+import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.server.api.messages.Response;
 
@@ -92,11 +93,11 @@ public class CatalogueItem {
          * ÿÿÿÿ[0]            
          * 
          */
-        
+
         final ItemDefinition def = this.getItemDefinition();
 
         response.writeInt(this.getId());
-        response.writeString(this.getDisplayName() + (debugFurniture ? " (Definition Id " + def.getId() + ")" : ""));
+        response.writeString(this.getDisplayName() + (debugFurniture ? " (Definition Id " + def.getId() + ")" : "") +  (debugFurniture ? " (" + this.pageId + ")" : ""));
         response.writeBool(false);
 
         response.writeInt(this.getCostCredits());
@@ -113,37 +114,33 @@ public class CatalogueItem {
         }
 
         response.writeBool(def.allowGift());
+        response.writeInt(this.hasBadge() ? 2 :1);
 
-        if (!this.hasBadge()) {
-            response.writeInt(1);//this.getItems().size());
-        } else {
-            response.writeInt(1);//this.isBadgeOnly() ? 1 : this.getItems().size() + 1);
-            response.writeString("b");
-            response.writeString(this.getBadge());
+        if (this.hasBadge()) {
+            response.writeString(ItemType.BADGE.toString());
+            response.writeString(this.badge);
         }
+        
+        response.writeString(def.getType().toString());
+        
+        if (def.getType() == ItemType.BADGE) {
+            response.writeString(def.getItemName());
+        } else {
+            response.writeInt(def.getSpriteId());
 
-        if (!this.isBadgeOnly()) {
-            /*for (CatalogueBundledItem bundledItem : this.getItems()) {
-                ItemDefinition def = bundledItem.getItemDefinition();*/
+            if (this.getDisplayName().contains("wallpaper_single") || this.getDisplayName().contains("floor_single") || this.getDisplayName().contains("landscape_single")) {
+                response.writeString(this.getDisplayName().split("_")[2]);
+            } else {
+                response.writeString(this.extraData);
+            }
 
-                response.writeString(def.getType());
-                response.writeInt(def.getSpriteId());
+            response.writeInt(this.amount);
+            response.writeBool(this.getLimitedTotal() != 0);
 
-                if (this.getDisplayName().contains("wallpaper_single") || this.getDisplayName().contains("floor_single") || this.getDisplayName().contains("landscape_single")) {
-                    response.writeString(this.getDisplayName().split("_")[2]);
-                } else {
-                    response.writeString(this.extraData);
-                }
-
-                response.writeInt(this.amount);
-
-                response.writeBool(this.getLimitedTotal() != 0);
-
-                if (this.getLimitedTotal() > 0) {
-                    response.writeInt(this.getLimitedTotal());
-                    response.writeInt(this.getLimitedTotal() - this.getLimitedSells());
-                }
-            /*}*/
+            if (this.getLimitedTotal() > 0) {
+                response.writeInt(this.getLimitedTotal());
+                response.writeInt(this.getLimitedTotal() - this.getLimitedSells());
+            }
         }
 
         response.writeInt(this.subscriptionStatus);
@@ -152,12 +149,12 @@ public class CatalogueItem {
         response.writeString("test.png");
     }
 
-    private boolean isBadgeOnly() {
-        return getItemDefinition() == null;
-    }
-
     public ItemDefinition getItemDefinition() {
-         return ItemManager.getFurnitureById(this.itemId);
+        ItemDefinition def = ItemManager.getFurnitureById(this.itemId);
+        if (def == null) {
+            def = ItemManager.getFurnitureById(1);
+        }
+        return def;
     }
 
     public int getId() {
@@ -197,7 +194,7 @@ public class CatalogueItem {
     public int getSubscriptionStatus() {
         return subscriptionStatus;
     }
-    
+
     public String getExtraData() {
         return extraData;
     }
@@ -223,10 +220,6 @@ public class CatalogueItem {
     }
 
     public boolean hasBadge() {
-        return !(this.badge.isEmpty());
-    }
-
-    public boolean hasOffer() {
-        return hasOffer;
+        return this.badge.length() > 0;
     }
 }

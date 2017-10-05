@@ -10,12 +10,18 @@ import org.alexdev.icarus.messages.outgoing.catalogue.CatalogueTabMessageCompose
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
-public class CatalogueMessageEvent implements MessageEvent {
+public class CatalogueTabsMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
     
-        String type = request.readString();
+        String type = null;
+        
+        if (request == null) {
+            type = "DEFAULT";
+        }
+        
+        type = request.readString();
         
         if (type == null) {
             return;
