@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2017 at 03:25 PM
+-- Generation Time: Oct 05, 2017 at 04:14 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -8100,7 +8100,7 @@ INSERT INTO `catalog_pages` (`id`, `parent_id`, `caption`, `icon_image`, `visibl
 (1111, 9021, 'Best Sellers', 69, '1', '1', 1, 0, 30, '', 'default_3x3', 'catalog_bestsellers_header_en|catalog_teaser_bestsellers', 'The best sellers is where you can buy bulked up versions of the most commonly bought furni. Something missing? Let Jess know and she\'ll be sure to add it!|'),
 (1188, 9021, 'Drago', 110, '1', '1', 1, 0, 78, '', 'default_3x3', 'drago_catalog_header2|drago_catalog_teaser2', 'Dungeon furniture, the perfect range to create your torturous cellars!|'),
 (2012, 9021, 'Boutique', 131, '1', '1', 1, 0, 36, '', 'default_3x3', 'boutique_catalog_01|boutique_catalog_teaser_01', 'The boutique range is just the thing if you want to own a high end fashion store in Milan, but are on a budget.|'),
-(2053, 9021, 'Public Furni', 28, '1', '1', 1, 0, 172, '', 'default_3x3', 'PUBLICFURNI|publicteaser', 'Public Furniture: Used to build the Picnic Area, Lido, and Welcome Lounge!| '),
+(2053, 91, 'Public Furni', 28, '1', '1', 5, 0, 172, '', 'default_3x3', 'PUBLICFURNI|publicteaser', 'Public Furniture: Used to build the Picnic Area, Lido, and Welcome Lounge!| '),
 (9020, 9224, 'Furni By Item', 121, '1', '1', 1, 0, 7, '', 'default_3x3', '', ''),
 (9021, 9224, 'Furni By Line', 197, '1', '1', 1, 0, 8, '', 'default_3x3', '', ''),
 (9023, 57895, 'Saddles', 135, '1', '1', 1, 0, 1, '', 'default_3x3', 'catalog_saddles_header2_en|horse_teaser', 'Customize your horse and him unique with this selection of hair styles. Each style can also be added to your room as a piece of furniture.'),
@@ -8134,7 +8134,7 @@ INSERT INTO `catalog_pages` (`id`, `parent_id`, `caption`, `icon_image`, `visibl
 (9064, 9027, 'Alphabet', 1009, '1', '1', 1, 0, 0, '', 'default_3x3_color_grouping', 'catalog_header_alpha1|catalog_teaser_alpha1', 'Feeling creative? You should be! Here is a full range of building blocks to create a master piece with!');
 INSERT INTO `catalog_pages` (`id`, `parent_id`, `caption`, `icon_image`, `visible`, `enabled`, `min_rank`, `min_vip`, `order_num`, `page_link`, `page_layout`, `page_strings_1`, `page_strings_2`) VALUES
 (9065, 9021, 'CyberPunk', 254, '1', '1', 1, 0, 72, '', 'default_3x3', 'catalog_header_cpunk15|catalog_teaser_cyberpunk', 'Light-filled cityscapes and brightly lit skycrapers looming ovehead... This is the dark, dark furni line of the future. The future is called CyberPunk.'),
-(9066, 9021, 'Public Furni 2015', 28, '1', '1', 1, 0, 174, '', 'default_3x3', '', 'Public Furniture: Used to build new rooms such as the Noob Lobby, HC Lounge and Welcome Lounge [2015]'),
+(9066, 91, 'Public Furni 2015', 28, '1', '1', 5, 0, 174, '', 'default_3x3', '', 'Public Furniture: Used to build new rooms such as the Noob Lobby, HC Lounge and Welcome Lounge [2015]'),
 (9067, 9021, 'Chinese New Year', 15, '0', '1', 1, 0, 50, '', 'default_3x3', 'catalog_asian_headline1|catalog_asian_teaser1', 'The year of the Horse was engulfed in excitement, but it\'s time for the flames to die away as we slither into the next Chinese Lunar Year - The Goat!'),
 (9069, 9021, 'St Patrick\'s 2014', 212, '0', '1', 1, 0, 198, '', 'default_3x3', '', ''),
 (9070, 9021, 'Mall', 28, '1', '1', 1, 0, 136, '', 'default_3x3', '', ''),
@@ -16084,7 +16084,7 @@ INSERT INTO `item_data` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`,
 (45, 1, 1, 2437, 1, '1', '25', 6.001, 2, '0'),
 (46, 1, 1, 2437, 1, '1', '26', 6.001, 2, '1'),
 (47, 1, 1, 2437, 1, '1', '27', 6.001, 2, '1'),
-(48, 1, 1, 2429, 1, '1', '24', 6.001, 2, ''),
+(48, 1, 1, 2429, 1, '1', '24', 6.001, 2, '0'),
 (49, 1, 1, 2420, 1, '4', '26', 6.001, 2, '1'),
 (50, 1, 1, 2420, 1, '4', '27', 6.001, 2, '1'),
 (51, 1, 1, 2420, 1, '4', '28', 6.001, 2, '1'),
