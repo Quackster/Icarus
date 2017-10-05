@@ -57,7 +57,7 @@ public class ItemDefinition {
         this.interactionModes = interationModes;
         this.vendingIds = vendingIds.isEmpty() ? new String[0] : vendingIds.split(",");
 
-        if (adjustableHeights.length() > 0) {
+        if (adjustableHeights.length() > 0 && !adjustableHeights.equals("0")) {
 
             String[] parts = adjustableHeights.split(",");
             this.variableHeight = new double[parts.length];
@@ -85,10 +85,6 @@ public class ItemDefinition {
         
         Item inventoryItem = InventoryDao.newItem(this.id, player.getEntityId(), extraData);
 
-        if (inventoryItem.getDefinition().getInteractionType() == InteractionType.JUKEBOX) {
-            inventoryItem.setExtraData("0");
-        }
-
         if (inventoryItem.getDefinition().getInteractionType() == InteractionType.GATE || inventoryItem.getDefinition().getInteractionType() == InteractionType.ONEWAYGATE) {
             inventoryItem.setExtraData("0");
         }
@@ -114,16 +110,7 @@ public class ItemDefinition {
 
         player.getInventory().addItem(inventoryItem, InventoryNotification.ALERT);
     }
-    
-    /**
-     * Checks if is ads furni.
-     *
-     * @return true, if is ads furni
-     */
-    public boolean isAdsFurni() {
-        return this.itemName.equals("ads_background");
-    }
-    
+
     /**
      * Gets the id.
      *

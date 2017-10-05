@@ -12,7 +12,6 @@ import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomTile;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.alexdev.icarus.util.Util;
@@ -66,7 +65,7 @@ public class PlaceItemMessageEvent implements MessageEvent {
             int y = Integer.parseInt(data[2]);
             int rotation = Integer.parseInt(data[3]);
 
-            if (!item.isWalkable(false)) {
+            if (!item.isWalkable()) {
                 List<Position> positions = AffectedTile.getAffectedTiles(item.getDefinition().getLength(), item.getDefinition().getWidth(), x, y, rotation);
                 positions.add(new Position(x, y));
 

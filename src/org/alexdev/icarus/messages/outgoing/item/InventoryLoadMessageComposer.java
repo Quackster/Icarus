@@ -1,20 +1,20 @@
 package org.alexdev.icarus.messages.outgoing.item;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.interactions.InteractionType;
+import org.alexdev.icarus.game.item.ItemType;
+import org.alexdev.icarus.game.util.ItemUtil;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 
 public class InventoryLoadMessageComposer extends MessageComposer {
 
-    private List<Item> wallItems;
-    private List<Item> floorItems;
+    private Collection<Item> items;
 
-    public InventoryLoadMessageComposer(List<Item> wallItems, List<Item> floorItems) {
-        this.wallItems = wallItems;
-        this.floorItems = floorItems;
+    public InventoryLoadMessageComposer(Collection<Item> collection) {
+        this.items = collection;
     }
 
     @Override
@@ -23,25 +23,14 @@ public class InventoryLoadMessageComposer extends MessageComposer {
         this.response.init(Outgoing.InventoryMessageComposer);
         this.response.writeInt(1);
         this.response.writeInt(0);
-        this.response.writeInt(this.wallItems.size() + this.floorItems.size());
+        this.response.writeInt(this.items.size());
 
-        for (Item item : this.wallItems) {
+        for (Item item : this.items) {
             this.response.writeInt(item.getId());
             this.response.writeString(item.getDefinition().getType().toString().toUpperCase());
             this.response.writeInt(item.getId());
-            this.response.writeInt(item.getDefinition().getSpriteId());
-
-            if (item.getDefinition().getItemName().contains("landscape"))
-                this.response.writeInt(4);
-            else if (item.getDefinition().getItemName().contains("wallpaper"))
-                this.response.writeInt(2);
-            else if (item.getDefinition().getItemName().contains("a2")) 
-                this.response.writeInt(3);
-            else
-                this.response.writeInt(1);
-
-            this.response.writeInt(0);
-            this.response.writeString(item.getExtraData());
+            this.response.writeInt(item.getDefinition().getSpriteId()); 
+            ItemUtil.generateExtraData(item, this.response);
             this.response.writeBool(item.getDefinition().allowRecycle());
             this.response.writeBool(item.getDefinition().allowTrade());
             this.response.writeBool(item.getDefinition().allowInventoryStack());
@@ -49,33 +38,11 @@ public class InventoryLoadMessageComposer extends MessageComposer {
             this.response.writeInt(-1);
             this.response.writeBool(false);
             this.response.writeInt(-1);
-        }
-
-        for (Item item : floorItems) {
-            this.response.writeInt(item.getId());
-            this.response.writeString(item.getDefinition().getType().toString().toUpperCase());
-            this.response.writeInt(item.getId());
-            this.response.writeInt(item.getDefinition().getSpriteId());
-
-            if (item.getDefinition().getInteractionType() == InteractionType.GROUPITEM || item.getDefinition().getInteractionType() == InteractionType.GLD_GATE) {
-                this.response.writeInt(17); 
-            } else if (item.getDefinition().getInteractionType() == InteractionType.MUSICDISK) {
-                this.response.writeInt(8);
-            } else {
-                this.response.writeInt(1);
+            
+            if (item.getDefinition().getType() == ItemType.WALL) {
+                this.response.writeString("");
+                this.response.writeInt(0);
             }
-
-            this.response.writeInt(0);
-            this.response.writeString(item.getExtraData());
-            this.response.writeBool(item.getDefinition().allowRecycle());
-            this.response.writeBool(item.getDefinition().allowTrade());
-            this.response.writeBool(item.getDefinition().allowInventoryStack());
-            this.response.writeBool(item.getDefinition().allowMarketplaceSell());
-            this.response.writeInt(-1);
-            this.response.writeBool(false); 
-            this.response.writeInt(-1);
-            this.response.writeString("");
-            this.response.writeInt(0);
         }
     }
 }

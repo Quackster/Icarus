@@ -18,7 +18,7 @@ public class InventoryMessageEvent implements MessageEvent {
             return;
         }
         
-        player.send(new InventoryLoadMessageComposer(inventory.getWallItems(), inventory.getFloorItems()));
+        player.send(new InventoryLoadMessageComposer(inventory.getItems().values()));
         player.send(new PetInventoryMessageComposer(inventory.getPets()));
     }
 }

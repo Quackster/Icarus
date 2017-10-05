@@ -46,7 +46,7 @@ public class MoveItemMessageEvent implements MessageEvent {
                 rotation = true;
             } else {
 
-                if (!item.isWalkable(false)) {
+                if (!item.isWalkable()) {
                     
                     List<Position> positions = AffectedTile.getAffectedTiles(item.getDefinition().getLength(), item.getDefinition().getWidth(), x, y, direction);
                     positions.add(new Position(x, y));

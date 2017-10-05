@@ -2,6 +2,7 @@ package org.alexdev.icarus.game.util;
 
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.server.api.messages.Response;
 
 public class ItemUtil {
@@ -14,26 +15,50 @@ public class ItemUtil {
      */
     public static void generateExtraData(Item item, Response response) {
 
-        String extraData = item.getExtraData();
-
-        if (item.getDefinition().isAdsFurni()) {
+        if (item.getDefinition().getInteractionType() == InteractionType.WALLPAPER) {
+            response.writeInt(2);
+            response.writeInt(0);
+            response.writeString(item.getExtraData());
+            return;
+        }
+        
+        if (item.getDefinition().getInteractionType() == InteractionType.FLOOR) {
+            response.writeInt(3);
+            response.writeInt(0);
+            response.writeString(item.getExtraData());
+            return;
+        }
+        
+        if (item.getDefinition().getInteractionType() == InteractionType.LANDSCAPE) {
+            response.writeInt(4);
+            response.writeInt(0);
+            response.writeString(item.getExtraData());
+            return;
+        }
+        
+        if (item.getDefinition().getInteractionType() == InteractionType.BACKGROUND) {
 
             response.writeInt(0);
             response.writeInt(1);
 
-            if (!extraData.equals("")) {
-                String[] adsData = extraData.split(Character.toString((char) 9));
+            if (item.getExtraData().length() > 0) {
+                
+                String[] adsData = item.getExtraData().split(Character.toString((char) 9));
                 int count = adsData.length;
 
                 response.writeInt(count / 2);
+                
+                Log.info("count: (" + item.getExtraData() + ") " + (count/ 2));
 
                 for (int i = 0; i <= count - 1; i++) {
                     response.writeString(adsData[i]);
                 }
 
             } else {
+                Log.info("count: LUL");
                 response.writeInt(0);
             }
+            
             return;
         }
 
@@ -64,6 +89,6 @@ public class ItemUtil {
 
         response.writeInt(1);
         response.writeInt(0);
-        response.writeString(extraData);
+        response.writeString(item.getExtraData());
     }
 }

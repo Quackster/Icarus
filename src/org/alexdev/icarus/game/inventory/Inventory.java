@@ -96,7 +96,7 @@ public class Inventory {
      */
     public void updateItems() {
         this.player.send(new UpdateInventoryMessageComposer());
-        this.player.send(new InventoryLoadMessageComposer(this.getWallItems(), this.getFloorItems()));
+        this.player.send(new InventoryLoadMessageComposer(this.items.values()));
     }
 
     /**
