@@ -19,10 +19,7 @@ public class TeleportInteractor implements Interaction {
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {
 
-        /**
-         * Check if the user is inside the teleporter, if so, walk out.
-         * Useful if the user is stuck inside.
-         */
+        // Check if the user is inside the teleporter, if so, walk out. Useful if the user is stuck inside.
         if (item.getPosition().equals(roomUser.getPosition())) {
 
             item.setExtraData(TELEPORTER_OPEN);
@@ -38,10 +35,7 @@ public class TeleportInteractor implements Interaction {
             return;
         }
 
-        /**
-         * Checks if the connected teleporter is available and in use.
-         * If not, cancel all interaction.
-         */
+        // Checks if the connected teleporter is available and in use. If not, cancel all interaction.
         Position front = item.getPosition().getSquareInFront();
 
         if (!front.equals(roomUser.getPosition())) {
@@ -59,13 +53,13 @@ public class TeleportInteractor implements Interaction {
             return;
         }
 
-        int newRotation = item.getPosition().getRotation() - 4;
+        /*int newRotation = item.getPosition().getRotation() - 4;
 
         if (roomUser.getPosition().getRotation() != newRotation) {
             roomUser.getPosition().setRotation(newRotation);
             roomUser.setNeedUpdate(true);
             return;
-        }
+        }*/
 
         item.setExtraData(TELEPORTER_OPEN);
         item.updateStatus();

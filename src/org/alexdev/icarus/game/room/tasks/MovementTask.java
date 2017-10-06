@@ -39,7 +39,7 @@ public class MovementTask implements Runnable {
             Entity entity = entities.get(i);
 
             if (entity != null) {
-                if (entity.getRoomUser() != null) {
+                if (entity.getRoomUser() != null && entity.getRoomUser().getRoom() != null) {
 
                     this.processEntity(entity);
 

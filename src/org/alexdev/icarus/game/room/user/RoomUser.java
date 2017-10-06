@@ -21,6 +21,7 @@ import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.model.Rotation;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
@@ -59,7 +60,7 @@ public class RoomUser {
 
     private Position position;
     private Position goal;
-    private Position nextPositio;
+    private Position nextPosition;
 
     private AtomicInteger carryTimer;
 
@@ -316,9 +317,9 @@ public class RoomUser {
             return;
         }
 
-        if (this.nextPositio != null) {
-            this.position.setX(this.nextPositio.getX());
-            this.position.setY(this.nextPositio.getY());
+        if (this.nextPosition != null) {
+            this.position.setX(this.nextPosition.getX());
+            this.position.setY(this.nextPosition.getY());
             this.updateNewHeight(this.position);
             this.needsUpdate = true;
         }
@@ -389,17 +390,17 @@ public class RoomUser {
      * Dispose.
      */
     public void clearUserData() {
-        this.position = null;
-        this.goal = null;
+        
         this.room = null;
-
+        this.nextPosition = null;
+        
         this.statuses = new HashMap<>();
         this.path = new LinkedList<>();
 
         this.position = new Position(0, 0, 0);
         this.goal = new Position(0, 0, 0);
+        
         this.carryTimer = new AtomicInteger(-1);
-
         this.lookResetTime = -1;
         this.virtualId = -1;
 
@@ -499,7 +500,7 @@ public class RoomUser {
      * @return the next
      */
     public Position getNextPosition() {
-        return nextPositio;
+        return nextPosition;
     }
 
     /**
@@ -508,7 +509,7 @@ public class RoomUser {
      * @param next the new next
      */
     public void setNextPosition(Position next) {
-        this.nextPositio = next;
+        this.nextPosition = next;
     }
 
     /**

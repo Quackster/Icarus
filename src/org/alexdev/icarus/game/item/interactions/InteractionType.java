@@ -1,30 +1,19 @@
 package org.alexdev.icarus.game.item.interactions;
 
-import org.alexdev.icarus.game.item.interactions.types.AdjustableHeightInteractor;
-import org.alexdev.icarus.game.item.interactions.types.BedInteractor;
-import org.alexdev.icarus.game.item.interactions.types.DefaultInteractor;
-import org.alexdev.icarus.game.item.interactions.types.DiceInteractor;
-import org.alexdev.icarus.game.item.interactions.types.DimmerInteractor;
-import org.alexdev.icarus.game.item.interactions.types.GateInteractor;
-import org.alexdev.icarus.game.item.interactions.types.MannequinInteractor;
-import org.alexdev.icarus.game.item.interactions.types.OneWayGateInteractor;
-import org.alexdev.icarus.game.item.interactions.types.TeleportInteractor;
-import org.alexdev.icarus.game.item.interactions.types.VendingInteractor;
+import org.alexdev.icarus.game.item.interactions.types.*;
 
 public enum InteractionType {
 
     DEFAULT(new DefaultInteractor()),
     GATE(new GateInteractor()),
-    ROOMEFFECT,
-    DIMMER(new DimmerInteractor()),
+    DIMMER,
     BED(new BedInteractor()),
     VENDINGMACHINE(new VendingInteractor()),
-    ADJUSTABLEHEIGHT(new AdjustableHeightInteractor()),
     ONEWAYGATE(new OneWayGateInteractor()),
     DICE(new DiceInteractor()),
     TELEPORT(new TeleportInteractor()),
     MANNEQUIN(new MannequinInteractor()),
-    BACKGROUND(null), 
+    BACKGROUND, 
     ROLLER,
     FLOOR,
     WALLPAPER,
@@ -35,20 +24,34 @@ public enum InteractionType {
     InteractionType() {
         this.interaction = null;
     }
-    
+
     InteractionType(Interaction interaction) {
         this.interaction = interaction;
     }
     
+    /**
+     * Gets the handler.
+     *
+     * @return the handler
+     */
     public Interaction getHandler() {
         return interaction;
     }
     
+    /**
+     * Gets the type by database name.
+     *
+     * @param databaseType the database type
+     * @return the type
+     */
     public static InteractionType getType(String databaseType) {
-        try {
-            return InteractionType.valueOf(databaseType.toUpperCase().replace("_", ""));
-        } catch (Exception e) {
-            return InteractionType.DEFAULT;
+        
+        for (InteractionType type : InteractionType.values()) {
+            if (type.name().equals(databaseType.toUpperCase())) {
+                return type;
+            }
         }
+        
+        return InteractionType.DEFAULT;
     }
 }

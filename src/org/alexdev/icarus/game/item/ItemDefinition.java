@@ -55,7 +55,7 @@ public class ItemDefinition {
         this.interactionModes = interationModes;
         this.vendingIds = vendingIds.isEmpty() ? new String[0] : vendingIds.split(",");
 
-        if (adjustableHeights.length() > 0 && !adjustableHeights.equals("0")) {
+        if (adjustableHeights.contains(",")) {
 
             String[] parts = adjustableHeights.split(",");
             this.variableHeight = new double[parts.length];
