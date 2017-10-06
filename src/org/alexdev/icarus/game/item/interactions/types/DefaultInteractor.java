@@ -12,16 +12,14 @@ public class DefaultInteractor implements Interaction {
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {
 
-        if (item.getDefinition().requiresRights()) {
-            if (!roomUser.getRoom().hasRights(roomUser.getEntity().getEntityId()) && !roomUser.getEntity().getDetails().hasPermission("room_all_rights")) {
-                return;
-            }
+        if (!roomUser.getRoom().hasRights(roomUser.getEntity().getEntityId()) && !roomUser.getEntity().getDetails().hasPermission("room_all_rights")) {
+            return;
         }
-
+        
         int modes = item.getDefinition().getInteractionModes();
 
         if (modes > 0) {
-            
+
             int currentMode = Util.isNumber(item.getExtraData()) ? Integer.valueOf(item.getExtraData()) : 0;
             int newMode = currentMode + 1;
 
@@ -41,7 +39,7 @@ public class DefaultInteractor implements Interaction {
     public void onStopWalking(Item item, RoomUser roomUser) {
 
         if (!item.getDefinition().allowSitOrLay()) {
-            
+
             if (roomUser.containsStatus(EntityStatus.LAY)) {
                 roomUser.removeStatus(EntityStatus.LAY);
             }
@@ -52,7 +50,6 @@ public class DefaultInteractor implements Interaction {
         }
 
         if (item.getDefinition().allowSit()) {
-
             roomUser.setStatus(EntityStatus.SIT, roomUser.getEntity().getType() == EntityType.PET ? "0.5" : "1.0");
             roomUser.getPosition().setRotation(item.getPosition().getRotation());
         }

@@ -26,7 +26,6 @@ public class ItemDefinition {
     private boolean allowGift;
     private boolean allowInventoryStack;
     private InteractionType interactionType;
-    private boolean requiresRights;
     private int interactionModes;
     private String[] vendingIds;
     private double[] variableHeight;
@@ -53,7 +52,6 @@ public class ItemDefinition {
         this.allowGift = allowGift;
         this.allowInventoryStack = allowInventoryStack;
         this.interactionType = interactionType;
-        this.setRequiresRights(requiresRights);
         this.interactionModes = interationModes;
         this.vendingIds = vendingIds.isEmpty() ? new String[0] : vendingIds.split(",");
 
@@ -301,14 +299,6 @@ public class ItemDefinition {
      */
     public InteractionType getInteractionType() {
         return interactionType;
-    }
-
-    public boolean requiresRights() {
-        return requiresRights;
-    }
-
-    public void setRequiresRights(boolean requiresRights) {
-        this.requiresRights = requiresRights;
     }
 
     /**

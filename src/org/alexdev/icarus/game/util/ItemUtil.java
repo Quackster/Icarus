@@ -2,7 +2,6 @@ package org.alexdev.icarus.game.util;
 
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.server.api.messages.Response;
 
 public class ItemUtil {
@@ -48,14 +47,11 @@ public class ItemUtil {
 
                 response.writeInt(count / 2);
                 
-                Log.info("count: (" + item.getExtraData() + ") " + (count/ 2));
-
                 for (int i = 0; i <= count - 1; i++) {
                     response.writeString(adsData[i]);
                 }
 
             } else {
-                Log.info("count: LUL");
                 response.writeInt(0);
             }
             

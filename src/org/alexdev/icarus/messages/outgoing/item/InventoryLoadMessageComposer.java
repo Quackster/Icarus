@@ -1,7 +1,6 @@
 package org.alexdev.icarus.messages.outgoing.item;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
