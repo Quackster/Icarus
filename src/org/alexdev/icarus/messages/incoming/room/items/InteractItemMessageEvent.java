@@ -45,6 +45,8 @@ public class InteractItemMessageEvent implements MessageEvent {
             builder.append("\r");
             builder.append("<b>Definition settings</b>\n");
             builder.append("furniture_id: " + item.getDefinition().getId() + "\n");
+            builder.append("sprite_id: " + item.getDefinition().getSpriteId() + "\n");
+            builder.append("interaction_modes: " + item.getDefinition().getInteractionModes() + "\n");
             builder.append("interaction_type: " + item.getDefinition().getInteractionType().name() + "\n");
             builder.append("allow_trade: " + item.getDefinition().allowTrade() + "\n");
             builder.append("allow_stack: " + item.getDefinition().allowStack() + "\n");

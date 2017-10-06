@@ -6,13 +6,13 @@ public enum InteractionType {
 
     DEFAULT(new DefaultInteractor()),
     GATE(new GateInteractor()),
-    DIMMER,
     BED(new BedInteractor()),
     VENDINGMACHINE(new VendingInteractor()),
     ONEWAYGATE(new OneWayGateInteractor()),
     DICE(new DiceInteractor()),
     TELEPORT(new TeleportInteractor()),
     MANNEQUIN(new MannequinInteractor()),
+    DIMMER,
     BACKGROUND, 
     ROLLER,
     FLOOR,
@@ -45,6 +45,7 @@ public enum InteractionType {
      * @return the type
      */
     public static InteractionType getType(String databaseType) {
+        
         
         for (InteractionType type : InteractionType.values()) {
             if (type.name().equals(databaseType.toUpperCase())) {

@@ -416,7 +416,7 @@ public class RoomDao {
         String metadata = row.getString("metadata");
         Room room = new Room(data);
         
-        if (metadata.length() > 0) {
+        if (metadata != null && metadata.length() > 0) {
             room.getMetadata().fromJson(metadata);
         }
         

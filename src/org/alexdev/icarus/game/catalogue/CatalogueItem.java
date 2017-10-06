@@ -10,7 +10,7 @@ public class CatalogueItem {
 
     private int id;
     private int pageId;
-    private Integer itemId;
+    private int itemId;
     private String itemName;
     private int costCredits;
     private int costPixels;
@@ -19,10 +19,8 @@ public class CatalogueItem {
     private int subscriptionStatus;
     private String extraData;
     private String badge;
-
     private int limitedTotal;
     private int limitedSells;
-
     private boolean hasOffer;
 
     public CatalogueItem(int id, int pageId, String itemIds, String catalogueName, int costCredits, int costPixels, int costOther, int amount, String extraData, String badage, int limitedStack, int limitedSells, boolean hasOffer) {
@@ -33,7 +31,7 @@ public class CatalogueItem {
             this.itemName = catalogueName;
             this.costCredits = costCredits;
             this.costPixels = costPixels;
-            this.setCostOther(costOther);
+            this.costOther = costOther;
             this.amount = amount;
             this.extraData = extraData;
             this.badge = badage;
@@ -47,52 +45,13 @@ public class CatalogueItem {
         }
     }
 
-    // All credits to Leon for this structure.
+    /**
+     * Serialise.
+     *
+     * @param response the response
+     * @param debugFurniture the debug furniture
+     */
     public void serialise(Response response, boolean debugFurniture) {
-
-        /*
-         * 
-         * Incoming[1574, _-6Vt, CatalogPageMessageParser] <- 
-         * 
-         * [0][0][0]y[6]&[0][11]J>
-         * [0][6]NORMAL // type
-         * [0][7]roomads // layout
-         * [0][0][0][2] // 2 headers, 1 blank
-         * [0][13]events_header
-         * [0][0]
-         * 
-         * [0][0][0][2] // 2 blank images
-         * [0][0]
-         * [0][0]
-         * 
-         * [0][0][0][1] // 1 item
-         * 
-         * [0][0]-Û // item id
-         * [0]room_ad_plus_badge // catalogue name
-         * [0]
-         * [0][0][0][0] // cost credits
-         * [0][0][0] // cost pixels
-         * 
-         * [0][0][0][0] // other shit??
-         * [0][0][0][0] // other shit??
-         * 
-         * [0] // first item doesn't equal number and allow gift? = false
-         * 
-         * [1] // size?
-         * 
-         * [1]b // badge
-         * [0][5]RADZZ // badge type
-         * 
-         * [0][0][0][0] // sub status
-         * 
-         * [0] // can bundle deal??
-         * [0] // false??
-         * [0][0] // empty string????
-         * 
-         * -- not item related beyon this point of the packet
-         * ÿÿÿÿ[0]            
-         * 
-         */
 
         final ItemDefinition def = this.getItemDefinition();
 
@@ -149,6 +108,11 @@ public class CatalogueItem {
         response.writeString("test.png");
     }
 
+    /**
+     * Gets the item definition.
+     *
+     * @return the item definition
+     */
     public ItemDefinition getItemDefinition() {
         ItemDefinition def = ItemManager.getFurnitureById(this.itemId);
         if (def == null) {
@@ -157,68 +121,146 @@ public class CatalogueItem {
         return def;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
+    
+    /**
+     * Gets the page id.
+     *
+     * @return the page id
+     */
     public int getPageId() {
         return pageId;
     }
 
+    /**
+     * Gets the item id.
+     *
+     * @return the item id
+     */
     public Integer getItemId() {
         return itemId;
     }
 
+    /**
+     * Gets the display name.
+     *
+     * @return the display name
+     */
     public String getDisplayName() {
         return itemName;
     }
 
+    /**
+     * Gets the cost credits.
+     *
+     * @return the cost credits
+     */
     public int getCostCredits() {
         return costCredits;
     }
+    
+    /**
+     * Gets the cost pixels.
+     *
+     * @return the cost pixels
+     */
     public int getCostPixels() {
         return costPixels;
     }
 
+    /**
+     * Gets the cost other.
+     *
+     * @return the cost other
+     */
     public int getCostOther() {
         return costOther;
     }
 
-    public void setCostOther(int costOther) {
-        this.costOther = costOther;
-    }
-
+    /**
+     * Gets the amount.
+     *
+     * @return the amount
+     */
     public int getAmount() {
         return amount;
     }
 
+    /**
+     * Gets the subscription status.
+     *
+     * @return the subscription status
+     */
     public int getSubscriptionStatus() {
         return subscriptionStatus;
     }
 
+    /**
+     * Gets the extra data.
+     *
+     * @return the extra data
+     */
     public String getExtraData() {
         return extraData;
     }
 
+    /**
+     * Gets the badge.
+     *
+     * @return the badge
+     */
     public String getBadge() {
         return badge;
     }
 
+    /**
+     * Gets the limited total.
+     *
+     * @return the limited total
+     */
     public int getLimitedTotal() {
         return this.limitedTotal;
     }
 
+    /**
+     * Gets the limited sells.
+     *
+     * @return the limited sells
+     */
     public int getLimitedSells() {
         return this.limitedSells;
     }
 
+    /**
+     * Allow offer.
+     *
+     * @return true, if successful
+     */
     public boolean allowOffer() {
         return this.hasOffer;
     }
 
+    /**
+     * Increase limited sells.
+     *
+     * @param amount the amount
+     */
     public void increaseLimitedSells(int amount) {
         this.limitedSells += amount;
     }
 
+    /**
+     * Checks for badge.
+     *
+     * @return true, if successful
+     */
     public boolean hasBadge() {
         return this.badge.length() > 0;
     }

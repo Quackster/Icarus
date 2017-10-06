@@ -15,7 +15,7 @@ public class DefaultInteractor implements Interaction {
         if (!roomUser.getRoom().hasRights(roomUser.getEntity().getEntityId()) && !roomUser.getEntity().getDetails().hasPermission("room_all_rights")) {
             return;
         }
-        
+
         int modes = item.getDefinition().getInteractionModes();
 
         if (modes > 0) {
@@ -23,16 +23,14 @@ public class DefaultInteractor implements Interaction {
             int currentMode = Util.isNumber(item.getExtraData()) ? Integer.valueOf(item.getExtraData()) : 0;
             int newMode = currentMode + 1;
 
-            if (newMode >= modes) {
-                currentMode = 0;
-            } else {
-                currentMode = newMode;
+            if (newMode > modes) {
+                newMode = 0;
             }
 
-            item.setExtraData(String.valueOf(currentMode));
+            item.setExtraData(String.valueOf(newMode));
             item.updateStatus();
             item.save();
-            
+
             if (item.getDefinition().getVariableHeight().length > 0) {
                 item.getRoom().getMapping().regenerateCollisionMaps();
             }

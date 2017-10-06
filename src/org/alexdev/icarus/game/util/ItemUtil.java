@@ -36,7 +36,6 @@ public class ItemUtil {
         }
         
         if (item.getDefinition().getInteractionType() == InteractionType.BACKGROUND) {
-
             response.writeInt(0);
             response.writeInt(1);
 
