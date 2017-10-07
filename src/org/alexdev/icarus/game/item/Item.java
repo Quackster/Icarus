@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.alexdev.icarus.dao.mysql.item.ItemDao;
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
-import org.alexdev.icarus.dao.mysql.room.MoodlightDao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
@@ -254,7 +253,7 @@ public class Item extends Metadata {
         if (this.getRoom() == null) {
             return;
         }
-
+        
         try {
             this.getRoom().send(new MoveItemMessageComposer(this));
         } catch (Exception e) { e.printStackTrace(); }
@@ -265,12 +264,12 @@ public class Item extends Metadata {
      * that is also deleted.
      */
     public void delete() {
-        if (this.getDefinition().getInteractionType() == InteractionType.DIMMER) {
+        /*if (this.getDefinition().getInteractionType() == InteractionType.DIMMER) {
 
             if (MoodlightDao.hasMoodlightData(this.id)) {
                 MoodlightDao.deleteMoodlightData(this.id);
             }
-        }
+        }*/
 
         ItemDao.deleteItem(this.id);
     }
@@ -523,7 +522,6 @@ public class Item extends Metadata {
      */
     public void setExtraData(String extraData) {
         this.extraData = extraData;
-        Log.info("Extradata: " + extraData);
     }
 
     /**

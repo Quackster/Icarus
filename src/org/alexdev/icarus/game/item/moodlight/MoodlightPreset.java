@@ -2,30 +2,9 @@ package org.alexdev.icarus.game.item.moodlight;
 
 public class MoodlightPreset {
     
-    private boolean backgroundOnly;
-    private String colorCode;
-    private int colorIntensity;
-    
-    public MoodlightPreset(String presetData) {
-        
-        String[] parts = presetData.split(",");
-        
-        if (!MoodlightManager.isValidColor(parts[0])) {
-            parts[0] = "#000000";
-        }
-        
-        this.colorCode = parts[0];
-        this.colorIntensity = Integer.valueOf(parts[1]);
-        this.backgroundOnly = Integer.valueOf(parts[2]) == 1;
-    }
-    
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return this.colorCode + "," + this.colorIntensity + "," + (this.backgroundOnly ? 1 : 0);
-    }
+    private boolean backgroundOnly = false;
+    private String colorCode = "#000000";
+    private int colorIntensity = 255;
 
     /**
      * Checks if is background only.
@@ -80,5 +59,4 @@ public class MoodlightPreset {
     public void setColorIntensity(int colorIntensity) {
         this.colorIntensity = colorIntensity;
     }
-
 }

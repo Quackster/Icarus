@@ -5,11 +5,13 @@ import java.util.HashMap;
 
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
+import org.alexdev.icarus.game.item.moodlight.MoodlightData;
+import org.alexdev.icarus.game.item.moodlight.MoodlightPreset;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.server.api.messages.Response;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.sun.javafx.collections.MappingChange.Map;
 
 public class ItemUtil {
 
@@ -90,14 +92,11 @@ public class ItemUtil {
         }
 
         if (item.getDefinition().getInteractionType() == InteractionType.ROOMBG) {
-
             if (item.getRoom() != null && item.getExtraData().length() > 0) {
-                
-                Gson gson = new Gson();
-                Type type = new TypeToken<HashMap<String, Integer>>(){}.getType();
 
-                HashMap<String, Integer> settings = gson.fromJson(item.getExtraData(), type);
-                
+                Type type = new TypeToken<HashMap<String, Integer>>(){}.getType();
+                HashMap<String, Integer> settings = new Gson().fromJson(item.getExtraData(), type);
+
                 response.writeInt(0);
                 response.writeInt(5);
                 response.writeInt(4);
@@ -105,20 +104,61 @@ public class ItemUtil {
                 response.writeInt(settings.get("hue"));
                 response.writeInt(settings.get("saturation"));
                 response.writeInt(settings.get("brightness"));
-                
+
             } else {
                 response.writeInt(0);
                 response.writeInt(0);
                 response.writeString("");
             }
 
-
-
             return;
         }
 
         response.writeInt(1);
         response.writeInt(0);
+        response.writeString(item.getExtraData());
+    }
+    
+    /**
+     * Generate extra data for wall items depending on the type of item.
+     *
+     * @param item the item
+     * @param response the response
+     */
+    public static void generateWallExtraData(Item item, Response response) {
+
+        if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
+
+            StringBuilder builder = new StringBuilder();
+
+            MoodlightData data = null;
+            MoodlightPreset preset = null;
+
+            if (item.getExtraData().length() > 0) {
+                data = new Gson().fromJson(item.getExtraData(), new TypeToken<MoodlightData>(){}.getType());
+                preset = data.getPresets().get(data.getCurrentPreset() - 1);
+            } else {
+
+                data = new MoodlightData();
+                preset = new MoodlightPreset();
+            }
+
+            builder.append(data.isEnabled() ? 2 : 1);
+            builder.append(",");
+            builder.append(data.getCurrentPreset());
+            builder.append(",");
+            builder.append(preset.isBackgroundOnly() ? 2 : 1);
+            builder.append(",");
+            builder.append(preset.getColorCode());
+            builder.append(",");
+            builder.append(preset.getColorIntensity());
+            
+            Log.info("EXTRADATA ITEMUTIL: " + builder.toString());
+            
+            response.writeString(builder.toString());
+            return;
+        }
+        
         response.writeString(item.getExtraData());
     }
 }

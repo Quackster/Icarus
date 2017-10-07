@@ -1,16 +1,19 @@
 package org.alexdev.icarus.messages.incoming.room.items;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.item.moodlight.MoodlightData;
-import org.alexdev.icarus.game.item.moodlight.MoodlightManager;
 import org.alexdev.icarus.game.item.moodlight.MoodlightPreset;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class SaveMoodlightPresetMessageEvent implements MessageEvent {
 
@@ -28,11 +31,11 @@ public class SaveMoodlightPresetMessageEvent implements MessageEvent {
         String colour = reader.readString();
         int colorIntensity = reader.readInt();
         
-        if (!MoodlightManager.isValidColor(colour)) {
+        if (!isValidColour(colour)) {
             return;
         }
         
-        if (!MoodlightManager.isValidIntensity(colorIntensity)) {
+        if (!isValidIntensity(colorIntensity)) {
             return;
         }
         
@@ -49,19 +52,56 @@ public class SaveMoodlightPresetMessageEvent implements MessageEvent {
             return;
         }
         
-        MoodlightData data = MoodlightManager.getMoodlightData(moodlight.getId());
+        Type type = new TypeToken<MoodlightData>(){}.getType();
+        
+        MoodlightData data = new Gson().fromJson(moodlight.getExtraData(), type);
+        data.setCurrentPreset(presetId);
         
         MoodlightPreset preset = data.getPresets().get(presetId - 1);
         preset.setBackgroundOnly(backgroundOnly);
         preset.setColorCode(colour);
         preset.setColorIntensity(colorIntensity);
         
-        data.setCurrentPreset(presetId);
-        data.save();
-        
-        moodlight.setExtraData(data.generateExtraData());
+        moodlight.setExtraData(new Gson().toJson(data));
         moodlight.updateStatus();
         moodlight.save();
+    }
+    
+    /**
+     * Checks if is valid intensity.
+     *
+     * @param intensity the intensity
+     * @return true, if is valid intensity
+     */
+    public static boolean isValidIntensity(int intensity) {
+        
+        if (intensity < 0 || intensity > 255) {
+            return false;
+        }
+
+        return true;
+    }
+    
+    /**
+     * Checks if is valid colour.
+     *
+     * @param colorCode the color code
+     * @return true, if is valid colour
+     */
+    public static boolean isValidColour(String colourCode) {
+        
+        switch (colourCode) {
+            case "#000000":
+            case "#0053F7":
+            case "#EA4532":
+            case "#82F349":
+            case "#74F5F5":
+            case "#E759DE":
+            case "#F2F851":
+                return true;
+            default:
+                return false;
+        }
     }
 
 }

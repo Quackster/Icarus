@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.alexdev.icarus.dao.mysql.room.MoodlightDao;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
@@ -239,10 +238,6 @@ public class RoomMapping {
         this.regenerateCollisionMaps();
 
         if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
-            if (MoodlightDao.hasMoodlightData(item.getId())) {
-                MoodlightDao.deleteMoodlightData(item.getId());
-            }
-
             item.setExtraData("");
         }
 

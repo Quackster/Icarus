@@ -3,6 +3,7 @@ package org.alexdev.icarus.messages.outgoing.room.items;
 import java.util.List;
 
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.util.ItemUtil;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 
@@ -31,7 +32,7 @@ public class WallItemsMessageComposer extends MessageComposer {
             this.response.writeString(wallItem.getId() + "");
             this.response.writeInt(wallItem.getDefinition().getSpriteId());
             this.response.writeString(wallItem.getWallPosition());
-            this.response.writeString(wallItem.getExtraData());
+            ItemUtil.generateWallExtraData(wallItem, response);
             this.response.writeInt(-1);
             this.response.writeInt(wallItem.getDefinition().getInteractionModes() > 0 ? 1 : 0);
             this.response.writeInt(wallItem.getOwnerId());

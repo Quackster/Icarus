@@ -41,7 +41,7 @@ public class MoveItemMessageComposer extends MessageComposer {
             this.response.writeString(item.getId() + "");
             this.response.writeInt(item.getDefinition().getSpriteId());
             this.response.writeString(item.getWallPosition());
-            this.response.writeString(item.getExtraData());
+            ItemUtil.generateWallExtraData(item, response);
             this.response.writeInt(-1);
             this.response.writeInt(item.getDefinition().getInteractionModes() > 0 ? 1 : 0);
             this.response.writeInt(this.item.getOwnerId());
