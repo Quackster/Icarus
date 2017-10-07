@@ -209,6 +209,7 @@ public class MessageHandler {
         registerEvent(Incoming.MoodlightInteractMessageEvent, new MoodlightInteractMessageEvent());
         registerEvent(Incoming.ToggleMoodlightMessageEvent, new ToggleMoodlightMessageEvent());
         registerEvent(Incoming.SaveMoodlightPresetMessageEvent, new SaveMoodlightPresetMessageEvent());
+        registerEvent(Incoming.SaveTonerMessageEvent, new SaveTonerMessageEvent());
     }
 
     /**

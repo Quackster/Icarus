@@ -40,7 +40,7 @@ public class NavigatorDao {
 
             sqlConnection = Dao.getStorage().getConnection();
 
-            preparedStatement = Dao.getStorage().prepare("INSERT INTO room_data (name, description, owner_id, model, category, users_max, trade_state, metadata) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("INSERT INTO room_data (name, description, owner_id, model, category, users_max, trade_state) VALUES (?, ?, ?, ?, ?, ?, ?)", sqlConnection);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, description);
             preparedStatement.setInt(3, player.getEntityId());
@@ -48,7 +48,6 @@ public class NavigatorDao {
             preparedStatement.setInt(5, category);
             preparedStatement.setInt(6, usersMax);
             preparedStatement.setInt(7, tradeState);
-            preparedStatement.setString(8, "");
             preparedStatement.executeUpdate();
 
             ResultSet row = preparedStatement.getGeneratedKeys();

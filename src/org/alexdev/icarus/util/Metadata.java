@@ -1,51 +1,14 @@
 package org.alexdev.icarus.util;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public class Metadata {
 
-    private Gson gson = new Gson();
     private Map<String, MetadataValue> data;
     
     public Metadata() {
         this.data = new HashMap<>();
-    }
-    
-    /**
-     * To json.
-     *
-     * @return the string
-     */
-    public String toJson() {
-        
-        Map<String, Object> map = new HashMap<>(); 
-        
-        for (Entry<String, MetadataValue> set : this.data.entrySet()) {
-            map.put(set.getKey(), set.getValue().getObject());
-        }
-        
-        return gson.toJson(map);
-    }
-    
-    /**
-     * From json.
-     *
-     * @param json the json
-     */
-    public void fromJson(String json) {
-        
-        Type type = new TypeToken<Map<String, Object>>(){}.getType();
-        Map<String, Object> map = this.gson.fromJson(json, type);
-        
-        for (Entry<String, Object> set : map.entrySet()) {
-            this.data.put(set.getKey(), new MetadataValue(set.getValue(), true));
-        }
     }
     
     /**

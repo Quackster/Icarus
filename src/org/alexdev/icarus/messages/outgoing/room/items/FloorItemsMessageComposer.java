@@ -20,17 +20,14 @@ public class FloorItemsMessageComposer extends MessageComposer {
     public void write() {
         
         this.response.init(Outgoing.FloorItemsMessageComposer);
-        this.response.writeInt(items.size());
-        
-        for (Item floorItem : items) { 
+        this.response.writeInt(this.items.size());
+        for (Item floorItem : this.items) { 
             this.response.writeInt(floorItem.getOwnerId());
             this.response.writeString(floorItem.getOwnerName());
         }
 
-        this.response.writeInt(items.size());
-
-        for (Item floorItem : items) {
-            
+        this.response.writeInt(this.items.size());
+        for (Item floorItem : this.items) {
             this.response.writeInt(floorItem.getId());
             this.response.writeInt(floorItem.getDefinition().getSpriteId());
             this.response.writeInt(floorItem.getPosition().getX());
@@ -38,9 +35,7 @@ public class FloorItemsMessageComposer extends MessageComposer {
             this.response.writeInt(floorItem.getPosition().getRotation());
             this.response.writeString("" + Util.format(floorItem.getPosition().getZ()));
             this.response.writeString("");
-  
             ItemUtil.generateExtraData(floorItem, this.response);
-
             this.response.writeInt(-1);
             this.response.writeInt(floorItem.getDefinition().getInteractionModes() > 0 ? 1 : 0);
             this.response.writeInt(floorItem.getOwnerId());

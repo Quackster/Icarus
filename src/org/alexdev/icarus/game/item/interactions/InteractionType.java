@@ -17,7 +17,8 @@ public enum InteractionType {
     ROLLER,
     FLOOR,
     WALLPAPER,
-    LANDSCAPE;
+    LANDSCAPE,
+    ROOMBG;
 
     private Interaction interaction;
 

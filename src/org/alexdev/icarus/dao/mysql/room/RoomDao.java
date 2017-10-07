@@ -315,35 +315,6 @@ public class RoomDao {
             Storage.closeSilently(sqlConnection);
         }
     }
-    
-    /**
-     * Update room.
-     *
-     * @param room the room
-     */
-    public static void updateMetadata(Room room) {
-
-        RoomData data = room.getData();
-        Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-
-            sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("UPDATE room_data SET metadata = ? WHERE id = ? LIMIT 1", sqlConnection);
-            preparedStatement.setString(1, room.getMetadata().toJson());
-            preparedStatement.setInt(2, data.getId());
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
-            Log.exception(e);
-        } finally {
-            Storage.closeSilently(resultSet);
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
-        }
-    }
 
     /**
      * Save chatlog.
@@ -413,13 +384,7 @@ public class RoomDao {
                 row.getInt("wall_thickness"), row.getInt("floor_thickness"), row.getString("tags"), row.getInt("chat_mode"), row.getInt("chat_size"), row.getInt("chat_speed"),
                 row.getInt("chat_distance"), row.getInt("chat_flood"), row.getInt("who_can_mute"), row.getInt("who_can_kick"), row.getInt("who_can_ban"), row.getString("thumbnail"));
         
-        String metadata = row.getString("metadata");
         Room room = new Room(data);
-        
-        if (metadata != null && metadata.length() > 0) {
-            room.getMetadata().fromJson(metadata);
-        }
-        
         return room;
     }
 }

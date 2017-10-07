@@ -103,5 +103,6 @@ public class Incoming {
     public static short PurchasePhotoMessageEvent = 1554;
     public static short DeletePhotoMessageEvent = 2506;
     public static short UseOneWayGateMessageEvent = 3521;
-    public static Short ApplyEffectMessageEvent = 1291;
+    public static short ApplyEffectMessageEvent = 1291;
+    public static short SaveTonerMessageEvent = 2186;
 }

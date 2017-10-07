@@ -128,16 +128,6 @@ public class Room extends Metadata {
     }
 
     /**
-     * Save the room metadata, will only call if there's objects that allow to be saved, exist.
-     */
-    public void saveMetadata() {
-
-        if (this.getMetadata().getMap().size() > 0) {
-            RoomDao.updateMetadata(this);
-        }
-    }
-
-    /**
      * Sets the model.
      *
      * @param model the new model

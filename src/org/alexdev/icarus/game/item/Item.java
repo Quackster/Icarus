@@ -285,6 +285,7 @@ public class Item extends Metadata {
 
         double currentHeight = 0.00;
 
+        // Dynamic handling if the item is variable height
         if (this.getDefinition().getVariableHeight().length > 0) {
             if (!Util.isNumber(this.extraData)) {
                 this.extraData = "0";
@@ -298,6 +299,8 @@ public class Item extends Metadata {
             }
             
             currentHeight += this.getDefinition().getVariableHeight()[variableHeight];
+            
+         // Or else just apply normal stack height
         } else {
 
             currentHeight += this.position.getZ();
@@ -520,6 +523,7 @@ public class Item extends Metadata {
      */
     public void setExtraData(String extraData) {
         this.extraData = extraData;
+        Log.info("Extradata: " + extraData);
     }
 
     /**
