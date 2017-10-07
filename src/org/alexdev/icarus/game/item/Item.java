@@ -154,7 +154,7 @@ public class Item extends Metadata {
     public boolean isWalkable() {
         return this.isWalkable(true);
     }
-    
+
     /**
      * Checks if is walkable.
      *
@@ -291,13 +291,20 @@ public class Item extends Metadata {
             }
 
             int variableHeight = Integer.parseInt(this.extraData);
+            
+            if (variableHeight >= this.getDefinition().getVariableHeight().length) {
+                variableHeight = 0;
+                this.extraData = "0";
+            }
+            
             currentHeight += this.getDefinition().getVariableHeight()[variableHeight];
-        }
+        } else {
 
-        currentHeight += this.position.getZ();
+            currentHeight += this.position.getZ();
 
-        if (this.getDefinition().allowStack()) {
-            currentHeight += this.getDefinition().getStackHeight();
+            if (this.getDefinition().allowStack()) {
+                currentHeight += this.getDefinition().getStackHeight();
+            }
         }
 
         return currentHeight;
@@ -523,20 +530,20 @@ public class Item extends Metadata {
     public Position getPosition() {
         return this.position;
     }
-    
+
     /**
      * Gets the tile.
      *
      * @return the tile
      */
     public RoomTile getTile() {
-        
+
         Room room = this.getRoom();
-        
+
         if (room == null) {
             return null;
         }
-        
+
         return room.getMapping().getTile(this.position.getX(), this.position.getY());
     }
 
