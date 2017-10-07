@@ -15,6 +15,7 @@ public class ItemDefinition {
     private ItemType type;
     private int width;
     private int length;
+    private double stackHeight;
     private double height;
     private boolean canStack;
     private boolean canSit;
@@ -41,6 +42,7 @@ public class ItemDefinition {
         this.type = ItemType.getType(type);
         this.width = width;
         this.length = length;
+        this.stackHeight = stackHeight;
         this.height = stackHeight;
         this.canStack = canStack;
         this.canSit = canSit;
@@ -68,8 +70,8 @@ public class ItemDefinition {
             this.variableHeight = new double[0];
         }
         
-        if (height == 0 || height == 0.01 || !allowStack()) {
-            height = 0.001;
+        if (stackHeight == 0 || stackHeight == 0.01 || !allowStack()) {
+            stackHeight = 0.001;
         }
     }   
 
@@ -163,6 +165,15 @@ public class ItemDefinition {
         return length;
     }
 
+    /**
+     * Gets the stack height.
+     *
+     * @return the stack height
+     */
+    public double getStackHeight() {
+        return stackHeight;
+    }
+    
     /**
      * Gets the height.
      *

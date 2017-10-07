@@ -82,7 +82,7 @@ public class RollerTask extends RoomTask {
                             }
 
                             if (subtractRollerHeight) {
-                                nextHeight -= roller.getDefinition().getHeight();
+                                nextHeight -= roller.getDefinition().getStackHeight();
                             }
                         }
                     }

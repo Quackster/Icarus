@@ -297,7 +297,7 @@ public class Item extends Metadata {
         currentHeight += this.position.getZ();
 
         if (this.getDefinition().allowStack()) {
-            currentHeight += this.getDefinition().getHeight();
+            currentHeight += this.getDefinition().getStackHeight();
         }
 
         return currentHeight;

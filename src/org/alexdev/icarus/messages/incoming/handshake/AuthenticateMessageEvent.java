@@ -18,7 +18,8 @@ public class AuthenticateMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage request) {
         
-        if (player.getDetails().isAuthenticated() || player.getRc4() == null) {
+        if (player.getRc4() == null) {
+            player.getNetwork().close();
             return;
         }
         
@@ -35,7 +36,6 @@ public class AuthenticateMessageEvent implements MessageEvent {
         
         player.getInventory().init();
         player.getMessenger().init();
-        
         player.getDetails().setAuthenticated(true);
         
         player.send(new UniqueMachineIDMessageComposer(player.getMachineId()));

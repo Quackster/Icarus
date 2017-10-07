@@ -52,7 +52,11 @@ public class DefaultInteractor implements Interaction {
         }
 
         if (item.getDefinition().allowSit()) {
-            roomUser.setStatus(EntityStatus.SIT, roomUser.getEntity().getType() == EntityType.PET ? "0.5" : "1.0");
+            
+            double sitHeight = item.getDefinition().getHeight();
+            String height = roomUser.getEntity().getType() == EntityType.PET ? String.valueOf(sitHeight / 2) : String.valueOf(sitHeight);
+             
+            roomUser.setStatus(EntityStatus.SIT, height);
             roomUser.getPosition().setRotation(item.getPosition().getRotation());
         }
     }
