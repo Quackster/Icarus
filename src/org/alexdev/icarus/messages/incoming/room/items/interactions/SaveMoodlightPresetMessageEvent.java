@@ -1,4 +1,4 @@
-package org.alexdev.icarus.messages.incoming.room.items;
+package org.alexdev.icarus.messages.incoming.room.items.interactions;
 
 import java.util.List;
 
@@ -49,15 +49,15 @@ public class SaveMoodlightPresetMessageEvent implements MessageEvent {
             return;
         }
         
-        MoodlightDataReader extraData = (MoodlightDataReader)InteractionType.DIMMER.getExtraDataReader();
-        MoodlightData data = extraData.getMoodlightData(moodlight);
+        MoodlightDataReader dataReader = (MoodlightDataReader)InteractionType.DIMMER.getExtraDataReader();
+        MoodlightData data = dataReader.getMoodlightData(moodlight);
         
         MoodlightPreset preset = data.getPresets().get(presetId - 1);
         preset.setBackgroundOnly(backgroundOnly);
         preset.setColorCode(colour);
         preset.setColorIntensity(colorIntensity);
         
-        extraData.saveExtraData(moodlight, data);
+        dataReader.saveExtraData(moodlight, data);
         moodlight.updateStatus();
         moodlight.save();
     }

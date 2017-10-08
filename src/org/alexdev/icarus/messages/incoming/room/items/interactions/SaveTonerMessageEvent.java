@@ -1,4 +1,4 @@
-package org.alexdev.icarus.messages.incoming.room.items;
+package org.alexdev.icarus.messages.incoming.room.items.interactions;
 
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.extradata.types.TonerDataReader;
@@ -31,6 +31,11 @@ public class SaveTonerMessageEvent implements MessageEvent {
         int hue = reader.readInt();
         int saturation = reader.readInt();
         int brightness = reader.readInt();
+        
+
+        if (hue > 255 || saturation > 255 || brightness > 255) {
+            return;
+        }
         
         TonerData backgroundData = new TonerData();
         backgroundData.setHue(hue);

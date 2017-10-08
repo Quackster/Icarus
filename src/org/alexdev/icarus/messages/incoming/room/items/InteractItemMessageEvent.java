@@ -28,11 +28,19 @@ public class InteractItemMessageEvent implements MessageEvent {
         }
 
         if (item.getDefinition().getType() == ItemType.FLOOR) {
-            PluginManager.callEvent(PluginEvent.FLOOR_ITEM_INTERACT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
-        } 
-
-        if (item.getDefinition().getType() == ItemType.WALL) {
-            PluginManager.callEvent(PluginEvent.WALL_ITEM_INTERACT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
+            PluginManager.callEvent(PluginEvent.FLOOR_ITEM_INTERACT_EVENT, 
+                    new LuaValue[] { 
+                            CoerceJavaToLua.coerce(player), 
+                            CoerceJavaToLua.coerce(item) 
+                    });
+            
+        } else if (item.getDefinition().getType() == ItemType.WALL) {
+            PluginManager.callEvent(PluginEvent.WALL_ITEM_INTERACT_EVENT, 
+                    new LuaValue[] { 
+                            CoerceJavaToLua.coerce(player), 
+                            CoerceJavaToLua.coerce(item) 
+                    });
+            
         }
 
         if (player.getMetadata().getBoolean("debugfurniture")) {
@@ -46,6 +54,8 @@ public class InteractItemMessageEvent implements MessageEvent {
             builder.append("<b>Definition settings</b>\n");
             builder.append("furniture_id: " + item.getDefinition().getId() + "\n");
             builder.append("sprite_id: " + item.getDefinition().getSpriteId() + "\n");
+            builder.append("height: " + item.getDefinition().getHeight() + "\n");
+            builder.append("stack_height: " + item.getDefinition().getStackHeight() + "\n");
             builder.append("interaction_modes: " + item.getDefinition().getInteractionModes() + "\n");
             builder.append("interaction_type: " + item.getDefinition().getInteractionType().name() + "\n");
             builder.append("allow_trade: " + item.getDefinition().allowTrade() + "\n");

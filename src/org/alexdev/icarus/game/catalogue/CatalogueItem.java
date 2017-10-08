@@ -64,8 +64,8 @@ public class CatalogueItem {
         if (this.getCostOther() > 0) {
             response.writeInt(this.getCostOther());
             response.writeInt(105);
-        } else if (this.getCostPixels() > 0) {
-            response.writeInt(this.getCostPixels());
+        } else if (this.getPixelCost() > 0) {
+            response.writeInt(this.getPixelCost());
             response.writeInt(0);
         } else {
             response.writeInt(0);
@@ -103,7 +103,7 @@ public class CatalogueItem {
         }
 
         response.writeInt(this.subscriptionStatus);
-        response.writeBool(!(this.getLimitedTotal() > 0) && this.allowOffer());
+        response.writeBool(!(this.getLimitedTotal() > 0) && this.allowOffer()); // can we buy more than 1?
         response.writeBool(false);
         response.writeString("test.png");
     }
@@ -171,7 +171,7 @@ public class CatalogueItem {
      *
      * @return the cost pixels
      */
-    public int getCostPixels() {
+    public int getPixelCost() {
         return costPixels;
     }
 

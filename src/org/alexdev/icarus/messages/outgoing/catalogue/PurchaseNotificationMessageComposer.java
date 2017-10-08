@@ -45,7 +45,7 @@ public class PurchaseNotificationMessageComposer extends MessageComposer {
             this.response.writeString(definition.getItemName());
             this.response.writeBool(false);
             this.response.writeInt(this.item.getCostCredits());
-            this.response.writeInt(this.item.getCostPixels());
+            this.response.writeInt(this.item.getPixelCost());
             this.response.writeInt(0);
             this.response.writeBool(true);
             this.response.writeInt(1);

@@ -1,4 +1,4 @@
-package org.alexdev.icarus.messages.incoming.room.items;
+package org.alexdev.icarus.messages.incoming.room.items.interactions;
 
 import java.util.List;
 

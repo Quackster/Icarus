@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.game.entity.EntityStatus;
+import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.interactions.Interaction;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
@@ -17,82 +18,16 @@ public class BedInteractor implements Interaction {
 
     @Override
     public void onStopWalking(Item item, RoomUser roomUser) {
-        
-        if (isValidPillowTile(item, roomUser.getPosition())) {
 
-            roomUser.getPosition().setRotation(item.getPosition().getRotation());
-            roomUser.removeStatus(EntityStatus.DANCE);
-            roomUser.removeStatus(EntityStatus.LAY);
-            roomUser.setStatus(EntityStatus.LAY, "1.5");
-            
-        } else {
+        roomUser.getPosition().setRotation(item.getPosition().getRotation());
+        roomUser.removeStatus(EntityStatus.DANCE);
+        roomUser.removeStatus(EntityStatus.LAY);
 
-            for (Position tile : getValidPillowTiles(item)) {
+        double sitHeight = item.getDefinition().getHeight();
+        String height = roomUser.getEntity().getType() == EntityType.PET ? String.valueOf(sitHeight / 2) : String.valueOf(sitHeight);
 
-                if (roomUser.getPosition().getX() != tile.getX()) {
-                    roomUser.getPosition().setY(tile.getY());
-                }
-
-                if (roomUser.getPosition().getY() != tile.getY()) {
-                    roomUser.getPosition().setX(tile.getX());
-                }
-            }
-            
-            roomUser.checkNearbyItem();
-        }
+        roomUser.setStatus(EntityStatus.LAY, height);
     }
 
-    public static boolean isValidPillowTile(Item item, Position position) {
-
-        if (item.getDefinition().getInteractionType() == InteractionType.BED) {
-
-            if (item.getPosition().getX() == position.getX() && item.getPosition().getY() == position.getY()) {
-                return true;
-            } else {
-
-                int validPillowX = -1;
-                int validPillowY = -1;
-
-                if (item.getPosition().getRotation() == 0) {
-                    validPillowX = item.getPosition().getX() + 1;
-                    validPillowY = item.getPosition().getY();
-                }
-
-                if (item.getPosition().getRotation() == 2) {
-                    validPillowX = item.getPosition().getX();
-                    validPillowY = item.getPosition().getY() + 1;
-                }
-
-                if (validPillowX == position.getX() && validPillowY == position.getY()) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    public static List<Position> getValidPillowTiles(Item item) {
-
-        List<Position> tiles = new ArrayList<>();
-        tiles.add(new Position(item.getPosition().getX(), item.getPosition().getY()));
-
-        int validPillowX = -1;
-        int validPillowY = -1;
-
-        if (item.getPosition().getRotation() == 0) {
-            validPillowX = item.getPosition().getX() + 1;
-            validPillowY = item.getPosition().getY();
-        }
-
-        if (item.getPosition().getRotation() == 2) {
-            validPillowX = item.getPosition().getX();
-            validPillowY = item.getPosition().getY() + 1;
-        }
-
-        tiles.add(new Position(validPillowX, validPillowY));
-
-        return tiles;
-    }
 
 }
