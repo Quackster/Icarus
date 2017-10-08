@@ -21,6 +21,7 @@ import org.alexdev.icarus.messages.incoming.room.*;
 import org.alexdev.icarus.messages.incoming.room.floorplan.*;
 import org.alexdev.icarus.messages.incoming.room.items.*;
 import org.alexdev.icarus.messages.incoming.room.items.interactions.MoodlightInteractMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.items.interactions.SaveBrandingMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.interactions.SaveMannequinMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.interactions.SaveMoodlightPresetMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.interactions.SaveTonerMessageEvent;

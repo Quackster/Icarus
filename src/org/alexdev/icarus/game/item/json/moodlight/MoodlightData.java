@@ -1,4 +1,4 @@
-package org.alexdev.icarus.game.item.moodlight;
+package org.alexdev.icarus.game.item.json.moodlight;
 
 import java.util.ArrayList;
 import java.util.List;

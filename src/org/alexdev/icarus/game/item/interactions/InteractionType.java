@@ -12,13 +12,13 @@ public enum InteractionType {
     DICE(new DiceInteractor()),
     TELEPORT(new TeleportInteractor()),
     MANNEQUIN(new MannequinInteractor()),
-    DIMMER(null),
-    BACKGROUND,
-    ROLLER,
-    FLOOR,
-    WALLPAPER,
-    LANDSCAPE,
-    ROOMBG(null);
+    DIMMER(new DimmerInteractor()),
+    ROLLER(new RollerInteractor()),
+    FLOOR(new FloorpaperInteractor()),
+    WALLPAPER(new WallpaperInteractor()),
+    LANDSCAPE(new LandscapeInteractor()),
+    ROOMBG(new TonerInteractor()),
+    BACKGROUND(new AdsBackgroundInteractor());
 
     private Interaction interaction;
 
@@ -46,7 +46,6 @@ public enum InteractionType {
      * @return the type
      */
     public static InteractionType getType(String databaseType) {
-        
         
         for (InteractionType type : InteractionType.values()) {
             if (type.name().equals(databaseType.toUpperCase())) {

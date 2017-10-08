@@ -1,11 +1,18 @@
 package org.alexdev.icarus.game.util;
 
+import java.util.Map.Entry;
+
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.extradata.ExtraDataReader;
+import org.alexdev.icarus.game.item.extradata.ExtraData;
+import org.alexdev.icarus.game.item.extradata.ExtraDataManager;
+import org.alexdev.icarus.game.item.extradata.ExtraDataType;
+import org.alexdev.icarus.game.item.extradata.types.IntArrayExtraData;
+import org.alexdev.icarus.game.item.extradata.types.KeyValueExtraData;
+import org.alexdev.icarus.game.item.extradata.types.StringArrayExtraData;
+import org.alexdev.icarus.game.item.extradata.types.StringExtraData;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
-import org.alexdev.icarus.game.item.moodlight.MoodlightData;
-import org.alexdev.icarus.game.item.moodlight.MoodlightPreset;
-import org.alexdev.icarus.game.item.toner.TonerData;
+import org.alexdev.icarus.game.item.json.moodlight.MoodlightData;
+import org.alexdev.icarus.game.item.json.moodlight.MoodlightPreset;
 import org.alexdev.icarus.server.api.messages.Response;
 
 public class ItemUtil {
@@ -18,99 +25,46 @@ public class ItemUtil {
      */
     public static void generateExtraData(Item item, Response response) {
 
-        if (item.getDefinition().getInteractionType() == InteractionType.WALLPAPER) {
-            response.writeInt(2);
-            response.writeInt(0);
-            response.writeString(item.getExtraData());
-            return;
+        ExtraData extraData = item.getDefinition().getInteractionType().getHandler().createExtraData(item);
+        
+        response.writeInt(extraData.getPerspective().getIdentifier());
+        response.writeInt(extraData.getType().getTypeId());
+        
+        if (extraData.getType() == ExtraDataType.STRING) {
+            StringExtraData data = (StringExtraData)extraData;
+            response.writeString(data.getData());
         }
-
-        if (item.getDefinition().getInteractionType() == InteractionType.FLOOR) {
-            response.writeInt(3);
-            response.writeInt(0);
-            response.writeString(item.getExtraData());
-            return;
-        }
-
-        if (item.getDefinition().getInteractionType() == InteractionType.LANDSCAPE) {
-            response.writeInt(4);
-            response.writeInt(0);
-            response.writeString(item.getExtraData());
-            return;
-        }
-
-        if (item.getDefinition().getInteractionType() == InteractionType.BACKGROUND) {
-            response.writeInt(0);
-            response.writeInt(1);
-
-            if (item.getExtraData().length() > 0) {
-
-                String[] adsData = item.getExtraData().split(Character.toString((char) 9));
-                int count = adsData.length;
-
-                response.writeInt(count / 2);
-
-                for (int i = 0; i <= count - 1; i++) {
-                    response.writeString(adsData[i]);
-                }
-
-            } else {
-                response.writeInt(0);
+        
+        if (extraData.getType() == ExtraDataType.STRING_ARRAY) {
+            StringArrayExtraData data = (StringArrayExtraData)extraData;
+            
+            response.writeInt(data.getArray().length);
+            
+            for (String str : data.getArray()) {
+                response.writeString(str);
             }
-
-            return;
         }
-
-        if (item.getDefinition().getInteractionType() == InteractionType.MANNEQUIN) {
-
-            response.writeInt(0);
-            response.writeInt(1);
-            response.writeInt(3);
-
-            if (item.getExtraData().contains(Character.toString((char)5))) {
-                String[] mannequinData = item.getExtraData().split(Character.toString((char)5));
-                response.writeString("GENDER");
-                response.writeString(mannequinData[0]);
-                response.writeString("FIGURE");
-                response.writeString(mannequinData[1]);
-                response.writeString("OUTFIT_NAME");
-                response.writeString(mannequinData[2]);
-            } else {
-                response.writeString("GENDER");
-                response.writeString("");
-                response.writeString("FIGURE");
-                response.writeString("");
-                response.writeString("OUTFIT_NAME");
-                response.writeString("");
+        
+        if (extraData.getType() == ExtraDataType.KEY_VALUE) {
+            KeyValueExtraData data = (KeyValueExtraData)extraData;
+            
+            response.writeInt(data.getKeyValues().size());
+            
+            for (Entry<String, String> set : data.getKeyValues().entrySet()) {
+                response.writeString(set.getKey());
+                response.writeString(set.getValue());
             }
-            return;
         }
-
-        if (item.getDefinition().getInteractionType() == InteractionType.ROOMBG) {
-
-            if (item.getExtraData().length() > 0) {
-
-                TonerData data = ExtraDataReader.getJsonData(item, TonerData.class);
-                
-                response.writeInt(0);
-                response.writeInt(5);
-                response.writeInt(4);
-                response.writeInt(data.isEnabled());
-                response.writeInt(data.getHue());
-                response.writeInt(data.getSaturation());
-                response.writeInt(data.getBrightness());
-
-            } else {
-                response.writeInt(0);
-                response.writeInt(0);
-                response.writeString("");
+        
+        if (extraData.getType() == ExtraDataType.INT_ARRAY) {
+            IntArrayExtraData data = (IntArrayExtraData)extraData;
+            
+            response.writeInt(data.getArray().length);
+            
+            for (Integer num : data.getArray()) {
+                response.writeInt(num);
             }
-            return;
         }
-
-        response.writeInt(0);
-        response.writeInt(0);
-        response.writeString(item.getExtraData());
     }
 
     /**
@@ -129,7 +83,7 @@ public class ItemUtil {
             MoodlightPreset preset = null;
 
             if (item.getExtraData().length() > 0) {
-                data = ExtraDataReader.getJsonData(item, MoodlightData.class);
+                data = ExtraDataManager.getJsonData(item, MoodlightData.class);
                 preset = data.getPresets().get(data.getCurrentPreset() - 1);    
                 
             } else {

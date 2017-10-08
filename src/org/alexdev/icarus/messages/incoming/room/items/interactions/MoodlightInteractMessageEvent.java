@@ -3,10 +3,10 @@ package org.alexdev.icarus.messages.incoming.room.items.interactions;
 import java.util.List;
 
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.extradata.ExtraDataReader;
+import org.alexdev.icarus.game.item.extradata.ExtraDataManager;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
-import org.alexdev.icarus.game.item.moodlight.MoodlightData;
-import org.alexdev.icarus.game.item.moodlight.MoodlightPreset;
+import org.alexdev.icarus.game.item.json.moodlight.MoodlightData;
+import org.alexdev.icarus.game.item.json.moodlight.MoodlightPreset;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.outgoing.room.items.MoodlightConfigComposer;
@@ -46,10 +46,10 @@ public class MoodlightInteractMessageEvent implements MessageEvent {
             data.getPresets().add(new MoodlightPreset());
             data.getPresets().add(new MoodlightPreset());
             
-            ExtraDataReader.saveExtraData(moodlight, data);
+            ExtraDataManager.saveExtraData(moodlight, data);
             
         } else {
-            data = ExtraDataReader.getJsonData(moodlight, MoodlightData.class);
+            data = ExtraDataManager.getJsonData(moodlight, MoodlightData.class);
         }
 
         moodlight.save();

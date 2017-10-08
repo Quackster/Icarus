@@ -1,6 +1,7 @@
 package org.alexdev.icarus.game.item.interactions;
 
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.extradata.ExtraData;
 import org.alexdev.icarus.game.room.user.RoomUser;
 
 public interface Interaction {
@@ -20,4 +21,9 @@ public interface Interaction {
      * @param roomUser the room user
      */
     public void onStopWalking(final Item item, final RoomUser roomUser);
+    
+    /**
+     * Get extra data instance.
+     */
+    public ExtraData createExtraData(final Item item);
 }

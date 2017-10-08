@@ -1,8 +1,8 @@
 package org.alexdev.icarus.messages.incoming.room.items.interactions;
 
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.extradata.ExtraDataReader;
-import org.alexdev.icarus.game.item.toner.TonerData;
+import org.alexdev.icarus.game.item.extradata.ExtraDataManager;
+import org.alexdev.icarus.game.item.json.toner.TonerData;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.types.MessageEvent;
@@ -41,7 +41,7 @@ public class SaveTonerMessageEvent implements MessageEvent {
         backgroundData.setBrightness(brightness);
         backgroundData.setEnabled(true);
         
-        ExtraDataReader.saveExtraData(item, backgroundData);
+        ExtraDataManager.saveExtraData(item, backgroundData);
       
         item.updateStatus();
         item.save();

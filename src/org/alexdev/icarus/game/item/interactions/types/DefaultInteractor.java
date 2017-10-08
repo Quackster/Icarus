@@ -3,6 +3,9 @@ package org.alexdev.icarus.game.item.interactions.types;
 import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.extradata.ExtraData;
+import org.alexdev.icarus.game.item.extradata.ExtraDataPerspective;
+import org.alexdev.icarus.game.item.extradata.types.StringExtraData;
 import org.alexdev.icarus.game.item.interactions.Interaction;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.util.Util;
@@ -59,5 +62,10 @@ public class DefaultInteractor implements Interaction {
             roomUser.setStatus(EntityStatus.SIT, height);
             roomUser.getPosition().setRotation(item.getPosition().getRotation());
         }
+    }
+    
+    @Override
+    public ExtraData createExtraData(Item item) {
+        return new StringExtraData(ExtraDataPerspective.FURNI, item.getExtraData());
     }
 }

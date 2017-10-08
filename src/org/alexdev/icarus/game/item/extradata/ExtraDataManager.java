@@ -4,7 +4,7 @@ import org.alexdev.icarus.game.item.Item;
 
 import com.google.gson.Gson;
 
-public class ExtraDataReader {
+public class ExtraDataManager {
 
     /**
      * Gets the json data.
