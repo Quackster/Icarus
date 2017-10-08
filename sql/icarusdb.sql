@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 07, 2017 at 07:24 PM
+-- Generation Time: Oct 08, 2017 at 09:59 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -16028,7 +16028,7 @@ CREATE TABLE `item_data` (
   `y` varchar(50) DEFAULT '0',
   `z` double NOT NULL DEFAULT '0',
   `rotation` int(11) NOT NULL DEFAULT '0',
-  `extra_data` varchar(250) NOT NULL
+  `extra_data` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -16263,7 +16263,8 @@ INSERT INTO `item_data` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`,
 (305, 1, 1, 7195, 3, '8', '27', 1.4029999999999996, 0, '1'),
 (306, 1, 1, 7195, 3, '11', '20', 0.001, 0, '1'),
 (307, 1, 1, 7195, 3, '20', '24', 1.4029999999999996, 0, '1'),
-(308, 1, 1, 3561, 3, '24', '12', -10, 0, '{\"saturation\":193,\"brightness\":205,\"hue\":138,\"enabled\":1}');
+(308, 1, 1, 3561, 3, '9', '8', 0.006, 0, '{\"hue\":131,\"saturation\":157,\"brightness\":132,\"enabled\":true}'),
+(309, 1, 1, 1628, 4, 'l,3,7', '3,36', 0, 0, '{\"enabled\":true,\"currentPreset\":1,\"presets\":[{\"backgroundOnly\":true,\"colorCode\":\"#000000\",\"colorIntensity\":76},{\"backgroundOnly\":false,\"colorCode\":\"#000000\",\"colorIntensity\":255},{\"backgroundOnly\":false,\"colorCode\":\"#000000\",\"colorIntensity\":255}]}');
 
 -- --------------------------------------------------------
 
@@ -16820,7 +16821,8 @@ INSERT INTO `room_chatlogs` (`id`, `user`, `room_id`, `timestamp`, `message_type
 (59, 'Alex', 3, 1507395682, 0, ':clearinventory'),
 (60, 'Alex', 3, 1507396820, 0, ':reloadfurni'),
 (61, 'Alex', 3, 1507396853, 0, ':reloadfurni'),
-(62, 'Alex', 3, 1507396881, 0, ':reloadfurni');
+(62, 'Alex', 3, 1507396881, 0, ':reloadfurni'),
+(63, 'Alex', 4, 1507404916, 0, ':debugfurni');
 
 -- --------------------------------------------------------
 
@@ -16862,18 +16864,18 @@ CREATE TABLE `room_data` (
   `chat_distance` tinyint(1) NOT NULL DEFAULT '30',
   `who_can_mute` tinyint(1) NOT NULL DEFAULT '0',
   `who_can_kick` tinyint(1) NOT NULL DEFAULT '0',
-  `who_can_ban` tinyint(1) NOT NULL DEFAULT '0',
-  `metadata` longtext NOT NULL
+  `who_can_ban` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `room_data`
 --
 
-INSERT INTO `room_data` (`id`, `name`, `room_type`, `date_created`, `owner_id`, `group_id`, `thumbnail`, `description`, `password`, `users_now`, `users_max`, `model`, `wallpaper`, `floor`, `outside`, `tags`, `trade_state`, `state`, `score`, `category`, `allow_pets`, `allow_pets_eat`, `allow_walkthrough`, `hidewall`, `wall_thickness`, `floor_thickness`, `chat_mode`, `chat_size`, `chat_speed`, `chat_flood`, `chat_distance`, `who_can_mute`, `who_can_kick`, `who_can_ban`, `metadata`) VALUES
-(1, 'Welcome Lobby', 'PUBLIC', '2017-03-20 20:15:27', -1, 0, 'thumbnails/room_1_yus7y2ycpg.png', '', '', 0, 25, 'dynamic_model_1', '0', '0', '0.0', '', 0, 'OPEN', 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0, ''),
-(2, 'Coffee House', 'PUBLIC', '2017-03-20 20:19:36', -1, 0, 'thumbnails/room_2_h0lcj7tr5f.png', '', '', 0, 25, 'dynamic_model_2', '105', '608', '0.0', '', 0, 'OPEN', 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0, ''),
-(3, 'Picnic', 'PUBLIC', '2017-10-01 16:50:19', -1, 0, 'thumbnails/room_3_7mehe4543b.png', '', '', 0, 10, 'dynamic_model_3', '0', '0', '0', '', 0, 'OPEN', 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0, '');
+INSERT INTO `room_data` (`id`, `name`, `room_type`, `date_created`, `owner_id`, `group_id`, `thumbnail`, `description`, `password`, `users_now`, `users_max`, `model`, `wallpaper`, `floor`, `outside`, `tags`, `trade_state`, `state`, `score`, `category`, `allow_pets`, `allow_pets_eat`, `allow_walkthrough`, `hidewall`, `wall_thickness`, `floor_thickness`, `chat_mode`, `chat_size`, `chat_speed`, `chat_flood`, `chat_distance`, `who_can_mute`, `who_can_kick`, `who_can_ban`) VALUES
+(1, 'Welcome Lobby', 'PUBLIC', '2017-03-20 20:15:27', -1, 0, 'thumbnails/room_1_yus7y2ycpg.png', '', '', 0, 25, 'dynamic_model_1', '0', '0', '0.0', '', 0, 'OPEN', 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0),
+(2, 'Coffee House', 'PUBLIC', '2017-03-20 20:19:36', -1, 0, 'thumbnails/room_2_h0lcj7tr5f.png', '', '', 0, 25, 'dynamic_model_2', '105', '608', '0.0', '', 0, 'OPEN', 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0),
+(3, 'Picnic', 'PUBLIC', '2017-10-01 16:50:19', -1, 0, 'thumbnails/room_3_7mehe4543b.png', '', '', 0, 10, 'dynamic_model_3', '0', '0', '0', '', 0, 'OPEN', 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
+(4, 'xddd', 'PRIVATE', '2017-10-07 18:48:55', 1, 0, NULL, '', '', 0, 10, 'model_a', '0', '0', '0', '', 1, 'OPEN', 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 30, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -17412,7 +17414,7 @@ ALTER TABLE `group_data`
 -- AUTO_INCREMENT for table `item_data`
 --
 ALTER TABLE `item_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=309;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=310;
 --
 -- AUTO_INCREMENT for table `messenger_friendships`
 --
@@ -17452,12 +17454,12 @@ ALTER TABLE `rooms_newbie`
 -- AUTO_INCREMENT for table `room_chatlogs`
 --
 ALTER TABLE `room_chatlogs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 --
 -- AUTO_INCREMENT for table `room_data`
 --
 ALTER TABLE `room_data`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `room_items_moodlight`
 --
