@@ -75,36 +75,11 @@ public class ItemUtil {
      */
     public static void generateWallExtraData(Item item, Response response) {
 
-        if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
-
-            StringBuilder builder = new StringBuilder();
-
-            MoodlightData data = null;
-            MoodlightPreset preset = null;
-
-            if (item.getExtraData().length() > 0) {
-                data = ExtraDataManager.getJsonData(item, MoodlightData.class);
-                preset = data.getPresets().get(data.getCurrentPreset() - 1);    
-                
-            } else {
-                data = new MoodlightData();
-                preset = new MoodlightPreset();
-            }
-
-            builder.append(data.isEnabled() ? 2 : 1);
-            builder.append(",");
-            builder.append(data.getCurrentPreset());
-            builder.append(",");
-            builder.append(preset.isBackgroundOnly() ? 2 : 1);
-            builder.append(",");
-            builder.append(preset.getColorCode());
-            builder.append(",");
-            builder.append(preset.getColorIntensity());
-
-            response.writeString(builder.toString());
-            return;
+        ExtraData extraData = item.getDefinition().getInteractionType().getHandler().createExtraData(item);
+        
+        if (extraData.getType() == ExtraDataType.STRING) {
+            StringExtraData data = (StringExtraData)extraData;
+            response.writeString(data.getData());
         }
-
-        response.writeString(item.getExtraData());
     }
 }
