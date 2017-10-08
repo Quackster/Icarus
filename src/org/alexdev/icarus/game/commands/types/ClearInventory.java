@@ -6,6 +6,7 @@ import java.util.List;
 import org.alexdev.icarus.game.commands.Command;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.game.room.user.ChatType;
 
 public class ClearInventory extends Command {
 
@@ -28,7 +29,7 @@ public class ClearInventory extends Command {
             player.getInventory().remove(item);
         }
         
-        player.sendMessage("You have cleared your inventory!");
+        player.getRoomUser().chatSelf(ChatType.WHISPER, "I have cleared my inventory!");
     }
 
     @Override

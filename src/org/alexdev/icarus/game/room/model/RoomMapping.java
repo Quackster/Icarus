@@ -262,7 +262,6 @@ public class RoomMapping {
     private void handleItemAdjustment(Item item, boolean rotation) {
 
         if (rotation) {
-
             for (Item items : this.getTile(item.getPosition().getX(), item.getPosition().getY()).getItems()) {
                 if (items != item && items.getPosition().getZ() >= item.getPosition().getZ()) {
                     items.getPosition().setRotation(item.getPosition().getRotation());
