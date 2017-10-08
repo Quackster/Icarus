@@ -3,7 +3,7 @@ package org.alexdev.icarus.messages.incoming.room.items.interactions;
 import java.util.List;
 
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.extradata.types.MoodlightDataReader;
+import org.alexdev.icarus.game.item.extradata.ExtraDataReader;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.item.moodlight.MoodlightData;
 import org.alexdev.icarus.game.item.moodlight.MoodlightPreset;
@@ -49,15 +49,15 @@ public class SaveMoodlightPresetMessageEvent implements MessageEvent {
             return;
         }
         
-        MoodlightDataReader dataReader = (MoodlightDataReader)InteractionType.DIMMER.getExtraDataReader();
-        MoodlightData data = dataReader.getMoodlightData(moodlight);
+        MoodlightData data = ExtraDataReader.getJsonData(moodlight, MoodlightData.class);
+        data.setCurrentPreset(presetId);
         
         MoodlightPreset preset = data.getPresets().get(presetId - 1);
         preset.setBackgroundOnly(backgroundOnly);
         preset.setColorCode(colour);
         preset.setColorIntensity(colorIntensity);
         
-        dataReader.saveExtraData(moodlight, data);
+        ExtraDataReader.saveExtraData(moodlight, data);
         moodlight.updateStatus();
         moodlight.save();
     }

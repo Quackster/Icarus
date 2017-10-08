@@ -1,15 +1,11 @@
 package org.alexdev.icarus.game.util;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.extradata.types.MoodlightDataReader;
-import org.alexdev.icarus.game.item.extradata.types.TonerDataReader;
+import org.alexdev.icarus.game.item.extradata.ExtraDataReader;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.item.moodlight.MoodlightData;
 import org.alexdev.icarus.game.item.moodlight.MoodlightPreset;
 import org.alexdev.icarus.game.item.toner.TonerData;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.server.api.messages.Response;
 
 public class ItemUtil {
@@ -92,11 +88,10 @@ public class ItemUtil {
 
         if (item.getDefinition().getInteractionType() == InteractionType.ROOMBG) {
 
-            if (item.getRoom() != null && item.getExtraData().length() > 0) {
+            if (item.getExtraData().length() > 0) {
 
-                TonerDataReader dataReader = (TonerDataReader) InteractionType.ROOMBG.getExtraDataReader();
-                TonerData data = dataReader.getTonerData(item);
-
+                TonerData data = ExtraDataReader.getJsonData(item, TonerData.class);
+                
                 response.writeInt(0);
                 response.writeInt(5);
                 response.writeInt(4);
@@ -110,15 +105,10 @@ public class ItemUtil {
                 response.writeInt(0);
                 response.writeString("");
             }
-            
-            
-            AtomicInteger integer = new AtomicInteger(0);
-            integer = new AtomicInteger(1337);
-
             return;
         }
 
-        response.writeInt(1);
+        response.writeInt(0);
         response.writeInt(0);
         response.writeString(item.getExtraData());
     }
@@ -139,8 +129,7 @@ public class ItemUtil {
             MoodlightPreset preset = null;
 
             if (item.getExtraData().length() > 0) {
-                MoodlightDataReader dataReader = (MoodlightDataReader) InteractionType.DIMMER.getExtraDataReader();
-                data = dataReader.getMoodlightData(item);
+                data = ExtraDataReader.getJsonData(item, MoodlightData.class);
                 preset = data.getPresets().get(data.getCurrentPreset() - 1);    
                 
             } else {
@@ -157,8 +146,6 @@ public class ItemUtil {
             builder.append(preset.getColorCode());
             builder.append(",");
             builder.append(preset.getColorIntensity());
-
-            Log.info("EXTRADATA ITEMUTIL: " + builder.toString());
 
             response.writeString(builder.toString());
             return;

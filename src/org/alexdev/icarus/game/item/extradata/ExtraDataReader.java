@@ -4,7 +4,7 @@ import org.alexdev.icarus.game.item.Item;
 
 import com.google.gson.Gson;
 
-public abstract class ExtraDataReader<T> {
+public class ExtraDataReader {
 
     /**
      * Gets the json data.
@@ -13,7 +13,7 @@ public abstract class ExtraDataReader<T> {
      * @param t the class type
      * @return the json data
      */
-    public T getJsonData(Item item, Class<T> t) {
+    public static <T> T getJsonData(Item item, Class<T> t) {
         T settings = new Gson().fromJson(item.getExtraData(), t);
         return settings;
     }
@@ -24,7 +24,7 @@ public abstract class ExtraDataReader<T> {
      * @param item the item
      * @param src the data to serialise
      */
-    public void saveExtraData(Item item, T src) {
+    public static <T> void saveExtraData(Item item, T src) {
         item.setExtraData(new Gson().toJson(src));
     }
 }

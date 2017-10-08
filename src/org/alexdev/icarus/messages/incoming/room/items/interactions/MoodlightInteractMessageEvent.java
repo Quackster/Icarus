@@ -3,7 +3,7 @@ package org.alexdev.icarus.messages.incoming.room.items.interactions;
 import java.util.List;
 
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.extradata.types.MoodlightDataReader;
+import org.alexdev.icarus.game.item.extradata.ExtraDataReader;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.item.moodlight.MoodlightData;
 import org.alexdev.icarus.game.item.moodlight.MoodlightPreset;
@@ -37,7 +37,6 @@ public class MoodlightInteractMessageEvent implements MessageEvent {
             return;
         }
         
-        MoodlightDataReader dataReader = (MoodlightDataReader) InteractionType.DIMMER.getExtraDataReader();
         MoodlightData data = null;
         
         if (moodlight.getExtraData().isEmpty()) {
@@ -47,10 +46,10 @@ public class MoodlightInteractMessageEvent implements MessageEvent {
             data.getPresets().add(new MoodlightPreset());
             data.getPresets().add(new MoodlightPreset());
             
-            dataReader.saveExtraData(moodlight, data);
+            ExtraDataReader.saveExtraData(moodlight, data);
             
         } else {
-            data = dataReader.getMoodlightData(moodlight);
+            data = ExtraDataReader.getJsonData(moodlight, MoodlightData.class);
         }
 
         moodlight.save();

@@ -3,7 +3,7 @@ package org.alexdev.icarus.messages.incoming.room.items.interactions;
 import java.util.List;
 
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.extradata.types.MoodlightDataReader;
+import org.alexdev.icarus.game.item.extradata.ExtraDataReader;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.item.moodlight.MoodlightData;
 import org.alexdev.icarus.game.player.Player;
@@ -28,11 +28,10 @@ public class ToggleMoodlightMessageEvent implements MessageEvent {
             return;
         }
         
-        MoodlightDataReader dataReader = (MoodlightDataReader) InteractionType.DIMMER.getExtraDataReader();
-        MoodlightData data = dataReader.getMoodlightData(moodlight);
-        
+        MoodlightData data = ExtraDataReader.getJsonData(moodlight, MoodlightData.class);
         data.setEnabled(!data.isEnabled());
-        dataReader.saveExtraData(moodlight, data);
+        
+        ExtraDataReader.saveExtraData(moodlight, data);
         
         moodlight.updateStatus();
         moodlight.save();
