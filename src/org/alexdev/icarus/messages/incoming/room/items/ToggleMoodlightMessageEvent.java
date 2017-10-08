@@ -1,17 +1,14 @@
 package org.alexdev.icarus.messages.incoming.room.items;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.extradata.types.MoodlightDataReader;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.item.moodlight.MoodlightData;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public class ToggleMoodlightMessageEvent implements MessageEvent {
 
@@ -31,12 +28,12 @@ public class ToggleMoodlightMessageEvent implements MessageEvent {
             return;
         }
         
-        Type type = new TypeToken<MoodlightData>(){}.getType();
+        MoodlightDataReader dataReader = (MoodlightDataReader) InteractionType.DIMMER.getExtraDataReader();
+        MoodlightData data = dataReader.getMoodlightData(moodlight);
         
-        MoodlightData data = new Gson().fromJson(moodlight.getExtraData(), type);
         data.setEnabled(!data.isEnabled());
+        dataReader.saveExtraData(moodlight, data);
         
-        moodlight.setExtraData(new Gson().toJson(data));
         moodlight.updateStatus();
         moodlight.save();
     }

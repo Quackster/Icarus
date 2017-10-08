@@ -522,6 +522,7 @@ public class Item extends Metadata {
      */
     public void setExtraData(String extraData) {
         this.extraData = extraData;
+        Log.info("extradata: " + extraData);
     }
 
     /**

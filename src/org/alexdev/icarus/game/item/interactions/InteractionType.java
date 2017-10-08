@@ -1,5 +1,7 @@
 package org.alexdev.icarus.game.item.interactions;
 
+import org.alexdev.icarus.game.item.extradata.*;
+import org.alexdev.icarus.game.item.extradata.types.*;
 import org.alexdev.icarus.game.item.interactions.types.*;
 
 public enum InteractionType {
@@ -12,15 +14,16 @@ public enum InteractionType {
     DICE(new DiceInteractor()),
     TELEPORT(new TeleportInteractor()),
     MANNEQUIN(new MannequinInteractor()),
-    DIMMER,
-    BACKGROUND, 
+    DIMMER(null, new MoodlightDataReader()),
+    BACKGROUND,
     ROLLER,
     FLOOR,
     WALLPAPER,
     LANDSCAPE,
-    ROOMBG;
+    ROOMBG(null, new TonerDataReader());
 
     private Interaction interaction;
+    private ExtraDataReader<?> extraData;
 
     InteractionType() {
         this.interaction = null;
@@ -28,6 +31,11 @@ public enum InteractionType {
 
     InteractionType(Interaction interaction) {
         this.interaction = interaction;
+    }
+    
+    InteractionType(Interaction interaction, ExtraDataReader<?> extraData) {
+        this.interaction = interaction;
+        this.extraData = extraData;
     }
     
     /**
@@ -39,6 +47,10 @@ public enum InteractionType {
         return interaction;
     }
     
+    public ExtraDataReader<?> getExtraDataReader() {
+        return extraData;
+    }
+
     /**
      * Gets the type by database name.
      *

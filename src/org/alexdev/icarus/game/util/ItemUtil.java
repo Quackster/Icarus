@@ -1,17 +1,16 @@
 package org.alexdev.icarus.game.util;
 
-import java.lang.reflect.Type;
-import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.extradata.types.MoodlightDataReader;
+import org.alexdev.icarus.game.item.extradata.types.TonerDataReader;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.item.moodlight.MoodlightData;
 import org.alexdev.icarus.game.item.moodlight.MoodlightPreset;
+import org.alexdev.icarus.game.item.toner.TonerData;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.server.api.messages.Response;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public class ItemUtil {
 
@@ -92,24 +91,29 @@ public class ItemUtil {
         }
 
         if (item.getDefinition().getInteractionType() == InteractionType.ROOMBG) {
+
             if (item.getRoom() != null && item.getExtraData().length() > 0) {
 
-                Type type = new TypeToken<HashMap<String, Integer>>(){}.getType();
-                HashMap<String, Integer> settings = new Gson().fromJson(item.getExtraData(), type);
+                TonerDataReader dataReader = (TonerDataReader) InteractionType.ROOMBG.getExtraDataReader();
+                TonerData data = dataReader.getTonerData(item);
 
                 response.writeInt(0);
                 response.writeInt(5);
                 response.writeInt(4);
-                response.writeInt(settings.get("enabled"));
-                response.writeInt(settings.get("hue"));
-                response.writeInt(settings.get("saturation"));
-                response.writeInt(settings.get("brightness"));
+                response.writeInt(data.isEnabled());
+                response.writeInt(data.getHue());
+                response.writeInt(data.getSaturation());
+                response.writeInt(data.getBrightness());
 
             } else {
                 response.writeInt(0);
                 response.writeInt(0);
                 response.writeString("");
             }
+            
+            
+            AtomicInteger integer = new AtomicInteger(0);
+            integer = new AtomicInteger(1337);
 
             return;
         }
@@ -118,7 +122,7 @@ public class ItemUtil {
         response.writeInt(0);
         response.writeString(item.getExtraData());
     }
-    
+
     /**
      * Generate extra data for wall items depending on the type of item.
      *
@@ -135,10 +139,11 @@ public class ItemUtil {
             MoodlightPreset preset = null;
 
             if (item.getExtraData().length() > 0) {
-                data = new Gson().fromJson(item.getExtraData(), new TypeToken<MoodlightData>(){}.getType());
-                preset = data.getPresets().get(data.getCurrentPreset() - 1);
+                MoodlightDataReader dataReader = (MoodlightDataReader) InteractionType.DIMMER.getExtraDataReader();
+                data = dataReader.getMoodlightData(item);
+                preset = data.getPresets().get(data.getCurrentPreset() - 1);    
+                
             } else {
-
                 data = new MoodlightData();
                 preset = new MoodlightPreset();
             }
@@ -152,13 +157,13 @@ public class ItemUtil {
             builder.append(preset.getColorCode());
             builder.append(",");
             builder.append(preset.getColorIntensity());
-            
+
             Log.info("EXTRADATA ITEMUTIL: " + builder.toString());
-            
+
             response.writeString(builder.toString());
             return;
         }
-        
+
         response.writeString(item.getExtraData());
     }
 }

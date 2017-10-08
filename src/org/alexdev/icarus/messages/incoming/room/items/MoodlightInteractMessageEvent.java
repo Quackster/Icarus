@@ -1,9 +1,9 @@
 package org.alexdev.icarus.messages.incoming.room.items;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.extradata.types.MoodlightDataReader;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.item.moodlight.MoodlightData;
 import org.alexdev.icarus.game.item.moodlight.MoodlightPreset;
@@ -12,9 +12,6 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.outgoing.room.items.MoodlightConfigComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public class MoodlightInteractMessageEvent implements MessageEvent {
 
@@ -40,6 +37,7 @@ public class MoodlightInteractMessageEvent implements MessageEvent {
             return;
         }
         
+        MoodlightDataReader dataReader = (MoodlightDataReader) InteractionType.DIMMER.getExtraDataReader();
         MoodlightData data = null;
         
         if (moodlight.getExtraData().isEmpty()) {
@@ -49,11 +47,10 @@ public class MoodlightInteractMessageEvent implements MessageEvent {
             data.getPresets().add(new MoodlightPreset());
             data.getPresets().add(new MoodlightPreset());
             
-            moodlight.setExtraData(new Gson().toJson(data));
+            dataReader.saveExtraData(moodlight, data);
             
         } else {
-            Type type = new TypeToken<MoodlightData>(){}.getType();
-            data = new Gson().fromJson(moodlight.getExtraData(), type);
+            data = dataReader.getMoodlightData(moodlight);
         }
 
         moodlight.save();

@@ -5,7 +5,7 @@ import org.alexdev.icarus.game.item.interactions.Interaction;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.util.Util;
 
-public class DiceInteractor  implements Interaction {
+public class DiceInteractor implements Interaction {
 
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {

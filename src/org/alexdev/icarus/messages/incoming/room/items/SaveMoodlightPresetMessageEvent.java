@@ -1,9 +1,9 @@
 package org.alexdev.icarus.messages.incoming.room.items;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.extradata.types.MoodlightDataReader;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.item.moodlight.MoodlightData;
 import org.alexdev.icarus.game.item.moodlight.MoodlightPreset;
@@ -11,9 +11,6 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public class SaveMoodlightPresetMessageEvent implements MessageEvent {
 
@@ -52,17 +49,15 @@ public class SaveMoodlightPresetMessageEvent implements MessageEvent {
             return;
         }
         
-        Type type = new TypeToken<MoodlightData>(){}.getType();
-        
-        MoodlightData data = new Gson().fromJson(moodlight.getExtraData(), type);
-        data.setCurrentPreset(presetId);
+        MoodlightDataReader extraData = (MoodlightDataReader)InteractionType.DIMMER.getExtraDataReader();
+        MoodlightData data = extraData.getMoodlightData(moodlight);
         
         MoodlightPreset preset = data.getPresets().get(presetId - 1);
         preset.setBackgroundOnly(backgroundOnly);
         preset.setColorCode(colour);
         preset.setColorIntensity(colorIntensity);
         
-        moodlight.setExtraData(new Gson().toJson(data));
+        extraData.saveExtraData(moodlight, data);
         moodlight.updateStatus();
         moodlight.save();
     }
