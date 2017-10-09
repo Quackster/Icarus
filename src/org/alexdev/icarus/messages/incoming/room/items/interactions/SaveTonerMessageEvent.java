@@ -44,6 +44,6 @@ public class SaveTonerMessageEvent implements MessageEvent {
         ExtraDataManager.saveExtraData(item, backgroundData);
       
         item.updateStatus();
-        item.save();
+        item.saveExtraData();
     }
 }

@@ -130,7 +130,7 @@ public class PurchaseItemMessageEvent implements MessageEvent {
             }
 
             for (int i = 0; i < amount; i++) {
-                item.getItemDefinition().handleDefinitionPurchase(player, extraData);
+                item.getItemDefinition().handlePurchase(player, extraData);
             }
 
             player.send(new PurchaseNotificationMessageComposer(item));

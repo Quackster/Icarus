@@ -32,7 +32,7 @@ public class ItemDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM furniture", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM item_definitions", sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -78,7 +78,7 @@ public class ItemDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM item_data WHERE id = " + itemId, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM items WHERE id = " + itemId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -113,7 +113,7 @@ public class ItemDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM item_data WHERE room_id = " + roomId, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM items WHERE room_id = " + roomId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -146,11 +146,37 @@ public class ItemDao {
             y = item.getLengthX() + "," + item.getLengthY();
         }
         
-        String extraData = item.getExtraData();
-        
-        if (item.getTeleporterId() > 0) {
-            extraData = String.valueOf(item.getTeleporterId());
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("UPDATE items SET extra_data = ?, x = ?, y = ?, z = ?, rotation = ?, room_id = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setString(1, item.getExtraData());
+            preparedStatement.setString(2, x);
+            preparedStatement.setString(3, y);
+            preparedStatement.setDouble(4, item.getPosition().getZ());
+            preparedStatement.setInt(5, item.getPosition().getRotation());
+            preparedStatement.setInt(6, item.getRoomId());
+            preparedStatement.setLong(7, item.getId());
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+            Log.exception(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
         }
+    }
+    
+    /**
+     * Save item.
+     *
+     * @param item the item
+     */
+    public static void saveItemData(Item item) {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -158,14 +184,9 @@ public class ItemDao {
 
         try {
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("UPDATE item_data SET extra_data = ?, x = ?, y = ?, z = ?, rotation = ?, room_id = ? WHERE id = ?", sqlConnection);
-            preparedStatement.setString(1, extraData);
-            preparedStatement.setString(2, x);
-            preparedStatement.setString(3, y);
-            preparedStatement.setDouble(4, item.getPosition().getZ());
-            preparedStatement.setInt(5, item.getPosition().getRotation());
-            preparedStatement.setInt(6, item.getRoomId());
-            preparedStatement.setLong(7, item.getId());
+            preparedStatement = Dao.getStorage().prepare("UPDATE items SET extra_data = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setString(1, item.getExtraData());
+            preparedStatement.setLong(2, item.getId());
             preparedStatement.executeUpdate();
 
         } catch (Exception e) {
@@ -183,7 +204,7 @@ public class ItemDao {
      * @param id the id
      */
     public static void deleteItem(long id) {
-        Dao.getStorage().execute("DELETE FROM item_data WHERE id = " + id);
+        Dao.getStorage().execute("DELETE FROM items WHERE id = " + id);
     }
 
 

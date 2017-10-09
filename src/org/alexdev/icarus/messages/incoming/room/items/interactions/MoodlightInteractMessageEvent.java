@@ -52,7 +52,7 @@ public class MoodlightInteractMessageEvent implements MessageEvent {
             data = ExtraDataManager.getJsonData(moodlight, MoodlightData.class);
         }
 
-        moodlight.save();
+        moodlight.saveExtraData();
         player.send(new MoodlightConfigComposer(data));
     }
 }

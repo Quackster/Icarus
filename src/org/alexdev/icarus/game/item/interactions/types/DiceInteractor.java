@@ -18,7 +18,7 @@ public class DiceInteractor implements Interaction {
         
         item.setExtraData(String.valueOf(current_mode));
         item.updateStatus();
-        item.save();
+        item.saveExtraData();
         
     }
 

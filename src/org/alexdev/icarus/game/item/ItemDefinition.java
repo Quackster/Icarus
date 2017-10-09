@@ -3,7 +3,9 @@ package org.alexdev.icarus.game.item;
 import org.alexdev.icarus.dao.mysql.item.InventoryDao;
 import org.alexdev.icarus.dao.mysql.item.TeleporterDao;
 import org.alexdev.icarus.game.inventory.InventoryNotification;
+import org.alexdev.icarus.game.item.extradata.ExtraDataManager;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
+import org.alexdev.icarus.game.item.json.mannequin.MannequinData;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.util.Util;
 
@@ -69,42 +71,30 @@ public class ItemDefinition {
         } else {
             this.variableHeight = new double[0];
         }
-        
+
         if (stackHeight == 0 || stackHeight == 0.01 || !allowStack()) {
             stackHeight = 0.001;
         }
     }   
 
     /**
-     * Handle definition purchase.
+     * Handle purchase of item.
      *
      * @param player the player
      * @param extraData the extra data
      */
-    public void handleDefinitionPurchase(Player player, String extraData) {
-        
-        Item inventoryItem = InventoryDao.newItem(this.id, player.getEntityId(), extraData);
+    public void handlePurchase(Player player, String extraData) {
 
-        if (inventoryItem.getDefinition().getInteractionType() == InteractionType.GATE || inventoryItem.getDefinition().getInteractionType() == InteractionType.ONEWAYGATE) {
-            inventoryItem.setExtraData("0");
-        }
-        
-        if (inventoryItem.getDefinition().getInteractionType() == InteractionType.MANNEQUIN) {
-            inventoryItem.setExtraData("m" + (char)5 + ".ch-210-1321.lg-285-92" + (char)5 + "Default Mannequin");
-        }
+        Item inventoryItem = InventoryDao.newItem(this.id, player.getEntityId(), extraData);
 
         if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
 
             Item secondTeleporter = InventoryDao.newItem(this.id, player.getEntityId(), "0");
-            
+
             secondTeleporter.setTeleporterId(inventoryItem.getId());
             inventoryItem.setTeleporterId(secondTeleporter.getId());
-            
+
             player.getInventory().addItem(secondTeleporter, InventoryNotification.ALERT);
-
-            inventoryItem.save();
-            secondTeleporter.save();
-
             TeleporterDao.savePair(inventoryItem.getId(), secondTeleporter.getId());
         }
 
@@ -173,7 +163,7 @@ public class ItemDefinition {
     public double getStackHeight() {
         return stackHeight;
     }
-    
+
     /**
      * Gets the height.
      *
@@ -197,7 +187,7 @@ public class ItemDefinition {
         if (this.interactionType == InteractionType.GATE) {
             return false;
         }
-        
+
         if (this.interactionType == InteractionType.ONEWAYGATE) {
             return false;
         }
@@ -209,7 +199,7 @@ public class ItemDefinition {
         if (this.interactionType == InteractionType.BED) {
             return false;
         }
-        
+
         return canStack;
     }
 
@@ -221,7 +211,7 @@ public class ItemDefinition {
     public boolean allowSit() {
         return canSit;
     }
-    
+
     /**
      * Allow sit or lay.
      *

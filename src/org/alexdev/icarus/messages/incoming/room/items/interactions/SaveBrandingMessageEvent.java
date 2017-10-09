@@ -58,7 +58,7 @@ public class SaveBrandingMessageEvent implements MessageEvent {
         
         ExtraDataManager.saveExtraData(item, data);
         item.updateStatus();
-        item.save();
+        item.saveExtraData();
     }
 
 }

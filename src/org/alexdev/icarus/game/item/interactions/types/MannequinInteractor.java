@@ -5,9 +5,11 @@ import java.util.Map;
 
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.extradata.ExtraData;
+import org.alexdev.icarus.game.item.extradata.ExtraDataManager;
 import org.alexdev.icarus.game.item.extradata.ExtraDataPerspective;
 import org.alexdev.icarus.game.item.extradata.types.KeyValueExtraData;
 import org.alexdev.icarus.game.item.interactions.Interaction;
+import org.alexdev.icarus.game.item.json.mannequin.MannequinData;
 import org.alexdev.icarus.game.room.user.RoomUser;
 
 public class MannequinInteractor implements Interaction {
@@ -22,18 +24,17 @@ public class MannequinInteractor implements Interaction {
     public ExtraData createExtraData(Item item) {
         
         Map<String, String> objects = new HashMap<>();
+        MannequinData data = null;
         
-        if (item.getExtraData().contains(Character.toString((char)5))) {
-            String[] mannequinData = item.getExtraData().split(Character.toString((char)5));
-            objects.put("GENDER", mannequinData[0]);
-            objects.put("FIGURE", mannequinData[1]);
-            objects.put("OUTFIT_NAME", mannequinData[2]);
-            
+        if (item.getExtraData().length() > 0) {
+            data = ExtraDataManager.getJsonData(item, MannequinData.class);
         } else {
-            objects.put("GENDER", "");
-            objects.put("FIGURE", "");
-            objects.put("OUTFIT_NAME", "");
+            data = new MannequinData();
         }
+        
+        objects.put("GENDER", data.getGender());
+        objects.put("FIGURE", data.getFigure());
+        objects.put("OUTFIT_NAME", data.getOutfitName());
         
         return new KeyValueExtraData(ExtraDataPerspective.FURNI, objects);
     }

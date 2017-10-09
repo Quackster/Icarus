@@ -39,6 +39,6 @@ public class AdsBackgroundInteractor implements Interaction {
         objects.put("offsetZ", String.valueOf(data.getOffsetZ()));
         objects.put("state", String.valueOf(data.getState()));
         
-        return new KeyValueExtraData(ExtraDataPerspective.FLOOR_DECORATION, objects);
+        return new KeyValueExtraData(ExtraDataPerspective.FURNI, objects);
     }
 }

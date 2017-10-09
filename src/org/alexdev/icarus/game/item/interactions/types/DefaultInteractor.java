@@ -32,7 +32,7 @@ public class DefaultInteractor implements Interaction {
 
             item.setExtraData(String.valueOf(newMode));
             item.updateStatus();
-            item.save();
+            item.saveExtraData();
 
             if (item.getDefinition().getVariableHeight().length > 0) {
                 item.getRoom().getMapping().regenerateCollisionMaps();

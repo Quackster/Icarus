@@ -34,7 +34,7 @@ public class ToggleMoodlightMessageEvent implements MessageEvent {
         ExtraDataManager.saveExtraData(moodlight, data);
         
         moodlight.updateStatus();
-        moodlight.save();
+        moodlight.saveExtraData();
     }
 
 }

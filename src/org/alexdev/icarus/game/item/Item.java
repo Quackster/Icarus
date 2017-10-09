@@ -345,6 +345,13 @@ public class Item extends Metadata {
     public void save() {
         ItemDao.saveItem(this);
     }
+    
+    /**
+     * Save.
+     */
+    public void saveExtraData() {
+        ItemDao.saveItemData(this);
+    }
 
     /**
      * Gets the length X.

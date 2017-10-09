@@ -26,6 +26,14 @@ public class DimmerInteractor implements Interaction {
 
         if (item.getExtraData().length() > 0) {
             data = ExtraDataManager.getJsonData(item, MoodlightData.class);
+            
+            if (data.getPresets().size() == 0) {
+                data.getPresets().add(new MoodlightPreset());
+                data.getPresets().add(new MoodlightPreset());
+                data.getPresets().add(new MoodlightPreset());
+                ExtraDataManager.saveExtraData(item, data);
+            }
+            
             preset = data.getPresets().get(data.getCurrentPreset() - 1);    
             
         } else {

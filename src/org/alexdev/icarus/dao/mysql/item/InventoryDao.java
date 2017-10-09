@@ -35,7 +35,7 @@ public class InventoryDao {
 
             sqlConnection = Dao.getStorage().getConnection();
             
-            preparedStatement = Dao.getStorage().prepare("SELECT id, user_id, item_id, room_id, x, y, z, rotation, extra_data FROM item_data WHERE room_id = 0 AND user_id = ?", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT id, user_id, item_id, room_id, x, y, z, rotation, extra_data FROM items WHERE room_id = 0 AND user_id = ?", sqlConnection);
             preparedStatement.setInt(1, userId);
             
             resultSet = preparedStatement.executeQuery();
@@ -72,7 +72,7 @@ public class InventoryDao {
 
             sqlConnection = Dao.getStorage().getConnection();
             
-            preparedStatement = Dao.getStorage().prepare("SELECT id, user_id, item_id, room_id, x, y, z, rotation, extra_data FROM item_data WHERE id = ? LIMIT 1", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT id, user_id, item_id, room_id, x, y, z, rotation, extra_data FROM items WHERE id = ? LIMIT 1", sqlConnection);
             preparedStatement.setLong(1, id);
             
             resultSet = preparedStatement.executeQuery();
@@ -110,7 +110,7 @@ public class InventoryDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("INSERT INTO item_data (owner_id, user_id, item_id, extra_data) VALUES(?, ?, ?, ?)", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("INSERT INTO items (owner_id, user_id, item_id, extra_data) VALUES(?, ?, ?, ?)", sqlConnection);
             
             preparedStatement.setInt(1, ownerId);
             preparedStatement.setInt(2, ownerId);

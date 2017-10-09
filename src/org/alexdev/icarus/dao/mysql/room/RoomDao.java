@@ -37,7 +37,7 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_data WHERE room_type = ?", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE room_type = ?", sqlConnection);
             preparedStatement.setString(1, RoomType.PUBLIC.name());
             resultSet = preparedStatement.executeQuery();
 
@@ -87,7 +87,7 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_data WHERE owner_id = " + userId, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE owner_id = " + userId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -135,7 +135,7 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_data WHERE id = " + roomId + " LIMIT 1", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE id = " + roomId + " LIMIT 1", sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -253,7 +253,7 @@ public class RoomDao {
      * @param roomId the room id
      */
     public static void deleteRoom(int roomId) {
-        Dao.getStorage().execute("DELETE FROM room_data WHERE id = " + roomId);
+        Dao.getStorage().execute("DELETE FROM rooms WHERE id = " + roomId);
     }
 
     /**

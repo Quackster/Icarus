@@ -1,6 +1,8 @@
 package org.alexdev.icarus.messages.incoming.room.items.interactions;
 
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.extradata.ExtraDataManager;
+import org.alexdev.icarus.game.item.json.mannequin.MannequinData;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.types.MessageEvent;
@@ -37,15 +39,22 @@ public class SaveMannequinMessageEvent implements MessageEvent {
             figure += str + ".";
         }
         
-        if (item.getExtraData().contains(Character.toString((char)5))) {
-            String[] flags = item.getExtraData().split(Character.toString((char)5));
-            item.setExtraData("m" + (char)5 + figure + (char)5 + flags[2]);
+        MannequinData data = null;
+        
+        if (item.getExtraData().length() > 0) {
+            data = ExtraDataManager.getJsonData(item, MannequinData.class);
+            data.setFigure(figure);
+            data.setGender("m");
         } else {
-            item.setExtraData("m" + (char)5 + figure + (char)5 + "Default");
+            data = new MannequinData();
+            data.setFigure(figure);
+            data.setGender("m");
+            data.setOutfitName("Default Mannequin");
         }
         
+        ExtraDataManager.saveExtraData(item, data);
         item.updateStatus();
-        item.save();
+        item.saveExtraData();
     }
 
 }
