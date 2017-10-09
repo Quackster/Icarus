@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2017 at 02:10 PM
+-- Generation Time: Oct 09, 2017 at 03:23 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -8224,10 +8224,10 @@ INSERT INTO `catalog_pages` (`id`, `parent_id`, `caption`, `icon_image`, `visibl
 -- --------------------------------------------------------
 
 --
--- Table structure for table `group_data`
+-- Table structure for table `groups`
 --
 
-CREATE TABLE `group_data` (
+CREATE TABLE `groups` (
   `id` int(11) NOT NULL,
   `title` varchar(50) NOT NULL,
   `description` longtext NOT NULL,
@@ -8242,10 +8242,10 @@ CREATE TABLE `group_data` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `group_data`
+-- Dumping data for table `groups`
 --
 
-INSERT INTO `group_data` (`id`, `title`, `description`, `badge`, `owner_id`, `room_id`, `created`, `colour_a`, `colour_b`, `access_type`, `can_members_decorate`) VALUES
+INSERT INTO `groups` (`id`, `title`, `description`, `badge`, `owner_id`, `room_id`, `created`, `colour_a`, `colour_b`, `access_type`, `can_members_decorate`) VALUES
 (1, 'Alex\'s Fantastic Group', 'Fantastic groups and where to find them', 'b0524s60174s40222s41220s00000', 1, 3, 1505279665, 1, 1, 'OPEN', 1);
 
 -- --------------------------------------------------------
@@ -9012,7 +9012,10 @@ INSERT INTO `items` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`, `y`
 (306, 1, 1, 7195, 3, '11', '20', 0.001, 0, '1'),
 (307, 1, 1, 7195, 3, '20', '24', 1.4029999999999996, 0, '1'),
 (316, 1, 1, 7097, 4, '6', '8', 0.001, 0, ''),
-(317, 1, 1, 5078, 0, '0', '0', 0, 0, '');
+(317, 1, 1, 5078, 0, '0', '0', 0, 0, ''),
+(318, 1, 1, 6566, 0, '0', '0', 0, 0, '0'),
+(319, 1, 1, 6566, 0, '0', '0', 0, 0, '0'),
+(320, 1, 1, 6566, 0, '0', '0', 0, 0, '2');
 
 -- --------------------------------------------------------
 
@@ -16405,10 +16408,10 @@ INSERT INTO `navigator_tabs` (`id`, `child_id`, `tab_name`, `title`, `button_typ
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pet_data`
+-- Table structure for table `pets`
 --
 
-CREATE TABLE `pet_data` (
+CREATE TABLE `pets` (
   `id` int(11) NOT NULL,
   `owner_id` int(11) NOT NULL DEFAULT '0',
   `room_id` int(11) DEFAULT '0',
@@ -16431,10 +16434,10 @@ CREATE TABLE `pet_data` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pet_data`
+-- Dumping data for table `pets`
 --
 
-INSERT INTO `pet_data` (`id`, `owner_id`, `room_id`, `pet_name`, `race_id`, `type`, `colour`, `scratches`, `level`, `happiness`, `experience`, `energy`, `x`, `y`, `saddled`, `any_rider`, `hair_style`, `hair_colour`, `birthday`) VALUES
+INSERT INTO `pets` (`id`, `owner_id`, `room_id`, `pet_name`, `race_id`, `type`, `colour`, `scratches`, `level`, `happiness`, `experience`, `energy`, `x`, `y`, `saddled`, `any_rider`, `hair_style`, `hair_colour`, `birthday`) VALUES
 (8, 5, 0, 'Doggo', 4, 3, 'FFFFFF', 0, 1, 100, 0, 100, 7, 4, 'false', 'false', -1, 0, 1504921602),
 (9, 2, 0, 'Cat', 0, 1, '84A95F', 0, 1, 100, 0, 100, 1, 8, 'false', 'false', -1, 0, 1504922776),
 (10, 5, 0, 'Sparky', 0, 7, 'CCCCCC', 0, 1, 100, 0, 100, 4, 10, 'false', 'false', -1, 0, 1505315514);
@@ -17230,9 +17233,9 @@ ALTER TABLE `catalog_pages`
   ADD KEY `order_num` (`order_num`) USING BTREE;
 
 --
--- Indexes for table `group_data`
+-- Indexes for table `groups`
 --
-ALTER TABLE `group_data`
+ALTER TABLE `groups`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -17286,9 +17289,9 @@ ALTER TABLE `navigator_tabs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pet_data`
+-- Indexes for table `pets`
 --
-ALTER TABLE `pet_data`
+ALTER TABLE `pets`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -17407,15 +17410,15 @@ ALTER TABLE `catalog_items`
 ALTER TABLE `catalog_pages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=912362;
 --
--- AUTO_INCREMENT for table `group_data`
+-- AUTO_INCREMENT for table `groups`
 --
-ALTER TABLE `group_data`
+ALTER TABLE `groups`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=318;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=321;
 --
 -- AUTO_INCREMENT for table `item_definitions`
 --
@@ -17447,9 +17450,9 @@ ALTER TABLE `navigator_categories`
 ALTER TABLE `navigator_tabs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
--- AUTO_INCREMENT for table `pet_data`
+-- AUTO_INCREMENT for table `pets`
 --
-ALTER TABLE `pet_data`
+ALTER TABLE `pets`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `rooms`

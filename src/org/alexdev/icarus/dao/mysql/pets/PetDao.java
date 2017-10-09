@@ -77,7 +77,7 @@ public class PetDao {
         try {
             sqlConnection = Dao.getStorage().getConnection();
 
-            preparedStatement = Dao.getStorage().prepare("INSERT INTO pet_data (owner_id, pet_name, type, race_id, colour, scratches, level, happiness, experience, energy, birthday) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("INSERT INTO pets (owner_id, pet_name, type, race_id, colour, scratches, level, happiness, experience, energy, birthday) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", sqlConnection);
 
             preparedStatement.setInt(1, ownerId);
             preparedStatement.setString(2, petName);
@@ -126,7 +126,7 @@ public class PetDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM pet_data WHERE room_id = " + roomId, sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM pets WHERE room_id = " + roomId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -157,7 +157,7 @@ public class PetDao {
 
         try {
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("UPDATE pet_data SET level = ?, room_id = ?, energy = ?, happiness = ?, experience = ? WHERE id = ?", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("UPDATE pets SET level = ?, room_id = ?, energy = ?, happiness = ?, experience = ? WHERE id = ? LIMIT 1", sqlConnection);
             preparedStatement.setInt(1, pet.getLevel());
             preparedStatement.setInt(2, pet.getRoomId());
             preparedStatement.setInt(3, pet.getEnergy());
@@ -191,7 +191,7 @@ public class PetDao {
 
         try {
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("UPDATE pet_data SET x = ?, y = ? WHERE id = ?", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("UPDATE pets SET x = ?, y = ? WHERE id = ? LIMIT 1", sqlConnection);
             preparedStatement.setInt(1, pet.getX());
             preparedStatement.setInt(2, pet.getY());
             preparedStatement.setInt(3, pet.getId());

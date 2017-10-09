@@ -37,7 +37,7 @@ public class GroupDao {
 
             sqlConnection = Dao.getStorage().getConnection();
 
-            preparedStatement = Dao.getStorage().prepare("INSERT INTO group_data (title, description, badge, owner_id, room_id, created, colour_a, colour_b) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("INSERT INTO groups (title, description, badge, owner_id, room_id, created, colour_a, colour_b) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", sqlConnection);
             preparedStatement.setString(1, title);
             preparedStatement.setString(2, description);
             preparedStatement.setString(3, badge);
@@ -82,7 +82,7 @@ public class GroupDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM group_data WHERE id = ? LIMIT 1", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM groups WHERE id = ? LIMIT 1", sqlConnection);
             preparedStatement.setInt(1, groupId);
             resultSet = preparedStatement.executeQuery();
             
@@ -116,7 +116,7 @@ public class GroupDao {
 
             sqlConnection = Dao.getStorage().getConnection();
 
-            preparedStatement = Dao.getStorage().prepare("DELETE FROM group_data WHERE id = ?", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("DELETE FROM groups WHERE id = ?", sqlConnection);
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
 
@@ -145,7 +145,7 @@ public class GroupDao {
 
             sqlConnection = Dao.getStorage().getConnection();
 
-            preparedStatement = Dao.getStorage().prepare("UPDATE group_data SET title = ?, description = ?, badge = ?, room_id = ?, colour_a = ?, colour_b = ?, access_type = ?, can_members_decorate = ? WHERE id = ?", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("UPDATE groups SET title = ?, description = ?, badge = ?, room_id = ?, colour_a = ?, colour_b = ?, access_type = ?, can_members_decorate = ? WHERE id = ?", sqlConnection);
             preparedStatement.setString(1, group.getTitle());
             preparedStatement.setString(2, group.getDescription());
             preparedStatement.setString(3, group.getBadge());

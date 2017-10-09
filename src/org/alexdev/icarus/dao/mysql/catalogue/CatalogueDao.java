@@ -151,11 +151,6 @@ public class CatalogueDao {
         }
         
         for (String text : rawTexts.split("\\|")) {
-            
-            /*if (text.endsWith("==")) {
-                text = new String(Base64.getDecoder().decode(text));
-            }*/
-            
             texts.add(text);
         }
         
