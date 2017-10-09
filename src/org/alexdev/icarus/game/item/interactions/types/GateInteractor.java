@@ -12,7 +12,7 @@ public class GateInteractor implements Interaction {
 
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {
-        Interaction interaction = InteractionType.DEFAULT.getHandler();
+        Interaction interaction = InteractionType.DEFAULT.get();
         interaction.onUseItem(item, roomUser);
     }
 

@@ -30,6 +30,8 @@ import org.alexdev.icarus.messages.incoming.room.settings.*;
 import org.alexdev.icarus.messages.incoming.room.user.*;
 import org.alexdev.icarus.messages.incoming.trading.StartTradingMessageEvent;
 import org.alexdev.icarus.messages.incoming.user.*;
+import org.alexdev.icarus.messages.incoming.user.club.HabboClubCenterMessageEvent;
+import org.alexdev.icarus.messages.incoming.user.club.SubscriptionMessageEvent;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.alexdev.icarus.util.ClassFinder;

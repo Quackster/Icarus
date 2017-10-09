@@ -114,7 +114,7 @@ public class RoomUser {
 
         } else {
 
-            Interaction handler = this.currentItem.getDefinition().getInteractionType().getHandler();
+            Interaction handler = this.currentItem.getDefinition().getInteractionType().get();
 
             if (handler != null) {
                 handler.onStopWalking(this.currentItem, this);

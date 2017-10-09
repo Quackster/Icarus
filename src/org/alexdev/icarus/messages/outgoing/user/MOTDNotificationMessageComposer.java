@@ -1,4 +1,4 @@
-package org.alexdev.icarus.messages.incoming.user;
+package org.alexdev.icarus.messages.outgoing.user;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;

@@ -20,7 +20,7 @@ public class IntArrayExtraData extends ExtraData {
         return ExtraDataType.INT_ARRAY;
     }
 
-    public Integer[] getArray() {
+    public Integer[] getObjects() {
         return array;
     }
 }

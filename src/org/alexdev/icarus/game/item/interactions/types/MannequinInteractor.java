@@ -35,6 +35,6 @@ public class MannequinInteractor implements Interaction {
             objects.put("OUTFIT_NAME", "");
         }
         
-        return new KeyValueExtraData(ExtraDataPerspective.FLOOR_DECORATION, objects);
+        return new KeyValueExtraData(ExtraDataPerspective.FURNI, objects);
     }
 }

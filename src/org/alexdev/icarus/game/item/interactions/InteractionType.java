@@ -35,7 +35,7 @@ public enum InteractionType {
      *
      * @return the handler
      */
-    public Interaction getHandler() {
+    public Interaction get() {
         return interaction;
     }
 

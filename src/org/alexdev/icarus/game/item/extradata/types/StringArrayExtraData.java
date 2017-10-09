@@ -20,7 +20,7 @@ public class StringArrayExtraData extends ExtraData {
         return ExtraDataType.STRING_ARRAY;
     }
 
-    public String[] getArray() {
+    public String[] getObjects() {
         return array;
     }
 }

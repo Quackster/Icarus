@@ -23,8 +23,8 @@ public class InteractItemMessageEvent implements MessageEvent {
             return;
         }
         
-        if (item.getDefinition().getInteractionType().getHandler() != null) {
-            item.getDefinition().getInteractionType().getHandler().onUseItem(item, player.getRoomUser());
+        if (item.getDefinition().getInteractionType().get() != null) {
+            item.getDefinition().getInteractionType().get().onUseItem(item, player.getRoomUser());
         }
 
         if (item.getDefinition().getType() == ItemType.FLOOR) {

@@ -4,15 +4,11 @@ import java.util.Map.Entry;
 
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.extradata.ExtraData;
-import org.alexdev.icarus.game.item.extradata.ExtraDataManager;
 import org.alexdev.icarus.game.item.extradata.ExtraDataType;
 import org.alexdev.icarus.game.item.extradata.types.IntArrayExtraData;
 import org.alexdev.icarus.game.item.extradata.types.KeyValueExtraData;
 import org.alexdev.icarus.game.item.extradata.types.StringArrayExtraData;
 import org.alexdev.icarus.game.item.extradata.types.StringExtraData;
-import org.alexdev.icarus.game.item.interactions.InteractionType;
-import org.alexdev.icarus.game.item.json.moodlight.MoodlightData;
-import org.alexdev.icarus.game.item.json.moodlight.MoodlightPreset;
 import org.alexdev.icarus.server.api.messages.Response;
 
 public class ItemUtil {
@@ -25,7 +21,7 @@ public class ItemUtil {
      */
     public static void generateExtraData(Item item, Response response) {
 
-        ExtraData extraData = item.getDefinition().getInteractionType().getHandler().createExtraData(item);
+        ExtraData extraData = item.getDefinition().getInteractionType().get().createExtraData(item);
         
         response.writeInt(extraData.getPerspective().getIdentifier());
         response.writeInt(extraData.getType().getTypeId());
@@ -37,17 +33,15 @@ public class ItemUtil {
         
         if (extraData.getType() == ExtraDataType.STRING_ARRAY) {
             StringArrayExtraData data = (StringArrayExtraData)extraData;
+            response.writeInt(data.getObjects().length);
             
-            response.writeInt(data.getArray().length);
-            
-            for (String str : data.getArray()) {
+            for (String str : data.getObjects()) {
                 response.writeString(str);
             }
         }
         
         if (extraData.getType() == ExtraDataType.KEY_VALUE) {
             KeyValueExtraData data = (KeyValueExtraData)extraData;
-            
             response.writeInt(data.getKeyValues().size());
             
             for (Entry<String, String> set : data.getKeyValues().entrySet()) {
@@ -58,10 +52,9 @@ public class ItemUtil {
         
         if (extraData.getType() == ExtraDataType.INT_ARRAY) {
             IntArrayExtraData data = (IntArrayExtraData)extraData;
+            response.writeInt(data.getObjects().length);
             
-            response.writeInt(data.getArray().length);
-            
-            for (Integer num : data.getArray()) {
+            for (Integer num : data.getObjects()) {
                 response.writeInt(num);
             }
         }
@@ -75,7 +68,7 @@ public class ItemUtil {
      */
     public static void generateWallExtraData(Item item, Response response) {
 
-        ExtraData extraData = item.getDefinition().getInteractionType().getHandler().createExtraData(item);
+        ExtraData extraData = item.getDefinition().getInteractionType().get().createExtraData(item);
         
         if (extraData.getType() == ExtraDataType.STRING) {
             StringExtraData data = (StringExtraData)extraData;

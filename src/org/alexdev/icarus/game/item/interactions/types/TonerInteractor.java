@@ -32,6 +32,6 @@ public class TonerInteractor implements Interaction {
             objects.add(data.getBrightness());
         }
 
-        return new IntArrayExtraData(ExtraDataPerspective.FLOOR_DECORATION, objects);
+        return new IntArrayExtraData(ExtraDataPerspective.FURNI, objects);
     }
 }
