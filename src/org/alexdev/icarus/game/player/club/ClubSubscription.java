@@ -7,12 +7,12 @@ import org.alexdev.icarus.messages.outgoing.user.club.UserRightsComposer;
 import org.alexdev.icarus.util.Util;
 
 public class ClubSubscription {
-
+    
+    private Player player;
     private long expireTime;
     private long boughtTime;
     private long difference;
     private int userId;
-    private Player player;
 
     public ClubSubscription(Player player) {
         this.userId = -1;
@@ -63,6 +63,15 @@ public class ClubSubscription {
         }
         
         return true;
+    }
+
+    /**
+     * Send subscription status.
+     */
+    public void sendSubscriptionStatus() {
+        boolean isMember = this.player.getSubscription().hasSubscription();
+        this.player.send(new SubscriptionMessageComposer(this.player));
+        this.player.send(new UserRightsComposer(isMember, this.player.getDetails().getRank()));
     }
 
     /**
@@ -169,12 +178,13 @@ public class ClubSubscription {
     public long getDifference() {
         return this.difference;
     }
-
+    
     /**
-     * Send subscription status.
+     * Gets the user id.
+     *
+     * @return the user id
      */
-    public void sendSubscriptionStatus() {
-        this.player.send(new SubscriptionMessageComposer(this.player));
-        this.player.send(new UserRightsComposer(this.player.getSubscription().hasSubscription(), this.player.getDetails().getRank()));
+    public int getUserId() {
+        return this.userId;
     }
 }
