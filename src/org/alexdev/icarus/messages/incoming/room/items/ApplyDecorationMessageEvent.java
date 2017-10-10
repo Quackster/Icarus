@@ -29,7 +29,7 @@ public class ApplyDecorationMessageEvent implements MessageEvent {
             room.send(new RoomSpacesMessageComposer("wallpaper", room.getData().getWall()));
         }
         
-        if (item.getDefinition().getItemName().startsWith("a2")) {
+        if (item.getDefinition().getItemName().startsWith("floor")) {
             room.getData().setFloor(item.getExtraData());
             room.send(new RoomSpacesMessageComposer("floor", room.getData().getFloor()));    
         }
