@@ -154,7 +154,7 @@ public class InventoryDao {
 
             sqlConnection = Dao.getStorage().getConnection();
             
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM pet_data WHERE room_id = 0 AND owner_id = ?", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM pets WHERE room_id = 0 AND owner_id = ?", sqlConnection);
             preparedStatement.setInt(1, id);
             
             resultSet = preparedStatement.executeQuery();

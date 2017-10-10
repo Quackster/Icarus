@@ -271,7 +271,7 @@ public class RoomDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("UPDATE room_data SET name = ?, description = ?, "
+            preparedStatement = Dao.getStorage().prepare("UPDATE rooms SET name = ?, description = ?, "
                     + "state = ?, password = ?, users_max = ?, category = ?, tags = ?, trade_state = ?, allow_pets = ?, allow_pets_eat = ?, " 
                     + "allow_walkthrough = ?, hidewall = ?, wall_thickness = ?, floor_thickness = ?, who_can_mute = ?, who_can_kick = ?, who_can_ban = ?, "
                     + "chat_mode = ?, chat_size = ?, chat_speed = ?, chat_distance = ?, chat_flood = ?, wallpaper = ?, floor = ?, outside = ?, model = ?, group_id = ?, thumbnail = ? WHERE id = ? LIMIT 1", sqlConnection);
