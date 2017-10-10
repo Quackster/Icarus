@@ -113,10 +113,9 @@ public class CatalogueDao {
 
             while (resultSet.next()) {
 
-                CatalogueItem item = new CatalogueItem(resultSet.getInt("id"), resultSet.getInt("page_id"), resultSet.getString("item_id"), resultSet.getString("item_name"), 
-                        resultSet.getInt("cost_credits"), resultSet.getInt("cost_other_type"), resultSet.getInt("cost_other"), resultSet.getInt("amount"), 
-                        resultSet.getInt("buy_multiple") == 1, resultSet.getInt("subscription_status"), resultSet.getString("extradata"), resultSet.getString("badge"), 
-                        resultSet.getInt("limited_stack"), resultSet.getInt("limited_sells"), resultSet.getInt("offer_active") == 1);
+                CatalogueItem item = new CatalogueItem(resultSet.getInt("id"), resultSet.getInt("page_id"), resultSet.getString("item_id"), resultSet.getString("catalog_name"), 
+                        resultSet.getInt("cost_credits"), resultSet.getInt("cost_pixels"), resultSet.getInt("cost_diamonds"), resultSet.getInt("amount"),
+                        resultSet.getString("extradata"), resultSet.getString("badge"), resultSet.getInt("limited_stack"), resultSet.getInt("limited_sells"), resultSet.getInt("offer_active") == 1);
 
                 items.add(item);
             }
@@ -144,8 +143,8 @@ public class CatalogueDao {
         List<String> images = new ArrayList<>();
         List<String> texts = new ArrayList<>();
         
-        String rawImages = row.getString("images");
-        String rawTexts = row.getString("texts");
+        String rawImages = row.getString("page_strings_1");
+        String rawTexts = row.getString("page_strings_2");
         
         for (String image : rawImages.split("\\|")) {
             images.add(image);

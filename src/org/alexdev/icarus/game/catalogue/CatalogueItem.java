@@ -12,38 +12,33 @@ public class CatalogueItem {
     private int pageId;
     private int itemId;
     private String itemName;
-    
     private int costCredits;
-    private int costOtherType;
+    private int costPixels;
     private int costOther;
-    
     private int amount;
-    private boolean buyMultiple;
     private int subscriptionStatus;
-    
     private String extraData;
     private String badge;
-    private int limitedStack;
+    private int limitedTotal;
     private int limitedSells;
     private boolean hasOffer;
 
-    public CatalogueItem(int id, int pageId, String itemIds, String catalogueName, int costCredits, int costOtherType, int costOther, int amount, boolean buyMultiple, int subscriptionStatus, String extraData, String badage, int limitedStack, int limitedSells, boolean hasOffer) {
+    public CatalogueItem(int id, int pageId, String itemIds, String catalogueName, int costCredits, int costPixels, int costOther, int amount, String extraData, String badage, int limitedStack, int limitedSells, boolean hasOffer) {
         try {
             this.id = id;
             this.pageId = pageId;
             this.itemId = Integer.valueOf(itemIds);
             this.itemName = catalogueName;
             this.costCredits = costCredits;
-            this.costOtherType = costOtherType;
+            this.costPixels = costPixels;
             this.costOther = costOther;
             this.amount = amount;
-            this.buyMultiple = buyMultiple;
-            this.subscriptionStatus = subscriptionStatus;
             this.extraData = extraData;
             this.badge = badage;
-            this.limitedStack = limitedStack;
+            this.limitedTotal = limitedStack;
             this.limitedSells = limitedSells;
             this.hasOffer = hasOffer;
+            this.subscriptionStatus = 0;
         } catch (NumberFormatException e) {
             Log.info("Error loading furniture definition: " + this.id);
             e.printStackTrace();
@@ -68,7 +63,10 @@ public class CatalogueItem {
 
         if (this.getCostOther() > 0) {
             response.writeInt(this.getCostOther());
-            response.writeInt(this.getCostOtherType());
+            response.writeInt(105);
+        } else if (this.getPixelCost() > 0) {
+            response.writeInt(this.getPixelCost());
+            response.writeInt(0);
         } else {
             response.writeInt(0);
             response.writeInt(0);
@@ -92,21 +90,20 @@ public class CatalogueItem {
             if (this.getDisplayName().contains("wallpaper_single") || this.getDisplayName().contains("floor_single") || this.getDisplayName().contains("landscape_single")) {
                 response.writeString(this.getDisplayName().split("_")[2]);
             } else {
-                
-            response.writeString(this.extraData);
+                response.writeString(this.extraData);
             }
 
             response.writeInt(this.amount);
-            response.writeBool(this.getLimitedStack() != 0);
+            response.writeBool(this.getLimitedTotal() != 0);
 
-            if (this.getLimitedStack() > 0) {
-                response.writeInt(this.getLimitedStack());
-                response.writeInt(this.getLimitedStack() - this.getLimitedSells());
+            if (this.getLimitedTotal() > 0) {
+                response.writeInt(this.getLimitedTotal());
+                response.writeInt(this.getLimitedTotal() - this.getLimitedSells());
             }
         }
 
         response.writeInt(this.subscriptionStatus);
-        response.writeBool(this.buyMultiple); // can we buy more than 1?
+        response.writeBool(!(this.getLimitedTotal() > 0) && this.allowOffer()); // can we buy more than 1?
         response.writeBool(false);
         response.writeString("test.png");
     }
@@ -170,21 +167,12 @@ public class CatalogueItem {
     }
     
     /**
-     * Gets the other cost type.
+     * Gets the cost pixels.
      *
-     * @return the cost type
+     * @return the cost pixels
      */
-    public int getCostOtherType() {
-        return costOtherType;
-    }
-    
-    /**
-     * Gets the other cost type.
-     *
-     * @return the cost type
-     */
-    public int getOtherCost() {
-        return costOther;
+    public int getPixelCost() {
+        return costPixels;
     }
 
     /**
@@ -237,8 +225,8 @@ public class CatalogueItem {
      *
      * @return the limited total
      */
-    public int getLimitedStack() {
-        return this.limitedStack;
+    public int getLimitedTotal() {
+        return this.limitedTotal;
     }
 
     /**

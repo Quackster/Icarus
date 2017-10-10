@@ -3,7 +3,9 @@ package org.alexdev.icarus.game.item;
 import org.alexdev.icarus.dao.mysql.item.InventoryDao;
 import org.alexdev.icarus.dao.mysql.item.TeleporterDao;
 import org.alexdev.icarus.game.inventory.InventoryNotification;
+import org.alexdev.icarus.game.item.extradata.ExtraDataManager;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
+import org.alexdev.icarus.game.item.json.mannequin.MannequinData;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.util.Util;
 
