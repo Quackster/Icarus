@@ -94,7 +94,7 @@ public class PurchaseItemMessageEvent implements MessageEvent {
         // int totalCostPoints;
         // int totalCostActivityPoints;
 
-        if (item.getLimitedSells() >= item.getLimitedTotal() && item.getLimitedTotal() != 0) {
+        if (item.getLimitedSells() >= item.getLimitedStack() && item.getLimitedStack() != 0) {
             // client.send(new LimitedEditionSoldOutMessageComposer());
             // TODO: Fix this.
             return;

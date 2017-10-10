@@ -180,7 +180,7 @@ public class PetDao {
      *
      * @param pet the pet
      */
-    public static void savePetPosition(Pet pet) {
+    public static void savePosition(Pet pet) {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;

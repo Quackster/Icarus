@@ -45,7 +45,7 @@ public class PurchaseNotificationMessageComposer extends MessageComposer {
             this.response.writeString(definition.getItemName());
             this.response.writeBool(false);
             this.response.writeInt(this.item.getCostCredits());
-            this.response.writeInt(this.item.getPixelCost());
+            this.response.writeInt(this.item.getCostOtherType());
             this.response.writeInt(0);
             this.response.writeBool(true);
             this.response.writeInt(1);
@@ -54,10 +54,10 @@ public class PurchaseNotificationMessageComposer extends MessageComposer {
             this.response.writeString(item.getExtraData());
             this.response.writeInt(item.getAmount());
 
-            this.response.writeBool(item.getLimitedTotal() > 0);
+            this.response.writeBool(item.getLimitedStack() > 0);
 
-            if (this.item.getLimitedTotal() > 0) {
-                this.response.writeInt(item.getLimitedTotal());
+            if (this.item.getLimitedStack() > 0) {
+                this.response.writeInt(item.getLimitedStack());
                 this.response.writeInt(item.getLimitedSells());
             }
 

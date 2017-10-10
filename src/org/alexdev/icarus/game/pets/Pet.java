@@ -112,7 +112,7 @@ public class Pet extends Entity {
      * Save position.
      */
     public void savePosition() {
-        PetDao.savePetPosition(this);
+        PetDao.savePosition(this);
     }
 
     /**
