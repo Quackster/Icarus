@@ -79,6 +79,7 @@ public class Outgoing {
     public static short ChatOptionsMessageComposer = 2114;//1871
     public static short WallOptionsMessageComposer = 2988;//3997
     public static short CatalogueDiscountComposer = 3575;//2987
+    public static short RequireGroupComposer = 1460;//2987
     public static short CarryObjectComposer = 3112;//1755
     public static short UserChangeComposer = 2098;//50
     public static short SlideObjectMessageComposer = 352;//2561

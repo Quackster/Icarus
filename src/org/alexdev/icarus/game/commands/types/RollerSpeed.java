@@ -33,10 +33,6 @@ public class RollerSpeed extends Command {
             return;
         }
 
-        if (!(args.length > 0)) {
-            return;
-        } 
-        
         int speed = Integer.valueOf(args[0]);
         
         if (speed <= 0) {

@@ -23,10 +23,12 @@ public class CommandManager {
         commands.put(new String[] { "help", "commands" }, new HelpCommand());
         commands.put(new String[] { "debugfurni" }, new DebugFurniture());
         commands.put(new String[] { "rollerspeed" }, new RollerSpeed());
+        commands.put(new String[] { "resetdecor" }, new ResetDecoration());
         commands.put(new String[] { "clearinventory" }, new ClearInventory());
         commands.put(new String[] { "regencollision" }, new RegenCollision());
         commands.put(new String[] { "reloadplugins" }, new ReloadPlugins());
         commands.put(new String[] { "reloadfurni" }, new ReloadFurni());
+        commands.put(new String[] { "reloadcatalog" }, new ReloadCatalog());
     }
 
     /**

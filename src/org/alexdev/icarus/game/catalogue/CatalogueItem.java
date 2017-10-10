@@ -56,7 +56,7 @@ public class CatalogueItem {
         final ItemDefinition def = this.getItemDefinition();
 
         response.writeInt(this.getId());
-        response.writeString(this.getDisplayName() + (debugFurniture ? " (Definition Id " + def.getId() + ")" : "") +  (debugFurniture ? " (" + this.pageId + ")" : ""));
+        response.writeString(this.getDisplayName() + (debugFurniture ? " (Definition " + def.getId() + ")" : "") +  (debugFurniture ? " (Id " + this.id + ")" : ""));
         response.writeBool(false);
 
         response.writeInt(this.getCostCredits());
