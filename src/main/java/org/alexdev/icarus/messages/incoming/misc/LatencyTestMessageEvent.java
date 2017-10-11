@@ -1,0 +1,13 @@
+package org.alexdev.icarus.messages.incoming.misc;
+
+import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.messages.types.MessageEvent;
+import org.alexdev.icarus.server.api.messages.ClientMessage;
+
+public class LatencyTestMessageEvent implements MessageEvent {
+
+    @Override
+    public void handle(Player player, ClientMessage request) {
+        
+    }
+}
