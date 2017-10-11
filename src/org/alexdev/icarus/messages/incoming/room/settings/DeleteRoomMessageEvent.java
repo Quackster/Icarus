@@ -11,7 +11,7 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.enums.RoomAction;
-import org.alexdev.icarus.log.Log;
+
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.alexdev.icarus.util.Util;
@@ -63,7 +63,7 @@ public class DeleteRoomMessageEvent implements MessageEvent {
                     }
                     
                 } catch (Exception e) {
-                    Log.exception(e);
+                    player.getLogger().error("Could not delete thumbnail {} for room id {}", fileName, roomId, e);
                 }
             });
         }

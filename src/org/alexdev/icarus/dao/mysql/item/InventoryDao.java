@@ -13,7 +13,6 @@ import org.alexdev.icarus.dao.mysql.pets.PetDao;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.pets.Pet;
-import org.alexdev.icarus.log.Log;
 
 public class InventoryDao {
     
@@ -45,7 +44,7 @@ public class InventoryDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -82,7 +81,7 @@ public class InventoryDao {
             }
             
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -126,7 +125,7 @@ public class InventoryDao {
             }
 
         } catch (SQLException e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -164,7 +163,7 @@ public class InventoryDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);

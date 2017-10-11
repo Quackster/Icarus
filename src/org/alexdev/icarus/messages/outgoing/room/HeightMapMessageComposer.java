@@ -1,7 +1,6 @@
 package org.alexdev.icarus.messages.outgoing.room;
 
 import org.alexdev.icarus.game.room.model.RoomModel;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 
@@ -41,9 +40,6 @@ public class HeightMapMessageComposer extends MessageComposer {
                     } else {
                         
                         int intValue = (int)pos;
-                        
-                        Log.info(intValue);
-                        
                         height = (intValue - 87);
                     }
                     

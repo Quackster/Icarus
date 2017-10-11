@@ -1,14 +1,17 @@
 package org.alexdev.icarus.game.plugins;
 
-import org.alexdev.icarus.log.Log;
 import org.luaj.vm2.Globals;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Plugin {
 
     private String pluginName;
     private String pluginAuthor;
-    private Globals globals;
     private boolean shutdown;
+    
+    private Globals globals;
+    private Logger log;
     
     /**
      * Instantiates a new plugin.
@@ -21,6 +24,7 @@ public class Plugin {
         this.pluginName = pluginName;
         this.pluginAuthor = pluginAuthor;
         this.globals = globals;
+        this.log = LoggerFactory.getLogger(this.pluginName);
     }
     
     /**
@@ -33,7 +37,7 @@ public class Plugin {
             PluginEvent event = PluginEvent.valueOf(eventName);
             PluginManager.getRegisteredPluginEvents().get(event).add(this);
         } catch (Exception e) {
-            Log.exception(e);
+        	log.error("Error occurred with registering plugin event:", e); 
         }
     }
 
@@ -102,4 +106,8 @@ public class Plugin {
     public void setClosed(boolean shutdown) {
         this.shutdown = shutdown;
     }
+
+	public Logger getLogger() {
+		return log;
+	}
 }

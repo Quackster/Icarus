@@ -5,43 +5,51 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.concurrent.TimeUnit;
 
 import org.alexdev.icarus.log.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.jolbox.bonecp.BoneCP;
-import com.jolbox.bonecp.BoneCPConfig;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 public class Storage {
-
-    private BoneCP connections = null;
-    private BoneCPConfig config;
-    private boolean isConnected = false;
-
+    
+    private HikariDataSource ds;
+    private boolean isConnected;
+    
+    final private static Logger log = LoggerFactory.getLogger(Storage.class);
+    
     public Storage(String host, String username, String password, String db) {
 
         try {
 
-            config = new BoneCPConfig();
-            config.setJdbcUrl("jdbc:mysql://" + host + "/" + db);
+            HikariConfig config = new HikariConfig();
+            config.setJdbcUrl("jdbc:mysql://" + host + ":3306/" + db);
             config.setUsername(username);
             config.setPassword(password);
+            
+            config.setPoolName("processing");
+            config.setMaximumPoolSize(25);
+            config.setMinimumIdle(5);
+            
+            config.addDataSourceProperty("cachePrepStmts", "true");
+            config.addDataSourceProperty("prepStmtCacheSize", "250");
+            config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
 
-            config.setMinConnectionsPerPartition(0);
-            config.setMaxConnectionsPerPartition(5);
-            config.setConnectionTimeout(1000, TimeUnit.SECONDS);
-            config.setPartitionCount(Runtime.getRuntime().availableProcessors()); // set partion count to number of cores (inc. hyperthreading)
-
-            this.connections = new BoneCP(config);
+            this.ds = new HikariDataSource(config);
             this.isConnected = true;
 
         } catch (Exception ex) {
-            this.isConnected = false;
-            Log.exception(ex);
+        	Storage.logError(ex);
         }
     }
 
-    /**
+    public static void logError(Exception ex) {
+    	Log.getErrorLogger().error("Error when executing MySQL query: ", ex);
+	}
+
+	/**
      * Prepare.
      *
      * @param query the query
@@ -52,13 +60,9 @@ public class Storage {
     public PreparedStatement prepare(String query, Connection conn) throws SQLException {
 
         try {
-            conn = this.connections.getConnection();
             return conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-
         } catch(SQLException e) {
             e.printStackTrace();
-        } finally {
-            conn.close();
         }
 
         return null;
@@ -82,7 +86,7 @@ public class Storage {
             preparedStatement.execute();
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -115,7 +119,7 @@ public class Storage {
             value = resultSet.getString(query.split(" ")[1]);
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -142,7 +146,7 @@ public class Storage {
      * @return the connection count
      */
     public int getConnectionCount() {
-        return this.connections.getTotalLeased();
+        return this.ds.getHikariPoolMXBean().getActiveConnections();
     }
 
     /**
@@ -153,9 +157,9 @@ public class Storage {
     public Connection getConnection() {
 
         try {
-            return this.connections.getConnection();
+            return this.ds.getConnection();
         } catch (SQLException e) {
-            Log.exception(e);
+            Storage.logError(e);
         }
 
         return null;
@@ -205,4 +209,8 @@ public class Storage {
         } catch (Exception e) { }
         
     }
+
+	public static Logger getLogger() {
+		return log;
+	}
 }

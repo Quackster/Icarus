@@ -15,15 +15,24 @@ rcon_password = "jellybaby"
 --[[
 	Called when the plugin first starts up, so the plugin can load data if needed
 	so when the event is called the plugin is ready
-	
-	param: plugin instance
+
 	return: none
 --]]
 function onEnable()
 
     -- If you want, use log.println() to show everyone this method being called
-    log:info(string.format('[Lua] Initialising plugin %s by %s', plugin:getName(), plugin:getAuthor()))
+    plugin:getLogger():info("[Lua] Initialising plugin {} by {}", plugin:getName(), plugin:getAuthor())
     listenServer()
+
+end
+
+--[[
+	Called when the plugins events are now time to be registered.
+	
+	return: none
+--]]
+function registerEvents()
+
 
 end
 

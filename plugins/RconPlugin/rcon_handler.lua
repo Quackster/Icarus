@@ -7,11 +7,10 @@ function listenServer()
 
     local server_socket = nil
 
-    log:info(string.format("[Rcon] Attempting to create RCON server on port %s", rcon_port))
+    plugin:getLogger():info("[Rcon] Attempting to create RCON server on port {}", rcon_port)
     server_socket = luajava.newInstance("java.net.ServerSocket", rcon_port);
     
-    log:info(string.format("[Rcon] RCON server listening on port %s", rcon_port))
-    log:info()
+    plugin:getLogger():info("[Rcon] RCON server listening on port {}", rcon_port)
     
     plugin:runTaskAsynchronously(waitForConnections, { server_socket })
 end
@@ -27,7 +26,7 @@ function waitForConnections(server_socket)
     while (plugin:isClosed() == false) do
         
         local socket = server_socket:accept()
-        log:info(string.format("Accepted connection from %s", socket:toString()))
+        plugin:getLogger():info("Accepted connection from {}", socket:toString())
 
         local incoming_data = util:readToEnd(socket)
         handleRconCommands(incoming_data)
@@ -54,7 +53,7 @@ function handleRconCommands(incoming_data)
         do return end
     end
     
-    log:info(string.format(" [Rcon] Incoming RCON command: ", command))
+    plugin:getLogger():info(string.format(" [Rcon] Incoming RCON command: ", command))
     
     -- Find function in global namespace and call it.
     _G[command_handlers[command]](rcon_data)

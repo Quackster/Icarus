@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
-import org.alexdev.icarus.log.Log;
+
 
 public class TeleporterDao {
 
@@ -41,7 +41,7 @@ public class TeleporterDao {
                 
             }
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -71,7 +71,7 @@ public class TeleporterDao {
             preparedStatement.execute();
             
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);

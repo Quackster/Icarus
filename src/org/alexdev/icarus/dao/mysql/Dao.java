@@ -1,6 +1,5 @@
 package org.alexdev.icarus.dao.mysql;
 
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.util.Util;
 
 public class Dao  {
@@ -14,7 +13,7 @@ public class Dao  {
      */
     public static boolean connect() {
 
-        Log.info("Connecting to MySQL server");
+        Storage.getLogger().info("Connecting to MySQL server");
         
         storage = new Storage(Util.getConfiguration().get("Database", "mysql.hostname", String.class), 
                 Util.getConfiguration().get("Database", "mysql.username", String.class), 
@@ -24,12 +23,12 @@ public class Dao  {
         isConnected = storage.isConnected();
 
         if (!isConnected) {
-            Log.info("Could not connect");
+        	Storage.getLogger().error("Could not connect");
         } else {
-            Log.info("Connection to MySQL was a success");
+        	Storage.getLogger().info("Connection to MySQL was a success");
         }
         
-        Log.info();
+        Storage.getLogger().info("");
         
         return isConnected;
     }

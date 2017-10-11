@@ -8,13 +8,17 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.tasks.MovementTask;
 import org.alexdev.icarus.log.Log;
+import org.slf4j.LoggerFactory;
+
 
 public class RoomScheduler implements Runnable {
     
+	private Room room;
     private ScheduledFuture<?> walkingScheduledTask;
     private ScheduledFuture<?> roomScheduledTasks;
     
@@ -24,8 +28,10 @@ public class RoomScheduler implements Runnable {
     private AtomicLong counter;
     
     private boolean disabled;
+	
 
     public RoomScheduler (Room room) {
+    	this.room = room;
         this.tasks = new ConcurrentHashMap<>();
         
         this.counter = new AtomicLong();
@@ -62,7 +68,7 @@ public class RoomScheduler implements Runnable {
             this.counter.incrementAndGet();
             
         } catch (Exception e) {
-            Log.exception(e);
+        	Log.getErrorLogger().error("Room scheduler error for room id {} has occurred", this.room.getData().getId(), e);
             this.cancelTasks();
         }
         

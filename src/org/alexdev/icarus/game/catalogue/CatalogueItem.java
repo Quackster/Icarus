@@ -3,7 +3,7 @@ package org.alexdev.icarus.game.catalogue;
 import org.alexdev.icarus.game.item.ItemDefinition;
 import org.alexdev.icarus.game.item.ItemManager;
 import org.alexdev.icarus.game.item.ItemType;
-import org.alexdev.icarus.log.Log;
+
 import org.alexdev.icarus.server.api.messages.Response;
 
 public class CatalogueItem {
@@ -24,7 +24,6 @@ public class CatalogueItem {
     private boolean hasOffer;
 
     public CatalogueItem(int id, int pageId, String itemIds, String catalogueName, int costCredits, int costPixels, int costOther, int amount, String extraData, String badage, int limitedStack, int limitedSells, boolean hasOffer) {
-        try {
             this.id = id;
             this.pageId = pageId;
             this.itemId = Integer.valueOf(itemIds);
@@ -39,10 +38,6 @@ public class CatalogueItem {
             this.limitedSells = limitedSells;
             this.hasOffer = hasOffer;
             this.subscriptionStatus = 0;
-        } catch (NumberFormatException e) {
-            Log.info("Error loading furniture definition: " + this.id);
-            e.printStackTrace();
-        }
     }
 
     /**

@@ -2,7 +2,7 @@ package org.alexdev.icarus.game.catalogue;
 
 import java.util.List;
 
-import org.alexdev.icarus.log.Log;
+
 
 public class CataloguePage {
 
@@ -26,10 +26,6 @@ public class CataloguePage {
         this.minimum_rank = minimum_rank;
         this.images = images;
         this.texts = texts;
-        
-        if (layout.equals("frontpage4")) {
-            Log.info("Texts: {" + String.join(",", this.texts) + "}");
-        }
     }
 
     public CatalogueItem getItem(int itemId) {

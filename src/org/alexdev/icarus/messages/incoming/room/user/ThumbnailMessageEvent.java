@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.log.Log;
+
 import org.alexdev.icarus.messages.outgoing.room.notify.RoomInfoUpdatedMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.ThumbnailMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
@@ -48,7 +48,7 @@ public class ThumbnailMessageEvent implements MessageEvent {
                     }
                     
                 } catch (Exception e) {
-                    Log.exception(e);
+                	player.getLogger().error("Could not delete thumbnail {} for room id {}", fileName, room.getData().getId(), e);
                 }
             });
         }
@@ -75,7 +75,7 @@ public class ThumbnailMessageEvent implements MessageEvent {
                 fos.flush();
                 fos.close();
             } catch (Exception e) {
-                Log.exception(e);
+            	player.getLogger().error("Could not save thumbnail {} for room id {}", fileName, room.getData().getId(), e);
             }
         });
         

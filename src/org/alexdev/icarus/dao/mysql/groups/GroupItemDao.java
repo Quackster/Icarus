@@ -13,7 +13,7 @@ import org.alexdev.icarus.game.groups.types.GroupBase;
 import org.alexdev.icarus.game.groups.types.GroupBaseColour;
 import org.alexdev.icarus.game.groups.types.GroupSymbol;
 import org.alexdev.icarus.game.groups.types.GroupSymbolColour;
-import org.alexdev.icarus.log.Log;
+
 
 public class GroupItemDao {
     
@@ -65,7 +65,7 @@ public class GroupItemDao {
             }
             
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);

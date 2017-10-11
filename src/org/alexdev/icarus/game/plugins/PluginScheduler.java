@@ -2,11 +2,13 @@ package org.alexdev.icarus.game.plugins;
 
 import java.util.concurrent.TimeUnit;
 
+import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.log.Log;
 import org.luaj.vm2.LuaFunction;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
+import org.slf4j.LoggerFactory;
 
 public class PluginScheduler {
 
@@ -42,7 +44,7 @@ public class PluginScheduler {
                 function.invoke(LuaValue.varargsOf(parameterValues));
             }, seconds, TimeUnit.SECONDS);
         } catch (Exception e) {
-            Log.exception(e);
+        	Log.getErrorLogger().error("Error loading Lua method: ", e);
         }
     }
     
@@ -80,7 +82,7 @@ public class PluginScheduler {
                 function.invoke(LuaValue.varargsOf(parameterValues));
             });
         } catch (Exception e) {
-            Log.exception(e);
+        	Log.getErrorLogger().error("Error loading Lua method: ", e);
         }
     }
 }

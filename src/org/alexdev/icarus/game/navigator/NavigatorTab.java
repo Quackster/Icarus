@@ -3,7 +3,11 @@ package org.alexdev.icarus.game.navigator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.log.Log;
+import org.slf4j.LoggerFactory;
+
+
 
 public class NavigatorTab {
 
@@ -56,10 +60,10 @@ public class NavigatorTab {
         try {
 
             Class<? extends NavigatorRoomPopulator> clazz = Class.forName("org.alexdev.icarus.game.navigator.populator." + roomPopulatorClass).asSubclass(NavigatorRoomPopulator.class);
-            return clazz.newInstance();
+            return clazz.getDeclaredConstructor().newInstance();
 
         } catch (Exception e) {
-            Log.exception(e);
+        	Log.getErrorLogger().error("Could not load room populator {}", roomPopulatorClass);
         }
 
         return null;

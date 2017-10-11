@@ -36,7 +36,7 @@ end
 --]]
 function cmdReloadOffers(rcon_data)
     
-    log:info(" [Rcon] Catalogue offers reloaded")
+    plugin:getLogger():info(" [Rcon] Catalogue offers reloaded")
 
     catalogueManager:reloadOffers()
     

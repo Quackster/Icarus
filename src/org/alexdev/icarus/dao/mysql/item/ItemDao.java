@@ -12,7 +12,7 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemDefinition;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
-import org.alexdev.icarus.log.Log;
+
 
 public class ItemDao {
 
@@ -50,7 +50,7 @@ public class ItemDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -86,7 +86,7 @@ public class ItemDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -121,7 +121,7 @@ public class ItemDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -163,7 +163,7 @@ public class ItemDao {
             preparedStatement.executeUpdate();
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -190,7 +190,7 @@ public class ItemDao {
             preparedStatement.executeUpdate();
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);

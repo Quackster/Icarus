@@ -1,7 +1,7 @@
 package org.alexdev.icarus.server.netty.connections;
 
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.log.Log;
+
 import org.alexdev.icarus.messages.MessageHandler;
 import org.alexdev.icarus.server.netty.NettyPlayerNetwork;
 import org.alexdev.icarus.server.netty.streams.NettyRequest;
@@ -12,9 +12,13 @@ import org.jboss.netty.channel.ChannelStateEvent;
 import org.jboss.netty.channel.ExceptionEvent;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ConnectionHandler extends SimpleChannelHandler {
-
+	
+	final private static Logger log = LoggerFactory.getLogger(ConnectionHandler.class);
+	
     /* (non-Javadoc)
      * @see org.jboss.netty.channel.SimpleChannelHandler#channelOpen(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.ChannelStateEvent)
      */
@@ -27,7 +31,7 @@ public class ConnectionHandler extends SimpleChannelHandler {
         channel.setAttachment(player);
 
         if (Util.getConfiguration().get("Logging", "log.connections", Boolean.class)) {
-            Log.info("[" + player.getNetwork().getConnectionId() + "] Connection from " + channel.getRemoteAddress().toString().replace("/", "").split(":")[0]);
+            log.info("[{}] Connection from {} ", player.getNetwork().getConnectionId(), channel.getRemoteAddress().toString().replace("/", "").split(":")[0]);
         }
 
     } 
@@ -41,7 +45,7 @@ public class ConnectionHandler extends SimpleChannelHandler {
         Player player = (Player) ctx.getChannel().getAttachment();
 
         if (Util.getConfiguration().get("Logging", "log.connections", Boolean.class)) {
-            Log.info("[" + player.getNetwork().getConnectionId() + "] Disconnection from " + ctx.getChannel().getRemoteAddress().toString().replace("/", "").split(":")[0]);
+        	log.info("[{}] Disonnection from {} ", player.getNetwork().getConnectionId(), ctx.getChannel().getRemoteAddress().toString().replace("/", "").split(":")[0]);
         }
 
         player.dispose();
@@ -64,7 +68,7 @@ public class ConnectionHandler extends SimpleChannelHandler {
             }
 
             if (Util.getConfiguration().get("Logging", "log.received.packets", Boolean.class)) {
-                    Log.info("Received: " + request.getMessageId() + " / " + request.getMessageBody());
+                    log.info("Received: {} / {} ", request.getMessageId(), request.getMessageBody());
             }
 
             if (player != null){
@@ -72,7 +76,7 @@ public class ConnectionHandler extends SimpleChannelHandler {
             }
 
         } catch (Exception ex) {
-            Log.exception(ex);
+            log.error("Could not handle message: ", ex);
         }
     }
 
@@ -81,7 +85,7 @@ public class ConnectionHandler extends SimpleChannelHandler {
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {
-        Log.exception(e.getCause());
+    	log.error("Netty error occurred: ", e.getCause());
     }
 
 }

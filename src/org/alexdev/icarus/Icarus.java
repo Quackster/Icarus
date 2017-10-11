@@ -20,16 +20,19 @@ import org.alexdev.icarus.messages.MessageHandler;
 import org.alexdev.icarus.server.api.ServerHandler;
 import org.alexdev.icarus.util.Metadata;
 import org.alexdev.icarus.util.Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Icarus extends Metadata {
-
-    private static ServerHandler server;
 
     private static String serverIP;
     private static String rawConfigIP;
     
     private static int serverPort;
     private static long startupTime;
+    
+    private static ServerHandler server;
+    final private static Logger log = LoggerFactory.getLogger(Icarus.class);
 
     /**
      * Main call of Java application
@@ -42,7 +45,9 @@ public class Icarus extends Metadata {
         try {
 
             createConfig();
-            Log.startup();
+            
+            log.info("Icarus - Habbo Hotel PRODUCTION63 Server");
+            log.info("Loading server...");
 
             rawConfigIP = Util.getConfiguration().get("Server", "server.ip", String.class);
             serverIP = rawConfigIP;
@@ -57,11 +62,11 @@ public class Icarus extends Metadata {
                 return;
             }
             
-            server = Class.forName(Icarus.getServerClassPath()).asSubclass(ServerHandler.class).newInstance();
+            server = Class.forName(Icarus.getServerClassPath()).asSubclass(ServerHandler.class).getDeclaredConstructor().newInstance();
             server.setIp(serverIP);
             server.setPort(serverPort);
 
-            Log.info("Setting up game");
+            log.info("Setting up game");
 
             RoomManager.load();
             NavigatorManager.load();
@@ -74,13 +79,13 @@ public class Icarus extends Metadata {
             PluginManager.load();
             MessageHandler.load();
  
-            Log.info();
-            Log.info("Settting up server");
+            log.info("");
+            log.info("Settting up server");
             
             if (server.listenSocket()) {
-                Log.info("Server is listening on " + serverIP + ":" + serverPort);
+                log.info("Server is listening on " + serverIP + ":" + serverPort);
             } else {
-                Log.info("Server could not listen on " + serverPort + ":" + serverPort + ", please double check everything is correct in icarus.properties");
+                log.error("Server could not listen on " + serverPort + ":" + serverPort + ", please double check everything is correct in icarus.properties");
             }
 
         } catch (Exception e) {
@@ -111,7 +116,7 @@ public class Icarus extends Metadata {
      */
     private static void createConfig() throws IOException {
         File file = new File("icarus.properties");
-
+        
         if (!file.isFile()) { 
             file.createNewFile();
             PrintWriter writer = new PrintWriter(file.getAbsoluteFile());
@@ -303,6 +308,13 @@ public class Icarus extends Metadata {
      */
     public static long getStartupTime() {
         return startupTime;
+    }
+    
+    /**
+     * 
+     */
+    public static Logger getLodgger() {
+    	return log;
     }
    
 }

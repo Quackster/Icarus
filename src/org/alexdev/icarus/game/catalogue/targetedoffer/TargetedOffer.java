@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.catalogue.TargetedOfferDao;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.util.Util;
 
 public class TargetedOffer {
@@ -38,14 +37,10 @@ public class TargetedOffer {
         this.blacklist = TargetedOfferDao.getOfferBlacklist(this.id);
         
         try {
-            
             for (String itemId : itemIds.split(";")) {
                 this.items.add(Integer.valueOf(itemId));
             }
-            
-        } catch (Exception e) {
-            Log.exception(e);
-        }
+        } catch (Exception e) { }
     }
 
     /**

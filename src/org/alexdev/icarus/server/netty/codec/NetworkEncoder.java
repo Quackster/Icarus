@@ -19,7 +19,8 @@
 
 package org.alexdev.icarus.server.netty.codec;
 
-import org.alexdev.icarus.log.Log;
+import java.nio.charset.Charset;
+
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.util.Util;
 import org.jboss.netty.buffer.ChannelBuffer;
@@ -28,11 +29,13 @@ import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.Channels;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
-
-import com.google.common.base.Charsets;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class NetworkEncoder extends SimpleChannelHandler {
 
+	final private static Logger log = LoggerFactory.getLogger(NetworkEncoder.class);
+	
     @Override
     public void writeRequested(ChannelHandlerContext ctx, MessageEvent e) {
 
@@ -43,7 +46,7 @@ public class NetworkEncoder extends SimpleChannelHandler {
             }
 
             if (e.getMessage() instanceof String) {
-                Channels.write(ctx, e.getFuture(), ChannelBuffers.copiedBuffer((String) e.getMessage(),  Charsets.ISO_8859_1));
+                Channels.write(ctx, e.getFuture(), ChannelBuffers.copiedBuffer((String) e.getMessage(), Charset.forName("ISO-8859-1")));
                 return;
             }
 
@@ -55,7 +58,7 @@ public class NetworkEncoder extends SimpleChannelHandler {
                 }
 
                 if (Util.getConfiguration().get("Logging", "log.sent.packets", Boolean.class)) {
-                    Log.info("SENT: " + msg.getResponse().getHeader() + " / " + msg.getResponse().getBodyString());
+                    log.info("SENT: {} / {}", msg.getResponse().getHeader(), msg.getResponse().getBodyString());
                 }
 
                 Channels.write(ctx, e.getFuture(), ChannelBuffers.copiedBuffer((ChannelBuffer)msg.getResponse().get()));

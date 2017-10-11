@@ -1,7 +1,9 @@
 package org.alexdev.icarus.game.item.extradata;
 
+import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.log.Log;
+import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -24,13 +26,13 @@ public class ExtraDataManager {
             settings = gson.fromJson(item.getExtraData(), t);
         } else {
             try {
-                settings = t.newInstance();
+                settings = t.getDeclaredConstructor().newInstance();
                 
                 saveExtraData(item, settings);
                 item.saveExtraData();
                 
             } catch (Exception e) {
-                Log.exception(e);
+            	Log.getErrorLogger().error("Could not deserialise JSON extradata for item {}: ", item.getId(), e);
             }
         }
         

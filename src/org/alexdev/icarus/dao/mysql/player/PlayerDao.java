@@ -14,7 +14,6 @@ import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.moderation.Permission;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.log.Log;
 
 public class PlayerDao {
     
@@ -51,7 +50,7 @@ public class PlayerDao {
                 }
 
             } catch (Exception e) {
-                Log.exception(e);
+                Storage.logError(e);
             } finally {
                 Storage.closeSilently(resultSet);
                 Storage.closeSilently(preparedStatement);
@@ -91,7 +90,7 @@ public class PlayerDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -127,7 +126,7 @@ public class PlayerDao {
                 id = resultSet.getInt("id");
             }
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -164,7 +163,7 @@ public class PlayerDao {
             }
             
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -199,7 +198,7 @@ public class PlayerDao {
             preparedStatement.execute();
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -227,7 +226,7 @@ public class PlayerDao {
             preparedStatement.execute();
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -263,7 +262,7 @@ public class PlayerDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);

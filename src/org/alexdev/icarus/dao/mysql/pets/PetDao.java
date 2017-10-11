@@ -13,7 +13,7 @@ import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.pets.PetRace;
-import org.alexdev.icarus.log.Log;
+
 import org.alexdev.icarus.util.Util;
 
 public class PetDao {
@@ -49,7 +49,7 @@ public class PetDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -99,7 +99,7 @@ public class PetDao {
                 return resultSet.getInt(1);
             }
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -134,7 +134,7 @@ public class PetDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -167,7 +167,7 @@ public class PetDao {
             preparedStatement.executeUpdate();
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -198,7 +198,7 @@ public class PetDao {
             preparedStatement.executeUpdate();
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);

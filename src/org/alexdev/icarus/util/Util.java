@@ -10,10 +10,12 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.encryption.RSA;
 import org.alexdev.icarus.log.Log;
 import org.ini4j.InvalidFileFormatException;
 import org.ini4j.Wini;
+import org.slf4j.LoggerFactory;
 
 public class Util {
 
@@ -83,7 +85,7 @@ public class Util {
             return elapsedDays + " days, " + elapsedHours + " hours, " + elapsedMinutes + " minutes, " + elapsedSeconds + " seconds";
         }
         catch (Exception e){
-            Log.exception(e);
+        	Log.getErrorLogger().error("Error occurred: ", e);
         }
         
         return null;

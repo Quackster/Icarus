@@ -9,7 +9,6 @@ import java.util.HashMap;
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.room.model.RoomModel;
-import org.alexdev.icarus.log.Log;
 
 public class RoomModelDao {
 
@@ -49,12 +48,7 @@ public class RoomModelDao {
             }
 
         } catch (Exception e) {
-            try {
-                Log.info("Error with model: " + resultSet.getString("id"));
-            } catch (SQLException e1) {
-                Log.exception(e1);
-            }
-            Log.exception(e);
+                Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -88,11 +82,11 @@ public class RoomModelDao {
 
         } catch (Exception e) {
             try {
-                Log.info("Error with model: " + resultSet.getString("id"));
+                Storage.getLogger().info("Error with loading model {} for room {} ", resultSet.getString("id"), roomId);
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -130,7 +124,7 @@ public class RoomModelDao {
             preparedStatement.execute();
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -157,7 +151,7 @@ public class RoomModelDao {
             preparedStatement.execute();
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);

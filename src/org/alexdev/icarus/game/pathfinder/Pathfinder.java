@@ -1,10 +1,9 @@
 package org.alexdev.icarus.game.pathfinder;
 
+import java.util.Collections;
 import java.util.LinkedList;
-import org.alexdev.icarus.game.entity.Entity;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.MinMaxPriorityQueue;
+import org.alexdev.icarus.game.entity.Entity;
 
 public class Pathfinder {
 
@@ -56,8 +55,9 @@ public class Pathfinder {
                 nodes = nodes.getNextNode();
             }
         }
-
-        return new LinkedList<Position>(Lists.reverse(squares));
+        
+        Collections.reverse(squares);
+        return squares;
     }
 
     /**
@@ -67,7 +67,7 @@ public class Pathfinder {
      * @return the pathfinder node
      */
     private static PathfinderNode makePathReversed(Entity entity) {
-        MinMaxPriorityQueue<PathfinderNode> openList = MinMaxPriorityQueue.maximumSize(256).create();
+        LinkedList<PathfinderNode> openList = new LinkedList<>();
 
         PathfinderNode[][] map = new PathfinderNode[entity.getRoom().getModel().getMapSizeX()][entity.getRoom().getModel().getMapSizeY()];
         PathfinderNode node;

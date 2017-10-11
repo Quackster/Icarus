@@ -14,7 +14,7 @@ import org.alexdev.icarus.game.navigator.NavigatorCategory;
 import org.alexdev.icarus.game.navigator.NavigatorTab;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.log.Log;
+
 
 public class NavigatorDao {
 
@@ -57,7 +57,7 @@ public class NavigatorDao {
             }
 
         } catch (SQLException e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -96,7 +96,7 @@ public class NavigatorDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -130,7 +130,7 @@ public class NavigatorDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);

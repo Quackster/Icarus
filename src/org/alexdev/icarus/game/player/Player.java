@@ -23,10 +23,13 @@ import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.PlayerNetwork;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Player extends Entity {
-
-    private String machineId;
+ 
+	private Logger logger;
+	private String machineId;
     private PlayerDetails details;
     private PlayerNetwork network;
     private RoomUser roomUser;
@@ -36,7 +39,7 @@ public class Player extends Entity {
 
     private DiffieHellman diffieHellman;
     private RC4 rc4;
-    
+   
     private boolean loggedIn;
 
     public Player(PlayerNetwork network) {
@@ -47,6 +50,7 @@ public class Player extends Entity {
         this.inventory = new Inventory(this);
         this.subscription = new ClubSubscription(this);
         this.diffieHellman = new DiffieHellman();
+        this.logger = LoggerFactory.getLogger(Player.class);
     }
 
     /**
@@ -285,7 +289,11 @@ public class Player extends Entity {
     public void setRC4(byte[] sharedKey) {
         this.rc4 = new RC4(sharedKey);
         this.network.addPipelineStage(this.rc4);
-    }
+    }    
+    
+    public Logger getLogger() {
+		return logger;
+	}
 
     public RC4 getRc4() {
         return rc4;

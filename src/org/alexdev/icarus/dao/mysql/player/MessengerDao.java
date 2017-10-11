@@ -10,7 +10,6 @@ import java.util.List;
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.messenger.MessengerUser;
-import org.alexdev.icarus.log.Log;
 
 public class MessengerDao {
 
@@ -48,7 +47,7 @@ public class MessengerDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -84,7 +83,7 @@ public class MessengerDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -122,7 +121,7 @@ public class MessengerDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -157,7 +156,7 @@ public class MessengerDao {
                 preparedStatement.execute();
                 success = true;
             } catch (SQLException e) {
-                Log.exception(e);
+                Storage.logError(e);
             } finally {
                 Storage.closeSilently(resultSet);
                 Storage.closeSilently(preparedStatement);
@@ -194,7 +193,7 @@ public class MessengerDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -245,7 +244,7 @@ public class MessengerDao {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);

@@ -11,8 +11,6 @@ import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.game.catalogue.CataloguePage;
 import org.alexdev.icarus.game.catalogue.CatalogueTab;
-import org.alexdev.icarus.log.Log;
-
 public class CatalogueDao {
 
     /**
@@ -47,7 +45,7 @@ public class CatalogueDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -82,7 +80,7 @@ public class CatalogueDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -121,7 +119,7 @@ public class CatalogueDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);

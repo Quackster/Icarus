@@ -3,7 +3,7 @@ package org.alexdev.icarus.server.netty.streams;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import org.alexdev.icarus.log.Log;
+
 import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.server.api.messages.Serialisable;
 import org.jboss.netty.buffer.ChannelBuffer;
@@ -34,9 +34,7 @@ public class NettyResponse implements Response {
             this.bodystream.writeInt(0);
             this.bodystream.writeShort(id);
 
-        } catch (Exception e) {
-            Log.exception(e);
-        }
+        } catch (Exception e) { }
     }
     
     /* (non-Javadoc)
@@ -46,13 +44,9 @@ public class NettyResponse implements Response {
     public void writeString(Object obj) {
 
         try {
-            
             bodystream.writeShort(obj.toString().length());
             bodystream.write(obj.toString().getBytes());
-            
-        } catch (IOException e) {
-            Log.exception(e);
-        }
+        } catch (IOException e) { }
     }
 
     /* (non-Javadoc)
@@ -62,12 +56,8 @@ public class NettyResponse implements Response {
     public void writeInt(Integer obj) {
         
         try {
-            
             bodystream.writeInt(obj);
-            
-        } catch (IOException e) {
-            Log.exception(e);
-        }
+        } catch (IOException e) { }
     }
 
     /* (non-Javadoc)
@@ -77,12 +67,8 @@ public class NettyResponse implements Response {
     public void writeInt(Boolean obj) {
         
         try {
-            
             bodystream.writeInt(obj ? 1 : 0);
-            
-        } catch (IOException e) {
-            Log.exception(e);
-        }
+        } catch (IOException e) { }
     }
 
     /* (non-Javadoc)
@@ -92,12 +78,8 @@ public class NettyResponse implements Response {
     public void writeShort(int obj) {
         
         try {
-            
             bodystream.writeShort((short)obj);
-            
-        } catch (IOException e) {
-            Log.exception(e);
-        }
+        } catch (IOException e) { }
     }
 
     /* (non-Javadoc)
@@ -108,9 +90,7 @@ public class NettyResponse implements Response {
         
         try {
             bodystream.writeBoolean(obj);
-        } catch (IOException e) {
-            Log.exception(e);
-        }
+        } catch (IOException e) { }
     }
     
     /* (non-Javadoc)
@@ -171,8 +151,6 @@ public class NettyResponse implements Response {
     public void writeDouble(int i) {
         try {
             bodystream.writeDouble(i);
-        } catch (IOException e) {
-            Log.exception(e);
-        }
+        } catch (IOException e) { }
     }
 }

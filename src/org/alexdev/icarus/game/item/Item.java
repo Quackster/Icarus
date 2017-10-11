@@ -2,6 +2,8 @@ package org.alexdev.icarus.game.item;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.dao.mysql.item.ItemDao;
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
@@ -16,6 +18,7 @@ import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.items.MoveItemMessageComposer;
 import org.alexdev.icarus.util.Metadata;
 import org.alexdev.icarus.util.Util;
+import org.slf4j.LoggerFactory;
 
 public class Item extends Metadata {
 
@@ -209,7 +212,7 @@ public class Item extends Metadata {
             this.lengthY = Integer.valueOf(y_data[1]);
 
         } catch (NumberFormatException e) {
-            Log.info("Error parsing wall item for item Id: " + this.id);
+        	Log.getErrorLogger().info("Error parsing wall item for item Id: {} ", this.id, e);
         }
     }
 

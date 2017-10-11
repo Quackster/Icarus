@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.camera.PhotoPreviewComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
@@ -51,7 +50,7 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
                 fos.close();
                 
             } catch (Exception e) {
-                Log.exception(e);
+            	player.getLogger().error("Could not save photo {} for room id {}", newFileName, room.getData().getId(), e);
             }
         });
 

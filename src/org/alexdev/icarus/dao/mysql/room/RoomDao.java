@@ -15,7 +15,7 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomData;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.enums.RoomType;
-import org.alexdev.icarus.log.Log;
+
 import org.alexdev.icarus.util.Util;
 
 public class RoomDao {
@@ -59,7 +59,7 @@ public class RoomDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -108,7 +108,7 @@ public class RoomDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -154,7 +154,7 @@ public class RoomDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -189,7 +189,7 @@ public class RoomDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -239,7 +239,7 @@ public class RoomDao {
             preparedStatement.execute();
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -308,7 +308,7 @@ public class RoomDao {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -351,7 +351,7 @@ public class RoomDao {
             preparedStatement.execute();
 
         } catch (SQLException e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);

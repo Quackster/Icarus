@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
-import org.alexdev.icarus.log.Log;
 
 public class ClubDao {
 
@@ -39,7 +38,7 @@ public class ClubDao {
             }
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -72,7 +71,7 @@ public class ClubDao {
             preparedStatement.execute();
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -103,7 +102,7 @@ public class ClubDao {
             preparedStatement.execute();
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
@@ -130,7 +129,7 @@ public class ClubDao {
             preparedStatement.execute();
 
         } catch (Exception e) {
-            Log.exception(e);
+            Storage.logError(e);
         } finally {
             Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
