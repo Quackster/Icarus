@@ -15,8 +15,8 @@ import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.items.MoveItemMessageComposer;
-import org.alexdev.icarus.util.Metadata;
 import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.metadata.Metadata;
 
 public class Item extends Metadata {
 

@@ -1,20 +1,10 @@
 package org.alexdev.icarus.server.api;
 
-import org.alexdev.icarus.messages.MessageHandler;
-
 public abstract class ServerHandler {
     
     private int port;
     private String ip;
-    private MessageHandler messages;
-    
-    /**
-     * Instantiates a new i server handler.
-     */
-    public ServerHandler() {
-        this.messages = new MessageHandler();
-    }
-    
+   
     /**
      * Listen socket.
      *
@@ -56,15 +46,6 @@ public abstract class ServerHandler {
      */
     public void setIp(String ip) {
         this.ip = ip;
-    }
-
-    /**
-     * Gets the message handler.
-     *
-     * @return the message handler
-     */
-    public MessageHandler getMessageHandler() {
-        return messages;
     }
     
 }

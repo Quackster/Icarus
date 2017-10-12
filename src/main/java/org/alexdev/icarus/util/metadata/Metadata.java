@@ -1,4 +1,4 @@
-package org.alexdev.icarus.util;
+package org.alexdev.icarus.util.metadata;
 
 import java.util.HashMap;
 import java.util.Map;

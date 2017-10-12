@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
+import org.alexdev.icarus.game.GameSettings;
 import org.alexdev.icarus.game.commands.CommandManager;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityStatus;
@@ -27,7 +28,6 @@ import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.TalkMessageComposer;
 import org.alexdev.icarus.messages.outgoing.user.effects.EffectMessageComposer;
 import org.alexdev.icarus.messages.types.MessageComposer;
-import org.alexdev.icarus.util.GameSettings;
 import org.alexdev.icarus.util.Util;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;

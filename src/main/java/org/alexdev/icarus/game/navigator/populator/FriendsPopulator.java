@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
+import org.alexdev.icarus.game.GameSettings;
 import org.alexdev.icarus.game.messenger.MessengerUser;
 import org.alexdev.icarus.game.navigator.NavigatorRoomPopulator;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.enums.RoomState;
-import org.alexdev.icarus.util.GameSettings;
 
 public class FriendsPopulator extends NavigatorRoomPopulator {
 

@@ -9,18 +9,11 @@ import org.alexdev.icarus.dao.mysql.item.ItemDao;
 public class ItemManager {
 
     private static Map<Integer, ItemDefinition> furnitureIds;
-    private static Map<Integer, ItemDefinition> furnitureSpriteIds;
-
     /**
      * Load all item definitions.
      */
     public static void load() {
         furnitureIds = ItemDao.getFurniture();
-        furnitureSpriteIds = new HashMap<>();
-
-        for (Entry<Integer, ItemDefinition> set : furnitureIds.entrySet()) {
-            furnitureSpriteIds.put(set.getValue().getSpriteId(), set.getValue());
-        }
     }
 
     /**
@@ -30,21 +23,6 @@ public class ItemManager {
      * @return the furniture by id
      */
     public static ItemDefinition getFurnitureById(int id) {
-
-        if (furnitureIds.containsKey(id)) {
-            return furnitureIds.get(id);
-        }
-
-        return null;
-    }
-
-    /**
-     * Gets the furniture by sprite id.
-     *
-     * @param id the id
-     * @return the furniture by sprite id
-     */
-    public static ItemDefinition getFurnitureBySpriteId(int id) {
 
         if (furnitureIds.containsKey(id)) {
             return furnitureIds.get(id);

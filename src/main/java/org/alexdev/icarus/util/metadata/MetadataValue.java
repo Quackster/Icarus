@@ -1,4 +1,4 @@
-package org.alexdev.icarus.util;
+package org.alexdev.icarus.util.metadata;
 
 public class MetadataValue {
 

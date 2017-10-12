@@ -15,7 +15,7 @@ import org.alexdev.icarus.game.room.model.*;
 import org.alexdev.icarus.game.room.scheduler.*;
 import org.alexdev.icarus.game.room.tasks.*;
 import org.alexdev.icarus.messages.types.MessageComposer;
-import org.alexdev.icarus.util.Metadata;
+import org.alexdev.icarus.util.metadata.Metadata;
 
 public class Room extends Metadata {
 
