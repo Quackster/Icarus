@@ -264,6 +264,7 @@ public class Player extends Entity {
     public DiffieHellman getDiffieHellman() {
         return diffieHellman;
     }
+    
     /**
      * Checks if is logged in.
      *
@@ -281,6 +282,7 @@ public class Player extends Entity {
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }
+    
     /**
      * Sets the rc4.
      *
