@@ -84,7 +84,6 @@ public class Item extends Metadata {
 
     /**
      * Updates entities who are or were sitting/laying/standing on this furniture.
-     * @param previous 
      */
     public void updateEntities() {
 
@@ -169,15 +168,8 @@ public class Item extends Metadata {
             return true;
         }
 
-        if (definition.getInteractionType() == InteractionType.GATE || 
-                definition.getInteractionType() == InteractionType.ONEWAYGATE || 
-                definition.getInteractionType() == InteractionType.TELEPORT) {
-
-            if (this.getExtraData().equals("1")) {
-                return true;
-            } else {
-                return false;
-            }
+        if (this.isGateOpen()) {
+            return true;
         }
 
         if (definition.allowSit()) {
@@ -186,6 +178,28 @@ public class Item extends Metadata {
 
         if (includeWalkableWhitelist && definition.isWalkable()) {
             return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Is the item open, if it's a gate, teleporter, or one way gate.
+     * @return true, if successful
+     */
+    public boolean isGateOpen() {
+
+        ItemDefinition definition = this.getDefinition();
+
+        if (definition.getInteractionType() == InteractionType.GATE ||
+                definition.getInteractionType() == InteractionType.ONEWAYGATE ||
+                definition.getInteractionType() == InteractionType.TELEPORT) {
+
+            if (this.getExtraData().equals("1")) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         return false;

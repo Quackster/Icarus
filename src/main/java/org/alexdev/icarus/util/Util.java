@@ -55,14 +55,10 @@ public class Util {
      * @return the readable timestamp
      */
     public static String getReadableTimestamp(long timestamp) {
+
         try {
-            
-            Date startDate = new Date();
-            startDate.setTime(timestamp*1000);
-            
-            Date endDate = new Date();
-            
-            long different = endDate.getTime() - startDate.getTime();
+
+            long different = System.currentTimeMillis() - (timestamp * 1000);
 
             long secondsInMilli = 1000;
             long minutesInMilli = secondsInMilli * 60;
@@ -79,10 +75,9 @@ public class Util {
             different = different % minutesInMilli;
 
             long elapsedSeconds = different / secondsInMilli;
-
             return elapsedDays + " days, " + elapsedHours + " hours, " + elapsedMinutes + " minutes, " + elapsedSeconds + " seconds";
-        }
-        catch (Exception e){
+
+        } catch (Exception e){
         	Log.getErrorLogger().error("Error occurred: ", e);
         }
         

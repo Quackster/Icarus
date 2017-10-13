@@ -13,7 +13,6 @@ import org.alexdev.icarus.game.item.ItemDefinition;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 
-
 public class ItemDao {
 
     /**

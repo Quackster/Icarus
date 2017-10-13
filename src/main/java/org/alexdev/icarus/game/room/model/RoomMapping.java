@@ -126,7 +126,7 @@ public class RoomMapping {
                         Item currentItem = currentTile.getHighestItem();
 
                         if (!isFinalMove) {
-                            return currentItem.getDefinition().isWalkable() && !currentItem.isWalkable(false);
+                            return currentItem.getDefinition().isWalkable() || currentItem.isGateOpen();
                         }
 
                         if (isFinalMove) {
