@@ -52,7 +52,6 @@ public class Room extends Metadata {
      * Checks for rights, including ownership.
      *
      * @param userId the user id
-     * @param ownerCheckOnly the owner check only
      * @return true, if successful
      */
     public boolean hasRights(int userId) {

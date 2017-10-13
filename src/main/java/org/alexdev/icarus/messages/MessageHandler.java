@@ -35,22 +35,17 @@ import org.alexdev.icarus.messages.incoming.user.club.SubscriptionMessageEvent;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.alexdev.icarus.util.ClassFinder;
+import org.alexdev.icarus.util.Util;
 
 public class MessageHandler {
 
     private static HashMap<Short, List<MessageEvent>> messages;
-    private static HashMap<String, String> composerPaths;
-
-    private static List<String> composerPackages;
+    private static HashMap<Short, String> messageLookup;
 
     public static void load() throws Exception {
         messages = new HashMap<>();
-        composerPaths = new HashMap<>();
-        composerPackages = new ArrayList<>();
-
+        messageLookup = new HashMap<>();
         register();
-        registerComposerPackages();
-        createComposerLookup();
     }
 
     public static void register() {
@@ -261,55 +256,6 @@ public class MessageHandler {
     }
 
     /**
-     * Register composer packages.
-     */
-    private static void registerComposerPackages() {
-        composerPackages.clear();
-        composerPackages.add("org.alexdev.icarus.messages.outgoing.catalogue");
-        composerPackages.add("org.alexdev.icarus.messages.outgoing.handshake");
-        composerPackages.add("org.alexdev.icarus.messages.outgoing.item");
-        composerPackages.add("org.alexdev.icarus.messages.outgoing.messenger");
-        composerPackages.add("org.alexdev.icarus.messages.outgoing.navigator");
-        composerPackages.add("org.alexdev.icarus.messages.outgoing.groups");
-        composerPackages.add("org.alexdev.icarus.messages.outgoing.groups.members");
-        composerPackages.add("org.alexdev.icarus.messages.outgoing.room");
-        composerPackages.add("org.alexdev.icarus.messages.outgoing.room.items");
-        composerPackages.add("org.alexdev.icarus.messages.outgoing.room.notify");
-        composerPackages.add("org.alexdev.icarus.messages.outgoing.room.floorplan");
-        composerPackages.add("org.alexdev.icarus.messages.outgoing.room.settings");
-        composerPackages.add("org.alexdev.icarus.messages.outgoing.user");
-    }
-
-    /**
-     * Gets the composer.
-     *
-     * @param className the class name
-     * @return the composer
-     */
-    public static String getComposer(String className) {
-
-        if (composerPaths.containsKey(className)) {
-            return composerPaths.get(className);
-        }
-
-        return null;
-    }
-
-    /**
-     * Creates the composer lookup.
-     *
-     * @throws Exception the exception
-     */
-    public static void createComposerLookup() throws Exception {
-
-        for (String packages : composerPackages) {
-            for (Class<?> clazz : ClassFinder.getClasses(packages)) {
-                composerPaths.put(clazz.getSimpleName(), clazz.getName());
-            }
-        }
-    }
-
-    /**
      * Register event.
      *
      * @param header the header
@@ -319,6 +265,10 @@ public class MessageHandler {
 
         if (!messages.containsKey(header)) {
             messages.put(header, new ArrayList<>());
+        }
+
+        if (!messageLookup.containsKey(header)) {
+            messageLookup.put(header, messageEvent.getClass().getSimpleName());
         }
 
         messages.get(header).add(messageEvent);
@@ -331,6 +281,15 @@ public class MessageHandler {
      * @param message the message
      */
     public static void handleRequest(Player player, ClientMessage message) {
+
+            if (Util.getConfiguration().get("Logging", "log.received.packets", Boolean.class)) {
+                if (messageLookup.containsKey(message.getMessageId())) {
+                    player.getLogger().info("Received ({}): {} / {} ", messageLookup.get(message.getMessageId()), message.getMessageId(), message.getMessageBody());
+                } else {
+                    player.getLogger().info("Received ({}): {} / {} ", "Unknown", message.getMessageId(), message.getMessageBody());
+                }
+        }
+
         invoke(player, message.getMessageId(), message);
     }
 
@@ -342,6 +301,7 @@ public class MessageHandler {
      * @param message the message
      */
     public static void invoke(Player player, short messageId, ClientMessage message) {
+
         if (messages.containsKey(messageId)) {
 
             for (MessageEvent event : messages.get(messageId)) {
@@ -357,14 +317,5 @@ public class MessageHandler {
      */
     public static HashMap<Short, List<MessageEvent>> getMessages() {
         return messages;
-    }
-
-    /**
-     * Gets the composer packages.
-     *
-     * @return the composer packages
-     */
-    public static List<String> getComposerPackages() {
-        return composerPackages;
     }
 }

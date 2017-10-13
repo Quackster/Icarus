@@ -22,28 +22,8 @@ public class AuthenticateMessageEvent implements MessageEvent {
             player.getNetwork().close();
             return;
         }
-        
-        boolean loginSuccess = PlayerDao.login(player, request.readString());
-        PlayerDao.clearTicket(player.getDetails().getId());
-        
-        if (!loginSuccess || player.getMachineId() == null || PlayerManager.kickDuplicates(player)) {
-            player.getNetwork().close();
-            return;
-        }
-           
-        PlayerManager.addPlayer(player);
-        RoomDao.getPlayerRooms(player.getEntityId(), true);
-        
-        player.getInventory().init();
-        player.getMessenger().init();
-        player.getDetails().setAuthenticated(true);
-        
-        player.send(new UniqueMachineIDMessageComposer(player.getMachineId()));
-        player.send(new AuthenticationOKMessageComposer());
-        player.send(new EffectsMessageComposer(player.getInventory().getEffects()));
-        player.send(new HomeRoomMessageComposer(2, false));
-        player.send(new LandingWidgetMessageComposer());
-        player.send(new AvailabilityMessageComposer());
 
+        String ssoTicket = request.readString();
+        player.authenticate(ssoTicket);
     }
 }

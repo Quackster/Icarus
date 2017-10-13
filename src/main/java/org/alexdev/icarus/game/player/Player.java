@@ -1,6 +1,9 @@
 package org.alexdev.icarus.game.player;
 
 import java.util.List;
+
+import org.alexdev.icarus.dao.mysql.player.PlayerDao;
+import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.encryption.DiffieHellman;
 import org.alexdev.icarus.encryption.RC4;
@@ -14,11 +17,13 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.enums.RoomAction;
 import org.alexdev.icarus.game.room.user.RoomUser;
+import org.alexdev.icarus.messages.outgoing.handshake.AuthenticationOKMessageComposer;
+import org.alexdev.icarus.messages.outgoing.handshake.AvailabilityMessageComposer;
+import org.alexdev.icarus.messages.outgoing.handshake.UniqueMachineIDMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.HotelViewMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RoomForwardComposer;
-import org.alexdev.icarus.messages.outgoing.user.BroadcastMessageAlertComposer;
-import org.alexdev.icarus.messages.outgoing.user.MOTDNotificationMessageComposer;
-import org.alexdev.icarus.messages.outgoing.user.RoomNotificationComposer;
+import org.alexdev.icarus.messages.outgoing.user.*;
+import org.alexdev.icarus.messages.outgoing.user.effects.EffectsMessageComposer;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.PlayerNetwork;
 import org.luaj.vm2.LuaValue;
@@ -37,9 +42,8 @@ public class Player extends Entity {
     private Inventory inventory;
     private ClubSubscription subscription;
 
-    private DiffieHellman diffieHellman;
     private RC4 rc4;
-   
+    private DiffieHellman diffieHellman;
     private boolean loggedIn;
 
     public Player(PlayerNetwork network) {
@@ -50,7 +54,40 @@ public class Player extends Entity {
         this.inventory = new Inventory(this);
         this.subscription = new ClubSubscription(this);
         this.diffieHellman = new DiffieHellman();
-        this.logger = LoggerFactory.getLogger(Player.class);
+        this.logger = LoggerFactory.getLogger("Player " + this.network.getConnectionId());
+    }
+
+    /**
+     * Logs in the user.
+     *
+     * @param ssoTicket - single sign on ticket
+     */
+    public void authenticate(String ssoTicket) {
+
+        boolean loginSuccess = PlayerDao.login(this, ssoTicket);
+        PlayerDao.clearTicket(this.getDetails().getId());
+
+        if (!loginSuccess || this.getMachineId() == null || PlayerManager.kickDuplicates(this)) {
+            this.getNetwork().close();
+            return;
+        }
+
+        this.logger = LoggerFactory.getLogger("Player " + this.details.getName());
+
+        PlayerManager.addPlayer(this);
+        RoomDao.getPlayerRooms(this.getEntityId(), true);
+
+        this.getInventory().init();
+        this.getMessenger().init();
+        this.getDetails().setAuthenticated(true);
+
+        this.send(new UniqueMachineIDMessageComposer(this.getMachineId()));
+        this.send(new AuthenticationOKMessageComposer());
+        this.send(new EffectsMessageComposer(this.getInventory().getEffects()));
+        this.send(new HomeRoomMessageComposer(2, false));
+        this.send(new LandingWidgetMessageComposer());
+        this.send(new AvailabilityMessageComposer());
+
     }
 
     /**

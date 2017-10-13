@@ -67,10 +67,6 @@ public class ConnectionHandler extends SimpleChannelHandler {
                 return;
             }
 
-            if (Util.getConfiguration().get("Logging", "log.received.packets", Boolean.class)) {
-                    log.info("Received: {} / {} ", request.getMessageId(), request.getMessageBody());
-            }
-
             if (player != null){
                 MessageHandler.handleRequest(player, request);
             }

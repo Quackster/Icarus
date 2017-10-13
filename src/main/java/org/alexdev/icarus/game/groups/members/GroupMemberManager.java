@@ -113,7 +113,7 @@ public class GroupMemberManager {
      * @param userId the user id
      */
     public void remove(int userId) {
-        
+
         GroupMemberDao.deleteMember(this.group.getId(), userId);
         
         for (List<Integer> members : this.groupMembers.values()) {

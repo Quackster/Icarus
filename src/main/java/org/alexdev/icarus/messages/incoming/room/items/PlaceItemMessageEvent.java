@@ -79,14 +79,12 @@ public class PlaceItemMessageEvent implements MessageEvent {
                 }
             }
 
-
             double height = player.getRoomUser().getRoom().getModel().getHeight(x, y);
 
             item.getPosition().setX(x);
             item.getPosition().setY(y);
             item.getPosition().setZ(height);
             item.getPosition().setRotation(rotation);
-
         }
 
         room.getMapping().addItem(item);
