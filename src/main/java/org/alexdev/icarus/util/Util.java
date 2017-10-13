@@ -314,14 +314,4 @@ public class Util {
     public static RSA getRSA() {
         return rsa;
     }
-
-    /**
-     * Allow serialise of variable if the variable can be serialised.
-     *
-     * @param val the value
-     * @return true, if successful
-     */
-    public static boolean allowSerialise(Object val) {
-        return val instanceof Integer || val instanceof String || val instanceof Double || val instanceof Float || val instanceof Short || val instanceof Boolean || val instanceof Byte || val instanceof Character;
-    }
 }
