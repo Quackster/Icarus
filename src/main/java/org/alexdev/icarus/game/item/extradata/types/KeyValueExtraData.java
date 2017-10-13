@@ -10,9 +10,9 @@ public class KeyValueExtraData extends ExtraData {
 
     private Map<String, String> keyValues;
 
-    public KeyValueExtraData(ExtraDataPerspective setting, Map<String, String> kv) {
+    public KeyValueExtraData(ExtraDataPerspective setting, Map<String, String> keyValues) {
         super(setting);
-        this.keyValues = kv;
+        this.keyValues = keyValues;
     }
 
     @Override

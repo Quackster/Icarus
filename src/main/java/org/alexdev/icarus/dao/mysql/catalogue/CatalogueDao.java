@@ -30,7 +30,7 @@ public class CatalogueDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM catalog_pages WHERE parent_id = ? AND enabled = ? ORDER BY order_num ASC", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM catalogue_pages WHERE parent_id = ? AND enabled = ? ORDER BY order_num ASC", sqlConnection);
             preparedStatement.setInt(1, parentId);
             preparedStatement.setString(2, "1");
             
@@ -71,7 +71,7 @@ public class CatalogueDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM catalog_pages", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM catalogue_pages", sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -106,7 +106,7 @@ public class CatalogueDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM catalog_items", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM catalogue_items", sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2017 at 09:23 AM
+-- Generation Time: Oct 13, 2017 at 04:32 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -25,19 +25,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `catalog_gift_wrapping`
+-- Table structure for table `catalogue_gift_wrapping`
 --
 
-CREATE TABLE `catalog_gift_wrapping` (
+CREATE TABLE `catalogue_gift_wrapping` (
   `type` enum('new','old') CHARACTER SET utf8mb4 DEFAULT 'new',
   `sprite_id` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `catalog_gift_wrapping`
+-- Dumping data for table `catalogue_gift_wrapping`
 --
 
-INSERT INTO `catalog_gift_wrapping` (`type`, `sprite_id`) VALUES
+INSERT INTO `catalogue_gift_wrapping` (`type`, `sprite_id`) VALUES
 ('new', 3372),
 ('new', 3373),
 ('new', 3374),
@@ -59,10 +59,10 @@ INSERT INTO `catalog_gift_wrapping` (`type`, `sprite_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `catalog_items`
+-- Table structure for table `catalogue_items`
 --
 
-CREATE TABLE `catalog_items` (
+CREATE TABLE `catalogue_items` (
   `id` int(11) NOT NULL,
   `page_id` int(11) NOT NULL,
   `item_id` varchar(120) NOT NULL,
@@ -80,10 +80,10 @@ CREATE TABLE `catalog_items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `catalog_items`
+-- Dumping data for table `catalogue_items`
 --
 
-INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
 (0, 86, '2977', 'byesw_hand', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
 (1, 275, '2978', 'byesw_hotel', 25000, 25000, 0, 1, 0, 0, '1', '', '', -1),
 (2, 25, '2', 'Mode Shelves', 3, 0, 0, 1, 0, 0, '1', '', '', 6),
@@ -819,7 +819,7 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_c
 (732, 27, '939', 'Double Bed', 4, 0, 0, 1, 0, 0, '1', '', '', 1440),
 (733, 27, '940', 'Double Bed', 4, 0, 0, 1, 0, 0, '1', '', '', -1),
 (734, 27, '941', 'Double Bed', 4, 0, 0, 1, 0, 0, '1', '', '', -1);
-INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
 (735, 27, '943', 'Single Bed', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (736, 27, '944', 'Single Bed', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (737, 27, '945', 'Single Bed', 3, 0, 0, 1, 0, 0, '1', '', '', 1382),
@@ -1546,9 +1546,9 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_c
 (1458, 83, '1636', 'tiki_surfboard', 3, 0, 0, 1, 0, 0, '1', '', '', 10196),
 (1459, 68, '1086', 'Crystal Ball', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
 (1460, 216, '1087', 'sw_table', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
-(1461, 216, '1088', 'sw_raven', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
-(1462, 216, '1089', 'sw_chest', 5, 0, 0, 1, 0, 0, '1', '', '', -1);
-INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(1461, 216, '1088', 'sw_raven', 5, 0, 0, 1, 0, 0, '1', '', '', -1);
+INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(1462, 216, '1089', 'sw_chest', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
 (1463, 75, '1096', 'rclr_lamp', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
 (1464, 218, '1097', 'md_rug', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
 (1465, 86, '1119', 'jukebox_ptv*1', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
@@ -2235,9 +2235,9 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_c
 (2146, 13, '2971', 'wallpaper_single_3104', 0, 3, 0, 1, 0, 0, '1', '', '', 9714),
 (2147, 13, '2971', 'wallpaper_single_3105', 0, 3, 0, 1, 0, 0, '1', '', '', 9714),
 (2148, 13, '2971', 'wallpaper_single_3106', 0, 3, 0, 1, 0, 0, '1', '', '', 9714),
-(2149, 13, '2970', 'floor_single_101', 0, 3, 0, 1, 0, 0, '1', '', '', 9874),
-(2150, 13, '2970', 'floor_single_102', 0, 3, 0, 1, 0, 0, '1', '', '', 9874);
-INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(2149, 13, '2970', 'floor_single_101', 0, 3, 0, 1, 0, 0, '1', '', '', 9874);
+INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(2150, 13, '2970', 'floor_single_102', 0, 3, 0, 1, 0, 0, '1', '', '', 9874),
 (2151, 13, '2970', 'floor_single_103', 0, 3, 0, 1, 0, 0, '1', '', '', 9874),
 (2152, 13, '2970', 'floor_single_104', 0, 3, 0, 1, 0, 0, '1', '', '', 9874),
 (2153, 13, '2970', 'floor_single_105', 0, 3, 0, 1, 0, 0, '1', '', '', 9874),
@@ -2919,9 +2919,9 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_c
 (2829, 155, '3668', 'hs_carpet_blk', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
 (2830, 155, '3669', 'hs_dnctile_1', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
 (2831, 155, '3670', 'hs_lightstrip_blue', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
-(2832, 155, '3671', 'hs_lightstrip_pink', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
-(2833, 155, '3672', 'hs_marswalk', 10, 0, 0, 1, 0, 0, '1', '', '', -1);
-INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(2832, 155, '3671', 'hs_lightstrip_pink', 10, 0, 0, 1, 0, 0, '1', '', '', -1);
+INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(2833, 155, '3672', 'hs_marswalk', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
 (2834, 155, '3673', 'hs_stage_long_black', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
 (2835, 155, '3674', 'hs_stage_long_blue', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
 (2836, 155, '3675', 'hs_stage_long_pink', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
@@ -3608,9 +3608,9 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_c
 (3517, 67, '4837', 'bw_fnc_crnr_g', 5, 0, 0, 1, 0, 0, '1', '', '', 8784),
 (3518, 67, '4836', 'bw_fnc_crnr_p', 5, 0, 0, 1, 0, 0, '1', '', '', 8790),
 (3519, 67, '4835', 'ads_pepsi0', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
-(3520, 67, '4854', 'bw_fnc_g', 5, 0, 0, 1, 0, 0, '1', '', '', 8778),
-(3521, 67, '4853', 'bw_sofa_p', 5, 0, 0, 1, 0, 0, '1', '', '', 8782);
-INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(3520, 67, '4854', 'bw_fnc_g', 5, 0, 0, 1, 0, 0, '1', '', '', 8778);
+INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(3521, 67, '4853', 'bw_sofa_p', 5, 0, 0, 1, 0, 0, '1', '', '', 8782),
 (3522, 67, '4852', 'bw_sofa_g', 5, 0, 0, 1, 0, 0, '1', '', '', 8796),
 (3523, 67, '4851', 'bw_van_g', 5, 0, 0, 1, 0, 0, '1', '', '', 8795),
 (3524, 67, '4850', 'bw_van_p', 5, 0, 0, 1, 0, 0, '1', '', '', 8791),
@@ -4290,9 +4290,9 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_c
 (4198, 194, '5400', 'uni_jewellery', 3, 0, 0, 1, 0, 0, '1', '', '', 14108),
 (4199, 194, '5401', 'uni_plush2', 3, 0, 0, 1, 0, 0, '1', '', '', 14109),
 (4200, 194, '5402', 'uni_cafeterie', 3, 0, 0, 1, 0, 0, '1', '', '', 14110),
-(4201, 194, '5403', 'uni_projector', 3, 0, 0, 1, 0, 0, '1', '', '', 14197),
-(4202, 194, '5404', 'uni_rubik', 3, 0, 0, 1, 0, 0, '1', '', '', 14112);
-INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(4201, 194, '5403', 'uni_projector', 3, 0, 0, 1, 0, 0, '1', '', '', 14197);
+INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(4202, 194, '5404', 'uni_rubik', 3, 0, 0, 1, 0, 0, '1', '', '', 14112),
 (4203, 194, '5405', 'uni_hipbed', 3, 0, 0, 1, 0, 0, '1', '', '', 14113),
 (4204, 194, '5406', 'uni_laptop', 3, 0, 0, 1, 0, 0, '1', '', '', 14114),
 (4205, 194, '5407', 'uni_wobench', 3, 0, 0, 1, 0, 0, '1', '', '', 14115),
@@ -4972,9 +4972,9 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_c
 (4879, 95, '2106', 'school_consolegold', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (4880, 95, '2107', 'school_chair_g', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (4881, 95, '2108', 'school_fountain', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
-(4882, 276, '6976', 'blackgargoylee', 3, 0, 0, 1, 100, 100, '1', '', '', -1),
-(4883, 95, '2109', 'school_console_g', 3, 0, 0, 1, 0, 0, '1', '', '', -1);
-INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(4882, 276, '6976', 'blackgargoylee', 3, 0, 0, 1, 100, 100, '1', '', '', -1);
+INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(4883, 95, '2109', 'school_console_g', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (4884, 95, '2110', 'school_console_b', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (4885, 95, '2111', 'school_coatrack_r', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (4886, 95, '2112', 'school_gate', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
@@ -5644,9 +5644,9 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_c
 (5550, 279, '2810', 'clothing_knithat', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
 (5551, 17, '2811', 'clothing_party5', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (5552, 17, '2812', 'clothing_party4', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
-(5553, 17, '2813', 'clothing_party8', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
-(5554, 17, '2814', 'clothing_party6', 3, 0, 0, 1, 0, 0, '1', '', '', -1);
-INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(5553, 17, '2813', 'clothing_party8', 3, 0, 0, 1, 0, 0, '1', '', '', -1);
+INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(5554, 17, '2814', 'clothing_party6', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (5555, 17, '2815', 'clothing_party3', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (5556, 17, '2816', 'clothing_party7', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (5557, 17, '2817', 'clothing_goldpack1', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
@@ -6336,9 +6336,9 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_c
 (6241, 215, '5082', 'statue_dragon', 3, 0, 0, 1, 0, 0, '1', '0', '', 0),
 (6242, 215, '5083', 'statue_griffin', 3, 0, 0, 1, 0, 0, '1', '0', '', 0),
 (6243, 215, '5084', 'statue_elk', 3, 0, 0, 1, 0, 0, '1', '0', '', 0),
-(6244, 159, '5085', 'rare_icecream*10', 3, 0, 0, 1, 0, 0, '1', '0', '', -1),
-(6245, 75, '5086', 'holo_nelly', 3, 0, 0, 1, 0, 0, '1', '0', '', -1);
-INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(6244, 159, '5085', 'rare_icecream*10', 3, 0, 0, 1, 0, 0, '1', '0', '', -1);
+INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(6245, 75, '5086', 'holo_nelly', 3, 0, 0, 1, 0, 0, '1', '0', '', -1),
 (6246, 139, '5087', 'val13_easel_4', 3, 0, 0, 1, 0, 0, '1', '0', '', -1),
 (6247, 139, '5088', 'val13_easel_3', 3, 0, 0, 1, 0, 0, '1', '0', '', -1),
 (6248, 139, '5089', 'val13_easel_1', 3, 0, 0, 1, 0, 0, '1', '0', '', -1),
@@ -7011,9 +7011,9 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_c
 (6915, 236, '6535', 'bc_block_0*46', 7, 0, 0, 1, 0, 0, '1', '', '', -1),
 (6916, 236, '6536', 'bc_block_0*47', 7, 0, 0, 1, 0, 0, '1', '', '', -1),
 (6917, 236, '6537', 'bc_block_0*48', 7, 0, 0, 1, 0, 0, '1', '', '', -1),
-(6918, 236, '6538', 'bc_block_0*49', 7, 0, 0, 1, 0, 0, '1', '', '', -1),
-(6919, 236, '6539', 'bc_block_0*50', 7, 0, 0, 1, 0, 0, '1', '', '', -1);
-INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(6918, 236, '6538', 'bc_block_0*49', 7, 0, 0, 1, 0, 0, '1', '', '', -1);
+INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(6919, 236, '6539', 'bc_block_0*50', 7, 0, 0, 1, 0, 0, '1', '', '', -1),
 (6920, 236, '6540', 'bc_block_0*51', 7, 0, 0, 1, 0, 0, '1', '', '', -1),
 (6921, 236, '6541', 'bc_block_0*52', 7, 0, 0, 1, 0, 0, '1', '', '', -1),
 (6922, 236, '6542', 'bc_block_0*53', 7, 0, 0, 1, 0, 0, '1', '', '', -1),
@@ -7689,9 +7689,9 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_c
 (7592, 36, '3275', 'poster_523', 3, 0, 0, 1, 0, 0, '1', '523', '', -1),
 (7593, 36, '3153', 'flag_algeria', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (7594, 36, '3157', 'flag_argentina', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
-(7595, 36, '7213', 'flag_austria', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
-(7596, 36, '1735', 'flag_belgium', 3, 0, 0, 1, 0, 0, '1', '', '', -1);
-INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(7595, 36, '7213', 'flag_austria', 3, 0, 0, 1, 0, 0, '1', '', '', -1);
+INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+(7596, 36, '1735', 'flag_belgium', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (7597, 36, '3146', 'flag_chile', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (7598, 36, '3145', 'flag_columbia', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (7599, 36, '7214', 'flag_denmark', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
@@ -7955,10 +7955,10 @@ INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_c
 -- --------------------------------------------------------
 
 --
--- Table structure for table `catalog_pages`
+-- Table structure for table `catalogue_pages`
 --
 
-CREATE TABLE `catalog_pages` (
+CREATE TABLE `catalogue_pages` (
   `id` int(11) NOT NULL,
   `parent_id` int(11) NOT NULL DEFAULT '-1',
   `caption` varchar(35) NOT NULL,
@@ -7975,10 +7975,10 @@ CREATE TABLE `catalog_pages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `catalog_pages`
+-- Dumping data for table `catalogue_pages`
 --
 
-INSERT INTO `catalog_pages` (`id`, `parent_id`, `caption`, `icon_image`, `visible`, `enabled`, `min_rank`, `min_vip`, `order_num`, `page_link`, `page_layout`, `page_strings_1`, `page_strings_2`) VALUES
+INSERT INTO `catalogue_pages` (`id`, `parent_id`, `caption`, `icon_image`, `visible`, `enabled`, `min_rank`, `min_vip`, `order_num`, `page_link`, `page_layout`, `page_strings_1`, `page_strings_2`) VALUES
 (0, -1, 'Front Page', 213, '1', '1', 1, 0, 1, 'frontpage', 'frontpage4', 'catalog_frontpage_headline_shop_GENERAL|frontpage_teaser', '<i><b><font color=\"#0E668C\" size=\"16\">What can I find in the shop?</font></b></i><br><br>Upgrade your clothing with Habbo Club, adopt a pet or decorate your room the way you like it. Whatever you like to do most in Habbo, you\'ll find a way to make that experience even better by browsing our Shop.<br><br><li>Join <a href=\"event:catalog/open/habbo_club\">Habbo Club</a></li><li><a href=\"event:catalog/open/set_pixelnew\">Decorate </a>your room</li><li>Adopt a <a href=\"event:catalog/open/pet_horse\">Pet</a>, <a href=\"event:catalog/open/bots\">Bot</a> or <a href=\"event:catalog/open/monster_plants_info\">Monsterplants</a></li><li>Make your own <a href=\"event:catalog/open/category_wired\">Wired</a> games </li><li>Trade in our <a href=\"event:catalog/open/marketplace_offers\">Marketplace</a></li><br><i><b><font color=\"#0E668C\" size=\"16\">Where can I get credits?</font></b></i><br><br>We have many methods of payment such as SMS, Home Phone, Prepaid Cards, and Credit Cards.<br><br><a href=\"event:habblet/open/credits\">Visit our credits page for more info.</a>|Redeem a voucher code here:'),
 (1, 282, 'Classic Furni', 2, '0', '0', 1, 0, 14, '', 'default_3x3', 'catalog_frontpage_headline2_en|', '|'),
 (2, 282, 'Pixel Shop', 5, '0', '1', 1, 0, 24, '', 'default_3x3', 'catalog_frontpage_headline2_en|', '|'),
@@ -8188,7 +8188,7 @@ INSERT INTO `catalog_pages` (`id`, `parent_id`, `caption`, `icon_image`, `visibl
 (206, 182, 'Alphabet', 1009, '1', '1', 1, 0, 0, '', 'default_3x3_color_grouping', 'catalog_header_alpha1|catalog_teaser_alpha1', 'Feeling creative? You should be! Here is a full range of building blocks to create a master piece with!'),
 (207, 177, 'CyberPunk', 254, '1', '1', 1, 0, 72, '', 'default_3x3', 'catalog_header_cpunk15|catalog_teaser_cyberpunk', 'Light-filled cityscapes and brightly lit skycrapers looming ovehead... This is the dark, dark furni line of the future. The future is called CyberPunk.'),
 (208, 72, 'Public Furni 2015', 28, '1', '1', 5, 0, 174, '', 'default_3x3', '', 'Public Furniture: Used to build new rooms such as the Noob Lobby, HC Lounge and Welcome Lounge [2015]');
-INSERT INTO `catalog_pages` (`id`, `parent_id`, `caption`, `icon_image`, `visible`, `enabled`, `min_rank`, `min_vip`, `order_num`, `page_link`, `page_layout`, `page_strings_1`, `page_strings_2`) VALUES
+INSERT INTO `catalogue_pages` (`id`, `parent_id`, `caption`, `icon_image`, `visible`, `enabled`, `min_rank`, `min_vip`, `order_num`, `page_link`, `page_layout`, `page_strings_1`, `page_strings_2`) VALUES
 (209, 177, 'Chinese New Year', 15, '0', '1', 1, 0, 50, '', 'default_3x3', 'catalog_asian_headline1|catalog_asian_teaser1', 'The year of the Horse was engulfed in excitement, but it\'s time for the flames to die away as we slither into the next Chinese Lunar Year - The Goat!'),
 (210, 177, 'St Patrick\'s 2014', 212, '0', '1', 1, 0, 198, '', 'default_3x3', '', ''),
 (211, 177, 'Mall', 28, '1', '1', 1, 0, 136, '', 'default_3x3', '', ''),
@@ -9066,14 +9066,29 @@ INSERT INTO `items` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`, `y`
 (305, 1, 1, 7195, 3, '8', '27', 1.4029999999999996, 0, '1'),
 (306, 1, 1, 7195, 3, '11', '20', 0.001, 0, '1'),
 (307, 1, 1, 7195, 3, '20', '24', 1.4029999999999996, 0, '1'),
-(345, 1, 1, 3275, 4, 'l,3,3', '15,29', 0, 0, '513'),
+(345, 1, 1, 3275, 4, 'l,3,7', '12,31', 0, 0, '513'),
 (402, 1, 1, 3561, 3, '10', '16', 0.001, 0, '{\"hue\":136,\"saturation\":202,\"brightness\":202,\"enabled\":true}'),
-(506, 1, 1, 1643, 4, 'r,7,0', '13,35', 0, 0, ''),
-(569, 1, 1, 11, 4, '5', '1', 0.001, 2, '0'),
-(570, 1, 1, 122, 4, '6', '5', 2.0049999999999994, 4, '0'),
-(571, 1, 1, 11, 4, '5', '1', 0.503, 2, ''),
-(572, 1, 1, 110, 4, '5', '5', 1.0029999999999997, 0, ''),
-(573, 1, 1, 110, 4, '5', '5', 0.001, 0, '');
+(506, 1, 1, 1643, 4, 'r,5,0', '12,37', 0, 0, ''),
+(569, 1, 1, 11, 4, '4', '12', 0.503, 0, '0'),
+(570, 1, 1, 122, 4, '4', '12', 1.005, 2, '1'),
+(571, 1, 1, 11, 4, '4', '12', 0.001, 0, ''),
+(574, 1, 1, 139, 4, '11', '1', 0.001, 0, ''),
+(575, 1, 1, 1643, 4, 'l,3,9', '5,33', 0, 0, '1'),
+(576, 1, 1, 151, 4, '8', '1', 0.001, 2, '1'),
+(577, 1, 1, 109, 4, '4', '1', 1.0029999999999997, 0, ''),
+(579, 1, 1, 17, 4, '4', '5', 0.001, 0, ''),
+(580, 1, 1, 100, 4, '8', '7', 0.001, 0, ''),
+(581, 1, 1, 3, 4, '4', '2', 0.001, 2, ''),
+(582, 1, 1, 219, 4, '4', '4', 0.001, 0, ''),
+(583, 1, 1, 451, 4, '6', '12', 0.003, 6, ''),
+(584, 1, 1, 31, 4, '4', '1', 0.001, 0, ''),
+(585, 1, 1, 663, 4, '7', '1', 0.001, 4, ''),
+(586, 1, 1, 21, 4, '6', '1', 0.001, 4, ''),
+(587, 1, 1, 29, 4, '4', '8', 0.001, 0, ''),
+(589, 1, 1, 13, 4, '9', '4', 0.001, 0, ''),
+(590, 1, 1, 219, 4, '4', '6', 0.001, 0, ''),
+(591, 1, 1, 221, 4, '5', '5', 0.001, 2, '0'),
+(694, 1, 1, 1919, 5, '9', '5', 0.001, 0, '0');
 
 -- --------------------------------------------------------
 
@@ -17065,7 +17080,9 @@ INSERT INTO `room_chatlogs` (`id`, `user`, `room_id`, `timestamp`, `message_type
 (147, 'Alex', 4, 1507878173, 0, ':clearinventory'),
 (148, 'Alex', 4, 1507878229, 0, ':reloadfurni'),
 (149, 'Alex', 4, 1507878317, 0, ':reloadfurni'),
-(150, 'Alex', 4, 1507878342, 0, ':reloadfurni');
+(150, 'Alex', 4, 1507878342, 0, ':reloadfurni'),
+(151, 'Alex', 4, 1507883788, 0, ':about'),
+(152, 'Alex', 5, 1507884777, 0, ':clearinventory');
 
 -- --------------------------------------------------------
 
@@ -17391,16 +17408,16 @@ INSERT INTO `users_subscriptions` (`id`, `user_id`, `bought_time`, `expire_time`
 --
 
 --
--- Indexes for table `catalog_items`
+-- Indexes for table `catalogue_items`
 --
-ALTER TABLE `catalog_items`
+ALTER TABLE `catalogue_items`
   ADD PRIMARY KEY (`id`),
   ADD KEY `item_ids` (`item_id`) USING BTREE;
 
 --
--- Indexes for table `catalog_pages`
+-- Indexes for table `catalogue_pages`
 --
-ALTER TABLE `catalog_pages`
+ALTER TABLE `catalogue_pages`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`) USING BTREE,
   ADD KEY `order_num` (`order_num`) USING BTREE;
@@ -17573,14 +17590,14 @@ ALTER TABLE `users_subscriptions`
 --
 
 --
--- AUTO_INCREMENT for table `catalog_items`
+-- AUTO_INCREMENT for table `catalogue_items`
 --
-ALTER TABLE `catalog_items`
+ALTER TABLE `catalogue_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7856;
 --
--- AUTO_INCREMENT for table `catalog_pages`
+-- AUTO_INCREMENT for table `catalogue_pages`
 --
-ALTER TABLE `catalog_pages`
+ALTER TABLE `catalogue_pages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=294;
 --
 -- AUTO_INCREMENT for table `groups`
@@ -17591,7 +17608,7 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=574;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=695;
 --
 -- AUTO_INCREMENT for table `item_definitions`
 --
@@ -17641,7 +17658,7 @@ ALTER TABLE `rooms_newbie`
 -- AUTO_INCREMENT for table `room_chatlogs`
 --
 ALTER TABLE `room_chatlogs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
 --
 -- AUTO_INCREMENT for table `room_items_moodlight`
 --

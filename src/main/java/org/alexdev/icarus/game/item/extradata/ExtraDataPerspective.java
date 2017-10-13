@@ -15,5 +15,4 @@ public enum ExtraDataPerspective {
     public int getIdentifier() {
         return decoration;
     }
-
 }

@@ -22,9 +22,7 @@ public class BedInteractor implements Interaction {
         roomUser.removeStatus(EntityStatus.LAY);
 
         double sitHeight = item.getDefinition().getHeight();
-        String height = roomUser.getEntity().getType() == EntityType.PET ? String.valueOf(sitHeight / 2) : String.valueOf(sitHeight);
-
-        roomUser.setStatus(EntityStatus.LAY, height);
+        roomUser.setStatus(EntityStatus.LAY, roomUser.getEntity().getType() == EntityType.PET ? String.valueOf(sitHeight / 2) : String.valueOf(sitHeight));
     }
     
     @Override
