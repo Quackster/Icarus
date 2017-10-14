@@ -16,13 +16,6 @@ public abstract class PlayerNetwork {
      * @param response the response
      */
     public abstract void send(MessageComposer response);
-
-    /**
-     * Send new composer in a queue.
-     *
-     * @param response the response
-     */
-    public abstract void sendQueued(MessageComposer response);
     
     /**
      * Close the connection.

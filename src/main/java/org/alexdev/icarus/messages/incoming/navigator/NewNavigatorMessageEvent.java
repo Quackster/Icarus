@@ -24,10 +24,10 @@ public class NewNavigatorMessageEvent implements MessageEvent {
         player.send(response);
         */
         
-        player.sendQueued(new NavigatorMetaDataComposer(NavigatorManager.getParentTabs()));
-        player.sendQueued(new FlatCategoriesMessageComposer(NavigatorManager.getCategories()));
-        player.sendQueued(new NavigatorCategories(NavigatorManager.getCategories()));
-        player.sendQueued(new NavigatorPreferencesComposer());
+        player.send(new NavigatorMetaDataComposer(NavigatorManager.getParentTabs()));
+        player.send(new FlatCategoriesMessageComposer(NavigatorManager.getCategories()));
+        player.send(new NavigatorCategories(NavigatorManager.getCategories()));
+        player.send(new NavigatorPreferencesComposer());
 
     }
 

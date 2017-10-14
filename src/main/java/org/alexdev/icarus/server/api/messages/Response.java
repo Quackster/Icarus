@@ -1,7 +1,5 @@
 package org.alexdev.icarus.server.api.messages;
 
-import io.netty.buffer.ByteBuf;
-
 public interface Response {
 
     /**
@@ -65,7 +63,7 @@ public interface Response {
      *
      * @return the object
      */
-    public ByteBuf get();
+    public Object get();
     
     /**
      * Gets the header.

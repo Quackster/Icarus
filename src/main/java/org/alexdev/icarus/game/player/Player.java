@@ -2,7 +2,6 @@ package org.alexdev.icarus.game.player;
 
 import java.util.List;
 
-import io.netty.util.AttributeKey;
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.entity.EntityType;
@@ -21,7 +20,6 @@ import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.messages.outgoing.handshake.AuthenticationOKMessageComposer;
 import org.alexdev.icarus.messages.outgoing.handshake.AvailabilityMessageComposer;
 import org.alexdev.icarus.messages.outgoing.handshake.UniqueMachineIDMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.RoomModelMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.HotelViewMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RoomForwardComposer;
 import org.alexdev.icarus.messages.outgoing.user.*;
@@ -34,10 +32,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Player extends Entity {
-
-    public static final AttributeKey<Player> SESSION_KEY = AttributeKey.valueOf("Player");
-
-    private Logger logger;
+ 
+	private Logger logger;
 	private String machineId;
     private PlayerDetails details;
     private PlayerNetwork network;
@@ -122,8 +118,6 @@ public class Player extends Entity {
             }
 
             room.getEntityManager().removeEntity(this);
-            room.dispose();
-
             this.messenger.sendStatus(false);
 
             break;
@@ -297,10 +291,6 @@ public class Player extends Entity {
      */
     public void send(MessageComposer response) {
         this.network.send(response);
-    }
-
-    public void sendQueued(MessageComposer response) {
-        this.network.sendQueued(response);
     }
 
     /**

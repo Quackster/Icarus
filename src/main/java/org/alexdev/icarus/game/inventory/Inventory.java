@@ -95,16 +95,16 @@ public class Inventory {
      * Update items.
      */
     public void updateItems() {
-        this.player.sendQueued(new UpdateInventoryMessageComposer());
-        this.player.sendQueued(new InventoryLoadMessageComposer(this.items.values()));
+        this.player.send(new UpdateInventoryMessageComposer());
+        this.player.send(new InventoryLoadMessageComposer(this.items.values()));
     }
 
     /**
      * Update pets.
      */
     public void updatePets() {
-        this.player.sendQueued(new UpdateInventoryMessageComposer());
-        this.player.sendQueued(new PetInventoryMessageComposer(this.pets));
+        this.player.send(new UpdateInventoryMessageComposer());
+        this.player.send(new PetInventoryMessageComposer(this.pets));
     }
 
     /**

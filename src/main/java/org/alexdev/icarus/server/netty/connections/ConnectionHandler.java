@@ -1,69 +1,74 @@
 package org.alexdev.icarus.server.netty.connections;
 
-import com.mysql.cj.api.Session;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
 import org.alexdev.icarus.game.player.Player;
 
 import org.alexdev.icarus.messages.MessageHandler;
 import org.alexdev.icarus.server.netty.NettyPlayerNetwork;
-import org.alexdev.icarus.server.netty.NettyServer;
 import org.alexdev.icarus.server.netty.streams.NettyRequest;
 import org.alexdev.icarus.util.Util;
+import org.jboss.netty.channel.Channel;
+import org.jboss.netty.channel.ChannelHandlerContext;
+import org.jboss.netty.channel.ChannelStateEvent;
+import org.jboss.netty.channel.ExceptionEvent;
+import org.jboss.netty.channel.MessageEvent;
+import org.jboss.netty.channel.SimpleChannelHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ConnectionHandler extends SimpleChannelInboundHandler<NettyRequest> {
-
-    final private static Logger log = LoggerFactory.getLogger(ConnectionHandler.class);
-    private NettyServer server;
-
-    public ConnectionHandler(NettyServer server) {
-        this.server = server;
-    }
-
+public class ConnectionHandler extends SimpleChannelHandler {
+	
+	final private static Logger log = LoggerFactory.getLogger(ConnectionHandler.class);
+	
+    /* (non-Javadoc)
+     * @see org.jboss.netty.channel.SimpleChannelHandler#channelOpen(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.ChannelStateEvent)
+     */
     @Override
-    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+    public void channelOpen(ChannelHandlerContext ctx, ChannelStateEvent e) {
 
-        Player player = new Player(new NettyPlayerNetwork(ctx.channel(), ctx.channel().hashCode()));
-        ctx.channel().attr(Player.SESSION_KEY).set(player);
+        Channel channel = ctx.getChannel();
 
-        if (!server.getChannels().add(ctx.channel())) {
-            ctx.disconnect();
-            return;
-        }
+        Player player = new Player(new NettyPlayerNetwork(channel, channel.getId()));
+        channel.setAttachment(player);
 
         if (Util.getServerConfig().get("Logging", "log.connections", Boolean.class)) {
-            log.info("[{}] Connection from {} ", player.getNetwork().getConnectionId(), ctx.channel().remoteAddress().toString().replace("/", "").split(":")[0]);
+            log.info("[{}] Connection from {} ", player.getNetwork().getConnectionId(), channel.getRemoteAddress().toString().replace("/", "").split(":")[0]);
         }
-    }
 
+    } 
+
+    /* (non-Javadoc)
+     * @see org.jboss.netty.channel.SimpleChannelHandler#channelClosed(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.ChannelStateEvent)
+     */
     @Override
-    public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
-
-        server.getChannels().remove(ctx.channel());
-        Player player = ctx.channel().attr(Player.SESSION_KEY).get();
+    public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) {
+        
+        Player player = (Player) ctx.getChannel().getAttachment();
 
         if (Util.getServerConfig().get("Logging", "log.connections", Boolean.class)) {
-            log.info("[{}] Disonnection from {} ", player.getNetwork().getConnectionId(), ctx.channel().remoteAddress().toString().replace("/", "").split(":")[0]);
+        	log.info("[{}] Disonnection from {} ", player.getNetwork().getConnectionId(), ctx.getChannel().getRemoteAddress().toString().replace("/", "").split(":")[0]);
         }
 
         player.dispose();
+
     }
 
+    /* (non-Javadoc)
+     * @see org.jboss.netty.channel.SimpleChannelHandler#messageReceived(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.MessageEvent)
+     */
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, NettyRequest message) throws Exception {
+    public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) {
 
         try {
 
-            Player player = ctx.channel().attr(Player.SESSION_KEY).get();
+            Player player = (Player) ctx.getChannel().getAttachment();
+            NettyRequest request = (NettyRequest) e.getMessage();
 
-            if (message == null) {
+            if (request == null) {
                 return;
             }
 
             if (player != null){
-                MessageHandler.handleRequest(player, message);
+                MessageHandler.handleRequest(player, request);
             }
 
         } catch (Exception ex) {
@@ -71,8 +76,12 @@ public class ConnectionHandler extends SimpleChannelInboundHandler<NettyRequest>
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.jboss.netty.channel.SimpleChannelHandler#exceptionCaught(org.jboss.netty.channel.ChannelHandlerContext, org.jboss.netty.channel.ExceptionEvent)
+     */
     @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        ctx.flush();
+    public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {
+    	log.error("Netty error occurred: ", e.getCause());
     }
+
 }
