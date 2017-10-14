@@ -22,11 +22,10 @@ import org.slf4j.LoggerFactory;
 
 public class Icarus extends Metadata {
 
-    private static String serverIP;
-    private static String rawConfigIP;
-    
-    private static int serverPort;
     private static long startupTime;
+
+    private static String serverIP;
+    private static int serverPort;
     
     private static ServerHandler server;
     private static Logger log;
@@ -44,27 +43,26 @@ public class Icarus extends Metadata {
         	Configuration.createConfig();
         	log = LoggerFactory.getLogger(Icarus.class);
 
+        	// The "Doom" ASCII from
+            // http://patorjk.com/software/taag/#p=display&f=Doom&t=Icarus
+            log.info(" _____                         ");
+            log.info("|_   _|                        ");
+            log.info("  | |  ___ __ _ _ __ _   _ ___ ");
+            log.info("  | | / __/ _` | '__| | | / __|");
+            log.info(" _| || (_| (_| | |  | |_| \\__ \\");
+            log.info(" \\___/\\___\\__,_|_|   \\__,_|___/");
+            log.info("");
             log.info("Icarus - Habbo Hotel PRODUCTION63 Server");
             log.info("Loading server...");
-
-            rawConfigIP = Util.getConfiguration().get("Server", "server.ip", String.class);
-            serverIP = rawConfigIP;
-
-            if (!isValidIpAddress(rawConfigIP)) {
-                serverIP = InetAddress.getByName(rawConfigIP).getHostAddress();
-            }
-
-            serverPort = Util.getConfiguration().get("Server", "server.port", int.class);
+            log.info("");
 
             if (!Dao.connect()) {
                 return;
             }
 
-            server = Class.forName(Icarus.getServerClassPath()).asSubclass(ServerHandler.class).getDeclaredConstructor().newInstance();
-            server.setIp(serverIP);
-            server.setPort(serverPort);
-
+            log.info("");
             log.info("Setting up game");
+            log.info("");
 
             RoomManager.load();
             NavigatorManager.load();
@@ -80,11 +78,26 @@ public class Icarus extends Metadata {
             log.info("");
             log.info("Setting up server");
 
+            serverIP = Util.getConfiguration().get("Server", "server.ip", String.class);
+            serverPort = Util.getConfiguration().get("Server", "server.port", int.class);
+
+            if (!isValidIpAddress(serverIP)) {
+                serverIP = InetAddress.getByName(serverIP).getHostAddress();
+            }
+
+
+            server = Class.forName(Icarus.getServerClassPath()).asSubclass(ServerHandler.class).getDeclaredConstructor().newInstance();
+            server.setIp(serverIP);
+            server.setPort(serverPort);
+
             if (server.listenSocket()) {
-                log.info("Server is listening on {}:{}", serverIP, serverPort);
+                String configurationAddress = Util.getConfiguration().get("Server", "server.ip", String.class);
+                log.info("Server is listening on {}:{}", configurationAddress, serverPort);
             } else {
                 log.error("Server could not listen on {}:{}, please double check everything is correct in icarus.properties", serverIP, serverPort);
             }
+
+            log.info("");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,12 +112,26 @@ public class Icarus extends Metadata {
      */
     public static boolean isValidIpAddress(String ip) {
 
-        try {
-            String PATTERN = "^((0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)\\.){3}(0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)$";
-            return ip.matches(PATTERN);
-        } catch (Exception e) {
+        String[] numbers = ip.split("\\.");
+
+        if (numbers.length != 4) {
             return false;
         }
+
+        for (String part : numbers) {
+
+            if (!Util.isNumber(part)) {
+                return false;
+            }
+
+            int number = Integer.valueOf(part);
+
+            if (number > 255 || number < 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

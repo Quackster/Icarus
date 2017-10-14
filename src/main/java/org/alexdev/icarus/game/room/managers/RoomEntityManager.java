@@ -37,9 +37,9 @@ public class RoomEntityManager {
      */
     public void addEntity(Entity entity) {
 
-        this.addEntity(entity, 
-                this.room.getModel().getDoorLocation().getX(), 
-                this.room.getModel().getDoorLocation().getY(), 
+        this.addEntity(entity,
+                this.room.getModel().getDoorLocation().getX(),
+                this.room.getModel().getDoorLocation().getY(),
                 this.room.getModel().getDoorLocation().getRotation());
     }
 

@@ -35,7 +35,7 @@ public class GroupManager {
 
         GroupItemDao.getGroupItems(bases, symbols, baseColours, symbolColours, backgroundColours);
     }
-    
+
     /**
      * Gets the group.
      *
@@ -43,40 +43,40 @@ public class GroupManager {
      * @return the group
      */
     public static Group getGroup(int groupId) {
-        
+
         if (groups.containsKey(groupId)) {
             return groups.get(groupId);
         }
-        
+
         return GroupDao.getGroup(groupId);
     }
 
     /**
      * Will load the group, and if successful, will
      * add it to the list of stored/active groups.
-     * 
+     *
      * @param groupId
-     * @return 
+     * @return
      */
     public static Group loadGroup(int groupId) {
-        
+
         Group group = GroupDao.getGroup(groupId);
-        
+
         if (group != null) {
             groups.put(groupId, group);
         }
-        
+
         return group;
     }
-    
+
     /**
-     * Unloads the group, called when there's 
+     * Unloads the group, called when there's
      * no more users in a room.
-     * 
+     *
      * @param groupId
      */
     public static void unloadGroup(int groupId) {
-        
+
         if (groups.containsKey(groupId)) {
             groups.remove(groupId);
         }

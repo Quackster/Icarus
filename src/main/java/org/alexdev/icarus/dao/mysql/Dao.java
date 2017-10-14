@@ -28,8 +28,6 @@ public class Dao  {
         	Storage.getLogger().info("Connection to MySQL was a success");
         }
         
-        Storage.getLogger().info("");
-        
         return isConnected;
     }
 
