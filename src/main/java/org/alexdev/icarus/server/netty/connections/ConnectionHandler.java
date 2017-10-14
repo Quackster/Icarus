@@ -30,7 +30,7 @@ public class ConnectionHandler extends SimpleChannelHandler {
         Player player = new Player(new NettyPlayerNetwork(channel, channel.getId()));
         channel.setAttachment(player);
 
-        if (Util.getConfiguration().get("Logging", "log.connections", Boolean.class)) {
+        if (Util.getServerConfig().get("Logging", "log.connections", Boolean.class)) {
             log.info("[{}] Connection from {} ", player.getNetwork().getConnectionId(), channel.getRemoteAddress().toString().replace("/", "").split(":")[0]);
         }
 
@@ -44,7 +44,7 @@ public class ConnectionHandler extends SimpleChannelHandler {
         
         Player player = (Player) ctx.getChannel().getAttachment();
 
-        if (Util.getConfiguration().get("Logging", "log.connections", Boolean.class)) {
+        if (Util.getServerConfig().get("Logging", "log.connections", Boolean.class)) {
         	log.info("[{}] Disonnection from {} ", player.getNetwork().getConnectionId(), ctx.getChannel().getRemoteAddress().toString().replace("/", "").split(":")[0]);
         }
 

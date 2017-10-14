@@ -32,7 +32,7 @@ public class GroupRemoveMemberMessageEvent implements MessageEvent {
         int removeUserId = reader.readInt();
         
         if (!isOwner && group.getMemberManager().isMemberType(removeUserId, GroupMemberType.ADMINISTRATOR)) {
-            player.sendMessage(Util.getLocale("group.remove.administrator.denied"));
+            player.sendMessage(Util.getLocaleEntry("group.remove.administrator.denied"));
             return;
         }
        

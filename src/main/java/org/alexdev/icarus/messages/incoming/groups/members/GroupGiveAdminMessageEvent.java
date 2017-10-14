@@ -23,7 +23,7 @@ public class GroupGiveAdminMessageEvent implements MessageEvent {
         boolean isOwner = group.getOwnerId() == player.getEntityId();
    
         if (!isOwner) {
-            player.sendMessage(Util.getLocale("group.only.creators"));
+            player.sendMessage(Util.getLocaleEntry("group.only.creators"));
             return;
         }
         

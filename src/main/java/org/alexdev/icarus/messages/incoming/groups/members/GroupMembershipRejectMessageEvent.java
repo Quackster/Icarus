@@ -32,7 +32,7 @@ public class GroupMembershipRejectMessageEvent implements MessageEvent {
         int removeUserId = reader.readInt();
         
         if (group.getMemberManager().isMember(removeUserId)) {
-            player.sendMessage(Util.getLocale("group.existing.member"));
+            player.sendMessage(Util.getLocaleEntry("group.existing.member"));
             return;
         }
         

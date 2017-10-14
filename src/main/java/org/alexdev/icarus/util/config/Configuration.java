@@ -51,8 +51,12 @@ public class Configuration {
             writer.flush();
             writer.close();
     	}
-    	
+
+    	// Change the path where the logger property should be read from
     	PropertyConfigurator.configure(loggingConfig.getAbsolutePath());
+
+    	//...after this, we should be able to use Log4j (yay!)
+        // (hopefully, anyways, if no one operating this server screwed something up).
 	}
 
 	private static void writeFileIfNotExist() throws IOException {
@@ -94,14 +98,13 @@ public class Configuration {
         
         file = new File("plugins" + File.separator + "plugin_registry.lua");
 
-        if (!file.isFile()) { 
+        if (!file.isFile()) {
             file.createNewFile();
             PrintWriter writer = new PrintWriter(file.getAbsoluteFile());
             writePluginConfiguration(writer);
             writer.flush();
             writer.close();
         }
-        
 
         Util.load();
 	}

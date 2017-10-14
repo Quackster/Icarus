@@ -40,10 +40,10 @@ public class Icarus extends Metadata {
 
         try {
 
-        	Configuration.createConfig();
-        	log = LoggerFactory.getLogger(Icarus.class);
+            Configuration.createConfig();
+            log = LoggerFactory.getLogger(Icarus.class);
 
-        	// The "Doom" ASCII from
+            // The "Doom" ASCII from
             // http://patorjk.com/software/taag/#p=display&f=Doom&t=Icarus
             log.info(" _____                         ");
             log.info("|_   _|                        ");
@@ -78,20 +78,19 @@ public class Icarus extends Metadata {
             log.info("");
             log.info("Setting up server");
 
-            serverIP = Util.getConfiguration().get("Server", "server.ip", String.class);
-            serverPort = Util.getConfiguration().get("Server", "server.port", int.class);
+            serverIP = Util.getServerConfig().get("Server", "server.ip", String.class);
+            serverPort = Util.getServerConfig().get("Server", "server.port", int.class);
 
             if (!isValidIpAddress(serverIP)) {
                 serverIP = InetAddress.getByName(serverIP).getHostAddress();
             }
-
-
+            
             server = Class.forName(Icarus.getServerClassPath()).asSubclass(ServerHandler.class).getDeclaredConstructor().newInstance();
             server.setIp(serverIP);
             server.setPort(serverPort);
 
             if (server.listenSocket()) {
-                String configurationAddress = Util.getConfiguration().get("Server", "server.ip", String.class);
+                String configurationAddress = Util.getServerConfig().get("Server", "server.ip", String.class);
                 log.info("Server is listening on {}:{}", configurationAddress, serverPort);
             } else {
                 log.error("Server could not listen on {}:{}, please double check everything is correct in icarus.properties", serverIP, serverPort);

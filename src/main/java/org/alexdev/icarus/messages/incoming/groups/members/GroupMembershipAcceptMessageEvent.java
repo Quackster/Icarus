@@ -32,7 +32,7 @@ public class GroupMembershipAcceptMessageEvent implements MessageEvent {
         int userId = reader.readInt();
         
         if (group.getMemberManager().isMember(userId)) {
-            player.sendMessage(Util.getLocale("group.existing.member"));
+            player.sendMessage(Util.getLocaleEntry("group.existing.member"));
             return;
         }
         

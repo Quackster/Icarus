@@ -15,10 +15,10 @@ public class Dao  {
 
         Storage.getLogger().info("Connecting to MySQL server");
         
-        storage = new Storage(Util.getConfiguration().get("Database", "mysql.hostname", String.class), 
-                Util.getConfiguration().get("Database", "mysql.username", String.class), 
-                Util.getConfiguration().get("Database", "mysql.password", String.class), 
-                Util.getConfiguration().get("Database", "mysql.database", String.class)); 
+        storage = new Storage(Util.getServerConfig().get("Database", "mysql.hostname", String.class),
+                Util.getServerConfig().get("Database", "mysql.username", String.class),
+                Util.getServerConfig().get("Database", "mysql.password", String.class),
+                Util.getServerConfig().get("Database", "mysql.database", String.class));
 
         isConnected = storage.isConnected();
 

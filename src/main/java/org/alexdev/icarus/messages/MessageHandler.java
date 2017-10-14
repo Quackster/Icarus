@@ -34,7 +34,6 @@ import org.alexdev.icarus.messages.incoming.user.club.HabboClubCenterMessageEven
 import org.alexdev.icarus.messages.incoming.user.club.SubscriptionMessageEvent;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-import org.alexdev.icarus.util.ClassFinder;
 import org.alexdev.icarus.util.Util;
 
 public class MessageHandler {
@@ -282,7 +281,7 @@ public class MessageHandler {
      */
     public static void handleRequest(Player player, ClientMessage message) {
 
-            if (Util.getConfiguration().get("Logging", "log.received.packets", Boolean.class)) {
+            if (Util.getServerConfig().get("Logging", "log.received.packets", Boolean.class)) {
                 if (messageLookup.containsKey(message.getMessageId())) {
                     player.getLogger().info("Received ({}): {} / {} ", messageLookup.get(message.getMessageId()), message.getMessageId(), message.getMessageBody());
                 } else {

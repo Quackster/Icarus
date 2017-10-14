@@ -115,7 +115,7 @@ public class CommandManager {
         if (cmd != null) {
             
             if (args.length < cmd.getArguments().length) {
-                player.sendMessage(Util.getLocale("player.commands.no.args"));
+                player.sendMessage(Util.getLocaleEntry("player.commands.no.args"));
                 return;
             }
             

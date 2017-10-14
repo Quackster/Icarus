@@ -29,7 +29,7 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
         final byte[] photoPayload = reader.readBytes(photoLength);
 
         if (!new String(photoPayload).contains("PNG")) {
-            player.sendMessage(Util.getLocale("camera.error"));
+            player.sendMessage(Util.getLocaleEntry("camera.error"));
             return;
         }
 

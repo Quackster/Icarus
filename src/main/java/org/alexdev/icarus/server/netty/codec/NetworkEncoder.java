@@ -57,7 +57,7 @@ public class NetworkEncoder extends SimpleChannelHandler {
                     msg.write();
                 }
 
-                if (Util.getConfiguration().get("Logging", "log.sent.packets", Boolean.class)) {
+                if (Util.getServerConfig().get("Logging", "log.sent.packets", Boolean.class)) {
                     log.info("SENT: {} / {}", msg.getResponse().getHeader(), msg.getResponse().getBodyString());
                 }
 

@@ -23,7 +23,7 @@ public class GroupRemoveAdminMessageEvent implements MessageEvent {
         boolean isOwner = group.getOwnerId() == player.getEntityId();
    
         if (!isOwner) {
-            player.sendMessage(Util.getLocale("group.only.creators.remove.admin"));
+            player.sendMessage(Util.getLocaleEntry("group.only.creators.remove.admin"));
             return;
         }
         
