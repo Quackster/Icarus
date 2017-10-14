@@ -25,5 +25,4 @@ public class ActivityPointsComposer extends MessageComposer {
             this.response.writeInt(set.getValue());
         }
     }
-
 }

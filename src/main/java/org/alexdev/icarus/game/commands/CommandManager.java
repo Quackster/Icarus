@@ -34,7 +34,9 @@ public class CommandManager {
         commands.put(new String[] { "reloadfurni" }, new ReloadFurni());
         commands.put(new String[] { "reloadcatalog" }, new ReloadCatalog());
 
-        log.info("Loaded {} commands", commands.size());
+        if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
+            log.info("Loaded {} commands", commands.size());
+        }
     }
 
     /**

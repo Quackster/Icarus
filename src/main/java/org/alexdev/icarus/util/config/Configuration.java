@@ -126,11 +126,10 @@ public class Configuration {
         writer.println("mysql.database=icarus");
         writer.println();
         writer.println("[Logging]");
-        writer.println("log.errors=true");
-        writer.println("log.output=true");
         writer.println("log.connections=true");
         writer.println("log.sent.packets=false");
         writer.println("log.received.packets=false");
+        writer.println();
         writer.println("log.items.loaded=true");
         writer.println();
     }

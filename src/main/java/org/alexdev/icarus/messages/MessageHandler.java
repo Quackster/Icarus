@@ -70,7 +70,9 @@ public class MessageHandler {
         registerCameraPackets();
         registerItemInteractionPackets();
 
-        log.info("Loaded {} message event handlers", messages.size());
+        if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
+            log.info("Loaded {} message event handlers", messages.size());
+        }
     }
 
     /**
@@ -288,12 +290,12 @@ public class MessageHandler {
      */
     public static void handleRequest(Player player, ClientMessage message) {
 
-            if (Util.getServerConfig().get("Logging", "log.received.packets", Boolean.class)) {
-                if (messageLookup.containsKey(message.getMessageId())) {
-                    player.getLogger().info("Received ({}): {} / {} ", messageLookup.get(message.getMessageId()), message.getMessageId(), message.getMessageBody());
-                } else {
-                    player.getLogger().info("Received ({}): {} / {} ", "Unknown", message.getMessageId(), message.getMessageBody());
-                }
+        if (Util.getServerConfig().get("Logging", "log.received.packets", Boolean.class)) {
+            if (messageLookup.containsKey(message.getMessageId())) {
+                player.getLogger().info("Received ({}): {} / {} ", messageLookup.get(message.getMessageId()), message.getMessageId(), message.getMessageBody());
+            } else {
+                player.getLogger().info("Received ({}): {} / {} ", "Unknown", message.getMessageId(), message.getMessageBody());
+            }
         }
 
         invoke(player, message.getMessageId(), message);
