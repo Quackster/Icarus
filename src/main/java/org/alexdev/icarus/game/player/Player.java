@@ -122,6 +122,8 @@ public class Player extends Entity {
             }
 
             room.getEntityManager().removeEntity(this);
+            room.dispose();
+
             this.messenger.sendStatus(false);
 
             break;
