@@ -10,53 +10,51 @@ import org.alexdev.icarus.util.Util;
 public class SlideObjectMessageComposer extends MessageComposer {
 
     private Item item;
-    private Position next;
+    private Position from;
+    private Position to;
     private int rollerId;
     private double nextHeight;
     private Entity entity;
 
     public SlideObjectMessageComposer(Item item, Position next, int rollerId, double nextHeight) {
         this.item = item;
-        this.next = next;
+        this.from = item.getPosition().copy();
+        this.to = next.copy();
         this.rollerId = rollerId;
         this.nextHeight = nextHeight;
     }
 
     public SlideObjectMessageComposer(Entity entity, Position next, int rollerId, double nextHeight) {
         this.entity = entity;
-        this.next = next;
+        this.from = entity.getRoomUser().getPosition().copy();
+        this.to = next.copy();
         this.rollerId = rollerId;
         this.nextHeight = nextHeight;
     }
 
     @Override
     public void write() {
-        
+
         this.response.init(Outgoing.SlideObjectMessageComposer);
-        
+        this.response.writeInt(this.from.getX());
+        this.response.writeInt(this.from.getY());
+        this.response.writeInt(this.to.getX());
+        this.response.writeInt(this.to.getY());
+
         if (this.item != null) {
-            this.response.writeInt(this.item.getPosition().getX());
-            this.response.writeInt(this.item.getPosition().getY());
-            this.response.writeInt(this.next.getX());
-            this.response.writeInt(this.next.getY());
             this.response.writeInt(1);
             this.response.writeInt(this.item.getId());
-            this.response.writeString(Util.format(this.item.getPosition().getZ()));
-            this.response.writeString(Util.format(this.nextHeight));
-            this.response.writeInt(this.rollerId);
         } else {
-            this.response.writeInt(this.entity.getRoomUser().getPosition().getX());
-            this.response.writeInt(this.entity.getRoomUser().getPosition().getY());
-            this.response.writeInt(this.next.getX());
-            this.response.writeInt(this.next.getY());
             this.response.writeInt(0);
-            
-            
             this.response.writeInt(this.rollerId);
             this.response.writeInt(2);
             this.response.writeInt(this.entity.getRoomUser().getVirtualId());
-            this.response.writeString(Util.format(this.entity.getRoomUser().getPosition().getZ()));
-            this.response.writeString(Util.format(this.nextHeight));
+        }
+        this.response.writeString(Util.format(this.from.getZ()));
+        this.response.writeString(Util.format(this.nextHeight));
+
+        if (this.item != null) {
+            this.response.writeInt(this.rollerId);
         }
     }
 }
