@@ -60,9 +60,7 @@ public class Icarus extends Metadata {
                 return;
             }
 
-            log.info("");
             log.info("Setting up game");
-            log.info("");
 
             RoomManager.load();
             NavigatorManager.load();
@@ -75,28 +73,33 @@ public class Icarus extends Metadata {
             PluginManager.load();
             MessageHandler.load();
 
-            log.info("");
             log.info("Setting up server");
+
+
 
             serverIP = Util.getServerConfig().get("Server", "server.ip", String.class);
             serverPort = Util.getServerConfig().get("Server", "server.port", int.class);
 
+            // Override with valid IP that we have resolved
             if (!isValidIpAddress(serverIP)) {
                 serverIP = InetAddress.getByName(serverIP).getHostAddress();
             }
-            
+
             server = Class.forName(Icarus.getServerClassPath()).asSubclass(ServerHandler.class).getDeclaredConstructor().newInstance();
             server.setIp(serverIP);
             server.setPort(serverPort);
 
+            // Since we have overridden the IP, grab it again from the config to have a nice output instead of
+            // something like 0.0.0.0 for instance ;)
+            String configurationAddress = Util.getServerConfig().get("Server", "server.ip", String.class);
+
             if (server.listenSocket()) {
-                String configurationAddress = Util.getServerConfig().get("Server", "server.ip", String.class);
                 log.info("Server is listening on {}:{}", configurationAddress, serverPort);
             } else {
-                log.error("Server could not listen on {}:{}, please double check everything is correct in icarus.properties", serverIP, serverPort);
+                log.error("Server could not listen on {}:{}, please double check everything is correct in icarus.properties", configurationAddress, serverPort);
             }
 
-            log.info("");
+            log.info("Ready for connections!");
 
         } catch (Exception e) {
             e.printStackTrace();

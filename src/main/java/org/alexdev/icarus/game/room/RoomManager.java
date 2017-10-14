@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.room;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,12 +11,19 @@ import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
 import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.room.enums.RoomType;
+import org.alexdev.icarus.game.room.model.RoomModel;
+import org.alexdev.icarus.util.Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RoomManager {
 
     private static Map<Integer, Room> rooms;
     private static Map<Integer, Room> promotedRooms;
+    private static HashMap<String, RoomModel> roomModels;
+
     private static ScheduledExecutorService scheduler;
+    private static final Logger log = LoggerFactory.getLogger(RoomManager.class);
 
     /**
      * Load.
@@ -25,9 +33,14 @@ public class RoomManager {
         rooms = new ConcurrentHashMap<>();
         promotedRooms = new ConcurrentHashMap<>();
         scheduler = GameScheduler.createNewScheduler();
-        
-        RoomModelDao.getModels();
+        roomModels = RoomModelDao.getModels();
+
         RoomDao.getPublicRooms(true);
+
+        if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
+            log.info("Loaded {} room models ", roomModels.size());
+            log.info("Loaded {} public rooms", rooms.size());
+        }
     }
 
     /**
@@ -144,6 +157,16 @@ public class RoomManager {
      */
     public static List<Room> getPromotedRooms() {
         return promotedRooms.values().stream().filter(room -> room != null).collect(Collectors.toList());
+    }
+
+    /**
+     * Gets the model.
+     *
+     * @param model the model
+     * @return the model
+     */
+    public static RoomModel getModel(String model) {
+        return roomModels.get(model);
     }
 
     /**

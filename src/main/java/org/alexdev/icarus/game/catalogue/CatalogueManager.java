@@ -11,6 +11,9 @@ import java.util.stream.Collectors;
 import org.alexdev.icarus.dao.mysql.catalogue.CatalogueDao;
 import org.alexdev.icarus.dao.mysql.catalogue.TargetedOfferDao;
 import org.alexdev.icarus.game.catalogue.targetedoffer.TargetedOffer;
+import org.alexdev.icarus.util.Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CatalogueManager {
 
@@ -20,6 +23,8 @@ public class CatalogueManager {
     private static List<CataloguePage> pages;
     private static List<CatalogueItem> items;
     private static Map<Integer, TargetedOffer> offers;
+
+    private static final Logger log = LoggerFactory.getLogger(CatalogueManager.class);
 
     /**
      * Load.
@@ -34,6 +39,11 @@ public class CatalogueManager {
 
         for (CatalogueTab parent : parentTabs) {
             loadCatalogueTabs(parent, parent.getId());
+        }
+
+        if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
+            log.info("Loaded {} catalogue pages", pages.size());
+            log.info("Loaded {} catalogue items", items.size());
         }
     }
     

@@ -67,22 +67,14 @@ public class PluginManager {
 			LuaValue value = table.get(i + 1);
 
 			try {
-				
-				log.info("");
 				loadPlugin(value.toString());
-
-				if (i + 1 != table.len().toint()) {
-					log.info("");
-				}
 				
 			} catch (PluginException e) {
 				log.error("Could not load plugin: ", e);
 			}
 		}
 
-		log.info("");
 		log.info("Loaded " + plugins.size() + " plugin(s)!");
-		log.info("");
 	}
 
 	/**

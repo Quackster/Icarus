@@ -5,15 +5,25 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.alexdev.icarus.dao.mysql.navigator.NavigatorDao;
+import org.alexdev.icarus.util.Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class NavigatorManager {
 
     private static List<NavigatorTab> tabs;
     private static List<NavigatorCategory> categories;
+
+    private static final Logger log = LoggerFactory.getLogger(NavigatorManager.class);
     
     public static void load() throws Exception {
         tabs = NavigatorDao.getTabs(-1);
         categories = NavigatorDao.getCategories();
+
+        if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
+            log.info("Loaded {} navigator categories", categories.size());
+            log.info("Loaded {} navigator tabs", tabs.size());
+        }
     }
     
     /**

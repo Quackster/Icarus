@@ -116,7 +116,7 @@ public class Room extends Metadata {
             return model;
         }
 
-        return RoomModelDao.getModel(this.data.getModel());
+        return RoomManager.getModel(this.data.getModel());
     }
 
     /**

@@ -4,13 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.commands.types.*;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.util.Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CommandManager {
 
     private static Map<String[], Command> commands;
+    private static final Logger log = LoggerFactory.getLogger(CommandManager.class);
 
     /**
      * Load.
@@ -29,6 +33,8 @@ public class CommandManager {
         commands.put(new String[] { "reloadplugins" }, new ReloadPlugins());
         commands.put(new String[] { "reloadfurni" }, new ReloadFurni());
         commands.put(new String[] { "reloadcatalog" }, new ReloadCatalog());
+
+        log.info("Loaded {} commands", commands.size());
     }
 
     /**

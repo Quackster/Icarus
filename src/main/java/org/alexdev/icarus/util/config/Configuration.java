@@ -131,6 +131,7 @@ public class Configuration {
         writer.println("log.connections=true");
         writer.println("log.sent.packets=false");
         writer.println("log.received.packets=false");
+        writer.println("log.items.loaded=true");
         writer.println();
     }
 

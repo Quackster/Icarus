@@ -11,27 +11,15 @@ import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.room.model.RoomModel;
 
 public class RoomModelDao {
-
-    private static HashMap<String, RoomModel> roomModels;
-    
-    /**
-     * Gets the model.
-     *
-     * @param model the model
-     * @return the model
-     */
-    public static RoomModel getModel(String model) {
-        return roomModels.get(model);
-    }
     
     /**
      * Gets the models.
      *
      * @return the models
      */
-    public static void getModels() {
+    public static HashMap<String, RoomModel> getModels() {
 
-        roomModels = new HashMap<>();
+        HashMap<String, RoomModel> roomModels = new HashMap<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -54,6 +42,8 @@ public class RoomModelDao {
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
+
+        return roomModels;
     }
     
     /**

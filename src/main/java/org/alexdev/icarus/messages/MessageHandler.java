@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.headers.Incoming;
 import org.alexdev.icarus.messages.incoming.camera.*;
@@ -35,11 +36,15 @@ import org.alexdev.icarus.messages.incoming.user.club.SubscriptionMessageEvent;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.alexdev.icarus.util.Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MessageHandler {
 
     private static HashMap<Short, List<MessageEvent>> messages;
     private static HashMap<Short, String> messageLookup;
+
+    private static final Logger log = LoggerFactory.getLogger(MessageHandler.class);
 
     public static void load() throws Exception {
         messages = new HashMap<>();
@@ -64,6 +69,8 @@ public class MessageHandler {
         registerTradePackets();
         registerCameraPackets();
         registerItemInteractionPackets();
+
+        log.info("Loaded {} message event handlers", messages.size());
     }
 
     /**
