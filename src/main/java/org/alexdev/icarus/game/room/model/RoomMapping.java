@@ -67,7 +67,7 @@ public class RoomMapping {
             if (tile.getHeight() < item.getTotalHeight()) {
 
                 item.setItemUnderneath(tile.getHighestItem());
-                tile.setHeight(item.getTotalHeight() + GameSettings.FURNITURE_OFFSET);
+                tile.setHeight(item.getTotalHeight());
                 tile.setHighestItem(item);
 
                 for (Position affected : item.getAffectedTiles(false)) {
@@ -78,7 +78,7 @@ public class RoomMapping {
                         continue;
                     }
 
-                    affectedTile.setHeight(item.getTotalHeight() + GameSettings.FURNITURE_OFFSET);
+                    affectedTile.setHeight(item.getTotalHeight());
                     affectedTile.setHighestItem(item);
                 }
             }
@@ -270,7 +270,7 @@ public class RoomMapping {
             }
 
         } else {
-            item.getPosition().setZ(this.getTileHeight(item.getPosition().getX(), item.getPosition().getY()) + GameSettings.FURNITURE_OFFSET);
+            item.getPosition().setZ(this.getTileHeight(item.getPosition().getX(), item.getPosition().getY()));
         }
 
         item.updateStatus();

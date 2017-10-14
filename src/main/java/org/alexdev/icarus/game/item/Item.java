@@ -6,6 +6,7 @@ import java.util.List;
 import org.alexdev.icarus.dao.mysql.item.ItemDao;
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
+import org.alexdev.icarus.game.GameSettings;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.pathfinder.AffectedTile;
@@ -290,7 +291,7 @@ public class Item extends Metadata {
      */
     public double getTotalHeight() {
 
-        double currentHeight = 0.00;
+        double currentHeight = GameSettings.FURNITURE_OFFSET;
 
         if (this.getDefinition().getVariableHeight().length > 0) {
             
