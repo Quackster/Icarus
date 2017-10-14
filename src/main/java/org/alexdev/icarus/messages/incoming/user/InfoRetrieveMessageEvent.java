@@ -10,7 +10,8 @@ public class InfoRetrieveMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-        player.send(new UserObjectMessageComposer(player.getDetails()));
-        player.send(new SendPerkAllowancesMessageComposer());
+        player.sendQueued(new UserObjectMessageComposer(player.getDetails()));
+        player.sendQueued(new SendPerkAllowancesMessageComposer());
+        player.flushQueue();
     }
 }

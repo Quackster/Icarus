@@ -70,8 +70,10 @@ public class ClubSubscription {
      */
     public void sendSubscriptionStatus() {
         boolean isMember = this.player.getSubscription().hasSubscription();
-        this.player.send(new SubscriptionMessageComposer(this, isMember));
-        this.player.send(new UserRightsComposer(isMember, this.player.getDetails().getRank()));
+
+        this.player.sendQueued(new SubscriptionMessageComposer(this, isMember));
+        this.player.sendQueued(new UserRightsComposer(isMember, this.player.getDetails().getRank()));
+        this.player.flushQueue();
     }
 
     /**

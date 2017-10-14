@@ -91,7 +91,7 @@ public class Player extends Entity {
         this.sendQueued(new HomeRoomMessageComposer(2, false));
         this.sendQueued(new LandingWidgetMessageComposer());
         this.sendQueued(new AvailabilityMessageComposer());
-        this.network.flush();
+        this.flushQueue();
     }
 
     /**
@@ -305,6 +305,13 @@ public class Player extends Entity {
      */
     public void sendQueued(MessageComposer response) {
         this.network.sendQueued(response);
+    }
+
+    /**
+     * Send all data written in socket.
+     */
+    public void flushQueue() {
+        this.network.flush();
     }
 
     /**

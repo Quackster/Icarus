@@ -87,7 +87,8 @@ public class RoomUtil {
         } else {
             player.sendQueued(new RightsLevelMessageComposer(0));
         }
-        
+
+        player.flushQueue();
         room.getEntityManager().addEntity(player, x, y, rotation);
     }
 
@@ -160,7 +161,7 @@ public class RoomUtil {
             }
         }
 
-        player.getNetwork().flush();
+        player.flushQueue();
     }
     
     /**

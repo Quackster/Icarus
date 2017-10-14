@@ -39,11 +39,12 @@ public class ClearRoomRightsMessageEvent implements MessageEvent {
                 }
             }
             
-            player.send(new RightsRemovedComposer(room.getData().getId(), userId));
+            player.sendQueued(new RightsRemovedComposer(room.getData().getId(), userId));
         }
+
+        player.flushQueue();
         
         room.getRights().clear();
-        
         RoomDao.clearRoomRights(room.getData().getId());
     }
 }
