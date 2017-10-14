@@ -216,12 +216,10 @@ public class RoomEntityManager {
     /**
      * Return the list of entities currently in this room by its
      * given class.
-     *  
      *
-     * @param EntityType arguments
-     * @return List of entities
+     * @param types entity types var args
+     * @return list of entities
      */
-
     public List<Entity> getEntitiesByType(EntityType... types) {
 
         List<Entity> entities = new ArrayList<>();
@@ -279,9 +277,7 @@ public class RoomEntityManager {
     /**
      * Gets the entity by virtual id.
      *
-     * @param <T> the generic type
      * @param virtualId the virtual id
-     * @param entityClass the entity class
      * @return the entity by virtual id
      */
     public Entity getEntityByVirtualId(int virtualId) {

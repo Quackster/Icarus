@@ -29,8 +29,7 @@ public class Icarus extends Metadata {
     private static long startupTime;
     
     private static ServerHandler server;
-    
-    private static Logger log = null;//LoggerFactory.getLogger(Icarus.class);
+    private static Logger log;
 
     /**
      * Main call of Java application
@@ -39,28 +38,28 @@ public class Icarus extends Metadata {
     public static void main(String[] args) {
 
         startupTime = Util.getCurrentTimeSeconds();
-        
+
         try {
 
         	Configuration.createConfig();
         	log = LoggerFactory.getLogger(Icarus.class);
-            
+
             log.info("Icarus - Habbo Hotel PRODUCTION63 Server");
             log.info("Loading server...");
 
             rawConfigIP = Util.getConfiguration().get("Server", "server.ip", String.class);
             serverIP = rawConfigIP;
-            
+
             if (!isValidIpAddress(rawConfigIP)) {
                 serverIP = InetAddress.getByName(rawConfigIP).getHostAddress();
             }
 
             serverPort = Util.getConfiguration().get("Server", "server.port", int.class);
-            
+
             if (!Dao.connect()) {
                 return;
             }
-            
+
             server = Class.forName(Icarus.getServerClassPath()).asSubclass(ServerHandler.class).getDeclaredConstructor().newInstance();
             server.setIp(serverIP);
             server.setPort(serverPort);
@@ -77,14 +76,14 @@ public class Icarus extends Metadata {
             CommandManager.load();
             PluginManager.load();
             MessageHandler.load();
- 
+
             log.info("");
-            log.info("Settting up server");
-            
+            log.info("Setting up server");
+
             if (server.listenSocket()) {
-                log.info("Server is listening on " + serverIP + ":" + serverPort);
+                log.info("Server is listening on {}:{}", serverIP, serverPort);
             } else {
-                log.error("Server could not listen on " + serverPort + ":" + serverPort + ", please double check everything is correct in icarus.properties");
+                log.error("Server could not listen on {}:{}, please double check everything is correct in icarus.properties", serverIP, serverPort);
             }
 
         } catch (Exception e) {
@@ -99,6 +98,7 @@ public class Icarus extends Metadata {
      * @return true if valid IPv4
      */
     public static boolean isValidIpAddress(String ip) {
+
         try {
             String PATTERN = "^((0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)\\.){3}(0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)$";
             return ip.matches(PATTERN);
@@ -149,12 +149,4 @@ public class Icarus extends Metadata {
     public static long getStartupTime() {
         return startupTime;
     }
-    
-    /**
-     * 
-     */
-    public static Logger getLodgger() {
-    	return log;
-    }
-   
 }
