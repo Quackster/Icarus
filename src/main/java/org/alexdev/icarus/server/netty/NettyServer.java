@@ -1,8 +1,6 @@
 package org.alexdev.icarus.server.netty;
 
 import java.net.InetSocketAddress;
-import java.util.concurrent.Executors;
-
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.UnpooledByteBufAllocator;
@@ -18,9 +16,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import org.alexdev.icarus.server.api.ServerHandler;
-import org.alexdev.icarus.server.netty.codec.NetworkDecoder;
-import org.alexdev.icarus.server.netty.codec.NetworkEncoder;
-import org.alexdev.icarus.server.netty.connections.ConnectionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +34,9 @@ public class NettyServer extends ServerHandler  {
     @Override
     public boolean listenSocket() {
 
-        EventLoopGroup bossGroup = (Epoll.isAvailable()) ? new EpollEventLoopGroup(1) : new NioEventLoopGroup(1);
+        int threads = Runtime.getRuntime().availableProcessors() * 2;
+
+        EventLoopGroup bossGroup = (Epoll.isAvailable()) ? new EpollEventLoopGroup(threads) : new NioEventLoopGroup(threads);
         EventLoopGroup workerGroup = (Epoll.isAvailable()) ? new EpollEventLoopGroup() : new NioEventLoopGroup();
 
         ServerBootstrap bootstrap = new ServerBootstrap();
