@@ -2,16 +2,17 @@ package org.alexdev.icarus.server.netty.streams;
 
 import java.nio.charset.Charset;
 
+import io.netty.buffer.ByteBuf;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-import org.jboss.netty.buffer.ChannelBuffer;
 
 public class NettyRequest implements ClientMessage {
 
     final private short header;
     final private int length;
-    final public ChannelBuffer buffer;
 
-    public NettyRequest(int length, ChannelBuffer buffer) {
+    final public ByteBuf buffer;
+
+    public NettyRequest(int length, ByteBuf buffer) {
         this.buffer = buffer;
         this.header = buffer.readShort();
         this.length = length;
@@ -103,7 +104,7 @@ public class NettyRequest implements ClientMessage {
      *
      * @return the buffer
      */
-    public ChannelBuffer getBuffer() {
+    public ByteBuf getBuffer() {
         return buffer;
     }
 

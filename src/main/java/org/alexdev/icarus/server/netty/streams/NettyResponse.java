@@ -3,38 +3,28 @@ package org.alexdev.icarus.server.netty.streams;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.server.api.messages.Serialisable;
-import org.jboss.netty.buffer.ChannelBuffer;
-import org.jboss.netty.buffer.ChannelBufferOutputStream;
-import org.jboss.netty.buffer.ChannelBuffers;
 
 public class NettyResponse implements Response {
-    
-    private boolean finalised;
+
     private short id;
-    
-    private ChannelBufferOutputStream bodystream;
-    private ChannelBuffer body;
+    private ByteBuf buffer;
+
+    private boolean finalised;
 
     /* (non-Javadoc)
      * @see org.alexdev.icarus.server.api.messages.Response#init(int)
      */
     @Override
     public void init(short id) {
-
         this.id = id;
-        this.finalised = false;
-        this.body = ChannelBuffers.dynamicBuffer();
-        this.bodystream = new ChannelBufferOutputStream(body);
-        
-        try {
-            
-            this.bodystream.writeInt(0);
-            this.bodystream.writeShort(id);
 
-        } catch (Exception e) { }
+        this.buffer = Unpooled.buffer(6);
+        this.buffer.writeInt(0);
+        this.buffer.writeShort(id);
     }
     
     /* (non-Javadoc)
@@ -42,11 +32,8 @@ public class NettyResponse implements Response {
      */
     @Override
     public void writeString(Object obj) {
-
-        try {
-            bodystream.writeShort(obj.toString().length());
-            bodystream.write(obj.toString().getBytes());
-        } catch (IOException e) { }
+        buffer.writeShort(obj.toString().length());
+        buffer.writeBytes(obj.toString().getBytes());
     }
 
     /* (non-Javadoc)
@@ -54,10 +41,7 @@ public class NettyResponse implements Response {
      */
     @Override
     public void writeInt(Integer obj) {
-        
-        try {
-            bodystream.writeInt(obj);
-        } catch (IOException e) { }
+       buffer.writeInt(obj);
     }
 
     /* (non-Javadoc)
@@ -65,10 +49,7 @@ public class NettyResponse implements Response {
      */
     @Override
     public void writeInt(Boolean obj) {
-        
-        try {
-            bodystream.writeInt(obj ? 1 : 0);
-        } catch (IOException e) { }
+        buffer.writeInt(obj ? 1 : 0);
     }
 
     /* (non-Javadoc)
@@ -76,10 +57,7 @@ public class NettyResponse implements Response {
      */
     @Override
     public void writeShort(int obj) {
-        
-        try {
-            bodystream.writeShort((short)obj);
-        } catch (IOException e) { }
+        buffer.writeShort((short)obj);
     }
 
     /* (non-Javadoc)
@@ -87,10 +65,7 @@ public class NettyResponse implements Response {
      */
     @Override
     public void writeBool(Boolean obj) {
-        
-        try {
-            bodystream.writeBoolean(obj);
-        } catch (IOException e) { }
+        buffer.writeBoolean(obj);
     }
     
     /* (non-Javadoc)
@@ -118,14 +93,14 @@ public class NettyResponse implements Response {
     /* (non-Javadoc)
      * @see org.alexdev.icarus.server.api.messages.Response#get()
      */
-    public ChannelBuffer get() {
+    public ByteBuf get() {
 
         if (!this.finalised) {
-            this.body.setInt(0, this.body.writerIndex() - 4);
+            this.buffer.setInt(0, this.buffer.writerIndex() - 4);
             this.finalised = true;
         }
         
-        return this.body;
+        return this.buffer;
     }
 
     /* (non-Javadoc)
@@ -141,16 +116,5 @@ public class NettyResponse implements Response {
     @Override
     public boolean isFinalised() {
         return this.finalised;
-    }
-
-    /**
-     * Write double.
-     *
-     * @param i the number
-     */
-    public void writeDouble(int i) {
-        try {
-            bodystream.writeDouble(i);
-        } catch (IOException e) { }
     }
 }

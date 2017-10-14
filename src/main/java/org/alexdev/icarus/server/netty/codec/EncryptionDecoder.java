@@ -1,13 +1,14 @@
 package org.alexdev.icarus.server.netty.codec;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.ByteToMessageDecoder;
 import org.alexdev.icarus.encryption.RC4;
-import org.jboss.netty.buffer.ChannelBuffer;
-import org.jboss.netty.buffer.ChannelBuffers;
-import org.jboss.netty.channel.Channel;
-import org.jboss.netty.channel.ChannelHandlerContext;
-import org.jboss.netty.handler.codec.frame.FrameDecoder;
 
-public class EncryptionDecoder extends FrameDecoder {
+import java.util.List;
+
+public class EncryptionDecoder extends ByteToMessageDecoder {
 
     private RC4 rc4;
 
@@ -16,14 +17,14 @@ public class EncryptionDecoder extends FrameDecoder {
     }
 
     @Override
-    protected ChannelBuffer decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) {
+    protected void decode(ChannelHandlerContext ctx, ByteBuf buffer, List<Object> out) throws Exception {
 
-        ChannelBuffer result = ChannelBuffers.dynamicBuffer();
+        ByteBuf result = Unpooled.buffer();
 
         while (buffer.readableBytes() > 0) {
             result.writeByte((byte) (buffer.readByte() ^ this.rc4.next()));
         }
 
-        return result;
+        out.add(result);
     }
 }
