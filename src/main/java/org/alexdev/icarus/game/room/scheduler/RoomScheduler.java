@@ -80,7 +80,7 @@ public class RoomScheduler implements Runnable {
         boolean taskStarted = false;
         
         if (this.roomScheduledTasks == null) {
-            this.roomScheduledTasks = RoomManager.getScheduledPool().scheduleAtFixedRate(this, 2, 1, TimeUnit.SECONDS);
+            this.roomScheduledTasks = RoomManager.getScheduledPool().scheduleAtFixedRate(this, 0, 1, TimeUnit.SECONDS);
             taskStarted = true;
         }
         
