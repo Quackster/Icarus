@@ -34,7 +34,6 @@ public class SlideObjectMessageComposer extends MessageComposer {
 
     @Override
     public void write() {
-
         this.response.init(Outgoing.SlideObjectMessageComposer);
         this.response.writeInt(this.from.getX());
         this.response.writeInt(this.from.getY());
