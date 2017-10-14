@@ -78,19 +78,10 @@ public class RoomUser {
 
         Item item = this.room.getMapping().getHighestItem(this.position.getX(), this.position.getY());
 
-        boolean no_current_item = false;
-
-        if (item != null) {
-            if (item.isWalkable()) {
-                this.currentItem = item;
-            } else {
-                no_current_item = true;
-            }
+        if (item != null && item.isWalkable()) {
+            this.currentItem = item;
+            System.out.println("ITEM: " + item.getDefinition().getItemName() + " / " + item.getId());
         } else {
-            no_current_item = true;
-        }
-
-        if (no_current_item) {
             this.currentItem = null;
         }
 

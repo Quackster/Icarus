@@ -37,4 +37,9 @@ public class NettyPlayerNetwork extends PlayerNetwork {
     public void sendQueued(MessageComposer response) {
         channel.write(response);
     }
+
+    @Override
+    public void flush() {
+        channel.flush();
+    }
 }

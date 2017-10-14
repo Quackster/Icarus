@@ -79,5 +79,4 @@ public abstract class Entity extends Metadata {
     public void setDisposed(boolean flag) {
         this.disposed = flag;
     }
-
 }

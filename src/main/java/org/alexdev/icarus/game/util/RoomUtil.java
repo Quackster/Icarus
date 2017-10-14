@@ -137,8 +137,8 @@ public class RoomUtil {
         player.sendQueued(new WallOptionsMessageComposer(room.getData().hasHiddenWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
         player.sendQueued(new RoomPromotionMessageComposer(room));
 
-        player.send(new FloorItemsMessageComposer(room.getItemManager().getFloorItems()));
-        player.send(new WallItemsMessageComposer(room.getItemManager().getWallItems()));
+        player.sendQueued(new FloorItemsMessageComposer(room.getItemManager().getFloorItems()));
+        player.sendQueued(new WallItemsMessageComposer(room.getItemManager().getWallItems()));
 
         player.getMessenger().sendStatus(false);
 
@@ -159,6 +159,8 @@ public class RoomUtil {
                 player.sendQueued(new NewGroupMessageComposer(room.getData().getId(), room.getData().getGroupId()));
             }
         }
+
+        player.getNetwork().flush();
     }
     
     /**

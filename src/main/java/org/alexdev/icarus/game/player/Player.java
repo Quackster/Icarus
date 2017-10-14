@@ -85,13 +85,13 @@ public class Player extends Entity {
         this.getMessenger().init();
         this.getDetails().setAuthenticated(true);
 
-        this.send(new UniqueMachineIDMessageComposer(this.getMachineId()));
-        this.send(new AuthenticationOKMessageComposer());
-        this.send(new EffectsMessageComposer(this.getInventory().getEffects()));
-        this.send(new HomeRoomMessageComposer(2, false));
-        this.send(new LandingWidgetMessageComposer());
-        this.send(new AvailabilityMessageComposer());
-
+        this.sendQueued(new UniqueMachineIDMessageComposer(this.getMachineId()));
+        this.sendQueued(new AuthenticationOKMessageComposer());
+        this.sendQueued(new EffectsMessageComposer(this.getInventory().getEffects()));
+        this.sendQueued(new HomeRoomMessageComposer(2, false));
+        this.sendQueued(new LandingWidgetMessageComposer());
+        this.sendQueued(new AvailabilityMessageComposer());
+        this.network.flush();
     }
 
     /**
@@ -125,7 +125,6 @@ public class Player extends Entity {
             room.dispose();
 
             this.messenger.sendStatus(false);
-
             break;
 
         }
@@ -299,12 +298,17 @@ public class Player extends Entity {
         this.network.send(response);
     }
 
+    /**
+     * Send queued packet to the server.
+     *
+     * @param response the response
+     */
     public void sendQueued(MessageComposer response) {
         this.network.sendQueued(response);
     }
 
     /**
-     * Gets the diffie hellman session instance
+     * Gets the diffie hellman session instance.
      *
      * @return the diffie hellman
      */
@@ -338,12 +342,22 @@ public class Player extends Entity {
     public void setRC4(byte[] sharedKey) {
         this.rc4 = new RC4(sharedKey);
         this.network.addPipelineStage(this.rc4);
-    }    
-    
+    }
+
+    /**
+     * Get player logger instance
+     *
+     * @return logger
+     */
     public Logger getLogger() {
 		return logger;
 	}
 
+    /**
+     * Get RC4 decryption class instance
+     *
+     * @return rc4
+     */
     public RC4 getRc4() {
         return rc4;
     }

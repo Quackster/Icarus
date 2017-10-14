@@ -53,5 +53,10 @@ public abstract class PlayerNetwork {
      * @param object the object
      */
     public abstract void addPipelineStage(Object object);
+
+    /**
+     * Flush all data written to socket.
+     */
+    public abstract void flush();
    
 }
