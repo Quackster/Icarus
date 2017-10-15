@@ -247,11 +247,11 @@ public class Position {
         Position square = this.copy();
         
         if (this.bodyRotation == 0) {
-            square.X--;
-        } else if (this.bodyRotation == 2) {
-            square.Y++;
-        } else if (this.bodyRotation == 4) {
             square.X++;
+        } else if (this.bodyRotation == 2) {
+            square.Y--;
+        } else if (this.bodyRotation == 4) {
+            square.X--;
         } else if (this.bodyRotation == 6) {
             square.Y++;
         }
@@ -268,11 +268,11 @@ public class Position {
         Position square = this.copy();
 
         if (this.bodyRotation == 0) {
-            square.X++;
-        } else if (this.bodyRotation == 2) {
-            square.Y--;
-        } else if (this.bodyRotation == 4) {
             square.X--;
+        } else if (this.bodyRotation == 2) {
+            square.Y++;
+        } else if (this.bodyRotation == 4) {
+            square.X++;
         } else if (this.bodyRotation == 6) {
             square.Y--;
         }

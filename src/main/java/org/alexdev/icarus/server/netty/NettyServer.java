@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 public class NettyServer extends ServerHandler  {
 
     final private static int BACK_LOG = 20;
-    final private static int BUFFER_SIZE = 0x4000;
+    final private static int BUFFER_SIZE = 2048;
 	final private static Logger log = LoggerFactory.getLogger(NettyServer.class);
 
     private DefaultChannelGroup channels;
