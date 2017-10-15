@@ -75,8 +75,6 @@ public class Icarus extends Metadata {
 
             log.info("Setting up server");
 
-
-
             serverIP = Util.getServerConfig().get("Server", "server.ip", String.class);
             serverPort = Util.getServerConfig().get("Server", "server.port", int.class);
 

@@ -2,6 +2,7 @@ package org.alexdev.icarus.server.netty.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -17,6 +18,7 @@ public class NetworkDecoder extends ByteToMessageDecoder {
         buffer.markReaderIndex();
 
         if (buffer.readableBytes() < 6) {
+            // If the incoming data is less than 6 bytes, it's junk.
             return;
         }
 
@@ -30,7 +32,8 @@ public class NetworkDecoder extends ByteToMessageDecoder {
                     + "<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n"
                     + "</cross-domain-policy>\0)";
 
-            ctx.channel().writeAndFlush(Unpooled.copiedBuffer(policy.getBytes())).addListener(ChannelFutureListener.CLOSE);
+            ChannelFuture future = ctx.channel().writeAndFlush(Unpooled.copiedBuffer(policy.getBytes()));
+            future.addListener(ChannelFutureListener.CLOSE);
 
         } else {
 
