@@ -105,34 +105,32 @@ public class RoomMapping {
         }
 
         RoomTile currentTile = this.getTile(current.getX(), current.getY());
+        RoomTile nextTile = this.getTile(neighbour.getX(), neighbour.getY());
 
-        double currentHeight = this.getTileHeight(current.getX(), current.getY());
-        double nextHeight = this.getTileHeight(neighbour.getX(), neighbour.getY());
+        double currentHeight = currentTile.getHeight();
+        double nextHeight = nextTile.getHeight();
 
         if (Position.getHeightDifference(currentHeight, nextHeight) > 1.0) {
             return false;
         }
 
-        if (entity != null) {
-            if (!current.equals(this.room.getModel().getDoorLocation())) {
+        if (!current.equals(this.room.getModel().getDoorLocation())) {
+            if (!this.isTileWalkable(current.getX(), current.getY(), entity)) {
+                return false;
+            }
 
-                if (!this.isTileWalkable(current.getX(), current.getY(), entity)) {
-                    return false;
-                }
+            if (!current.equals(entity.getRoomUser().getPosition())) {
+                if (currentTile.getHighestItem() != null) {
 
-                if (!current.equals(entity.getRoomUser().getPosition())) {
-                    if (currentTile.getHighestItem() != null) {
+                    Item currentItem = currentTile.getHighestItem();
 
-                        Item currentItem = currentTile.getHighestItem();
+                    if (!isFinalMove) {
+                        return currentItem.getDefinition().isWalkable() || currentItem.isGateOpen();
+                    }
 
-                        if (!isFinalMove) {
-                            return currentItem.getDefinition().isWalkable() || currentItem.isGateOpen();
-                        }
+                    if (isFinalMove) {
+                        return currentItem.isWalkable();
 
-                        if (isFinalMove) {
-                            return currentItem.isWalkable();
-
-                        }
                     }
                 }
             }
