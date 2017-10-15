@@ -580,4 +580,9 @@ public class Item extends Metadata {
     public void setItemUnderneath(Item itemUnderneath) {
         this.itemUnderneath = itemUnderneath;
     }
+
+    @Override
+    public String toString() {
+        return "[" + this.id + ", " + this.getDefinition().getItemName() + ", " + this.getDefinition().getInteractionType().name() + ", " + this.position.toString() + "]";
+    }
 }

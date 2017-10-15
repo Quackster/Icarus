@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.item;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.alexdev.icarus.dao.mysql.item.InventoryDao;
 import org.alexdev.icarus.dao.mysql.item.TeleporterDao;
 import org.alexdev.icarus.game.inventory.InventoryNotification;
@@ -199,6 +200,29 @@ public class ItemDefinition {
         }
 
         return canStack;
+    }
+
+    /**
+     * Is it a door type? Open/close furniture.
+     *
+     * @return true, if successful
+     */
+    public boolean isDoor() {
+
+        if (this.interactionType == InteractionType.GATE) {
+            return true;
+        }
+
+        if (this.interactionType == InteractionType.ONEWAYGATE) {
+            return true;
+        }
+
+        if (this.interactionType == InteractionType.TELEPORT) {
+            return true;
+
+        }
+
+        return false;
     }
 
     /**
