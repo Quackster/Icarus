@@ -292,7 +292,7 @@ public class Position {
     /**
      * Checks if is match.
      *
-     * @param point the point
+     * @param obj the point
      * @return true, if is match
      */
     @Override
