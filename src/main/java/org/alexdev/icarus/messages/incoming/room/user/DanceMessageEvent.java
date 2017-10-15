@@ -28,7 +28,7 @@ public class DanceMessageEvent implements MessageEvent {
         if (danceId < 0 || danceId > 4)
             danceId = 0;
         
-        if (danceId > 0) {
+        if (roomUser.getCarryItem() > 0) {
             roomUser.carryItem(0); // remove anything they were carrying
         }
 

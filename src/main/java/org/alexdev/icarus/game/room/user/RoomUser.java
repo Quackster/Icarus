@@ -370,7 +370,7 @@ public class RoomUser {
         if (vendingId > 0) {
             this.carryTimer.set(240);
         } else {
-            this.carryTimer.set(0);
+            this.carryTimer.set(-1);
         }
 
         this.room.send(new CarryObjectComposer(this.virtualId, vendingId)); 

@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
 
-
 public class TeleporterDao {
 
     /**
@@ -28,7 +27,6 @@ public class TeleporterDao {
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM item_teleporter_links WHERE item_one = ? OR item_two = ? LIMIT 1;", sqlConnection);
             preparedStatement.setInt(1, id);
             preparedStatement.setInt(2, id);
-
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -76,6 +74,5 @@ public class TeleporterDao {
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
-
     }
 }
