@@ -42,7 +42,6 @@ public class TeleportInteractor extends Interaction {
         Position front = item.getPosition().getSquareInFront();
 
         if (!front.equals(roomUser.getPosition())) {
-
             Item targetTeleporter = roomUser.getRoom().getItemManager().getItem(item.getTeleporterId());
 
             if (targetTeleporter == null) {
@@ -52,17 +51,8 @@ public class TeleportInteractor extends Interaction {
             if (targetTeleporter.getRoom() != null) {
                 roomUser.walkTo(front.getX(), front.getY());
             }
-            
             return;
         }
-
-        /*int newRotation = item.getPosition().getRotation() - 4;
-
-        if (roomUser.getPosition().getRotation() != newRotation) {
-            roomUser.getPosition().setRotation(newRotation);
-            roomUser.setNeedUpdate(true);
-            return;
-        }*/
 
         item.setExtraData(TELEPORTER_OPEN);
         item.updateStatus();
