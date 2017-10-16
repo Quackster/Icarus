@@ -23,7 +23,7 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectComposer;
+import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.TalkMessageComposer;
 import org.alexdev.icarus.messages.outgoing.user.effects.EffectMessageComposer;
@@ -373,7 +373,7 @@ public class RoomUser {
             this.carryTimer.set(-1);
         }
 
-        this.room.send(new CarryObjectComposer(this.virtualId, vendingId)); 
+        this.room.send(new CarryObjectMessageComposer(this.virtualId, vendingId));
     }
 
     /**

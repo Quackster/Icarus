@@ -139,7 +139,6 @@ public class PlayerManager {
 
             if (session.getDetails().getId() == player.getEntityId()) {
                 if (session.getNetwork().getConnectionId() != player.getNetwork().getConnectionId()) { // user tries to login twice
-                    //session.dispose();
                     session.getNetwork().close();
                     break;
                 }

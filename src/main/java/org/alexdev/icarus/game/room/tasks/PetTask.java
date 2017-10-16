@@ -19,7 +19,7 @@ public class PetTask extends RoomTask {
 
         List<Pet> pets = this.room.getEntityManager().getEntitiesByClass(Pet.class);
 
-        if (pets.size() == 0) {
+        if (pets.isEmpty()) {
             return;
         }
 
@@ -33,5 +33,8 @@ public class PetTask extends RoomTask {
 
 
         }
+
+        pets.clear();
+        pets = null;
     }
 }

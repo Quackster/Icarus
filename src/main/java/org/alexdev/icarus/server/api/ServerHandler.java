@@ -2,22 +2,34 @@ package org.alexdev.icarus.server.api;
 
 public abstract class ServerHandler {
     
-    private int port;
+    private Integer port;
     private String ip;
-   
+
+    public ServerHandler(String ip, Integer port) {
+        this.port = port;
+        this.ip = ip;
+    }
+
     /**
-     * Listen socket.
+     * Create socket.
      *
      * @return true, if successful
      */
-    public abstract boolean listenSocket();
+    public abstract void createSocket();
+
+    /**
+     * Bind socket.
+     *
+     * @return true, if successful
+     */
+    public abstract boolean bind();
 
     /**
      * Gets the port.
      *
      * @return the port
      */
-    public int getPort() {
+    public Integer getPort() {
         return port;
     }
 
@@ -35,7 +47,7 @@ public abstract class ServerHandler {
      *
      * @param port the new port
      */
-    public void setPort(int port) {
+    public void setPort(Integer port) {
         this.port = port;
     }
 

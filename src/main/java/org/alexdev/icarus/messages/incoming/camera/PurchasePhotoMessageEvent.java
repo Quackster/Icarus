@@ -3,8 +3,10 @@ package org.alexdev.icarus.messages.incoming.camera;
 import org.alexdev.icarus.dao.mysql.item.InventoryDao;
 import org.alexdev.icarus.game.inventory.InventoryNotification;
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.ItemDefinition;
+import org.alexdev.icarus.game.item.ItemManager;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.messages.outgoing.camera.PurchasedPhotoComposer;
+import org.alexdev.icarus.messages.outgoing.camera.PurchasedPhotoMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
@@ -12,8 +14,12 @@ public class PurchasePhotoMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-        
-        int photoId = 6359;//757369158
+
+        if (!player.getMetadata().hasMetadata("latestPhotoUrl")) {
+            return;
+        }
+
+        ItemDefinition photoDef = ItemManager.getFurnitureByClass("external_image_wallitem_poster_small");
 
         StringBuilder extraData = new StringBuilder();
         extraData.append("{");
@@ -25,16 +31,16 @@ public class PurchasePhotoMessageEvent implements MessageEvent {
         extraData.append("\"m\":\"\"");
         extraData.append("}");
 
-        Item photo = InventoryDao.newItem(photoId, player.getEntityId(), extraData.toString());
+        Item photo = InventoryDao.newItem(photoDef.getId(), player.getEntityId(), extraData.toString());
         
         player.getInventory().addItem(photo, InventoryNotification.ALERT);
         player.getInventory().updateItems();
         
-        player.getDetails().setCredits(-50);
+        player.getDetails().setCredits(player.getDetails().getCredits() - 50);
         player.getDetails().sendCredits();
         
         player.getMetadata().remove("latestPhotoUrl");
-        player.send(new PurchasedPhotoComposer());
+        player.send(new PurchasedPhotoMessageComposer());
     }
 
 }

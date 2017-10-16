@@ -1,5 +1,6 @@
 package org.alexdev.icarus;
 
+import java.lang.reflect.Constructor;
 import java.net.InetAddress;
 
 import org.alexdev.icarus.dao.mysql.Dao;
@@ -75,6 +76,7 @@ public class Icarus extends Metadata {
 
             log.info("Setting up server");
 
+            // Get the server variables for the socket to listen on
             serverIP = Util.getServerConfig().get("Server", "server.ip", String.class);
             serverPort = Util.getServerConfig().get("Server", "server.port", int.class);
 
@@ -83,15 +85,19 @@ public class Icarus extends Metadata {
                 serverIP = InetAddress.getByName(serverIP).getHostAddress();
             }
 
-            server = Class.forName(Icarus.getServerClassPath()).asSubclass(ServerHandler.class).getDeclaredConstructor().newInstance();
-            server.setIp(serverIP);
-            server.setPort(serverPort);
-
             // Since we have overridden the IP, grab it again from the config to have a nice output instead of
             // something like 0.0.0.0 for instance ;)
             String configurationAddress = Util.getServerConfig().get("Server", "server.ip", String.class);
 
-            if (server.listenSocket()) {
+            // Get the server instance through reflection
+            Class<? extends ServerHandler> serverClass = Class.forName(Icarus.getServerClassPath()).asSubclass(ServerHandler.class);
+            Constructor<? extends ServerHandler> serverConstructor = serverClass.getDeclaredConstructor(String.class, Integer.class);
+
+            // Create the server instance
+            server = serverConstructor.newInstance(serverIP, serverPort);
+            server.createSocket();
+
+            if (server.bind()) {
                 log.info("Server is listening on {}:{}", configurationAddress, serverPort);
             } else {
                 log.error("Server could not listen on {}:{}, please double check everything is correct in icarus.properties", configurationAddress, serverPort);

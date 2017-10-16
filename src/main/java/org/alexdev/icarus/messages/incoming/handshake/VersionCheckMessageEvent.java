@@ -18,5 +18,4 @@ public class VersionCheckMessageEvent implements MessageEvent {
             return;
         }
     }
-
 }

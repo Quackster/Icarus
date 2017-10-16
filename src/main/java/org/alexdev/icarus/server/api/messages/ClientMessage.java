@@ -51,6 +51,10 @@ public interface ClientMessage {
      * @return the message id
      */
     public short getMessageId();
-    
+
+    /**
+     * Returns the length of the received packet
+     * @return the length
+     */
     public int getLength();
 }

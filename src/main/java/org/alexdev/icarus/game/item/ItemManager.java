@@ -11,7 +11,8 @@ import org.slf4j.LoggerFactory;
 
 public class ItemManager {
 
-    private static Map<Integer, ItemDefinition> furnitureIds;
+    private static Map<Integer, ItemDefinition> furnitures;
+    private static Map<String, ItemDefinition> furnitureClassLookup;
 
     private static final Logger log = LoggerFactory.getLogger(ItemManager.class);
 
@@ -19,10 +20,15 @@ public class ItemManager {
      * Load all item definitions.
      */
     public static void load() {
-        furnitureIds = ItemDao.getFurniture();
+        furnitures = ItemDao.getFurniture();
+        furnitureClassLookup = new HashMap<>();
+
+        for (ItemDefinition def : furnitures.values()) {
+            furnitureClassLookup.put(def.getItemName(), def);
+        }
 
         if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
-            log.info("Loaded {} item definitions", furnitureIds.size());
+            log.info("Loaded {} item definitions", furnitures.size());
         }
     }
 
@@ -34,8 +40,23 @@ public class ItemManager {
      */
     public static ItemDefinition getFurnitureById(int id) {
 
-        if (furnitureIds.containsKey(id)) {
-            return furnitureIds.get(id);
+        if (furnitures.containsKey(id)) {
+            return furnitures.get(id);
+        }
+
+        return null;
+    }
+
+    /**
+     * Find furniture definition by swf class.
+     *
+     * @param className the swf file name
+     * @return the furniture by class
+     */
+    public static ItemDefinition getFurnitureByClass(String className) {
+
+        if (furnitureClassLookup.containsKey(className)) {
+            return furnitureClassLookup.get(className);
         }
 
         return null;

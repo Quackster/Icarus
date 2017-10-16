@@ -1,7 +1,7 @@
 package org.alexdev.icarus.messages.incoming.user;
 
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.messages.outgoing.room.user.UserChangeComposer;
+import org.alexdev.icarus.messages.outgoing.room.user.UserChangeMessageComposer;
 import org.alexdev.icarus.messages.outgoing.user.AvatarAspectUpdateComposer;
 import org.alexdev.icarus.messages.outgoing.user.UserObjectMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
@@ -29,8 +29,8 @@ public class ChangeAppearanceMessageEvent implements MessageEvent {
 
         
         if (player.inRoom()) {
-            player.sendQueued(new UserChangeComposer(player, true));
-            player.getRoom().send(new UserChangeComposer(player, false));
+            player.sendQueued(new UserChangeMessageComposer(player, true));
+            player.getRoom().send(new UserChangeMessageComposer(player, false));
         }
 
     }

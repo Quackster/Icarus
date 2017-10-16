@@ -1,6 +1,10 @@
 package org.alexdev.icarus.messages.incoming.camera;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.util.zip.Inflater;
 
 import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.player.Player;
@@ -43,6 +47,7 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
         final String newFileName = fileName;
 
         GameScheduler.getScheduler().execute(() -> {
+
             try {
                 FileOutputStream fos = new FileOutputStream(filePath + newFileName);
                 fos.write(photoPayload);
@@ -56,5 +61,38 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
 
         player.getMetadata().set("latestPhotoUrl", fileName);
         player.send(new PhotoPreviewComposer(fileName));
+
+        /*try {
+            byte[] buffer = new byte[4096 * 3];
+            reader.readInt();
+            byte[] data = reader.readBytes(reader.getLength() - 6);
+
+            Inflater inflater = new Inflater();
+            inflater.setInput(data);
+
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+
+            while (!inflater.finished()) {
+                int count = inflater.inflate(buffer);
+                outputStream.write(buffer, 0, count);
+            }
+
+            outputStream.close();
+            inflater.end();
+
+            byte[] output = outputStream.toByteArray();
+
+            PrintWriter writer = new PrintWriter(new File("image.json"));
+            writer.write(new String(output));
+            writer.flush();
+            writer.close();
+
+
+
+
+        } catch (Exception e) {
+            player.getLogger().error("Could not save photo for room id {}", room.getData().getId(), e);
+        }*/
+
     }
 }

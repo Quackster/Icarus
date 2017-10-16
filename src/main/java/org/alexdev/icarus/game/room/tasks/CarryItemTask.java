@@ -41,5 +41,8 @@ public class CarryItemTask extends RoomTask {
                 }
             }
         }
+
+        entities.clear();
+        entities = null;
     }
 }

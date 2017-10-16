@@ -26,32 +26,37 @@ public class NettyServer extends ServerHandler  {
 	final private static Logger log = LoggerFactory.getLogger(NettyServer.class);
 
     private DefaultChannelGroup channels;
+    private ServerBootstrap bootstrap;
 
-    public NettyServer() {
+    public NettyServer(String ip, Integer port) {
+        super(ip, port);
         this.channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+        this.bootstrap = new ServerBootstrap();
     }
 
     @Override
-    public boolean listenSocket() {
+    public void createSocket() {
 
         int threads = Runtime.getRuntime().availableProcessors() * 2;
-
         EventLoopGroup bossGroup = (Epoll.isAvailable()) ? new EpollEventLoopGroup(threads) : new NioEventLoopGroup(threads);
         EventLoopGroup workerGroup = (Epoll.isAvailable()) ? new EpollEventLoopGroup() : new NioEventLoopGroup();
 
-        ServerBootstrap bootstrap = new ServerBootstrap();
-        bootstrap.group(bossGroup, workerGroup)
-                .channel((Epoll.isAvailable()) ? EpollServerSocketChannel.class : NioServerSocketChannel.class)
-                .childHandler(new NettyChannelInitializer(this))
-                .option(ChannelOption.SO_BACKLOG, BACK_LOG)
-                .childOption(ChannelOption.TCP_NODELAY, true)
-                .childOption(ChannelOption.SO_KEEPALIVE, true)
-                .childOption(ChannelOption.SO_RCVBUF, BUFFER_SIZE)
-                .childOption(ChannelOption.RCVBUF_ALLOCATOR, new FixedRecvByteBufAllocator(BUFFER_SIZE))
-                .childOption(ChannelOption.ALLOCATOR, new UnpooledByteBufAllocator(false));
+        this.bootstrap.group(bossGroup, workerGroup)
+            .channel((Epoll.isAvailable()) ? EpollServerSocketChannel.class : NioServerSocketChannel.class)
+            .childHandler(new NettyChannelInitializer(this))
+            .option(ChannelOption.SO_BACKLOG, BACK_LOG)
+            .childOption(ChannelOption.TCP_NODELAY, true)
+            .childOption(ChannelOption.SO_KEEPALIVE, true)
+            .childOption(ChannelOption.SO_RCVBUF, BUFFER_SIZE)
+            .childOption(ChannelOption.RCVBUF_ALLOCATOR, new FixedRecvByteBufAllocator(BUFFER_SIZE))
+            .childOption(ChannelOption.ALLOCATOR, new UnpooledByteBufAllocator(false));
+    }
+
+    @Override
+    public boolean bind() {
 
         try {
-            bootstrap.bind(new InetSocketAddress(this.getIp(), this.getPort()));
+            this.bootstrap.bind(new InetSocketAddress(this.getIp(), this.getPort()));
         } catch (ChannelException ex) {
             log.error("Could not listen on server: ", ex);
             return false;

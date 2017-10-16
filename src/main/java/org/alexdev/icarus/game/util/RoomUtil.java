@@ -125,7 +125,7 @@ public class RoomUtil {
             }
             
             if (players.getRoomUser().getCarryItem() > 0) {
-                player.sendQueued(new CarryObjectComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getCarryItem())); 
+                player.sendQueued(new CarryObjectMessageComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getCarryItem()));
             }
         }
 

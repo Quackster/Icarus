@@ -32,12 +32,9 @@ public class RollerTask extends RoomTask {
 
         List<Item> rollers = this.room.getItemManager().getItems(InteractionType.ROLLER);
         
-        if (!(rollers.size() > 0)) {
+        if (rollers.isEmpty()) {
             return;
         }
-        
-        Set<Entity> entityBlacklist = new HashSet<>();
-        Set<Item> itemBlacklist = new HashSet<>();
         
         List<Entity> entities = this.room.getEntityManager().getEntities();
         
@@ -47,10 +44,6 @@ public class RollerTask extends RoomTask {
 
             for(Item item : items) {
 
-                if (itemBlacklist.contains(item)) {
-                    continue;
-                }
-
                 if (item.getPosition().equals(roller.getPosition()) && item.getPosition().getZ() > roller.getPosition().getZ()) {
 
                     Position front = roller.getPosition().getSquareInFront();
@@ -58,8 +51,6 @@ public class RollerTask extends RoomTask {
                     if (!this.room.getMapping().isTileWalkable(front.getX(), front.getY(), null)) {
                         continue;
                     }
-
-                    itemBlacklist.add(item);
 
                     RoomTile frontTile = this.room.getMapping().getTile(front.getX(), front.getY());
                     double nextHeight = frontTile.getHeight();
@@ -102,10 +93,6 @@ public class RollerTask extends RoomTask {
             for (int i = 0; i < entities.size(); i++) {
 
                 Entity entity = entities.get(i);
-
-                if (entityBlacklist.contains(entity)) {
-                    continue;
-                }
                 
                 if (entity.getRoomUser().isWalking()) {
                     continue;
@@ -114,7 +101,6 @@ public class RollerTask extends RoomTask {
                 if (entity.getRoomUser().getPosition().equals(roller.getPosition()) && entity.getRoomUser().getPosition().getZ() > roller.getPosition().getZ()) {
 
                     Position front = roller.getPosition().getSquareInFront();
-                    entityBlacklist.add(entity);
 
                     if (!this.room.getMapping().isValidStep(entity, entity.getRoomUser().getPosition(), front, false)) {
                         continue;
@@ -139,6 +125,12 @@ public class RollerTask extends RoomTask {
             if (redoMap) {
                 this.room.getMapping().regenerateCollisionMaps();
             }
+
+            entities.clear();
+            rollers.clear();
+
+            entities = null;
+            rollers = null;
         }
     }
 }

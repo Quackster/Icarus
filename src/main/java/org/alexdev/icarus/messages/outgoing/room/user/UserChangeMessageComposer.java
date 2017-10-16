@@ -4,12 +4,12 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 
-public class UserChangeComposer extends MessageComposer {
+public class UserChangeMessageComposer extends MessageComposer {
 
     private Entity entity;
     private boolean self;
 
-    public UserChangeComposer(Entity entity, boolean self) {
+    public UserChangeMessageComposer(Entity entity, boolean self) {
         this.entity = entity;
         this.self = self;
     }

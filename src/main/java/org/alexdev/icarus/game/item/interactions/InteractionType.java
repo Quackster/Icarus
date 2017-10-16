@@ -18,7 +18,8 @@ public enum InteractionType {
     WALLPAPER(new WallpaperInteractor()),
     LANDSCAPE(new LandscapeInteractor()),
     ROOMBG(new TonerInteractor()),
-    BACKGROUND(new AdsBackgroundInteractor());
+    BACKGROUND(new AdsBackgroundInteractor()),
+    PHOTO(new PhotoInteractor());
 
     private Interaction interaction;
 
