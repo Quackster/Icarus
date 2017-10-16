@@ -7,7 +7,7 @@ import org.alexdev.icarus.game.item.extradata.types.StringExtraData;
 import org.alexdev.icarus.game.item.interactions.Interaction;
 import org.alexdev.icarus.game.room.user.RoomUser;
 
-public class PhotoInteractor implements Interaction {
+public class PhotoInteractor extends Interaction {
 
     @Override
     public void onUseItem(Item item, RoomUser roomUser) { }

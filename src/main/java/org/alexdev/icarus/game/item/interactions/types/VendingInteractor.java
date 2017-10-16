@@ -1,17 +1,14 @@
 package org.alexdev.icarus.game.item.interactions.types;
 
-import java.util.concurrent.TimeUnit;
-
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.extradata.ExtraData;
-import org.alexdev.icarus.game.item.extradata.ExtraDataPerspective;
-import org.alexdev.icarus.game.item.extradata.types.StringExtraData;
 import org.alexdev.icarus.game.item.interactions.Interaction;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.user.RoomUser;
 
-public class VendingInteractor implements Interaction {
+import java.util.concurrent.TimeUnit;
+
+public class VendingInteractor extends Interaction {
 
     @Override
     public void onUseItem(final Item item, final RoomUser roomUser) {
@@ -24,13 +21,13 @@ public class VendingInteractor implements Interaction {
             return;
         }
 
-        int newRotation = item.getPosition().getRotation() - 4;
+        //int newRotation = item.getPosition().getRotation() - 4;
 
-        if (roomUser.getPosition().getRotation() != newRotation) {
+        /*if (roomUser.getPosition().getRotation() != newRotation) {
             roomUser.getPosition().setRotation(newRotation);
             roomUser.setNeedUpdate(true);
             return; // Don't give the drink immediately after we turn, just like in the old Shockwave versions :^)
-        }
+        }*/
         
         item.setExtraData("1");
         item.updateStatus();
@@ -43,18 +40,5 @@ public class VendingInteractor implements Interaction {
             item.setExtraData("0");
             item.updateStatus();
         }, 2, TimeUnit.SECONDS);
-    }
-
-    @Override
-    public void onStopWalking(Item item, RoomUser roomUser) { }
-
-    @Override
-    public boolean allowStopWalkingUpdate(final Item item) {
-        return false;
-    }
-
-    @Override
-    public ExtraData createExtraData(Item item) {
-        return new StringExtraData(ExtraDataPerspective.FURNI, item.getExtraData());
     }
 }

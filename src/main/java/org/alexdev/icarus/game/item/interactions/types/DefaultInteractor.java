@@ -10,7 +10,7 @@ import org.alexdev.icarus.game.item.interactions.Interaction;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.util.Util;
 
-public class DefaultInteractor implements Interaction {
+public class DefaultInteractor extends Interaction {
 
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {
@@ -35,7 +35,7 @@ public class DefaultInteractor implements Interaction {
             item.saveExtraData();
 
             if (item.getDefinition().getVariableHeight().length > 0) {
-                item.getRoom().getMapping().regenerateCollisionMaps();
+                item.getRoom().getMapping().regenerateCollisionMaps(false);
                 item.updateEntities();
             }
         }
@@ -68,10 +68,5 @@ public class DefaultInteractor implements Interaction {
     @Override
     public boolean allowStopWalkingUpdate(final Item item) {
         return item.getDefinition().allowSitOrLay() || item.getDefinition().getVariableHeight().length > 0;
-    }
-    
-    @Override
-    public ExtraData createExtraData(Item item) {
-        return new StringExtraData(ExtraDataPerspective.FURNI, item.getExtraData());
     }
 }

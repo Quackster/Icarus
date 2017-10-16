@@ -12,18 +12,7 @@ import org.alexdev.icarus.game.item.interactions.Interaction;
 import org.alexdev.icarus.game.item.json.mannequin.MannequinData;
 import org.alexdev.icarus.game.room.user.RoomUser;
 
-public class MannequinInteractor implements Interaction {
-
-    @Override
-    public void onUseItem(Item item, RoomUser roomUser) { }
-
-    @Override
-    public void onStopWalking(Item item, RoomUser roomUser) { }
-
-    @Override
-    public boolean allowStopWalkingUpdate(final Item item) {
-        return false;
-    }
+public class MannequinInteractor extends Interaction {
 
     @Override
     public ExtraData createExtraData(Item item) {

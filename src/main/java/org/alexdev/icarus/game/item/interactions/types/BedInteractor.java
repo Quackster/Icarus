@@ -9,10 +9,7 @@ import org.alexdev.icarus.game.item.extradata.types.StringExtraData;
 import org.alexdev.icarus.game.item.interactions.Interaction;
 import org.alexdev.icarus.game.room.user.RoomUser;
 
-public class BedInteractor implements Interaction {
-
-    @Override
-    public void onUseItem(Item item, RoomUser roomUser) { }
+public class BedInteractor extends Interaction {
 
     @Override
     public void onStopWalking(Item item, RoomUser roomUser) {
@@ -28,10 +25,5 @@ public class BedInteractor implements Interaction {
     @Override
     public boolean allowStopWalkingUpdate(Item item) {
         return true;
-    }
-
-    @Override
-    public ExtraData createExtraData(Item item) {
-        return new StringExtraData(ExtraDataPerspective.FURNI, item.getExtraData());
     }
 }

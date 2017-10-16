@@ -90,7 +90,7 @@ public class RoomEntityManager {
         Player player = (Player) entity;;
         
         this.room.getItemManager().refreshRoomFurniture();
-        this.room.getMapping().regenerateCollisionMaps();
+        this.room.getMapping().regenerateCollisionMaps(true);
         this.room.scheduleEvents();
         this.room.getEntityManager().addPets();
         this.room.loadGroup();

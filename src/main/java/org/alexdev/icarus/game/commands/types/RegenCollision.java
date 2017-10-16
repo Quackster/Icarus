@@ -18,7 +18,7 @@ public class RegenCollision extends Command {
             return;
         }
         
-        player.getRoomUser().getRoom().getMapping().regenerateCollisionMaps();
+        player.getRoomUser().getRoom().getMapping().regenerateCollisionMaps(false);
         player.getRoomUser().chatSelf(ChatType.WHISPER, "The collision map has been regenerated.");
     }
 

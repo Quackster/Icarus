@@ -1,11 +1,8 @@
 package org.alexdev.icarus.game.room.managers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.alexdev.icarus.dao.mysql.item.ItemDao;
 import org.alexdev.icarus.game.item.Item;
@@ -15,9 +12,12 @@ import org.alexdev.icarus.game.room.Room;
 
 public class RoomItemManager {
 
+    private boolean hasRollers;
     private Room room;
+
     private Map<Integer, Item> items;
-    
+    private List<Item> rollers;
+
     public RoomItemManager(Room room) {
         this.room = room;
         this.items = new HashMap<>();
@@ -49,25 +49,23 @@ public class RoomItemManager {
      */
     public List<Item> getItems(InteractionType interactionType) {
 
-        List<Item> rollers = new ArrayList<>();
-        List<Item> items = new ArrayList<>(this.items.values());
-
-        for (int i = 0; i < items.size(); i++) {
-
-            Item item = items.get(i);
-
-            if (item.getDefinition() == null) {
-                continue;
-            }
-
-            if (item.getDefinition().getInteractionType() == interactionType) {
-                rollers.add(item);
-            }
+        try {
+            Stream<Item> items = this.items.values().stream().filter(item -> item.getDefinition().getInteractionType() == interactionType);
+            return items.collect(Collectors.toList());
+        } catch (Exception e) {
+            return new ArrayList<>(); // could not find any of that type, stream throws exception then
         }
-
-        return rollers;
-
     }
+
+
+    /**
+     * Update the room has rollers variable
+     */
+    public void refreshHasRollers() {
+        this.rollers = this.getItems(InteractionType.ROLLER);
+        this.hasRollers = rollers.size() > 0;
+    }
+
 
     /**
      * Gets the item, will try and find from database if the Item is
@@ -105,5 +103,23 @@ public class RoomItemManager {
      */
     public Map<Integer, Item> getItems() {
         return items;
+    }
+
+    /**
+     * Does the room have rollers anywhere.
+     *
+     * @return true, if successful
+     */
+    public boolean hasRollers() {
+        return hasRollers;
+    }
+
+    /**
+     * Get the rooms rollers
+     *
+     * @return the rollers
+     */
+    public List<Item> getRollers() {
+        return rollers;
     }
 }

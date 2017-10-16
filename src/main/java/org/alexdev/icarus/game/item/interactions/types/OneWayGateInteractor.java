@@ -11,7 +11,7 @@ import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.user.RoomUser;
 
-public class OneWayGateInteractor implements Interaction {
+public class OneWayGateInteractor extends Interaction {
 
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {
@@ -38,18 +38,5 @@ public class OneWayGateInteractor implements Interaction {
             item.setExtraData("0");
             item.updateStatus();
         }, 2, TimeUnit.SECONDS);
-    }
-
-    @Override
-    public void onStopWalking(Item item, RoomUser roomUser) { }
-
-    @Override
-    public boolean allowStopWalkingUpdate(final Item item) {
-        return false;
-    }
-
-    @Override
-    public ExtraData createExtraData(Item item) {
-        return new StringExtraData(ExtraDataPerspective.FURNI, item.getExtraData());
     }
 }

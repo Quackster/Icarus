@@ -29,7 +29,7 @@ public class RoomMapping {
     /**
      * Regenerate collision maps.
      */
-    public void regenerateCollisionMaps() {
+    public void regenerateCollisionMaps(boolean refreshItemList) {
 
         this.mapSizeX = this.room.getModel().getMapSizeX();
         this.mapSizeY = this.room.getModel().getMapSizeY();
@@ -82,6 +82,10 @@ public class RoomMapping {
                     affectedTile.setHighestItem(item);
                 }
             }
+        }
+
+        if (refreshItemList) {
+            this.room.getItemManager().refreshHasRollers();
         }
     }
 
@@ -201,7 +205,7 @@ public class RoomMapping {
 
         if (item.getDefinition().getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, false);
-            this.regenerateCollisionMaps();
+            this.regenerateCollisionMaps(true);
         }
 
         item.updateEntities();
@@ -218,7 +222,7 @@ public class RoomMapping {
 
         if (item.getDefinition().getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, rotation_only);
-            this.regenerateCollisionMaps();
+            this.regenerateCollisionMaps(false);
         }
 
         item.updateEntities();
@@ -233,7 +237,7 @@ public class RoomMapping {
     public void removeItem(Item item) {
 
         this.room.getItemManager().getItems().remove(item.getId());
-        this.regenerateCollisionMaps();
+        this.regenerateCollisionMaps(true);
 
         if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
             item.setExtraData("");
@@ -247,7 +251,6 @@ public class RoomMapping {
         item.getPosition().setZ(0);
 
         item.save();
-
         this.room.send(new RemoveItemMessageComposer(item));
     }
 

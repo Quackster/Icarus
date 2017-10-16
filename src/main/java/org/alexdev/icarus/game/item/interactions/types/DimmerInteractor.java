@@ -10,18 +10,7 @@ import org.alexdev.icarus.game.item.json.moodlight.MoodlightData;
 import org.alexdev.icarus.game.item.json.moodlight.MoodlightPreset;
 import org.alexdev.icarus.game.room.user.RoomUser;
 
-public class DimmerInteractor implements Interaction {
-
-    @Override
-    public void onUseItem(Item item, RoomUser roomUser) { }
-
-    @Override
-    public void onStopWalking(Item item, RoomUser roomUser) { }
-
-    @Override
-    public boolean allowStopWalkingUpdate(final Item item) {
-        return false;
-    }
+public class DimmerInteractor extends Interaction {
 
     @Override
     public ExtraData createExtraData(Item item) {

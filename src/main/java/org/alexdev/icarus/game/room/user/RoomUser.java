@@ -213,9 +213,9 @@ public class RoomUser {
 
         InstantMessage playerMessage = new InstantMessage(this.entity.getDetails().getId(), -1, message);    {
             PluginManager.callEvent(type.getEvent(), new LuaValue[] {  
-                    CoerceJavaToLua.coerce(player),
-                    CoerceJavaToLua.coerce(this.room),
-                    CoerceJavaToLua.coerce(playerMessage) 
+                CoerceJavaToLua.coerce(player),
+                CoerceJavaToLua.coerce(this.room),
+                CoerceJavaToLua.coerce(playerMessage)
             });
 
             message = playerMessage.getMessage();
@@ -334,10 +334,10 @@ public class RoomUser {
         if (path.size() > 0) {
             if (this.entity.getType() == EntityType.PLAYER) {
                 PluginManager.callEvent(PluginEvent.ROOM_WALK_REQUEST_EVENT, new LuaValue[] {  
-                        CoerceJavaToLua.coerce((Player)this.entity),
-                        CoerceJavaToLua.coerce(this.room),
-                        CoerceJavaToLua.coerce(this.position), 
-                        CoerceJavaToLua.coerce(this.goal) 
+                    CoerceJavaToLua.coerce((Player)this.entity),
+                    CoerceJavaToLua.coerce(this.room),
+                    CoerceJavaToLua.coerce(this.position),
+                    CoerceJavaToLua.coerce(this.goal)
                 });
             }
 

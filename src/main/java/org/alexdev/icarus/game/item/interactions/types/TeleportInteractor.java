@@ -13,7 +13,7 @@ import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.game.util.RoomUtil;
 
-public class TeleportInteractor implements Interaction {
+public class TeleportInteractor extends Interaction {
 
     public static final String TELEPORTER_CLOSE = "0";
     public static final String TELEPORTER_OPEN = "1";
@@ -132,18 +132,5 @@ public class TeleportInteractor implements Interaction {
             }
 
         }, 4, TimeUnit.SECONDS);
-    }
-
-    @Override
-    public void onStopWalking(Item item, RoomUser roomUser) { }
-
-    @Override
-    public boolean allowStopWalkingUpdate(final Item item) {
-        return false;
-    }
-
-    @Override
-    public ExtraData createExtraData(Item item) {
-        return new StringExtraData(ExtraDataPerspective.FURNI, item.getExtraData());
     }
 }

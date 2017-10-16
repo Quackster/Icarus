@@ -27,17 +27,17 @@ public class RollerTask extends RoomTask {
 
         boolean redoMap = false;
 
-        if (this.room.getEntityManager().getEntities().size() == 0) {
+        if (!(this.room.getEntityManager().getEntities().size() > 0)) {
             return;
         }
 
-        List<Item> rollers = this.room.getItemManager().getItems(InteractionType.ROLLER);
-
-        if (rollers.isEmpty()) {
+        if (!this.room.getItemManager().hasRollers()) {
             return;
         }
 
+        List<Item> rollers = this.room.getItemManager().getRollers();
         List<Entity> entities = this.room.getEntityManager().getEntities();
+
         List<Object> blacklist = new ArrayList<>();
 
         for (Item roller : rollers) {
@@ -137,7 +137,7 @@ public class RollerTask extends RoomTask {
             }
 
             if (redoMap) {
-                this.room.getMapping().regenerateCollisionMaps();
+                this.room.getMapping().regenerateCollisionMaps(false);
             }
         }
     }
