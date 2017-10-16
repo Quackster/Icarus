@@ -36,6 +36,7 @@ public class DefaultInteractor implements Interaction {
 
             if (item.getDefinition().getVariableHeight().length > 0) {
                 item.getRoom().getMapping().regenerateCollisionMaps();
+                item.updateEntities();
             }
         }
     }
@@ -66,7 +67,7 @@ public class DefaultInteractor implements Interaction {
 
     @Override
     public boolean allowStopWalkingUpdate(final Item item) {
-        return item.getDefinition().allowSitOrLay();
+        return item.getDefinition().allowSitOrLay() || item.getDefinition().getVariableHeight().length > 0;
     }
     
     @Override

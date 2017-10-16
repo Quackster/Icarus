@@ -114,9 +114,8 @@ public class RoomUser {
             }
         }
 
-        this.updateNewHeight(this.position);
-
-        if (allowUpdate || Position.getHeightDifference(previousHeight, this.position.getZ()) >= 0.1) {
+        if (allowUpdate) {
+            this.updateNewHeight(this.position);
             this.needsUpdate = true;
         }
     }
