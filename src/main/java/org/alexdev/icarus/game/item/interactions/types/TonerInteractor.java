@@ -20,6 +20,11 @@ public class TonerInteractor implements Interaction {
     public void onStopWalking(Item item, RoomUser roomUser) { }
 
     @Override
+    public boolean allowStopWalkingUpdate(final Item item) {
+        return false;
+    }
+
+    @Override
     public ExtraData createExtraData(Item item) {
 
         List<Integer> objects = new ArrayList<>();

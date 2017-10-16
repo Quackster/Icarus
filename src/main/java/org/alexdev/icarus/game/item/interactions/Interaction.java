@@ -12,7 +12,7 @@ public interface Interaction {
      * @param item the item
      * @param roomUser the room user
      */
-    public void onUseItem(final Item item, final RoomUser roomUser);
+    void onUseItem(final Item item, final RoomUser roomUser);
     
     /**
      * Called when the user stops walking on the item.
@@ -20,8 +20,13 @@ public interface Interaction {
      * @param item the item
      * @param roomUser the room user
      */
-    public void onStopWalking(final Item item, final RoomUser roomUser);
-    
+    void onStopWalking(final Item item, final RoomUser roomUser);
+
+    /**
+     * If the entity needs to be updated after walking on this item
+     */
+    boolean allowStopWalkingUpdate(final Item item);
+
     /**
      * Get extra data instance.
      */

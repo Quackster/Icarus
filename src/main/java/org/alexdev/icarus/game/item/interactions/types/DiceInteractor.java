@@ -26,6 +26,11 @@ public class DiceInteractor implements Interaction {
     public void onStopWalking(Item item, RoomUser roomUser) { }
 
     @Override
+    public boolean allowStopWalkingUpdate(final Item item) {
+        return false;
+    }
+
+    @Override
     public ExtraData createExtraData(Item item) {
         return new StringExtraData(ExtraDataPerspective.FURNI, item.getExtraData());
     }

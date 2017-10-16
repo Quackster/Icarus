@@ -14,7 +14,12 @@ public class LandscapeInteractor implements Interaction {
 
     @Override
     public void onStopWalking(Item item, RoomUser roomUser) { }
-    
+
+    @Override
+    public boolean allowStopWalkingUpdate(final Item item) {
+        return false;
+    }
+
     @Override
     public ExtraData createExtraData(Item item) {
         return new StringExtraData(ExtraDataPerspective.OUTSIDE_DECORATION, item.getExtraData());

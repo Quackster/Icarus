@@ -21,6 +21,11 @@ public class AdsBackgroundInteractor implements Interaction {
     public void onStopWalking(Item item, RoomUser roomUser) { }
 
     @Override
+    public boolean allowStopWalkingUpdate(Item item) {
+        return false;
+    }
+
+    @Override
     public ExtraData createExtraData(Item item) {
 
         AdsBackgroundData data = null;

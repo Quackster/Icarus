@@ -111,7 +111,7 @@ public class MovementTask implements Runnable {
                 roomUser.setNextPosition(null);
                 roomUser.setWalking(false);
                 roomUser.removeStatus(EntityStatus.MOVE);
-                roomUser.checkNearbyItem();
+                roomUser.interactNearbyItem();
 
             }
 

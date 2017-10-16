@@ -55,6 +55,7 @@ public class RoomUser {
 
     private Entity entity;
     private Room room;
+
     private Item currentItem;
 
     private Position position;
@@ -70,30 +71,25 @@ public class RoomUser {
         this.clearUserData();
         this.entity = entity;
     }
-
     /**
-     * Check nearby item.
+     * Update current item and trigger it.
      */
-    public void checkNearbyItem() {
+    public void interactNearbyItem() {
+
+        boolean allowUpdate = false;
+
+        Item previousItem = this.currentItem;
+        double previousHeight = this.position.getZ();
 
         Item item = this.room.getMapping().getHighestItem(this.position.getX(), this.position.getY());
 
         if (item != null && item.isWalkable()) {
             this.currentItem = item;
-            System.out.println("ITEM: " + item.getDefinition().getItemName() + " / " + item.getId());
         } else {
             this.currentItem = null;
         }
 
-        this.interactNearbyItem();
-    }
-
-    /**
-     * Trigger current item.
-     */
-    private void interactNearbyItem() {
-
-        if (this.currentItem == null) {
+        if (this.currentItem == null || (!this.currentItem.getDefinition().allowSitOrLay() && previousItem != null && previousItem.getDefinition().allowSitOrLay())) {
 
             if (this.containsStatus(EntityStatus.LAY)) {
                 this.removeStatus(EntityStatus.LAY);
@@ -103,17 +99,26 @@ public class RoomUser {
                 this.removeStatus(EntityStatus.SIT);
             }
 
+            allowUpdate = true;
+
         } else {
 
             Interaction handler = this.currentItem.getDefinition().getInteractionType().get();
 
             if (handler != null) {
                 handler.onStopWalking(this.currentItem, this);
+
+                if (handler.allowStopWalkingUpdate(this.currentItem)) {
+                    allowUpdate = true;
+                }
             }
         }
 
         this.updateNewHeight(this.position);
-        this.needsUpdate = true;
+
+        if (allowUpdate || Position.getHeightDifference(previousHeight, this.position.getZ()) >= 0.1) {
+            this.needsUpdate = true;
+        }
     }
 
     /**

@@ -63,6 +63,11 @@ public class DefaultInteractor implements Interaction {
             roomUser.getPosition().setRotation(item.getPosition().getRotation());
         }
     }
+
+    @Override
+    public boolean allowStopWalkingUpdate(final Item item) {
+        return item.getDefinition().allowSitOrLay();
+    }
     
     @Override
     public ExtraData createExtraData(Item item) {

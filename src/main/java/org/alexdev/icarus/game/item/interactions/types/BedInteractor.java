@@ -24,7 +24,12 @@ public class BedInteractor implements Interaction {
         double sitHeight = item.getDefinition().getHeight();
         roomUser.setStatus(EntityStatus.LAY, roomUser.getEntity().getType() == EntityType.PET ? String.valueOf(sitHeight / 2) : String.valueOf(sitHeight));
     }
-    
+
+    @Override
+    public boolean allowStopWalkingUpdate(Item item) {
+        return true;
+    }
+
     @Override
     public ExtraData createExtraData(Item item) {
         return new StringExtraData(ExtraDataPerspective.FURNI, item.getExtraData());

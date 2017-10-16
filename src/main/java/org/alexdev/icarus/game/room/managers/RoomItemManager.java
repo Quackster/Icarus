@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 
 import org.alexdev.icarus.dao.mysql.item.ItemDao;
@@ -48,15 +49,24 @@ public class RoomItemManager {
      */
     public List<Item> getItems(InteractionType interactionType) {
 
-        try {
-            
-            return items.values().stream()
-                    .filter(item -> item.getDefinition().getInteractionType() == interactionType)
-                    .collect(Collectors.toList());
+        List<Item> rollers = new ArrayList<>();
+        List<Item> items = new ArrayList<>(this.items.values());
 
-        } catch (Exception e) {
-            return new ArrayList<>();
+        for (int i = 0; i < items.size(); i++) {
+
+            Item item = items.get(i);
+
+            if (item.getDefinition() == null) {
+                continue;
+            }
+
+            if (item.getDefinition().getInteractionType() == interactionType) {
+                rollers.add(item);
+            }
         }
+
+        return rollers;
+
     }
 
     /**
