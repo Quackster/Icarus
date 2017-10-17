@@ -63,6 +63,15 @@ public class RollerTask extends RoomTask {
                     RoomTile frontTile = this.room.getMapping().getTile(front.getX(), front.getY());
                     double nextHeight = frontTile.getHeight();
 
+                    if (frontTile.getHighestItem() != null) {
+                        if (!frontTile.getHighestItem().getDefinition().isRoller()) {
+                            if (item.getDefinition().allowStack() && item.getDefinition().getStackHeight() == frontTile.getHighestItem().getDefinition().getStackHeight()) {
+                                nextHeight -= item.getDefinition().getStackHeight();
+                            }
+
+                        }
+                    }
+
                     // If this item is stacked, we maintain its stack height
                     if (item.getItemBeneath() != null) {
                         if (!item.getItemBeneath().getDefinition().isRoller()) {
