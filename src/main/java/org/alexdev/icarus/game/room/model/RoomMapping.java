@@ -268,8 +268,9 @@ public class RoomMapping {
                     items.updateStatus();
                 }
             }
+        }
 
-        } else {
+        if (!rotation) {
             item.getPosition().setZ(this.getTileHeight(item.getPosition().getX(), item.getPosition().getY()));
         }
 
