@@ -255,26 +255,32 @@ public class RoomMapping {
     /**
      * Handle item adjustment.
      *
-     * @param item the item
+     * @param moveItem the item
      * @param rotation the rotation only
      */
-    private void handleItemAdjustment(Item item, boolean rotation) {
+    private void handleItemAdjustment(Item moveItem, boolean rotation) {
 
         if (rotation) {
-            for (Item items : this.getTile(item.getPosition().getX(), item.getPosition().getY()).getItems()) {
+            for (Item item : this.getTile(moveItem.getPosition().getX(), moveItem.getPosition().getY()).getItems()) {
 
-                if (items != item && items.getPosition().getZ() >= item.getPosition().getZ()) {
-                    items.getPosition().setRotation(item.getPosition().getRotation());
-                    items.updateStatus();
+                if (item.getId() == moveItem.getId()) {
+                    continue;
                 }
+
+                if (item.getPosition().getZ() < moveItem.getPosition().getZ()) {
+                    continue;
+                }
+
+                item.getPosition().setRotation(moveItem.getPosition().getRotation());
+                item.updateStatus();
             }
         }
 
         if (!rotation) {
-            item.getPosition().setZ(this.getTileHeight(item.getPosition().getX(), item.getPosition().getY()));
+            moveItem.getPosition().setZ(this.getTileHeight(moveItem.getPosition().getX(), moveItem.getPosition().getY()));
         }
 
-        item.updateStatus();
+        moveItem.updateStatus();
     }
 
     /**
