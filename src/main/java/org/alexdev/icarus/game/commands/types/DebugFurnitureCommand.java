@@ -4,7 +4,7 @@ import org.alexdev.icarus.game.commands.Command;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.user.ChatType;
 
-public class DebugFurniture extends Command {
+public class DebugFurnitureCommand extends Command {
     
     @Override
     public void addPermissions() {

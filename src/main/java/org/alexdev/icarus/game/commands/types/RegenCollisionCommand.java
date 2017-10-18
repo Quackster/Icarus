@@ -4,7 +4,7 @@ import org.alexdev.icarus.game.commands.Command;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.user.ChatType;
 
-public class RegenCollision extends Command {
+public class RegenCollisionCommand extends Command {
 
     @Override
     public void addPermissions() {

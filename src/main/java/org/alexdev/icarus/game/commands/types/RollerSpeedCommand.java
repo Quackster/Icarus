@@ -8,7 +8,7 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.scheduler.TaskType;
 import org.alexdev.icarus.game.room.tasks.RollerTask;
 
-public class RollerSpeed extends Command {
+public class RollerSpeedCommand extends Command {
 
     @Override
     public void addPermissions() {

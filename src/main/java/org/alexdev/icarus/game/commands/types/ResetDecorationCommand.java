@@ -5,7 +5,7 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.outgoing.room.RoomSpacesMessageComposer;
 
-public class ResetDecoration extends Command {
+public class ResetDecorationCommand extends Command {
 
     @Override
     public void addPermissions() {

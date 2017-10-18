@@ -1,25 +1,26 @@
 package org.alexdev.icarus.game.commands.types.reload;
 
 import org.alexdev.icarus.game.commands.Command;
+import org.alexdev.icarus.game.item.ItemManager;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.game.plugins.PluginManager;
+import org.alexdev.icarus.game.room.user.ChatType;
 
-public class ReloadPlugins extends Command {
-    
+public class ReloadItemDefinitions extends Command {
+
     @Override
     public void addPermissions() {
         this.permissions.add("administrator");
     }
-    
+
     @Override
     public void handleCommand(Player player, String message, String[] args) {
-        PluginManager.disposePlugins();
-        PluginManager.load();
+        ItemManager.load();
+        player.getRoomUser().chatSelf(ChatType.WHISPER, "Furniture definitions have been reloaded!");
     }
-
 
     @Override
     public String getDescription() {
-        return "Reloads plugins, may cause undefined errors!";
+        return "Reload all furniture definitions.";
     }
+
 }

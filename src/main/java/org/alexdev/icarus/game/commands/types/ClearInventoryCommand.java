@@ -8,7 +8,7 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.user.ChatType;
 
-public class ClearInventory extends Command {
+public class ClearInventoryCommand extends Command {
 
     @Override
     public void addPermissions() {
