@@ -117,13 +117,13 @@ public class Configuration {
     private static void writeMainConfiguration(PrintWriter writer) {
         writer.println("[Server]");
         writer.println("server.ip=127.0.0.1");
-        writer.println("server.port=30000");
+        writer.println("server.port=30001");
         writer.println();
         writer.println("[Database]");
         writer.println("mysql.hostname=127.0.0.1");
         writer.println("mysql.username=user");
         writer.println("mysql.password=");
-        writer.println("mysql.database=icarus");
+        writer.println("mysql.database=icarusdb");
         writer.println();
         writer.println("[Logging]");
         writer.println("log.connections=true");
