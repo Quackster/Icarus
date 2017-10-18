@@ -134,7 +134,6 @@ public class RoomMapping {
 
                     if (isFinalMove) {
                         return currentItem.isWalkable();
-
                     }
                 }
             }
@@ -216,12 +215,12 @@ public class RoomMapping {
      * Update item position.
      *
      * @param item the item
-     * @param rotation_only the rotation only
+     * @param isRotation the rotation only
      */
-    public void updateItemPosition(Item item, boolean rotation_only) {
+    public void moveItem(Item item, boolean isRotation) {
 
         if (item.getDefinition().getType() == ItemType.FLOOR) {
-            this.handleItemAdjustment(item, rotation_only);
+            this.handleItemAdjustment(item, isRotation);
             this.regenerateCollisionMaps(false);
         }
 
@@ -245,12 +244,11 @@ public class RoomMapping {
 
         item.updateEntities();
         item.setRoomId(0);
-
         item.getPosition().setX(0);
         item.getPosition().setY(0);
         item.getPosition().setZ(0);
-
         item.save();
+
         this.room.send(new RemoveItemMessageComposer(item));
     }
 
@@ -264,6 +262,7 @@ public class RoomMapping {
 
         if (rotation) {
             for (Item items : this.getTile(item.getPosition().getX(), item.getPosition().getY()).getItems()) {
+
                 if (items != item && items.getPosition().getZ() >= item.getPosition().getZ()) {
                     items.getPosition().setRotation(item.getPosition().getRotation());
                     items.updateStatus();
