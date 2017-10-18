@@ -36,74 +36,24 @@ public class RollerTask extends RoomTask {
         }
 
         List<Item> rollers = this.room.getItemManager().getRollers();
-        List<Entity> entities = this.room.getEntityManager().getEntities();
-
         List<Object> blacklist = new ArrayList<>();
 
         for (Item roller : rollers) {
 
-            Set<Item> items = roller.getTile().getItems();
+            List<Entity> entities = roller.getTile().getEntities();
+            List<Item> items = roller.getTile().getItems();
 
-            for (Item item : items) {
+            for (int i = 0; i < items.size(); i++) {
 
-                if (item.getPosition().equals(roller.getPosition()) && item.getPosition().getZ() > roller.getPosition().getZ()) {
+                Item item = items.get(i);
 
-                    if (blacklist.contains(item)) {
-                        continue;
-                    }
+                if (blacklist.contains(item)) {
+                    return;
+                }
 
-                    Position front = roller.getPosition().getSquareInFront();
-
-                    if (!this.room.getMapping().isTileWalkable(front.getX(), front.getY(), null)) {
-                        continue;
-                    }
-
-                    blacklist.add(item);
-
-                    RoomTile frontTile = this.room.getMapping().getTile(front.getX(), front.getY());
-                    double nextHeight = frontTile.getHeight();
-
-                    if (frontTile.getHighestItem() != null) {
-                        if (!frontTile.getHighestItem().getDefinition().isRoller()) {
-                            if (item.getDefinition().allowStack() && item.getDefinition().getStackHeight() == frontTile.getHighestItem().getDefinition().getStackHeight()) {
-                                nextHeight -= item.getDefinition().getStackHeight();
-                            }
-
-                        }
-                    }
-
-                    // If this item is stacked, we maintain its stack height
-                    if (item.getItemBeneath() != null) {
-                        if (!item.getItemBeneath().getDefinition().isRoller()) {
-                            nextHeight = item.getPosition().getZ();
-
-                            // If the next tile/front tile is not a roller, we need to adjust the sliding so the stacked items
-                            // don't float, so we subtract the stack height of the roller
-                            boolean subtractRollerHeight = false;
-
-                            if (frontTile.getHighestItem() != null) {
-                                if (!frontTile.getHighestItem().getDefinition().isRoller()) {
-                                    subtractRollerHeight = true;
-                                }
-                            } else {
-                                subtractRollerHeight = true;
-                            }
-
-                            if (subtractRollerHeight) {
-                                nextHeight -= roller.getDefinition().getStackHeight();
-                            }
-                        }
-                    }
-
-
-                    room.send(new SlideObjectMessageComposer(item, front, roller.getId(), nextHeight));
-
-                    item.getPosition().setX(front.getX());
-                    item.getPosition().setY(front.getY());
-                    item.getPosition().setZ(nextHeight);
-                    item.save();
-
+                if (this.processItem(roller, item)) {
                     redoMap = true;
+                    blacklist.add(item);
                 }
             }
 
@@ -114,40 +64,119 @@ public class RollerTask extends RoomTask {
                 if (blacklist.contains(entity)) {
                     continue;
                 }
-                
-                if (entity.getRoomUser().isWalking()) {
-                    continue;
-                }
 
-                if (entity.getRoomUser().getPosition().equals(roller.getPosition()) && entity.getRoomUser().getPosition().getZ() > roller.getPosition().getZ()) {
-
-                    Position front = roller.getPosition().getSquareInFront();
-
-                    if (!this.room.getMapping().isValidStep(entity, entity.getRoomUser().getPosition(), front, false)) {
-                        continue;
-                    }
-
-                    blacklist.add(entity);
-
-                    RoomTile nextTile = this.room.getMapping().getTile(front.getX(), front.getY());
-                    RoomTile previousTile = this.room.getMapping().getTile(entity.getRoomUser().getPosition().getX(), entity.getRoomUser().getPosition().getY());
-
-                    previousTile.removeEntity(entity);
-                    nextTile.addEntity(entity);
-                    
-                    double nextHeight = nextTile.getHeight();
-                    this.room.send(new SlideObjectMessageComposer(entity, front, roller.getId(), nextHeight));
-                    
-                    entity.getRoomUser().interactNearbyItem();
-                    entity.getRoomUser().getPosition().setX(front.getX());
-                    entity.getRoomUser().getPosition().setY(front.getY());
-                    entity.getRoomUser().getPosition().setZ(nextHeight);
-                }
-            }
-
-            if (redoMap) {
-                this.room.getMapping().regenerateCollisionMaps(false);
+                this.processEntity(roller, entity);
+                blacklist.add(entity);
             }
         }
+
+        if (redoMap) {
+            this.room.getMapping().regenerateCollisionMaps(false);
+        }
     }
+
+    /**
+     * Process item on rollers
+     *
+     * @param roller the roller the item is on top on
+     * @param item the item to process
+     * @return true, if the map should be regenerated
+     */
+    private boolean processItem(Item roller, Item item) {
+
+        if (item.getId() == roller.getId()) {
+            return false;
+        }
+
+        if (item.getPosition().getZ() < roller.getPosition().getZ()) {
+            return false;
+        }
+
+        Position front = roller.getPosition().getSquareInFront();
+
+        if (!this.room.getMapping().isTileWalkable(front.getX(), front.getY(), null)) {
+            return false;
+        }
+
+        RoomTile frontTile = this.room.getMapping().getTile(front.getX(), front.getY());
+        double nextHeight = frontTile.getHeight();
+
+        if (frontTile.getHighestItem() != null) {
+            if (!frontTile.getHighestItem().getDefinition().isRoller()) {
+                if (item.getDefinition().allowStack() && item.getDefinition().getStackHeight() == frontTile.getHighestItem().getDefinition().getStackHeight()) {
+                    nextHeight -= item.getDefinition().getStackHeight();
+                }
+            }
+        }
+
+        // If this item is stacked, we maintain its stack height
+        if (item.getItemBeneath() != null) {
+            if (!item.getItemBeneath().getDefinition().isRoller()) {
+                nextHeight = item.getPosition().getZ();
+
+                // If the next tile/front tile is not a roller, we need to adjust the sliding so the stacked items
+                // don't float, so we subtract the stack height of the roller
+                boolean subtractRollerHeight = false;
+
+                if (frontTile.getHighestItem() != null) {
+                    if (!frontTile.getHighestItem().getDefinition().isRoller()) {
+                        subtractRollerHeight = true;
+                    }
+                } else {
+                    subtractRollerHeight = true;
+                }
+
+                if (subtractRollerHeight) {
+                    nextHeight -= roller.getDefinition().getStackHeight();
+                }
+            }
+        }
+
+        room.send(new SlideObjectMessageComposer(item, front, roller.getId(), nextHeight));
+
+        item.getPosition().setX(front.getX());
+        item.getPosition().setY(front.getY());
+        item.getPosition().setZ(nextHeight);
+        item.save();
+
+        return true;
+    }
+
+    /**
+     * Process entity on rollers
+     *
+     * @param roller the roller the entity is standing on
+     * @param entity the entity to process
+     */
+    private void processEntity(Item roller, Entity entity) {
+
+        if (entity.getRoomUser().isWalking()) {
+            return;
+        }
+
+        if (entity.getRoomUser().getPosition().getZ() < roller.getPosition().getZ()) {
+            return;
+        }
+
+        Position front = roller.getPosition().getSquareInFront();
+
+        if (!this.room.getMapping().isValidStep(entity, entity.getRoomUser().getPosition(), front, false)) {
+            return;
+        }
+
+        RoomTile nextTile = this.room.getMapping().getTile(front.getX(), front.getY());
+        RoomTile previousTile = this.room.getMapping().getTile(entity.getRoomUser().getPosition().getX(), entity.getRoomUser().getPosition().getY());
+
+        previousTile.removeEntity(entity);
+        nextTile.addEntity(entity);
+
+        double nextHeight = nextTile.getHeight();
+        this.room.send(new SlideObjectMessageComposer(entity, front, roller.getId(), nextHeight));
+
+        entity.getRoomUser().interactNearbyItem();
+        entity.getRoomUser().getPosition().setX(front.getX());
+        entity.getRoomUser().getPosition().setY(front.getY());
+        entity.getRoomUser().getPosition().setZ(nextHeight);
+    }
+
 }

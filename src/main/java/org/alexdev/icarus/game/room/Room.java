@@ -43,7 +43,7 @@ public class Room extends Metadata {
      */
     public void scheduleEvents() {
         this.scheduler.scheduleEvent(1, TimeUnit.SECONDS, TaskType.REPEAT, new CarryItemTask(this));
-        this.scheduler.scheduleEvent(4, TimeUnit.SECONDS, TaskType.REPEAT, new RollerTask(this));
+        this.scheduler.scheduleEvent(2, TimeUnit.SECONDS, TaskType.REPEAT, new RollerTask(this));
         this.scheduler.scheduleEvent(5, TimeUnit.SECONDS, TaskType.REPEAT, new PetTask(this));
         this.scheduler.scheduleTasks();
     }

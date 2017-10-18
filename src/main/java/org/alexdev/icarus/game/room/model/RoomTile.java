@@ -1,6 +1,8 @@
 package org.alexdev.icarus.game.room.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.alexdev.icarus.game.entity.Entity;
@@ -13,12 +15,11 @@ public class RoomTile {
     private double height = 0;
     private boolean overrideLock = false;
     
-    private Set<Item> items;
-    private Set<Entity> entities;
+    private List<Item> items;
+    private List<Entity> entities;
     
     private Room room;
     private Item highestItem = null;
-    private Item itemUnderneath = null;
 
     private int x;
     private int y;
@@ -36,8 +37,8 @@ public class RoomTile {
      */
     public void reset() {
         this.height = this.room.getModel().getHeight(this.x, this.y);
-        this.items = new HashSet<>();
-        this.entities = new HashSet<>();
+        this.items = new ArrayList<>();
+        this.entities = new ArrayList<>();
     }
     
     /**
@@ -72,7 +73,7 @@ public class RoomTile {
      *
      * @return the items
      */
-    public Set<Item> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
@@ -81,7 +82,7 @@ public class RoomTile {
      *
      * @return the entity
      */
-    public Set<Entity> getEntities() {
+    public List<Entity> getEntities() {
         return entities;
     }
 
@@ -154,24 +155,6 @@ public class RoomTile {
      */
     public void setOverrideLock(boolean overrideLock) {
         this.overrideLock = overrideLock;
-    }
-
-    /**
-     * Gets the item underneath.
-     *
-     * @return the item underneath
-     */
-    public Item getItemUnderneath() {
-        return itemUnderneath;
-    }
-
-    /**
-     * Sets the item underneath.
-     *
-     * @param itemUnderneath the new item underneath
-     */
-    public void setItemUnderneath(Item itemUnderneath) {
-        this.itemUnderneath = itemUnderneath;
     }
 
     /**
