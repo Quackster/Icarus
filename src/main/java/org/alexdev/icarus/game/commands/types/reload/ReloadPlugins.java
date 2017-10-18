@@ -1,4 +1,4 @@
-package org.alexdev.icarus.game.commands.types;
+package org.alexdev.icarus.game.commands.types.reload;
 
 import org.alexdev.icarus.game.commands.Command;
 import org.alexdev.icarus.game.player.Player;

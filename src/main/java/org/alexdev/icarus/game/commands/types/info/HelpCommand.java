@@ -1,4 +1,4 @@
-package org.alexdev.icarus.game.commands.types;
+package org.alexdev.icarus.game.commands.types.info;
 
 import java.util.Map.Entry;
 

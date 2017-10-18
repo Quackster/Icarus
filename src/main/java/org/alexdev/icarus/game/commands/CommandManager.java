@@ -4,8 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.commands.types.*;
+import org.alexdev.icarus.game.commands.types.info.AboutCommand;
+import org.alexdev.icarus.game.commands.types.info.HelpCommand;
+import org.alexdev.icarus.game.commands.types.reload.ReloadCatalog;
+import org.alexdev.icarus.game.commands.types.reload.ReloadFurni;
+import org.alexdev.icarus.game.commands.types.reload.ReloadPlugins;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.util.Util;
 import org.slf4j.Logger;
@@ -33,6 +37,8 @@ public class CommandManager {
         commands.put(new String[] { "reloadplugins" }, new ReloadPlugins());
         commands.put(new String[] { "reloadfurni" }, new ReloadFurni());
         commands.put(new String[] { "reloadcatalog" }, new ReloadCatalog());
+        commands.put(new String[] { "moonwalk", "mj" }, new MoonWalkCommand());
+        commands.put(new String[] { "diagonal", "diag" }, new WalkDiagonalCommand());
 
         if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
             log.info("Loaded {} commands", commands.size());

@@ -7,7 +7,7 @@ import org.alexdev.icarus.game.entity.Entity;
 
 public class Pathfinder {
 
-    public static final Position[] MOVE_POINTS = new Position[]{
+    public static final Position[] DIAGONAL_MOVE_POINTS = new Position[]{
             new Position(0, -1, 0),
             new Position(0, 1, 0),
             new Position(1, 0, 0),
@@ -16,6 +16,13 @@ public class Pathfinder {
             new Position(-1, 1, 0),
             new Position(1, 1, 0),
             new Position(-1, -1, 0)
+    };
+
+    private static final Position[] MOVE_POINTS = new Position[]{
+            new Position(0, -1),
+            new Position(1, 0),
+            new Position(0, 1),
+            new Position(-1, 0)
     };
     
     /**
@@ -85,12 +92,19 @@ public class Pathfinder {
         map[current.getPosition().getX()][current.getPosition().getY()] = current;
         openList.add(current);
 
+        Position[] POINTS = DIAGONAL_MOVE_POINTS;
+
+        if (entity.getRoom().getMetadata().getBoolean("disableWalkDiagonal")) {
+            POINTS = MOVE_POINTS;
+        }
+
         while (openList.size() > 0) {
             current = openList.pollFirst();
             current.setInClosed(true);
 
-            for (int i = 0; i < MOVE_POINTS.length; i++) {
-                tmp = current.getPosition().add(MOVE_POINTS[i]);
+
+            for (int i = 0; i < POINTS.length; i++) {
+                tmp = current.getPosition().add(POINTS[i]);
 
                 boolean isFinalMove = (tmp.getX() == end.getX() && tmp.getY() == end.getY());
 

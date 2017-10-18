@@ -99,7 +99,13 @@ public class MovementTask implements Runnable {
                 roomUser.removeStatus(EntityStatus.LAY);
                 roomUser.removeStatus(EntityStatus.SIT);
 
-                int rotation = Rotation.calculate(position.getX(), position.getY(), next.getX(), next.getY());
+                int rotation = 0;
+
+                if (entity.getMetadata().hasMetadata("moonwalk")) {
+                    rotation = Rotation.calculate(next.getX(), next.getY(), position.getX(), position.getY());
+                } else {
+                    rotation = Rotation.calculate(position.getX(), position.getY(), next.getX(), next.getY());
+                }
                 double height = this.room.getMapping().getTileHeight(next.getX(), next.getY());
 
                 roomUser.getPosition().setRotation(rotation);
