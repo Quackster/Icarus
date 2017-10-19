@@ -25,7 +25,7 @@ public class Storage {
         try {
 
             HikariConfig config = new HikariConfig();
-            config.setJdbcUrl("jdbc:mysql://" + host + ":3306/" + db);
+            config.setJdbcUrl("jdbc:mysql://" + host + ":3306/" + db + "?useSSL=false");
             config.setUsername(username);
             config.setPassword(password);
             

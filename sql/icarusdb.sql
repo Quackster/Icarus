@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 15, 2017 at 06:50 PM
+-- Generation Time: Oct 19, 2017 at 10:40 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -25,19 +25,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `catalogue_gift_wrapping`
+-- Table structure for table `catalog_gift_wrapping`
 --
 
-CREATE TABLE `catalogue_gift_wrapping` (
+CREATE TABLE `catalog_gift_wrapping` (
   `type` enum('new','old') CHARACTER SET utf8mb4 DEFAULT 'new',
   `sprite_id` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `catalogue_gift_wrapping`
+-- Dumping data for table `catalog_gift_wrapping`
 --
 
-INSERT INTO `catalogue_gift_wrapping` (`type`, `sprite_id`) VALUES
+INSERT INTO `catalog_gift_wrapping` (`type`, `sprite_id`) VALUES
 ('new', 3372),
 ('new', 3373),
 ('new', 3374),
@@ -59,10 +59,10 @@ INSERT INTO `catalogue_gift_wrapping` (`type`, `sprite_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `catalogue_items`
+-- Table structure for table `catalog_items`
 --
 
-CREATE TABLE `catalogue_items` (
+CREATE TABLE `catalog_items` (
   `id` int(11) NOT NULL,
   `page_id` int(11) NOT NULL,
   `item_id` varchar(120) NOT NULL,
@@ -80,10 +80,10 @@ CREATE TABLE `catalogue_items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `catalogue_items`
+-- Dumping data for table `catalog_items`
 --
 
-INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
 (0, 86, '2977', 'byesw_hand', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
 (1, 275, '2978', 'byesw_hotel', 25000, 25000, 0, 1, 0, 0, '1', '', '', -1),
 (2, 25, '2', 'Mode Shelves', 3, 0, 0, 1, 0, 0, '1', '', '', 6),
@@ -819,7 +819,7 @@ INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost
 (732, 27, '939', 'Double Bed', 4, 0, 0, 1, 0, 0, '1', '', '', 1440),
 (733, 27, '940', 'Double Bed', 4, 0, 0, 1, 0, 0, '1', '', '', -1),
 (734, 27, '941', 'Double Bed', 4, 0, 0, 1, 0, 0, '1', '', '', -1);
-INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
+INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
 (735, 27, '943', 'Single Bed', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (736, 27, '944', 'Single Bed', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (737, 27, '945', 'Single Bed', 3, 0, 0, 1, 0, 0, '1', '', '', 1382),
@@ -1546,9 +1546,9 @@ INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost
 (1458, 83, '1636', 'tiki_surfboard', 3, 0, 0, 1, 0, 0, '1', '', '', 10196),
 (1459, 68, '1086', 'Crystal Ball', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
 (1460, 216, '1087', 'sw_table', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
-(1461, 216, '1088', 'sw_raven', 5, 0, 0, 1, 0, 0, '1', '', '', -1);
-INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
-(1462, 216, '1089', 'sw_chest', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
+(1461, 216, '1088', 'sw_raven', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
+(1462, 216, '1089', 'sw_chest', 5, 0, 0, 1, 0, 0, '1', '', '', -1);
+INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
 (1463, 75, '1096', 'rclr_lamp', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
 (1464, 218, '1097', 'md_rug', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
 (1465, 86, '1119', 'jukebox_ptv*1', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
@@ -2235,9 +2235,9 @@ INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost
 (2146, 13, '2971', 'wallpaper_single_3104', 0, 3, 0, 1, 0, 0, '1', '', '', 9714),
 (2147, 13, '2971', 'wallpaper_single_3105', 0, 3, 0, 1, 0, 0, '1', '', '', 9714),
 (2148, 13, '2971', 'wallpaper_single_3106', 0, 3, 0, 1, 0, 0, '1', '', '', 9714),
-(2149, 13, '2970', 'floor_single_101', 0, 3, 0, 1, 0, 0, '1', '', '', 9874);
-INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
-(2150, 13, '2970', 'floor_single_102', 0, 3, 0, 1, 0, 0, '1', '', '', 9874),
+(2149, 13, '2970', 'floor_single_101', 0, 3, 0, 1, 0, 0, '1', '', '', 9874),
+(2150, 13, '2970', 'floor_single_102', 0, 3, 0, 1, 0, 0, '1', '', '', 9874);
+INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
 (2151, 13, '2970', 'floor_single_103', 0, 3, 0, 1, 0, 0, '1', '', '', 9874),
 (2152, 13, '2970', 'floor_single_104', 0, 3, 0, 1, 0, 0, '1', '', '', 9874),
 (2153, 13, '2970', 'floor_single_105', 0, 3, 0, 1, 0, 0, '1', '', '', 9874),
@@ -2919,9 +2919,9 @@ INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost
 (2829, 155, '3668', 'hs_carpet_blk', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
 (2830, 155, '3669', 'hs_dnctile_1', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
 (2831, 155, '3670', 'hs_lightstrip_blue', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
-(2832, 155, '3671', 'hs_lightstrip_pink', 10, 0, 0, 1, 0, 0, '1', '', '', -1);
-INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
-(2833, 155, '3672', 'hs_marswalk', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
+(2832, 155, '3671', 'hs_lightstrip_pink', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
+(2833, 155, '3672', 'hs_marswalk', 10, 0, 0, 1, 0, 0, '1', '', '', -1);
+INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
 (2834, 155, '3673', 'hs_stage_long_black', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
 (2835, 155, '3674', 'hs_stage_long_blue', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
 (2836, 155, '3675', 'hs_stage_long_pink', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
@@ -3608,9 +3608,9 @@ INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost
 (3517, 67, '4837', 'bw_fnc_crnr_g', 5, 0, 0, 1, 0, 0, '1', '', '', 8784),
 (3518, 67, '4836', 'bw_fnc_crnr_p', 5, 0, 0, 1, 0, 0, '1', '', '', 8790),
 (3519, 67, '4835', 'ads_pepsi0', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
-(3520, 67, '4854', 'bw_fnc_g', 5, 0, 0, 1, 0, 0, '1', '', '', 8778);
-INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
-(3521, 67, '4853', 'bw_sofa_p', 5, 0, 0, 1, 0, 0, '1', '', '', 8782),
+(3520, 67, '4854', 'bw_fnc_g', 5, 0, 0, 1, 0, 0, '1', '', '', 8778),
+(3521, 67, '4853', 'bw_sofa_p', 5, 0, 0, 1, 0, 0, '1', '', '', 8782);
+INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
 (3522, 67, '4852', 'bw_sofa_g', 5, 0, 0, 1, 0, 0, '1', '', '', 8796),
 (3523, 67, '4851', 'bw_van_g', 5, 0, 0, 1, 0, 0, '1', '', '', 8795),
 (3524, 67, '4850', 'bw_van_p', 5, 0, 0, 1, 0, 0, '1', '', '', 8791),
@@ -4290,9 +4290,9 @@ INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost
 (4198, 194, '5400', 'uni_jewellery', 3, 0, 0, 1, 0, 0, '1', '', '', 14108),
 (4199, 194, '5401', 'uni_plush2', 3, 0, 0, 1, 0, 0, '1', '', '', 14109),
 (4200, 194, '5402', 'uni_cafeterie', 3, 0, 0, 1, 0, 0, '1', '', '', 14110),
-(4201, 194, '5403', 'uni_projector', 3, 0, 0, 1, 0, 0, '1', '', '', 14197);
-INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
-(4202, 194, '5404', 'uni_rubik', 3, 0, 0, 1, 0, 0, '1', '', '', 14112),
+(4201, 194, '5403', 'uni_projector', 3, 0, 0, 1, 0, 0, '1', '', '', 14197),
+(4202, 194, '5404', 'uni_rubik', 3, 0, 0, 1, 0, 0, '1', '', '', 14112);
+INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
 (4203, 194, '5405', 'uni_hipbed', 3, 0, 0, 1, 0, 0, '1', '', '', 14113),
 (4204, 194, '5406', 'uni_laptop', 3, 0, 0, 1, 0, 0, '1', '', '', 14114),
 (4205, 194, '5407', 'uni_wobench', 3, 0, 0, 1, 0, 0, '1', '', '', 14115),
@@ -4972,9 +4972,9 @@ INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost
 (4879, 95, '2106', 'school_consolegold', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (4880, 95, '2107', 'school_chair_g', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (4881, 95, '2108', 'school_fountain', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
-(4882, 276, '6976', 'blackgargoylee', 3, 0, 0, 1, 100, 100, '1', '', '', -1);
-INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
-(4883, 95, '2109', 'school_console_g', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
+(4882, 276, '6976', 'blackgargoylee', 3, 0, 0, 1, 100, 100, '1', '', '', -1),
+(4883, 95, '2109', 'school_console_g', 3, 0, 0, 1, 0, 0, '1', '', '', -1);
+INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
 (4884, 95, '2110', 'school_console_b', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (4885, 95, '2111', 'school_coatrack_r', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (4886, 95, '2112', 'school_gate', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
@@ -5644,9 +5644,9 @@ INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost
 (5550, 279, '2810', 'clothing_knithat', 5, 0, 0, 1, 0, 0, '1', '', '', -1),
 (5551, 17, '2811', 'clothing_party5', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (5552, 17, '2812', 'clothing_party4', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
-(5553, 17, '2813', 'clothing_party8', 3, 0, 0, 1, 0, 0, '1', '', '', -1);
-INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
-(5554, 17, '2814', 'clothing_party6', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
+(5553, 17, '2813', 'clothing_party8', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
+(5554, 17, '2814', 'clothing_party6', 3, 0, 0, 1, 0, 0, '1', '', '', -1);
+INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
 (5555, 17, '2815', 'clothing_party3', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (5556, 17, '2816', 'clothing_party7', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (5557, 17, '2817', 'clothing_goldpack1', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
@@ -6336,9 +6336,9 @@ INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost
 (6241, 215, '5082', 'statue_dragon', 3, 0, 0, 1, 0, 0, '1', '0', '', 0),
 (6242, 215, '5083', 'statue_griffin', 3, 0, 0, 1, 0, 0, '1', '0', '', 0),
 (6243, 215, '5084', 'statue_elk', 3, 0, 0, 1, 0, 0, '1', '0', '', 0),
-(6244, 159, '5085', 'rare_icecream*10', 3, 0, 0, 1, 0, 0, '1', '0', '', -1);
-INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
-(6245, 75, '5086', 'holo_nelly', 3, 0, 0, 1, 0, 0, '1', '0', '', -1),
+(6244, 159, '5085', 'rare_icecream*10', 3, 0, 0, 1, 0, 0, '1', '0', '', -1),
+(6245, 75, '5086', 'holo_nelly', 3, 0, 0, 1, 0, 0, '1', '0', '', -1);
+INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
 (6246, 139, '5087', 'val13_easel_4', 3, 0, 0, 1, 0, 0, '1', '0', '', -1),
 (6247, 139, '5088', 'val13_easel_3', 3, 0, 0, 1, 0, 0, '1', '0', '', -1),
 (6248, 139, '5089', 'val13_easel_1', 3, 0, 0, 1, 0, 0, '1', '0', '', -1),
@@ -7011,9 +7011,9 @@ INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost
 (6915, 236, '6535', 'bc_block_0*46', 7, 0, 0, 1, 0, 0, '1', '', '', -1),
 (6916, 236, '6536', 'bc_block_0*47', 7, 0, 0, 1, 0, 0, '1', '', '', -1),
 (6917, 236, '6537', 'bc_block_0*48', 7, 0, 0, 1, 0, 0, '1', '', '', -1),
-(6918, 236, '6538', 'bc_block_0*49', 7, 0, 0, 1, 0, 0, '1', '', '', -1);
-INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
-(6919, 236, '6539', 'bc_block_0*50', 7, 0, 0, 1, 0, 0, '1', '', '', -1),
+(6918, 236, '6538', 'bc_block_0*49', 7, 0, 0, 1, 0, 0, '1', '', '', -1),
+(6919, 236, '6539', 'bc_block_0*50', 7, 0, 0, 1, 0, 0, '1', '', '', -1);
+INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
 (6920, 236, '6540', 'bc_block_0*51', 7, 0, 0, 1, 0, 0, '1', '', '', -1),
 (6921, 236, '6541', 'bc_block_0*52', 7, 0, 0, 1, 0, 0, '1', '', '', -1),
 (6922, 236, '6542', 'bc_block_0*53', 7, 0, 0, 1, 0, 0, '1', '', '', -1),
@@ -7689,9 +7689,9 @@ INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost
 (7592, 36, '3275', 'poster_523', 3, 0, 0, 1, 0, 0, '1', '523', '', -1),
 (7593, 36, '3153', 'flag_algeria', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (7594, 36, '3157', 'flag_argentina', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
-(7595, 36, '7213', 'flag_austria', 3, 0, 0, 1, 0, 0, '1', '', '', -1);
-INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
-(7596, 36, '1735', 'flag_belgium', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
+(7595, 36, '7213', 'flag_austria', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
+(7596, 36, '1735', 'flag_belgium', 3, 0, 0, 1, 0, 0, '1', '', '', -1);
+INSERT INTO `catalog_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost_credits`, `cost_pixels`, `cost_diamonds`, `amount`, `limited_sells`, `limited_stack`, `offer_active`, `extradata`, `badge`, `offer_id`) VALUES
 (7597, 36, '3146', 'flag_chile', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (7598, 36, '3145', 'flag_columbia', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
 (7599, 36, '7214', 'flag_denmark', 3, 0, 0, 1, 0, 0, '1', '', '', -1),
@@ -7950,15 +7950,88 @@ INSERT INTO `catalogue_items` (`id`, `page_id`, `item_id`, `catalog_name`, `cost
 (7852, 48, '675', 'a6 DVN blue', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
 (7853, 48, '676', 'a7 DVN green', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
 (7854, 48, '677', 'a8 DVN yellow', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
-(7855, 48, '678', 'a9 DVN red', 10, 0, 0, 1, 0, 0, '1', '', '', -1);
+(7855, 48, '678', 'a9 DVN red', 10, 0, 0, 1, 0, 0, '1', '', '', -1),
+(7856, 39, '7387', 'avatar_effect108', 0, 5, 0, 1, 0, 0, '1', '', '', -1),
+(7857, 39, '7388', 'avatar_effect1', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7858, 39, '7389', 'avatar_effect2', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7859, 39, '7390', 'avatar_effect3', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7860, 39, '7391', 'avatar_effect4', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7861, 39, '7392', 'avatar_effect5', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7862, 39, '7393', 'avatar_effect6', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7863, 39, '7394', 'avatar_effect7', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7864, 39, '7395', 'avatar_effect8', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7865, 39, '7396', 'avatar_effect9', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7866, 39, '7397', 'avatar_effect10', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7867, 39, '7398', 'avatar_effect11', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7868, 39, '7399', 'avatar_effect12', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7869, 39, '7400', 'avatar_effect13', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7870, 39, '7401', 'avatar_effect15', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7871, 39, '7402', 'avatar_effect16', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7872, 39, '7403', 'avatar_effect17', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7873, 39, '7404', 'avatar_effect18', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7874, 39, '7405', 'avatar_effect48', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7875, 39, '7406', 'avatar_effect79', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7876, 39, '7407', 'avatar_effect80', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7877, 39, '7408', 'avatar_effect81', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7878, 39, '7409', 'avatar_effect82', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7879, 39, '7410', 'avatar_effect83', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7880, 39, '7411', 'avatar_effect84', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7881, 39, '7412', 'avatar_effect85', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7882, 39, '7413', 'avatar_effect86', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7883, 39, '7414', 'avatar_effect87', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7884, 39, '7415', 'avatar_effect106', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7885, 39, '7416', 'avatar_effect109', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7886, 39, '7417', 'avatar_effect110', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7887, 39, '7418', 'avatar_effect111', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7888, 39, '7419', 'avatar_effect158', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7889, 39, '7420', 'avatar_effect174', 0, 25, 0, 1, 0, 0, '1', '', '', -1),
+(7890, 39, '7421', 'avatar_effect19', 0, 50, 0, 1, 0, 0, '1', '', '', -1),
+(7891, 39, '7422', 'avatar_effect20', 0, 50, 0, 1, 0, 0, '1', '', '', -1),
+(7892, 39, '7423', 'avatar_effect21', 0, 50, 0, 1, 0, 0, '1', '', '', -1),
+(7893, 39, '7424', 'avatar_effect22', 0, 50, 0, 1, 0, 0, '1', '', '', -1),
+(7894, 39, '7425', 'avatar_effect113', 0, 50, 0, 1, 0, 0, '1', '', '', -1),
+(7895, 39, '7426', 'avatar_effect64', 0, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7896, 39, '7427', 'avatar_effect72', 0, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7897, 39, '7428', 'avatar_effect101', 0, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7898, 39, '7429', 'avatar_effect172', 0, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7899, 39, '7430', 'avatar_effect173', 0, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7900, 39, '7431', 'avatar_effect179', 0, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7901, 39, '7432', 'avatar_effect180', 0, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7902, 39, '7433', 'avatar_effect181', 0, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7903, 39, '7434', 'avatar_effect186', 0, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7904, 39, '7435', 'avatar_effect114', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7905, 39, '7436', 'avatar_effect115', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7906, 39, '7437', 'avatar_effect117', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7907, 39, '7438', 'avatar_effect118', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7908, 39, '7439', 'avatar_effect119', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7909, 39, '7440', 'avatar_effect120', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7910, 39, '7441', 'avatar_effect121', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7911, 39, '7442', 'avatar_effect122', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7912, 39, '7443', 'avatar_effect124', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7913, 39, '7444', 'avatar_effect128', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7914, 39, '7445', 'avatar_effect130', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7915, 39, '7446', 'avatar_effect131', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7916, 39, '7447', 'avatar_effect134', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7917, 39, '7448', 'avatar_effect135', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7918, 39, '7449', 'avatar_effect136', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7919, 39, '7450', 'avatar_effect137', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7920, 39, '7451', 'avatar_effect138', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7921, 39, '7452', 'avatar_effect139', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7922, 39, '7453', 'avatar_effect159', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7923, 39, '7454', 'avatar_effect161', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7924, 39, '7455', 'avatar_effect162', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7925, 39, '7456', 'avatar_effect164', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7926, 39, '7457', 'avatar_effect166', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7927, 39, '7458', 'avatar_effect167', 1, 150, 0, 1, 0, 0, '1', '', '', -1),
+(7928, 39, '7459', 'avatar_effect170', 1, 150, 0, 1, 0, 0, '1', '', '', -1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `catalogue_pages`
+-- Table structure for table `catalog_pages`
 --
 
-CREATE TABLE `catalogue_pages` (
+CREATE TABLE `catalog_pages` (
   `id` int(11) NOT NULL,
   `parent_id` int(11) NOT NULL DEFAULT '-1',
   `caption` varchar(35) NOT NULL,
@@ -7975,10 +8048,10 @@ CREATE TABLE `catalogue_pages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `catalogue_pages`
+-- Dumping data for table `catalog_pages`
 --
 
-INSERT INTO `catalogue_pages` (`id`, `parent_id`, `caption`, `icon_image`, `visible`, `enabled`, `min_rank`, `min_vip`, `order_num`, `page_link`, `page_layout`, `page_strings_1`, `page_strings_2`) VALUES
+INSERT INTO `catalog_pages` (`id`, `parent_id`, `caption`, `icon_image`, `visible`, `enabled`, `min_rank`, `min_vip`, `order_num`, `page_link`, `page_layout`, `page_strings_1`, `page_strings_2`) VALUES
 (0, -1, 'Front Page', 213, '1', '1', 1, 0, 1, 'frontpage', 'frontpage4', 'catalog_frontpage_headline_shop_GENERAL|frontpage_teaser', '<i><b><font color=\"#0E668C\" size=\"16\">What can I find in the shop?</font></b></i><br><br>Upgrade your clothing with Habbo Club, adopt a pet or decorate your room the way you like it. Whatever you like to do most in Habbo, you\'ll find a way to make that experience even better by browsing our Shop.<br><br><li>Join <a href=\"event:catalog/open/habbo_club\">Habbo Club</a></li><li><a href=\"event:catalog/open/set_pixelnew\">Decorate </a>your room</li><li>Adopt a <a href=\"event:catalog/open/pet_horse\">Pet</a>, <a href=\"event:catalog/open/bots\">Bot</a> or <a href=\"event:catalog/open/monster_plants_info\">Monsterplants</a></li><li>Make your own <a href=\"event:catalog/open/category_wired\">Wired</a> games </li><li>Trade in our <a href=\"event:catalog/open/marketplace_offers\">Marketplace</a></li><br><i><b><font color=\"#0E668C\" size=\"16\">Where can I get credits?</font></b></i><br><br>We have many methods of payment such as SMS, Home Phone, Prepaid Cards, and Credit Cards.<br><br><a href=\"event:habblet/open/credits\">Visit our credits page for more info.</a>|Redeem a voucher code here:'),
 (1, 282, 'Classic Furni', 2, '0', '0', 1, 0, 14, '', 'default_3x3', 'catalog_frontpage_headline2_en|', '|'),
 (2, 282, 'Pixel Shop', 5, '0', '1', 1, 0, 24, '', 'default_3x3', 'catalog_frontpage_headline2_en|', '|'),
@@ -8188,7 +8261,7 @@ INSERT INTO `catalogue_pages` (`id`, `parent_id`, `caption`, `icon_image`, `visi
 (206, 182, 'Alphabet', 1009, '1', '1', 1, 0, 0, '', 'default_3x3_color_grouping', 'catalog_header_alpha1|catalog_teaser_alpha1', 'Feeling creative? You should be! Here is a full range of building blocks to create a master piece with!'),
 (207, 177, 'CyberPunk', 254, '1', '1', 1, 0, 72, '', 'default_3x3', 'catalog_header_cpunk15|catalog_teaser_cyberpunk', 'Light-filled cityscapes and brightly lit skycrapers looming ovehead... This is the dark, dark furni line of the future. The future is called CyberPunk.'),
 (208, 72, 'Public Furni 2015', 28, '1', '1', 5, 0, 174, '', 'default_3x3', '', 'Public Furniture: Used to build new rooms such as the Noob Lobby, HC Lounge and Welcome Lounge [2015]');
-INSERT INTO `catalogue_pages` (`id`, `parent_id`, `caption`, `icon_image`, `visible`, `enabled`, `min_rank`, `min_vip`, `order_num`, `page_link`, `page_layout`, `page_strings_1`, `page_strings_2`) VALUES
+INSERT INTO `catalog_pages` (`id`, `parent_id`, `caption`, `icon_image`, `visible`, `enabled`, `min_rank`, `min_vip`, `order_num`, `page_link`, `page_layout`, `page_strings_1`, `page_strings_2`) VALUES
 (209, 177, 'Chinese New Year', 15, '0', '1', 1, 0, 50, '', 'default_3x3', 'catalog_asian_headline1|catalog_asian_teaser1', 'The year of the Horse was engulfed in excitement, but it\'s time for the flames to die away as we slither into the next Chinese Lunar Year - The Goat!'),
 (210, 177, 'St Patrick\'s 2014', 212, '0', '1', 1, 0, 198, '', 'default_3x3', '', ''),
 (211, 177, 'Mall', 28, '1', '1', 1, 0, 136, '', 'default_3x3', '', ''),
@@ -8815,13 +8888,6 @@ CREATE TABLE `group_members` (
   `member_type` enum('REQUEST','MEMBER','ADMINISTRATOR','') NOT NULL DEFAULT 'MEMBER'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `group_members`
---
-
-INSERT INTO `group_members` (`group_id`, `user_id`, `member_type`) VALUES
-(2, 1, 'MEMBER');
-
 -- --------------------------------------------------------
 
 --
@@ -9073,102 +9139,17 @@ INSERT INTO `items` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`, `y`
 (305, 1, 1, 7195, 3, '8', '27', 1.4029999999999996, 0, '1'),
 (306, 1, 1, 7195, 3, '11', '20', 0.001, 0, '1'),
 (307, 1, 1, 7195, 3, '20', '24', 1.4029999999999996, 0, '1'),
-(345, 1, 1, 3275, 4, 'l,3,7', '11,22', 0, 0, '513'),
+(345, 1, 1, 3275, 4, 'l,3,3', '15,29', 0, 0, '513'),
 (402, 1, 1, 3561, 3, '10', '16', 0.001, 0, '{\"hue\":136,\"saturation\":202,\"brightness\":202,\"enabled\":true}'),
-(506, 1, 1, 1643, 4, 'r,5,0', '12,37', 0, 0, ''),
-(569, 1, 1, 11, 4, '4', '12', 0.503, 0, '0'),
-(570, 1, 1, 122, 4, '4', '12', 1.005, 2, '0'),
-(571, 1, 1, 11, 4, '4', '12', 0.001, 0, ''),
-(574, 1, 1, 139, 4, '4', '1', 0, 0, ''),
-(575, 1, 1, 1643, 4, 'l,3,9', '5,33', 0, 0, '1'),
-(576, 1, 1, 151, 4, '8', '1', 0.001, 2, '0'),
-(577, 1, 1, 109, 0, '0', '0', 0, 0, ''),
-(579, 1, 1, 17, 4, '4', '5', 0.001, 0, ''),
-(580, 1, 1, 100, 4, '7', '6', 0.001, 0, ''),
-(581, 1, 1, 3, 4, '4', '2', 0.001, 2, ''),
-(582, 1, 1, 219, 0, '0', '0', 0, 0, ''),
-(583, 1, 1, 451, 4, '7', '12', 0, 6, '0'),
-(584, 1, 1, 31, 0, '0', '0', 0, 0, ''),
-(585, 1, 1, 663, 4, '4', '7', 0, 2, '0'),
-(586, 1, 1, 21, 0, '0', '0', 0, 4, ''),
-(587, 1, 1, 29, 4, '4', '8', 0.001, 0, ''),
-(589, 1, 1, 13, 4, '9', '4', 0, 0, ''),
-(590, 1, 1, 219, 0, '0', '0', 0, 0, ''),
-(591, 1, 1, 221, 0, '0', '0', 0, 0, '0'),
-(694, 1, 1, 1919, 0, '0', '0', 0, 2, '0'),
-(695, 1, 1, 1127, 4, '4', '7', 1.301, 0, ''),
-(696, 1, 1, 428, 0, '0', '0', 0, 4, ''),
-(697, 1, 1, 428, 0, '0', '0', 0, 2, ''),
-(698, 1, 1, 428, 0, '0', '0', 0, 0, ''),
-(699, 1, 1, 428, 0, '0', '0', 0, 0, ''),
-(700, 1, 1, 428, 0, '0', '0', 0, 0, ''),
-(701, 1, 1, 428, 0, '0', '0', 0, 0, ''),
-(702, 1, 1, 428, 0, '0', '0', 0, 0, ''),
-(703, 1, 1, 428, 0, '0', '0', 0, 0, ''),
-(704, 1, 1, 4765, 0, '0', '0', 0, 0, '0'),
-(705, 1, 1, 451, 4, '6', '1', 0, 4, '0'),
-(706, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(707, 1, 1, 1033, 0, '0', '0', 0, 4, ''),
-(708, 1, 1, 1032, 0, '0', '0', 0, 0, '0'),
-(709, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(710, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(711, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(712, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(713, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(714, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(715, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(716, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(717, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(718, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(719, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(720, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(721, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(722, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(723, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(724, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(725, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(726, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(727, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(728, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(729, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(730, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(731, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(732, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(733, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(734, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(735, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(736, 1, 1, 985, 0, '0', '0', 0, 0, '0'),
-(737, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(738, 1, 1, 985, 0, '0', '0', 0, 0, ''),
-(739, 1, 1, 1037, 0, '0', '0', 0, 0, ''),
-(740, 1, 1, 1037, 0, '0', '0', 0, 4, ''),
-(741, 1, 1, 1037, 0, '0', '0', 0, 2, ''),
-(742, 1, 1, 1465, 0, '0', '0', 0, 0, '1'),
-(743, 1, 1, 986, 0, '0', '0', 0, 0, ''),
-(744, 1, 1, 1032, 0, '0', '0', 0, 0, ''),
-(745, 1, 1, 1032, 0, '0', '0', 0, 0, '0'),
-(746, 1, 1, 1977, 0, '0', '0', 0, 0, ''),
-(747, 1, 1, 110, 0, '0', '0', 0, 0, ''),
-(748, 1, 1, 110, 0, '0', '0', 0, 0, ''),
-(749, 1, 1, 110, 0, '0', '0', 0, 0, ''),
-(750, 1, 1, 110, 0, '0', '0', 0, 0, ''),
-(751, 1, 1, 212, 5, '2', '8', 0, 2, '1'),
-(752, 1, 1, 212, 5, '6', '6', 0, 0, '1'),
-(753, 1, 1, 219, 0, '0', '0', 0, 0, ''),
-(754, 1, 1, 219, 0, '0', '0', 0, 6, ''),
-(755, 1, 1, 219, 0, '0', '0', 0, 6, '0'),
-(756, 1, 1, 219, 0, '0', '0', 0, 6, ''),
-(758, 1, 1, 1916, 0, '0', '0', 0, 0, ''),
-(759, 1, 1, 1916, 0, '0', '0', 0, 0, ''),
-(760, 1, 1, 1916, 0, 'r,10,0', '8,25', 0, 0, '1'),
-(761, 1, 1, 1916, 0, 'r,8,0', '3,25', 0, 0, '2'),
-(762, 1, 1, 1916, 0, 'r,5,0', '7,29', 0, 0, ''),
-(763, 1, 1, 1916, 0, 'l,3,2', '8,27', 0, 0, ''),
-(764, 1, 1, 1916, 0, 'l,3,3', '6,26', 0, 0, ''),
-(765, 1, 1, 1916, 0, 'l,3,6', '6,28', 0, 0, ''),
-(766, 1, 1, 1916, 0, 'l,3,9', '6,23', 0, 0, ''),
-(767, 1, 1, 1916, 0, 'l,3,12', '7,28', 0, 0, ''),
-(768, 1, 1, 7348, 4, 'r,9,0', '4,18', 0, 0, '0');
+(506, 1, 1, 1643, 4, 'r,7,0', '13,35', 0, 0, ''),
+(569, 1, 1, 11, 0, '0', '0', 0, 2, '0'),
+(570, 1, 1, 122, 0, '0', '0', 0, 4, '0'),
+(571, 1, 1, 11, 0, '0', '0', 0, 2, ''),
+(572, 1, 1, 110, 0, '0', '0', 0, 0, ''),
+(573, 1, 1, 110, 0, '0', '0', 0, 0, ''),
+(574, 1, 1, 1348, 4, '6', '7', 0, 0, '1'),
+(575, 1, 1, 7276, 0, '0', '0', 0, 0, ''),
+(576, 1, 1, 7282, 0, '0', '0', 0, 0, '0');
 
 -- --------------------------------------------------------
 
@@ -16460,7 +16441,119 @@ INSERT INTO `item_definitions` (`id`, `item_name`, `public_name`, `type`, `width
 (7345, 'icedblk_c16_table*9', '', 's', 2, 2, 1, '1', '0', '0', 8641, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
 (7346, 'icedblk_c16_table*10', '', 's', 2, 2, 1, '1', '0', '0', 8633, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
 (7347, 'couch_norja*5', '', 's', 2, 1, 1, '1', '1', '0', 1788, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
-(7348, 'external_image_wallitem_poster_small', 'Camera Pic', 'i', 0, 0, 0, '1', '0', '0', 4597, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0');
+(7348, 'avatar_effect108', '', 'e', 1, 1, 0, '1', '0', '0', 108, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7349, 'avatar_effect1', '', 'e', 1, 1, 0, '1', '0', '0', 1, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7350, 'avatar_effect2', '', 'e', 1, 1, 0, '1', '0', '0', 2, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7351, 'avatar_effect3', '', 'e', 1, 1, 0, '1', '0', '0', 3, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7352, 'avatar_effect4', '', 'e', 1, 1, 0, '1', '0', '0', 4, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7353, 'avatar_effect5', '', 'e', 1, 1, 0, '1', '0', '0', 5, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7354, 'avatar_effect6', '', 'e', 1, 1, 0, '1', '0', '0', 6, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7355, 'avatar_effect7', '', 'e', 1, 1, 0, '1', '0', '0', 7, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7356, 'avatar_effect8', '', 'e', 1, 1, 0, '1', '0', '0', 8, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7357, 'avatar_effect9', '', 'e', 1, 1, 0, '1', '0', '0', 9, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7358, 'avatar_effect10', '', 'e', 1, 1, 0, '1', '0', '0', 10, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7359, 'avatar_effect11', '', 'e', 1, 1, 0, '1', '0', '0', 11, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7360, 'avatar_effect12', '', 'e', 1, 1, 0, '1', '0', '0', 12, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7361, 'avatar_effect13', '', 'e', 1, 1, 0, '1', '0', '0', 13, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7362, 'avatar_effect15', '', 'e', 1, 1, 0, '1', '0', '0', 15, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7363, 'avatar_effect16', '', 'e', 1, 1, 0, '1', '0', '0', 16, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7364, 'avatar_effect17', '', 'e', 1, 1, 0, '1', '0', '0', 17, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7365, 'avatar_effect18', '', 'e', 1, 1, 0, '1', '0', '0', 18, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7366, 'avatar_effect48', '', 'e', 1, 1, 0, '1', '0', '0', 48, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7367, 'avatar_effect79', '', 'e', 1, 1, 0, '1', '0', '0', 79, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7368, 'avatar_effect80', '', 'e', 1, 1, 0, '1', '0', '0', 80, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7369, 'avatar_effect81', '', 'e', 1, 1, 0, '1', '0', '0', 81, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7370, 'avatar_effect82', '', 'e', 1, 1, 0, '1', '0', '0', 82, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7371, 'avatar_effect83', '', 'e', 1, 1, 0, '1', '0', '0', 83, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7372, 'avatar_effect84', '', 'e', 1, 1, 0, '1', '0', '0', 84, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7373, 'avatar_effect85', '', 'e', 1, 1, 0, '1', '0', '0', 85, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7374, 'avatar_effect86', '', 'e', 1, 1, 0, '1', '0', '0', 86, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7375, 'avatar_effect87', '', 'e', 1, 1, 0, '1', '0', '0', 87, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7376, 'avatar_effect106', '', 'e', 1, 1, 0, '1', '0', '0', 106, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7377, 'avatar_effect109', '', 'e', 1, 1, 0, '1', '0', '0', 109, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7378, 'avatar_effect110', '', 'e', 1, 1, 0, '1', '0', '0', 110, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7379, 'avatar_effect111', '', 'e', 1, 1, 0, '1', '0', '0', 111, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7380, 'avatar_effect158', '', 'e', 1, 1, 0, '1', '0', '0', 158, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7381, 'avatar_effect174', '', 'e', 1, 1, 0, '1', '0', '0', 174, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7382, 'avatar_effect19', '', 'e', 1, 1, 0, '1', '0', '0', 19, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7383, 'avatar_effect20', '', 'e', 1, 1, 0, '1', '0', '0', 20, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7384, 'avatar_effect21', '', 'e', 1, 1, 0, '1', '0', '0', 21, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7385, 'avatar_effect22', '', 'e', 1, 1, 0, '1', '0', '0', 22, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7386, 'avatar_effect113', '', 'e', 1, 1, 0, '1', '0', '0', 113, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7387, 'avatar_effect108', '', 'e', 1, 1, 0, '1', '0', '0', 108, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7388, 'avatar_effect1', '', 'e', 1, 1, 0, '1', '0', '0', 1, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7389, 'avatar_effect2', '', 'e', 1, 1, 0, '1', '0', '0', 2, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7390, 'avatar_effect3', '', 'e', 1, 1, 0, '1', '0', '0', 3, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7391, 'avatar_effect4', '', 'e', 1, 1, 0, '1', '0', '0', 4, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7392, 'avatar_effect5', '', 'e', 1, 1, 0, '1', '0', '0', 5, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7393, 'avatar_effect6', '', 'e', 1, 1, 0, '1', '0', '0', 6, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7394, 'avatar_effect7', '', 'e', 1, 1, 0, '1', '0', '0', 7, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7395, 'avatar_effect8', '', 'e', 1, 1, 0, '1', '0', '0', 8, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7396, 'avatar_effect9', '', 'e', 1, 1, 0, '1', '0', '0', 9, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7397, 'avatar_effect10', '', 'e', 1, 1, 0, '1', '0', '0', 10, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7398, 'avatar_effect11', '', 'e', 1, 1, 0, '1', '0', '0', 11, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7399, 'avatar_effect12', '', 'e', 1, 1, 0, '1', '0', '0', 12, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7400, 'avatar_effect13', '', 'e', 1, 1, 0, '1', '0', '0', 13, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7401, 'avatar_effect15', '', 'e', 1, 1, 0, '1', '0', '0', 15, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7402, 'avatar_effect16', '', 'e', 1, 1, 0, '1', '0', '0', 16, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7403, 'avatar_effect17', '', 'e', 1, 1, 0, '1', '0', '0', 17, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7404, 'avatar_effect18', '', 'e', 1, 1, 0, '1', '0', '0', 18, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7405, 'avatar_effect48', '', 'e', 1, 1, 0, '1', '0', '0', 48, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7406, 'avatar_effect79', '', 'e', 1, 1, 0, '1', '0', '0', 79, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7407, 'avatar_effect80', '', 'e', 1, 1, 0, '1', '0', '0', 80, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7408, 'avatar_effect81', '', 'e', 1, 1, 0, '1', '0', '0', 81, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7409, 'avatar_effect82', '', 'e', 1, 1, 0, '1', '0', '0', 82, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7410, 'avatar_effect83', '', 'e', 1, 1, 0, '1', '0', '0', 83, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7411, 'avatar_effect84', '', 'e', 1, 1, 0, '1', '0', '0', 84, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7412, 'avatar_effect85', '', 'e', 1, 1, 0, '1', '0', '0', 85, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7413, 'avatar_effect86', '', 'e', 1, 1, 0, '1', '0', '0', 86, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7414, 'avatar_effect87', '', 'e', 1, 1, 0, '1', '0', '0', 87, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7415, 'avatar_effect106', '', 'e', 1, 1, 0, '1', '0', '0', 106, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7416, 'avatar_effect109', '', 'e', 1, 1, 0, '1', '0', '0', 109, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7417, 'avatar_effect110', '', 'e', 1, 1, 0, '1', '0', '0', 110, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7418, 'avatar_effect111', '', 'e', 1, 1, 0, '1', '0', '0', 111, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7419, 'avatar_effect158', '', 'e', 1, 1, 0, '1', '0', '0', 158, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7420, 'avatar_effect174', '', 'e', 1, 1, 0, '1', '0', '0', 174, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7421, 'avatar_effect19', '', 'e', 1, 1, 0, '1', '0', '0', 19, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7422, 'avatar_effect20', '', 'e', 1, 1, 0, '1', '0', '0', 20, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7423, 'avatar_effect21', '', 'e', 1, 1, 0, '1', '0', '0', 21, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7424, 'avatar_effect22', '', 'e', 1, 1, 0, '1', '0', '0', 22, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7425, 'avatar_effect113', '', 'e', 1, 1, 0, '1', '0', '0', 113, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7426, 'avatar_effect64', '', 'e', 1, 1, 0, '1', '0', '0', 64, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7427, 'avatar_effect72', '', 'e', 1, 1, 0, '1', '0', '0', 72, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7428, 'avatar_effect101', '', 'e', 1, 1, 0, '1', '0', '0', 101, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7429, 'avatar_effect172', '', 'e', 1, 1, 0, '1', '0', '0', 172, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7430, 'avatar_effect173', '', 'e', 1, 1, 0, '1', '0', '0', 173, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7431, 'avatar_effect179', '', 'e', 1, 1, 0, '1', '0', '0', 179, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7432, 'avatar_effect180', '', 'e', 1, 1, 0, '1', '0', '0', 180, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7433, 'avatar_effect181', '', 'e', 1, 1, 0, '1', '0', '0', 181, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7434, 'avatar_effect186', '', 'e', 1, 1, 0, '1', '0', '0', 186, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7435, 'avatar_effect114', '', 'e', 1, 1, 0, '1', '0', '0', 114, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7436, 'avatar_effect115', '', 'e', 1, 1, 0, '1', '0', '0', 115, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7437, 'avatar_effect117', '', 'e', 1, 1, 0, '1', '0', '0', 117, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7438, 'avatar_effect118', '', 'e', 1, 1, 0, '1', '0', '0', 118, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7439, 'avatar_effect119', '', 'e', 1, 1, 0, '1', '0', '0', 119, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7440, 'avatar_effect120', '', 'e', 1, 1, 0, '1', '0', '0', 120, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7441, 'avatar_effect121', '', 'e', 1, 1, 0, '1', '0', '0', 121, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7442, 'avatar_effect122', '', 'e', 1, 1, 0, '1', '0', '0', 122, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7443, 'avatar_effect124', '', 'e', 1, 1, 0, '1', '0', '0', 124, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7444, 'avatar_effect128', '', 'e', 1, 1, 0, '1', '0', '0', 128, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7445, 'avatar_effect130', '', 'e', 1, 1, 0, '1', '0', '0', 130, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7446, 'avatar_effect131', '', 'e', 1, 1, 0, '1', '0', '0', 131, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7447, 'avatar_effect134', '', 'e', 1, 1, 0, '1', '0', '0', 134, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7448, 'avatar_effect135', '', 'e', 1, 1, 0, '1', '0', '0', 135, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7449, 'avatar_effect136', '', 'e', 1, 1, 0, '1', '0', '0', 136, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7450, 'avatar_effect137', '', 'e', 1, 1, 0, '1', '0', '0', 137, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7451, 'avatar_effect138', '', 'e', 1, 1, 0, '1', '0', '0', 138, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7452, 'avatar_effect139', '', 'e', 1, 1, 0, '1', '0', '0', 139, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7453, 'avatar_effect159', '', 'e', 1, 1, 0, '1', '0', '0', 159, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7454, 'avatar_effect161', '', 'e', 1, 1, 0, '1', '0', '0', 161, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7455, 'avatar_effect162', '', 'e', 1, 1, 0, '1', '0', '0', 162, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7456, 'avatar_effect164', '', 'e', 1, 1, 0, '1', '0', '0', 164, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7457, 'avatar_effect166', '', 'e', 1, 1, 0, '1', '0', '0', 166, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7458, 'avatar_effect167', '', 'e', 1, 1, 0, '1', '0', '0', 167, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7459, 'avatar_effect170', '', 'e', 1, 1, 0, '1', '0', '0', 170, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+(7460, 'external_image_wallitem_poster_small', 'Camera Pic', 'i', 0, 0, 0, '0', '0', '0', 4597, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '0', 0, '0');
 
 -- --------------------------------------------------------
 
@@ -16635,7 +16728,8 @@ INSERT INTO `pets` (`id`, `owner_id`, `room_id`, `pet_name`, `race_id`, `type`, 
 (8, 5, 0, 'Doggo', 4, 3, 'FFFFFF', 0, 1, 100, 0, 100, 7, 4, 'false', 'false', -1, 0, 1504921602),
 (9, 2, 0, 'Cat', 0, 1, '84A95F', 0, 1, 100, 0, 100, 1, 8, 'false', 'false', -1, 0, 1504922776),
 (10, 5, 0, 'Sparky', 0, 7, 'CCCCCC', 0, 1, 100, 0, 100, 4, 10, 'false', 'false', -1, 0, 1505315514),
-(11, 1, 0, 'Guru', 2, 6, 'FFFFFF', 0, 1, 100, 0, 100, 8, 5, 'false', 'false', -1, 0, 1507647975);
+(11, 1, 0, 'Guru', 2, 6, 'FFFFFF', 0, 1, 100, 0, 100, 8, 5, 'false', 'false', -1, 0, 1507647975),
+(12, 1, 0, 'DatBoi', 0, 4, 'FFFFFF', 0, 1, 100, 0, 100, 0, 0, 'false', 'false', -1, 0, 1508351654);
 
 -- --------------------------------------------------------
 
@@ -16963,7 +17057,7 @@ INSERT INTO `rooms` (`id`, `name`, `room_type`, `date_created`, `owner_id`, `gro
 (1, 'Welcome Lobby', 'PUBLIC', '2017-03-20 20:15:27', -1, 0, 'thumbnails/room_1_yus7y2ycpg.png', '', '', 0, 25, 'dynamic_model_1', '0', '0', '0.0', '', 0, 'OPEN', 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0),
 (2, 'Coffee House', 'PUBLIC', '2017-03-20 20:19:36', -1, 0, 'thumbnails/room_2_h0lcj7tr5f.png', '', '', 0, 25, 'dynamic_model_2', '105', '608', '0.0', '', 0, 'OPEN', 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0),
 (3, 'Picnic', 'PUBLIC', '2017-10-01 16:50:19', -1, 0, 'thumbnails/room_3_7mehe4543b.png', '', '', 0, 10, 'dynamic_model_3', '0', '0', '0', '', 0, 'OPEN', 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
-(4, 'xddd', 'PRIVATE', '2017-10-07 18:48:55', 1, 0, 'thumbnails/room_4_fh8umvgdks.png', '', '', 0, 10, 'model_a', '110', '210', '3.4', '', 1, 'OPEN', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
+(4, 'xddd', 'PRIVATE', '2017-10-07 18:48:55', 1, 0, NULL, '', '', 0, 10, 'model_a', '110', '302', '3.4', '', 1, 'OPEN', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
 (5, 'xdddddd', 'PRIVATE', '2017-10-10 15:28:14', 1, 2, NULL, '', '', 0, 10, 'model_b', '0', '0', '0', '', 1, 'OPEN', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0);
 
 -- --------------------------------------------------------
@@ -17162,17 +17256,8 @@ INSERT INTO `room_chatlogs` (`id`, `user`, `room_id`, `timestamp`, `message_type
 (148, 'Alex', 4, 1507878229, 0, ':reloadfurni'),
 (149, 'Alex', 4, 1507878317, 0, ':reloadfurni'),
 (150, 'Alex', 4, 1507878342, 0, ':reloadfurni'),
-(151, 'Alex', 4, 1507883788, 0, ':about'),
-(152, 'Alex', 5, 1507884777, 0, ':clearinventory'),
-(153, 'Alex', 5, 1507992975, 0, ':rollerspeed 1'),
-(154, 'Alex', 5, 1507993385, 0, 'hi'),
-(155, 'Alex', 5, 1507994613, 0, 'nigger faggot'),
-(156, 'Alex', 5, 1507997182, 0, ':rollerspeed 10'),
-(157, 'Alex', 5, 1507997197, 0, ':rollerspeed 1'),
-(158, 'Alex', 5, 1508001234, 0, ':rollerspeed 1'),
-(159, 'Alex', 5, 1508001281, 0, ':debugfurni'),
-(160, 'Alex', 5, 1508002053, 0, ':rollerspeed 1'),
-(161, 'Alex', 5, 1508005955, 0, ':debugfurni');
+(151, 'Alex', 4, 1508351851, 0, ':debugfurniture'),
+(152, 'Alex', 4, 1508351855, 0, ':debugfurni');
 
 -- --------------------------------------------------------
 
@@ -17445,7 +17530,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `rank`, `join_date`, `last_online`, `sso_ticket`, `email`, `mission`, `gender`, `figure`, `credits`, `home_room`) VALUES
-(1, 'Alex', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 7, 1489384512, 1491544401, NULL, 'test@alex.com', 'Icarus alpha tester', 'M', 'hr-3260-45.lg-270-90.ca-3187-79.ha-3291-73.hd-180-1.ch-3030-1408.sh-290-64.cc-3075-90', 9000, 0);
+(1, 'Alex', '$2a$06$AqhaaU651jubHz5CIb8MSe9.S/pPEwynB9Z/o3AHvV2AEO/EALB5G', 7, 1489384512, 1491544401, NULL, 'test@alex.com', 'Icarus alpha tester', 'M', 'sh-290-64.ch-3015-1341.hr-828-45.lg-270-90.hd-180-1', 8991, 0);
 
 -- --------------------------------------------------------
 
@@ -17498,16 +17583,16 @@ INSERT INTO `users_subscriptions` (`id`, `user_id`, `bought_time`, `expire_time`
 --
 
 --
--- Indexes for table `catalogue_items`
+-- Indexes for table `catalog_items`
 --
-ALTER TABLE `catalogue_items`
+ALTER TABLE `catalog_items`
   ADD PRIMARY KEY (`id`),
   ADD KEY `item_ids` (`item_id`) USING BTREE;
 
 --
--- Indexes for table `catalogue_pages`
+-- Indexes for table `catalog_pages`
 --
-ALTER TABLE `catalogue_pages`
+ALTER TABLE `catalog_pages`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`) USING BTREE,
   ADD KEY `order_num` (`order_num`) USING BTREE;
@@ -17680,14 +17765,14 @@ ALTER TABLE `users_subscriptions`
 --
 
 --
--- AUTO_INCREMENT for table `catalogue_items`
+-- AUTO_INCREMENT for table `catalog_items`
 --
-ALTER TABLE `catalogue_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7856;
+ALTER TABLE `catalog_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7929;
 --
--- AUTO_INCREMENT for table `catalogue_pages`
+-- AUTO_INCREMENT for table `catalog_pages`
 --
-ALTER TABLE `catalogue_pages`
+ALTER TABLE `catalog_pages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=294;
 --
 -- AUTO_INCREMENT for table `groups`
@@ -17698,12 +17783,12 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=769;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=577;
 --
 -- AUTO_INCREMENT for table `item_definitions`
 --
 ALTER TABLE `item_definitions`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7349;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7461;
 --
 -- AUTO_INCREMENT for table `messenger_friendships`
 --
@@ -17733,7 +17818,7 @@ ALTER TABLE `navigator_tabs`
 -- AUTO_INCREMENT for table `pets`
 --
 ALTER TABLE `pets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `rooms`
 --
@@ -17748,7 +17833,7 @@ ALTER TABLE `rooms_newbie`
 -- AUTO_INCREMENT for table `room_chatlogs`
 --
 ALTER TABLE `room_chatlogs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
 --
 -- AUTO_INCREMENT for table `room_items_moodlight`
 --
