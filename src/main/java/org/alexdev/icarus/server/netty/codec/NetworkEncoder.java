@@ -19,6 +19,7 @@
 
 package org.alexdev.icarus.server.netty.codec;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageEncoder;
 import org.alexdev.icarus.messages.types.MessageComposer;
@@ -43,6 +44,8 @@ public class NetworkEncoder extends MessageToMessageEncoder<MessageComposer> {
             log.info("SENT: {} / {}", msg.getResponse().getHeader(), msg.getResponse().getBodyString());
         }
 
-        out.add(msg.getResponse().get());
+        ByteBuf buffer = msg.getResponse().get();
+        buffer.retain();
+        out.add(buffer);
     }
 }
