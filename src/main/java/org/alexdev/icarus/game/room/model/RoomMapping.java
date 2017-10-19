@@ -299,7 +299,6 @@ public class RoomMapping {
         RoomTile tile = this.tiles[x][y];
 
         if (tile == null) {
-            //System.out.println("The birth of a new room tile!");
             this.tiles[x][y] = new RoomTile(this.room, x, y);
         }
 

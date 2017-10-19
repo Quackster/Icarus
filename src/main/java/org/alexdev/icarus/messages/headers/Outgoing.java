@@ -130,4 +130,5 @@ public class Outgoing {
     public static short RoomNotificationComposer = 3531;
     public static short EffectsMessageComposer = 899;
     public static short EffectMessageComposer = 2398;
+    public static short EffectActivatedMessageComposer = 1812;
 }

@@ -5,6 +5,8 @@ import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.catalogue.CataloguePage;
 import org.alexdev.icarus.game.inventory.InventoryNotification;
+import org.alexdev.icarus.game.inventory.effects.Effect;
+import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.club.ClubManager;
@@ -31,15 +33,27 @@ public class PurchaseItemMessageEvent implements MessageEvent {
 
         CatalogueItem item = page.getItem(itemId);
 
-        if (item.getDisplayName().startsWith("a0 pet")) {
+        if (item.getItemDefinition().getType() == ItemType.PET) {
             this.purchasePet(player, item, extraData);
-        } else {
-            this.purchase(player, item, extraData, request);
+            return;
+        };
+
+        if (item.getItemDefinition().getType() == ItemType.EFFECT) {
+            this.purchaseEffect(player, item);
+            return;
         }
-        
-        player.getInventory().updateItems();
+
+        this.purchase(player, item, extraData, request);
+
     }
 
+    /**
+     * Purchase handler for purchasing pets
+     *
+     * @param player the player
+     * @param item the pet purchased
+     * @param extraData the extra data to read to know the name, race of the pet.
+     */
     private void purchasePet(Player player, CatalogueItem item, String extraData) {
         
         boolean creditsError = false;
@@ -72,10 +86,50 @@ public class PurchaseItemMessageEvent implements MessageEvent {
         
         player.getInventory().addPet(pet, InventoryNotification.ALERT);
         player.getInventory().updatePets();
-        
+
         player.send(new PurchaseNotificationMessageComposer());
     }
 
+    /**
+     * Purchase handler for purchasing effects.
+     *
+     * @param player the player
+     * @param item the item purchased
+     */
+    private void purchaseEffect(Player player, CatalogueItem item) {
+
+        /*3859}
+--------------------
+Outgoing(2386, 16, _-04Q) -> [0][0][0][9]R[0][11]h’[0][0]IÊ[0][0][0][0][0][1]
+{l}{u:2386}{i:747666}{i:18890}{s:}{i:1}
+--------------------
+Incoming(277, 69, _-14, _-2mM) <- [0][0][0]E[1][0][0]IÊ[0]avatar_effect101[0][0][0][0][0][0][0][0]–[0][0][0][0][0][0][0][0][1][0][1]e[0][0][0]e[0][0][0][0][0][1][0][0][0][0][0][0][0][0][0][0][0][0][0][0]
+--------------------
+Incoming(3182, 14, _-6dE, _-30-) <- [0][0][0][12]n[0][0][4]~ÿÿÿj[0][0][0][0]
+--------------------
+Incoming(818, 15, _-03E, _-5n4) <- [0][0][0][3]2[0][0][0]e[0][0][0][0][0][9]:€[0]
+--------------------
+Outgoing(1483, 6, _-2Nu) -> [0][0][0][6][5]Ë[0][0][0][3]
+{l}{u:1483}{i:3}*/
+
+
+        int effectId = item.getItemDefinition().getSpriteId();
+
+        Effect effect = player.getInventory().getEffectManager().addEffect(effectId);
+
+        if (effect != null) {
+            player.send(player.getInventory().getEffectManager().createEffectComposer(effect));
+        }
+    }
+
+    /**
+     * Purchase handler for purchasing normal items.
+     *
+     * @param player the player
+     * @param item the item purchased
+     * @param extraData any extradata to apply to the new item
+     * @param request the request for reading further data
+     */
     private void purchase(Player player, CatalogueItem item, String extraData, ClientMessage request) {
 
         int amount = request.readInt();
@@ -86,7 +140,6 @@ public class PurchaseItemMessageEvent implements MessageEvent {
 
         if (amount > 1 && !item.allowOffer()) {
             //client.send(new AlertMessageComposer(Locale.get("catalog.error.nooffer")));
-
             return;
         }
 
@@ -124,16 +177,17 @@ public class PurchaseItemMessageEvent implements MessageEvent {
 
         //for (CatalogueBundledItem bundleItem : item.getItems()) {
 
-            if (item.getDisplayName().startsWith("DEAL_HC_")) {
-                ClubManager.handlePurchase(player, item, amount);
-                return;
-            }
+        if (item.getDisplayName().startsWith("DEAL_HC_")) {
+            ClubManager.handlePurchase(player, item, amount);
+            return;
+        }
 
-            for (int i = 0; i < amount; i++) {
-                item.getItemDefinition().handlePurchase(player, extraData);
-            }
+        for (int i = 0; i < amount; i++) {
+            item.getItemDefinition().handlePurchase(player, extraData);
+        }
 
-            player.send(new PurchaseNotificationMessageComposer(item));
+        player.send(new PurchaseNotificationMessageComposer(item));
+        player.getInventory().updateItems();
         //}
     }
 }

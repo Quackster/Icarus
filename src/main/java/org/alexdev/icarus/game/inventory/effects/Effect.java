@@ -4,17 +4,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Effect {
     
-    private int spriteId;
+    private int effectId;
     private boolean activated;
-    
-    private AtomicInteger duration;
+
     private AtomicInteger timeLeft;
     private AtomicInteger quantity;
     
-    public Effect(int spriteId, int duration, boolean activated, int timeLeft, int quantity) {
-        this.spriteId = spriteId;
+    public Effect(int effectId, boolean activated, int timeLeft, int quantity) {
+        this.effectId = effectId;
         this.activated = activated;
-        this.duration = new AtomicInteger(duration);
         this.timeLeft = new AtomicInteger(timeLeft);
         this.quantity = new AtomicInteger(quantity);
     }
@@ -24,28 +22,10 @@ public class Effect {
      *
      * @return the sprite id
      */
-    public int getSpriteId() {
-        return spriteId;
+    public int getEffectId() {
+        return effectId;
     }
-    
-    /**
-     * Sets the sprite id.
-     *
-     * @param spriteId the new sprite id
-     */
-    public void setSpriteId(int spriteId) {
-        this.spriteId = spriteId;
-    }
-    
-    /**
-     * Gets the duration.
-     *
-     * @return the duration
-     */
-    public AtomicInteger getDuration() {
-        return duration;
-    }
-    
+
     /**
      * Checks if is activated.
      *

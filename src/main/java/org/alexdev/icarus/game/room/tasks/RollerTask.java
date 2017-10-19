@@ -43,6 +43,7 @@ public class RollerTask extends RoomTask {
             List<Entity> entities = roller.getTile().getEntities();
             List<Item> items = roller.getTile().getItems();
 
+            // Process items on rollers
             for (int i = 0; i < items.size(); i++) {
 
                 Item item = items.get(i);
@@ -57,6 +58,7 @@ public class RollerTask extends RoomTask {
                 }
             }
 
+            // Process entities on rollers
             for (int i = 0; i < entities.size(); i++) {
 
                 Entity entity = entities.get(i);
@@ -178,5 +180,4 @@ public class RollerTask extends RoomTask {
         entity.getRoomUser().getPosition().setY(front.getY());
         entity.getRoomUser().getPosition().setZ(nextHeight);
     }
-
 }

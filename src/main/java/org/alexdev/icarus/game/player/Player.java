@@ -87,7 +87,7 @@ public class Player extends Entity {
 
         this.sendQueued(new UniqueMachineIDMessageComposer(this.getMachineId()));
         this.sendQueued(new AuthenticationOKMessageComposer());
-        this.sendQueued(new EffectsMessageComposer(this.getInventory().getEffects()));
+        this.sendQueued(this.getInventory().getEffectManager().createEffectsComposer());
         this.sendQueued(new HomeRoomMessageComposer(2, false));
         this.sendQueued(new LandingWidgetMessageComposer());
         this.sendQueued(new AvailabilityMessageComposer());

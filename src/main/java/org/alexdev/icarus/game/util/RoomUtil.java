@@ -161,6 +161,11 @@ public class RoomUtil {
             }
         }
 
+        if (player.getRoomUser().getEffectId() > 0) { // Does this user have an effect enabled?
+            // If so, show everybody on room entry!
+            player.getRoomUser().applyEffect(player.getRoomUser().getEffectId());
+        }
+
         player.flushQueue();
     }
     
