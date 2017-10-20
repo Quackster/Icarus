@@ -19,7 +19,8 @@ public class NetworkEncoder extends MessageToMessageEncoder<MessageComposer> {
     @Override
     protected void encode(ChannelHandlerContext ctx, MessageComposer msg, List<Object> out) throws Exception {
 
-        ByteBuf buffer = Unpooled.buffer(6);
+        int initialCapacity = 6;
+        ByteBuf buffer = Unpooled.buffer(initialCapacity);
 
         NettyResponse response = new NettyResponse(msg.getHeader(), buffer);
         msg.compose(response);
@@ -35,33 +36,3 @@ public class NetworkEncoder extends MessageToMessageEncoder<MessageComposer> {
         out.add(buffer);
     }
 }
-/*package org.alexdev.icarus.server.netty.codec;
-
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToByteEncoder;
-import org.alexdev.icarus.messages.types.MessageComposer;
-import org.alexdev.icarus.server.netty.streams.NettyResponse;
-import org.alexdev.icarus.util.Util;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-public class NetworkEncoder extends MessageToByteEncoder<MessageComposer> {
-
-    final private static Logger log = LoggerFactory.getLogger(NetworkEncoder.class);
-
-    @Override
-    protected void encode(ChannelHandlerContext ctx, MessageComposer msg, ByteBuf out) throws Exception {
-
-        NettyResponse response = new NettyResponse(msg.getHeader(), out);
-        msg.compose(response);
-
-        if (!response.hasLength()) {
-            response.getContent().setInt(0, response.getContent().writerIndex() - 4);
-        }
-
-        if (Util.getServerConfig().get("Logging", "log.sent.packets", Boolean.class)) {
-            log.info("SENT: {} / {}", msg.getHeader(), response.getBodyString());
-        }
-    }
-}*/

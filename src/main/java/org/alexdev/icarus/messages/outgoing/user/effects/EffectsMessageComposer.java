@@ -2,7 +2,6 @@ package org.alexdev.icarus.messages.outgoing.user.effects;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.alexdev.icarus.game.inventory.effects.Effect;
 import org.alexdev.icarus.messages.headers.Outgoing;
@@ -24,9 +23,7 @@ public class EffectsMessageComposer extends MessageComposer {
 
     @Override
     public void compose(Response response) {
-        //response.init(Outgoing.EffectsMessageComposer);
         response.writeInt(this.effects.size());
-
         for (Effect effect : this.effects) {
             response.writeInt(effect.getEffectId());
             response.writeInt(0);

@@ -26,9 +26,7 @@ public class MoveItemMessageComposer extends MessageComposer {
             response.writeInt(this.item.getPosition().getRotation());
             response.writeString("" + Util.format(item.getPosition().getZ()));
             response.writeString("");
-
             ItemUtil.generateExtraData(item, response);
-
             response.writeInt(-1);
             response.writeInt(this.item.getDefinition().getInteractionModes() > 0 ? 1 : 0);
             response.writeInt(this.item.getOwnerId());

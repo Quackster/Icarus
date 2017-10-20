@@ -26,17 +26,9 @@ public class RoomTile {
     
     public RoomTile(Room room, int x, int y) {
         this.room = room;
+        this.height = this.room.getModel().getHeight(x, y);
         this.x = x;
         this.y = y;
-        this.reset();
-    }
-    
-    /**
-     * Reset the tile, will apply height and wipe any existing items
-     * or entities.
-     */
-    public void reset() {
-        this.height = this.room.getModel().getHeight(this.x, this.y);
         this.items = new ArrayList<>();
         this.entities = new ArrayList<>();
     }

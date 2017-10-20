@@ -3,8 +3,12 @@ package org.alexdev.icarus.messages.incoming.items;
 import org.alexdev.icarus.game.inventory.effects.Effect;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.outgoing.user.effects.EffectActivatedMessageComposer;
+import org.alexdev.icarus.messages.outgoing.user.effects.EffectExpiredMessageComposer;
+import org.alexdev.icarus.messages.outgoing.user.effects.EffectsMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
+
+import java.util.List;
 
 public class ApplyEffectMessageEvent implements MessageEvent {
 
@@ -23,17 +27,13 @@ public class ApplyEffectMessageEvent implements MessageEvent {
             effectId = 0;
         }
 
-        Effect activatedEffect = player.getInventory().getEffectManager().getActivatedEffect();
-
-        if (activatedEffect != null) {
-            player.send(new EffectActivatedMessageComposer(activatedEffect));
-        }
+        player.getInventory().getEffectManager().deactivateEffects();
+        player.getRoomUser().applyEffect(effectId);
 
         effect.setActivated(true);
 
-        player.getRoomUser().applyEffect(effectId);
+        player.send(new EffectExpiredMessageComposer(effect));
+        player.send(new EffectsMessageComposer(effect));
         player.send(new EffectActivatedMessageComposer(effect));
-
-        //player.send(player.getInventory().getEffectManager().createEffectComposer(effect));
     }
 }

@@ -26,7 +26,7 @@ import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageCompos
 import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.TalkMessageComposer;
-import org.alexdev.icarus.messages.outgoing.user.effects.EffectMessageComposer;
+import org.alexdev.icarus.messages.outgoing.user.effects.DisplayEffectMessageComposer;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.util.Util;
 import org.luaj.vm2.LuaValue;
@@ -414,6 +414,10 @@ public class RoomUser {
      * @param danceId the dance id
      */
     public void applyDance(int danceId) {
+
+        if (this.danceId == danceId) {
+            return;
+        }
         
         if (this.effectId > 0) {
             return;
@@ -432,14 +436,19 @@ public class RoomUser {
      * @param effectId the effect id
      */
     public void applyEffect(int effectId) {
+
+        if (this.effectId == effectId) {
+            return;
+        }
+
         this.effectId = effectId;
-        
+
         if (this.danceId > 0) {
             this.applyDance(0);
         }
         
         if (this.room != null) {
-            this.room.send(new EffectMessageComposer(this.virtualId, this.effectId));
+            this.room.send(new DisplayEffectMessageComposer(this.virtualId, this.effectId));
         }
     }
 

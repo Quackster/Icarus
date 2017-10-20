@@ -39,7 +39,7 @@ public class Inventory {
         Effect effect = new Effect(2, 1000, true, 1000, 10);
         this.effects.add(effect);*/
 
-        this.effectManager = new EffectManager(this.player.getEntityId());
+        this.effectManager = new EffectManager(this.player);
         this.items = InventoryDao.getInventoryItems(this.player.getEntityId());
         this.pets = InventoryDao.getInventoryPets(this.player.getEntityId());
     }

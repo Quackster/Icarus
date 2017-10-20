@@ -121,7 +121,7 @@ public class RoomUtil {
             }
 
             if (players.getRoomUser().getEffectId() > 0) {
-                player.sendQueued(new EffectMessageComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getVirtualId()));
+                player.sendQueued(new DisplayEffectMessageComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getVirtualId()));
             }
             
             if (players.getRoomUser().getCarryItem() > 0) {

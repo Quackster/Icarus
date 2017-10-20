@@ -4,19 +4,19 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class EffectMessageComposer extends MessageComposer {
+public class DisplayEffectMessageComposer extends MessageComposer {
 
     private int virtualId;
     private int effectId;
 
-    public EffectMessageComposer(int virtualId, int effectId) {
+    public DisplayEffectMessageComposer(int virtualId, int effectId) {
         this.virtualId = virtualId;
         this.effectId = effectId;
     }
 
     @Override
     public void compose(Response response) {
-        //response.init(Outgoing.EffectMessageComposer);
+        //response.init(Outgoing.DisplayEffectMessageComposer);
         response.writeInt(this.virtualId);
         response.writeInt(this.effectId);
         response.writeInt(0);
@@ -24,6 +24,6 @@ public class EffectMessageComposer extends MessageComposer {
 
     @Override
     public short getHeader() {
-        return Outgoing.EffectMessageComposer;
+        return Outgoing.DisplayEffectMessageComposer;
     }
 }
