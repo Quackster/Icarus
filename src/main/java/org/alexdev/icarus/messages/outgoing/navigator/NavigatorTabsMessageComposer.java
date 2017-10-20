@@ -7,17 +7,17 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class NavigatorMetaDataComposer extends MessageComposer {
+public class NavigatorTabsMessageComposer extends MessageComposer {
 
     private List<NavigatorTab> tabs;
 
-    public NavigatorMetaDataComposer(List<NavigatorTab> tabs) {
+    public NavigatorTabsMessageComposer(List<NavigatorTab> tabs) {
         this.tabs = tabs;
     }
 
     @Override
     public void compose(Response response) {
-        //response.init(Outgoing.NavigatorMetaDataComposer);
+        //response.init(Outgoing.NavigatorTabsMessageComposer);
         response.writeInt(this.tabs.size());
 
         for (NavigatorTab tab : this.tabs) {
@@ -28,6 +28,6 @@ public class NavigatorMetaDataComposer extends MessageComposer {
 
     @Override
     public short getHeader() {
-        return Outgoing.NavigatorMetaDataComposer;
+        return Outgoing.NavigatorTabsMessageComposer;
     }
 }

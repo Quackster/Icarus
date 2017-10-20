@@ -4,13 +4,13 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class FloorPlanSendDoorComposer extends MessageComposer {
+public class FloorPlanDoorMessageComposer extends MessageComposer {
 
     private int x;
     private int y;
     private int rotation;
 
-    public FloorPlanSendDoorComposer(int x, int y, int rotation) {
+    public FloorPlanDoorMessageComposer(int x, int y, int rotation) {
         this.x = x;
         this.y = y;
         this.rotation = rotation;
@@ -18,7 +18,7 @@ public class FloorPlanSendDoorComposer extends MessageComposer {
 
     @Override
     public void compose(Response response) {
-        //response.init(Outgoing.FloorPlanSendDoorMessageComposer);
+        //response.init(Outgoing.FloorPlanDoorMessageComposer);
         response.writeInt(this.x);
         response.writeInt(this.y);
         response.writeInt(this.rotation);
@@ -27,6 +27,6 @@ public class FloorPlanSendDoorComposer extends MessageComposer {
 
     @Override
     public short getHeader() {
-        return Outgoing.FloorPlanSendDoorMessageComposer;
+        return Outgoing.FloorPlanDoorMessageComposer;
     }
 }

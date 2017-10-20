@@ -6,7 +6,7 @@ import org.alexdev.icarus.game.groups.members.GroupMemberType;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.messages.outgoing.groups.GroupInfoMessageComposer;
-import org.alexdev.icarus.messages.outgoing.groups.members.UnknownGroupComposer;
+import org.alexdev.icarus.messages.outgoing.groups.members.UnknownGroupMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.alexdev.icarus.util.Util;
@@ -44,7 +44,7 @@ public class GroupMembershipRejectMessageEvent implements MessageEvent {
             user.send(new GroupInfoMessageComposer(group, user, false));
         }
         
-        player.send(new UnknownGroupComposer(group.getId(), removeUserId));
+        player.send(new UnknownGroupMessageComposer(group.getId(), removeUserId));
         
     }
 }

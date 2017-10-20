@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.messages.outgoing.user.ActivityPointsComposer;
+import org.alexdev.icarus.messages.outgoing.user.ActivityPointsMessageComposer;
 import org.alexdev.icarus.messages.outgoing.user.CreditsMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
@@ -37,7 +37,7 @@ public class CurrencyBalanceMessageEvent implements MessageEvent {
         currencies.put(104, 0); // clouds
         currencies.put(105, 0); // diamonds again??
         
-        player.sendQueued(new ActivityPointsComposer(currencies));
+        player.sendQueued(new ActivityPointsMessageComposer(currencies));
         player.flushQueue();
     }
 }

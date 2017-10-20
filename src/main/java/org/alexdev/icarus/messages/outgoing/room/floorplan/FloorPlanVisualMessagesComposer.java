@@ -4,13 +4,13 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class FloorPlanRoomVisualComposer extends MessageComposer {
+public class FloorPlanVisualMessagesComposer extends MessageComposer {
 
     private int wallThickness;
     private int floorThickness;
     private boolean hideWall;
 
-    public FloorPlanRoomVisualComposer(int wallThickness, int floorThickness, boolean hideWall) {
+    public FloorPlanVisualMessagesComposer(int wallThickness, int floorThickness, boolean hideWall) {
         this.wallThickness = wallThickness;
         this.floorThickness = floorThickness;
         this.hideWall = hideWall;
@@ -18,7 +18,7 @@ public class FloorPlanRoomVisualComposer extends MessageComposer {
 
     @Override
     public void compose(Response response) {
-        //response.init(Outgoing.FloorPlanRoomVisualComposer);
+        //response.init(Outgoing.FloorPlanVisualMessagesComposer);
         response.writeBool(this.hideWall);
         response.writeInt(this.wallThickness);
         response.writeInt(this.floorThickness);
@@ -26,6 +26,6 @@ public class FloorPlanRoomVisualComposer extends MessageComposer {
 
     @Override
     public short getHeader() {
-        return Outgoing.FloorPlanRoomVisualComposer;
+        return Outgoing.FloorPlanVisualMessagesComposer;
     }
 }

@@ -6,7 +6,7 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.outgoing.room.RightsLevelMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.settings.RightsAssignedComposer;
+import org.alexdev.icarus.messages.outgoing.room.settings.RightsAssignedMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
@@ -46,6 +46,6 @@ public class GiveRightsMessageEvent implements MessageEvent {
         room.getRights().add(userId);
         RoomDao.addRoomRights(room.getData().getId(), userId);
         
-        player.send(new RightsAssignedComposer(room.getData().getId(), userId, PlayerManager.getPlayerData(userId).getName()));
+        player.send(new RightsAssignedMessageComposer(room.getData().getId(), userId, PlayerManager.getPlayerData(userId).getName()));
     }
 }

@@ -4,11 +4,11 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class NavigatorPreferencesComposer extends MessageComposer {
+public class NavigatorPreferencesMessagesComposer extends MessageComposer {
 
     @Override
     public void compose(Response response) {
-        //response.init(Outgoing.NavigatorPreferencesComposer);
+        //response.init(Outgoing.NavigatorPreferencesMessagesComposer);
         response.writeInt(50);//pref.NewnaviX);
         response.writeInt(50);//pref.NewnaviY);
         response.writeInt(580);//pref.NewnaviWidth);

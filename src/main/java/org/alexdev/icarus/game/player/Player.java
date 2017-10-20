@@ -21,11 +21,9 @@ import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.messages.outgoing.handshake.AuthenticationOKMessageComposer;
 import org.alexdev.icarus.messages.outgoing.handshake.AvailabilityMessageComposer;
 import org.alexdev.icarus.messages.outgoing.handshake.UniqueMachineIDMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.RoomModelMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.HotelViewMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RoomForwardComposer;
 import org.alexdev.icarus.messages.outgoing.user.*;
-import org.alexdev.icarus.messages.outgoing.user.effects.EffectsMessageComposer;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.PlayerNetwork;
 import org.luaj.vm2.LuaValue;
@@ -277,7 +275,7 @@ public class Player extends Entity {
      * @param url the url
      */
     public void sendCustomMessage(String title, String message, String image, String hotelName, String url) {
-        this.send(new RoomNotificationComposer(title, message, image, hotelName, url));
+        this.send(new RoomNotificationMessageComposer(title, message, image, hotelName, url));
     }
     
     /**

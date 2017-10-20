@@ -6,7 +6,7 @@ import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.util.Util;
 
-public class RoomNotificationComposer extends MessageComposer {
+public class RoomNotificationMessageComposer extends MessageComposer {
 
     private String title;
     private String message;
@@ -14,7 +14,7 @@ public class RoomNotificationComposer extends MessageComposer {
     private String hotelName;
     private String url;
 
-    public RoomNotificationComposer(String title, String message, String image, String hotelName, String url) {
+    public RoomNotificationMessageComposer(String title, String message, String image, String hotelName, String url) {
         this.title = title;
         this.message = message;
         this.image = image;

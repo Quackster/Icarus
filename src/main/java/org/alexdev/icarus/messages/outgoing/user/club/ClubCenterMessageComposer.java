@@ -4,11 +4,11 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class HabboClubCenterComposer extends MessageComposer {
+public class ClubCenterMessageComposer extends MessageComposer {
 
     @Override
     public void compose(Response response) {
-        //response.init(Outgoing.HabboClubCenterComposer);
+        //response.init(Outgoing.ClubCenterMessageComposer);
         response.writeInt(7 * 365); // streak duration in days
         response.writeString("01-01-2017"); // join date
 
@@ -25,6 +25,6 @@ public class HabboClubCenterComposer extends MessageComposer {
 
     @Override
     public short getHeader() {
-        return Outgoing.HabboClubCenterComposer;
+        return Outgoing.ClubCenterMessageComposer;
     }
 }

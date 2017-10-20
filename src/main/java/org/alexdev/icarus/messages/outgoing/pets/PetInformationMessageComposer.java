@@ -6,17 +6,17 @@ import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.util.Util;
 
-public class PetInformationComposer extends MessageComposer {
+public class PetInformationMessageComposer extends MessageComposer {
 
     private Pet pet;
 
-    public PetInformationComposer(Pet pet) {
+    public PetInformationMessageComposer(Pet pet) {
         this.pet = pet;
     }
 
     @Override
     public void compose(Response response) {
-        //response.init(Outgoing.PetInformationComposer);
+        //response.init(Outgoing.PetInformationMessageComposer);
         response.writeInt(this.pet.getId());
         response.writeString(this.pet.getName());
         response.writeInt(this.pet.getLevel());
@@ -48,6 +48,6 @@ public class PetInformationComposer extends MessageComposer {
 
     @Override
     public short getHeader() {
-        return Outgoing.PetInformationComposer;
+        return Outgoing.PetInformationMessageComposer;
     }
 }

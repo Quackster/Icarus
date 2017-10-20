@@ -14,12 +14,12 @@ public class UniqueMachineIDMessageComposer extends MessageComposer {
 
     @Override
     public void compose(Response response) {
-        //response.init(Outgoing.UniqueMachineIdMessageComposer);
+        //response.init(Outgoing.UniqueMachineIDMessageComposer);
         response.writeString(this.uniqueMachineId);
     }
 
     @Override
     public short getHeader() {
-        return Outgoing.UniqueMachineIdMessageComposer;
+        return Outgoing.UniqueMachineIDMessageComposer;
     }
 }

@@ -6,7 +6,7 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.outgoing.room.RightsLevelMessageComposer;
-import org.alexdev.icarus.messages.outgoing.room.settings.RightsRemovedComposer;
+import org.alexdev.icarus.messages.outgoing.room.settings.RightsRemovedMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
@@ -50,7 +50,7 @@ public class RemoveRightsMessageEvent implements MessageEvent {
             room.getRights().remove(Integer.valueOf(userId));
             RoomDao.removeRoomRights(room.getData().getId(), userId);
             
-            player.send(new RightsRemovedComposer(room.getData().getId(), userId));
+            player.send(new RightsRemovedMessageComposer(room.getData().getId(), userId));
         }
     }
 }

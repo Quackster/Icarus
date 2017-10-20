@@ -3,7 +3,7 @@ package org.alexdev.icarus.game.player.club;
 import org.alexdev.icarus.dao.mysql.catalogue.ClubDao;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.outgoing.user.club.SubscriptionMessageComposer;
-import org.alexdev.icarus.messages.outgoing.user.club.UserRightsComposer;
+import org.alexdev.icarus.messages.outgoing.room.settings.UserRightsMessageComposer;
 import org.alexdev.icarus.util.Util;
 
 public class ClubSubscription {
@@ -72,7 +72,7 @@ public class ClubSubscription {
         boolean isMember = this.player.getSubscription().hasSubscription();
 
         this.player.sendQueued(new SubscriptionMessageComposer(this, isMember));
-        this.player.sendQueued(new UserRightsComposer(isMember, this.player.getDetails().getRank()));
+        this.player.sendQueued(new UserRightsMessageComposer(isMember, this.player.getDetails().getRank()));
         this.player.flushQueue();
     }
 
