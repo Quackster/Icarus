@@ -59,10 +59,4 @@ public interface Response {
      * @return the header
      */
     public int getHeader();
-
-    /**
-     * Returns the packet contents
-     */
-    public ByteBuf getContent();
-
 }

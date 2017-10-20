@@ -1,21 +1,19 @@
 package org.alexdev.icarus.server.netty.streams;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.server.api.messages.Serialisable;
+
+import java.nio.charset.Charset;
 
 public class NettyResponse implements Response {
 
     private short id;
     private ByteBuf buffer;
 
-    public NettyResponse(short header, ByteBuf out) {
+    public NettyResponse(short header, ByteBuf buffer) {
         this.id = header;
-        this.buffer = out;
+        this.buffer = buffer;
         this.buffer.writeInt(-1);
         this.buffer.writeShort(id);
     }
@@ -98,13 +96,5 @@ public class NettyResponse implements Response {
      */
     public int getHeader() {
         return this.id;
-    }
-
-    /* (non-Javadoc)
-     * @see org.alexdev.icarus.server.api.messages.Response#getContent()
-     */
-    @Override
-    public ByteBuf getContent() {
-        return this.buffer;
     }
 }
