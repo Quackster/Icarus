@@ -46,7 +46,7 @@ public class TeleporterDao {
             Storage.closeSilently(sqlConnection);
         }
 
-        return 0;
+        return -1;
     }
 
     /**

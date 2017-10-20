@@ -26,22 +26,31 @@ public class Configuration {
     	// checks for bin folder, means its running in IDE
     	//File bin = new File("bin");
     	
-    	String output = "log4j.rootLogger=INFO, stdout\r\n" + 
-    			"log4j.appender.stdout.threshold=info\r\n" + 
-    			"log4j.appender.stdout=org.apache.log4j.ConsoleAppender\r\n" + 
-    			"log4j.appender.stdout.Target=System.out\r\n" + 
-    			"log4j.appender.stdout.layout=org.apache.log4j.PatternLayout\r\n" + 
-    			"log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd'T'HH:mm:ss.SSS} %-5p [%c] - %m%n\r\n" + 
-    			"\r\n" + 
-    			"# Create new logger information for error\r\n" + 
-    			"log4j.logger.ErrorLogger=ERROR, error\r\n" + 
-    			"log4j.additivity.ErrorLogger=false\r\n" + 
-    			"\r\n" + 
-    			"# Set settings for the error logger\r\n" + 
-    			"log4j.appender.error=org.apache.log4j.ConsoleAppender\r\n" + 
-    			"log4j.appender.error.Target=System.err\r\n" + 
-    			"log4j.appender.error.layout=org.apache.log4j.PatternLayout\r\n" + 
-    			"log4j.appender.error.layout.ConversionPattern=%d{yyyy-MM-dd'T'HH:mm:ss.SSS} %-5p [%c] - %m%n";
+    	String output = "log4j.rootLogger=INFO, stdout\n" +
+                "log4j.appender.stdout.threshold=info\n" +
+                "log4j.appender.stdout=org.apache.log4j.ConsoleAppender\n" +
+                "log4j.appender.stdout.Target=System.out\n" +
+                "log4j.appender.stdout.layout=org.apache.log4j.PatternLayout\n" +
+                "log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd'T'HH:mm:ss.SSS} %-5p [%c] - %m%n\n" +
+                "\n" +
+                "# Create new logger information for error\n" +
+                "log4j.logger.ErrorLogger=ERROR, error, FILE\n" +
+                "log4j.additivity.ErrorLogger=false\n" +
+                "\n" +
+                "# Set settings for the error logger\n" +
+                "log4j.appender.error=org.apache.log4j.ConsoleAppender\n" +
+                "log4j.appender.error.Target=System.err\n" +
+                "log4j.appender.error.layout=org.apache.log4j.PatternLayout\n" +
+                "log4j.appender.error.layout.ConversionPattern=%d{yyyy-MM-dd'T'HH:mm:ss.SSS} %-5p [%c] - %m%n\n" +
+                "\n" +
+                "# Define the file appender\n" +
+                "log4j.appender.FILE=org.apache.log4j.FileAppender\n" +
+                "log4j.appender.FILE.File=error.log\n" +
+                "log4j.appender.FILE.ImmediateFlush=true\n" +
+                "log4j.appender.FILE.Threshold=debug\n" +
+                "log4j.appender.FILE.Append=false\n" +
+                "log4j.appender.FILE.layout=org.apache.log4j.PatternLayout\n" +
+                "log4j.appender.FILE.layout.conversionPattern=%d{yyyy-MM-dd'T'HH:mm:ss.SSS} - [%c] - %m%n\n";
     	
     	File loggingConfig = new File("log4j.properties");
     	

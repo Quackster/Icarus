@@ -181,16 +181,7 @@ public class InventoryDao {
      * @throws Exception the exception
      */
     public static Item fill(ResultSet row) throws Exception {
-        
         Item item = new Item(row.getInt("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
-        
-        if (item.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
-            item.setTeleporterId(TeleporterDao.getPairId(item.getId()));
-        }
-        
         return item;
     }
-
-
-
 }

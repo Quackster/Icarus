@@ -29,7 +29,6 @@ public class Item extends Metadata {
     private Position position;
     private String extraData;
     private Item itemUnderneath;
-    private int teleporterId = 0;
     private int lengthX = 0;
     private int lengthY = 0;
     private char side = 0;
@@ -326,24 +325,6 @@ public class Item extends Metadata {
      */
     public int getId() {
         return id;
-    }
-
-    /**
-     * Gets the teleporter id.
-     *
-     * @return the teleporter id
-     */
-    public int getTeleporterId() {
-        return teleporterId;
-    }
-
-    /**
-     * Sets the teleporter id.
-     *
-     * @param teleporterId the new teleporter id
-     */
-    public void setTeleporterId(int teleporterId) {
-        this.teleporterId = teleporterId;
     }
 
     /**

@@ -2,6 +2,7 @@ package org.alexdev.icarus.game.item.interactions.types;
 
 import java.util.concurrent.TimeUnit;
 
+import org.alexdev.icarus.dao.mysql.item.TeleporterDao;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.extradata.ExtraData;
 import org.alexdev.icarus.game.item.extradata.ExtraDataPerspective;
@@ -38,19 +39,25 @@ public class TeleportInteractor extends Interaction {
             return;
         }
 
-        // Checks if the connected teleporter is available and in use. If not, cancel all interaction.
+        int pairId = TeleporterDao.getPairId(item.getId());
+
+        if (!(pairId > 0)) {
+            return;
+        }
+
+        Item targetTeleporter = roomUser.getRoom().getItemManager().getItem(pairId);
+
+        if (targetTeleporter == null) {
+            return;
+        }
+
+        if (!(targetTeleporter.getRoom() != null && targetTeleporter.getRoomId() > 0)) {
+            return;
+        }
+
         Position front = item.getPosition().getSquareInFront();
-
         if (!front.equals(roomUser.getPosition())) {
-            Item targetTeleporter = roomUser.getRoom().getItemManager().getItem(item.getTeleporterId());
-
-            if (targetTeleporter == null) {
-                return;
-            }
-
-            if (targetTeleporter.getRoom() != null) {
-                roomUser.walkTo(front.getX(), front.getY());
-            }
+            roomUser.walkTo(front.getX(), front.getY());
             return;
         }
 
@@ -59,8 +66,6 @@ public class TeleportInteractor extends Interaction {
 
         roomUser.walkTo(item.getPosition().getX(), item.getPosition().getY());
         roomUser.setWalkingAllowed(false);
-
-        Item targetTeleporter = roomUser.getRoom().getItemManager().getItem(item.getTeleporterId());
 
        RoomManager.getScheduledPool().schedule(() -> {
             item.setExtraData(TELEPORTER_EFFECTS);
@@ -98,8 +103,8 @@ public class TeleportInteractor extends Interaction {
                 targetTeleporter.setExtraData(TELEPORTER_OPEN);
                 targetTeleporter.updateStatus();
             } else {
-                roomUser.getRoom().getItemManager().getItem(item.getTeleporterId()).setExtraData(TELEPORTER_OPEN);
-                roomUser.getRoom().getItemManager().getItem(item.getTeleporterId()).updateStatus();
+                roomUser.getRoom().getItemManager().getItem(pairId).setExtraData(TELEPORTER_OPEN);
+                roomUser.getRoom().getItemManager().getItem(pairId).updateStatus();
             }
 
         }, 3, TimeUnit.SECONDS);
@@ -117,8 +122,8 @@ public class TeleportInteractor extends Interaction {
                 targetTeleporter.setExtraData(TELEPORTER_CLOSE);
                 targetTeleporter.updateStatus();
             } else {
-                roomUser.getRoom().getItemManager().getItem(item.getTeleporterId()).setExtraData(TELEPORTER_CLOSE);
-                roomUser.getRoom().getItemManager().getItem(item.getTeleporterId()).updateStatus();
+                roomUser.getRoom().getItemManager().getItem(pairId).setExtraData(TELEPORTER_CLOSE);
+                roomUser.getRoom().getItemManager().getItem(pairId).updateStatus();
             }
 
         }, 4, TimeUnit.SECONDS);

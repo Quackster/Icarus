@@ -33,16 +33,16 @@ public class DeleteRoomMessageEvent implements MessageEvent {
             return;
         }
         
-        for (Player users : room.getEntityManager().getPlayers()) {
-            users.performRoomAction(RoomAction.LEAVE_ROOM, true);
-        }
-        
         for (Item item : room.getItemManager().getItems().values()) {
-            
             item.setRoomId(0);
             item.save();
-            
             player.getInventory().addItem(item, InventoryNotification.NONE);
+        }
+
+        player.getInventory().updateItems();
+
+        for (Player users : room.getEntityManager().getPlayers()) {
+            users.performRoomAction(RoomAction.LEAVE_ROOM, true);
         }
         
         RoomDao.deleteRoom(roomId);
