@@ -4,10 +4,7 @@ import java.net.InetSocketAddress;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.UnpooledByteBufAllocator;
-import io.netty.channel.ChannelException;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.FixedRecvByteBufAllocator;
+import io.netty.channel.*;
 import io.netty.channel.epoll.Epoll;
 import io.netty.channel.epoll.EpollEventLoopGroup;
 import io.netty.channel.epoll.EpollServerSocketChannel;
@@ -15,6 +12,8 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import org.alexdev.icarus.Icarus;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.server.api.ServerHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +35,6 @@ public class NettyServer extends ServerHandler  {
 
     @Override
     public void createSocket() {
-
         int threads = Runtime.getRuntime().availableProcessors() * 2;
         EventLoopGroup bossGroup = (Epoll.isAvailable()) ? new EpollEventLoopGroup(threads) : new NioEventLoopGroup(threads);
         EventLoopGroup workerGroup = (Epoll.isAvailable()) ? new EpollEventLoopGroup() : new NioEventLoopGroup();
@@ -55,14 +53,17 @@ public class NettyServer extends ServerHandler  {
     @Override
     public boolean bind() {
 
-        try {
-            this.bootstrap.bind(new InetSocketAddress(this.getIp(), this.getPort()));
-        } catch (ChannelException ex) {
-            log.error("Could not listen on server: ", ex);
-            return false;
-        }
+        this.bootstrap.bind(new InetSocketAddress(this.getIp(), this.getPort())).addListener(objectFuture -> {
+            if (!objectFuture.isSuccess()) {
+                Log.getErrorLogger().error("Failed to start server on address: {}:{}", this.getIp(), this.getPort());
+                Log.getErrorLogger().error("Please double check there's no programs using the same port, and you have set the correct IP address to listen on.", this.getIp(), this.getPort());
+            } else {
+                log.info("Server is listening on {}:{}", this.getIp(), this.getPort());
+                log.info("Ready for connections!");
+            }
+        });
 
-        return true;
+        return false;
     }
 
     /**

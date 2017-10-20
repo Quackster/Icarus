@@ -13,6 +13,7 @@ import org.alexdev.icarus.game.navigator.NavigatorManager;
 import org.alexdev.icarus.game.pets.PetManager;
 import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.RoomManager;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.MessageHandler;
 import org.alexdev.icarus.server.api.ServerHandler;
 import org.alexdev.icarus.util.Util;
@@ -96,14 +97,7 @@ public class Icarus extends Metadata {
             // Create the server instance
             server = serverConstructor.newInstance(serverIP, serverPort);
             server.createSocket();
-
-            if (server.bind()) {
-                log.info("Server is listening on {}:{}", configurationAddress, serverPort);
-            } else {
-                log.error("Server could not listen on {}:{}, please double check everything is correct in icarus.properties", configurationAddress, serverPort);
-            }
-
-            log.info("Ready for connections!");
+            server.bind();
 
         } catch (Exception e) {
             e.printStackTrace();
