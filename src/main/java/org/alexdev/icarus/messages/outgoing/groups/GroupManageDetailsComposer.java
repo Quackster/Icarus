@@ -4,7 +4,6 @@ import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
-import org.alexdev.icarus.server.api.messages.Response;
 
 public class GroupManageDetailsComposer extends MessageComposer {
 

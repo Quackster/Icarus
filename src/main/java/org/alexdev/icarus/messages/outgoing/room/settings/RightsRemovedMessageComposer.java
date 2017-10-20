@@ -23,6 +23,6 @@ public class RightsRemovedMessageComposer extends MessageComposer {
 
     @Override
     public short getHeader() {
-        return Outgoing.RoomRightsListMessageComposer;
+        return Outgoing.RightsRemovedComposer;
     }
 }

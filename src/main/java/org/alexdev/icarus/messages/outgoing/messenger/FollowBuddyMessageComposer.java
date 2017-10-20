@@ -14,7 +14,6 @@ public class FollowBuddyMessageComposer extends MessageComposer {
 
     @Override
     public void compose(Response response) {
-
         //response.init(Outgoing.FollowBuddyMessageComposer);
         response.writeInt(this.friendId);
     }
