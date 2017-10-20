@@ -18,9 +18,7 @@ public class MoveItemMessageComposer extends MessageComposer {
 
     @Override
     public void compose(Response response) {
-
         if (this.item.getDefinition().getType() == ItemType.FLOOR) {
-            //response.init(Outgoing.MoveFloorItemMessageComposer); 
             response.writeInt(this.item.getId());
             response.writeInt(this.item.getDefinition().getSpriteId());
             response.writeInt(this.item.getPosition().getX());
@@ -38,7 +36,6 @@ public class MoveItemMessageComposer extends MessageComposer {
         }
 
         if (this.item.getDefinition().getType() == ItemType.WALL) {
-            //response.init(Outgoing.MoveWallItemMessageComposer);
             response.writeString(item.getId() + "");
             response.writeInt(item.getDefinition().getSpriteId());
             response.writeString(item.getWallPosition());
@@ -52,11 +49,11 @@ public class MoveItemMessageComposer extends MessageComposer {
 
     @Override
     public short getHeader() {
-        if (this.item.getDefinition().getType() == ItemType.WALL) {
+        if (this.item.getDefinition().getType() == ItemType.FLOOR) {
             return Outgoing.MoveFloorItemMessageComposer;
         }
 
-        if (this.item.getDefinition().getType() == ItemType.FLOOR) {
+        if (this.item.getDefinition().getType() == ItemType.WALL) {
             return Outgoing.MoveWallItemMessageComposer;
         }
 
