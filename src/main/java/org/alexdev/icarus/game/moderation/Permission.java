@@ -45,6 +45,4 @@ public class Permission {
     public int getRank() {
         return rank;
     }
-    
-    
 }

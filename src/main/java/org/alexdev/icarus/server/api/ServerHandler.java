@@ -1,7 +1,7 @@
 package org.alexdev.icarus.server.api;
 
 public abstract class ServerHandler {
-    
+
     private Integer port;
     private String ip;
 
@@ -59,5 +59,4 @@ public abstract class ServerHandler {
     public void setIp(String ip) {
         this.ip = ip;
     }
-    
 }

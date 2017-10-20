@@ -17,5 +17,4 @@ public enum EntityType {
     public Class<? extends Entity> getEntityClass() {
         return clazz;
     }
-    
 }
