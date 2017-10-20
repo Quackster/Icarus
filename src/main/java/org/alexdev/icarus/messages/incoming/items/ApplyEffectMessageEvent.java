@@ -32,8 +32,9 @@ public class ApplyEffectMessageEvent implements MessageEvent {
 
         effect.setActivated(true);
 
-        player.send(new EffectExpiredMessageComposer(effect));
-        player.send(new EffectsMessageComposer(effect));
-        player.send(new EffectActivatedMessageComposer(effect));
+        player.send(new EffectExpiredMessageComposer(effect)); // Remove effect
+        player.send(new EffectsMessageComposer(effect)); // Re-add the effect
+
+        player.send(new EffectActivatedMessageComposer(effect)); // Activate the effect
     }
 }
