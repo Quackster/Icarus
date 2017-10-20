@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.room.user;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class TypingStatusMessageComposer extends MessageComposer {
 
@@ -14,9 +15,14 @@ public class TypingStatusMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.TypingStatusMessageComposer);
-        this.response.writeInt(this.virtualId);
-        this.response.writeInt(this.typeStart);
+    public void compose(Response response) {
+        //response.init(Outgoing.TypingStatusMessageComposer);
+        response.writeInt(this.virtualId);
+        response.writeInt(this.typeStart);
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.TypingStatusMessageComposer;
     }
 }

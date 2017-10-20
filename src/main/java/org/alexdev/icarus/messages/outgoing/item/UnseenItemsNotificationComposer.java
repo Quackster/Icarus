@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.item;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class UnseenItemsNotificationComposer extends MessageComposer {
 
@@ -14,11 +15,16 @@ public class UnseenItemsNotificationComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.FurniListNotificationComposer);
-        this.response.writeInt(1);
-        this.response.writeInt(this.type);
-        this.response.writeInt(1);
-        this.response.writeInt(this.itemId);
+    public void compose(Response response) {
+        //response.init(Outgoing.FurniListNotificationComposer);
+        response.writeInt(1);
+        response.writeInt(this.type);
+        response.writeInt(1);
+        response.writeInt(this.itemId);
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.FurniListNotificationComposer;
     }
 }

@@ -3,13 +3,6 @@ package org.alexdev.icarus.server.api.messages;
 import io.netty.buffer.ByteBuf;
 
 public interface Response {
-
-    /**
-     * Initiates the response.
-     *
-     * @param id the id
-     */
-    public void init(short id);
     
     /**
      * Write string.
@@ -61,24 +54,15 @@ public interface Response {
     public String getBodyString();
     
     /**
-     * Gets the.
-     *
-     * @return the object
-     */
-    public ByteBuf get();
-    
-    /**
      * Gets the header.
      *
      * @return the header
      */
     public int getHeader();
-    
+
     /**
-     * Checks if is finalised.
-     *
-     * @return true, if is finalised
+     * Returns the packet contents
      */
-    public boolean isFinalised();
+    public ByteBuf getContent();
 
 }

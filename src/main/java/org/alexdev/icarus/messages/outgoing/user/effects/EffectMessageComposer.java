@@ -2,9 +2,10 @@ package org.alexdev.icarus.messages.outgoing.user.effects;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class EffectMessageComposer extends MessageComposer {
-    
+
     private int virtualId;
     private int effectId;
 
@@ -14,10 +15,15 @@ public class EffectMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.EffectMessageComposer);
-        this.response.writeInt(this.virtualId);
-        this.response.writeInt(this.effectId);
-        this.response.writeInt(0);
+    public void compose(Response response) {
+        //response.init(Outgoing.EffectMessageComposer);
+        response.writeInt(this.virtualId);
+        response.writeInt(this.effectId);
+        response.writeInt(0);
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.EffectMessageComposer;
     }
 }

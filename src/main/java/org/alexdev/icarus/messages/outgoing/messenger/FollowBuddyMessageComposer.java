@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.messenger;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class FollowBuddyMessageComposer extends MessageComposer {
 
@@ -12,9 +13,14 @@ public class FollowBuddyMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        
-        this.response.init(Outgoing.FollowBuddyMessageComposer);
-        this.response.writeInt(this.friendId);
+    public void compose(Response response) {
+
+        //response.init(Outgoing.FollowBuddyMessageComposer);
+        response.writeInt(this.friendId);
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.FollowBuddyMessageComposer;
     }
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class PetInventoryMessageComposer extends MessageComposer {
 
@@ -16,23 +17,28 @@ public class PetInventoryMessageComposer extends MessageComposer {
 
 
     @Override
-    public void write() {
-        
-        this.response.init(Outgoing.PetInventoryMessageComposer);
-        this.response.writeInt(1);
-        this.response.writeInt(1);
+    public void compose(Response response) {
 
-        this.response.writeInt(pets.size());
+        //response.init(Outgoing.PetInventoryMessageComposer);
+        response.writeInt(1);
+        response.writeInt(1);
+
+        response.writeInt(pets.size());
 
         for (Pet data : pets.values()) {
-            this.response.writeInt(data.getId());
-            this.response.writeString(data.getName());
-            this.response.writeInt(data.getTypeId());
-            this.response.writeInt(data.getRaceId());
-            this.response.writeString(data.getColour());
-            this.response.writeInt(0);
-            this.response.writeInt(0);
-            this.response.writeInt(0);
+            response.writeInt(data.getId());
+            response.writeString(data.getName());
+            response.writeInt(data.getTypeId());
+            response.writeInt(data.getRaceId());
+            response.writeString(data.getColour());
+            response.writeInt(0);
+            response.writeInt(0);
+            response.writeInt(0);
         }
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.PetInventoryMessageComposer;
     }
 }

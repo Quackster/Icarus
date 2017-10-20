@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.room.notify;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class FloodFilterMessageComposer extends MessageComposer {
 
@@ -12,8 +13,13 @@ public class FloodFilterMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.FloodFilterMessageComposer);
-        this.response.writeInt(this.waitSeconds);
+    public void compose(Response response) {
+        //response.init(Outgoing.FloodFilterMessageComposer);
+        response.writeInt(this.waitSeconds);
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.FloodFilterMessageComposer;
     }
 }

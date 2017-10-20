@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.user;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class BroadcastMessageAlertComposer extends MessageComposer {
 
@@ -12,10 +13,14 @@ public class BroadcastMessageAlertComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.BroadcastMessageAlertComposer);
-        this.response.writeString(this.message);
-        this.response.writeString(""); // TODO: URL
+    public void compose(Response response) {
+        //response.init(Outgoing.BroadcastMessageAlertComposer);
+        response.writeString(this.message);
+        response.writeString(""); // TODO: URL
     }
 
+    @Override
+    public short getHeader() {
+        return Outgoing.BroadcastMessageAlertComposer;
+    }
 }

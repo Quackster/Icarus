@@ -13,17 +13,10 @@ public class NettyResponse implements Response {
     private short id;
     private ByteBuf buffer;
 
-    private boolean finalised;
-
-    /* (non-Javadoc)
-     * @see org.alexdev.icarus.server.api.messages.Response#init(int)
-     */
-    @Override
-    public void init(short id) {
-        this.id = id;
-
-        this.buffer = Unpooled.buffer(6);
-        this.buffer.writeInt(0);
+    public NettyResponse(short header, ByteBuf out) {
+        this.id = header;
+        this.buffer = out;
+        this.buffer.writeInt(-1);
         this.buffer.writeShort(id);
     }
     
@@ -81,7 +74,7 @@ public class NettyResponse implements Response {
      */
     public String getBodyString() {
         
-        String str = new String(this.get().toString(Charset.defaultCharset()));
+        String str = new String(this.buffer.toString(Charset.defaultCharset()));
         
         for (int i = 0; i < 14; i++) { 
             str = str.replace(Character.toString((char)i), "[" + i + "]");
@@ -89,18 +82,15 @@ public class NettyResponse implements Response {
 
         return str;
     }
-    
-    /* (non-Javadoc)
-     * @see org.alexdev.icarus.server.api.messages.Response#get()
-     */
-    public ByteBuf get() {
 
-        if (!this.finalised) {
-            this.buffer.setInt(0, this.buffer.writerIndex() - 4);
-            this.finalised = true;
-        }
-        
-        return this.buffer;
+    /**
+     * Gets has the length been set
+     *
+     * @return true, if the length was set
+     */
+    public boolean hasLength() {
+        return (this.buffer.getInt(0) > -1);
+
     }
 
     /* (non-Javadoc)
@@ -111,10 +101,10 @@ public class NettyResponse implements Response {
     }
 
     /* (non-Javadoc)
-     * @see org.alexdev.icarus.server.api.messages.Response#isFinalised()
+     * @see org.alexdev.icarus.server.api.messages.Response#getContent()
      */
     @Override
-    public boolean isFinalised() {
-        return this.finalised;
+    public ByteBuf getContent() {
+        return this.buffer;
     }
 }

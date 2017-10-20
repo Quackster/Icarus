@@ -9,7 +9,7 @@ import org.alexdev.icarus.game.item.json.moodlight.MoodlightData;
 import org.alexdev.icarus.game.item.json.moodlight.MoodlightPreset;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.messages.outgoing.room.items.MoodlightConfigComposer;
+import org.alexdev.icarus.messages.outgoing.room.items.MoodlightConfigMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
@@ -53,6 +53,6 @@ public class MoodlightInteractMessageEvent implements MessageEvent {
         }
 
         moodlight.saveExtraData();
-        player.send(new MoodlightConfigComposer(data));
+        player.send(new MoodlightConfigMessageComposer(data));
     }
 }

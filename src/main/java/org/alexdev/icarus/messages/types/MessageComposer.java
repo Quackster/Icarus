@@ -1,27 +1,26 @@
 package org.alexdev.icarus.messages.types;
 
+import io.netty.buffer.ByteBuf;
 import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.server.netty.streams.NettyResponse;
 
 public abstract class MessageComposer {
-    
-    protected Response response;
-    
-    public MessageComposer() {
-        this.response = new NettyResponse();
-    }
-    
+
     /**
      * Write the message to send back to the client.
      */
-    public abstract void write();
+    public abstract void compose(Response response);
 
     /**
-     * Gets the response.
-     *
-     * @return the response
+     * Write to buffer
      */
-    public Response getResponse() {
-        return response;
+    public Response writeToBuffer(ByteBuf buf) {
+
+        return null;
     }
+
+    /**
+     * Get the header
+     */
+    public abstract short getHeader();
 }

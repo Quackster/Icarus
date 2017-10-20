@@ -9,6 +9,8 @@ import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
+import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.util.Util;
 
 public class GroupManageMembersComposer extends MessageComposer {
@@ -30,48 +32,52 @@ public class GroupManageMembersComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.GroupManageMembersComposer);
-        this.response.writeInt(this.group.getId());
-        this.response.writeString(this.group.getTitle());
-        this.response.writeInt(this.group.getRoomId());
-        this.response.writeString(this.group.getBadge());
-        this.response.writeInt(this.groupMembers.size());
+    public void compose(Response response) {
+        response.writeInt(group.getId());
+        response.writeString(group.getTitle());
+        response.writeInt(group.getRoomId());
+        response.writeString(group.getBadge());
+        response.writeInt(groupMembers.size());
 
         if (groupMembers.size() == 0) {
-            this.response.writeInt(0);
+            response.writeInt(0);
         } else {
 
             // Inspired by Comet... best way to do this in Java
-            List<List<Integer>> paginatedMembers = Util.paginate(this.groupMembers, GameSettings.GROUP_MEMBERS_PER_PAGE);
-            this.response.writeInt(paginatedMembers.get(this.page).size());
+            List<List<Integer>> paginatedMembers = Util.paginate(groupMembers, GameSettings.GROUP_MEMBERS_PER_PAGE);
+            response.writeInt(paginatedMembers.get(page).size());
 
-            for (int userId : paginatedMembers.get(this.page)) {
+            for (int userId : paginatedMembers.get(page)) {
                 
                 PlayerDetails details = PlayerManager.getPlayerData(userId);
                 
-                if (this.group.getOwnerId() == userId) {
-                    this.response.writeInt(0);
-                } else if (this.group.getMemberManager().isMemberType(userId, GroupMemberType.ADMINISTRATOR)) {
-                    this.response.writeInt(1);
-                } else if (this.group.getMemberManager().isMemberType(userId, GroupMemberType.MEMBER)) {
-                    this.response.writeInt(2);
+                if (group.getOwnerId() == userId) {
+                    response.writeInt(0);
+                } else if (group.getMemberManager().isMemberType(userId, GroupMemberType.ADMINISTRATOR)) {
+                    response.writeInt(1);
+                } else if (group.getMemberManager().isMemberType(userId, GroupMemberType.MEMBER)) {
+                    response.writeInt(2);
                 } else {
-                    this.response.writeInt(3);
+                    response.writeInt(3);
                 }
                 
-                this.response.writeInt(userId);
-                this.response.writeString(details.getName());
-                this.response.writeString(details.getFigure());
-                this.response.writeString("");
+                response.writeInt(userId);
+                response.writeString(details.getName());
+                response.writeString(details.getFigure());
+                response.writeString("");
             }
         }
         
-        this.response.writeBool(this.hasAccess);
-        this.response.writeInt(GameSettings.GROUP_MEMBERS_PER_PAGE);
-        this.response.writeInt(this.page);
-        this.response.writeInt(this.requestType);
-        this.response.writeString(this.searchQuery);
+        response.writeBool(hasAccess);
+        response.writeInt(GameSettings.GROUP_MEMBERS_PER_PAGE);
+        response.writeInt(page);
+        response.writeInt(requestType);
+        response.writeString(searchQuery);
         
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.GroupManageMembersComposer;
     }
 }

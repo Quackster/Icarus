@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.room.settings;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class RightsRemovedComposer extends MessageComposer {
 
@@ -14,9 +15,14 @@ public class RightsRemovedComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.RightsRemovedComposer);
-        this.response.writeInt(this.roomId);
-        this.response.writeInt(this.userId);
+    public void compose(Response response) {
+        //response.init(Outgoing.RightsRemovedComposer);
+        response.writeInt(this.roomId);
+        response.writeInt(this.userId);
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.RightsRemovedComposer;
     }
 }

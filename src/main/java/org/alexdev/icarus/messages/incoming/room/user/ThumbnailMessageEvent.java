@@ -100,7 +100,7 @@ public class ThumbnailMessageEvent implements MessageEvent {
 
             while (!inflater.finished()) {
                 int amount = inflater.inflate(buffer);
-                outputStream.write(buffer, 0, amount);
+                outputStream.compose(buffer, 0, amount);
             }
 
             outputStream.close();

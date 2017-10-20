@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.room.user;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class RemoveUserMessageComposer extends MessageComposer {
 
@@ -12,8 +13,13 @@ public class RemoveUserMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.RemoveUserMessageComposer);
-        this.response.writeString(this.virtualId + "");
+    public void compose(Response response) {
+        //response.init(Outgoing.RemoveUserMessageComposer);
+        response.writeString(this.virtualId + "");
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.RemoveUserMessageComposer;
     }
 }

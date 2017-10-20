@@ -5,6 +5,7 @@ import java.util.List;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class RoomRightsListComposer extends MessageComposer {
 
@@ -17,15 +18,19 @@ public class RoomRightsListComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.RoomRightsListComposer);
-        this.response.writeInt(this.roomId);
-        this.response.writeInt(this.rights.size());
-        
-        for (Integer userId : this.rights) {     
-            this.response.writeInt(userId);
-            this.response.writeString(PlayerManager.getPlayerData(userId).getName());
+    public void compose(Response response) {
+        //response.init(Outgoing.RoomRightsListComposer);
+        response.writeInt(this.roomId);
+        response.writeInt(this.rights.size());
+
+        for (Integer userId : this.rights) {
+            response.writeInt(userId);
+            response.writeString(PlayerManager.getPlayerData(userId).getName());
         }
     }
 
+    @Override
+    public short getHeader() {
+        return Outgoing.RoomRightsListComposer;
+    }
 }

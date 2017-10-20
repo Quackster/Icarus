@@ -1,7 +1,7 @@
 package org.alexdev.icarus.messages.incoming.camera;
 
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.messages.outgoing.PhotoPriceComposer;
+import org.alexdev.icarus.messages.outgoing.camera.PhotoPriceComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 

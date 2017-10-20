@@ -12,7 +12,7 @@ import org.alexdev.icarus.game.room.enums.RoomAction;
 import org.alexdev.icarus.game.util.BadgeUtil;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessageComposer;
 import org.alexdev.icarus.messages.outgoing.groups.GroupBadgesMessageComposer;
-import org.alexdev.icarus.messages.outgoing.groups.NewGroupMessageComposer;
+import org.alexdev.icarus.messages.outgoing.groups.NewGroupInfoMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.alexdev.icarus.util.Util;
@@ -66,7 +66,7 @@ public class GroupPurchaseMessageEvent implements MessageEvent {
             player.performRoomAction(RoomAction.FORWARD_ROOM, roomId);
             
         } else {
-            player.send(new NewGroupMessageComposer(roomId, group.getId()));
+            player.send(new NewGroupInfoMessageComposer(roomId, group.getId()));
             room.send(new GroupBadgesMessageComposer(group.getId(), badge));
         }
     }

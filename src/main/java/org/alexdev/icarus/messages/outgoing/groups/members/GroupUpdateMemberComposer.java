@@ -4,6 +4,7 @@ import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class GroupUpdateMemberComposer extends MessageComposer {
 
@@ -18,14 +19,18 @@ public class GroupUpdateMemberComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.GroupUpdateMemberComposer);
-        this.response.writeInt(this.groupId);
-        this.response.writeInt(this.type);
-        this.response.writeInt(this.details.getId());
-        this.response.writeString(this.details.getName());
-        this.response.writeString(this.details.getFigure());
-        this.response.writeString("");
+    public void compose(Response response) {
+        //response.init(Outgoing.GroupUpdateMemberComposer);
+        response.writeInt(this.groupId);
+        response.writeInt(this.type);
+        response.writeInt(this.details.getId());
+        response.writeString(this.details.getName());
+        response.writeString(this.details.getFigure());
+        response.writeString("");
     }
 
+    @Override
+    public short getHeader() {
+        return Outgoing.GroupUpdateMemberComposer;
+    }
 }

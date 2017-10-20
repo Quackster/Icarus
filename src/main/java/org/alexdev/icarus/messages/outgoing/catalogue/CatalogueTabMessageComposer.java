@@ -6,6 +6,7 @@ import org.alexdev.icarus.game.catalogue.CatalogueTab;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
+import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.util.Util;
 
 public class CatalogueTabMessageComposer extends MessageComposer {
@@ -21,43 +22,46 @@ public class CatalogueTabMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.CatalogueTabMessageComposer);
-        this.response.writeBool(true);
-        this.response.writeInt(0);
-        this.response.writeInt(-1);
-        this.response.writeString("root");
-        this.response.writeString("");
-        this.response.writeInt(0);
-        this.response.writeInt(parentTabs.size());
+    public void compose(Response response) {
+        ;
+        response.writeBool(true);
+        response.writeInt(0);
+        response.writeInt(-1);
+        response.writeString("root");
+        response.writeString("");
+        response.writeInt(0);
+        response.writeInt(parentTabs.size());
 
         for (CatalogueTab parent_tab : parentTabs) {
-            this.appendCatalogueIndexData(parent_tab, this.response);
-            this.recursiveCatalogueIndex(parent_tab, this.response);
+            appendCatalogueIndexData(parent_tab, response);
+            recursiveCatalogueIndex(parent_tab, response);
         }
 
-        this.response.writeBool(false);
-        this.response.writeString(type);
+        response.writeBool(false);
+        response.writeString(type);
     }
 
     void appendCatalogueIndexData(CatalogueTab tab, Response response) {
-
-        this.response.writeBool(tab.isEnabled());
-        this.response.writeInt(tab.getIconImage());
-        this.response.writeInt(tab.getId());
-        this.response.writeString(tab.getLink().equals("undefined") ? Util.removeNonAlphaNumeric(tab.getCaption().toLowerCase()).replace(" ", "_") : tab.getLink());
-        this.response.writeString(tab.getCaption());// + " (" + tab.getId() + ")");
-        this.response.writeInt(0);
+        response.writeBool(tab.isEnabled());
+        response.writeInt(tab.getIconImage());
+        response.writeInt(tab.getId());
+        response.writeString(tab.getLink().equals("undefined") ? Util.removeNonAlphaNumeric(tab.getCaption().toLowerCase()).replace(" ", "_") : tab.getLink());
+        response.writeString(tab.getCaption());// + " (" + tab.getId() + ")");
+        response.writeInt(0);
     }
 
-    void recursiveCatalogueIndex(CatalogueTab tab, Response response)  {
-
+    void recursiveCatalogueIndex(CatalogueTab tab, Response response) {
         List<CatalogueTab> child_tabs = tab.getChildTabs();
-        this.response.writeInt(child_tabs.size());
+        response.writeInt(child_tabs.size());
 
         for (CatalogueTab child_tab : child_tabs) {
-            this.appendCatalogueIndexData(child_tab, this.response);
-            this.recursiveCatalogueIndex(child_tab, this.response);
+            appendCatalogueIndexData(child_tab, response);
+            recursiveCatalogueIndex(child_tab, response);
         }
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.CatalogueTabMessageComposer;
     }
 }

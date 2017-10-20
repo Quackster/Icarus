@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.room.floorplan;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class FloorPlanSendDoorComposer extends MessageComposer {
 
@@ -16,11 +17,16 @@ public class FloorPlanSendDoorComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.FloorPlanSendDoorMessageComposer);
-        this.response.writeInt(this.x);
-        this.response.writeInt(this.y);
-        this.response.writeInt(this.rotation);
+    public void compose(Response response) {
+        //response.init(Outgoing.FloorPlanSendDoorMessageComposer);
+        response.writeInt(this.x);
+        response.writeInt(this.y);
+        response.writeInt(this.rotation);
 
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.FloorPlanSendDoorMessageComposer;
     }
 }

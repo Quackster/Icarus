@@ -3,6 +3,7 @@ package org.alexdev.icarus.messages.outgoing.messenger;
 import org.alexdev.icarus.game.messenger.MessengerUser;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class MessengerUpdateMessageComposer extends MessageComposer {
 
@@ -15,13 +16,18 @@ public class MessengerUpdateMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.FriendUpdateMessageComposer);
-        this.response.writeInt(0);
-        this.response.writeInt(1);
-        this.response.writeInt(0);
+    public void compose(Response response) {
+        //response.init(Outgoing.FriendUpdateMessageComposer);
+        response.writeInt(0);
+        response.writeInt(1);
+        response.writeInt(0);
         this.friend.serialise(response, this.forceOffline);
-        this.response.writeBool(false);
-        
+        response.writeBool(false);
+
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.FriendUpdateMessageComposer;
     }
 }

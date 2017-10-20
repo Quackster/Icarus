@@ -1,7 +1,9 @@
-package org.alexdev.icarus.messages.outgoing;
+package org.alexdev.icarus.messages.outgoing.camera;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class PhotoPriceComposer extends MessageComposer {
 
@@ -16,11 +18,14 @@ public class PhotoPriceComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.PhotoPriceComposer);
-        this.response.writeInt(this.costCredits);
-        this.response.writeInt(this.costPixels);
-        this.response.writeInt(this.costWeb);
+    public void compose(Response response) {
+        response.writeInt(this.costCredits);
+        response.writeInt(this.costPixels);
+        response.writeInt(this.costWeb);
     }
 
+    @Override
+    public short getHeader() {
+        return Outgoing.PhotoPriceComposer;
+    }
 }

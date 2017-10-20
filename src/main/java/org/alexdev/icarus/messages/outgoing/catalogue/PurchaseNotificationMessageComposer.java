@@ -4,6 +4,8 @@ import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.game.item.ItemDefinition;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class PurchaseNotificationMessageComposer extends MessageComposer {
 
@@ -13,57 +15,60 @@ public class PurchaseNotificationMessageComposer extends MessageComposer {
         this.item = item;
     }
 
-    public PurchaseNotificationMessageComposer() { }
+    public PurchaseNotificationMessageComposer() {
+    }
 
     @Override
-    public void write() {
+    public void compose(Response response) {
 
-        this.response.init(Outgoing.PurchaseNotificationMessageComposer);
-            
-        if (this.item == null) {
-            this.response.writeInt(0);
-            this.response.writeString("");
-            this.response.writeBool(false);
-            this.response.writeInt(0);
-            this.response.writeInt(0);
-            this.response.writeInt(0);
-            this.response.writeBool(true);
-            this.response.writeInt(1);
-            this.response.writeString("s");
-            this.response.writeInt(0);
-            this.response.writeString("");
-            this.response.writeInt(1);
-            this.response.writeInt(0);
-            this.response.writeString("");
-            this.response.writeInt(1);
+        if (item == null) {
+            response.writeInt(0);
+            response.writeString("");
+            response.writeBool(false);
+            response.writeInt(0);
+            response.writeInt(0);
+            response.writeInt(0);
+            response.writeBool(true);
+            response.writeInt(1);
+            response.writeString("s");
+            response.writeInt(0);
+            response.writeString("");
+            response.writeInt(1);
+            response.writeInt(0);
+            response.writeString("");
+            response.writeInt(1);
 
         } else {
-            
+
             ItemDefinition definition = item.getItemDefinition();
-            
-            this.response.writeInt(definition.getId());
-            this.response.writeString(definition.getItemName());
-            this.response.writeBool(false);
-            this.response.writeInt(this.item.getCostCredits());
-            this.response.writeInt(this.item.getPixelCost());
-            this.response.writeInt(0);
-            this.response.writeBool(true);
-            this.response.writeInt(1);
-            this.response.writeString(definition.getType());
-            this.response.writeInt(definition.getSpriteId());
-            this.response.writeString(item.getExtraData());
-            this.response.writeInt(item.getAmount());
 
-            this.response.writeBool(item.getLimitedTotal() > 0);
+            response.writeInt(definition.getId());
+            response.writeString(definition.getItemName());
+            response.writeBool(false);
+            response.writeInt(item.getCostCredits());
+            response.writeInt(item.getPixelCost());
+            response.writeInt(0);
+            response.writeBool(true);
+            response.writeInt(1);
+            response.writeString(definition.getType());
+            response.writeInt(definition.getSpriteId());
+            response.writeString(item.getExtraData());
+            response.writeInt(item.getAmount());
 
-            if (this.item.getLimitedTotal() > 0) {
-                this.response.writeInt(item.getLimitedTotal());
-                this.response.writeInt(item.getLimitedSells());
+            response.writeBool(item.getLimitedTotal() > 0);
+
+            if (item.getLimitedTotal() > 0) {
+                response.writeInt(item.getLimitedTotal());
+                response.writeInt(item.getLimitedSells());
             }
 
-            this.response.writeString(item.getSubscriptionStatus());
-            this.response.writeInt(1);
+            response.writeString(item.getSubscriptionStatus());
+            response.writeInt(1);
         }
+    }
 
+    @Override
+    public short getHeader() {
+        return Outgoing.PurchaseNotificationMessageComposer;
     }
 }

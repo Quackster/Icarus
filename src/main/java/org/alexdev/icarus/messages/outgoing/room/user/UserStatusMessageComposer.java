@@ -6,6 +6,7 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.room.EntityState;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class UserStatusMessageComposer extends MessageComposer {
 
@@ -14,27 +15,31 @@ public class UserStatusMessageComposer extends MessageComposer {
     public UserStatusMessageComposer(List<Entity> users) {
         createEntityStates(users);
     }
-    
+
     private void createEntityStates(List<Entity> entities) {
-        
+
         this.states = new ArrayList<>();
-        
+
         for (Entity user : entities) {
             this.states.add(new EntityState(
-                    user.getRoomUser().getVirtualId(), 
-                    user.getRoomUser().getPosition(), 
+                    user.getRoomUser().getVirtualId(),
+                    user.getRoomUser().getPosition(),
                     user.getRoomUser().getStatuses()));
         }
     }
 
     @Override
-    public void write() {
-
-        this.response.init(Outgoing.UserStatusMessageComposer);
-        this.response.writeInt(this.states.size());
+    public void compose(Response response) {
+        //response.init(Outgoing.UserStatusMessageComposer);
+        response.writeInt(this.states.size());
 
         for (EntityState entity : this.states) {
-            this.response.writeObject(entity);
+            response.writeObject(entity);
         }
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.UserStatusMessageComposer;
     }
 }

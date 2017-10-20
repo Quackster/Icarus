@@ -304,7 +304,7 @@ public class Player extends Entity {
      * @param response the response
      */
     public void sendQueued(MessageComposer response) {
-        this.network.sendQueued(response);
+        this.network.send(response);
     }
 
     /**

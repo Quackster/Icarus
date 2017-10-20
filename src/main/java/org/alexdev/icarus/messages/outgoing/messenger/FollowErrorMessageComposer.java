@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.messenger;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class FollowErrorMessageComposer extends MessageComposer {
 
@@ -12,9 +13,14 @@ public class FollowErrorMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.FollowErrorMessageComposer);
-        this.response.writeInt(this.errorId);
+    public void compose(Response response) {
+        //response.init(Outgoing.FollowErrorMessageComposer);
+        response.writeInt(this.errorId);
 
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.FollowErrorMessageComposer;
     }
 }

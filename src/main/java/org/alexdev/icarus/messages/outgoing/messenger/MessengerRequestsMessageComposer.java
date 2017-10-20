@@ -6,6 +6,7 @@ import org.alexdev.icarus.game.messenger.MessengerUser;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class MessengerRequestsMessageComposer extends MessageComposer {
 
@@ -18,15 +19,20 @@ public class MessengerRequestsMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.MessengerRequestsMessageComposer);
-        this.response.writeInt(this.player.getEntityId());
-        this.response.writeInt(this.requests.size()); 
+    public void compose(Response response) {
+        //response.init(Outgoing.MessengerRequestsMessageComposer);
+        response.writeInt(this.player.getEntityId());
+        response.writeInt(this.requests.size());
 
         for (MessengerUser user : this.requests) {
-            this.response.writeInt(user.getUserId());
-            this.response.writeString(user.getDetails().getName());
-            this.response.writeString(user.getDetails().getFigure());
+            response.writeInt(user.getUserId());
+            response.writeString(user.getDetails().getName());
+            response.writeString(user.getDetails().getFigure());
         }
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.MessengerRequestsMessageComposer;
     }
 }

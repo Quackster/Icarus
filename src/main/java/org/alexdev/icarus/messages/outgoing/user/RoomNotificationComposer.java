@@ -2,6 +2,8 @@ package org.alexdev.icarus.messages.outgoing.user;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
+import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.util.Util;
 
 public class RoomNotificationComposer extends MessageComposer {
@@ -11,7 +13,7 @@ public class RoomNotificationComposer extends MessageComposer {
     private String image;
     private String hotelName;
     private String url;
-    
+
     public RoomNotificationComposer(String title, String message, String image, String hotelName, String url) {
         this.title = title;
         this.message = message;
@@ -21,21 +23,24 @@ public class RoomNotificationComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.RoomNotificationComposer);
-        this.response.writeString(this.image);
-        this.response.writeInt(Util.isNullOrEmpty(this.hotelName) ? 2 : 4);
-        this.response.writeString("title");
-        this.response.writeString(this.title);
-        this.response.writeString("message");
-        this.response.writeString(this.message);
+    public void compose(Response response) {
+        response.writeString(this.image);
+        response.writeInt(Util.isNullOrEmpty(this.hotelName) ? 2 : 4);
+        response.writeString("title");
+        response.writeString(this.title);
+        response.writeString("message");
+        response.writeString(this.message);
 
         if (!Util.isNullOrEmpty(this.hotelName)) {
-            this.response.writeString("linkUrl");
-            this.response.writeString(this.url);
-            this.response.writeString("linkTitle");
-            this.response.writeString(this.hotelName);
+            response.writeString("linkUrl");
+            response.writeString(this.url);
+            response.writeString("linkTitle");
+            response.writeString(this.hotelName);
         }
-        
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.RoomNotificationComposer;
     }
 }

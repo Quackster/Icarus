@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.room.notify;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class SettingsUpdatedMessageComposer extends MessageComposer {
 
@@ -12,8 +13,13 @@ public class SettingsUpdatedMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.SettingsUpdatedMessageComposer);
-        this.response.writeInt(this.roomId);
+    public void compose(Response response) {
+        //response.init(Outgoing.SettingsUpdatedMessageComposer);
+        response.writeInt(this.roomId);
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.SettingsUpdatedMessageComposer;
     }
 }

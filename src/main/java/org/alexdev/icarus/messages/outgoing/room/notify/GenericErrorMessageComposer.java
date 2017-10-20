@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.room.notify;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class GenericErrorMessageComposer extends MessageComposer {
 
@@ -12,8 +13,13 @@ public class GenericErrorMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.GenericErrorMessageComposer);
-        this.response.writeInt(this.errorCode);
+    public void compose(Response response) {
+        //response.init(Outgoing.GenericErrorMessageComposer);
+        response.writeInt(this.errorCode);
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.GenericErrorMessageComposer;
     }
 }

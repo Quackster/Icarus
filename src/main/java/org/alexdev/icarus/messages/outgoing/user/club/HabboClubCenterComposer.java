@@ -2,24 +2,29 @@ package org.alexdev.icarus.messages.outgoing.user.club;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class HabboClubCenterComposer extends MessageComposer {
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.HabboClubCenterComposer);
-        this.response.writeInt(7 * 365); // streak duration in days
-        this.response.writeString("01-01-2017"); // join date
-        
-        this.response.writeInt(1); 
-        this.response.writeInt(2);
-        this.response.writeInt(3);
-        this.response.writeInt(4); 
-        this.response.writeInt(5); 
-        
-        this.response.writeInt(200); // coins spent
-        this.response.writeInt(10); // % percentage of habbo creditz
-        this.response.writeInt(100000); // payday countdown in minutes
+    public void compose(Response response) {
+        //response.init(Outgoing.HabboClubCenterComposer);
+        response.writeInt(7 * 365); // streak duration in days
+        response.writeString("01-01-2017"); // join date
+
+        response.writeInt(1);
+        response.writeInt(2);
+        response.writeInt(3);
+        response.writeInt(4);
+        response.writeInt(5);
+
+        response.writeInt(200); // coins spent
+        response.writeInt(10); // % percentage of habbo creditz
+        response.writeInt(100000); // payday countdown in minutes
     }
 
+    @Override
+    public short getHeader() {
+        return Outgoing.HabboClubCenterComposer;
+    }
 }

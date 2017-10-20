@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.catalogue;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class PresentDeliverErrorMessageComposer extends MessageComposer {
 
@@ -14,9 +15,12 @@ public class PresentDeliverErrorMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.PresentDeliverErrorMessageComposer);
-        this.response.writeInt(this.creditsError);
-        this.response.writeInt(this.ducketError);
+    public void compose(Response response) {
+        response.writeInt(this.creditsError);
+        response.writeInt(this.ducketError);
+    }
+
+    public short getHeader() {
+        return Outgoing.PresentDeliverErrorMessageComposer;
     }
 }

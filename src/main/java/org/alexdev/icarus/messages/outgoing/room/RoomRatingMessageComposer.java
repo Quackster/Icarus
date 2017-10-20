@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.room;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class RoomRatingMessageComposer extends MessageComposer {
 
@@ -12,9 +13,14 @@ public class RoomRatingMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.RoomRatingMessageComposer);
-        this.response.writeInt(this.score);
-        this.response.writeBool(false);
+    public void compose(Response response) {
+        //response.init(Outgoing.RoomRatingMessageComposer);
+        response.writeInt(this.score);
+        response.writeBool(false);
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.RoomRatingMessageComposer;
     }
 }

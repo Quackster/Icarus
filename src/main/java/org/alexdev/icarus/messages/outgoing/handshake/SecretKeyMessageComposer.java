@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.handshake;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class SecretKeyMessageComposer extends MessageComposer {
 
@@ -12,9 +13,13 @@ public class SecretKeyMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.SecretKeyMessageComposer);
-        this.response.writeString(this.publicKey);
+    public void compose(Response response) {
+        //response.init(Outgoing.SecretKeyMessageComposer);
+        response.writeString(this.publicKey);
     }
 
+    @Override
+    public short getHeader() {
+        return Outgoing.SecretKeyMessageComposer;
+    }
 }

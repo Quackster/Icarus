@@ -5,6 +5,7 @@ import java.util.List;
 import org.alexdev.icarus.game.navigator.NavigatorCategory;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class NavigatorCategories extends MessageComposer {
     
@@ -15,17 +16,22 @@ public class NavigatorCategories extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.NavigatorCategories);
-        this.response.writeInt(4 + this.categories.size());
+    public void compose(Response response) {
+        //response.init(Outgoing.NavigatorCategories);
+        response.writeInt(4 + this.categories.size());
 
         for (NavigatorCategory category : this.categories) {
-            this.response.writeString("category__" + category.getName());
+            response.writeString("category__" + category.getName());
         }
 
-        this.response.writeString("recommended");
-        this.response.writeString("new_ads");
-        this.response.writeString("staffpicks");
-        this.response.writeString("official");
+        response.writeString("recommended");
+        response.writeString("new_ads");
+        response.writeString("staffpicks");
+        response.writeString("official");
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.NavigatorCategories;
     }
 }

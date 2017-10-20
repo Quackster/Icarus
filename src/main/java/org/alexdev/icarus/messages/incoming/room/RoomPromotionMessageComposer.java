@@ -3,6 +3,7 @@ package org.alexdev.icarus.messages.incoming.room;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class RoomPromotionMessageComposer extends MessageComposer {
 
@@ -11,32 +12,36 @@ public class RoomPromotionMessageComposer extends MessageComposer {
     public RoomPromotionMessageComposer(Room room) {
         this.room = room;
     }
-
+    
     @Override
-    public void write() {
-        
-        this.response.init(Outgoing.RoomPromotionMessageComposer);
+    public void compose(Response response) {
+        //response.init(Outgoing.RoomPromotionMessageComposer);
 
         if (this.room.getPromotion() != null) {
-            this.response.writeInt(room.getData().getId());
-            this.response.writeInt(room.getData().getOwnerId());
-            this.response.writeString(room.getData().getOwnerName());
-            this.response.writeInt(1);
-            this.response.writeInt(0);
-            this.response.writeString(room.getPromotion().getPromotionName());
-            this.response.writeString(room.getPromotion().getPromotionDescription());
+            response.writeInt(room.getData().getId());
+            response.writeInt(room.getData().getOwnerId());
+            response.writeString(room.getData().getOwnerName());
+            response.writeInt(1);
+            response.writeInt(0);
+            response.writeString(room.getPromotion().getPromotionName());
+            response.writeString(room.getPromotion().getPromotionDescription());
         } else {
-            this.response.writeInt(-1);
-            this.response.writeInt(-1);
-            this.response.writeString("");
-            this.response.writeInt(0);
-            this.response.writeInt(0);
-            this.response.writeString("");
-            this.response.writeString("");
+            response.writeInt(-1);
+            response.writeInt(-1);
+            response.writeString("");
+            response.writeInt(0);
+            response.writeInt(0);
+            response.writeString("");
+            response.writeString("");
         }
 
-        this.response.writeInt(0);
-        this.response.writeInt(0);
-        this.response.writeInt(0);
+        response.writeInt(0);
+        response.writeInt(0);
+        response.writeInt(0);
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.RoomPromotionMessageComposer;
     }
 }

@@ -2,6 +2,8 @@ package org.alexdev.icarus.messages.outgoing.groups;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class RefreshFavouriteGroupComposer extends MessageComposer {
 
@@ -12,8 +14,12 @@ public class RefreshFavouriteGroupComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.RefreshFavouriteGroupComposer);
-        this.response.writeInt(this.userId);
+    public void compose(Response response) {
+        response.writeInt(this.userId);
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.RefreshFavouriteGroupComposer;
     }
 }

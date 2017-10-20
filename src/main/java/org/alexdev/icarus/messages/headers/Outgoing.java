@@ -13,7 +13,7 @@ public class Outgoing {
     public static short FriendUpdateMessageComposer = 3872;//1382
     public static short HeightMapMessageComposer = 1010;//3973
     public static short HomeRoomMessageComposer = 1776;//3503
-    public static short HotelScreenMessageComposer = 1297;//2260
+    public static short HotelViewMessageComposer = 1297;//2260
     public static short InitialRoomInfoMessageComposer = 3334;//1098
     public static short InitMessengerMessageComposer = 2891;//758
     public static short LandingWidgetMessageComposer = 2081;//1621
@@ -80,8 +80,8 @@ public class Outgoing {
     public static short WallOptionsMessageComposer = 2988;//3997
     public static short CatalogueDiscountComposer = 3575;//2987
     public static short RequireGroupComposer = 1460;//2987
-    public static short CarryObjectComposer = 3112;//1755
-    public static short UserChangeComposer = 2098;//50
+    public static short CarryObjectMessageComposer = 3112;//1755
+    public static short UserChangeMessageComposer = 2098;//50
     public static short SlideObjectMessageComposer = 352;//2561
     public static short MoodlightConfigMessageComposer = 2266;//2104
     public static short SubscriptionMessageComposer = 3459;//1925
@@ -113,9 +113,9 @@ public class Outgoing {
     public static short GroupPurchaseDialogComposer = 870;//2815
     public static short GroupBadgeDialogComposer = 2579;//2910
     public static short GroupBadgesMessageComposer = 1333;//84
-    public static short GroupInfoMessageComposer = 2279;//2197
+    public static short NewGroupInfoMessageComposer = 2279;//2197
     public static short AvatarAspectUpdateMessageComposer = 2786;//125
-    public static short GroupInfoComposer = 3190;//1530
+    public static short GroupInfoMessageComposer = 3190;//1530
     public static short GroupManageDetailsComposer = 891;//991
     public static short GroupManageMembersComposer = 610;//3602
     public static short GroupMembershipRequestedComposer = 3049;//1576
@@ -124,7 +124,7 @@ public class Outgoing {
     public static short RefreshFavouriteGroupComposer = 1579;//3611
     public static short MOTDNotificationMessageComposer = 408;
     public static short ThumbnailMessageComposer = 1101;
-    public static short PhotoPreviewComposer = 3115;
+    public static short PhotoPreviewMessageComposer = 3115;
     public static short PhotoPriceComposer = 953;
     public static short PurchasedPhotoComposer = 3859;
     public static short RoomNotificationComposer = 3531;

@@ -2,7 +2,7 @@ package org.alexdev.icarus.messages.incoming.user;
 
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.outgoing.room.user.UserChangeMessageComposer;
-import org.alexdev.icarus.messages.outgoing.user.AvatarAspectUpdateComposer;
+import org.alexdev.icarus.messages.outgoing.user.AvatarAspectUpdateMessageComposer;
 import org.alexdev.icarus.messages.outgoing.user.UserObjectMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
@@ -24,7 +24,7 @@ public class ChangeAppearanceMessageEvent implements MessageEvent {
         player.getDetails().setGender(gender);
         player.getDetails().save();
         
-        player.sendQueued(new AvatarAspectUpdateComposer(figure, gender));
+        player.sendQueued(new AvatarAspectUpdateMessageComposer(figure, gender));
         player.sendQueued(new UserObjectMessageComposer(player.getDetails()));
 
         

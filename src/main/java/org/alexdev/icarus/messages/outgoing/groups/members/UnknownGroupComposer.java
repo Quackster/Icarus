@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.groups.members;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class UnknownGroupComposer extends MessageComposer {
 
@@ -14,11 +15,15 @@ public class UnknownGroupComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.UnknownGroupComposer);
-        this.response.writeInt(this.groupId);
-        this.response.writeInt(this.userId);
+    public void compose(Response response) {
+        //response.init(Outgoing.UnknownGroupComposer);
+        response.writeInt(this.groupId);
+        response.writeInt(this.userId);
 
     }
 
+    @Override
+    public short getHeader() {
+        return Outgoing.UnknownGroupComposer;
+    }
 }

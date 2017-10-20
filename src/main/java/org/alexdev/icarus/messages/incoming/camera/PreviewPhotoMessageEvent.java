@@ -1,15 +1,11 @@
 package org.alexdev.icarus.messages.incoming.camera;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
-import java.io.PrintWriter;
-import java.util.zip.Inflater;
 
 import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.messages.outgoing.camera.PhotoPreviewComposer;
+import org.alexdev.icarus.messages.outgoing.camera.PhotoPreviewMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.alexdev.icarus.util.Util;
@@ -60,7 +56,7 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
         });
 
         player.getMetadata().set("latestPhotoUrl", fileName);
-        player.send(new PhotoPreviewComposer(fileName));
+        player.send(new PhotoPreviewMessageComposer(fileName));
 
         /*try {
             byte[] buffer = new byte[4096 * 3];
@@ -74,7 +70,7 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
 
             while (!inflater.finished()) {
                 int count = inflater.inflate(buffer);
-                outputStream.write(buffer, 0, count);
+                outputStream.compose(buffer, 0, count);
             }
 
             outputStream.close();
@@ -83,7 +79,7 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
             byte[] output = outputStream.toByteArray();
 
             PrintWriter writer = new PrintWriter(new File("image.json"));
-            writer.write(new String(output));
+            writer.compose(new String(output));
             writer.flush();
             writer.close();
 

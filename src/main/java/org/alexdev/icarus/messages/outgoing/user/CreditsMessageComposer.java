@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.user;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class CreditsMessageComposer extends MessageComposer {
 
@@ -12,9 +13,13 @@ public class CreditsMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.CreditsMessageComposer);
-        this.response.writeString(this.credits + ".0");
+    public void compose(Response response) {
+        //response.init(Outgoing.CreditsMessageComposer);
+        response.writeString(this.credits + ".0");
     }
 
+    @Override
+    public short getHeader() {
+        return Outgoing.CreditsMessageComposer;
+    }
 }

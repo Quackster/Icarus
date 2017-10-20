@@ -5,6 +5,7 @@ import java.util.List;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class FloorPlanFloorMapComposer extends MessageComposer {
 
@@ -15,14 +16,19 @@ public class FloorPlanFloorMapComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.FloorPlanFloorMapMessageComposer);
-        this.response.writeInt(this.floorItems.size());
-        
+    public void compose(Response response) {
+        //response.init(Outgoing.FloorPlanFloorMapMessageComposer);
+        response.writeInt(this.floorItems.size());
+
         for (Item item : this.floorItems) {
-            this.response.writeInt(item.getPosition().getX());
-            this.response.writeInt(item.getPosition().getY());
+            response.writeInt(item.getPosition().getX());
+            response.writeInt(item.getPosition().getY());
         }
 
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.FloorPlanFloorMapMessageComposer;
     }
 }

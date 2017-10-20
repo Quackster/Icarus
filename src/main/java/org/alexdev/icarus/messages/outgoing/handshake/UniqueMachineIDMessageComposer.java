@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.handshake;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class UniqueMachineIDMessageComposer extends MessageComposer {
 
@@ -12,8 +13,13 @@ public class UniqueMachineIDMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.UniqueMachineIdMessageComposer);
-        this.response.writeString(this.uniqueMachineId);
+    public void compose(Response response) {
+        //response.init(Outgoing.UniqueMachineIdMessageComposer);
+        response.writeString(this.uniqueMachineId);
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.UniqueMachineIdMessageComposer;
     }
 }

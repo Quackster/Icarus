@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.room;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class WallOptionsMessageComposer extends MessageComposer {
 
@@ -16,10 +17,15 @@ public class WallOptionsMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.WallOptionsMessageComposer);
-        this.response.writeBool(this.hideWall);
-        this.response.writeInt(this.wallThickness);
-        this.response.writeInt(this.floorThickness);
+    public void compose(Response response) {
+        //response.init(Outgoing.WallOptionsMessageComposer);
+        response.writeBool(this.hideWall);
+        response.writeInt(this.wallThickness);
+        response.writeInt(this.floorThickness);
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.WallOptionsMessageComposer;
     }
 }

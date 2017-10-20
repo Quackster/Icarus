@@ -5,6 +5,7 @@ import java.util.List;
 import org.alexdev.icarus.game.messenger.MessengerUser;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class FriendsListMessageComposer extends MessageComposer {
 
@@ -15,14 +16,19 @@ public class FriendsListMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.InitMessengerMessageComposer);
-        this.response.writeInt(1);
-        this.response.writeInt(0);
-        this.response.writeInt(this.friends.size());
-        
+    public void compose(Response response) {
+        //response.init(Outgoing.InitMessengerMessageComposer);
+        response.writeInt(1);
+        response.writeInt(0);
+        response.writeInt(this.friends.size());
+
         for (MessengerUser friend : this.friends) {
             friend.serialise(response, false);
         }
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.InitMessengerMessageComposer;
     }
 }

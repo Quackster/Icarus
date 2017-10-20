@@ -3,6 +3,7 @@ package org.alexdev.icarus.messages.outgoing.room;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class FloorMapMessageComposer extends MessageComposer {
 
@@ -13,10 +14,15 @@ public class FloorMapMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.FloorMapMessageComposer);
-        this.response.writeBool(true);
-        this.response.writeInt(this.room.getData().getWallHeight());
-        this.response.writeString(this.room.getModel().getRelativeHeightmap());
+    public void compose(Response response) {
+        //response.init(Outgoing.FloorMapMessageComposer);
+        response.writeBool(true);
+        response.writeInt(this.room.getData().getWallHeight());
+        response.writeString(this.room.getModel().getRelativeHeightmap());
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.FloorMapMessageComposer;
     }
 }

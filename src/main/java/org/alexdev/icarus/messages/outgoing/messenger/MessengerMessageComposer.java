@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.messenger;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class MessengerMessageComposer extends MessageComposer {
 
@@ -14,10 +15,15 @@ public class MessengerMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.MessengerMessageComposer);
-        this.response.writeInt(this.userId);
-        this.response.writeString(this.message);
-        this.response.writeInt(0);
+    public void compose(Response response) {
+        //response.init(Outgoing.MessengerMessageComposer);
+        response.writeInt(this.userId);
+        response.writeString(this.message);
+        response.writeInt(0);
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.MessengerMessageComposer;
     }
 }

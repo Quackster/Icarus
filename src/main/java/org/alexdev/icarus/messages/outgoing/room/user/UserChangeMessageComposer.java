@@ -3,6 +3,7 @@ package org.alexdev.icarus.messages.outgoing.room.user;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class UserChangeMessageComposer extends MessageComposer {
 
@@ -15,12 +16,17 @@ public class UserChangeMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.UserChangeComposer);
-        this.response.writeInt(this.self ? -1 : this.entity.getRoomUser().getVirtualId());
-        this.response.writeString(this.entity.getDetails().getFigure());
-        this.response.writeString(this.entity.getDetails().getGender());
-        this.response.writeString(this.entity.getDetails().getMission());
-        this.response.writeInt(this.entity.getDetails().getAchievementPoints());
+    public void compose(Response response) {
+        //response.init(Outgoing.UserChangeMessageComposer);
+        response.writeInt(this.self ? -1 : this.entity.getRoomUser().getVirtualId());
+        response.writeString(this.entity.getDetails().getFigure());
+        response.writeString(this.entity.getDetails().getGender());
+        response.writeString(this.entity.getDetails().getMission());
+        response.writeInt(this.entity.getDetails().getAchievementPoints());
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.UserChangeMessageComposer;
     }
 }

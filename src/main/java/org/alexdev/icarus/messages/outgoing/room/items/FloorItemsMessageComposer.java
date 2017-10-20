@@ -6,6 +6,7 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.util.ItemUtil;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.util.Util;
 
 public class FloorItemsMessageComposer extends MessageComposer {
@@ -17,28 +18,32 @@ public class FloorItemsMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        
-        this.response.init(Outgoing.FloorItemsMessageComposer);
-        this.response.writeInt(this.items.size());
-        for (Item floorItem : this.items) { 
-            this.response.writeInt(floorItem.getOwnerId());
-            this.response.writeString(floorItem.getOwnerName());
+    public void compose(Response response) {
+        //response.init(Outgoing.FloorItemsMessageComposer);
+        response.writeInt(this.items.size());
+        for (Item floorItem : this.items) {
+            response.writeInt(floorItem.getOwnerId());
+            response.writeString(floorItem.getOwnerName());
         }
 
-        this.response.writeInt(this.items.size());
+        response.writeInt(this.items.size());
         for (Item floorItem : this.items) {
-            this.response.writeInt(floorItem.getId());
-            this.response.writeInt(floorItem.getDefinition().getSpriteId());
-            this.response.writeInt(floorItem.getPosition().getX());
-            this.response.writeInt(floorItem.getPosition().getY());
-            this.response.writeInt(floorItem.getPosition().getRotation());
-            this.response.writeString("" + Util.format(floorItem.getPosition().getZ()));
-            this.response.writeString("");
-            ItemUtil.generateExtraData(floorItem, this.response);
-            this.response.writeInt(-1);
-            this.response.writeInt(floorItem.getDefinition().getInteractionModes() > 0 ? 1 : 0);
-            this.response.writeInt(floorItem.getOwnerId());
+            response.writeInt(floorItem.getId());
+            response.writeInt(floorItem.getDefinition().getSpriteId());
+            response.writeInt(floorItem.getPosition().getX());
+            response.writeInt(floorItem.getPosition().getY());
+            response.writeInt(floorItem.getPosition().getRotation());
+            response.writeString("" + Util.format(floorItem.getPosition().getZ()));
+            response.writeString("");
+            ItemUtil.generateExtraData(floorItem, response);
+            response.writeInt(-1);
+            response.writeInt(floorItem.getDefinition().getInteractionModes() > 0 ? 1 : 0);
+            response.writeInt(floorItem.getOwnerId());
         }
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.FloorItemsMessageComposer;
     }
 }

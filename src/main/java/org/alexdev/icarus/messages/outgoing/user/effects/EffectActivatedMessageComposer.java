@@ -3,6 +3,7 @@ package org.alexdev.icarus.messages.outgoing.user.effects;
 import org.alexdev.icarus.game.inventory.effects.Effect;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class EffectActivatedMessageComposer extends MessageComposer {
 
@@ -13,10 +14,15 @@ public class EffectActivatedMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.EffectActivatedMessageComposer);
-        this.response.writeInt(this.effect.getEffectId());
-        this.response.writeInt(this.effect.getTimeLeft().get());
-        this.response.writeBool(false);
+    public void compose(Response response) {
+        //response.init(Outgoing.EffectActivatedMessageComposer);
+        response.writeInt(this.effect.getEffectId());
+        response.writeInt(this.effect.getTimeLeft().get());
+        response.writeBool(false);
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.EffectActivatedMessageComposer;
     }
 }

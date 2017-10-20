@@ -5,6 +5,7 @@ import java.util.List;
 import org.alexdev.icarus.game.navigator.NavigatorTab;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class NavigatorMetaDataComposer extends MessageComposer {
 
@@ -15,13 +16,18 @@ public class NavigatorMetaDataComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.NavigatorMetaDataComposer);
-        this.response.writeInt(this.tabs.size());
+    public void compose(Response response) {
+        //response.init(Outgoing.NavigatorMetaDataComposer);
+        response.writeInt(this.tabs.size());
 
         for (NavigatorTab tab : this.tabs) {
-            this.response.writeString(tab.getTabName());
-            this.response.writeInt(0);
+            response.writeString(tab.getTabName());
+            response.writeInt(0);
         }
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.NavigatorMetaDataComposer;
     }
 }

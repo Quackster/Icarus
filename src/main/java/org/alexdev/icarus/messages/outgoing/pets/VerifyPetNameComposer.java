@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.pets;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class VerifyPetNameComposer extends MessageComposer {
 
@@ -14,10 +15,14 @@ public class VerifyPetNameComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.VerifyPetNameComposer);
-        this.response.writeInt(this.error);
-        this.response.writeString(this.extraData);
+    public void compose(Response response) {
+        //response.init(Outgoing.VerifyPetNameComposer);
+        response.writeInt(this.error);
+        response.writeString(this.extraData);
     }
 
+    @Override
+    public short getHeader() {
+        return Outgoing.VerifyPetNameComposer;
+    }
 }

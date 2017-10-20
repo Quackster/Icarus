@@ -21,31 +21,29 @@ package org.alexdev.icarus.server.netty.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToMessageEncoder;
+import io.netty.handler.codec.MessageToByteEncoder;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.netty.streams.NettyResponse;
 import org.alexdev.icarus.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-
-public class NetworkEncoder extends MessageToMessageEncoder<MessageComposer> {
+public class NetworkEncoder extends MessageToByteEncoder<MessageComposer> {
 
     final private static Logger log = LoggerFactory.getLogger(NetworkEncoder.class);
 
     @Override
-    protected void encode(ChannelHandlerContext ctx, MessageComposer msg, List<Object> out) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, MessageComposer msg, ByteBuf out) throws Exception {
 
-        if (!msg.getResponse().isFinalised()) {
-            msg.write();
+        NettyResponse response = new NettyResponse(msg.getHeader(), out);
+        msg.compose(response);
+
+        if (!response.hasLength()) {
+            response.getContent().setInt(0, response.getContent().writerIndex() - 4);
         }
 
         if (Util.getServerConfig().get("Logging", "log.sent.packets", Boolean.class)) {
-            log.info("SENT: {} / {}", msg.getResponse().getHeader(), msg.getResponse().getBodyString());
+            log.info("SENT: {} / {}", msg.getHeader(), response.getBodyString());
         }
-
-        ByteBuf buffer = msg.getResponse().get();
-        buffer.retain();
-        out.add(buffer);
     }
 }

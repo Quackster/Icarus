@@ -5,6 +5,7 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.util.RoomUtil;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class RoomDataMessageComposer extends MessageComposer {
 
@@ -21,26 +22,32 @@ public class RoomDataMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.RoomDataMessageComposer);
-        this.response.writeBool(this.isLoading);
-        RoomUtil.serialise(this.room, this.response, this.isLoading);
-        this.response.writeBool(this.checkEntry);
-        this.response.writeBool(false); 
-        this.response.writeBool(false);
-        this.response.writeBool(false);
-        this.response.writeInt(room.getData().getWhoCanMute());
-        this.response.writeInt(room.getData().getWhoCanKick());
-        this.response.writeInt(room.getData().getWhoCanBan());
-        this.response.writeBool(room.hasOwnership(player.getEntityId()));
-        this.response.writeInt(room.getData().getBubbleMode());
-        this.response.writeInt(room.getData().getBubbleType());
-        this.response.writeInt(room.getData().getBubbleScroll());
-        this.response.writeInt(room.getData().getChatMaxDistance());
-        this.response.writeInt(room.getData().getChatFloodProtection());
+    public void compose(Response response) {
+        //response.init(Outgoing.RoomDataMessageComposer);
+        response.writeBool(this.isLoading);
+        RoomUtil.serialise(this.room, response, this.isLoading);
+        response.writeBool(this.checkEntry);
+        response.writeBool(false);
+        response.writeBool(false);
+        response.writeBool(false);
+        response.writeInt(room.getData().getWhoCanMute());
+        response.writeInt(room.getData().getWhoCanKick());
+        response.writeInt(room.getData().getWhoCanBan());
+        response.writeBool(room.hasOwnership(player.getEntityId()));
+        response.writeInt(room.getData().getBubbleMode());
+        response.writeInt(room.getData().getBubbleType());
+        response.writeInt(room.getData().getBubbleScroll());
+        response.writeInt(room.getData().getChatMaxDistance());
+        response.writeInt(room.getData().getChatFloodProtection());
         
         /*response.writeInt(room->getData()->chat_speed);
-        this.response.writeInt(room->getData()->chat_flood);
-        this.response.writeInt(room->getData()->chat_distance)*/;
+        response.writeInt(room->getData()->chat_flood);
+        response.writeInt(room->getData()->chat_distance)*/
+        ;
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.RoomDataMessageComposer;
     }
 }

@@ -7,6 +7,7 @@ import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.util.ItemUtil;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class InventoryLoadMessageComposer extends MessageComposer {
 
@@ -17,31 +18,36 @@ public class InventoryLoadMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
+    public void compose(Response response) {
 
-        this.response.init(Outgoing.InventoryMessageComposer);
-        this.response.writeInt(1);
-        this.response.writeInt(0);
-        this.response.writeInt(this.items.size());
+        //response.init(Outgoing.InventoryMessageComposer);
+        response.writeInt(1);
+        response.writeInt(0);
+        response.writeInt(this.items.size());
 
         for (Item item : this.items) {
-            this.response.writeInt(item.getId());
-            this.response.writeString(item.getDefinition().getType().toString().toUpperCase());
-            this.response.writeInt(item.getId());
-            this.response.writeInt(item.getDefinition().getSpriteId()); 
-            ItemUtil.generateExtraData(item, this.response);
-            this.response.writeBool(item.getDefinition().allowRecycle());
-            this.response.writeBool(item.getDefinition().allowTrade());
-            this.response.writeBool(item.getDefinition().allowInventoryStack());
-            this.response.writeBool(item.getDefinition().allowMarketplaceSell());
-            this.response.writeInt(-1);
-            this.response.writeBool(false);
-            this.response.writeInt(-1);
-            
+            response.writeInt(item.getId());
+            response.writeString(item.getDefinition().getType().toString().toUpperCase());
+            response.writeInt(item.getId());
+            response.writeInt(item.getDefinition().getSpriteId());
+            ItemUtil.generateExtraData(item, response);
+            response.writeBool(item.getDefinition().allowRecycle());
+            response.writeBool(item.getDefinition().allowTrade());
+            response.writeBool(item.getDefinition().allowInventoryStack());
+            response.writeBool(item.getDefinition().allowMarketplaceSell());
+            response.writeInt(-1);
+            response.writeBool(false);
+            response.writeInt(-1);
+
             if (item.getDefinition().getType() != ItemType.WALL) {
-                this.response.writeString("");
-                this.response.writeInt(0);
+                response.writeString("");
+                response.writeInt(0);
             }
         }
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.InventoryMessageComposer;
     }
 }

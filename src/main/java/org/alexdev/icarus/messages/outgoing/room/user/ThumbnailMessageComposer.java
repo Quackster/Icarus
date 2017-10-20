@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.room.user;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class ThumbnailMessageComposer extends MessageComposer {
 
@@ -10,16 +11,20 @@ public class ThumbnailMessageComposer extends MessageComposer {
     public ThumbnailMessageComposer() {
         this.limitReached = false;
     }
-    
+
     public ThumbnailMessageComposer(boolean limitReached) {
         this.limitReached = limitReached;
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.ThumbnailMessageComposer);
-        this.response.writeBool(this.limitReached ? false : true);
-        this.response.writeBool(true);
+    public void compose(Response response) {
+        //response.init(Outgoing.ThumbnailMessageComposer);
+        response.writeBool(this.limitReached ? false : true);
+        response.writeBool(true);
     }
 
+    @Override
+    public short getHeader() {
+        return Outgoing.ThumbnailMessageComposer;
+    }
 }

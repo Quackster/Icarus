@@ -5,24 +5,30 @@ import java.util.Map.Entry;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class ActivityPointsComposer extends MessageComposer {
 
     private Map<Integer, Integer> currencies;
-    
+
     public ActivityPointsComposer(Map<Integer, Integer> currencies) {
         this.currencies = currencies;
     }
 
     @Override
-    public void write() {
-        
-        this.response.init(Outgoing.ActivityPointsComposer);
-        this.response.writeInt(this.currencies.size());
-        
+    public void compose(Response response) {
+
+        //response.init(Outgoing.ActivityPointsComposer);
+        response.writeInt(this.currencies.size());
+
         for (Entry<Integer, Integer> set : this.currencies.entrySet()) {
-            this.response.writeInt(set.getKey());
-            this.response.writeInt(set.getValue());
+            response.writeInt(set.getKey());
+            response.writeInt(set.getValue());
         }
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.ActivityPointsComposer;
     }
 }

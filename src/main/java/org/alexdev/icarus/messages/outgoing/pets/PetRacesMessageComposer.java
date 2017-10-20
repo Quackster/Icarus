@@ -5,6 +5,7 @@ import java.util.List;
 import org.alexdev.icarus.game.pets.PetRace;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class PetRacesMessageComposer extends MessageComposer {
 
@@ -17,17 +18,22 @@ public class PetRacesMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.PetRacesMessageComposer);
-        this.response.writeString(this.petRace);
-        this.response.writeInt(this.races.size());
+    public void compose(Response response) {
+        //response.init(Outgoing.PetRacesMessageComposer);
+        response.writeString(this.petRace);
+        response.writeInt(this.races.size());
 
         for (PetRace race : this.races) {
-            this.response.writeInt(race.getRaceId());
-            this.response.writeInt(race.getColour1());
-            this.response.writeInt(race.getColour2());
-            this.response.writeBool(race.hasColour1());
-            this.response.writeBool(race.hasColour2());
+            response.writeInt(race.getRaceId());
+            response.writeInt(race.getColour1());
+            response.writeInt(race.getColour2());
+            response.writeBool(race.hasColour1());
+            response.writeBool(race.hasColour2());
         }
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.PetRacesMessageComposer;
     }
 }

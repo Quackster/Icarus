@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.item;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class RemoveInventoryItemComposer extends MessageComposer {
 
@@ -12,8 +13,13 @@ public class RemoveInventoryItemComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.RemoveInventoryItemComposer);
-        this.response.writeInt(this.itemId);
+    public void compose(Response response) {
+        //response.init(Outgoing.RemoveInventoryItemComposer);
+        response.writeInt(this.itemId);
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.RemoveInventoryItemComposer;
     }
 }

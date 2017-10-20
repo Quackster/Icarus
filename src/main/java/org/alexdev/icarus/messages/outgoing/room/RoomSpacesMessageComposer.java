@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.room;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class RoomSpacesMessageComposer extends MessageComposer {
 
@@ -14,9 +15,14 @@ public class RoomSpacesMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.RoomSpacesMessageComposer);
-        this.response.writeString(this.space);
-        this.response.writeString(this.data);
+    public void compose(Response response) {
+        //response.init(Outgoing.RoomSpacesMessageComposer);
+        response.writeString(this.space);
+        response.writeString(this.data);
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.RoomSpacesMessageComposer;
     }
 }

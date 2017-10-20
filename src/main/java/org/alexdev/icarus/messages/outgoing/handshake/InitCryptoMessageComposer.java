@@ -2,6 +2,7 @@ package org.alexdev.icarus.messages.outgoing.handshake;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class InitCryptoMessageComposer extends MessageComposer {
 
@@ -14,10 +15,14 @@ public class InitCryptoMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.InitCryptoMessageComposer);
-        this.response.writeString(this.prime);
-        this.response.writeString(this.generator);
+    public void compose(Response response) {
+        //response.init(Outgoing.InitCryptoMessageComposer);
+        response.writeString(this.prime);
+        response.writeString(this.generator);
     }
 
+    @Override
+    public short getHeader() {
+        return Outgoing.InitCryptoMessageComposer;
+    }
 }

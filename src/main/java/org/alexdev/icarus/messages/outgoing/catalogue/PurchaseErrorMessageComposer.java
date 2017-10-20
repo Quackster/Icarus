@@ -2,6 +2,8 @@ package org.alexdev.icarus.messages.outgoing.catalogue;
 
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class PurchaseErrorMessageComposer extends MessageComposer {
 
@@ -14,10 +16,13 @@ public class PurchaseErrorMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.PurchaseErrorMessageComposer);
-        this.response.writeBool(creditsError);
-        this.response.writeBool(pixelError);
-        
+    public void compose(Response response) {
+        response.writeBool(creditsError);
+        response.writeBool(pixelError);
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.PurchaseErrorMessageComposer;
     }
 }

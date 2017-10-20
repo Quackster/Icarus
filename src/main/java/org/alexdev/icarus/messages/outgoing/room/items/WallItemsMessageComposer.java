@@ -6,6 +6,7 @@ import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.util.ItemUtil;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class WallItemsMessageComposer extends MessageComposer {
 
@@ -16,26 +17,31 @@ public class WallItemsMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        
-        this.response.init(Outgoing.WallItemsMessageComposer);
-        
-        this.response.writeInt(this.items.size());
-        for (Item wallItem : this.items) { 
-            this.response.writeInt(wallItem.getOwnerId());
-            this.response.writeString(wallItem.getOwnerName());
+    public void compose(Response response) {
+
+        //response.init(Outgoing.WallItemsMessageComposer);
+
+        response.writeInt(this.items.size());
+        for (Item wallItem : this.items) {
+            response.writeInt(wallItem.getOwnerId());
+            response.writeString(wallItem.getOwnerName());
         }
 
-        this.response.writeInt(this.items.size());
-        
+        response.writeInt(this.items.size());
+
         for (Item wallItem : this.items) {
-            this.response.writeString(wallItem.getId() + "");
-            this.response.writeInt(wallItem.getDefinition().getSpriteId());
-            this.response.writeString(wallItem.getWallPosition());
+            response.writeString(wallItem.getId() + "");
+            response.writeInt(wallItem.getDefinition().getSpriteId());
+            response.writeString(wallItem.getWallPosition());
             ItemUtil.generateWallExtraData(wallItem, response);
-            this.response.writeInt(-1);
-            this.response.writeInt(wallItem.getDefinition().getInteractionModes() > 0 ? 1 : 0);
-            this.response.writeInt(wallItem.getOwnerId());
+            response.writeInt(-1);
+            response.writeInt(wallItem.getDefinition().getInteractionModes() > 0 ? 1 : 0);
+            response.writeInt(wallItem.getOwnerId());
         }
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.WallItemsMessageComposer;
     }
 }

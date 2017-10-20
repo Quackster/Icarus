@@ -3,6 +3,7 @@ package org.alexdev.icarus.messages.outgoing.groups.members;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 
 public class GroupMembershipRequestedComposer extends MessageComposer {
 
@@ -15,13 +16,18 @@ public class GroupMembershipRequestedComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
-        this.response.init(Outgoing.GroupMembershipRequestedComposer);
-        this.response.writeInt(this.groupId);
-        this.response.writeInt(3);
-        this.response.writeInt(this.player.getEntityId());
-        this.response.writeString(this.player.getDetails().getName());
-        this.response.writeString(this.player.getDetails().getFigure());
-        this.response.writeString("");
+    public void compose(Response response) {
+        //response.init(Outgoing.GroupMembershipRequestedComposer);
+        response.writeInt(this.groupId);
+        response.writeInt(3);
+        response.writeInt(this.player.getEntityId());
+        response.writeString(this.player.getDetails().getName());
+        response.writeString(this.player.getDetails().getFigure());
+        response.writeString("");
+    }
+
+    @Override
+    public short getHeader() {
+        return Outgoing.GroupMembershipRequestedComposer;
     }
 }

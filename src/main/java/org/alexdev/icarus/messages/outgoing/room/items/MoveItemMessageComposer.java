@@ -5,6 +5,7 @@ import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.util.ItemUtil;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
+import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.util.Util;
 
 public class MoveItemMessageComposer extends MessageComposer {
@@ -16,36 +17,49 @@ public class MoveItemMessageComposer extends MessageComposer {
     }
 
     @Override
-    public void write() {
+    public void compose(Response response) {
 
         if (this.item.getDefinition().getType() == ItemType.FLOOR) {
-            this.response.init(Outgoing.MoveFloorItemMessageComposer); 
-            this.response.writeInt(this.item.getId());
-            this.response.writeInt(this.item.getDefinition().getSpriteId());
-            this.response.writeInt(this.item.getPosition().getX());
-            this.response.writeInt(this.item.getPosition().getY());
-            this.response.writeInt(this.item.getPosition().getRotation());
-            this.response.writeString("" + Util.format(item.getPosition().getZ()));
-            this.response.writeString("");
+            //response.init(Outgoing.MoveFloorItemMessageComposer); 
+            response.writeInt(this.item.getId());
+            response.writeInt(this.item.getDefinition().getSpriteId());
+            response.writeInt(this.item.getPosition().getX());
+            response.writeInt(this.item.getPosition().getY());
+            response.writeInt(this.item.getPosition().getRotation());
+            response.writeString("" + Util.format(item.getPosition().getZ()));
+            response.writeString("");
 
             ItemUtil.generateExtraData(item, response);
 
-            this.response.writeInt(-1);
-            this.response.writeInt(this.item.getDefinition().getInteractionModes() > 0 ? 1 : 0);
-            this.response.writeInt(this.item.getOwnerId());
-            this.response.writeString(this.item.getOwnerName());
+            response.writeInt(-1);
+            response.writeInt(this.item.getDefinition().getInteractionModes() > 0 ? 1 : 0);
+            response.writeInt(this.item.getOwnerId());
+            response.writeString(this.item.getOwnerName());
         }
 
         if (this.item.getDefinition().getType() == ItemType.WALL) {
-            this.response.init(Outgoing.MoveWallItemMessageComposer);
-            this.response.writeString(item.getId() + "");
-            this.response.writeInt(item.getDefinition().getSpriteId());
-            this.response.writeString(item.getWallPosition());
+            //response.init(Outgoing.MoveWallItemMessageComposer);
+            response.writeString(item.getId() + "");
+            response.writeInt(item.getDefinition().getSpriteId());
+            response.writeString(item.getWallPosition());
             ItemUtil.generateWallExtraData(item, response);
-            this.response.writeInt(-1);
-            this.response.writeInt(item.getDefinition().getInteractionModes() > 0 ? 1 : 0);
-            this.response.writeInt(this.item.getOwnerId());
-            this.response.writeString(this.item.getOwnerName());
+            response.writeInt(-1);
+            response.writeInt(item.getDefinition().getInteractionModes() > 0 ? 1 : 0);
+            response.writeInt(this.item.getOwnerId());
+            response.writeString(this.item.getOwnerName());
         }
+    }
+
+    @Override
+    public short getHeader() {
+        if (this.item.getDefinition().getType() == ItemType.WALL) {
+            return Outgoing.MoveFloorItemMessageComposer;
+        }
+
+        if (this.item.getDefinition().getType() == ItemType.FLOOR) {
+            return Outgoing.MoveWallItemMessageComposer;
+        }
+
+        return -1;
     }
 }

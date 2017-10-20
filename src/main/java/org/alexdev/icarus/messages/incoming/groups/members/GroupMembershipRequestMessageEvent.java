@@ -8,7 +8,7 @@ import org.alexdev.icarus.game.groups.access.GroupAccessType;
 import org.alexdev.icarus.game.groups.members.GroupMemberType;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
-import org.alexdev.icarus.messages.outgoing.groups.GroupInfoComposer;
+import org.alexdev.icarus.messages.outgoing.groups.GroupInfoMessageComposer;
 import org.alexdev.icarus.messages.outgoing.groups.RefreshFavouriteGroupComposer;
 import org.alexdev.icarus.messages.outgoing.groups.members.GroupMembershipRequestedComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
@@ -54,6 +54,6 @@ public class GroupMembershipRequestMessageEvent implements MessageEvent {
             player.send(new RefreshFavouriteGroupComposer(player.getEntityId()));
         }
         
-        player.send(new GroupInfoComposer(group, player, false));   
+        player.send(new GroupInfoMessageComposer(group, player, false));
     }
 }
