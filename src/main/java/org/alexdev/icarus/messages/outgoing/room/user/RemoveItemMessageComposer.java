@@ -16,15 +16,6 @@ public class RemoveItemMessageComposer extends MessageComposer {
 
     @Override
     public void compose(Response response) {
-
-        if (this.item.getDefinition().getType() == ItemType.FLOOR) {
-            //response.init(Outgoing.RemoveItemMessageComposer);
-        }
-
-        if (this.item.getDefinition().getType() == ItemType.WALL) {
-            //response.init(Outgoing.RemoveWallItemMessageComposer);
-        }
-
         response.writeString(item.getId());
         response.writeBool(false);
         response.writeInt(item.getOwnerId());
@@ -36,6 +27,15 @@ public class RemoveItemMessageComposer extends MessageComposer {
 
     @Override
     public short getHeader() {
-        return Outgoing.RemoveItemMessageComposer;
+
+        if (this.item.getDefinition().getType() == ItemType.FLOOR) {
+            return Outgoing.RemoveItemMessageComposer;
+        }
+
+        if (this.item.getDefinition().getType() == ItemType.WALL) {
+            return Outgoing.RemoveWallItemMessageComposer;
+        }
+
+        return -1;
     }
 }

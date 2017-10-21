@@ -12,7 +12,7 @@ public class VersionCheckMessageEvent implements MessageEvent {
         
         String version = request.readString();
         
-        if (!version.equals("PRODUCTION-201709192204-203982672")) {
+        if (!version.equals("PRODUCTION-201710172204-432325793")) {
             player.getLogger().info("Player kicked, got version instead: " + version);
             player.getNetwork().close(); // bad version, kill connection
             return;

@@ -109,7 +109,6 @@ public class MessageHandler {
         registerEvent(Incoming.MessengerDeclineMessageEvent, new MessengerDeclineMessageEvent());
         registerEvent(Incoming.MessengerDeleteFriendMessageEvent, new MessengerDeleteFriendMessageEvent());
         registerEvent(Incoming.MessengerTalkMessageEvent, new MessengerTalkMessageEvent());
-        registerEvent(Incoming.MessengerUpdateMessageEvent, new MessengerUpdateMessageEvent());
         registerEvent(Incoming.FollowFriendMessageEvent, new FollowFriendMessageEvent());
     }
 
