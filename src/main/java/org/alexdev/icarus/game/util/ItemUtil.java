@@ -22,7 +22,6 @@ public class ItemUtil {
     public static void generateExtraData(Item item, Response response) {
 
         ExtraData extraData = item.getDefinition().getInteractionType().get().createExtraData(item);
-        
         response.writeInt(extraData.getPerspective().getIdentifier());
         response.writeInt(extraData.getType().getTypeId());
         

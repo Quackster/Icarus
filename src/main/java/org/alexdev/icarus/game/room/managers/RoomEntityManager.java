@@ -237,7 +237,6 @@ public class RoomEntityManager {
 
     /**
      * Returns an entity by its id and given class.
-     *  
      *
      * @param <T> the generic type
      * @param id the id
