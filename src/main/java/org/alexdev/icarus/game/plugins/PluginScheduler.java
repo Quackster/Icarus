@@ -50,8 +50,7 @@ public class PluginScheduler {
     /**
      * Command to run a Lua script on a delay with parameters defined by a {@link LuaTable} 
      * but it's called asynchronously without delay.
-     * 
-     * @param seconds - the amount of seconds to tick before the task is run
+     *
      * @param functionObject - the {@link LuaValue} of the function
      * @param parameterObject - the {@link LuaTable} of parameters
      */

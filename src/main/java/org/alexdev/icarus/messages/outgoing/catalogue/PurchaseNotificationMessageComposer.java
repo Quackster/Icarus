@@ -5,7 +5,6 @@ import org.alexdev.icarus.game.item.ItemDefinition;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
-import org.alexdev.icarus.server.api.messages.Response;
 
 public class PurchaseNotificationMessageComposer extends MessageComposer {
 
@@ -46,7 +45,7 @@ public class PurchaseNotificationMessageComposer extends MessageComposer {
             response.writeString(definition.getItemName());
             response.writeBool(false);
             response.writeInt(item.getCostCredits());
-            response.writeInt(item.getPixelCost());
+            response.writeInt(item.getCostPixels());
             response.writeInt(0);
             response.writeBool(true);
             response.writeInt(1);

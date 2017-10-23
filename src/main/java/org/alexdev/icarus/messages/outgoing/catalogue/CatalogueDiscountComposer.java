@@ -1,9 +1,12 @@
 package org.alexdev.icarus.messages.outgoing.catalogue;
 
+import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.server.api.messages.Response;
+
+import java.util.List;
 
 public class CatalogueDiscountComposer extends MessageComposer {
 

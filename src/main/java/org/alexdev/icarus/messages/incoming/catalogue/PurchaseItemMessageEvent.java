@@ -10,6 +10,7 @@ import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.club.ClubManager;
+import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseErrorMessageComposer;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
@@ -144,7 +145,7 @@ Outgoing(1483, 6, _-2Nu) -> [0][0][0][6][5]Ë[0][0][0][3]
 
         int totalCostCredits;
         // int totalCostPoints;
-        // int totalCostActivityPoints;
+        int totalCostActivityPoints;
 
         if (item.getLimitedSells() >= item.getLimitedTotal() && item.getLimitedTotal() != 0) {
             // client.send(new LimitedEditionSoldOutMessageComposer());
@@ -154,12 +155,10 @@ Outgoing(1483, 6, _-2Nu) -> [0][0][0][6][5]Ë[0][0][0][3]
 
         if (item.allowOffer()) {
             totalCostCredits = amount > 1 ? ((item.getCostCredits() * amount) - ((int) Math.floor((double) amount / 6) * item.getCostCredits())) : item.getCostCredits();
-            //totalCostPoints = amount > 1 ? ((item.getCostOther() * amount) - ((int) Math.floor((double) amount / 6) * item.getCostOther())) : item.getCostOther();
-            //totalCostActivityPoints = amount > 1 ? ((item.getCostPixels() * amount) - ((int) Math.floor((double) amount / 6) * item.getCostPixels())) : item.getCostPixels();
+            totalCostActivityPoints = amount > 1 ? ((item.getCostPixels() * amount) - ((int) Math.floor((double) amount / 6) * item.getCostPixels())) : item.getCostPixels();
         } else {
             totalCostCredits = item.getCostCredits();
-            //totalCostPoints = item.getCostOther();
-            //totalCostActivityPoints = item.getCostPixels();
+            totalCostActivityPoints = item.getCostPixels();
         }
 
         boolean creditsError = false;
@@ -169,24 +168,35 @@ Outgoing(1483, 6, _-2Nu) -> [0][0][0][6][5]Ë[0][0][0][3]
             return;
         }
 
-        if (item.getCostCredits() > 0) {
+        if (totalCostCredits > 0) {
             player.getDetails().setCredits(player.getDetails().getCredits() - totalCostCredits);
             player.getDetails().sendCredits();
         }
 
-        //for (CatalogueBundledItem bundleItem : item.getItems()) {
-
-        if (item.getDisplayName().startsWith("DEAL_HC_")) {
-            ClubManager.handlePurchase(player, item, amount);
-            return;
+        if (totalCostActivityPoints > 0) {
+            player.getDetails().setDuckets(player.getDetails().getDuckets() - totalCostActivityPoints);
+            player.getDetails().sendDuckets();
         }
 
-        for (int i = 0; i < amount; i++) {
-            item.getItemDefinition().handlePurchase(player, extraData);
-        }
+        this.handlePurchase(item, player, amount, extraData);
+    }
 
-        player.send(new PurchaseNotificationMessageComposer(item));
-        player.getInventory().updateItems();
-        //}
+    private void handlePurchase(final CatalogueItem item, final Player player, final int amount, final String extraData) {
+
+        RoomManager.getScheduledPool().execute(() -> {
+            for (int listingAmount = 0; listingAmount < item.getAmount(); listingAmount++) {
+                if (item.getDisplayName().startsWith("DEAL_HC_")) {
+                    ClubManager.handlePurchase(player, item, amount);
+                    return;
+                }
+
+                for (int i = 0; i < amount; i++) {
+                    item.getItemDefinition().handlePurchase(player, extraData);
+                }
+
+                player.send(new PurchaseNotificationMessageComposer(item));
+                player.getInventory().updateItems();
+            }
+        });
     }
 }

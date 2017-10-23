@@ -59,8 +59,8 @@ public class CatalogueItem {
         if (this.getCostOther() > 0) {
             response.writeInt(this.getCostOther());
             response.writeInt(105);
-        } else if (this.getPixelCost() > 0) {
-            response.writeInt(this.getPixelCost());
+        } else if (this.getCostPixels() > 0) {
+            response.writeInt(this.getCostPixels());
             response.writeInt(0);
         } else {
             response.writeInt(0);
@@ -166,7 +166,7 @@ public class CatalogueItem {
      *
      * @return the cost pixels
      */
-    public int getPixelCost() {
+    public int getCostPixels() {
         return costPixels;
     }
 
