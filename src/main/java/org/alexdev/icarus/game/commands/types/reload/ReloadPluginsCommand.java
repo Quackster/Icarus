@@ -13,8 +13,8 @@ public class ReloadPluginsCommand extends Command {
     
     @Override
     public void handleCommand(Player player, String message, String[] args) {
-        PluginManager.disposePlugins();
-        PluginManager.load();
+        PluginManager.getInstance().disposePlugins();
+        PluginManager.getInstance().reload();
     }
 
 

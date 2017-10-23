@@ -20,7 +20,7 @@ public class DeleteGroupMessageEvent implements MessageEvent {
             return;
         }
         
-        Group group = GroupManager.getGroup(groupId);
+        Group group = GroupManager.getInstance().getGroup(groupId);
         
         if (group == null) {
             return;

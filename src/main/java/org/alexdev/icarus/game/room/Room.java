@@ -116,7 +116,7 @@ public class Room extends Metadata {
             return model;
         }
 
-        return RoomManager.getModel(this.data.getModel());
+        return RoomManager.getInstance().getModel(this.data.getModel());
     }
 
     /**
@@ -143,7 +143,7 @@ public class Room extends Metadata {
      */
     public void createPromotion(String promotionName, String promotionDescription) {
         this.promotion = new RoomPromotion(this, promotionName, promotionDescription);
-        RoomManager.addPromotedRoom(this.data.getId(), this);
+        RoomManager.getInstance().addPromotedRoom(this.data.getId(), this);
     }
 
     /**
@@ -151,7 +151,7 @@ public class Room extends Metadata {
      */
     public void endPromotion() {
         this.promotion = null;
-        RoomManager.removePromotedRoom(this.data.getId());
+        RoomManager.getInstance().removePromotedRoom(this.data.getId());
     }
 
     /**
@@ -173,7 +173,7 @@ public class Room extends Metadata {
 
         if (this.group == null) {
             if (this.data.getGroupId() > 0) {
-                return GroupManager.getGroup(this.data.getGroupId());
+                return GroupManager.getInstance().getGroup(this.data.getGroupId());
             } else {
                 return null;
             }
@@ -198,7 +198,7 @@ public class Room extends Metadata {
      * Calls GroupManager.loadGroup()
      */
     public void loadGroup() {
-        this.group = GroupManager.loadGroup(this.data.getGroupId());
+        this.group = GroupManager.getInstance().loadGroup(this.data.getGroupId());
     }
 
 
@@ -211,7 +211,7 @@ public class Room extends Metadata {
     public void unloadGroup() {
         if (this.group != null) {
             this.group = null;
-            GroupManager.unloadGroup(this.data.getGroupId());
+            GroupManager.getInstance().unloadGroup(this.data.getGroupId());
         }
     }
 
@@ -246,7 +246,7 @@ public class Room extends Metadata {
             return;
         }
 
-        RoomManager.removeRoom(this.data.getId());
+        RoomManager.getInstance().removeRoom(this.data.getId());
         this.destroyObjects();
     }
 

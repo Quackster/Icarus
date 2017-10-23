@@ -109,9 +109,9 @@ public class CatalogueItem {
      * @return the item definition
      */
     public ItemDefinition getItemDefinition() {
-        ItemDefinition def = ItemManager.getFurnitureById(this.itemId);
+        ItemDefinition def = ItemManager.getInstance().getFurnitureById(this.itemId);
         if (def == null) {
-            def = ItemManager.getFurnitureById(1);
+            def = ItemManager.getInstance().getFurnitureById(1);
         }
         return def;
     }

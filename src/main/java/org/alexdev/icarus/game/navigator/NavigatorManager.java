@@ -5,20 +5,23 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.alexdev.icarus.dao.mysql.navigator.NavigatorDao;
+import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class NavigatorManager {
 
-    private static List<NavigatorTab> tabs;
-    private static List<NavigatorCategory> categories;
+
+    private List<NavigatorTab> tabs;
+    private List<NavigatorCategory> categories;
 
     private static final Logger log = LoggerFactory.getLogger(NavigatorManager.class);
-    
-    public static void load() throws Exception {
-        tabs = NavigatorDao.getTabs(-1);
-        categories = NavigatorDao.getCategories();
+    private static NavigatorManager instance;
+
+    public NavigatorManager() {
+        this.tabs = NavigatorDao.getTabs(-1);
+        this.categories = NavigatorDao.getCategories();
 
         if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
             log.info("Loaded {} navigator categories", categories.size());
@@ -32,9 +35,9 @@ public class NavigatorManager {
      * @param tabName the tab name
      * @return the tab
      */
-    public static NavigatorTab getTab(String tabName) {
+    public NavigatorTab getTab(String tabName) {
 
-        Optional<NavigatorTab> navigatorTab = tabs.stream().filter(tab -> tab.getTabName().equals(tabName)).findFirst();
+        Optional<NavigatorTab> navigatorTab = this.tabs.stream().filter(tab -> tab.getTabName().equals(tabName)).findFirst();
 
         if (navigatorTab.isPresent()) {
             return navigatorTab.get();
@@ -48,11 +51,11 @@ public class NavigatorManager {
      *
      * @return the parent tabs
      */
-    public static List<NavigatorTab> getParentTabs() {
+    public List<NavigatorTab> getParentTabs() {
 
         try {
             
-            return tabs.stream().filter(tab -> tab.getChildId() == -1).collect(Collectors.toList());
+            return this.tabs.stream().filter(tab -> tab.getChildId() == -1).collect(Collectors.toList());
             
         } catch (Exception e) {
             return null;
@@ -64,8 +67,8 @@ public class NavigatorManager {
      *
      * @return the categories
      */
-    public static List<NavigatorCategory> getCategories() {
-        return categories;
+    public List<NavigatorCategory> getCategories() {
+        return this.categories;
     }
 
     /**
@@ -73,7 +76,22 @@ public class NavigatorManager {
      *
      * @return the all tabs
      */
-    public static List<NavigatorTab> getAllTabs() {
-        return tabs;
+    public List<NavigatorTab> getAllTabs() {
+        return this.tabs;
+    }
+
+
+    /**
+     * Gets the instance
+     *
+     * @return the instance
+     */
+    public static NavigatorManager getInstance() {
+
+        if (instance == null) {
+            instance = new NavigatorManager();
+        }
+
+        return instance;
     }
 }

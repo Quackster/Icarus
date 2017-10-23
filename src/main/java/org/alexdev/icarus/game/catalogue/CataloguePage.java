@@ -42,7 +42,7 @@ public class CataloguePage {
     public List<CatalogueItem> getItems() {
 
         if (this.items == null) {
-            this.items = CatalogueManager.getPageItems(this.id);
+            this.items = CatalogueManager.getInstance().getPageItems(this.id);
         }
 
         return items;

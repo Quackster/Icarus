@@ -19,7 +19,7 @@ public class PurchasePhotoMessageEvent implements MessageEvent {
             return;
         }
 
-        ItemDefinition photoDef = ItemManager.getFurnitureByClass("external_image_wallitem_poster_small");
+        ItemDefinition photoDef = ItemManager.getInstance().getFurnitureByClass("external_image_wallitem_poster_small");
 
         StringBuilder extraData = new StringBuilder();
         extraData.append("{");

@@ -23,7 +23,7 @@ public class PetRacesMessageEvent implements MessageEvent {
         }
         
         int raceId = Integer.valueOf(petRaceId);
-        List<PetRace> races = PetManager.getRaces(raceId);
+        List<PetRace> races = PetManager.getInstance().getRaces(raceId);
         
         if (races == null) {
             return;

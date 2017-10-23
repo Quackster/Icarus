@@ -14,7 +14,7 @@ public class DoorbellEnterMessageEvent implements MessageEvent {
         
         int roomId = request.readInt();
         
-        Room room = RoomManager.getByRoomId(roomId);
+        Room room = RoomManager.getInstance().getByRoomId(roomId);
         
         if (room == null) {
             return;

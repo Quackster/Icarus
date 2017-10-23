@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import io.netty.util.AttributeKey;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.headers.Incoming;
@@ -41,23 +42,20 @@ import org.slf4j.LoggerFactory;
 
 public class MessageHandler {
 
-    private static HashMap<Short, List<MessageEvent>> messages;
-    private static HashMap<Short, String> messageLookup;
+    private Player player;
+    private HashMap<Short, List<MessageEvent>> messages;
 
     private static final Logger log = LoggerFactory.getLogger(MessageHandler.class);
 
-    public static void load() throws Exception {
-        messages = new HashMap<>();
-        messageLookup = new HashMap<>();
-        register();
-    }
+    public MessageHandler(Player player) {
+        this.player = player;
+        this.messages = new HashMap<>();
 
-    public static void register() {
-        messages.clear();
         registerHandshakePackets();
         registerUserPackets();
         registerMiscPackets();
         registerMessenger();
+        registerEnableNavigatorPackets();
         registerNavigatorPackets();
         registerRoomPackets();
         registerCataloguePackets();
@@ -70,15 +68,15 @@ public class MessageHandler {
         registerCameraPackets();
         registerItemInteractionPackets();
 
-        if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
-            log.info("Loaded {} message event handlers", messages.size());
-        }
+        //if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
+        //    log.info("Loaded {} message event handlers", messages.size());
+        //}
     }
 
     /**
      * Register handshake packets.
      */
-    private static void registerHandshakePackets() {
+    private void registerHandshakePackets() {
         registerEvent(Incoming.VersionCheckMessageEvent, new VersionCheckMessageEvent());
         registerEvent(Incoming.InitCryptoMessageEvent, new InitCryptoMessageEvent());
         registerEvent(Incoming.GenerateSecretKeyMessageEvent, new GenerateSecretKeyMessageEvent());
@@ -87,9 +85,20 @@ public class MessageHandler {
     }
 
     /**
+     * Unregister handshake packets.
+     */
+    public void unregisterHandshakePackets() {
+        unregisterEvent(Incoming.VersionCheckMessageEvent);
+        unregisterEvent(Incoming.InitCryptoMessageEvent);
+        unregisterEvent(Incoming.GenerateSecretKeyMessageEvent);
+        unregisterEvent(Incoming.UniqueIDMessageEvent);
+        unregisterEvent(Incoming.AuthenticateMessageEvent);
+    }
+
+    /**
      * Register user packets.
      */
-    private static void registerUserPackets() {
+    private void registerUserPackets() {
         registerEvent(Incoming.InfoRetrieveMessageEvent, new InfoRetrieveMessageEvent());
         registerEvent(Incoming.CurrencyBalanceMessageEvent, new CurrencyBalanceMessageEvent());
         registerEvent(Incoming.ChangeAppearanceMessageEvent, new ChangeAppearanceMessageEvent());
@@ -101,7 +110,7 @@ public class MessageHandler {
     /**
      * Register messenger.
      */
-    private static void registerMessenger() {
+    private void registerMessenger() {
         registerEvent(Incoming.MessengerInitMessageEvent, new MessengerInitMessageEvent());
         registerEvent(Incoming.MessengerSearchMessageEvent, new MessengerSearchMessageEvent());
         registerEvent(Incoming.MessengerRequestMessageEvent, new MessengerRequestMessageEvent());
@@ -113,11 +122,25 @@ public class MessageHandler {
     }
 
     /**
-     * Register navigator packets.
+     * Register enable navigator packets
      */
-    private static void registerNavigatorPackets() {
+    private void registerEnableNavigatorPackets() {
         registerEvent(Incoming.NewNavigatorMessageEvent, new NewNavigatorMessageEvent());
         registerEvent(Incoming.NavigatorPromoteRoomCategories, new NavigatorPromoteCategoriesMessageEvent());
+    }
+
+    /**
+     * Unegister enable navigator packets
+     */
+    public void unregisterEnableNavigatorPackets() {
+        unregisterEvent(Incoming.NewNavigatorMessageEvent);
+        unregisterEvent(Incoming.NavigatorPromoteRoomCategories);
+    }
+
+    /**
+     * Register navigator packets.
+     */
+    private void registerNavigatorPackets() {
         registerEvent(Incoming.SearchNewNavigatorEvent, new SearchNewNavigatorEvent());
         registerEvent(Incoming.CreateRoomMessageEvent, new CreateRoomMessageEvent());
         registerEvent(Incoming.CanCreateRoomMessageEvent, new CanCreateRoomMessageEvent());
@@ -126,7 +149,7 @@ public class MessageHandler {
     /**
      * Register misc packets.
      */
-    private static void registerMiscPackets() {
+    private void registerMiscPackets() {
         registerEvent(Incoming.EventLogMessageEvent, new EventLogMessageEvent());
         registerEvent(Incoming.LatencyTestMessageEvent, new LatencyTestMessageEvent());
     }
@@ -134,7 +157,7 @@ public class MessageHandler {
     /**
      * Register room packets.
      */
-    private static void registerRoomPackets() {
+    private void registerRoomPackets() {
         registerEvent(Incoming.EnterRoomMessageEvent, new EnterRoomMessageEvent());
         registerEvent(Incoming.HeightMapMessageEvent, new HeightmapMessageEvent());
         registerEvent(Incoming.UserWalkMessageEvent, new UserWalkMessageEvent());
@@ -152,7 +175,7 @@ public class MessageHandler {
     /**
      * Register room setting packets.
      */
-    private static void registerRoomSettingPackets() {
+    private void registerRoomSettingPackets() {
         registerEvent(Incoming.RoomInfoMessageEvent, new RoomInfoMessageEvent());
         registerEvent(Incoming.SaveRoomMessageEvent, new SaveRoomMessageEvent());
         registerEvent(Incoming.RoomEditInfoMessageEvent, new RoomEditMessageEvent());
@@ -166,7 +189,7 @@ public class MessageHandler {
     /**
      * Register room floorplan packets.
      */
-    private static void registerRoomFloorplanPackets() {
+    private void registerRoomFloorplanPackets() {
         registerEvent(Incoming.FloorPlanPropertiesMessageEvent, new FloorPlanPropertiesMessageEvent());
         registerEvent(Incoming.SaveFloorPlanMessageEvent, new SaveFloorPlanMessageEvent());
     }
@@ -174,7 +197,7 @@ public class MessageHandler {
     /**
      * Register catalogue packets.
      */
-    private static void registerCataloguePackets() {
+    private void registerCataloguePackets() {
         registerEvent(Incoming.CatalogueTabMessageEvent, new CatalogueTabsMessageEvent());
         registerEvent(Incoming.CataloguePageMessageEvent, new CataloguePageMessageEvent());
         registerEvent(Incoming.PurchaseObjectMessageEvent, new PurchaseItemMessageEvent());
@@ -187,7 +210,7 @@ public class MessageHandler {
     /**
      * Register pet packets.
      */
-    private static void registerPetPackets() {
+    private void registerPetPackets() {
         registerEvent(Incoming.PlacePetMessageEvent, new PlacePetMessageEvent());
         registerEvent(Incoming.PetRacesMessageEvent, new PetRacesMessageEvent());
         registerEvent(Incoming.VerifyPetNameMessageEvent, new VerifyPetNameMessageEvent());
@@ -198,7 +221,7 @@ public class MessageHandler {
     /**
      * Register item packets.
      */
-    private static void registerItemPackets() {
+    private void registerItemPackets() {
         registerEvent(Incoming.InventoryMessageEvent, new InventoryMessageEvent());
         registerEvent(Incoming.PlaceItemMessageEvent, new PlaceItemMessageEvent());
         registerEvent(Incoming.MoveItemMessageEvent, new MoveItemMessageEvent());
@@ -212,7 +235,7 @@ public class MessageHandler {
         registerEvent(Incoming.ApplyEffectMessageEvent, new ApplyEffectMessageEvent());
     }
 
-    private static void registerItemInteractionPackets() {
+    private void registerItemInteractionPackets() {
         registerEvent(Incoming.SaveBrandingMessageEvent, new SaveBrandingMessageEvent());
         registerEvent(Incoming.SaveMannequinMessageEvent, new SaveMannequinMessageEvent());
         registerEvent(Incoming.UseOneWayGateMessageEvent, new InteractItemMessageEvent());
@@ -225,7 +248,7 @@ public class MessageHandler {
     /**
      * Register group packets.
      */
-    private static void registerGroupPackets() {
+    private void registerGroupPackets() {
         registerEvent(Incoming.GroupCatalogueMessageEvent, new GroupCatalogueMessageEvent());
         registerEvent(Incoming.GroupBadgeDialogMessageEvent, new GroupBadgeDialogMessageEvent());
         registerEvent(Incoming.GroupPurchaseMessageEvent, new GroupPurchaseMessageEvent());
@@ -248,7 +271,7 @@ public class MessageHandler {
     /**
      * Register camera packets.
      */
-    private static void registerCameraPackets() {
+    private void registerCameraPackets() {
         registerEvent(Incoming.PhotoPricingMessageEvent, new PhotoPricingMessageEvent());
         registerEvent(Incoming.PreviewPhotoMessageEvent, new PreviewPhotoMessageEvent());
         registerEvent(Incoming.PurchasePhotoMessageEvent, new PurchasePhotoMessageEvent());
@@ -258,7 +281,7 @@ public class MessageHandler {
     /**
      * Register trade packets.
      */
-    private static void registerTradePackets() {
+    private void registerTradePackets() {
         registerEvent(Incoming.StartTradingMessageEvent, new StartTradingMessageEvent());
     }
 
@@ -268,36 +291,47 @@ public class MessageHandler {
      * @param header the header
      * @param messageEvent the message event
      */
-    private static void registerEvent(Short header, MessageEvent messageEvent) {
+    private void registerEvent(Short header, MessageEvent messageEvent) {
 
-        if (!messages.containsKey(header)) {
-            messages.put(header, new ArrayList<>());
+        if (!this.messages.containsKey(header)) {
+            this.messages.put(header, new ArrayList<>());
         }
 
-        if (!messageLookup.containsKey(header)) {
-            messageLookup.put(header, messageEvent.getClass().getSimpleName());
-        }
+        this.messages.get(header).add(messageEvent);
+    }
 
-        messages.get(header).add(messageEvent);
+    /**
+     * Unegister event.
+     *
+     * @param header the header
+     */
+    public void unregisterEvent(Short header) {
+
+        List<MessageEvent> events = this.messages.get(header);
+
+        if (events != null) {
+            events.clear();
+            this.messages.remove(header);
+        }
     }
 
     /**
      * Handle request.
      *
-     * @param player the player
      * @param message the message
      */
-    public static void handleRequest(Player player, ClientMessage message) {
+    public void handleRequest(ClientMessage message) {
 
         if (Util.getServerConfig().get("Logging", "log.received.packets", Boolean.class)) {
-            if (messageLookup.containsKey(message.getMessageId())) {
-                player.getLogger().info("Received ({}): {} / {} ", messageLookup.get(message.getMessageId()), message.getMessageId(), message.getMessageBody());
+            if (this.messages.containsKey(message.getMessageId())) {
+                MessageEvent event = this.messages.get(message.getMessageId()).get(0);
+                this.player.getLogger().info("Received ({}): {} / {} ", event.getClass().getSimpleName(), message.getMessageId(), message.getMessageBody());
             } else {
-                player.getLogger().info("Received ({}): {} / {} ", "Unknown", message.getMessageId(), message.getMessageBody());
+                this.player.getLogger().info("Received ({}): {} / {} ", "Unknown", message.getMessageId(), message.getMessageBody());
             }
         }
 
-        invoke(player, message.getMessageId(), message);
+        invoke(message.getMessageId(), message);
     }
 
     /**
@@ -307,11 +341,11 @@ public class MessageHandler {
      * @param messageId the message id
      * @param message the message
      */
-    public static void invoke(Player player, short messageId, ClientMessage message) {
+    public void invoke(short messageId, ClientMessage message) {
 
-        if (messages.containsKey(messageId)) {
+        if (this.messages.containsKey(messageId)) {
 
-            for (MessageEvent event : messages.get(messageId)) {
+            for (MessageEvent event : this.messages.get(messageId)) {
                 event.handle(player, message);
             }
         }
@@ -322,7 +356,7 @@ public class MessageHandler {
      *
      * @return the messages
      */
-    public static HashMap<Short, List<MessageEvent>> getMessages() {
+    public HashMap<Short, List<MessageEvent>> getMessages() {
         return messages;
     }
 }

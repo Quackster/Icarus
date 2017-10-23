@@ -20,7 +20,10 @@ public class WelcomeMessageEvent implements MessageEvent {
             return;
         }
 
-        PluginManager.callEvent(PluginEvent.PLAYER_LOGIN_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player) });
+        PluginManager.getInstance().callEvent(PluginEvent.PLAYER_LOGIN_EVENT, new LuaValue[] {
+                CoerceJavaToLua.coerce(player)
+        });
+
         handleTargetedOffer(player);
 
         player.getDetails().sendDuckets();
@@ -29,7 +32,7 @@ public class WelcomeMessageEvent implements MessageEvent {
 
     private void handleTargetedOffer(Player player) {
         
-        for (TargetedOffer offer : CatalogueManager.getOffers()) {
+        for (TargetedOffer offer : CatalogueManager.getInstance().getOffers()) {
             
             if (offer.isExpired()) {
                 return;

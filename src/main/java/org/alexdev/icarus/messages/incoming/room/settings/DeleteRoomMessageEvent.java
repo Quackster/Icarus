@@ -23,7 +23,7 @@ public class DeleteRoomMessageEvent implements MessageEvent {
         
         int roomId = request.readInt();
         
-        Room room = RoomManager.getByRoomId(roomId);
+        Room room = RoomManager.getInstance().getByRoomId(roomId);
 
         if (room == null) {
             return;
@@ -47,14 +47,14 @@ public class DeleteRoomMessageEvent implements MessageEvent {
         
         RoomDao.deleteRoom(roomId);
         RoomModelDao.deleteCustomModel(roomId);
-        RoomManager.removeRoom(roomId);
+        RoomManager.getInstance().removeRoom(roomId);
         
         if (room.getData().getThumbnail() != null && room.getData().getThumbnail().length() > 0) {
 
             final String fileName = room.getData().getThumbnail().split("/")[1];
             final String filePath = Util.getGameConfig().get("Thumbnail", "thumbnail.path", String.class);
             
-            GameScheduler.getScheduler().execute(() -> {
+            GameScheduler.getInstance().getScheduler().execute(() -> {
                 try {
                     File file = new File(filePath + fileName);
                     

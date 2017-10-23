@@ -18,6 +18,7 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.enums.RoomAction;
 import org.alexdev.icarus.game.room.user.RoomUser;
+import org.alexdev.icarus.messages.MessageHandler;
 import org.alexdev.icarus.messages.outgoing.handshake.AuthenticationOKMessageComposer;
 import org.alexdev.icarus.messages.outgoing.handshake.AvailabilityMessageComposer;
 import org.alexdev.icarus.messages.outgoing.handshake.UniqueMachineIDMessageComposer;
@@ -33,7 +34,7 @@ import org.slf4j.LoggerFactory;
 
 public class Player extends Entity {
 
-    public static final AttributeKey<Player> SESSION_KEY = AttributeKey.valueOf("Player");
+    public static final AttributeKey<Player> PLAYER_KEY = AttributeKey.valueOf("Player");
 
     private Logger logger;
 	private String machineId;
@@ -43,9 +44,10 @@ public class Player extends Entity {
     private Messenger messenger;
     private Inventory inventory;
     private ClubSubscription subscription;
-
     private RC4 rc4;
     private DiffieHellman diffieHellman;
+    private MessageHandler messageHandler;
+
     private boolean loggedIn;
 
     public Player(PlayerNetwork network) {
@@ -56,6 +58,8 @@ public class Player extends Entity {
         this.inventory = new Inventory(this);
         this.subscription = new ClubSubscription(this);
         this.diffieHellman = new DiffieHellman();
+        this.messageHandler = new MessageHandler(this);
+
         this.logger = LoggerFactory.getLogger("Player " + this.network.getConnectionId());
     }
 
@@ -110,7 +114,7 @@ public class Player extends Entity {
                 return;
             }
 
-            PluginManager.callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] { 
+            PluginManager.getInstance().callEvent(PluginEvent.ROOM_LEAVE_EVENT, new LuaValue[] {
                 CoerceJavaToLua.coerce(this), 
                 CoerceJavaToLua.coerce(this.roomUser.getRoom()) 
             });
@@ -149,10 +153,13 @@ public class Player extends Entity {
             this.performRoomAction(RoomAction.LEAVE_ROOM, false);
         }
 
-        PluginManager.callEvent(PluginEvent.PLAYER_DISCONNECT_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(this) });
+        PluginManager.getInstance().callEvent(PluginEvent.PLAYER_DISCONNECT_EVENT, new LuaValue[] {
+                CoerceJavaToLua.coerce(this)
+        });
+
         PlayerManager.removePlayer(this);
 
-        for (Room room : RoomManager.getPlayerRooms(this.details.getId())) {
+        for (Room room : RoomManager.getInstance().getPlayerRooms(this.details.getId())) {
             room.dispose(); 
         }
 
@@ -185,7 +192,7 @@ public class Player extends Entity {
      * @return the rooms
      */
     public List<Room> getRooms() {
-        return RoomManager.getPlayerRooms(this.details.getId());
+        return RoomManager.getInstance().getPlayerRooms(this.details.getId());
     }
 
     /**
@@ -320,7 +327,17 @@ public class Player extends Entity {
     public DiffieHellman getDiffieHellman() {
         return diffieHellman;
     }
-    
+
+    /**
+     * Gets the per-session message handler
+     *
+     * @return the message handler
+     */
+    public MessageHandler getMessageHandler() {
+        return messageHandler;
+    }
+
+
     /**
      * Checks if is logged in.
      *

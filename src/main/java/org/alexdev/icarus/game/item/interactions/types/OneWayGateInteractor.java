@@ -34,7 +34,7 @@ public class OneWayGateInteractor extends Interaction {
         
         roomUser.walkTo(front.getX(), front.getY());
         
-        RoomManager.getScheduledPool().schedule(() -> {
+        RoomManager.getInstance().getScheduledPool().schedule(() -> {
             item.setExtraData("0");
             item.updateStatus();
         }, 2, TimeUnit.SECONDS);

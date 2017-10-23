@@ -28,18 +28,16 @@ public class InteractItemMessageEvent implements MessageEvent {
         }
 
         if (item.getDefinition().getType() == ItemType.FLOOR) {
-            PluginManager.callEvent(PluginEvent.FLOOR_ITEM_INTERACT_EVENT, 
-                    new LuaValue[] { 
-                            CoerceJavaToLua.coerce(player), 
-                            CoerceJavaToLua.coerce(item) 
-                    });
+            PluginManager.getInstance().callEvent(PluginEvent.FLOOR_ITEM_INTERACT_EVENT, new LuaValue[] {
+                    CoerceJavaToLua.coerce(player),
+                    CoerceJavaToLua.coerce(item)
+            });
             
         } else if (item.getDefinition().getType() == ItemType.WALL) {
-            PluginManager.callEvent(PluginEvent.WALL_ITEM_INTERACT_EVENT, 
-                    new LuaValue[] { 
-                            CoerceJavaToLua.coerce(player), 
-                            CoerceJavaToLua.coerce(item) 
-                    });
+            PluginManager.getInstance().callEvent(PluginEvent.WALL_ITEM_INTERACT_EVENT, new LuaValue[] {
+                    CoerceJavaToLua.coerce(player),
+                    CoerceJavaToLua.coerce(item)
+            });
             
         }
 

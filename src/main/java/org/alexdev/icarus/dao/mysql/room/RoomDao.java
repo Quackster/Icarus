@@ -23,10 +23,9 @@ public class RoomDao {
     /**
      * Gets the public rooms.
      *
-     * @param storeInMemory the store in memory
      * @return the public rooms
      */
-    public static List<Room> getPublicRooms(boolean storeInMemory) {
+    public static List<Room> getPublicRooms() {
 
         List<Room> rooms = new ArrayList<>();
 
@@ -42,20 +41,9 @@ public class RoomDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-
                 int id = resultSet.getInt("id");
-
-                Room room = RoomManager.getByRoomId(id);
-
-                if (room == null) {
-                    room = fill(resultSet);
-                }
-
+                Room room = room = fill(resultSet);
                 rooms.add(room);
-
-                if (storeInMemory) {
-                    RoomManager.addRoom(room);
-                }
             }
 
         } catch (Exception e) {
@@ -94,7 +82,7 @@ public class RoomDao {
 
                 int id = resultSet.getInt("id");
 
-                Room room = RoomManager.getByRoomId(id);
+                Room room = RoomManager.getInstance().getByRoomId(id);
 
                 if (room == null) {
                     room = fill(resultSet);
@@ -103,7 +91,7 @@ public class RoomDao {
                 rooms.add(room);
 
                 if (storeInMemory) {
-                    RoomManager.addRoom(room);
+                    RoomManager.getInstance().addRoom(room);
                 }
             }
 
@@ -142,14 +130,14 @@ public class RoomDao {
 
                 int id = resultSet.getInt("id");
 
-                room = RoomManager.getByRoomId(id);
+                room = RoomManager.getInstance().getByRoomId(id);
 
                 if (room == null) {
                     room = fill(resultSet);
                 }
 
                 if (storeInMemory) {
-                    RoomManager.addRoom(room);
+                    RoomManager.getInstance().addRoom(room);
                 }
             }
 

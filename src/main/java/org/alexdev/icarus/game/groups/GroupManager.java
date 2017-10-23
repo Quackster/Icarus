@@ -1,31 +1,26 @@
 package org.alexdev.icarus.game.groups;
 
+import org.alexdev.icarus.dao.mysql.groups.GroupDao;
+import org.alexdev.icarus.dao.mysql.groups.GroupItemDao;
+import org.alexdev.icarus.game.groups.types.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.alexdev.icarus.dao.mysql.groups.GroupDao;
-import org.alexdev.icarus.dao.mysql.groups.GroupItemDao;
-import org.alexdev.icarus.game.groups.types.GroupBackgroundColour;
-import org.alexdev.icarus.game.groups.types.GroupBase;
-import org.alexdev.icarus.game.groups.types.GroupBaseColour;
-import org.alexdev.icarus.game.groups.types.GroupSymbol;
-import org.alexdev.icarus.game.groups.types.GroupSymbolColour;
-
 public class GroupManager {
 
-    private static List<GroupBase> bases;
-    private static List<GroupSymbol> symbols;
-    private static List<GroupBaseColour> baseColours;
-    private static Map<Integer, GroupSymbolColour> symbolColours;
-    private static Map<Integer, GroupBackgroundColour> backgroundColours;
-    private static Map<Integer, Group> groups;
+    private List<GroupBase> bases;
+    private List<GroupSymbol> symbols;
+    private List<GroupBaseColour> baseColours;
+    private Map<Integer, GroupSymbolColour> symbolColours;
+    private Map<Integer, GroupBackgroundColour> backgroundColours;
+    private Map<Integer, Group> groups;
 
-    /**
-     * Load all group symbols.
-     */
-    public static void load() {
+    private static GroupManager instance;
+
+    public GroupManager() {
         bases = new ArrayList<>();
         symbols = new ArrayList<>();
         baseColours = new ArrayList<>();
@@ -42,7 +37,7 @@ public class GroupManager {
      * @param groupId the group id
      * @return the group
      */
-    public static Group getGroup(int groupId) {
+    public Group getGroup(int groupId) {
 
         if (groups.containsKey(groupId)) {
             return groups.get(groupId);
@@ -58,7 +53,7 @@ public class GroupManager {
      * @param groupId
      * @return
      */
-    public static Group loadGroup(int groupId) {
+    public Group loadGroup(int groupId) {
 
         Group group = GroupDao.getGroup(groupId);
 
@@ -75,7 +70,7 @@ public class GroupManager {
      *
      * @param groupId
      */
-    public static void unloadGroup(int groupId) {
+    public void unloadGroup(int groupId) {
 
         if (groups.containsKey(groupId)) {
             groups.remove(groupId);
@@ -87,7 +82,7 @@ public class GroupManager {
      *
      * @return the bases
      */
-    public static List<GroupBase> getBases() {
+    public List<GroupBase> getBases() {
         return bases;
     }
 
@@ -96,7 +91,7 @@ public class GroupManager {
      *
      * @return the symbols
      */
-    public static List<GroupSymbol> getSymbols() {
+    public List<GroupSymbol> getSymbols() {
         return symbols;
     }
 
@@ -105,7 +100,7 @@ public class GroupManager {
      *
      * @return the base colours
      */
-    public static List<GroupBaseColour> getBaseColours() {
+    public List<GroupBaseColour> getBaseColours() {
         return baseColours;
     }
 
@@ -114,7 +109,7 @@ public class GroupManager {
      *
      * @return the symbol colours
      */
-    public static Map<Integer, GroupSymbolColour> getSymbolColours() {
+    public Map<Integer, GroupSymbolColour> getSymbolColours() {
         return symbolColours;
     }
 
@@ -123,7 +118,21 @@ public class GroupManager {
      *
      * @return the background colours
      */
-    public static Map<Integer, GroupBackgroundColour> getBackgroundColours() {
+    public Map<Integer, GroupBackgroundColour> getBackgroundColours() {
         return backgroundColours;
+    }
+
+    /**
+     * Gets the instance
+     *
+     * @return the instance
+     */
+    public static GroupManager getInstance() {
+
+        if (instance == null) {
+            instance = new GroupManager();
+        }
+
+        return instance;
     }
 }

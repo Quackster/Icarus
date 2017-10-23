@@ -333,7 +333,7 @@ public class Item extends Metadata {
      * @return the definition
      */
     public ItemDefinition getDefinition() {
-        return ItemManager.getFurnitureById(this.itemId);
+        return ItemManager.getInstance().getFurnitureById(this.itemId);
     }
 
     /**
@@ -492,7 +492,7 @@ public class Item extends Metadata {
      */
     public Room getRoom() {
 
-        Room room = RoomManager.getByRoomId(this.roomId);
+        Room room = RoomManager.getInstance().getByRoomId(this.roomId);
 
         if (room == null) {
             room = RoomDao.getRoom(this.roomId, true);

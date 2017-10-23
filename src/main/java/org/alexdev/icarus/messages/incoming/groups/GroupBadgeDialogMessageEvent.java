@@ -12,11 +12,11 @@ public class GroupBadgeDialogMessageEvent implements MessageEvent {
     public void handle(Player player, ClientMessage reader) {
         
         player.send(new GroupBadgeDialogComposer(
-                GroupManager.getBases(), 
-                GroupManager.getSymbols(), 
-                GroupManager.getBaseColours(), 
-                GroupManager.getSymbolColours(), 
-                GroupManager.getBackgroundColours()));
+                GroupManager.getInstance().getBases(),
+                GroupManager.getInstance().getSymbols(),
+                GroupManager.getInstance().getBaseColours(),
+                GroupManager.getInstance().getSymbolColours(),
+                GroupManager.getInstance().getBackgroundColours()));
     }
 
 }

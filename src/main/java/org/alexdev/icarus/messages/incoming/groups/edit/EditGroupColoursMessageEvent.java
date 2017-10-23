@@ -14,7 +14,7 @@ public class EditGroupColoursMessageEvent implements MessageEvent {
         
         int groupId = reader.readInt();
         
-        Group group = GroupManager.getGroup(groupId);
+        Group group = GroupManager.getInstance().getGroup(groupId);
         
         if (group == null) {
             return;

@@ -5,26 +5,33 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.alexdev.icarus.dao.mysql.item.ItemDao;
+import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ItemManager {
 
-    private static Map<Integer, ItemDefinition> furnitures;
-    private static Map<String, ItemDefinition> furnitureClassLookup;
+
+    private Map<Integer, ItemDefinition> furnitures;
+    private Map<String, ItemDefinition> furnitureClassLookup;
 
     private static final Logger log = LoggerFactory.getLogger(ItemManager.class);
+    private static ItemManager instance;
+
+    public ItemManager() {
+        this.reload();
+    }
 
     /**
-     * Load all item definitions.
+     * Reloads all definitions from database
      */
-    public static void load() {
-        furnitures = ItemDao.getFurniture();
-        furnitureClassLookup = new HashMap<>();
+    public void reload() {
+        this.furnitures = ItemDao.getFurniture();
+        this.furnitureClassLookup = new HashMap<>();
 
-        for (ItemDefinition def : furnitures.values()) {
-            furnitureClassLookup.put(def.getItemName(), def);
+        for (ItemDefinition def : this.furnitures.values()) {
+            this.furnitureClassLookup.put(def.getItemName(), def);
         }
 
         if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
@@ -38,10 +45,10 @@ public class ItemManager {
      * @param id the id
      * @return the furniture by id
      */
-    public static ItemDefinition getFurnitureById(int id) {
+    public ItemDefinition getFurnitureById(int id) {
 
-        if (furnitures.containsKey(id)) {
-            return furnitures.get(id);
+        if (this.furnitures.containsKey(id)) {
+            return this.furnitures.get(id);
         }
 
         return null;
@@ -53,12 +60,26 @@ public class ItemManager {
      * @param className the swf file name
      * @return the furniture by class
      */
-    public static ItemDefinition getFurnitureByClass(String className) {
+    public ItemDefinition getFurnitureByClass(String className) {
 
-        if (furnitureClassLookup.containsKey(className)) {
-            return furnitureClassLookup.get(className);
+        if (this.furnitureClassLookup.containsKey(className)) {
+            return this.furnitureClassLookup.get(className);
         }
 
         return null;
+    }
+
+    /**
+     * Gets the instance
+     *
+     * @return the instance
+     */
+    public static ItemManager getInstance() {
+
+        if (instance == null) {
+            instance = new ItemManager();
+        }
+
+        return instance;
     }
 }

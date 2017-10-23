@@ -143,7 +143,7 @@ public class RoomUtil {
 
         player.getMessenger().sendStatus(false);
 
-        boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_ENTER_EVENT, new LuaValue[] { 
+        boolean isCancelled = PluginManager.getInstance().callEvent(PluginEvent.ROOM_ENTER_EVENT, new LuaValue[] {
                 CoerceJavaToLua.coerce(player), 
                 CoerceJavaToLua.coerce(room) 
         });

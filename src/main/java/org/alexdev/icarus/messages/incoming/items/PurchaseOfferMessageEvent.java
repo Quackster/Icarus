@@ -16,7 +16,7 @@ public class PurchaseOfferMessageEvent implements MessageEvent {
        
         int targetedOfferId = reader.readInt();
         
-        TargetedOffer offer = CatalogueManager.getOfferById(targetedOfferId);
+        TargetedOffer offer = CatalogueManager.getInstance().getOfferById(targetedOfferId);
         
         if (offer == null) {
             return;
@@ -27,7 +27,7 @@ public class PurchaseOfferMessageEvent implements MessageEvent {
         }
         
         for (int definitionId : offer.getItems()) {
-            ItemDefinition definition = ItemManager.getFurnitureById(definitionId);
+            ItemDefinition definition = ItemManager.getInstance().getFurnitureById(definitionId);
             definition.handlePurchase(player, "");
         }
        

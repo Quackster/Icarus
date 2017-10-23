@@ -1,9 +1,5 @@
 package org.alexdev.icarus.game.commands;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.alexdev.icarus.game.commands.types.*;
 import org.alexdev.icarus.game.commands.types.info.AboutCommand;
 import org.alexdev.icarus.game.commands.types.info.HelpCommand;
@@ -15,15 +11,18 @@ import org.alexdev.icarus.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 public class CommandManager {
 
-    private static Map<String[], Command> commands;
-    private static final Logger log = LoggerFactory.getLogger(CommandManager.class);
+    private Map<String[], Command> commands;
 
-    /**
-     * Load.
-     */
-    public static void load() {
+    private static final Logger log = LoggerFactory.getLogger(CommandManager.class);
+    private static CommandManager instance;
+
+    public CommandManager() {
         commands = new HashMap<>();
         commands.put(new String[] { "effect" }, new EffectCommand());
         commands.put(new String[] { "about", "info" }, new AboutCommand());
@@ -51,7 +50,7 @@ public class CommandManager {
      * @param commandName the command name
      * @return the command
      */
-    private static Command getCommand(String commandName) {
+    private Command getCommand(String commandName) {
 
         for (Entry<String[], Command> entrySet : commands.entrySet()) {
             for (String name : entrySet.getKey()) {
@@ -72,7 +71,7 @@ public class CommandManager {
      * @param message the message
      * @return true, if successful
      */
-    public static boolean hasCommand(Player player, String message) {
+    public boolean hasCommand(Player player, String message) {
 
         if (message.startsWith(":") && message.length() > 1) {
 
@@ -80,7 +79,7 @@ public class CommandManager {
             Command cmd = getCommand(commandName);
 
             if (cmd != null) {
-                return CommandManager.hasCommandPermission(player, cmd);
+                return this.hasCommandPermission(player, cmd);
             }
         }
 
@@ -94,7 +93,7 @@ public class CommandManager {
      * @param cmd the command
      * @return true, if successful
      */
-    public static boolean hasCommandPermission(Player player, Command cmd) {
+    public boolean hasCommandPermission(Player player, Command cmd) {
 
         if (cmd.getPermissions().length > 0) {
             for (String permission : cmd.getPermissions()) {                   
@@ -115,7 +114,7 @@ public class CommandManager {
      * @param player the player
      * @param message the message
      */
-    public static void invokeCommand(Player player, String message) {
+    public void invokeCommand(Player player, String message) {
 
         String commandName = message.split(":")[1].split(" ")[0];
         Command cmd = getCommand(commandName);
@@ -142,7 +141,21 @@ public class CommandManager {
      *
      * @return the commands
      */
-    public static Map<String[], Command> getCommands() {
+    public Map<String[], Command> getCommands() {
         return commands;
+    }
+
+    /**
+     * Gets the instance
+     *
+     * @return the instance
+     */
+    public static CommandManager getInstance() {
+
+        if (instance == null) {
+            instance = new CommandManager();
+        }
+
+        return instance;
     }
 }

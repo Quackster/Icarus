@@ -17,28 +17,34 @@ import org.slf4j.LoggerFactory;
 
 public class CatalogueManager {
 
-    private static List<CatalogueTab> parentTabs;
-    private static Map<Integer, List<CatalogueTab>> childTabs;
+    private List<CatalogueTab> parentTabs;
+    private Map<Integer, List<CatalogueTab>> childTabs;
     
-    private static List<CataloguePage> pages;
-    private static List<CatalogueItem> items;
-    private static Map<Integer, TargetedOffer> offers;
+    private List<CataloguePage> pages;
+    private List<CatalogueItem> items;
+    private Map<Integer, TargetedOffer> offers;
 
     private static final Logger log = LoggerFactory.getLogger(CatalogueManager.class);
+    private static CatalogueManager instance;
+
+
+    public CatalogueManager() {
+        this.reload();
+    }
 
     /**
-     * Load.
+     * Reload the items from database again
      */
-    public static void load() {
-        loadCataloguePages();
-        loadCatalogueItems();
+    public void reload() {
+        this.loadCataloguePages();
+        this.loadCatalogueItems();
 
-        offers = TargetedOfferDao.getOffers();
-        parentTabs = CatalogueDao.getCatalogTabs(-1);
-        childTabs = new HashMap<>();
+        this.offers = TargetedOfferDao.getOffers();
+        this.parentTabs = CatalogueDao.getCatalogTabs(-1);
+        this.childTabs = new HashMap<>();
 
         for (CatalogueTab parent : parentTabs) {
-            loadCatalogueTabs(parent, parent.getId());
+            this.loadCatalogueTabs(parent, parent.getId());
         }
 
         if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
@@ -50,7 +56,7 @@ public class CatalogueManager {
     /**
      * Reload offers.
      */
-    public static void reloadOffers() {
+    public void reloadOffers() {
         offers.clear();
         offers = TargetedOfferDao.getOffers();
     }
@@ -61,7 +67,7 @@ public class CatalogueManager {
      * @param tab the tab
      * @param parent_id the parent id
      */
-    public static void loadCatalogueTabs(CatalogueTab tab, int parent_id) {
+    public void loadCatalogueTabs(CatalogueTab tab, int parent_id) {
 
         List<CatalogueTab> child = CatalogueDao.getCatalogTabs(tab.getId());
 
@@ -77,16 +83,16 @@ public class CatalogueManager {
     /**
      * Load catalogue pages.
      */
-    private static void loadCataloguePages() {
-        pages = CatalogueDao.getCataloguePages();
+    private void loadCataloguePages() {
+        this.pages = CatalogueDao.getCataloguePages();
     }
 
 
     /**
      * Load catalogue items.
      */
-    private static void loadCatalogueItems() {
-        items = CatalogueDao.getCatalogueItems();
+    private void loadCatalogueItems() {
+        this.items = CatalogueDao.getCatalogueItems();
     }
 
     /**
@@ -95,8 +101,8 @@ public class CatalogueManager {
      * @param rank the rank
      * @return the parent tabs
      */
-    public static List<CatalogueTab> getParentTabs(int rank) {
-        return parentTabs.stream().filter(tab -> tab.getMinRank() <= rank).collect(Collectors.toList());
+    public List<CatalogueTab> getParentTabs(int rank) {
+        return this.parentTabs.stream().filter(tab -> tab.getMinRank() <= rank).collect(Collectors.toList());
     }
 
     /**
@@ -106,8 +112,8 @@ public class CatalogueManager {
      * @param rank the rank
      * @return the child tabs
      */
-    public static List<CatalogueTab> getChildTabs(int parentId, int rank) {
-        return childTabs.get(parentId).stream().filter(tab -> tab.getMinRank() <= rank).collect(Collectors.toList());
+    public List<CatalogueTab> getChildTabs(int parentId, int rank) {
+        return this.childTabs.get(parentId).stream().filter(tab -> tab.getMinRank() <= rank).collect(Collectors.toList());
     }
 
     /**
@@ -116,9 +122,9 @@ public class CatalogueManager {
      * @param pageId the page id
      * @return the page
      */
-    public static CataloguePage getPage(int pageId) {
+    public CataloguePage getPage(int pageId) {
 
-        Optional<CataloguePage> cataloguePage = pages.stream().filter(page -> page.getId() == pageId).findFirst();
+        Optional<CataloguePage> cataloguePage = this.pages.stream().filter(page -> page.getId() == pageId).findFirst();
 
         if (cataloguePage.isPresent()) {
             return cataloguePage.get();
@@ -134,10 +140,10 @@ public class CatalogueManager {
      * @param pageId the page id
      * @return the page items
      */
-    public static List<CatalogueItem> getPageItems(int pageId) {
+    public List<CatalogueItem> getPageItems(int pageId) {
 
         try {
-            return items.stream().filter(item -> item.getPageId() == pageId).collect(Collectors.toList());
+            return this.items.stream().filter(item -> item.getPageId() == pageId).collect(Collectors.toList());
         } catch (Exception e) {
             return new ArrayList<>();
         }
@@ -149,9 +155,9 @@ public class CatalogueManager {
      * @param itemId the item id
      * @return the item
      */
-    public static CatalogueItem getItem(int itemId) {
+    public CatalogueItem getItem(int itemId) {
 
-        Optional<CatalogueItem> catalogueItem = items.stream().filter(item -> item.getId() == itemId).findFirst();
+        Optional<CatalogueItem> catalogueItem = this.items.stream().filter(item -> item.getId() == itemId).findFirst();
 
         if (catalogueItem.isPresent()) {
             return catalogueItem.get();
@@ -175,7 +181,7 @@ public class CatalogueManager {
      *
      * @return the offers
      */
-    public static Collection<TargetedOffer> getOffers() {
+    public Collection<TargetedOffer> getOffers() {
         return offers.values();
     }
     
@@ -185,7 +191,21 @@ public class CatalogueManager {
      * @param id the id
      * @return the offer by id
      */
-    public static TargetedOffer getOfferById(int id) {
+    public TargetedOffer getOfferById(int id) {
         return offers.get(id);
+    }
+
+    /**
+     * Gets the instance
+     *
+     * @return the instance
+     */
+    public static CatalogueManager getInstance() {
+        
+        if (instance == null) {
+            instance = new CatalogueManager();
+        }
+        
+        return instance;
     }
 }

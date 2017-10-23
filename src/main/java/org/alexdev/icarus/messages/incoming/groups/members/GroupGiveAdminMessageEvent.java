@@ -14,7 +14,7 @@ public class GroupGiveAdminMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
         
-        Group group = GroupManager.getGroup(reader.readInt());
+        Group group = GroupManager.getInstance().getGroup(reader.readInt());
 
         if (group == null) {
             return;
@@ -29,7 +29,6 @@ public class GroupGiveAdminMessageEvent implements MessageEvent {
         
         int userId = reader.readInt();
         group.getMemberManager().addMember(GroupMemberType.ADMINISTRATOR, userId);
-        
         player.send(new GroupUpdateMemberComposer(group.getId(), userId, 1));
     }
 

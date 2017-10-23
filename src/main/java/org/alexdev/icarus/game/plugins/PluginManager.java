@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.sun.prism.shader.DrawPgram_LinearGradient_PAD_AlphaTest_Loader;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.RoomManager;
@@ -21,21 +22,18 @@ import org.slf4j.LoggerFactory;
 
 public class PluginManager {
 
-	private static List<Plugin> plugins;
-	private static Map<PluginEvent, List<Plugin>> registeredPluginEvents;
+	private List<Plugin> plugins;
+	private Map<PluginEvent, List<Plugin>> registeredPluginEvents;
 
-	final private static Logger log = LoggerFactory.getLogger(PluginManager.class);
+	private final static Logger log = LoggerFactory.getLogger(PluginManager.class);
+	private static PluginManager instance;
 
-	/**
-	 * Load.
-	 */
-	public static void load() {
-
-		plugins = new ArrayList<>();
-		registeredPluginEvents = new ConcurrentHashMap<>();
+	public PluginManager() {
+		this.plugins = new ArrayList<>();
+		this.registeredPluginEvents = new ConcurrentHashMap<>();
 
 		for (PluginEvent event : PluginEvent.values()) {
-			registeredPluginEvents.put(event, new ArrayList<>());
+			this.registeredPluginEvents.put(event, new ArrayList<>());
 		}
 
 		getPluginFiles();
@@ -46,7 +44,7 @@ public class PluginManager {
 	 *
 	 * @return the plugin files
 	 */
-	private static void getPluginFiles() {
+	private void getPluginFiles() {
 
 		Globals globals = JsePlatform.standardGlobals();
 		LuaValue chunk = globals.loadfile("plugins" + File.separator + "plugin_registry.lua");
@@ -74,7 +72,7 @@ public class PluginManager {
 			}
 		}
 
-		log.info("Loaded " + plugins.size() + " plugin(s)!");
+		log.info("Loaded " + this.plugins.size() + " plugin(s)!");
 	}
 
 	/**
@@ -82,7 +80,7 @@ public class PluginManager {
 	 *
 	 * @param path the path
 	 */
-	private static void loadPlugin(String path) throws PluginException {
+	private void loadPlugin(String path) throws PluginException {
 
 		Globals globals = JsePlatform.standardGlobals();
 		LuaValue chunk = globals.loadfile("plugins" + File.separator + path);
@@ -127,13 +125,13 @@ public class PluginManager {
 	 * @param values the values
 	 * @return true, if successful
 	 */
-	public static boolean callEvent(PluginEvent event, LuaValue[] values) {
+	public boolean callEvent(PluginEvent event, LuaValue[] values) {
 
-		if (!registeredPluginEvents.containsKey(event)) {
+		if (!this.registeredPluginEvents.containsKey(event)) {
 			return false;
 		}
 
-		for (Plugin plugin : registeredPluginEvents.get(event)) {
+		for (Plugin plugin : this.registeredPluginEvents.get(event)) {
 
 			LuaValue calledEvent = plugin.getGlobals().get(event.getFunctionName());
 			Varargs variableArgs = calledEvent.invoke(LuaValue.varargsOf(values));
@@ -151,7 +149,7 @@ public class PluginManager {
 	/**
 	 * Dispose plugins.
 	 */
-	public static void disposePlugins() {
+	public void disposePlugins() {
 
 		for (Plugin plugin : plugins) {
 			plugin.setClosed(true);
@@ -165,17 +163,11 @@ public class PluginManager {
 	 *
 	 * @param globals the globals
 	 */
-	private static void registerGlobalVariables(LuaValue plugin, Globals globals) {
-
-		// Plugin
+	private void registerGlobalVariables(LuaValue plugin, Globals globals) {
 		globals.set("plugin", plugin);
-
-		// Managers
 		globals.set("catalogueManager", CoerceJavaToLua.coerce(new CatalogueManager()));
 		globals.set("playerManager", CoerceJavaToLua.coerce(new PlayerManager()));
 		globals.set("roomManager", CoerceJavaToLua.coerce(new RoomManager()));
-
-		// Utilities
 		globals.set("util", CoerceJavaToLua.coerce(new Util()));
 		globals.set("scheduler", CoerceJavaToLua.coerce(new PluginScheduler()));
 	}
@@ -185,8 +177,8 @@ public class PluginManager {
 	 *
 	 * @return the plugins
 	 */
-	public static List<Plugin> getPlugins() {
-		return plugins;
+	public List<Plugin> getPlugins() {
+		return this.plugins;
 	}
 
 	/**
@@ -194,7 +186,25 @@ public class PluginManager {
 	 *
 	 * @return the registered plugin events
 	 */
-	public static Map<PluginEvent, List<Plugin>> getRegisteredPluginEvents() {
-		return registeredPluginEvents;
+	public Map<PluginEvent, List<Plugin>> getRegisteredPluginEvents() {
+		return this.registeredPluginEvents;
+	}
+
+	/**
+	 * Gets the instance
+	 *
+	 * @return the instance
+	 */
+	public static PluginManager getInstance() {
+
+		if (instance == null) {
+			instance = new PluginManager();
+		}
+
+		return instance;
+	}
+
+	public void reload() {
+		// Might break shit so I'm not sure if I should add a reload here...
 	}
 }

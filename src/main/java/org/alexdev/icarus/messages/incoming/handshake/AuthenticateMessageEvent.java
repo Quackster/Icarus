@@ -25,5 +25,7 @@ public class AuthenticateMessageEvent implements MessageEvent {
 
         String ssoTicket = request.readString();
         player.authenticate(ssoTicket);
+
+        player.getMessageHandler().unregisterHandshakePackets();
     }
 }

@@ -42,7 +42,7 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
         
         final String newFileName = fileName;
 
-        GameScheduler.getScheduler().execute(() -> {
+        GameScheduler.getInstance().getScheduler().execute(() -> {
 
             try {
                 FileOutputStream fos = new FileOutputStream(filePath + newFileName);

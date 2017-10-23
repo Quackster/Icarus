@@ -93,11 +93,17 @@ public class PlaceItemMessageEvent implements MessageEvent {
         player.getInventory().updateItems();
 
         if (item.getDefinition().getType() == ItemType.FLOOR) {
-            PluginManager.callEvent(PluginEvent.PLACE_FLOOR_ITEM_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
+            PluginManager.getInstance().callEvent(PluginEvent.PLACE_FLOOR_ITEM_EVENT, new LuaValue[] {
+                    CoerceJavaToLua.coerce(player),
+                    CoerceJavaToLua.coerce(item)
+            });
         } 
 
         if (item.getDefinition().getType() == ItemType.WALL) {
-            PluginManager.callEvent(PluginEvent.PLACE_WALL_ITEM_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(item) });
+            PluginManager.getInstance().callEvent(PluginEvent.PLACE_WALL_ITEM_EVENT, new LuaValue[] {
+                    CoerceJavaToLua.coerce(player),
+                    CoerceJavaToLua.coerce(item)
+            });
         }
     }
 }

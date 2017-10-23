@@ -21,7 +21,10 @@ public class MessengerTalkMessageEvent implements MessageEvent {
         
         InstantMessage msg = new InstantMessage(player.getEntityId(), friendId, message);
         
-        boolean isCancelled = PluginManager.callEvent(PluginEvent.MESSENGER_TALK_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player), CoerceJavaToLua.coerce(msg) });
+        boolean isCancelled = PluginManager.getInstance().callEvent(PluginEvent.MESSENGER_TALK_EVENT, new LuaValue[] {
+                CoerceJavaToLua.coerce(player),
+                CoerceJavaToLua.coerce(msg)
+        });
         
         if (isCancelled) {
             return;

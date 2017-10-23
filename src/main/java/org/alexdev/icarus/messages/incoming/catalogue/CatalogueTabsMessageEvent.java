@@ -27,7 +27,7 @@ public class CatalogueTabsMessageEvent implements MessageEvent {
             return;
         }
         
-        List<CatalogueTab> parentTabs = CatalogueManager.getParentTabs(player.getDetails().getRank());
+        List<CatalogueTab> parentTabs = CatalogueManager.getInstance().getParentTabs(player.getDetails().getRank());
         
         if (parentTabs == null) {
             return;

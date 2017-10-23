@@ -95,7 +95,7 @@ public class RoomEntityManager {
         this.room.getEntityManager().addPets();
         this.room.loadGroup();
 
-        boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_FIRST_ENTRY_EVENT, new LuaValue[] { 
+        boolean isCancelled = PluginManager.getInstance().callEvent(PluginEvent.ROOM_FIRST_ENTRY_EVENT, new LuaValue[] {
             CoerceJavaToLua.coerce(player), 
             CoerceJavaToLua.coerce(this.room) 
         });

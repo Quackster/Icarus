@@ -36,7 +36,7 @@ public class EnterRoomMessageEvent implements MessageEvent {
         
         player.getRoomUser().setRequestedRoomId(roomId);
         
-        boolean isCancelled = PluginManager.callEvent(PluginEvent.ROOM_REQUEST_ENTER_EVENT, new LuaValue[] { 
+        boolean isCancelled = PluginManager.getInstance().callEvent(PluginEvent.ROOM_REQUEST_ENTER_EVENT, new LuaValue[] {
                 CoerceJavaToLua.coerce(player), 
                 CoerceJavaToLua.coerce(room) 
         });

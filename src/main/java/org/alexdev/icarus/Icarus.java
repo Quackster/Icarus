@@ -65,18 +65,17 @@ public class Icarus extends Metadata {
 
             log.info("Setting up game");
 
-            RoomManager.load();
-            NavigatorManager.load();
-            ItemManager.load();
-            CatalogueManager.load();
-            GameScheduler.load();
-            PetManager.load();
-            GroupManager.load();
-            CommandManager.load();
-            PluginManager.load();
-            MessageHandler.load();
+            RoomManager.getInstance();
+            NavigatorManager.getInstance();
+            ItemManager.getInstance();
+            CatalogueManager.getInstance();
+            GameScheduler.getInstance();
+            PetManager.getInstance();
+            GroupManager.getInstance();
+            CommandManager.getInstance();
+            PluginManager.getInstance();
 
-            log.info("Resetting users online..");
+            log.info("Resetting users online...");
             SiteDao.updateKey("users.online", 0);
 
             log.info("Setting up server");

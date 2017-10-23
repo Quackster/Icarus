@@ -16,7 +16,7 @@ public class CataloguePageMessageEvent implements MessageEvent {
 
         int pageId = request.readInt();
 
-        CataloguePage page = CatalogueManager.getPage(pageId);
+        CataloguePage page = CatalogueManager.getInstance().getPage(pageId);
 
         if (page == null) {
             return;

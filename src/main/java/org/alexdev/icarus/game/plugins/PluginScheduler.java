@@ -38,7 +38,7 @@ public class PluginScheduler {
         }
 
         try {
-            GameScheduler.getScheduler().schedule(() -> {
+            GameScheduler.getInstance().getScheduler().schedule(() -> {
                 function.invoke(LuaValue.varargsOf(parameterValues));
             }, seconds, TimeUnit.SECONDS);
         } catch (Exception e) {
@@ -75,7 +75,7 @@ public class PluginScheduler {
         }
 
         try {
-            GameScheduler.getScheduler().execute(() -> {
+            GameScheduler.getInstance().getScheduler().execute(() -> {
                 function.invoke(LuaValue.varargsOf(parameterValues));
             });
         } catch (Exception e) {

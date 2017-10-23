@@ -13,17 +13,16 @@ import org.alexdev.icarus.game.room.RoomManager;
 
 public class GameScheduler implements Runnable {
 
-    private static AtomicLong tickRate = new AtomicLong();
+    private AtomicLong tickRate = new AtomicLong();
 
-    private static ScheduledExecutorService scheduler;
-    private static ScheduledFuture<?> gameScheduler;
-    
-    /**
-     * Load.
-     */
-    public static void load() {
+    private ScheduledExecutorService scheduler;
+    private ScheduledFuture<?> gameScheduler;
+
+    private static GameScheduler instance;
+
+    public GameScheduler() {
         scheduler = createNewScheduler();
-        gameScheduler = scheduler.scheduleAtFixedRate(new GameScheduler(), 0, 1, TimeUnit.SECONDS);
+        gameScheduler = scheduler.scheduleAtFixedRate(this, 0, 1, TimeUnit.SECONDS);
     }
     
     /* (non-Javadoc)
@@ -36,7 +35,7 @@ public class GameScheduler implements Runnable {
         
         // If this task has ticked for an entire minute...
         if (tickRate.get() % 60 == 0) {
-            for (Room room : RoomManager.getPromotedRooms()) {
+            for (Room room : RoomManager.getInstance().getPromotedRooms()) {
                 room.getPromotion().performCycle();
             }
         }
@@ -65,7 +64,7 @@ public class GameScheduler implements Runnable {
      *
      * @return the scheduler
      */
-    public static ScheduledExecutorService getScheduler() {
+    public ScheduledExecutorService getScheduler() {
         return scheduler;
     }
     
@@ -74,7 +73,7 @@ public class GameScheduler implements Runnable {
      *
      * @return the game scheduler
      */
-    public static ScheduledFuture<?> getGameScheduler() {
+    public ScheduledFuture<?> getGameScheduler() {
         return gameScheduler;
     }
 
@@ -85,5 +84,19 @@ public class GameScheduler implements Runnable {
      */
     public static ScheduledExecutorService createNewScheduler() {
         return Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors() * 2);
+    }
+
+    /**
+     * Gets the instance
+     *
+     * @return the instance
+     */
+    public static GameScheduler getInstance() {
+
+        if (instance == null) {
+            instance = new GameScheduler();
+        }
+
+        return instance;
     }
 }

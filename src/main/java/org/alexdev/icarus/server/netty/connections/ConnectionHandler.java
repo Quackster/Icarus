@@ -1,6 +1,5 @@
 package org.alexdev.icarus.server.netty.connections;
 
-import com.mysql.cj.api.Session;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.alexdev.icarus.game.player.Player;
@@ -26,7 +25,7 @@ public class ConnectionHandler extends SimpleChannelInboundHandler<NettyRequest>
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
 
         Player player = new Player(new NettyPlayerNetwork(ctx.channel(), ctx.channel().hashCode()));
-        ctx.channel().attr(Player.SESSION_KEY).set(player);
+        ctx.channel().attr(Player.PLAYER_KEY).set(player);
 
         if (!server.getChannels().add(ctx.channel())) {
             ctx.disconnect();
@@ -42,7 +41,7 @@ public class ConnectionHandler extends SimpleChannelInboundHandler<NettyRequest>
     public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
 
         server.getChannels().remove(ctx.channel());
-        Player player = ctx.channel().attr(Player.SESSION_KEY).get();
+        Player player = ctx.channel().attr(Player.PLAYER_KEY).get();
 
         if (Util.getServerConfig().get("Logging", "log.connections", Boolean.class)) {
             log.info("[{}] Disonnection from {} ", player.getNetwork().getConnectionId(), ctx.channel().remoteAddress().toString().replace("/", "").split(":")[0]);
@@ -56,14 +55,14 @@ public class ConnectionHandler extends SimpleChannelInboundHandler<NettyRequest>
 
         try {
 
-            Player player = ctx.channel().attr(Player.SESSION_KEY).get();
+            Player player = ctx.channel().attr(Player.PLAYER_KEY).get();
 
             if (message == null) {
                 return;
             }
 
             if (player != null){
-                MessageHandler.handleRequest(player, message);
+                player.getMessageHandler().handleRequest(message);
             }
 
         } catch (Exception ex) {

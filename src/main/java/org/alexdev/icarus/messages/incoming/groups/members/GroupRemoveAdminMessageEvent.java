@@ -14,7 +14,7 @@ public class GroupRemoveAdminMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
         
-        Group group = GroupManager.getGroup(reader.readInt());
+        Group group = GroupManager.getInstance().getGroup(reader.readInt());
 
         if (group == null) {
             return;
@@ -28,9 +28,7 @@ public class GroupRemoveAdminMessageEvent implements MessageEvent {
         }
         
         int userId = reader.readInt();
-        
         group.getMemberManager().addMember(GroupMemberType.MEMBER, userId);
-        
         player.send(new GroupUpdateMemberComposer(group.getId(), userId, 2));
     }
 }

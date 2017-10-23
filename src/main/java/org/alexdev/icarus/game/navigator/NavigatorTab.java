@@ -73,7 +73,7 @@ public class NavigatorTab {
     public List<NavigatorTab> getChildTabs() {
 
         try {
-            return NavigatorManager.getAllTabs().stream().filter(t -> t.childId == this.id).collect(Collectors.toList());
+            return NavigatorManager.getInstance().getAllTabs().stream().filter(t -> t.childId == this.id).collect(Collectors.toList());
         } catch (Exception e) {
             return null;
         }

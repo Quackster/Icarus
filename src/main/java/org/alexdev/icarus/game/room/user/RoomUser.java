@@ -206,13 +206,13 @@ public class RoomUser {
 
         RoomDao.saveChatlog(player, this.room.getData().getId(), type.name(), message);
 
-        if (CommandManager.hasCommand(player, message)) {
-            CommandManager.invokeCommand(player, message);
+        if (CommandManager.getInstance().hasCommand(player, message)) {
+            CommandManager.getInstance().invokeCommand(player, message);
             return;
         } 
 
         InstantMessage playerMessage = new InstantMessage(this.entity.getDetails().getId(), -1, message);    {
-            PluginManager.callEvent(type.getEvent(), new LuaValue[] {  
+            PluginManager.getInstance().callEvent(type.getEvent(), new LuaValue[] {
                 CoerceJavaToLua.coerce(player),
                 CoerceJavaToLua.coerce(this.room),
                 CoerceJavaToLua.coerce(playerMessage)
@@ -333,7 +333,7 @@ public class RoomUser {
 
         if (path.size() > 0) {
             if (this.entity.getType() == EntityType.PLAYER) {
-                PluginManager.callEvent(PluginEvent.ROOM_WALK_REQUEST_EVENT, new LuaValue[] {  
+                PluginManager.getInstance().callEvent(PluginEvent.ROOM_WALK_REQUEST_EVENT, new LuaValue[] {
                     CoerceJavaToLua.coerce((Player)this.entity),
                     CoerceJavaToLua.coerce(this.room),
                     CoerceJavaToLua.coerce(this.position),

@@ -15,7 +15,7 @@ public class SearchNewNavigatorEvent implements MessageEvent {
         String tab = request.readString();
         String searchQuery = request.readString();
         
-        NavigatorTab navigatorTab = NavigatorManager.getTab(tab);
+        NavigatorTab navigatorTab = NavigatorManager.getInstance().getTab(tab);
         
         if (navigatorTab == null) {
             return;

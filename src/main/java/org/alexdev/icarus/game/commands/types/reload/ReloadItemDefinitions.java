@@ -14,7 +14,7 @@ public class ReloadItemDefinitions extends Command {
 
     @Override
     public void handleCommand(Player player, String message, String[] args) {
-        ItemManager.load();
+        ItemManager.getInstance().reload();
         player.getRoomUser().chatSelf(ChatType.WHISPER, "Furniture definitions have been reloaded!");
     }
 

@@ -14,7 +14,7 @@ public class ReloadCatalogueCommand extends Command {
     
     @Override
     public void handleCommand(Player player, String message, String[] args) {
-        CatalogueManager.load();
+        CatalogueManager.getInstance().reload();
         player.getRoomUser().chatSelf(ChatType.WHISPER, "Catalogue pages and items have been reloaded.");
     }
 

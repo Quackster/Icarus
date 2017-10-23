@@ -39,7 +39,7 @@ public class ThumbnailMessageEvent implements MessageEvent {
             final String fileName = room.getData().getThumbnail().split("/")[1];
             final String filePath = Util.getGameConfig().get("Thumbnail", "thumbnail.path", String.class);
             
-            GameScheduler.getScheduler().execute(() -> {
+            GameScheduler.getInstance().getScheduler().execute(() -> {
                 try {
                     File file = new File(filePath + fileName);
                     
@@ -68,7 +68,7 @@ public class ThumbnailMessageEvent implements MessageEvent {
         final byte[] payload = reader.readBytes(length);
         final String fileName = templateFileName;
         
-        GameScheduler.getScheduler().execute(() -> {
+        GameScheduler.getInstance().getScheduler().execute(() -> {
             try {
                 FileOutputStream fos = new FileOutputStream(templateFilePath + fileName);
                 fos.write(payload);

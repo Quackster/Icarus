@@ -27,7 +27,7 @@ public class GroupPurchaseMessageEvent implements MessageEvent {
 
         int roomId = reader.readInt();
         
-        Room room = RoomManager.getByRoomId(roomId);
+        Room room = RoomManager.getInstance().getByRoomId(roomId);
         
         if (!room.hasOwnership(player.getEntityId())) {
             return;

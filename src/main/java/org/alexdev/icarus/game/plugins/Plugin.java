@@ -35,7 +35,7 @@ public class Plugin {
     public void registerEvent(String eventName) {
         try {
             PluginEvent event = PluginEvent.valueOf(eventName);
-            PluginManager.getRegisteredPluginEvents().get(event).add(this);
+            PluginManager.getInstance().getRegisteredPluginEvents().get(event).add(this);
         } catch (Exception e) {
         	log.error("Error occurred with registering plugin event:", e); 
         }

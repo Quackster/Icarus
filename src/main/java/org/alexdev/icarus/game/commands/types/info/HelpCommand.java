@@ -19,9 +19,9 @@ public class HelpCommand extends Command {
         StringBuilder about = new StringBuilder();
         about.append("Commands:\n\n");
 
-        for (Entry<String[], Command> set : CommandManager.getCommands().entrySet()) {
+        for (Entry<String[], Command> set : CommandManager.getInstance().getCommands().entrySet()) {
 
-            if (!CommandManager.hasCommandPermission(player, set.getValue())) {
+            if (!CommandManager.getInstance().hasCommandPermission(player, set.getValue())) {
                 continue;
             }
 

@@ -80,12 +80,14 @@ public class RoomScheduler implements Runnable {
         boolean taskStarted = false;
         
         if (this.roomScheduledTasks == null) {
-            this.roomScheduledTasks = RoomManager.getScheduledPool().scheduleAtFixedRate(this, 0, 1, TimeUnit.SECONDS);
+            this.roomScheduledTasks = RoomManager.getInstance().getScheduledPool()
+                    .scheduleAtFixedRate(this, 0, 1, TimeUnit.SECONDS);
             taskStarted = true;
         }
         
         if (this.walkingScheduledTask == null) {
-            this.walkingScheduledTask = RoomManager.getScheduledPool().scheduleAtFixedRate(this.movementTask, 0, 500, TimeUnit.MILLISECONDS);
+            this.walkingScheduledTask = RoomManager.getInstance().getScheduledPool()
+                    .scheduleAtFixedRate(this.movementTask, 0, 500, TimeUnit.MILLISECONDS);
             taskStarted = true;
         }
         

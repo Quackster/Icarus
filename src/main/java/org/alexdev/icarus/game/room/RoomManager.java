@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.room;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,24 +19,23 @@ import org.slf4j.LoggerFactory;
 
 public class RoomManager {
 
-    private static Map<Integer, Room> rooms;
-    private static Map<Integer, Room> promotedRooms;
-    private static HashMap<String, RoomModel> roomModels;
+    private Map<Integer, Room> rooms;
+    private Map<Integer, Room> promotedRooms;
+    private HashMap<String, RoomModel> roomModels;
 
     private static ScheduledExecutorService scheduler;
-    private static final Logger log = LoggerFactory.getLogger(RoomManager.class);
+    private static RoomManager instance;
+
+    private final Logger log = LoggerFactory.getLogger(RoomManager.class);
 
     /**
      * Load.
      */
-    public static void load() {
-        
-        rooms = new ConcurrentHashMap<>();
-        promotedRooms = new ConcurrentHashMap<>();
-        scheduler = GameScheduler.createNewScheduler();
-        roomModels = RoomModelDao.getModels();
-
-        RoomDao.getPublicRooms(true);
+    public RoomManager() {
+        this.rooms = new ConcurrentHashMap<>();
+        this.promotedRooms = new ConcurrentHashMap<>();
+        this.roomModels = RoomModelDao.getModels();
+        this.addRooms(RoomDao.getPublicRooms());
 
         if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
             log.info("Loaded {} room models ", roomModels.size());
@@ -48,7 +48,7 @@ public class RoomManager {
      *
      * @param room the room
      */
-    public static void addRoom(Room room) {
+    public void addRoom(Room room) {
 
         if (rooms.containsKey(room.getData().getId())) {
             return;
@@ -58,12 +58,25 @@ public class RoomManager {
     }
 
     /**
+     * Adds list of rooms
+     *
+     * @param rooms the rooms
+     */
+    public void addRooms(Collection<Room> rooms) {
+
+        for (Room room : rooms) {
+            this.addRoom(room);
+        }
+    }
+
+
+    /**
      * Adds the promoted room.
      *
      * @param id the id
      * @param room the room
      */
-    public static void addPromotedRoom(int id, Room room) {
+    public void addPromotedRoom(int id, Room room) {
 
         if (promotedRooms.containsKey(room.getData().getId())) {
             return;
@@ -77,7 +90,7 @@ public class RoomManager {
      *
      * @param id the id
      */
-    public static void removeRoom(int id) {
+    public void removeRoom(int id) {
    
         if (rooms.containsKey(id)) {
             rooms.remove(Integer.valueOf(id));
@@ -93,7 +106,7 @@ public class RoomManager {
      *
      * @param id the id
      */
-    public static void removePromotedRoom(int id) {
+    public void removePromotedRoom(int id) {
         promotedRooms.remove(Integer.valueOf(id));
     }
         
@@ -102,7 +115,7 @@ public class RoomManager {
      *
      * @return the public rooms
      */
-    public static List<Room> getPublicRooms() {
+    public List<Room> getPublicRooms() {
         
         try {
             return rooms.values().stream().filter(room -> room.getData().getRoomType() == RoomType.PUBLIC).collect(Collectors.toList());
@@ -117,7 +130,7 @@ public class RoomManager {
      * @param userId the user id
      * @return the player rooms
      */
-    public static List<Room> getPlayerRooms(int userId) {
+    public List<Room> getPlayerRooms(int userId) {
         
         try {
             return rooms.values().stream().filter(room -> room.getData().getOwnerId() == userId).collect(Collectors.toList());
@@ -132,7 +145,7 @@ public class RoomManager {
      * @param roomId the room id
      * @return the by room id
      */
-    public static Room getByRoomId(int roomId) {
+    public Room getByRoomId(int roomId) {
 
         if (rooms.containsKey(roomId)) {
             return rooms.get(roomId);
@@ -146,7 +159,7 @@ public class RoomManager {
      *
      * @return the rooms
      */
-    public static List<Room> getRooms() {  
+    public List<Room> getRooms() {
         return rooms.values().stream().filter(room -> room != null).collect(Collectors.toList());
     }
     
@@ -155,7 +168,7 @@ public class RoomManager {
      *
      * @return the promoted rooms
      */
-    public static List<Room> getPromotedRooms() {
+    public List<Room> getPromotedRooms() {
         return promotedRooms.values().stream().filter(room -> room != null).collect(Collectors.toList());
     }
 
@@ -165,7 +178,7 @@ public class RoomManager {
      * @param model the model
      * @return the model
      */
-    public static RoomModel getModel(String model) {
+    public RoomModel getModel(String model) {
         return roomModels.get(model);
     }
 
@@ -174,7 +187,26 @@ public class RoomManager {
      *
      * @return the scheduler
      */
-    public static ScheduledExecutorService getScheduledPool() {
+    public ScheduledExecutorService getScheduledPool() {
+
+        if (scheduler == null) {
+            scheduler = GameScheduler.createNewScheduler();
+        }
+
         return scheduler;
+    }
+
+    /**
+     * Gets the instance
+     *
+     * @return the instance
+     */
+    public static RoomManager getInstance() {
+
+        if (instance == null) {
+            instance = new RoomManager();
+        }
+
+        return instance;
     }
 }

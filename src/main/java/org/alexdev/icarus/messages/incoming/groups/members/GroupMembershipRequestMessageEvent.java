@@ -19,7 +19,7 @@ public class GroupMembershipRequestMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
 
-        Group group = GroupManager.getGroup(reader.readInt());
+        Group group = GroupManager.getInstance().getGroup(reader.readInt());
 
         if (group == null) {
             return;
