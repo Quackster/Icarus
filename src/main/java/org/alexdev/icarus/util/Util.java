@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.alexdev.icarus.encryption.RSA;
+import org.alexdev.icarus.game.GameSettings;
 import org.alexdev.icarus.log.Log;
 import org.ini4j.InvalidFileFormatException;
 import org.ini4j.Wini;
@@ -32,11 +33,12 @@ public class Util {
      */
     public static void load() throws InvalidFileFormatException, IOException {
         configuration = new Wini(new File("icarus.properties"));
-        gameConfig =  new Wini(new File("habbohotel.properties"));
+        gameConfig =  new Wini(new File("game.properties"));
         locale =  new Wini(new File("locale.ini"));
         secureRandom = new SecureRandom();
         language = locale.get("Locale", "language", String.class);
         rsa = new RSA();
+        GameSettings.load();
     }
     
     /**

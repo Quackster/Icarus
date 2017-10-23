@@ -132,4 +132,5 @@ public class Outgoing {
     public static short DisplayEffectMessageComposer = 3063;//2398
     public static short EffectActivatedMessageComposer = 2292;//1812
     public static short EffectExpiredMessageComposer = 1676;//449
+    public static short ActivityPointNotificationComposer = 3182;
 }

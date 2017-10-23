@@ -6,12 +6,15 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 
 public class GameScheduler implements Runnable {
 
     private static AtomicLong tickRate = new AtomicLong();
+
     private static ScheduledExecutorService scheduler;
     private static ScheduledFuture<?> gameScheduler;
     
@@ -35,6 +38,15 @@ public class GameScheduler implements Runnable {
         if (tickRate.get() % 60 == 0) {
             for (Room room : RoomManager.getPromotedRooms()) {
                 room.getPromotion().performCycle();
+            }
+        }
+
+        // If this task has ticked for an entire specified number of minutes...
+        if (tickRate.get() % (60 * GameSettings.CREDITS_INTERVAL_MINUTES) == 0) {
+            for (Player player : PlayerManager.getPlayers()) {
+                player.getDetails().setCredits(player.getDetails().getCredits() + GameSettings.CREDITS_INTERVAL_AMOUNT);
+                player.getDetails().sendCredits();
+                player.getDetails().save();
             }
         }
     }

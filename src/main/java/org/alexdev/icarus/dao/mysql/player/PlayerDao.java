@@ -281,7 +281,7 @@ public class PlayerDao {
      * @throws SQLException the SQL exception
      */
     public static PlayerDetails fill(PlayerDetails details, ResultSet row) throws SQLException {
-        details.fill(row.getInt("id"), row.getString("username"), row.getString("mission"),  row.getString("figure"), row.getString("gender"), row.getInt("rank"), row.getInt("credits"), row.getInt("home_room"));
+        details.fill(row.getInt("id"), row.getString("username"), row.getString("mission"),  row.getString("figure"), row.getString("gender"), row.getInt("rank"), row.getInt("credits"), row.getInt("duckets"), row.getInt("home_room"));
         return details;
     }
 

@@ -3,6 +3,7 @@ package org.alexdev.icarus.game.player;
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityType;
+import org.alexdev.icarus.messages.outgoing.user.ActivityPointNotificationComposer;
 import org.alexdev.icarus.messages.outgoing.user.CreditsMessageComposer;
 
 public class PlayerDetails {
@@ -14,6 +15,7 @@ public class PlayerDetails {
     private String gender = "M";
     private int rank;
     private int credits;
+    private int duckets;
     private int homeRoomId;
     private boolean authenticated;
     private Entity entity;
@@ -34,9 +36,10 @@ public class PlayerDetails {
      * @param gender the gender
      * @param rank the rank
      * @param credits the credits
+     * @param duckets the duckets
      * @param homeRoomId the home room id
      */
-    public void fill(int id, String username, String motto, String figure, String gender, int rank, int credits, int homeRoomId) {
+    public void fill(int id, String username, String motto, String figure, String gender, int rank, int credits, int duckets, int homeRoomId) {
         this.id = id;
         this.name = username;
         this.motto = motto;
@@ -44,6 +47,7 @@ public class PlayerDetails {
         this.gender = gender;
         this.rank = rank;
         this.credits = credits;
+        this.duckets = duckets;
         this.homeRoomId = homeRoomId;
         this.authenticated = true;
     }
@@ -75,7 +79,16 @@ public class PlayerDetails {
             ((Player)this.entity).send(new CreditsMessageComposer(this.credits));
         }
     }
-    
+
+    /**
+     * Send duckets.
+     */
+    public void sendDuckets() {
+        if (this.entity.getType() == EntityType.PLAYER) {
+            ((Player)this.entity).send(new ActivityPointNotificationComposer(this.duckets, this.duckets));
+        }
+    }
+
     /**
      * Gets the id.
      *
@@ -209,6 +222,25 @@ public class PlayerDetails {
      */
     public int getCredits() {
         return credits;
+    }
+
+    /**
+     * Gets the duckets.
+     *
+     * @return the duckets
+     */
+    public int getDuckets() {
+        return duckets;
+    }
+
+
+    /**
+     * Sets the duckets.
+     *
+     * @param newTotal the new duckets
+     */
+    public void setDuckets(int newTotal) {
+        this.duckets = newTotal;
     }
 
     /**

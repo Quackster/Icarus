@@ -79,12 +79,12 @@ public class Configuration {
             writer.close();
         }
 
-        file = new File("habbohotel.properties");
+        file = new File("game.properties");
 
         if (!file.isFile()) { 
             file.createNewFile();
             PrintWriter writer = new PrintWriter(file.getAbsoluteFile());
-            writeHabboHotelConfiguration(writer);
+            writeGameConfiguration(writer);
             writer.flush();
             writer.close();
         }
@@ -148,17 +148,26 @@ public class Configuration {
      * 
      * @param writer - {@link PrintWriter} the file writer
      */
-    private static void writeHabboHotelConfiguration(PrintWriter writer) {
+    private static void writeGameConfiguration(PrintWriter writer) {
+
+        /*    public static final int CHAT_FLOOD_SECONDS = 4;
+    public static final int CHAT_FLOOD_WAIT = 20;
+    public static final int MAX_CHAT_BEFORE_FLOOD = 8;
+*/
+
         writer.println("[Scheduler]");
-        writer.println("credits.every.x.secs=600");
-        writer.println("credits.every.x.amount=10");
+        writer.println("credits.interval.minutes=10");
+        writer.println("credits.interval.amount=100");
         writer.println();
-        writer.println("[Bot]");
-        writer.println("bot.response.delay=1500");
+        writer.println("duckets.interval.minutes=15");
+        writer.println("duckets.interval.amount=30");
         writer.println();
-        writer.println("talking.lookat.distance=30");
-        writer.println("talking.lookat.reset=6");
+        writer.println("[Navigator]");
+        writer.println("max.rooms.popular.tab=30");
+        writer.println("max.room.sub.category=9");
+        writer.println("max.room.per.user=25");
         writer.println();
+        writer.println("[Room]");
         writer.println("afk.room.kick=1800");
         writer.println();
         writer.println("[Camera]");

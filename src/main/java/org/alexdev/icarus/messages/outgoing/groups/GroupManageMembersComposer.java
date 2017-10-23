@@ -15,6 +15,8 @@ import org.alexdev.icarus.util.Util;
 
 public class GroupManageMembersComposer extends MessageComposer {
 
+    private static final int GROUP_MEMBERS_PER_PAGE = 14;
+
     private Group group;
     private int page;
     private int requestType;
@@ -44,7 +46,7 @@ public class GroupManageMembersComposer extends MessageComposer {
         } else {
 
             // Inspired by Comet... best way to do this in Java
-            List<List<Integer>> paginatedMembers = Util.paginate(groupMembers, GameSettings.GROUP_MEMBERS_PER_PAGE);
+            List<List<Integer>> paginatedMembers = Util.paginate(groupMembers, GROUP_MEMBERS_PER_PAGE);
             response.writeInt(paginatedMembers.get(page).size());
 
             for (int userId : paginatedMembers.get(page)) {
@@ -69,7 +71,7 @@ public class GroupManageMembersComposer extends MessageComposer {
         }
         
         response.writeBool(hasAccess);
-        response.writeInt(GameSettings.GROUP_MEMBERS_PER_PAGE);
+        response.writeInt(GROUP_MEMBERS_PER_PAGE);
         response.writeInt(page);
         response.writeInt(requestType);
         response.writeString(searchQuery);

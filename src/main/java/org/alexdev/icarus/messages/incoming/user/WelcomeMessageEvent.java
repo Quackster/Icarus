@@ -22,6 +22,8 @@ public class WelcomeMessageEvent implements MessageEvent {
 
         PluginManager.callEvent(PluginEvent.PLAYER_LOGIN_EVENT, new LuaValue[] { CoerceJavaToLua.coerce(player) });
         handleTargetedOffer(player);
+
+        player.getDetails().sendDuckets();
         player.setLoggedIn(true);
     }
 
