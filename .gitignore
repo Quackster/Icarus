@@ -11,6 +11,7 @@ gradlew
 gradlew.bat
 
 habbohotel.properties
+game.properties
 icarus.properties
 locale.ini
 log4j.properties
