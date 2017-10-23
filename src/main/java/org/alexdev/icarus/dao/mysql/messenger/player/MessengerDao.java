@@ -1,4 +1,4 @@
-package org.alexdev.icarus.dao.mysql.player;
+package org.alexdev.icarus.dao.mysql.messenger.player;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

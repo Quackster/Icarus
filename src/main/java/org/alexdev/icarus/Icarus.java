@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.net.InetAddress;
 
 import org.alexdev.icarus.dao.mysql.Dao;
+import org.alexdev.icarus.dao.mysql.site.SiteDao;
 import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.commands.CommandManager;
@@ -74,6 +75,9 @@ public class Icarus extends Metadata {
             CommandManager.load();
             PluginManager.load();
             MessageHandler.load();
+
+            log.info("Resetting users online..");
+            SiteDao.updateKey("users.online", 0);
 
             log.info("Setting up server");
 

@@ -3,7 +3,7 @@ package org.alexdev.icarus.messages.incoming.messenger;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.alexdev.icarus.dao.mysql.player.MessengerDao;
+import org.alexdev.icarus.dao.mysql.messenger.player.MessengerDao;
 import org.alexdev.icarus.game.messenger.Messenger;
 import org.alexdev.icarus.game.messenger.MessengerUser;
 import org.alexdev.icarus.game.player.Player;

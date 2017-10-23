@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
+import org.alexdev.icarus.dao.mysql.site.SiteDao;
 import org.alexdev.icarus.game.moderation.Permission;
 
 public class PlayerManager {
@@ -30,6 +31,7 @@ public class PlayerManager {
         if (player.getDetails().isAuthenticated()) {
             authenticatedPlayersById.put(player.getEntityId(), player);
             authenticatedPlayersByName.put(player.getDetails().getName(), player);
+            SiteDao.updateKey("users.online", authenticatedPlayersById.size());
         }
     }
 
@@ -43,6 +45,7 @@ public class PlayerManager {
         if (player.getDetails().isAuthenticated()) {
             authenticatedPlayersById.remove(player.getEntityId());
             authenticatedPlayersByName.remove(player.getDetails().getName());
+            SiteDao.updateKey("users.online", authenticatedPlayersById.size());
         }
     }
 
