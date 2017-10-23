@@ -42,7 +42,7 @@ public class GameScheduler implements Runnable {
 
         // If this task has ticked for an entire specified number of minutes...
         if (tickRate.get() % (60 * GameSettings.CREDITS_INTERVAL_MINUTES) == 0) {
-            for (Player player : PlayerManager.getPlayers()) {
+            for (Player player : PlayerManager.getInstance().getPlayers()) {
                 player.getDetails().setCredits(player.getDetails().getCredits() + GameSettings.CREDITS_INTERVAL_AMOUNT);
                 player.getDetails().sendCredits();
                 player.getDetails().save();
@@ -51,7 +51,7 @@ public class GameScheduler implements Runnable {
 
         // If this task has ticked for an entire specified number of minutes...
         if (tickRate.get() % (60 * GameSettings.DUCKETS_INTERVAL_MINUTES) == 0) {
-            for (Player player : PlayerManager.getPlayers()) {
+            for (Player player : PlayerManager.getInstance().getPlayers()) {
                 player.getDetails().setDuckets(player.getDetails().getDuckets() + GameSettings.DUCKETS_INTERVAL_AMOUNT);
                 player.getDetails().sendDuckets();
                 player.getDetails().save();

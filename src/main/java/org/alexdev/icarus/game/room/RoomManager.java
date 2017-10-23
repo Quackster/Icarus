@@ -28,9 +28,6 @@ public class RoomManager {
 
     private final Logger log = LoggerFactory.getLogger(RoomManager.class);
 
-    /**
-     * Load.
-     */
     public RoomManager() {
         this.rooms = new ConcurrentHashMap<>();
         this.promotedRooms = new ConcurrentHashMap<>();
@@ -38,8 +35,8 @@ public class RoomManager {
         this.addRooms(RoomDao.getPublicRooms());
 
         if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
-            log.info("Loaded {} room models ", roomModels.size());
-            log.info("Loaded {} public rooms", rooms.size());
+            log.info("Loaded {} room models ", this.roomModels.size());
+            log.info("Loaded {} public rooms", this.rooms.size());
         }
     }
 
@@ -50,11 +47,11 @@ public class RoomManager {
      */
     public void addRoom(Room room) {
 
-        if (rooms.containsKey(room.getData().getId())) {
+        if (this.rooms.containsKey(room.getData().getId())) {
             return;
         }
 
-        rooms.put(room.getData().getId(), room);
+        this.rooms.put(room.getData().getId(), room);
     }
 
     /**
@@ -78,11 +75,11 @@ public class RoomManager {
      */
     public void addPromotedRoom(int id, Room room) {
 
-        if (promotedRooms.containsKey(room.getData().getId())) {
+        if (this.promotedRooms.containsKey(room.getData().getId())) {
             return;
         }
 
-        promotedRooms.put(room.getData().getId(), room);
+        this.promotedRooms.put(room.getData().getId(), room);
     }
     
     /**
@@ -92,11 +89,11 @@ public class RoomManager {
      */
     public void removeRoom(int id) {
    
-        if (rooms.containsKey(id)) {
-            rooms.remove(Integer.valueOf(id));
+        if (this.rooms.containsKey(id)) {
+            this.rooms.remove(Integer.valueOf(id));
         }
         
-        if (promotedRooms.containsKey(id)) {
+        if (this.promotedRooms.containsKey(id)) {
             removePromotedRoom(id);
         }
     }
@@ -107,7 +104,7 @@ public class RoomManager {
      * @param id the id
      */
     public void removePromotedRoom(int id) {
-        promotedRooms.remove(Integer.valueOf(id));
+        this.promotedRooms.remove(Integer.valueOf(id));
     }
         
     /**
@@ -118,7 +115,7 @@ public class RoomManager {
     public List<Room> getPublicRooms() {
         
         try {
-            return rooms.values().stream().filter(room -> room.getData().getRoomType() == RoomType.PUBLIC).collect(Collectors.toList());
+            return this.rooms.values().stream().filter(room -> room.getData().getRoomType() == RoomType.PUBLIC).collect(Collectors.toList());
         } catch (Exception e) {
             return null;
         }
@@ -133,7 +130,7 @@ public class RoomManager {
     public List<Room> getPlayerRooms(int userId) {
         
         try {
-            return rooms.values().stream().filter(room -> room.getData().getOwnerId() == userId).collect(Collectors.toList());
+            return this.rooms.values().stream().filter(room -> room.getData().getOwnerId() == userId).collect(Collectors.toList());
         } catch (Exception e) {
             return null;
         }
@@ -147,8 +144,8 @@ public class RoomManager {
      */
     public Room getByRoomId(int roomId) {
 
-        if (rooms.containsKey(roomId)) {
-            return rooms.get(roomId);
+        if (this.rooms.containsKey(roomId)) {
+            return this.rooms.get(roomId);
         }
 
         return null;
@@ -160,7 +157,7 @@ public class RoomManager {
      * @return the rooms
      */
     public List<Room> getRooms() {
-        return rooms.values().stream().filter(room -> room != null).collect(Collectors.toList());
+        return this.rooms.values().stream().filter(room -> room != null).collect(Collectors.toList());
     }
     
     /**
@@ -169,7 +166,7 @@ public class RoomManager {
      * @return the promoted rooms
      */
     public List<Room> getPromotedRooms() {
-        return promotedRooms.values().stream().filter(room -> room != null).collect(Collectors.toList());
+        return this.promotedRooms.values().stream().filter(room -> room != null).collect(Collectors.toList());
     }
 
     /**
@@ -187,7 +184,7 @@ public class RoomManager {
      *
      * @return the scheduler
      */
-    public ScheduledExecutorService getScheduledPool() {
+    public ScheduledExecutorService getScheduleService() {
 
         if (scheduler == null) {
             scheduler = GameScheduler.createNewScheduler();

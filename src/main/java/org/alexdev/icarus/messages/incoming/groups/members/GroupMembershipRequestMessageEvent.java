@@ -41,7 +41,7 @@ public class GroupMembershipRequestMessageEvent implements MessageEvent {
 
             for (int userId : groupOfficials) {
                 
-                Player user = PlayerManager.getById(userId);
+                Player user = PlayerManager.getInstance().getById(userId);
                 
                 if (user != null) {             
                     user.send(new GroupMembershipRequestedComposer(group.getId(), player));

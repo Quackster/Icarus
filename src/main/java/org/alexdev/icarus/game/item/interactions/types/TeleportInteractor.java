@@ -4,9 +4,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.alexdev.icarus.dao.mysql.item.TeleporterDao;
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.extradata.ExtraData;
-import org.alexdev.icarus.game.item.extradata.ExtraDataPerspective;
-import org.alexdev.icarus.game.item.extradata.types.StringExtraData;
 import org.alexdev.icarus.game.item.interactions.Interaction;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.player.Player;
@@ -31,7 +28,7 @@ public class TeleportInteractor extends Interaction {
 
             roomUser.walkTo(item.getPosition().getSquareInFront().getX(), item.getPosition().getSquareInFront().getY());
 
-            RoomManager.getInstance().getScheduledPool().schedule(() -> {
+            RoomManager.getInstance().getScheduleService().schedule(() -> {
                 item.setExtraData(TELEPORTER_CLOSE);
                 item.updateStatus();
             }, 1, TimeUnit.SECONDS);
@@ -67,13 +64,13 @@ public class TeleportInteractor extends Interaction {
         roomUser.walkTo(item.getPosition().getX(), item.getPosition().getY());
         roomUser.setWalkingAllowed(false);
 
-       RoomManager.getInstance().getScheduledPool().schedule(() -> {
+       RoomManager.getInstance().getScheduleService().schedule(() -> {
             item.setExtraData(TELEPORTER_EFFECTS);
             item.updateStatus();
 
         }, 1, TimeUnit.SECONDS);
 
-        RoomManager.getInstance().getScheduledPool().schedule(() -> {
+        RoomManager.getInstance().getScheduleService().schedule(() -> {
             item.setExtraData(TELEPORTER_CLOSE);
             item.updateStatus();
 
@@ -83,7 +80,7 @@ public class TeleportInteractor extends Interaction {
         }, 2, TimeUnit.SECONDS);
 
 
-        RoomManager.getInstance().getScheduledPool().schedule(() -> {
+        RoomManager.getInstance().getScheduleService().schedule(() -> {
             if (targetTeleporter.getRoomId() != item.getRoomId()) {            
                 roomUser.setTeleporting(true);
                 roomUser.setTeleportRoomId(targetTeleporter.getRoomId());
@@ -109,7 +106,7 @@ public class TeleportInteractor extends Interaction {
 
         }, 3, TimeUnit.SECONDS);
 
-        RoomManager.getInstance().getScheduledPool().schedule(() -> {
+        RoomManager.getInstance().getScheduleService().schedule(() -> {
             roomUser.setWalkingAllowed(true);
             roomUser.walkTo(
                     targetTeleporter.getPosition().getSquareInFront().getX(), 
@@ -117,7 +114,7 @@ public class TeleportInteractor extends Interaction {
             
         }, 3500, TimeUnit.MILLISECONDS);
 
-        RoomManager.getInstance().getScheduledPool().schedule(() -> {
+        RoomManager.getInstance().getScheduleService().schedule(() -> {
             if (targetTeleporter.getRoomId() == item.getRoomId()) {
                 targetTeleporter.setExtraData(TELEPORTER_CLOSE);
                 targetTeleporter.updateStatus();

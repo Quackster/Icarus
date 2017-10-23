@@ -183,7 +183,7 @@ Outgoing(1483, 6, _-2Nu) -> [0][0][0][6][5]Ë[0][0][0][3]
 
     private void handlePurchase(final CatalogueItem item, final Player player, final int amount, final String extraData) {
 
-        RoomManager.getInstance().getScheduledPool().execute(() -> {
+        RoomManager.getInstance().getScheduleService().execute(() -> {
             for (int listingAmount = 0; listingAmount < item.getAmount(); listingAmount++) {
                 if (item.getDisplayName().startsWith("DEAL_HC_")) {
                     ClubManager.handlePurchase(player, item, amount);

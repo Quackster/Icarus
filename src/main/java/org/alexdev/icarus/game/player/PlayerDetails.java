@@ -59,7 +59,7 @@ public class PlayerDetails {
      * @return true, if successful
      */
     public boolean hasPermission(String permission) {
-        return PlayerManager.hasPermission(this.rank, permission);
+        return PlayerManager.getInstance().hasPermission(this.rank, permission);
     }
 
     /**

@@ -27,7 +27,7 @@ public class ClearRoomRightsMessageEvent implements MessageEvent {
         
         for (int userId : room.getRights()) {
             
-            Player user = PlayerManager.getById(userId);
+            Player user = PlayerManager.getInstance().getById(userId);
             
             if (user != null) {
                 if (user.getRoomUser().getRoomId() == room.getData().getId()) {

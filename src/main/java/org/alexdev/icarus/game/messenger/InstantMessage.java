@@ -75,6 +75,6 @@ public class InstantMessage {
      * @return the friend
      */
     public Player getFriend() {
-        return PlayerManager.getById(this.toId);
+        return PlayerManager.getInstance().getById(this.toId);
     }
 }

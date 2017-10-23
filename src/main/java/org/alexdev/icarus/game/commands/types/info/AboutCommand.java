@@ -19,7 +19,7 @@ public class AboutCommand extends Command {
         StringBuilder about = new StringBuilder();
         about.append("Icarus server written by Quackster, powered by Java!\n");
         about.append("\n<b>Server Status</b>\n\n");
-        about.append("Users Online: " + PlayerManager.getPlayers().size() + "\n");
+        about.append("Users Online: " + PlayerManager.getInstance().getPlayers().size() + "\n");
         about.append("Uptime: " + Util.getReadableTimestamp(Icarus.getStartupTime()) + "\n");
         about.append("\n<b>Contributors</b>\n\n");
         about.append("- Sledmore\n");

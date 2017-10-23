@@ -51,7 +51,7 @@ public class GroupManageMembersComposer extends MessageComposer {
 
             for (int userId : paginatedMembers.get(page)) {
                 
-                PlayerDetails details = PlayerManager.getPlayerData(userId);
+                PlayerDetails details = PlayerManager.getInstance().getPlayerData(userId);
                 
                 if (group.getOwnerId() == userId) {
                     response.writeInt(0);

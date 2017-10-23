@@ -38,14 +38,14 @@ public class RemovePetMessageEvent implements MessageEvent {
         
         } else {
             
-            boolean isPetOwnerOnline = PlayerManager.getById(pet.getOwnerId()) != null;
+            boolean isPetOwnerOnline = PlayerManager.getInstance().getById(pet.getOwnerId()) != null;
             
             pet.setRoomId(0);
             pet.save();
             
             if (isPetOwnerOnline) {
                 
-                Player petOwner = PlayerManager.getById(pet.getOwnerId());
+                Player petOwner = PlayerManager.getInstance().getById(pet.getOwnerId());
                 
                 petOwner.getInventory().addPet(pet, InventoryNotification.NONE);
                 petOwner.getInventory().updatePets();

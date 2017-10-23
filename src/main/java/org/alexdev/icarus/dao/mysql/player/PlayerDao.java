@@ -25,37 +25,32 @@ public class PlayerDao {
      */
     public static PlayerDetails getDetails(int userId) {
 
-        PlayerDetails details = new PlayerDetails(null);
-        Player player = PlayerManager.getById(userId);
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
-        if (player != null) {
-            details = player.getDetails();
-        } else {
+        PlayerDetails details = null;
 
-            Connection sqlConnection = null;
-            PreparedStatement preparedStatement = null;
-            ResultSet resultSet = null;
+        try {
 
-            try {
+            sqlConnection = Dao.getStorage().getConnection();
 
-                sqlConnection = Dao.getStorage().getConnection();
-                
-                preparedStatement = Dao.getStorage().prepare("SELECT * FROM users WHERE id = ? LIMIT 1", sqlConnection);
-                preparedStatement.setInt(1, userId);
-                
-                resultSet = preparedStatement.executeQuery();
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM users WHERE id = ? LIMIT 1", sqlConnection);
+            preparedStatement.setInt(1, userId);
 
-                if (resultSet.next()) {
-                    fill(details, resultSet);
-                }
+            resultSet = preparedStatement.executeQuery();
 
-            } catch (Exception e) {
-                Storage.logError(e);
-            } finally {
-                Storage.closeSilently(resultSet);
-                Storage.closeSilently(preparedStatement);
-                Storage.closeSilently(sqlConnection);
+            if (resultSet.next()) {
+                details = new PlayerDetails(null);
+                fill(details, resultSet);
             }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
         }
 
         return details;

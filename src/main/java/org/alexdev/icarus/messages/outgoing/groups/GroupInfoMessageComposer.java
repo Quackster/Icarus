@@ -55,7 +55,7 @@ public class GroupInfoMessageComposer extends MessageComposer {
         response.writeString("1-1-1970");
         response.writeBool(isOwner);
         response.writeBool(group.getMemberManager().isMemberType(userId, GroupMemberType.ADMINISTRATOR));
-        response.writeString(PlayerManager.getPlayerData(group.getOwnerId()).getName());
+        response.writeString(PlayerManager.getInstance().getPlayerData(group.getOwnerId()).getName());
         response.writeBool(openNewWindow); 
         response.writeBool(group.canMembersDecorate());
         response.writeInt((isAdmin || isOwner) ? group.getMemberManager().getMembersByType(GroupMemberType.REQUEST).size() : 0); // Users waiting to be accepted (if any!)

@@ -21,7 +21,7 @@ public class FriendsPopulator extends NavigatorRoomPopulator {
         for (MessengerUser friend : player.getMessenger().getFriends()) {
 
             // Get a list of rooms, but do NOT store them in memory
-            List<Room> rooms = RoomDao.getPlayerRooms(friend.getDetails().getId(), false);
+            List<Room> rooms = RoomDao.getPlayerRooms(friend.getDetails().getId());
             friendRooms.addAll(rooms);
         }
 

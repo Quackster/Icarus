@@ -31,7 +31,7 @@ public class GiveRightsMessageEvent implements MessageEvent {
             return;
         }
 
-        Player user = PlayerManager.getById(userId);
+        Player user = PlayerManager.getInstance().getById(userId);
 
         if (user != null) {
             if (user.getRoomUser().getRoomId() == room.getData().getId()) {
@@ -46,6 +46,6 @@ public class GiveRightsMessageEvent implements MessageEvent {
         room.getRights().add(userId);
         RoomDao.addRoomRights(room.getData().getId(), userId);
         
-        player.send(new RightsAssignedMessageComposer(room.getData().getId(), userId, PlayerManager.getPlayerData(userId).getName()));
+        player.send(new RightsAssignedMessageComposer(room.getData().getId(), userId, PlayerManager.getInstance().getPlayerData(userId).getName()));
     }
 }

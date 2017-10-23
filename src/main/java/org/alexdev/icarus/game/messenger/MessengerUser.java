@@ -12,7 +12,7 @@ public class MessengerUser {
 
     public MessengerUser(int userId) {
         this.userId = userId;
-        this.details = PlayerManager.getPlayerData(this.userId);
+        this.details = PlayerManager.getInstance().getPlayerData(this.userId);
     }
 
     /**
@@ -52,7 +52,7 @@ public class MessengerUser {
      * @return true, if is user online
      */
     public boolean isUserOnline() {
-        return PlayerManager.hasPlayer(this.userId);
+        return PlayerManager.getInstance().hasPlayer(this.userId);
     }
     
     /**
@@ -63,7 +63,7 @@ public class MessengerUser {
     public boolean inRoom() {
 
         if (this.isUserOnline()) {
-            Player player = PlayerManager.getById(this.userId);
+            Player player = PlayerManager.getInstance().getById(this.userId);
             return player.inRoom();
         }
 
@@ -83,7 +83,7 @@ public class MessengerUser {
      * @return the player
      */
     public Player getPlayer() {
-        return PlayerManager.getById(this.userId);
+        return PlayerManager.getInstance().getById(this.userId);
     }
 
     /**

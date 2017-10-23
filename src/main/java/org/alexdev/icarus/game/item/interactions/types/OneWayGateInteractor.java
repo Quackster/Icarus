@@ -3,9 +3,6 @@ package org.alexdev.icarus.game.item.interactions.types;
 import java.util.concurrent.TimeUnit;
 
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.extradata.ExtraData;
-import org.alexdev.icarus.game.item.extradata.ExtraDataPerspective;
-import org.alexdev.icarus.game.item.extradata.types.StringExtraData;
 import org.alexdev.icarus.game.item.interactions.Interaction;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.RoomManager;
@@ -34,7 +31,7 @@ public class OneWayGateInteractor extends Interaction {
         
         roomUser.walkTo(front.getX(), front.getY());
         
-        RoomManager.getInstance().getScheduledPool().schedule(() -> {
+        RoomManager.getInstance().getScheduleService().schedule(() -> {
             item.setExtraData("0");
             item.updateStatus();
         }, 2, TimeUnit.SECONDS);

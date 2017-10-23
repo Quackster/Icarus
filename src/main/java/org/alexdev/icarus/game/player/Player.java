@@ -73,15 +73,15 @@ public class Player extends Entity {
         boolean loginSuccess = PlayerDao.login(this, ssoTicket);
         PlayerDao.clearTicket(this.getDetails().getId());
 
-        if (!loginSuccess || this.getMachineId() == null || PlayerManager.kickDuplicates(this)) {
+        if (!loginSuccess || this.getMachineId() == null || PlayerManager.getInstance().kickDuplicates(this)) {
             this.getNetwork().close();
             return;
         }
 
         this.logger = LoggerFactory.getLogger("Player " + this.details.getName());
 
-        PlayerManager.addPlayer(this);
-        RoomDao.getPlayerRooms(this.getEntityId(), true);
+        PlayerManager.getInstance().addPlayer(this);
+        RoomManager.getInstance().addRooms(RoomDao.getPlayerRooms(this.getEntityId()));
 
         this.getInventory().init();
         this.getMessenger().init();
@@ -157,7 +157,7 @@ public class Player extends Entity {
                 CoerceJavaToLua.coerce(this)
         });
 
-        PlayerManager.removePlayer(this);
+        PlayerManager.getInstance().removePlayer(this);
 
         for (Room room : RoomManager.getInstance().getPlayerRooms(this.details.getId())) {
             room.dispose(); 

@@ -61,10 +61,9 @@ public class RoomDao {
      * Gets the player rooms.
      *
      * @param userId the user id
-     * @param storeInMemory the store in memory
      * @return the player rooms
      */
-    public static List<Room> getPlayerRooms(int userId, boolean storeInMemory) {
+    public static List<Room> getPlayerRooms(int userId) {
 
         List<Room> rooms = new ArrayList<>();
 
@@ -80,19 +79,8 @@ public class RoomDao {
 
             while (resultSet.next()) {
 
-                int id = resultSet.getInt("id");
-
-                Room room = RoomManager.getInstance().getByRoomId(id);
-
-                if (room == null) {
-                    room = fill(resultSet);
-                }
-
+                Room room = fill(resultSet);
                 rooms.add(room);
-
-                if (storeInMemory) {
-                    RoomManager.getInstance().addRoom(room);
-                }
             }
 
         } catch (Exception e) {

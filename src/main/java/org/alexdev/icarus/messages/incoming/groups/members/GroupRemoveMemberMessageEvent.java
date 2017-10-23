@@ -38,7 +38,7 @@ public class GroupRemoveMemberMessageEvent implements MessageEvent {
        
         group.getMemberManager().remove(removeUserId);
         
-        Player user = PlayerManager.getById(removeUserId);
+        Player user = PlayerManager.getInstance().getById(removeUserId);
         
         if (user != null) {
             user.send(new GroupInfoMessageComposer(group, user, false));

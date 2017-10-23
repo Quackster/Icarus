@@ -8,17 +8,20 @@ import java.util.stream.Collectors;
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.dao.mysql.site.SiteDao;
 import org.alexdev.icarus.game.moderation.Permission;
+import org.alexdev.icarus.game.room.RoomManager;
 
 public class PlayerManager {
 
-    private static List<Permission> permissions;
-    private static Map<Integer, Player> authenticatedPlayersById;
-    private static Map<String, Player> authenticatedPlayersByName;
+    private List<Permission> permissions;
+    private Map<Integer, Player> authenticatedPlayersById;
+    private Map<String, Player> authenticatedPlayersByName;
 
-    static {
-        authenticatedPlayersById = new ConcurrentHashMap<>();
-        authenticatedPlayersByName = new ConcurrentHashMap<>();
-        permissions = PlayerDao.getPermissions();
+    private static PlayerManager instance;
+
+    public PlayerManager() {
+        this.authenticatedPlayersById = new ConcurrentHashMap<>();
+        this.authenticatedPlayersByName = new ConcurrentHashMap<>();
+        this.permissions = PlayerDao.getPermissions();
     }
 
     /**
@@ -26,12 +29,12 @@ public class PlayerManager {
      *
      * @param player the player
      */
-    public static void addPlayer(Player player) {
+    public void addPlayer(Player player) {
 
         if (player.getDetails().isAuthenticated()) {
-            authenticatedPlayersById.put(player.getEntityId(), player);
-            authenticatedPlayersByName.put(player.getDetails().getName(), player);
-            SiteDao.updateKey("users.online", authenticatedPlayersById.size());
+            this.authenticatedPlayersById.put(player.getEntityId(), player);
+            this.authenticatedPlayersByName.put(player.getDetails().getName(), player);
+            SiteDao.updateKey("users.online", this.authenticatedPlayersById.size());
         }
     }
 
@@ -40,12 +43,12 @@ public class PlayerManager {
      *
      * @param player the player
      */
-    public static void removePlayer(Player player) {
+    public void removePlayer(Player player) {
 
         if (player.getDetails().isAuthenticated()) {
-            authenticatedPlayersById.remove(player.getEntityId());
-            authenticatedPlayersByName.remove(player.getDetails().getName());
-            SiteDao.updateKey("users.online", authenticatedPlayersById.size());
+            this.authenticatedPlayersById.remove(player.getEntityId());
+            this.authenticatedPlayersByName.remove(player.getDetails().getName());
+            SiteDao.updateKey("users.online", this.authenticatedPlayersById.size());
         }
     }
 
@@ -55,10 +58,10 @@ public class PlayerManager {
      * @param userId the user id
      * @return {@link Player} the by id
      */
-    public static Player getById(int userId) {
+    public Player getById(int userId) {
 
-        if (authenticatedPlayersById.containsKey(userId)) {
-            return authenticatedPlayersById.get(userId);
+        if (this.authenticatedPlayersById.containsKey(userId)) {
+            return this.authenticatedPlayersById.get(userId);
         }
 
         return null;
@@ -70,10 +73,10 @@ public class PlayerManager {
      * @param name the name
      * @return {@link Player} the by name
      */
-    public static Player getByName(String name) {
+    public Player getByName(String name) {
 
-        if (authenticatedPlayersByName.containsKey(name)) {
-            return authenticatedPlayersByName.get(name);
+        if (this.authenticatedPlayersByName.containsKey(name)) {
+            return this.authenticatedPlayersByName.get(name);
         }
 
         return null;
@@ -85,8 +88,8 @@ public class PlayerManager {
      * @param userId the user id
      * @return true, if successful
      */
-    public static boolean hasPlayer(int userId) {
-        return authenticatedPlayersById.containsKey(userId);
+    public boolean hasPlayer(int userId) {
+        return this.authenticatedPlayersById.containsKey(userId);
     }
 
     /**
@@ -95,8 +98,8 @@ public class PlayerManager {
      * @param name the name
      * @return true, if successful
      */
-    public static boolean hasPlayer(String name) {
-        return authenticatedPlayersByName.containsKey(name);
+    public boolean hasPlayer(String name) {
+        return this.authenticatedPlayersByName.containsKey(name);
     }
 
 
@@ -107,9 +110,9 @@ public class PlayerManager {
      * @param userId the user id
      * @return the player data
      */
-    public static PlayerDetails getPlayerData(int userId) {
+    public PlayerDetails getPlayerData(int userId) {
 
-        Player player = getById(userId);
+        Player player = this.getById(userId);
 
         if (player == null) {
             return PlayerDao.getDetails(userId);
@@ -123,9 +126,9 @@ public class PlayerManager {
      *
      * @param message the message
      */
-    public static void sendMessage(String message) {
+    public void sendMessage(String message) {
         
-        for (Player player : authenticatedPlayersById.values()) {
+        for (Player player : this.authenticatedPlayersById.values()) {
             player.sendMessage(message);
         }
     }
@@ -136,9 +139,9 @@ public class PlayerManager {
      * @param player the player
      * @return true, if successful
      */
-    public static boolean kickDuplicates(Player player) {
+    public boolean kickDuplicates(Player player) {
 
-        for (Player session : authenticatedPlayersById.values()) {
+        for (Player session : this.authenticatedPlayersById.values()) {
 
             if (session.getDetails().getId() == player.getEntityId()) {
                 if (session.getNetwork().getConnectionId() != player.getNetwork().getConnectionId()) { // user tries to login twice
@@ -158,9 +161,9 @@ public class PlayerManager {
      * @param perm the permission
      * @return true, if successful
      */
-    public static boolean hasPermission(int rank, String perm) {
+    public boolean hasPermission(int rank, String perm) {
 
-        for (Permission permission  : permissions) {
+        for (Permission permission : this.permissions) {
 
             if (permission.getPermission().equals(perm)) {
 
@@ -184,7 +187,21 @@ public class PlayerManager {
      *
      * @return the players
      */
-    public static List<Player> getPlayers() {
-        return authenticatedPlayersById.values().stream().filter(p -> p != null).collect(Collectors.toList());
+    public List<Player> getPlayers() {
+        return this.authenticatedPlayersById.values().stream().filter(p -> p != null).collect(Collectors.toList());
+    }
+
+    /**
+     * Gets the instance
+     *
+     * @return the instance
+     */
+    public static PlayerManager getInstance() {
+
+        if (instance == null) {
+            instance = new PlayerManager();
+        }
+
+        return instance;
     }
 }

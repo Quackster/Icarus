@@ -26,7 +26,7 @@ public class DoorbellAnswerMessageEvent implements MessageEvent {
             return;
         }
 
-        Player client = PlayerManager.getByName(name);
+        Player client = PlayerManager.getInstance().getByName(name);
 
         if (client == null || client.getDetails() == null) {
             return;

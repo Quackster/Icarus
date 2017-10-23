@@ -37,7 +37,7 @@ public class GroupMembershipAcceptMessageEvent implements MessageEvent {
         }
         
         group.getMemberManager().addMember(GroupMemberType.MEMBER, userId);
-        Player user = PlayerManager.getById(userId);
+        Player user = PlayerManager.getInstance().getById(userId);
         
         if (user != null) {
             user.send(new GroupInfoMessageComposer(group, user, false));

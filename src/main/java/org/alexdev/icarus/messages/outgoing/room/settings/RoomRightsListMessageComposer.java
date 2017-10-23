@@ -25,7 +25,7 @@ public class RoomRightsListMessageComposer extends MessageComposer {
 
         for (Integer userId : this.rights) {
             response.writeInt(userId);
-            response.writeString(PlayerManager.getPlayerData(userId).getName());
+            response.writeString(PlayerManager.getInstance().getPlayerData(userId).getName());
         }
     }
 

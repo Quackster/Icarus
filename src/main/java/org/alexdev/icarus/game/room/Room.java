@@ -242,7 +242,7 @@ public class Room extends Metadata {
             return;
         }
 
-        if (PlayerManager.hasPlayer(this.data.getOwnerId())) {
+        if (PlayerManager.getInstance().hasPlayer(this.data.getOwnerId())) {
             return;
         }
 

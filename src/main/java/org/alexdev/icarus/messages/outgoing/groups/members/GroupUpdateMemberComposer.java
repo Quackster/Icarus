@@ -14,7 +14,7 @@ public class GroupUpdateMemberComposer extends MessageComposer {
 
     public GroupUpdateMemberComposer(int groupId, int userId, int type) {
         this.groupId = groupId;
-        this.details = PlayerManager.getPlayerData(userId);
+        this.details = PlayerManager.getInstance().getPlayerData(userId);
         this.type = type;
     }
 
