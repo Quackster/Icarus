@@ -24,6 +24,7 @@ public class PurchaseItemMessageEvent implements MessageEvent {
         int pageId = request.readInt();
         int itemId = request.readInt();
         String extraData = request.readString();
+        int amount = request.readInt();
 
         CataloguePage page = CatalogueManager.getPage(pageId);
 
@@ -43,7 +44,7 @@ public class PurchaseItemMessageEvent implements MessageEvent {
             return;
         }
 
-        this.purchase(player, item, extraData, request);
+        this.purchase(player, item, extraData, amount);
 
     }
 
@@ -127,12 +128,10 @@ Outgoing(1483, 6, _-2Nu) -> [0][0][0][6][5]Ë[0][0][0][3]
      *
      * @param player the player
      * @param item the item purchased
-     * @param extraData any extradata to apply to the new item
-     * @param request the request for reading further data
+     * @param extraData any extra data to apply to the new item
+     * @param amount the amount purchased
      */
-    private void purchase(Player player, CatalogueItem item, String extraData, ClientMessage request) {
-
-        int amount = request.readInt();
+    private void purchase(Player player, CatalogueItem item, String extraData, int amount) {
 
         if (amount > 100) {
             amount = 1;
