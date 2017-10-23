@@ -337,16 +337,14 @@ public class MessageHandler {
     /**
      * Invoke the request.
      *
-     * @param player the player
      * @param messageId the message id
      * @param message the message
      */
     public void invoke(short messageId, ClientMessage message) {
 
         if (this.messages.containsKey(messageId)) {
-
             for (MessageEvent event : this.messages.get(messageId)) {
-                event.handle(player, message);
+                event.handle(this.player, message);
             }
         }
     }

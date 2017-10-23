@@ -5,14 +5,7 @@ public class Permission {
     private String permission;
     private boolean inheritable;
     private int rank;
-    
-    /**
-     * Instantiates a new permission.
-     *
-     * @param permission the permission
-     * @param inheritable the inheritable
-     * @param rank the rank
-     */
+
     public Permission(String permission, boolean inheritable, int rank) {
         this.permission = permission;
         this.inheritable = inheritable;
