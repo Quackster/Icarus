@@ -1,8 +1,5 @@
 package org.alexdev.icarus.game.room.tasks;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.pathfinder.Position;
@@ -12,6 +9,9 @@ import org.alexdev.icarus.game.room.model.Rotation;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 import org.alexdev.icarus.util.Util;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MovementTask implements Runnable {
 
@@ -101,7 +101,7 @@ public class MovementTask implements Runnable {
 
                 int rotation = 0;
 
-                if (entity.getMetadata().hasMetadata("moonwalk")) {
+                if (entity.getMetadata().getBoolean("moonwalk")) {
                     rotation = Rotation.calculate(next.getX(), next.getY(), position.getX(), position.getY());
                 } else {
                     rotation = Rotation.calculate(position.getX(), position.getY(), next.getX(), next.getY());

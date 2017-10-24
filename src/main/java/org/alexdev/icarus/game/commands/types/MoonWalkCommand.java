@@ -19,7 +19,7 @@ public class MoonWalkCommand extends Command {
         }
 
         player.getMetadata().set("moonwalk", !player.getMetadata().getBoolean("moonwalk"));
-        player.getRoomUser().chatSelf(ChatType.WHISPER, "I have turned " + (player.getMetadata().getBoolean("moonwalk") ? "off" : "on") + " moonwalking.");
+        player.getRoomUser().chatSelf(ChatType.WHISPER, "I have turned " + (player.getMetadata().getBoolean("moonwalk") ? "on" : "off") + " moonwalking.");
     }
 
     @Override

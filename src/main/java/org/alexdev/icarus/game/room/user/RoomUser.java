@@ -1,11 +1,6 @@
 package org.alexdev.icarus.game.room.user;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
-import org.alexdev.icarus.game.GameSettings;
 import org.alexdev.icarus.game.commands.CommandManager;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityStatus;
@@ -22,15 +17,17 @@ import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.model.Rotation;
-import org.alexdev.icarus.messages.outgoing.room.notify.FloodFilterMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.CarryObjectMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.DanceMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.TalkMessageComposer;
 import org.alexdev.icarus.messages.outgoing.user.effects.DisplayEffectMessageComposer;
 import org.alexdev.icarus.messages.types.MessageComposer;
-import org.alexdev.icarus.util.Util;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class RoomUser {
 
@@ -171,9 +168,10 @@ public class RoomUser {
      *
      * @param message the message
      * @param type the type
-     * @param spamCheck the spam check
      */
-    public void chat(String message, ChatType type, boolean spamCheck) {
+    public void chat(String message, ChatType type) {
+
+        //layer.send(new FloodFilterMessageComposer(GameSettings.CHAT_FLOOD_WAIT));
 
         if (this.entity.getType() != EntityType.PLAYER) {
 
@@ -192,18 +190,6 @@ public class RoomUser {
         }
 
         Player player = (Player)this.entity;
-        boolean isStaff = player.getDetails().hasPermission("moderator");
-
-        if (spamCheck) {
-            if (Util.getCurrentTimeSeconds() < this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
-
-                if (!isStaff) {
-                    player.send(new FloodFilterMessageComposer(GameSettings.CHAT_FLOOD_WAIT));
-                    return;
-                }
-            }
-        }
-
         RoomDao.saveChatlog(player, this.room.getData().getId(), type.name(), message);
 
         if (CommandManager.getInstance().hasCommand(player, message)) {
@@ -231,20 +217,6 @@ public class RoomUser {
             }
 
             person.getRoomUser().lookTowards(this.entity.getRoomUser().getPosition());
-        }
-
-        if (spamCheck) {
-            if (!player.getDetails().hasPermission("moderator")) {
-
-                if (Util.getCurrentTimeSeconds() > this.chatFloodTimer && this.chatCount >= GameSettings.MAX_CHAT_BEFORE_FLOOD) {
-                    this.chatCount = 0;
-                } else {
-                    this.chatCount = this.chatCount + 1;
-                }
-
-                this.chatFloodTimer = (Util.getCurrentTimeSeconds() + GameSettings.CHAT_FLOOD_SECONDS);
-
-            }
         }
     }
 

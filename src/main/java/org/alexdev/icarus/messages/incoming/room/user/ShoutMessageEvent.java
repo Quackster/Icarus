@@ -28,6 +28,6 @@ public class ShoutMessageEvent implements MessageEvent {
         int bubble = request.readInt();
         
         roomUser.setChatColor(bubble);
-        roomUser.chat(message, ChatType.SHOUT, true);
+        roomUser.chat(message, ChatType.SHOUT);
     }
 }

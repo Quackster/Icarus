@@ -27,6 +27,7 @@ import org.alexdev.icarus.messages.outgoing.room.user.RoomForwardComposer;
 import org.alexdev.icarus.messages.outgoing.user.*;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.PlayerNetwork;
+import org.alexdev.icarus.util.Util;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 import org.slf4j.Logger;
@@ -77,11 +78,13 @@ public class Player extends Entity {
 
         if (GameSettings.BOT_SPAMMERS_ALLOW && ssoTicket.startsWith(GameSettings.BOT_SPAMMERS_SSO_PREFIX)) {
             loginSuccess = true;
-        }
-
-        if (!loginSuccess || this.getMachineId() == null || PlayerManager.getInstance().kickDuplicates(this)) {
-            this.getNetwork().close();
-            return;
+            this.details.setId(Util.getRandom().nextInt(10000));
+            this.details.setName("BottyBoi" + Util.getRandom().nextInt(10000));
+        } else {
+            if (!loginSuccess || this.getMachineId() == null || PlayerManager.getInstance().kickDuplicates(this)) {
+                this.getNetwork().close();
+                return;
+            }
         }
 
         this.logger = LoggerFactory.getLogger("Player " + this.details.getName());
