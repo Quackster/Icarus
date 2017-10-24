@@ -18,6 +18,9 @@ public class GameSettings {
     public static int CHAT_FLOOD_WAIT = 20;
     public static int MAX_CHAT_BEFORE_FLOOD = 8;
 
+    public static boolean BOT_SPAMMERS_ALLOW;
+    public static String BOT_SPAMMERS_SSO_PREFIX;
+
     public static final double FURNITURE_OFFSET = 0.001;
 
     public static void load() {
@@ -28,5 +31,7 @@ public class GameSettings {
         CREDITS_INTERVAL_AMOUNT = Configuration.getInstance().getGameConfig().get("Scheduler", "credits.interval.amount", Integer.class);
         DUCKETS_INTERVAL_MINUTES = Configuration.getInstance().getGameConfig().get("Scheduler", "duckets.interval.minutes", Integer.class);
         DUCKETS_INTERVAL_AMOUNT = Configuration.getInstance().getGameConfig().get("Scheduler", "duckets.interval.amount", Integer.class);
+        BOT_SPAMMERS_ALLOW = Configuration.getInstance().getGameConfig().get("Bots", "bot.spammers.allow", Boolean.class);
+        BOT_SPAMMERS_SSO_PREFIX = Configuration.getInstance().getGameConfig().get("Bots", "bot.spammer.sso.ticket.prefix", String.class);
     }
 }

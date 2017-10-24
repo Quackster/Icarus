@@ -5,6 +5,7 @@ import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.encryption.DiffieHellman;
 import org.alexdev.icarus.encryption.RC4;
+import org.alexdev.icarus.game.GameSettings;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.inventory.Inventory;
@@ -73,6 +74,10 @@ public class Player extends Entity {
 
         boolean loginSuccess = PlayerDao.login(this, ssoTicket);
         PlayerDao.clearTicket(this.getDetails().getId());
+
+        if (GameSettings.BOT_SPAMMERS_ALLOW && ssoTicket.startsWith(GameSettings.BOT_SPAMMERS_SSO_PREFIX)) {
+            loginSuccess = true;
+        }
 
         if (!loginSuccess || this.getMachineId() == null || PlayerManager.getInstance().kickDuplicates(this)) {
             this.getNetwork().close();

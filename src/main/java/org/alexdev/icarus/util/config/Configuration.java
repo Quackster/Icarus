@@ -136,7 +136,6 @@ public class Configuration {
         writer.println("log.connections=true");
         writer.println("log.sent.packets=false");
         writer.println("log.received.packets=false");
-        writer.println();
         writer.println("log.items.loaded=true");
         writer.println();
     }
@@ -161,6 +160,10 @@ public class Configuration {
         writer.println();
         writer.println("[Room]");
         writer.println("afk.room.kick=1800");
+        writer.println();
+        writer.println("[Bots]");
+        writer.println("bot.spammers.allow=false");
+        writer.println("bot.spammer.sso.ticket.prefix=icarus-bot-");
         writer.println();
         writer.println("[Camera]");
         writer.println("camera.enabled=true");

@@ -1,6 +1,5 @@
 package org.alexdev.icarus.game.item;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.alexdev.icarus.dao.mysql.item.InventoryDao;
 import org.alexdev.icarus.dao.mysql.item.TeleporterDao;
 import org.alexdev.icarus.game.inventory.InventoryNotification;

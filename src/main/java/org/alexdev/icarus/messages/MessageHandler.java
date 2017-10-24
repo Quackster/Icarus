@@ -315,7 +315,6 @@ public class MessageHandler {
         List<MessageEvent> events = this.messages.get(header);
 
         if (events != null) {
-            events.clear();
             this.messages.remove(header);
         }
     }
