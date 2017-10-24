@@ -19,6 +19,18 @@ public class PurchasePhotoMessageEvent implements MessageEvent {
             return;
         }
 
+        if (PhotoPricingMessageEvent.COST_CREDITS > 0) {
+            if (player.getDetails().getCredits() < PhotoPricingMessageEvent.COST_CREDITS) {
+                return;
+            }
+        }
+
+        if (PhotoPricingMessageEvent.COST_DUCKETS > 0) {
+            if (player.getDetails().getDuckets() < PhotoPricingMessageEvent.COST_DUCKETS) {
+                return;
+            }
+        }
+
         ItemDefinition photoDef = ItemManager.getInstance().getFurnitureByClass("external_image_wallitem_poster_small");
 
         StringBuilder extraData = new StringBuilder();
@@ -35,9 +47,19 @@ public class PurchasePhotoMessageEvent implements MessageEvent {
         
         player.getInventory().addItem(photo, InventoryNotification.ALERT);
         player.getInventory().updateItems();
-        
-        player.getDetails().setCredits(player.getDetails().getCredits() - 50);
-        player.getDetails().sendCredits();
+
+        if (PhotoPricingMessageEvent.COST_CREDITS > 0) {
+            player.getDetails().setCredits(player.getDetails().getCredits() - PhotoPricingMessageEvent.COST_CREDITS);
+            player.getDetails().sendCredits();
+        }
+
+        if (PhotoPricingMessageEvent.COST_DUCKETS > 0) {
+            player.getDetails().setDuckets(player.getDetails().getDuckets() - PhotoPricingMessageEvent.COST_DUCKETS);
+            player.getDetails().sendDuckets();
+        }
+
+        player.getDetails().save();
+
         
         player.getMetadata().remove("latestPhotoUrl");
         player.send(new PurchasedPhotoMessageComposer());
