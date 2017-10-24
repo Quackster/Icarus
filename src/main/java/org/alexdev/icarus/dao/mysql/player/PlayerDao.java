@@ -1,19 +1,14 @@
 package org.alexdev.icarus.dao.mysql.player;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.alexdev.icarus.game.player.PlayerDetails;
-import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.moderation.Permission;
 import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.game.player.PlayerDetails;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerDao {
     
@@ -182,14 +177,15 @@ public class PlayerDao {
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("UPDATE users SET mission = ?, figure = ?, gender = ?, rank = ?, credits = ?, home_room = ? WHERE id = ?", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("UPDATE users SET mission = ?, figure = ?, gender = ?, rank = ?, credits = ?, duckets = ?, home_room = ? WHERE id = ?", sqlConnection);
             preparedStatement.setString(1, details.getMission());
             preparedStatement.setString(2, details.getFigure());
             preparedStatement.setString(3, details.getGender());
             preparedStatement.setInt(4, details.getRank());
             preparedStatement.setInt(5, details.getCredits());
-            preparedStatement.setInt(6, details.getHomeRoomId());
-            preparedStatement.setInt(7, details.getId());
+            preparedStatement.setInt(6, details.getDuckets());
+            preparedStatement.setInt(7, details.getHomeRoomId());
+            preparedStatement.setInt(8, details.getId());
             preparedStatement.execute();
 
         } catch (Exception e) {
