@@ -1,7 +1,5 @@
 package org.alexdev.icarus.messages.incoming.room.items;
 
-import java.util.List;
-
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
@@ -14,9 +12,11 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.locale.Locale;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
+
+import java.util.List;
 
 public class PlaceItemMessageEvent implements MessageEvent {
 
@@ -49,7 +49,7 @@ public class PlaceItemMessageEvent implements MessageEvent {
             List<Item> items = player.getRoom().getItemManager().getItems(InteractionType.DIMMER);
 
             if (items.size() > 0) {
-                player.sendMessage(Util.getLocaleEntry("one.dimmer.per.room"));
+                player.sendMessage(Locale.getInstance().getEntry("one.dimmer.per.room"));
                 return;
             }
         }

@@ -1,14 +1,13 @@
 package org.alexdev.icarus.game.navigator;
 
+import org.alexdev.icarus.dao.mysql.navigator.NavigatorDao;
+import org.alexdev.icarus.util.config.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import org.alexdev.icarus.dao.mysql.navigator.NavigatorDao;
-import org.alexdev.icarus.game.room.RoomManager;
-import org.alexdev.icarus.util.Util;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class NavigatorManager {
 
@@ -23,7 +22,7 @@ public class NavigatorManager {
         this.tabs = NavigatorDao.getTabs(-1);
         this.categories = NavigatorDao.getCategories();
 
-        if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
+        if (Configuration.getInstance().getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
             log.info("Loaded {} navigator categories", categories.size());
             log.info("Loaded {} navigator tabs", tabs.size());
         }

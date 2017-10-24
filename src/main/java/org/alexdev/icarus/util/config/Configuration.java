@@ -1,31 +1,41 @@
 package org.alexdev.icarus.util.config;
 
+import org.alexdev.icarus.log.Log;
+import org.apache.log4j.PropertyConfigurator;
+import org.ini4j.Wini;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import org.alexdev.icarus.util.Util;
-import org.apache.log4j.PropertyConfigurator;
-
 public class Configuration {
-    
+
+    private Wini configuration;
+    private Wini gameConfig;
+
+    private static Configuration instance;
+
+    public Configuration() {
+        try {
+            checkLog4j();
+
+            writeFileIfNotExist();
+            configuration = new Wini(new File("icarus.properties"));
+            gameConfig = new Wini(new File("game.properties"));
+        } catch (Exception e) {
+            Log.getErrorLogger().error("Unhandled exception while loading the configurion: ", e);
+        }
+    }
+
 	/**
      * Create the configuration files for this application, with the default values. Will throw an
      * exception if it could not create such files.
      * 
      * @throws IOException
      */
-    public static void createConfig() throws IOException {
-    	checkLog4j();
-    	writeFileIfNotExist();
-    }
+    private void checkLog4j() throws FileNotFoundException {
 
-    private static void checkLog4j() throws FileNotFoundException {
-		
-    	// checks for bin folder, means its running in IDE
-    	//File bin = new File("bin");
-    	
     	String output = "log4j.rootLogger=INFO, stdout\n" +
                 "log4j.appender.stdout.threshold=info\n" +
                 "log4j.appender.stdout=org.apache.log4j.ConsoleAppender\n" +
@@ -68,7 +78,7 @@ public class Configuration {
         // (hopefully, anyways, if no one operating this server screwed something up).
 	}
 
-	private static void writeFileIfNotExist() throws IOException {
+	private void writeFileIfNotExist() throws IOException {
         File file = new File("icarus.properties");
         
         if (!file.isFile()) { 
@@ -88,17 +98,7 @@ public class Configuration {
             writer.flush();
             writer.close();
         }
-        
-        file = new File("locale.ini");
 
-        if (!file.isFile()) { 
-            file.createNewFile();
-            PrintWriter writer = new PrintWriter(file.getAbsoluteFile());
-            writeLocaleConfiguration(writer);
-            writer.flush();
-            writer.close();
-        }
-        
         file = new File("plugins");
 
         if (!file.exists()) { 
@@ -114,8 +114,6 @@ public class Configuration {
             writer.flush();
             writer.close();
         }
-
-        Util.load();
 	}
 
 	/**
@@ -123,7 +121,7 @@ public class Configuration {
      * 
      * @param writer - {@link PrintWriter} the file writer
      */
-    private static void writeMainConfiguration(PrintWriter writer) {
+    private void writeMainConfiguration(PrintWriter writer) {
         writer.println("[Server]");
         writer.println("server.ip=127.0.0.1");
         writer.println("server.port=30001");
@@ -148,13 +146,7 @@ public class Configuration {
      * 
      * @param writer - {@link PrintWriter} the file writer
      */
-    private static void writeGameConfiguration(PrintWriter writer) {
-
-        /*    public static final int CHAT_FLOOD_SECONDS = 4;
-    public static final int CHAT_FLOOD_WAIT = 20;
-    public static final int MAX_CHAT_BEFORE_FLOOD = 8;
-*/
-
+    private void writeGameConfiguration(PrintWriter writer) {
         writer.println("[Scheduler]");
         writer.println("credits.interval.minutes=10");
         writer.println("credits.interval.amount=100");
@@ -206,26 +198,37 @@ public class Configuration {
                 "plugins = {}");
         writer.println();
     }
-    
+
     /**
-     * Writes default values for the locale
-     * 
-     * @param writer - {@link PrintWriter} the file writer
+     * Get the main server configuration that controls logging, database access,
+     * and server details.
+     *
+     * @return the configuration
      */
-    private static void writeLocaleConfiguration(PrintWriter writer) {
-        writer.println("[Locale]");
-        writer.println("language=English");
-        writer.println();
-        writer.println("[English]");
-        writer.println("camera.error=Oops! Could not process the photo, relog maybe?");
-        writer.println();
-        writer.println("one.dimmer.per.room=You can only have one dimmer per room!");
-        writer.println();
-        writer.println("group.remove.administrator.denied=Sorry, only group creators can remove other administrators from the group.");
-        writer.println("group.existing.member=Sorry, this user is already a group member.");
-        writer.println("group.only.creators.add.admin=Sorry, only group creators can give administrator rights to other group members.");
-        writer.println("group.only.creators.remove.admin=Sorry, only group creators can remove administrator rights from other group members.");
-        writer.println();
-        writer.println("player.commands.no.args=You did not supply enough arguments for this command!");
+    public Wini getServerConfig() {
+        return configuration;
+    }
+
+    /**
+     * Get the game configuration that controls the variables that influence gameplay.
+     *
+     * @return the configuration
+     */
+    public Wini getGameConfig() {
+        return gameConfig;
+    }
+
+    /**
+     * Gets the instance
+     *
+     * @return the instance
+     */
+    public static Configuration getInstance() {
+
+        if (instance == null) {
+            instance = new Configuration();
+        }
+
+        return instance;
     }
 }

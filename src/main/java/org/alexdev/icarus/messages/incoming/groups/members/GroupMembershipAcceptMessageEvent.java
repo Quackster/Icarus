@@ -9,7 +9,7 @@ import org.alexdev.icarus.messages.outgoing.groups.GroupInfoMessageComposer;
 import org.alexdev.icarus.messages.outgoing.groups.members.GroupUpdateMemberComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.locale.Locale;
 
 public class GroupMembershipAcceptMessageEvent implements MessageEvent {
 
@@ -32,7 +32,7 @@ public class GroupMembershipAcceptMessageEvent implements MessageEvent {
         int userId = reader.readInt();
         
         if (group.getMemberManager().isMember(userId)) {
-            player.sendMessage(Util.getLocaleEntry("group.existing.member"));
+            player.sendMessage(Locale.getInstance().getEntry("group.existing.member"));
             return;
         }
         

@@ -1,6 +1,6 @@
 package org.alexdev.icarus.dao.mysql;
 
-import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.config.Configuration;
 
 public class Dao  {
     
@@ -15,10 +15,10 @@ public class Dao  {
 
         Storage.getLogger().info("Connecting to MySQL server");
         
-        storage = new Storage(Util.getServerConfig().get("Database", "mysql.hostname", String.class),
-                Util.getServerConfig().get("Database", "mysql.username", String.class),
-                Util.getServerConfig().get("Database", "mysql.password", String.class),
-                Util.getServerConfig().get("Database", "mysql.database", String.class));
+        storage = new Storage(Configuration.getInstance().getServerConfig().get("Database", "mysql.hostname", String.class),
+                Configuration.getInstance().getServerConfig().get("Database", "mysql.username", String.class),
+                Configuration.getInstance().getServerConfig().get("Database", "mysql.password", String.class),
+                Configuration.getInstance().getServerConfig().get("Database", "mysql.database", String.class));
 
         isConnected = storage.isConnected();
 

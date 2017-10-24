@@ -1,7 +1,7 @@
 package org.alexdev.icarus.game.pets;
 
 import org.alexdev.icarus.dao.mysql.pets.PetDao;
-import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.config.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +19,7 @@ public class PetManager {
     public PetManager() {
         this.races = PetDao.getPetRaces();
 
-        if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
+        if (Configuration.getInstance().getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
             log.info("Loaded {} pet races", this.races.size());
         }
     }

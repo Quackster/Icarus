@@ -1,14 +1,14 @@
 package org.alexdev.icarus.game.player;
 
+import org.alexdev.icarus.dao.mysql.player.PlayerDao;
+import org.alexdev.icarus.dao.mysql.site.SiteDao;
+import org.alexdev.icarus.dao.site.SiteKey;
+import org.alexdev.icarus.game.moderation.Permission;
+
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
-
-import org.alexdev.icarus.dao.mysql.player.PlayerDao;
-import org.alexdev.icarus.dao.mysql.site.SiteDao;
-import org.alexdev.icarus.game.moderation.Permission;
-import org.alexdev.icarus.game.room.RoomManager;
 
 public class PlayerManager {
 
@@ -34,7 +34,7 @@ public class PlayerManager {
         if (player.getDetails().isAuthenticated()) {
             this.authenticatedPlayersById.put(player.getEntityId(), player);
             this.authenticatedPlayersByName.put(player.getDetails().getName(), player);
-            SiteDao.updateKey("users.online", this.authenticatedPlayersById.size());
+            SiteDao.updateKey(SiteKey.USERS_ONLINE, this.authenticatedPlayersById.size());
         }
     }
 
@@ -48,7 +48,7 @@ public class PlayerManager {
         if (player.getDetails().isAuthenticated()) {
             this.authenticatedPlayersById.remove(player.getEntityId());
             this.authenticatedPlayersByName.remove(player.getDetails().getName());
-            SiteDao.updateKey("users.online", this.authenticatedPlayersById.size());
+            SiteDao.updateKey(SiteKey.USERS_ONLINE, this.authenticatedPlayersById.size());
         }
     }
 
@@ -127,7 +127,6 @@ public class PlayerManager {
      * @param message the message
      */
     public void sendMessage(String message) {
-        
         for (Player player : this.authenticatedPlayersById.values()) {
             player.sendMessage(message);
         }

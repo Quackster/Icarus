@@ -1,10 +1,8 @@
 package org.alexdev.icarus;
 
-import java.lang.reflect.Constructor;
-import java.net.InetAddress;
-
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.site.SiteDao;
+import org.alexdev.icarus.dao.site.SiteKey;
 import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.commands.CommandManager;
@@ -14,14 +12,15 @@ import org.alexdev.icarus.game.navigator.NavigatorManager;
 import org.alexdev.icarus.game.pets.PetManager;
 import org.alexdev.icarus.game.plugins.PluginManager;
 import org.alexdev.icarus.game.room.RoomManager;
-import org.alexdev.icarus.log.Log;
-import org.alexdev.icarus.messages.MessageHandler;
 import org.alexdev.icarus.server.api.ServerHandler;
 import org.alexdev.icarus.util.Util;
 import org.alexdev.icarus.util.config.Configuration;
 import org.alexdev.icarus.util.metadata.Metadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Constructor;
+import java.net.InetAddress;
 
 public class Icarus extends Metadata {
 
@@ -42,8 +41,7 @@ public class Icarus extends Metadata {
         startupTime = Util.getCurrentTimeSeconds();
 
         try {
-
-            Configuration.createConfig();
+            Configuration.getInstance();
             log = LoggerFactory.getLogger(Icarus.class);
 
             // The "Doom" ASCII from
@@ -76,13 +74,13 @@ public class Icarus extends Metadata {
             PluginManager.getInstance();
 
             log.info("Resetting users online...");
-            SiteDao.updateKey("users.online", 0);
+            SiteDao.updateKey(SiteKey.USERS_ONLINE, 0);
 
             log.info("Setting up server");
 
             // Get the server variables for the socket to listen on
-            serverIP = Util.getServerConfig().get("Server", "server.ip", String.class);
-            serverPort = Util.getServerConfig().get("Server", "server.port", int.class);
+            serverIP = Configuration.getInstance().getServerConfig().get("Server", "server.ip", String.class);
+            serverPort = Configuration.getInstance().getServerConfig().get("Server", "server.port", int.class);
 
             // Override with valid IP that we have resolved
             if (!isValidIpAddress(serverIP)) {
@@ -91,7 +89,7 @@ public class Icarus extends Metadata {
 
             // Since we have overridden the IP, grab it again from the config to have a nice output instead of
             // something like 0.0.0.0 for instance ;)
-            String configurationAddress = Util.getServerConfig().get("Server", "server.ip", String.class);
+            String configurationAddress = Configuration.getInstance().getServerConfig().get("Server", "server.ip", String.class);
 
             // Get the server instance through reflection
             Class<? extends ServerHandler> serverClass = Class.forName(Icarus.getServerClassPath()).asSubclass(ServerHandler.class);

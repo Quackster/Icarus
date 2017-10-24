@@ -5,14 +5,14 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.config.Configuration;
 
 public class DeletePhotoMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
 
-        if (!Util.getGameConfig().get("Camera", "camera.enabled", Boolean.class)) {
+        if (!Configuration.getInstance().getGameConfig().get("Camera", "camera.enabled", Boolean.class)) {
             return;
         }
 
@@ -35,10 +35,10 @@ public class DeletePhotoMessageEvent implements MessageEvent {
         room.getMapping().removeItem(item);
         item.delete();
 
-        /*if (Util.getGameConfig().get("Camera", "remove.file.photo.delete", Boolean.class)) {
+        /*if (Configuration.getInstance().getServerConfig().getGameConfig().get("Camera", "remove.file.photo.delete", Boolean.class)) {
 
             final String fileName = item.getExtraData().substring(6).substring(0, item.getExtraData().indexOf(".png") - 2);
-            final String filePath = Util.getGameConfig().get("Camera", "camera.path", String.class);
+            final String filePath = Configuration.getInstance().getServerConfig().getGameConfig().get("Camera", "camera.path", String.class);
             
             GameScheduler.getScheduler().execute(() -> {
                 try {

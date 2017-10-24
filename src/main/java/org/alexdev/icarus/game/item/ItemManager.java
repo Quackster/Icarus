@@ -1,14 +1,12 @@
 package org.alexdev.icarus.game.item;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.alexdev.icarus.dao.mysql.item.ItemDao;
-import org.alexdev.icarus.game.room.RoomManager;
-import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.config.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ItemManager {
 
@@ -34,7 +32,7 @@ public class ItemManager {
             this.furnitureClassLookup.put(def.getItemName(), def);
         }
 
-        if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
+        if (Configuration.getInstance().getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
             log.info("Loaded {} item definitions", furnitures.size());
         }
     }

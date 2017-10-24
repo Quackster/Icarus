@@ -1,7 +1,5 @@
 package org.alexdev.icarus.messages.incoming.camera;
 
-import java.io.FileOutputStream;
-
 import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
@@ -9,13 +7,17 @@ import org.alexdev.icarus.messages.outgoing.camera.PhotoPreviewMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.config.Configuration;
+import org.alexdev.icarus.util.locale.Locale;
+
+import java.io.FileOutputStream;
 
 public class PreviewPhotoMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
 
-        if (!Util.getGameConfig().get("Camera", "camera.enabled", Boolean.class)) {
+        if (!Configuration.getInstance().getGameConfig().get("Camera", "camera.enabled", Boolean.class)) {
             return;
         }
 
@@ -29,12 +31,12 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
         final byte[] photoPayload = reader.readBytes(photoLength);
 
         if (!new String(photoPayload).contains("PNG")) {
-            player.sendMessage(Util.getLocaleEntry("camera.error"));
+            player.sendMessage(Locale.getInstance().getEntry("camera.error"));
             return;
         }
 
-        String fileName = Util.getGameConfig().get("Camera", "camera.filename", String.class);
-        String filePath = Util.getGameConfig().get("Camera", "camera.path", String.class);
+        String fileName = Configuration.getInstance().getGameConfig().get("Camera", "camera.filename", String.class);
+        String filePath = Configuration.getInstance().getGameConfig().get("Camera", "camera.path", String.class);
 
         fileName = fileName.replace("{username}", player.getDetails().getName());
         fileName = fileName.replace("{id}", room.getData().getId() + "");

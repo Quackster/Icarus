@@ -6,7 +6,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageEncoder;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.netty.streams.NettyResponse;
-import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.config.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +29,7 @@ public class NetworkEncoder extends MessageToMessageEncoder<MessageComposer> {
             buffer.setInt(0, buffer.writerIndex() - 4);
         }
 
-        if (Util.getServerConfig().get("Logging", "log.sent.packets", Boolean.class)) {
+        if (Configuration.getInstance().getServerConfig().get("Logging", "log.sent.packets", Boolean.class)) {
             log.info("SENT: {} / {}", msg.getHeader(), response.getBodyString());
         }
 

@@ -1,5 +1,14 @@
 package org.alexdev.icarus.game.room;
 
+import org.alexdev.icarus.dao.mysql.room.RoomDao;
+import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
+import org.alexdev.icarus.game.GameScheduler;
+import org.alexdev.icarus.game.room.enums.RoomType;
+import org.alexdev.icarus.game.room.model.RoomModel;
+import org.alexdev.icarus.util.config.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -7,15 +16,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.stream.Collectors;
-
-import org.alexdev.icarus.dao.mysql.room.RoomDao;
-import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
-import org.alexdev.icarus.game.GameScheduler;
-import org.alexdev.icarus.game.room.enums.RoomType;
-import org.alexdev.icarus.game.room.model.RoomModel;
-import org.alexdev.icarus.util.Util;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class RoomManager {
 
@@ -34,7 +34,7 @@ public class RoomManager {
         this.roomModels = RoomModelDao.getModels();
         this.addRooms(RoomDao.getPublicRooms());
 
-        if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
+        if (Configuration.getInstance().getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
             log.info("Loaded {} room models ", this.roomModels.size());
             log.info("Loaded {} public rooms", this.rooms.size());
         }

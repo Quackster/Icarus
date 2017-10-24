@@ -9,7 +9,6 @@ import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.groups.access.GroupAccessType;
 
-
 public class GroupDao {
 
     /**

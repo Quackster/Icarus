@@ -1,7 +1,5 @@
 package org.alexdev.icarus.messages.incoming.room.settings;
 
-import java.io.File;
-
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
 import org.alexdev.icarus.game.GameScheduler;
@@ -11,10 +9,11 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.enums.RoomAction;
-
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.config.Configuration;
+
+import java.io.File;
 
 public class DeleteRoomMessageEvent implements MessageEvent {
 
@@ -52,7 +51,7 @@ public class DeleteRoomMessageEvent implements MessageEvent {
         if (room.getData().getThumbnail() != null && room.getData().getThumbnail().length() > 0) {
 
             final String fileName = room.getData().getThumbnail().split("/")[1];
-            final String filePath = Util.getGameConfig().get("Thumbnail", "thumbnail.path", String.class);
+            final String filePath = Configuration.getInstance().getGameConfig().get("Thumbnail", "thumbnail.path", String.class);
             
             GameScheduler.getInstance().getScheduler().execute(() -> {
                 try {

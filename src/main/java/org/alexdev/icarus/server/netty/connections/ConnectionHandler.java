@@ -3,12 +3,10 @@ package org.alexdev.icarus.server.netty.connections;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.alexdev.icarus.game.player.Player;
-
-import org.alexdev.icarus.messages.MessageHandler;
 import org.alexdev.icarus.server.netty.NettyPlayerNetwork;
 import org.alexdev.icarus.server.netty.NettyServer;
 import org.alexdev.icarus.server.netty.streams.NettyRequest;
-import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.config.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +30,7 @@ public class ConnectionHandler extends SimpleChannelInboundHandler<NettyRequest>
             return;
         }
 
-        if (Util.getServerConfig().get("Logging", "log.connections", Boolean.class)) {
+        if (Configuration.getInstance().getServerConfig().get("Logging", "log.connections", Boolean.class)) {
             log.info("[{}] Connection from {} ", player.getNetwork().getConnectionId(), ctx.channel().remoteAddress().toString().replace("/", "").split(":")[0]);
         }
     }
@@ -43,7 +41,7 @@ public class ConnectionHandler extends SimpleChannelInboundHandler<NettyRequest>
         server.getChannels().remove(ctx.channel());
         Player player = ctx.channel().attr(Player.PLAYER_KEY).get();
 
-        if (Util.getServerConfig().get("Logging", "log.connections", Boolean.class)) {
+        if (Configuration.getInstance().getServerConfig().get("Logging", "log.connections", Boolean.class)) {
             log.info("[{}] Disonnection from {} ", player.getNetwork().getConnectionId(), ctx.channel().remoteAddress().toString().replace("/", "").split(":")[0]);
         }
 

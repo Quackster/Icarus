@@ -9,7 +9,7 @@ import org.alexdev.icarus.messages.outgoing.groups.GroupInfoMessageComposer;
 import org.alexdev.icarus.messages.outgoing.groups.members.UnknownGroupMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.locale.Locale;
 
 public class GroupRemoveMemberMessageEvent implements MessageEvent {
 
@@ -32,7 +32,7 @@ public class GroupRemoveMemberMessageEvent implements MessageEvent {
         int removeUserId = reader.readInt();
         
         if (!isOwner && group.getMemberManager().isMemberType(removeUserId, GroupMemberType.ADMINISTRATOR)) {
-            player.sendMessage(Util.getLocaleEntry("group.remove.administrator.denied"));
+            player.sendMessage(Locale.getInstance().getEntry("group.remove.administrator.denied"));
             return;
         }
        

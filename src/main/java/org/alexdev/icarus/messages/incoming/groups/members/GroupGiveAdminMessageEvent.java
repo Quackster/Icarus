@@ -7,7 +7,7 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.outgoing.groups.members.GroupUpdateMemberComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.locale.Locale;
 
 public class GroupGiveAdminMessageEvent implements MessageEvent {
 
@@ -23,7 +23,7 @@ public class GroupGiveAdminMessageEvent implements MessageEvent {
         boolean isOwner = group.getOwnerId() == player.getEntityId();
    
         if (!isOwner) {
-            player.sendMessage(Util.getLocaleEntry("group.only.creators"));
+            player.sendMessage(Locale.getInstance().getEntry("group.only.creators"));
             return;
         }
         

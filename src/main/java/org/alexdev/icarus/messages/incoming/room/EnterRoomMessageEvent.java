@@ -57,14 +57,14 @@ public class EnterRoomMessageEvent implements MessageEvent {
         
         String password = request.readString();
         
-        if (room.getData().getUsersNow() >= room.getData().getUsersMax()) {
+        /*if (room.getData().getUsersNow() >= room.getData().getUsersMax()) {
             if (!player.getDetails().hasPermission("user_enter_full_rooms")) {
                 if (player.getEntityId() != room.getData().getOwnerId()) {
                     player.send(new RoomEnterErrorMessageComposer(1));
                     return;
                 }
             }
-        }
+        }*/
 
         if (player.getRoomUser().isTeleporting()) {
             if (player.getRoomUser().getTeleportRoomId() != room.getData().getId()) {

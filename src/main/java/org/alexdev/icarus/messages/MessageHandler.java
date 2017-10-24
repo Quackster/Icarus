@@ -1,55 +1,60 @@
 package org.alexdev.icarus.messages;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import io.netty.util.AttributeKey;
-import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.headers.Incoming;
-import org.alexdev.icarus.messages.incoming.camera.*;
+import org.alexdev.icarus.messages.incoming.camera.DeletePhotoMessageEvent;
+import org.alexdev.icarus.messages.incoming.camera.PhotoPricingMessageEvent;
+import org.alexdev.icarus.messages.incoming.camera.PreviewPhotoMessageEvent;
+import org.alexdev.icarus.messages.incoming.camera.PurchasePhotoMessageEvent;
 import org.alexdev.icarus.messages.incoming.catalogue.*;
 import org.alexdev.icarus.messages.incoming.groups.*;
-import org.alexdev.icarus.messages.incoming.groups.edit.*;
+import org.alexdev.icarus.messages.incoming.groups.edit.EditGroupAccessMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.edit.EditGroupBadgeMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.edit.EditGroupColoursMessageEvent;
+import org.alexdev.icarus.messages.incoming.groups.edit.EditGroupTextMessageEvent;
 import org.alexdev.icarus.messages.incoming.groups.members.*;
 import org.alexdev.icarus.messages.incoming.handshake.*;
-import org.alexdev.icarus.messages.incoming.items.*;
+import org.alexdev.icarus.messages.incoming.items.ApplyEffectMessageEvent;
+import org.alexdev.icarus.messages.incoming.items.PurchaseOfferMessageEvent;
 import org.alexdev.icarus.messages.incoming.messenger.*;
-import org.alexdev.icarus.messages.incoming.misc.*;
+import org.alexdev.icarus.messages.incoming.misc.EventLogMessageEvent;
+import org.alexdev.icarus.messages.incoming.misc.LatencyTestMessageEvent;
 import org.alexdev.icarus.messages.incoming.navigator.*;
 import org.alexdev.icarus.messages.incoming.pets.*;
 import org.alexdev.icarus.messages.incoming.room.*;
-import org.alexdev.icarus.messages.incoming.room.floorplan.*;
+import org.alexdev.icarus.messages.incoming.room.floorplan.FloorPlanPropertiesMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.floorplan.SaveFloorPlanMessageEvent;
 import org.alexdev.icarus.messages.incoming.room.items.*;
-import org.alexdev.icarus.messages.incoming.room.items.interactions.MoodlightInteractMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.items.interactions.SaveBrandingMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.items.interactions.SaveMannequinMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.items.interactions.SaveMoodlightPresetMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.items.interactions.SaveTonerMessageEvent;
-import org.alexdev.icarus.messages.incoming.room.items.interactions.ToggleMoodlightMessageEvent;
+import org.alexdev.icarus.messages.incoming.room.items.interactions.*;
 import org.alexdev.icarus.messages.incoming.room.settings.*;
 import org.alexdev.icarus.messages.incoming.room.user.*;
 import org.alexdev.icarus.messages.incoming.trading.StartTradingMessageEvent;
-import org.alexdev.icarus.messages.incoming.user.*;
+import org.alexdev.icarus.messages.incoming.user.ChangeAppearanceMessageEvent;
+import org.alexdev.icarus.messages.incoming.user.CurrencyBalanceMessageEvent;
+import org.alexdev.icarus.messages.incoming.user.InfoRetrieveMessageEvent;
+import org.alexdev.icarus.messages.incoming.user.WelcomeMessageEvent;
 import org.alexdev.icarus.messages.incoming.user.club.HabboClubCenterMessageEvent;
 import org.alexdev.icarus.messages.incoming.user.club.SubscriptionMessageEvent;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.config.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class MessageHandler {
 
     private Player player;
-    private HashMap<Short, List<MessageEvent>> messages;
+    private ConcurrentHashMap<Short, List<MessageEvent>> messages;
 
     private static final Logger log = LoggerFactory.getLogger(MessageHandler.class);
 
     public MessageHandler(Player player) {
         this.player = player;
-        this.messages = new HashMap<>();
+        this.messages = new ConcurrentHashMap<>();
 
         registerHandshakePackets();
         registerUserPackets();
@@ -68,7 +73,7 @@ public class MessageHandler {
         registerCameraPackets();
         registerItemInteractionPackets();
 
-        //if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
+        //if (Configuration.getInstance().getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
         //    log.info("Loaded {} message event handlers", messages.size());
         //}
     }
@@ -322,7 +327,7 @@ public class MessageHandler {
      */
     public void handleRequest(ClientMessage message) {
 
-        if (Util.getServerConfig().get("Logging", "log.received.packets", Boolean.class)) {
+        if (Configuration.getInstance().getServerConfig().get("Logging", "log.received.packets", Boolean.class)) {
             if (this.messages.containsKey(message.getMessageId())) {
                 MessageEvent event = this.messages.get(message.getMessageId()).get(0);
                 this.player.getLogger().info("Received ({}): {} / {} ", event.getClass().getSimpleName(), message.getMessageId(), message.getMessageBody());
@@ -354,7 +359,7 @@ public class MessageHandler {
      *
      * @return the messages
      */
-    public HashMap<Short, List<MessageEvent>> getMessages() {
+    public ConcurrentHashMap<Short, List<MessageEvent>> getMessages() {
         return messages;
     }
 }

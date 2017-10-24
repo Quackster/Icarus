@@ -7,7 +7,8 @@ import org.alexdev.icarus.game.commands.types.reload.ReloadCatalogueCommand;
 import org.alexdev.icarus.game.commands.types.reload.ReloadItemDefinitions;
 import org.alexdev.icarus.game.commands.types.reload.ReloadPluginsCommand;
 import org.alexdev.icarus.game.player.Player;
-import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.config.Configuration;
+import org.alexdev.icarus.util.locale.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +40,7 @@ public class CommandManager {
         commands.put(new String[] { "moonwalk", "mj" }, new MoonWalkCommand());
         commands.put(new String[] { "diagonal", "diag" }, new WalkDiagonalCommand());
 
-        if (Util.getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
+        if (Configuration.getInstance().getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
             log.info("Loaded {} commands", commands.size());
         }
     }
@@ -128,7 +129,7 @@ public class CommandManager {
         if (cmd != null) {
             
             if (args.length < cmd.getArguments().length) {
-                player.sendMessage(Util.getLocaleEntry("player.commands.no.args"));
+                player.sendMessage(Locale.getInstance().getEntry("player.commands.no.args"));
                 return;
             }
             

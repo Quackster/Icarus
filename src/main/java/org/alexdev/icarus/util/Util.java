@@ -1,7 +1,9 @@
 package org.alexdev.icarus.util;
 
+import org.alexdev.icarus.encryption.RSA;
+import org.alexdev.icarus.log.Log;
+
 import java.io.DataInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.security.SecureRandom;
@@ -9,36 +11,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.alexdev.icarus.encryption.RSA;
-import org.alexdev.icarus.game.GameSettings;
-import org.alexdev.icarus.log.Log;
-import org.ini4j.InvalidFileFormatException;
-import org.ini4j.Wini;
-
 public class Util {
 
-    private static Wini configuration;
-    private static Wini gameConfig;
-    private static Wini locale;
-
     private static SecureRandom secureRandom;
-    private static String language;
     private static RSA rsa;
 
-    /**
-     * Load.
-     *
-     * @throws InvalidFileFormatException the invalid file format exception
-     * @throws IOException Signals that an I/O exception has occurred.
-     */
-    public static void load() throws InvalidFileFormatException, IOException {
-        configuration = new Wini(new File("icarus.properties"));
-        gameConfig =  new Wini(new File("game.properties"));
-        locale =  new Wini(new File("locale.ini"));
+    static {
         secureRandom = new SecureRandom();
-        language = locale.get("Locale", "language", String.class);
         rsa = new RSA();
-        GameSettings.load();
     }
     
     /**
@@ -282,33 +262,5 @@ public class Util {
      */
     public static RSA getRSA() {
         return rsa;
-    }
-
-    /**
-     * Gets the game config.
-     *
-     * @return the game config
-     */
-    public static Wini getGameConfig() {
-        return gameConfig;
-    }
-
-    /**
-     * Gets the configuration.
-     *
-     * @return the configuration
-     */
-    public static Wini getServerConfig() {
-        return configuration;
-    }
-
-    /**
-     * Gets the locale.
-     *
-     * @param entry the entry
-     * @return the locale
-     */
-    public static String getLocaleEntry(String entry) {
-        return locale.get(language, entry, String.class);
     }
 }

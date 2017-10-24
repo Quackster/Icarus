@@ -3,7 +3,7 @@ package org.alexdev.icarus.messages.outgoing.user;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
-import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.config.Configuration;
 
 public class SendPerkAllowancesMessageComposer extends MessageComposer {
 
@@ -49,7 +49,7 @@ public class SendPerkAllowancesMessageComposer extends MessageComposer {
         response.writeBool(false);
         response.writeString("CAMERA");
         response.writeString("");
-        response.writeBool(Util.getGameConfig().get("Camera", "camera.enabled", Boolean.class));
+        response.writeBool(Configuration.getInstance().getGameConfig().get("Camera", "camera.enabled", Boolean.class));
         response.writeString("NAVIGATOR_PHASE_TWO_2014");
         response.writeString("");
         response.writeBool(true);
@@ -58,7 +58,7 @@ public class SendPerkAllowancesMessageComposer extends MessageComposer {
         response.writeBool(true);
         response.writeString("NAVIGATOR_ROOM_THUMBNAIL_CAMERA");
         response.writeString("");
-        response.writeBool(Util.getGameConfig().get("Thumbnail", "thumbnail.create.enabled", Boolean.class));
+        response.writeBool(Configuration.getInstance().getGameConfig().get("Thumbnail", "thumbnail.create.enabled", Boolean.class));
 
     }
 

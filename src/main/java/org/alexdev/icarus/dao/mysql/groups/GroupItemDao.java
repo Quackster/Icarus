@@ -14,7 +14,6 @@ import org.alexdev.icarus.game.groups.types.GroupBaseColour;
 import org.alexdev.icarus.game.groups.types.GroupSymbol;
 import org.alexdev.icarus.game.groups.types.GroupSymbolColour;
 
-
 public class GroupItemDao {
     
     /**
