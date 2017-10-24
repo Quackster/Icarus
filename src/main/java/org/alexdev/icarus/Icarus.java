@@ -4,6 +4,7 @@ import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.site.SiteDao;
 import org.alexdev.icarus.dao.site.SiteKey;
 import org.alexdev.icarus.game.GameScheduler;
+import org.alexdev.icarus.game.GameSettings;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;
 import org.alexdev.icarus.game.commands.CommandManager;
 import org.alexdev.icarus.game.groups.GroupManager;
@@ -15,6 +16,7 @@ import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.server.api.ServerHandler;
 import org.alexdev.icarus.util.Util;
 import org.alexdev.icarus.util.config.Configuration;
+import org.alexdev.icarus.util.locale.Locale;
 import org.alexdev.icarus.util.metadata.Metadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +44,9 @@ public class Icarus extends Metadata {
 
         try {
             Configuration.getInstance();
+            Locale.getInstance();
+            GameSettings.load();
+
             log = LoggerFactory.getLogger(Icarus.class);
 
             // The "Doom" ASCII from
