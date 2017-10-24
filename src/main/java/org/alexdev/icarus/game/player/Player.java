@@ -1,14 +1,12 @@
 package org.alexdev.icarus.game.player;
 
-import java.util.List;
-
 import io.netty.util.AttributeKey;
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
-import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.encryption.DiffieHellman;
 import org.alexdev.icarus.encryption.RC4;
 import org.alexdev.icarus.game.entity.Entity;
+import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.inventory.Inventory;
 import org.alexdev.icarus.game.messenger.Messenger;
 import org.alexdev.icarus.game.player.club.ClubSubscription;
@@ -18,6 +16,7 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.enums.RoomAction;
 import org.alexdev.icarus.game.room.user.RoomUser;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.MessageHandler;
 import org.alexdev.icarus.messages.outgoing.handshake.AuthenticationOKMessageComposer;
 import org.alexdev.icarus.messages.outgoing.handshake.AvailabilityMessageComposer;
@@ -31,6 +30,8 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public class Player extends Entity {
 
@@ -300,7 +301,11 @@ public class Player extends Entity {
      * @param response the response
      */
     public void send(MessageComposer response) {
-        this.network.send(response);
+        try {
+            this.network.send(response);
+        } catch (Exception e) {
+            Log.getErrorLogger().error("[Player] Could not send message to player {}", this.details.getName());
+        }
     }
 
     /**
