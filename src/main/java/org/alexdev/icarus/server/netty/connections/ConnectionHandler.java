@@ -3,6 +3,7 @@ package org.alexdev.icarus.server.netty.connections;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.server.netty.NettyPlayerNetwork;
 import org.alexdev.icarus.server.netty.NettyServer;
 import org.alexdev.icarus.server.netty.streams.NettyRequest;
@@ -64,7 +65,7 @@ public class ConnectionHandler extends SimpleChannelInboundHandler<NettyRequest>
             }
 
         } catch (Exception ex) {
-            log.error("Could not handle message: ", ex);
+            Log.getErrorLogger().error("Could not handle message: ", ex);
         }
     }
 

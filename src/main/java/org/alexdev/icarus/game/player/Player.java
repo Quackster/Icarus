@@ -155,7 +155,7 @@ public class Player extends Entity {
         }
 
         PluginManager.getInstance().callEvent(PluginEvent.PLAYER_DISCONNECT_EVENT, new LuaValue[] {
-                CoerceJavaToLua.coerce(this)
+            CoerceJavaToLua.coerce(this)
         });
 
         PlayerManager.getInstance().removePlayer(this);

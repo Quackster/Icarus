@@ -1,8 +1,5 @@
 package org.alexdev.icarus.game.item;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.alexdev.icarus.dao.mysql.item.ItemDao;
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
@@ -18,6 +15,9 @@ import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.outgoing.room.items.MoveItemMessageComposer;
 import org.alexdev.icarus.util.Util;
 import org.alexdev.icarus.util.metadata.Metadata;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Item extends Metadata {
 
@@ -214,17 +214,17 @@ public class Item extends Metadata {
     public void parseWallPosition(String position) {
 
         try {
-            String[] x_data = position.split(" ")[0].split(",");
-            this.side = x_data[0].toCharArray()[0];
-            this.widthX = Integer.valueOf(x_data[1]);
-            this.widthY = Integer.valueOf(x_data[2]);
+            String[] xData = position.split(" ")[0].split(",");
+            this.side = xData[0].toCharArray()[0];
+            this.widthX = Integer.valueOf(xData[1]);
+            this.widthY = Integer.valueOf(xData[2]);
 
-            String[] y_data = position.split(" ")[1].split(",");
-            this.lengthX = Integer.valueOf(y_data[0]);
-            this.lengthY = Integer.valueOf(y_data[1]);
+            String[] yData = position.split(" ")[1].split(",");
+            this.lengthX = Integer.valueOf(yData[0]);
+            this.lengthY = Integer.valueOf(yData[1]);
 
         } catch (NumberFormatException e) {
-        	Log.getErrorLogger().info("Error parsing wall item for item Id: {} ", this.id, e);
+        	Log.getErrorLogger().error("Error parsing wall item for item Id: {} ", this.id, e);
         }
     }
 
