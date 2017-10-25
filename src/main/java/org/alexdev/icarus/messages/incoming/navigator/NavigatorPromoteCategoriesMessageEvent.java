@@ -10,6 +10,5 @@ public class NavigatorPromoteCategoriesMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
         player.send(new NavigatorPromoteCategoriesComposer());
-        player.getMessageHandler().unregisterEnableNavigatorPackets();
     }
 }
