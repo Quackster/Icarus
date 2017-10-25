@@ -2,6 +2,7 @@ package org.alexdev.icarus.game.messenger;
 
 import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.PlayerManager;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.game.player.Player;
 
@@ -13,6 +14,10 @@ public class MessengerUser {
     public MessengerUser(int userId) {
         this.userId = userId;
         this.details = PlayerManager.getInstance().getPlayerData(this.userId);
+
+        if (this.details == null) {
+            Log.getErrorLogger().error("Could not find friend with user id {}", this.userId);
+        }
     }
 
     /**

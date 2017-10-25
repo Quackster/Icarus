@@ -1,15 +1,16 @@
 package org.alexdev.icarus.messages.outgoing.navigator;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.alexdev.icarus.game.navigator.NavigatorTab;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.util.RoomUtil;
+import org.alexdev.icarus.log.Log;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchResultSetComposer extends MessageComposer {
 
@@ -26,55 +27,55 @@ public class SearchResultSetComposer extends MessageComposer {
     @Override
     public void compose(Response response) {
 
-        //response.init(Outgoing.SearchResultSetComposer);
-        response.writeString(this.navigatorTab.getTabName());
-        response.writeString(this.searchQuery);
+        try {
+            response.writeString(this.navigatorTab.getTabName());
+            response.writeString(this.searchQuery);
 
-        if (this.searchQuery.isEmpty()) {
+            if (this.searchQuery.isEmpty()) {
 
-            List<NavigatorTab> tabs = new ArrayList<NavigatorTab>();
-            boolean roomLimit = true;
+                List<NavigatorTab> tabs = new ArrayList<NavigatorTab>();
+                boolean roomLimit = true;
 
-            if (this.navigatorTab.getChildId() != -1) { // child tab, aka client requested for more room data through the navigator button
-                tabs.add(this.navigatorTab);
-                roomLimit = false;
-            } else {
-                tabs.addAll(this.navigatorTab.getChildTabs());
-            }
-
-            response.writeInt(tabs.size());
-
-            for (NavigatorTab tab : tabs) {
-
-                response.writeString(tab.getTabName());
-                response.writeString(tab.getTitle());
-                response.writeInt(roomLimit ? (int) tab.getButtonType() : 2); // force no button
-                response.writeBool(roomLimit ? tab.isClosed() : false); // force collapsed
-                response.writeInt(tab.isThumbnail());
-
-                List<Room> rooms = new ArrayList<>();
-
-                if (tab.getRoomPopulator() == null) {
-                    response.writeInt(0);
+                if (this.navigatorTab.getChildId() != -1) { // child tab, aka client requested for more room data through the navigator button
+                    tabs.add(this.navigatorTab);
+                    roomLimit = false;
                 } else {
-
-                    rooms.addAll(tab.getRoomPopulator().generateListing(roomLimit, player));
-
-                    response.writeInt(rooms.size());
-
-                    for (Room room : rooms) {
-                        RoomUtil.serialise(room, response, false);
-                    }
-
-                    rooms = null;
+                    tabs.addAll(this.navigatorTab.getChildTabs());
                 }
+
+                response.writeInt(tabs.size());
+
+                for (NavigatorTab tab : tabs) {
+                    response.writeString(tab.getTabName());
+                    response.writeString(tab.getTitle());
+                    response.writeInt(roomLimit ? (int) tab.getButtonType() : 2); // force no button
+                    response.writeBool(roomLimit ? tab.isClosed() : false); // force collapsed
+                    response.writeInt(tab.isThumbnail());
+
+                    List<Room> rooms = new ArrayList<>();
+
+                    if (tab.getRoomPopulator() == null) {
+                        response.writeInt(0);
+                    } else {
+
+                        rooms.addAll(tab.getRoomPopulator().generateListing(roomLimit, player));
+
+                        response.writeInt(rooms.size());
+
+                        for (Room room : rooms) {
+                            RoomUtil.serialise(room, response, false);
+                        }
+                    }
+                }
+
+                tabs.clear();
+
+            } else { // TODO: Search
+                response.writeInt(0);
+
             }
-
-            tabs.clear();
-
-        } else { // TODO: Search
-            response.writeInt(0);
-
+        } catch (Exception e) {
+            Log.getErrorLogger().error("Failure to list search result set due to: ", e);
         }
     }
 
