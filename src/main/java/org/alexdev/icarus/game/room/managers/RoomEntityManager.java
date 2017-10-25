@@ -1,8 +1,5 @@
 package org.alexdev.icarus.game.room.managers;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import org.alexdev.icarus.dao.mysql.pets.PetDao;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityType;
@@ -18,6 +15,10 @@ import org.alexdev.icarus.messages.outgoing.room.user.UserDisplayMessageComposer
 import org.alexdev.icarus.messages.outgoing.room.user.UserStatusMessageComposer;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class RoomEntityManager {
 
@@ -134,13 +135,17 @@ public class RoomEntityManager {
      */
     public void removeEntity(Entity entity) {
 
+        RoomUser roomUser = entity.getRoomUser();
+        this.room.getMapping().getTile(roomUser.getPosition().getX(), roomUser.getPosition().getY()).removeEntity(entity);
+
         if (this.entities != null) {
             this.entities.remove(entity);
             this.room.getData().setUsersNow(this.getPlayers().size());
         }
 
         if (this.getPlayers().size() > 0) {
-            this.room.send(new RemoveUserMessageComposer(entity.getRoomUser().getVirtualId()));
+            int virtualId = entity.getRoomUser().getVirtualId();
+            this.room.send(new RemoveUserMessageComposer(virtualId));
         }
 
         if (entity.getType() == EntityType.PET) {

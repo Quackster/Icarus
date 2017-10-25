@@ -29,7 +29,6 @@ public class RollerTask extends RoomTask {
         }
 
         if (!this.room.getItemManager().hasRollers()) {
-            System.out.println("No rollers!");
             return;
         }
 

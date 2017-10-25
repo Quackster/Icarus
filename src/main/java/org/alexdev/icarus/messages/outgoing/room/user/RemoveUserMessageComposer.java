@@ -14,8 +14,7 @@ public class RemoveUserMessageComposer extends MessageComposer {
 
     @Override
     public void compose(Response response) {
-        //response.init(Outgoing.RemoveUserMessageComposer);
-        response.writeString(this.virtualId + "");
+        response.writeString(this.virtualId);
     }
 
     @Override
