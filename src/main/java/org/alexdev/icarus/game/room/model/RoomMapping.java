@@ -205,10 +205,9 @@ public class RoomMapping {
         if (item.getDefinition().getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, false);
             this.regenerateCollisionMaps(true);
-            item.updateEntities(null);
         }
 
-
+        item.updateEntities(null);
         item.save();
     }
 
@@ -220,12 +219,15 @@ public class RoomMapping {
      */
     public void moveItem(Item item, boolean isRotation, Position previous) {
 
+        this.room.send(new PlaceItemMessageComposer(item));
+
         if (item.getDefinition().getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, isRotation);
             this.regenerateCollisionMaps(false);
-            item.updateEntities(previous);
         }
 
+        item.updateEntities(previous);
+        item.updateStatus();
         item.save();
     }
 
@@ -241,12 +243,10 @@ public class RoomMapping {
 
         if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
             item.setExtraData("");
+            item.saveExtraData();
         }
 
-        if (item.getDefinition().getType() == ItemType.FLOOR) {
-            item.updateEntities(null);
-        }
-
+        item.updateEntities(null);
         item.setRoomId(0);
         item.getPosition().setX(0);
         item.getPosition().setY(0);
@@ -283,8 +283,6 @@ public class RoomMapping {
         if (!rotation) {
             moveItem.getPosition().setZ(this.getTileHeight(moveItem.getPosition().getX(), moveItem.getPosition().getY()));
         }
-
-        moveItem.updateStatus();
     }
 
     /**

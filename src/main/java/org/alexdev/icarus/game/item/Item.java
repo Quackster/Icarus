@@ -70,6 +70,10 @@ public class Item extends Metadata {
      */
     public void updateEntities(Position previousPosition) {
 
+        if (this.getDefinition().getType() != ItemType.FLOOR) {
+            return;
+        }
+
         List<Entity> entitiesToUpdate = new ArrayList<>();
 
         if (previousPosition != null) {

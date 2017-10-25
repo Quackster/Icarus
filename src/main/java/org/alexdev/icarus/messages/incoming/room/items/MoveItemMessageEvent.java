@@ -77,9 +77,9 @@ public class MoveItemMessageEvent implements MessageEvent {
         if (item.getDefinition().getType() == ItemType.WALL) {
             String input = reader.readString();
             String[] pos = input.split(":")[1].split(" ");
+
             item.parseWallPosition(pos[2] + "," + pos[0].substring(2) + " " + pos[1].substring(2));
             room.getMapping().moveItem(item, rotation, null);
-
         }
     }
 }
