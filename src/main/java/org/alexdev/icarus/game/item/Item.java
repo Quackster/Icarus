@@ -83,16 +83,18 @@ public class Item extends Metadata {
 
 
     /**
-     * Updates entities who are or were sitting/laying/standing on this furniture.
+     * Updates entities who are or were sitting/laying/standing on this furniture. It can take a
+     * "previous" position instance and check that before processing the item's current coordinates.
      *
-     * @param previousPosition the previous position (for example, when moving furniture).
+     * By default it will only check item's current position if a null parameter is passed.
+     *
+     * @param previousPosition the previous position (for example, when moving or rotating furniture).
      */
     public void updateEntities(Position previousPosition) {
 
         List<Entity> entitiesToUpdate = new ArrayList<>();
 
         if (previousPosition != null) {
-
             List<Position> previousTiles = AffectedTile.getAffectedTiles(previousPosition, this.getDefinition());
             previousTiles.add(previousPosition);
 
@@ -102,7 +104,6 @@ public class Item extends Metadata {
         }
 
         if (this.position != null) {
-
             List<Position> newTiles = AffectedTile.getAffectedTiles(this.position, this.getDefinition());
             newTiles.add(this.position);
 
