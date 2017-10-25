@@ -4,6 +4,7 @@ import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
+import org.alexdev.icarus.game.pathfinder.AffectedTile;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
@@ -69,7 +70,7 @@ public class RoomMapping {
                 tile.setHeight(item.getTotalHeight());
                 tile.setHighestItem(item);
 
-                for (Position affected : item.getAffectedTiles(false)) {
+                for (Position affected : AffectedTile.getAffectedTiles(item.getPosition(), item.getDefinition())) {
 
                     RoomTile affectedTile = this.getTile(affected.getX(), affected.getY());
 
@@ -128,7 +129,7 @@ public class RoomMapping {
                     Item currentItem = currentTile.getHighestItem();
 
                     if (!isFinalMove) {
-                        return currentItem.getDefinition().isWalkable() || currentItem.isGateOpen();
+                        return currentItem.getDefinition().isRug() || currentItem.isGateOpen();
                     }
 
                     if (isFinalMove) {

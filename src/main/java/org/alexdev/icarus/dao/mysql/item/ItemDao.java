@@ -37,7 +37,7 @@ public class ItemDao {
             while (resultSet.next()) {
                 
                 /*  public ItemDefinition(int id, String publicName, String itemName, String type, int width, int length, double stackHeight,
-            boolean canStack, boolean canSit, boolean isWalkable, int spriteId, boolean allowRecycle,*/
+            boolean canStack, boolean canSit, boolean isRug, int spriteId, boolean allowRecycle,*/
 
                 furni.put(resultSet.getInt("id"), new ItemDefinition(resultSet.getInt("id"), resultSet.getString("public_name"), resultSet.getString("item_name"), resultSet.getString("type"), 
                         resultSet.getInt("width"), resultSet.getInt("length"), resultSet.getDouble("stack_height"), resultSet.getInt("can_stack") == 1,

@@ -242,7 +242,7 @@ public class ItemDefinition {
      *
      * @return true, if is walkable
      */
-    public boolean isWalkable() {
+    public boolean isRug() {
         return isWalkable;
     }
 

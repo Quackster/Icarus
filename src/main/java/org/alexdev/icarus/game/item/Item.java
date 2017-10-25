@@ -61,28 +61,6 @@ public class Item extends Metadata {
     }
 
     /**
-     * Returns the coordinates that this item can possibly affect.
-     *
-     * @param includeFirstPosition the include first position of the item (by default this function only returns every affected tile except the main position).
-     * @return the affected titles
-     */
-    public List<Position> getAffectedTiles(boolean includeFirstPosition) {
-
-        if (this.getDefinition().getType() == ItemType.WALL) {
-            return new ArrayList<>();
-        }
-
-        List<Position> affectedTiles = AffectedTile.getAffectedTiles(this.position, this.getDefinition());
-
-        if (includeFirstPosition) {
-            affectedTiles.add(this.position.copy());
-        }
-
-        return affectedTiles;
-    }
-
-
-    /**
      * Updates entities who are or were sitting/laying/standing on this furniture. It can take a
      * "previous" position instance and check that before processing the item's current coordinates.
      *
@@ -118,39 +96,11 @@ public class Item extends Metadata {
     }
 
     /**
-     * Check if specified coordinates collide with the item.
-     *
-     * @param x the x
-     * @param y the y
-     * @return {@link boolean} - true if item exits within these coordinates
-     */
-    private boolean hasEntityCollision(int x, int y) {
-
-        for (Position tile : this.getAffectedTiles(true)) {
-            if (tile.getX() == x && tile.getY() == y) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Checks if is walkable, will also check against database.
+     * Checks if is walkable.
      *
      * @return true, if is walkable
      */
     public boolean isWalkable() {
-        return this.isWalkable(true);
-    }
-
-    /**
-     * Checks if is walkable.
-     *
-     * @param includeWalkableWhitelist should we check against the "walkable" definition in database?
-     * @return true, if is walkable
-     */
-    public boolean isWalkable(boolean includeWalkableWhitelist) {
 
         ItemDefinition definition = this.getDefinition();
 
@@ -166,7 +116,7 @@ public class Item extends Metadata {
             return true;
         }
 
-        if (includeWalkableWhitelist && definition.isWalkable()) {
+        if (definition.isRug()) {
             return true;
         }
 
