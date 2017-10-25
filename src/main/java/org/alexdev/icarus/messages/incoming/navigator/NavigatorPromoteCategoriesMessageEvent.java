@@ -12,5 +12,4 @@ public class NavigatorPromoteCategoriesMessageEvent implements MessageEvent {
         player.send(new NavigatorPromoteCategoriesComposer());
         player.getMessageHandler().unregisterEnableNavigatorPackets();
     }
-
 }

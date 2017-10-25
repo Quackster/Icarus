@@ -1,7 +1,5 @@
 package org.alexdev.icarus.messages.incoming.room.items;
 
-import java.util.List;
-
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.pathfinder.AffectedTile;
@@ -12,6 +10,8 @@ import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.messages.outgoing.room.items.MoveItemMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
+
+import java.util.List;
 
 public class MoveItemMessageEvent implements MessageEvent {
 
@@ -65,18 +65,21 @@ public class MoveItemMessageEvent implements MessageEvent {
                 }
             }
 
+            Position oldPosition = item.getPosition().copy();
+
             item.getPosition().setX(x);
             item.getPosition().setY(y);
             item.getPosition().setRotation(direction);
+
+            room.getMapping().moveItem(item, rotation, oldPosition);
         } 
 
         if (item.getDefinition().getType() == ItemType.WALL) {
             String input = reader.readString();
             String[] pos = input.split(":")[1].split(" ");
             item.parseWallPosition(pos[2] + "," + pos[0].substring(2) + " " + pos[1].substring(2));
+            room.getMapping().moveItem(item, rotation, null);
 
         }
-
-        room.getMapping().moveItem(item, rotation);
     }
 }

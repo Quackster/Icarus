@@ -1,18 +1,15 @@
 package org.alexdev.icarus.game.room.tasks;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.model.RoomTile;
 import org.alexdev.icarus.game.room.scheduler.RoomTask;
 import org.alexdev.icarus.messages.outgoing.room.items.SlideObjectMessageComposer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RollerTask extends RoomTask {
 
@@ -32,6 +29,7 @@ public class RollerTask extends RoomTask {
         }
 
         if (!this.room.getItemManager().hasRollers()) {
+            System.out.println("No rollers!");
             return;
         }
 
@@ -175,7 +173,7 @@ public class RollerTask extends RoomTask {
         double nextHeight = nextTile.getHeight();
         this.room.send(new SlideObjectMessageComposer(entity, front, roller.getId(), nextHeight));
 
-        entity.getRoomUser().interactNearbyItem();
+        entity.getRoomUser().refreshItemStatus();
         entity.getRoomUser().getPosition().setX(front.getX());
         entity.getRoomUser().getPosition().setY(front.getY());
         entity.getRoomUser().getPosition().setZ(nextHeight);

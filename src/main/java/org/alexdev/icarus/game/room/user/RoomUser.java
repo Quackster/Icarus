@@ -69,9 +69,10 @@ public class RoomUser {
         this.entity = entity;
     }
     /**
-     * Update current item and trigger it.
+     * Refresh the status of the user by checking if
+     * they're sitting on items, or not..s
      */
-    public void interactNearbyItem() {
+    public void refreshItemStatus() {
 
         boolean allowUpdate = false;
 
@@ -85,7 +86,15 @@ public class RoomUser {
         } else {
             this.currentItem = null;
         }
+        // Should we apply a height update?
+        if (item != null && Position.getHeightDifference(previousHeight, item.getTotalHeight()) >= 0.1) {
+            allowUpdate = true;
+        }
 
+        /**
+         * If we removed an item from underneath the player OR
+         * the current item doesn't allow to sit or lay but the previous item did.
+         */
         if (this.currentItem == null || (!this.currentItem.getDefinition().allowSitOrLay() && previousItem != null && previousItem.getDefinition().allowSitOrLay())) {
 
             if (this.containsStatus(EntityStatus.LAY)) {

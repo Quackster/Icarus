@@ -1,10 +1,5 @@
 package org.alexdev.icarus.game.room.model;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import org.alexdev.icarus.game.GameSettings;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
@@ -13,6 +8,10 @@ import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RemoveItemMessageComposer;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class RoomMapping {
 
@@ -205,9 +204,10 @@ public class RoomMapping {
         if (item.getDefinition().getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, false);
             this.regenerateCollisionMaps(true);
+            item.updateEntities(null);
         }
 
-        item.updateEntities();
+
         item.save();
     }
 
@@ -217,14 +217,14 @@ public class RoomMapping {
      * @param item the item
      * @param isRotation the rotation only
      */
-    public void moveItem(Item item, boolean isRotation) {
+    public void moveItem(Item item, boolean isRotation, Position previous) {
 
         if (item.getDefinition().getType() == ItemType.FLOOR) {
             this.handleItemAdjustment(item, isRotation);
             this.regenerateCollisionMaps(false);
+            item.updateEntities(previous);
         }
 
-        item.updateEntities();
         item.save();
     }
 
@@ -242,7 +242,10 @@ public class RoomMapping {
             item.setExtraData("");
         }
 
-        item.updateEntities();
+        if (item.getDefinition().getType() == ItemType.FLOOR) {
+            item.updateEntities(null);
+        }
+
         item.setRoomId(0);
         item.getPosition().setX(0);
         item.getPosition().setY(0);

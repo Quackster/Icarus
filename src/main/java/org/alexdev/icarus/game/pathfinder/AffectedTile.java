@@ -1,9 +1,22 @@
 package org.alexdev.icarus.game.pathfinder;
 
+import org.alexdev.icarus.game.item.ItemDefinition;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class AffectedTile {
+
+    /**
+     * Gets the affected tiles.
+     *
+     * @param position the position
+     * @param definition the definition
+     * @return the affected tiles
+     */
+    public static List<Position> getAffectedTiles(Position position, ItemDefinition definition) {
+        return getAffectedTiles(definition.getLength(), definition.getWidth(), position.getX(), position.getY(), position.getRotation());
+    }
 
     /**
      * Gets the affected tiles.
