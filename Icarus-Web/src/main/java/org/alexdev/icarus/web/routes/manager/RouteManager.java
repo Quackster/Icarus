@@ -1,5 +1,7 @@
 package org.alexdev.icarus.web.routes.manager;
 
+import org.alexdev.icarus.web.controllers.home.HomeController;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +11,12 @@ public class RouteManager {
 
     static {
         routes = new HashMap<String, Route>();
+    }
+
+    public static void register() {
+        RouteManager.addRoute("/", HomeController::index);
+        RouteManager.addRoute("/index", HomeController::index);
+        RouteManager.addRoute("/me", HomeController::me);
     }
 
     public static void addRoute(String uri, Route route) {

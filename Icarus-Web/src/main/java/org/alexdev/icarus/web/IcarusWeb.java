@@ -24,7 +24,7 @@ public class IcarusWeb {
         int port = Integer.parseInt(args[0]);
         System.out.println("Starting web service on port " + port);
 
-        Routes.register();
+        RouteManager.register();
         System.out.println("Registered " + RouteManager.getRoutes().size() + " route(s)!");
 
         instance = new NettyWebServer(port);
