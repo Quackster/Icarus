@@ -14,13 +14,6 @@ public class RouteManager {
         routes = new HashMap<String, Route>();
     }
 
-    public static void register() {
-        RouteManager.addRoute("/", HomeController::index);
-        RouteManager.addRoute("/index", HomeController::index);
-        RouteManager.addRoute("/me", HomeController::client);
-        RouteManager.addRoute("/test", TestController::test);
-    }
-
     public static void addRoute(String uri, Route route) {
         routes.put(uri, route);
     }
