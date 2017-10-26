@@ -13,6 +13,7 @@ import org.alexdev.icarus.web.server.session.WebSession;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.file.Paths;
 
 public class NettyChannelHandler extends ChannelInboundHandlerAdapter {
 
@@ -26,7 +27,9 @@ public class NettyChannelHandler extends ChannelInboundHandlerAdapter {
             final Route route = RouteManager.getRoute(request.uri());
 
             if (route != null) {
-                FullHttpResponse response = route.handleRoute(new WebSession(ctx.channel(), request));
+
+                WebSession session = new WebSession(ctx.channel(), request);
+                FullHttpResponse response = route.handleRoute(session);
 
                 if (response == null) {
                     exceptionCaught(ctx, new Exception("Could not handle request: " + request.uri()));
@@ -34,6 +37,7 @@ public class NettyChannelHandler extends ChannelInboundHandlerAdapter {
                 }
 
                 ctx.channel().writeAndFlush(response);
+                return;
             }
 
             if (fileResponse != null) {

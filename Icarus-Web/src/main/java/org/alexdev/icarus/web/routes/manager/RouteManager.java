@@ -1,8 +1,6 @@
 package org.alexdev.icarus.web.routes.manager;
 
-import org.alexdev.icarus.web.controllers.home.HomeController;
-import org.alexdev.icarus.web.controllers.home.TestController;
-
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -6,12 +6,13 @@ import org.alexdev.icarus.web.template.Template;
 
 public class HomeController {
 
-    public static FullHttpResponse index(WebSession client) throws Exception {
-        Template tpl = client.template();
-        tpl.start("index");
-        return tpl.render();
-    }
-
+    /**
+     * Handle client load controller
+     *
+     * @param client the client connection
+     * @return the response, null if no response was needed
+     * @throws Exception
+     */
     public static FullHttpResponse client(WebSession client) throws Exception {
         Template tpl = client.template();
         tpl.start("client");
