@@ -18,7 +18,6 @@ public class GetCookieController implements Route {
         }
 
         FullHttpResponse r = WebResponse.getHtmlResponse(response);
-
         return r;
     }
 }
