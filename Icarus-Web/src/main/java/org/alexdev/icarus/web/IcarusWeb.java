@@ -1,6 +1,5 @@
 package org.alexdev.icarus.web;
 
-import org.alexdev.icarus.web.routes.Routes;
 import org.alexdev.icarus.web.routes.manager.RouteManager;
 import org.alexdev.icarus.web.server.NettyWebServer;
 import org.alexdev.icarus.web.util.config.Configuration;

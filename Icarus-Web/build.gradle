@@ -21,3 +21,12 @@ dependencies {
     // https://mvnrepository.com/artifact/org.ini4j/ini4j
     compile group: 'org.ini4j', name: 'ini4j', version: '0.5.4'
 }
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
