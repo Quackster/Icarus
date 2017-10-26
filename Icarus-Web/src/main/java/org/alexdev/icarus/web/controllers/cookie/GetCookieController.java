@@ -7,11 +7,18 @@ import org.alexdev.icarus.web.routes.manager.Route;
 import org.alexdev.icarus.web.server.response.WebResponse;
 import org.alexdev.icarus.web.util.CookieUtil;
 
-public class SetCookieController implements Route {
+public class GetCookieController implements Route {
     @Override
     public FullHttpResponse handleRoute(FullHttpRequest request, Channel channel) {
-        FullHttpResponse r = WebResponse.getHtmlResponse("Cookie set!");
-        CookieUtil.set(r, "hello", "nigga");
+
+        String response = "doesnt exist!";
+
+        if (CookieUtil.exists(request,"hello")) {
+            response = "it does exist!";
+        }
+
+        FullHttpResponse r = WebResponse.getHtmlResponse(response);
+
         return r;
     }
 }

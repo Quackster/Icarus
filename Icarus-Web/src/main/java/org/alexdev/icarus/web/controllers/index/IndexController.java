@@ -11,6 +11,8 @@ public class IndexController implements Route {
     @Override
     public FullHttpResponse handleRoute(FullHttpRequest request, Channel channel) {
 
-        return WebResponse.getHtmlResponse("Hello!");
+        String indexContents = new String(WebResponse.readFile("template/index.tpl"));
+;
+        return WebResponse.getHtmlResponse(indexContents);
     }
 }

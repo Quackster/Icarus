@@ -4,6 +4,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.FullHttpResponse;
+import io.netty.handler.codec.http.HttpResponseStatus;
 import org.alexdev.icarus.web.IcarusWeb;
 import org.alexdev.icarus.web.routes.manager.Route;
 import org.alexdev.icarus.web.routes.manager.RouteManager;
@@ -38,7 +39,7 @@ public class NettyChannelHandler extends ChannelInboundHandlerAdapter {
                     return;
                 }
 
-                ctx.channel().writeAndFlush(WebResponse.getHtmlResponse(TextResponses.getForbiddenText()));
+                ctx.channel().writeAndFlush(WebResponse.getHtmlResponse(HttpResponseStatus.FORBIDDEN, TextResponses.getForbiddenText()));
                 return;
             }
 
@@ -54,7 +55,7 @@ public class NettyChannelHandler extends ChannelInboundHandlerAdapter {
 
                 ctx.channel().writeAndFlush(response);
             } else {
-                ctx.channel().writeAndFlush(WebResponse.getHtmlResponse(TextResponses.getNotFoundText()));
+                ctx.channel().writeAndFlush(WebResponse.getHtmlResponse(HttpResponseStatus.NOT_FOUND, TextResponses.getNotFoundText()));
             }
 
         } else {
