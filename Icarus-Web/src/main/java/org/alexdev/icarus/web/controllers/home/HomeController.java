@@ -12,9 +12,10 @@ public class HomeController {
         return tpl.render();
     }
 
-    public static FullHttpResponse me(WebSession client) throws Exception {
+    public static FullHttpResponse client(WebSession client) throws Exception {
         Template tpl = client.template();
-        tpl.start("home");
+        tpl.start("client");
+        tpl.set("sso-ticket", "123");
         return tpl.render();
     }
 }

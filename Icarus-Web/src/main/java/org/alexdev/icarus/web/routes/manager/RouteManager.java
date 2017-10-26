@@ -16,7 +16,7 @@ public class RouteManager {
     public static void register() {
         RouteManager.addRoute("/", HomeController::index);
         RouteManager.addRoute("/index", HomeController::index);
-        RouteManager.addRoute("/me", HomeController::me);
+        RouteManager.addRoute("/me", HomeController::client);
     }
 
     public static void addRoute(String uri, Route route) {
