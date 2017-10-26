@@ -1,9 +1,9 @@
 package org.alexdev.icarus.web.server;
 
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.handler.codec.http.*;
+import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.FullHttpResponse;
 import org.alexdev.icarus.web.IcarusWeb;
 import org.alexdev.icarus.web.routes.manager.Route;
 import org.alexdev.icarus.web.routes.manager.RouteManager;
@@ -23,9 +23,7 @@ public class NettyChannelHandler extends ChannelInboundHandlerAdapter {
         if (msg instanceof FullHttpRequest) {
 
             final FullHttpRequest request = (FullHttpRequest) msg;
-            final String responseMessage = "Hello from Netty!";
-
-            File file = Paths.get(IcarusWeb.getContentDirectory(), request.uri()).toFile();
+            final File file = Paths.get(IcarusWeb.getContentDirectory(), request.uri()).toFile();
 
             if (file != null && file.exists()) {
                 if (file.isFile()) {
