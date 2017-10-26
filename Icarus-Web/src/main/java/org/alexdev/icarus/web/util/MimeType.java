@@ -1,4 +1,4 @@
-package org.alexdev.icarus.web;
+package org.alexdev.icarus.web.util;
 
 public enum MimeType {
     $323 ("text/h323"),

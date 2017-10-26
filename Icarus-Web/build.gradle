@@ -1,5 +1,6 @@
-apply plugin: 'idea'
 apply plugin: 'application'
+apply plugin: 'idea'
+
 
 mainClassName = 'org.alexdev.icarus.web.IcarusWeb'
 
@@ -8,8 +9,8 @@ repositories {
 }
 
 dependencies {
-    // https://mvnrepository.com/artifact/org.nanohttpd/nanohttpd
-    compile group: 'org.nanohttpd', name: 'nanohttpd', version: '2.3.0'
+    // https://mvnrepository.com/artifact/io.netty/netty-all
+    compile group: 'io.netty', name: 'netty-all', version: '4.1.16.Final'
 
     // https://mvnrepository.com/artifact/commons-io/commons-io
     compile group: 'commons-io', name: 'commons-io', version: '2.5'
