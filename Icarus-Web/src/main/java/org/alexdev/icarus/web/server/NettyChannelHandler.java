@@ -27,7 +27,6 @@ public class NettyChannelHandler extends ChannelInboundHandlerAdapter {
             final Route route = RouteManager.getRoute(request.uri());
 
             if (route != null) {
-
                 WebSession session = new WebSession(ctx.channel(), request);
                 FullHttpResponse response = route.handleRoute(session);
 

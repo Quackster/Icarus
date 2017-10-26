@@ -6,6 +6,10 @@ import org.alexdev.icarus.web.util.response.WebResponse;
 import org.alexdev.icarus.web.server.session.WebSession;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
+import org.jtwig.environment.EnvironmentConfiguration;
+import org.jtwig.environment.EnvironmentConfigurationBuilder;
+import org.jtwig.render.config.RenderConfiguration;
+import org.jtwig.web.servlet.JtwigRenderer;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -34,7 +38,7 @@ public class Template {
         }
     }
 
-    public void set(String name, String value) {
+    public void set(String name, Object value) {
         this.model.with(name, value);
     }
 

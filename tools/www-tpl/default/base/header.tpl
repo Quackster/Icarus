@@ -1,0 +1,1 @@
+<title>{{ page.name }} - {{ page.description }}</title>
