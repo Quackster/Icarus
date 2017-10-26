@@ -1,27 +1,13 @@
 package org.alexdev.icarus.web.controllers.index;
 
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.FullHttpResponse;
-import io.netty.handler.codec.http.QueryStringDecoder;
-import io.netty.util.CharsetUtil;
-import org.alexdev.icarus.web.IcarusWeb;
-import org.alexdev.icarus.web.routes.manager.Route;
 import org.alexdev.icarus.web.server.response.WebResponse;
-import org.jtwig.JtwigModel;
-import org.jtwig.JtwigTemplate;
 
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Map;
+public class HomeController {
 
-public class IndexController implements Route {
-
-    @Override
-    public FullHttpResponse handleRoute(FullHttpRequest request, Channel channel) {
-        JtwigTemplate template = JtwigTemplate.fileTemplate(Paths.get(IcarusWeb.getContentDirectory(), "template/index.tpl").toString());
-        JtwigModel model = JtwigModel.newModel().with("var", "World");
+    public static FullHttpResponse index(FullHttpRequest request, Channel channel) {
 
         //POST DATA
         /*QueryStringDecoder decoder = new QueryStringDecoder("?" +
@@ -40,6 +26,10 @@ public class IndexController implements Route {
             }
         }*/
 
-        return WebResponse.getHtmlResponse(template.render(model));
+        return WebResponse.getHtmlResponse("Welcome page");
+    }
+
+    public static FullHttpResponse index_test(FullHttpRequest fullHttpRequest, Channel channel) {
+        return WebResponse.getHtmlResponse("Sup nibba");
     }
 }
