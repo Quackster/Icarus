@@ -19,18 +19,16 @@ public class WebQuery {
 
         QueryStringDecoder decoder = new QueryStringDecoder(queryData);
 
-        if (decoder.parameters().size() > 0) {
-            for (Map.Entry<String, List<String>> set : decoder.parameters().entrySet()) {
+        for (Map.Entry<String, List<String>> set : decoder.parameters().entrySet()) {
 
-                if (set.getKey().isEmpty()) {
-                    continue;
-                }
+            if (set.getKey().isEmpty()) {
+                continue;
+            }
 
-                if (set.getValue().isEmpty()) {
-                    this.queries.put(set.getKey(), null);
-                } else {
-                    this.queries.put(set.getKey(), set.getValue().get(0));
-                }
+            if (set.getValue().isEmpty()) {
+                this.queries.put(set.getKey(), null);
+            } else {
+                this.queries.put(set.getKey(), set.getValue().get(0));
             }
         }
     }
@@ -49,5 +47,9 @@ public class WebQuery {
 
     public void set(String key, String value) {
         this.queries.put(key, value);
+    }
+
+    public void delete(String key) {
+        this.queries.remove(key);
     }
 }

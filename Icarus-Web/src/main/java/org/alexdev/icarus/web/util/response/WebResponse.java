@@ -1,4 +1,4 @@
-package org.alexdev.icarus.web.server.response;
+package org.alexdev.icarus.web.util.response;
 
 import io.netty.buffer.Unpooled;
 import io.netty.handler.codec.http.*;
@@ -51,7 +51,7 @@ public class WebResponse {
 
     public static FullHttpResponse handleFileResponse(FullHttpRequest request) {
 
-        Path path = Paths.get(IcarusWeb.getContentDirectory(), request.uri().split("\\?")[0]);
+        Path path = Paths.get(IcarusWeb.getSiteDirectory(), request.uri().split("\\?")[0]);
         final File file = path.toFile();
 
         if (file != null && file.exists()) {
@@ -59,7 +59,7 @@ public class WebResponse {
                 return WebResponse.getFileResponse(file, request);
             }
 
-            File indexFile = Paths.get(IcarusWeb.getContentDirectory(), request.uri(), "index.html").toFile();
+            File indexFile = Paths.get(IcarusWeb.getSiteDirectory(), request.uri(), "home.html").toFile();
 
             if (indexFile.exists() && indexFile.isFile()) {
                 return WebResponse.getFileResponse(indexFile, request);

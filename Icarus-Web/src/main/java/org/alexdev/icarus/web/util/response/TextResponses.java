@@ -1,4 +1,4 @@
-package org.alexdev.icarus.web.server.response;
+package org.alexdev.icarus.web.util.response;
 
 public class TextResponses {
     public static String getForbiddenText() {

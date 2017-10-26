@@ -4,6 +4,7 @@ import io.netty.channel.Channel;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.util.AttributeKey;
 import io.netty.util.CharsetUtil;
+import org.alexdev.icarus.web.template.Template;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ public class WebSession {
 
     private WebQuery postData;
     private WebQuery getData;
-    private final WebQuery sessionData;
+    private WebQuery sessionData;
 
     public static final AttributeKey<Map<String, String>> SESSION_DATA = AttributeKey.valueOf("SessionDataMap");
 
@@ -50,5 +51,9 @@ public class WebSession {
 
     public FullHttpRequest request() {
         return httpRequest;
+    }
+
+    public Template template() {
+        return new Template(this);
     }
 }

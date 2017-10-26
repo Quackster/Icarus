@@ -14,7 +14,7 @@ public class Util {
     }
 
     public static byte[] readFile(String relativePath) {
-        File file = Paths.get(IcarusWeb.getContentDirectory(), relativePath).toFile();
+        File file = Paths.get(IcarusWeb.getSiteDirectory(), relativePath).toFile();
         return readFile(file);
     }
 

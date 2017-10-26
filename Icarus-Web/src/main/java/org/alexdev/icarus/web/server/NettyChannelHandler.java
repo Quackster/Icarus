@@ -7,8 +7,8 @@ import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import org.alexdev.icarus.web.routes.manager.Route;
 import org.alexdev.icarus.web.routes.manager.RouteManager;
-import org.alexdev.icarus.web.server.response.TextResponses;
-import org.alexdev.icarus.web.server.response.WebResponse;
+import org.alexdev.icarus.web.util.response.TextResponses;
+import org.alexdev.icarus.web.util.response.WebResponse;
 import org.alexdev.icarus.web.server.session.WebSession;
 
 import java.io.PrintWriter;
@@ -23,11 +23,6 @@ public class NettyChannelHandler extends ChannelInboundHandlerAdapter {
 
             final FullHttpRequest request = (FullHttpRequest) msg;
             final FullHttpResponse fileResponse = WebResponse.handleFileResponse(request);
-
-            if (fileResponse != null) {
-                ctx.channel().writeAndFlush(fileResponse);
-            }
-
             final Route route = RouteManager.getRoute(request.uri());
 
             if (route != null) {
@@ -39,6 +34,11 @@ public class NettyChannelHandler extends ChannelInboundHandlerAdapter {
                 }
 
                 ctx.channel().writeAndFlush(response);
+            }
+
+            if (fileResponse != null) {
+                ctx.channel().writeAndFlush(fileResponse);
+                return;
             } else {
                 ctx.channel().writeAndFlush(WebResponse.getHtmlResponse(HttpResponseStatus.NOT_FOUND, TextResponses.getNotFoundText()));
             }

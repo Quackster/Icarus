@@ -16,3 +16,4 @@ icarus.properties
 locale.ini
 log4j.properties
 error.log
+site-config.ini
