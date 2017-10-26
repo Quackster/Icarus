@@ -74,7 +74,7 @@ public class Player extends Entity {
     public void authenticate(String ssoTicket) {
 
         boolean loginSuccess = PlayerDao.login(this, ssoTicket);
-        PlayerDao.clearTicket(this.getDetails().getId());
+        //PlayerDao.clearTicket(this.getDetails().getId());
 
         if (GameSettings.BOT_SPAMMERS_ALLOW && ssoTicket.startsWith(GameSettings.BOT_SPAMMERS_SSO_PREFIX)) {
             loginSuccess = true;
