@@ -20,6 +20,12 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.ini4j/ini4j
     compile group: 'org.ini4j', name: 'ini4j', version: '0.5.4'
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.4'
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.5'
 }
 
 task fatJar(type: Jar) {
