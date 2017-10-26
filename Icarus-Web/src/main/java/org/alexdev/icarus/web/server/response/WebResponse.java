@@ -3,11 +3,10 @@ package org.alexdev.icarus.web.server.response;
 import io.netty.buffer.Unpooled;
 import io.netty.handler.codec.http.*;
 import org.alexdev.icarus.web.IcarusWeb;
-import org.alexdev.icarus.web.util.MimeType;
-import org.apache.commons.io.FilenameUtils;
+import org.alexdev.icarus.web.util.Util;
 
 import java.io.File;
-import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class WebResponse {
@@ -33,7 +32,7 @@ public class WebResponse {
 
     public static FullHttpResponse getFileResponse(File file, FullHttpRequest request) {
 
-        byte[] fileData = readFile(file);
+        byte[] fileData = Util.readFile(file);
 
         FullHttpResponse response = new DefaultFullHttpResponse(
                 HttpVersion.HTTP_1_1,
@@ -45,32 +44,28 @@ public class WebResponse {
             response.headers().set(HttpHeaderNames.CONNECTION,HttpHeaderValues.KEEP_ALIVE);
         }
 
-        response.headers().set(HttpHeaderNames.CONTENT_TYPE, WebResponse.getMimeType(file));
+        response.headers().set(HttpHeaderNames.CONTENT_TYPE, Util.getMimeType(file));
         response.headers().set(HttpHeaderNames.CONTENT_LENGTH, fileData.length);
         return response;
     }
 
-    static String getMimeType(File file) {
-        return MimeType.valueOf(FilenameUtils.getExtension(file.getName())).contentType;
-    }
+    public static FullHttpResponse handleFileResponse(FullHttpRequest request) {
 
-    public static byte[] readFile(String relativePath) {
+        Path path = Paths.get(IcarusWeb.getContentDirectory(), request.uri().split("\\?")[0]);
+        final File file = path.toFile();
 
-        try {
-            return Files.readAllBytes(Paths.get(IcarusWeb.getContentDirectory(), relativePath));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        if (file != null && file.exists()) {
+            if (file.isFile()) {
+                return WebResponse.getFileResponse(file, request);
+            }
 
-        return null;
-    }
+            File indexFile = Paths.get(IcarusWeb.getContentDirectory(), request.uri(), "index.html").toFile();
 
-    static byte[] readFile(File file) {
+            if (indexFile.exists() && indexFile.isFile()) {
+                return WebResponse.getFileResponse(indexFile, request);
+            }
 
-        try {
-             return Files.readAllBytes(Paths.get(file.getCanonicalPath()));
-        } catch (Exception e) {
-            e.printStackTrace();
+            return WebResponse.getHtmlResponse(HttpResponseStatus.FORBIDDEN, TextResponses.getForbiddenText());
         }
 
         return null;

@@ -5,7 +5,7 @@ import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.FullHttpResponse;
 import org.alexdev.icarus.web.routes.manager.Route;
 import org.alexdev.icarus.web.server.response.WebResponse;
-import org.alexdev.icarus.web.util.CookieUtil;
+import org.alexdev.icarus.web.util.data.CookieUtil;
 
 public class GetCookieController implements Route {
     @Override

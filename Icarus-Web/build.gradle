@@ -14,4 +14,8 @@ dependencies {
 
     // https://mvnrepository.com/artifact/commons-io/commons-io
     compile group: 'commons-io', name: 'commons-io', version: '2.5'
+
+    // https://mvnrepository.com/artifact/org.jtwig/jtwig-web
+    compile group: 'org.jtwig', name: 'jtwig-web', version: '5.86.1.RELEASE'
+
 }

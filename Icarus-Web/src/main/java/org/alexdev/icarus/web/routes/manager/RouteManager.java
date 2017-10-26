@@ -17,7 +17,7 @@ public class RouteManager {
 
     public static Route getRoute(String uri) {
 
-        System.out.println("uri request: " + uri);
+        uri = uri.split("\\?")[0]; // remove get parameters for lookup
 
         if (routes.containsKey(uri)) {
             return routes.get(uri);

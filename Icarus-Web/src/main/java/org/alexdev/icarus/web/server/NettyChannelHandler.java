@@ -1,7 +1,9 @@
 package org.alexdev.icarus.web.server;
 
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.handler.codec.http.FullHttpMessage;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpResponseStatus;
@@ -10,10 +12,12 @@ import org.alexdev.icarus.web.routes.manager.Route;
 import org.alexdev.icarus.web.routes.manager.RouteManager;
 import org.alexdev.icarus.web.server.response.TextResponses;
 import org.alexdev.icarus.web.server.response.WebResponse;
+import org.apache.commons.io.Charsets;
 
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
 import java.nio.file.Paths;
 
 public class NettyChannelHandler extends ChannelInboundHandlerAdapter {
@@ -21,29 +25,21 @@ public class NettyChannelHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
+        if (msg instanceof FullHttpMessage) {
+            final FullHttpMessage message = (FullHttpMessage) msg;
+            System.out.println(message.content().toString(Charset.defaultCharset()));
+        }
+
         if (msg instanceof FullHttpRequest) {
 
             final FullHttpRequest request = (FullHttpRequest) msg;
-            final File file = Paths.get(IcarusWeb.getContentDirectory(), request.uri()).toFile();
+            final FullHttpResponse fileResponse = WebResponse.handleFileResponse(request);
 
-            if (file != null && file.exists()) {
-                if (file.isFile()) {
-                    ctx.channel().writeAndFlush(WebResponse.getFileResponse(file, request));
-                    return;
-                }
-
-                File indexFile = Paths.get(IcarusWeb.getContentDirectory(), request.uri(), "index.html").toFile();
-
-                if (indexFile.exists() && indexFile.isFile()) {
-                    ctx.channel().writeAndFlush(WebResponse.getFileResponse(indexFile, request));
-                    return;
-                }
-
-                ctx.channel().writeAndFlush(WebResponse.getHtmlResponse(HttpResponseStatus.FORBIDDEN, TextResponses.getForbiddenText()));
-                return;
+            if (fileResponse != null) {
+                ctx.channel().writeAndFlush(fileResponse);
             }
 
-            Route route = RouteManager.getRoute(request.uri());
+            final Route route = RouteManager.getRoute(request.uri());
 
             if (route != null) {
                 FullHttpResponse response = route.handleRoute(request, ctx.channel());
