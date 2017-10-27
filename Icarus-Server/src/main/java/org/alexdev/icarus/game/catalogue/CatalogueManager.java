@@ -39,7 +39,7 @@ public class CatalogueManager {
         this.childTabs = new HashMap<>();
 
         for (CatalogueTab parent : parentTabs) {
-            this.loadCatalogueTabs(parent, parent.getId());
+            this.loadCatalogueTabs(parent);
         }
 
         if (Configuration.getInstance().getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
@@ -52,26 +52,21 @@ public class CatalogueManager {
      * Reload offers.
      */
     public void reloadOffers() {
-        offers.clear();
-        offers = TargetedOfferDao.getOffers();
+        this.offers = TargetedOfferDao.getOffers();
     }
 
     /**
      * Load catalogue tabs.
      *
      * @param tab the tab
-     * @param parent_id the parent id
      */
-    public void loadCatalogueTabs(CatalogueTab tab, int parent_id) {
+    public void loadCatalogueTabs(CatalogueTab tab) {
 
         List<CatalogueTab> child = CatalogueDao.getCatalogTabs(tab.getId());
 
-        if (child.size() > 0) { 
-
-            for (CatalogueTab parent_tab : child) {
-                tab.getChildTabs().add(parent_tab);
-                loadCatalogueTabs(parent_tab, parent_tab.getId());
-            }
+        for (CatalogueTab parentTab : child) {
+            tab.getChildTabs().add(parentTab);
+            loadCatalogueTabs(parentTab);
         }
     }
 
@@ -119,14 +114,9 @@ public class CatalogueManager {
      */
     public CataloguePage getPage(int pageId) {
 
-        Optional<CataloguePage> cataloguePage = this.pages.stream().filter(page -> page.getId() == pageId).findFirst();
-
-        if (cataloguePage.isPresent()) {
-            return cataloguePage.get();
-        } else {
-            return null;
-        }
-
+        return this.pages.stream().filter(page -> page.getId() == pageId)
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -136,12 +126,7 @@ public class CatalogueManager {
      * @return the page items
      */
     public List<CatalogueItem> getPageItems(int pageId) {
-
-        try {
-            return this.items.stream().filter(item -> item.getPageId() == pageId).collect(Collectors.toList());
-        } catch (Exception e) {
-            return new ArrayList<>();
-        }
+        return this.items.stream().filter(item -> item.getPageId() == pageId).collect(Collectors.toList());
     }
 
     /**
@@ -152,14 +137,9 @@ public class CatalogueManager {
      */
     public CatalogueItem getItem(int itemId) {
 
-        Optional<CatalogueItem> catalogueItem = this.items.stream().filter(item -> item.getId() == itemId).findFirst();
-
-        if (catalogueItem.isPresent()) {
-            return catalogueItem.get();
-        } else {
-            return null;
-        }
-
+        return this.items.stream().filter(item -> item.getId() == itemId)
+                .findFirst()
+                .orElse(null);
     }
 
     /**

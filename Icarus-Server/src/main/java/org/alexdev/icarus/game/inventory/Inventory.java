@@ -17,6 +17,7 @@ import org.alexdev.icarus.messages.outgoing.item.InventoryLoadMessageComposer;
 import org.alexdev.icarus.messages.outgoing.item.RemoveInventoryItemComposer;
 import org.alexdev.icarus.messages.outgoing.item.UpdateInventoryMessageComposer;
 import org.alexdev.icarus.messages.outgoing.pets.PetInventoryMessageComposer;
+import org.alexdev.icarus.messages.types.MessageComposer;
 
 public class Inventory {
 
@@ -51,10 +52,25 @@ public class Inventory {
      * @param notification the notification
      */
     public void addItem(Item item, InventoryNotification notification) {
+        addItem(item, notification, false);
+    }
+
+    /**
+     * Adds the item but with queue packet option.
+     *
+     * @param item the item
+     * @param notification the notification
+     */
+    public void addItem(Item item, InventoryNotification notification, boolean queuePacket) {
         this.items.put(item.getId(), item);
 
         if (notification == InventoryNotification.ALERT) {
-            this.player.send(new UnseenItemsNotificationComposer(item.getId(), 1));
+            MessageComposer composer = new UnseenItemsNotificationComposer(item.getId(), 1);
+            if (queuePacket) {
+                this.player.sendQueued(composer);
+            } else {
+                this.player.send(composer);
+            }
         }
     }
 
@@ -98,6 +114,7 @@ public class Inventory {
     public void updateItems() {
         this.player.sendQueued(new UpdateInventoryMessageComposer());
         this.player.sendQueued(new InventoryLoadMessageComposer(this.items.values()));
+        this.player.flushQueue();
     }
 
     /**
@@ -106,6 +123,7 @@ public class Inventory {
     public void updatePets() {
         this.player.sendQueued(new UpdateInventoryMessageComposer());
         this.player.sendQueued(new PetInventoryMessageComposer(this.pets));
+        this.player.flushQueue();
     }
 
     /**
