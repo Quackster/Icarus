@@ -87,8 +87,9 @@ public class ItemDefinition {
 
         if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
             Item secondTeleporter = InventoryDao.newItem(this.id, player.getEntityId(), "0");
-            player.getInventory().addItem(secondTeleporter, InventoryNotification.ALERT);
             TeleporterDao.savePair(inventoryItem.getId(), secondTeleporter.getId());
+
+            player.getInventory().addItem(secondTeleporter, InventoryNotification.ALERT);
         }
 
         player.getInventory().addItem(inventoryItem, InventoryNotification.ALERT);

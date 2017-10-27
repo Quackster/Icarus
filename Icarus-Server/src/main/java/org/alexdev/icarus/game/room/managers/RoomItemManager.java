@@ -48,13 +48,7 @@ public class RoomItemManager {
      * @return the items
      */
     public List<Item> getItems(InteractionType interactionType) {
-
-        try {
-            Stream<Item> items = this.items.values().stream().filter(item -> item.getDefinition().getInteractionType() == interactionType);
-            return items.collect(Collectors.toList());
-        } catch (Exception e) {
-            return new ArrayList<>(); // could not find any of that type, stream throws exception then
-        }
+        return this.items.values().stream().filter(item -> item.getDefinition().getInteractionType() == interactionType).collect(Collectors.toList());
     }
 
 
