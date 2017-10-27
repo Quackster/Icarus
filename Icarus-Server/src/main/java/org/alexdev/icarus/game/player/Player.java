@@ -81,7 +81,7 @@ public class Player extends Entity {
             this.details.setId(Util.getRandom().nextInt(10000));
             this.details.setName("BottyBoi" + Util.getRandom().nextInt(10000));
         } else {
-            if (!loginSuccess || this.getMachineId() == null || PlayerManager.getInstance().kickDuplicates(this)) {
+            if (!loginSuccess || this.getMachineId() == null || PlayerManager.getInstance().disconnectExistingUsers(this)) {
                 this.getNetwork().close();
                 return;
             }

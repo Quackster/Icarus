@@ -133,12 +133,12 @@ public class PlayerManager {
     }
 
     /**
-     * Check for duplicates.
+     * Check for duplicates and kick them.
      *
      * @param player the player
      * @return true, if successful
      */
-    public boolean kickDuplicates(Player player) {
+    public boolean disconnectExistingUsers(Player player) {
 
         for (Player session : this.authenticatedPlayersById.values()) {
 

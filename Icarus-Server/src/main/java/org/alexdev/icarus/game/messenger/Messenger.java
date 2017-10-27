@@ -51,13 +51,9 @@ public class Messenger {
      */
     public MessengerUser getFriend(int id) {
 
-        Optional<MessengerUser> friend = this.friends.stream().filter(f -> f.getDetails().getId() == id).findFirst();
-
-        if (friend.isPresent()) {
-            return friend.get();
-        } else {
-            return null;
-        }
+        return this.friends.stream().filter(f -> f.getDetails().getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -68,13 +64,9 @@ public class Messenger {
      */
     public MessengerUser getRequest(int id) {
 
-        Optional<MessengerUser> request = this.requests.stream().filter(f -> f.getDetails().getId() == id).findFirst();
-
-        if (request.isPresent()) {
-            return request.get();
-        } else {
-            return null;
-        }
+        return this.requests.stream().filter(f -> f.getDetails().getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
 

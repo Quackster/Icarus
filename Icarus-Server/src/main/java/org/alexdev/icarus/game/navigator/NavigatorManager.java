@@ -36,13 +36,9 @@ public class NavigatorManager {
      */
     public NavigatorTab getTab(String tabName) {
 
-        Optional<NavigatorTab> navigatorTab = this.tabs.stream().filter(tab -> tab.getTabName().equals(tabName)).findFirst();
-
-        if (navigatorTab.isPresent()) {
-            return navigatorTab.get();
-        } else {
-            return null;
-        }
+        return this.tabs.stream().filter(tab -> tab.getTabName().equals(tabName))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -51,14 +47,7 @@ public class NavigatorManager {
      * @return the parent tabs
      */
     public List<NavigatorTab> getParentTabs() {
-
-        try {
-            
-            return this.tabs.stream().filter(tab -> tab.getChildId() == -1).collect(Collectors.toList());
-            
-        } catch (Exception e) {
-            return null;
-        }
+        return this.tabs.stream().filter(tab -> tab.getChildId() == -1).collect(Collectors.toList());
     }
     
     /**

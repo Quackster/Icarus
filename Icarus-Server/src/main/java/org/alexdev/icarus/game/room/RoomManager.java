@@ -113,12 +113,7 @@ public class RoomManager {
      * @return the public rooms
      */
     public List<Room> getPublicRooms() {
-        
-        try {
-            return this.rooms.values().stream().filter(room -> room.getData().getRoomType() == RoomType.PUBLIC).collect(Collectors.toList());
-        } catch (Exception e) {
-            return null;
-        }
+        return this.rooms.values().stream().filter(room -> room.getData().getRoomType() == RoomType.PUBLIC).collect(Collectors.toList());
     }
     
     /**
@@ -128,12 +123,7 @@ public class RoomManager {
      * @return the player rooms
      */
     public List<Room> getPlayerRooms(int userId) {
-        
-        try {
-            return this.rooms.values().stream().filter(room -> room.getData().getOwnerId() == userId).collect(Collectors.toList());
-        } catch (Exception e) {
-            return null;
-        }
+        return this.rooms.values().stream().filter(room -> room.getData().getOwnerId() == userId).collect(Collectors.toList());
     }
 
     /**
