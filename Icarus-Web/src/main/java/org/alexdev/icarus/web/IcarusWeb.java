@@ -2,6 +2,7 @@ package org.alexdev.icarus.web;
 
 import org.alexdev.icarus.duckhttpd.routes.manager.RouteManager;
 import org.alexdev.icarus.duckhttpd.server.WebServer;
+import org.alexdev.icarus.duckhttpd.util.config.Settings;
 import org.alexdev.icarus.web.util.config.Configuration;
 
 public class IcarusWeb {
@@ -17,11 +18,16 @@ public class IcarusWeb {
         }
 
         config = new Configuration();
-        config.checkFileExistence();
         config.load();
 
         int port = Integer.parseInt(args[0]);
         System.out.println("Starting web service on port " + port);
+
+        Settings.getInstance().setSiteDirectory(config.values().get("Directories", "site.directory"));
+        Settings.getInstance().setTemplateDirectory(config.values().get("Directories", "template.directory"));
+        Settings.getInstance().setTemplateName(config.values().get("Template", "template.name"));
+
+        System.out.println(Settings.getInstance().getSiteDirectory());
 
         Routes.register();
         System.out.println("Registered " + RouteManager.getRoutes().size() + " route(s)!");
