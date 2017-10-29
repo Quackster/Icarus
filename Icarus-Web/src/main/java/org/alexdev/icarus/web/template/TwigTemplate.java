@@ -24,9 +24,6 @@ public class TwigTemplate extends Template {
     @Override
     public void start(String view) throws Exception {
 
-        System.out.println(Settings.getInstance().getTemplateName());
-        System.out.println(Settings.getInstance().getTemplateDirectory());
-
         File file = Paths.get(Settings.getInstance().getTemplateDirectory(), Settings.getInstance().getTemplateName(), view + ".tpl").toFile();
 
         if (file.exists() && file.isFile()) {
