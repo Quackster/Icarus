@@ -3,6 +3,7 @@ package org.alexdev.icarus.web;
 import org.alexdev.icarus.duckhttpd.routes.manager.RouteManager;
 import org.alexdev.icarus.duckhttpd.server.WebServer;
 import org.alexdev.icarus.duckhttpd.util.config.Settings;
+import org.alexdev.icarus.duckhttpd.util.response.DefaultWebResponse;
 import org.alexdev.icarus.web.util.config.Configuration;
 
 public class IcarusWeb {
@@ -23,9 +24,11 @@ public class IcarusWeb {
         int port = Integer.parseInt(args[0]);
         System.out.println("Starting web service on port " + port);
 
-        Settings.getInstance().setSiteDirectory(config.values().get("Directories", "site.directory"));
-        Settings.getInstance().setTemplateDirectory(config.values().get("Directories", "template.directory"));
-        Settings.getInstance().setTemplateName(config.values().get("Template", "template.name"));
+        Settings settings = Settings.getInstance();
+        settings.setSiteDirectory(config.values().get("Directories", "site.directory"));
+        settings.setTemplateDirectory(config.values().get("Directories", "template.directory"));
+        settings.setTemplateName(config.values().get("Template", "template.name"));
+        settings.setWebResponses(new DefaultWebResponse());
 
         System.out.println(Settings.getInstance().getSiteDirectory());
 
