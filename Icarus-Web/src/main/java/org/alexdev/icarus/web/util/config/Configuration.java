@@ -10,7 +10,12 @@ public class Configuration {
 
     private Wini configuration;
 
-    public void checkFileExistence() throws Exception {
+    public void load() throws IOException {
+        this.checkFileExistence();
+        configuration = new Wini(new File("site-config.ini"));
+    }
+
+    public void checkFileExistence() throws IOException {
 
         File file = new File("site-config.ini");
         if (!file.isFile()) {
@@ -30,10 +35,6 @@ public class Configuration {
         writer.println("[Template]");
         writer.println("template.name=default");
         writer.println();
-    }
-
-    public void load() throws IOException {
-        configuration = new Wini(new File("site-config.ini"));
     }
 
     public Wini values() {
