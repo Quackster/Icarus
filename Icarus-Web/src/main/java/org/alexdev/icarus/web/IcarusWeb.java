@@ -30,24 +30,10 @@ public class IcarusWeb {
         settings.setTemplateName(config.values().get("Template", "template.name"));
         settings.setWebResponses(new DefaultWebResponse());
 
-        System.out.println(Settings.getInstance().getSiteDirectory());
-
         Routes.register();
         System.out.println("Registered " + RouteManager.getRoutes().size() + " route(s)!");
 
         instance = new WebServer(port);
         instance.start();
-    }
-
-    public static String getSiteDirectory() {
-        return config.values().get("Directories", "site.directory", String.class);
-    }
-
-    public static String getTemplateDirectory() {
-        return config.values().get("Directories", "template.directory", String.class);
-    }
-
-    public static String getTemplateName() {
-        return config.values().get("Template", "template.name", String.class);
     }
 }

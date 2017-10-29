@@ -11,11 +11,6 @@ public class Configuration {
     private Wini configuration;
 
     public void load() throws IOException {
-        this.checkFileExistence();
-        configuration = new Wini(new File("site-config.ini"));
-    }
-
-    public void checkFileExistence() throws IOException {
 
         File file = new File("site-config.ini");
         if (!file.isFile()) {
@@ -25,6 +20,8 @@ public class Configuration {
             writer.flush();
             writer.close();
         }
+
+        configuration = new Wini(new File("site-config.ini"));
     }
 
     private static void writeSiteConfiguration(PrintWriter writer) {
