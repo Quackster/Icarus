@@ -2,7 +2,6 @@ apply plugin: 'application'
 apply plugin: 'idea'
 
 mainClassName = 'org.alexdev.icarus.web.IcarusWeb'
-
 repositories {
     mavenCentral()
 }
@@ -26,6 +25,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.5'
+
+    // https://github.com/Quackster/duckHTTPD/
+    compile project(':duckHTTPD')
 }
 
 task fatJar(type: Jar) {
