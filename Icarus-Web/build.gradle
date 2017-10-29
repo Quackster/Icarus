@@ -2,29 +2,15 @@ apply plugin: 'application'
 apply plugin: 'idea'
 
 mainClassName = 'org.alexdev.icarus.web.IcarusWeb'
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
 
-    // https://mvnrepository.com/artifact/io.netty/netty-all
-    compile group: 'io.netty', name: 'netty-all', version: '4.1.16.Final'
-
-    // https://mvnrepository.com/artifact/commons-io/commons-io
-    compile group: 'commons-io', name: 'commons-io', version: '2.5'
-
-    // https://mvnrepository.com/artifact/org.jtwig/jtwig-web
-    compile group: 'org.jtwig', name: 'jtwig-web', version: '5.86.1.RELEASE'
-
     // https://mvnrepository.com/artifact/org.ini4j/ini4j
     compile group: 'org.ini4j', name: 'ini4j', version: '0.5.4'
-
-    // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
-    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.4'
-
-    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.5'
 
     // https://github.com/Quackster/duckHTTPD/
     compile project(':duckHTTPD')
