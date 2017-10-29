@@ -29,7 +29,7 @@ public class Configuration {
         writer.println("site.directory=tools/www");
         writer.println("template.directory=tools/www-tpl");
         writer.println();
-        writer.println("[Template]");
+        writer.println("[TwigTemplate]");
         writer.println("template.name=default");
         writer.println();
     }

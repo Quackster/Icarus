@@ -1,9 +1,9 @@
 package org.alexdev.icarus.web;
 
-import org.alexdev.icarus.duckhttpd.routes.manager.RouteManager;
+import org.alexdev.icarus.duckhttpd.routes.RouteManager;
 import org.alexdev.icarus.duckhttpd.server.WebServer;
 import org.alexdev.icarus.duckhttpd.util.config.Settings;
-import org.alexdev.icarus.duckhttpd.util.response.DefaultWebResponse;
+import org.alexdev.icarus.web.template.TwigTemplate;
 import org.alexdev.icarus.web.util.config.Configuration;
 
 public class IcarusWeb {
@@ -28,7 +28,7 @@ public class IcarusWeb {
         settings.setSiteDirectory(config.values().get("Directories", "site.directory"));
         settings.setTemplateDirectory(config.values().get("Directories", "template.directory"));
         settings.setTemplateName(config.values().get("Template", "template.name"));
-        settings.setWebResponses(new DefaultWebResponse());
+        settings.setTemplateHook(TwigTemplate.class);
 
         Routes.register();
         System.out.println("Registered " + RouteManager.getRoutes().size() + " route(s)!");
