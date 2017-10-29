@@ -1,13 +1,13 @@
 package org.alexdev.icarus.web;
 
-import org.alexdev.icarus.web.routes.manager.RouteManager;
-import org.alexdev.icarus.web.server.NettyWebServer;
+import org.alexdev.icarus.duckhttpd.routes.manager.RouteManager;
+import org.alexdev.icarus.duckhttpd.server.WebServer;
 import org.alexdev.icarus.web.util.config.Configuration;
 
 public class IcarusWeb {
 
-    private static NettyWebServer instance;
     private static Configuration config;
+    private static WebServer instance;
 
     public static void main(String[] args) throws Exception {
 
@@ -26,7 +26,7 @@ public class IcarusWeb {
         Routes.register();
         System.out.println("Registered " + RouteManager.getRoutes().size() + " route(s)!");
 
-        instance = new NettyWebServer(port);
+        instance = new WebServer(port);
         instance.start();
     }
 
