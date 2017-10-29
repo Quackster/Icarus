@@ -3,4 +3,4 @@ include 'Icarus-Web'
 
 // https://github.com/Quackster/duckHTTPD/
 include 'duckHTTPD'
-project(":duckHTTPD").projectDir = file("../duckHTTPD/Server")
+project(":duckHTTPD").projectDir = file("../duckHTTPD")
