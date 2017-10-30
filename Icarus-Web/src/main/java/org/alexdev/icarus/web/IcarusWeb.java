@@ -3,6 +3,7 @@ package org.alexdev.icarus.web;
 import org.alexdev.icarus.duckhttpd.routes.RouteManager;
 import org.alexdev.icarus.duckhttpd.server.WebServer;
 import org.alexdev.icarus.duckhttpd.util.config.Settings;
+import org.alexdev.icarus.web.util.IcarusWebResponses;
 import org.alexdev.icarus.web.template.TwigTemplate;
 import org.alexdev.icarus.web.util.config.Configuration;
 
@@ -29,6 +30,7 @@ public class IcarusWeb {
         settings.setTemplateDirectory(config.values().get("Directories", "template.directory"));
         settings.setTemplateName(config.values().get("Template", "template.name"));
         settings.setTemplateHook(TwigTemplate.class);
+        settings.setWebResponses(new IcarusWebResponses());
 
         Routes.register();
         System.out.println("Registered " + RouteManager.getRoutes().size() + " route(s)!");

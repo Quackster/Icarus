@@ -1,4 +1,4 @@
-package org.alexdev.icarus.web.util.config;
+package org.alexdev.icarus.web.template.site;
 
 public class Site {
     private String url;
