@@ -6,10 +6,12 @@ import org.alexdev.duckhttpd.template.Template;
 public class HomeController {
 
     public static void homepage(WebConnection client) throws Exception {
+
+        // Load template
         Template tpl = client.template("index");
         tpl.render();
 
-        // remove alert after this
+        // Unset alert after seeing it
         client.session().set("showAlert", false);
     }
 }

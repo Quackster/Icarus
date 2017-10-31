@@ -5,8 +5,8 @@ import org.alexdev.duckhttpd.server.session.WebConnection;
 import org.alexdev.duckhttpd.template.Template;
 import org.alexdev.duckhttpd.util.config.Settings;
 import org.alexdev.duckhttpd.response.ResponseBuilder;
-import org.alexdev.icarus.web.template.site.IcarusSession;
-import org.alexdev.icarus.web.template.site.Site;
+import org.alexdev.icarus.web.template.binders.TemplateSiteBinder;
+import org.alexdev.icarus.web.template.binders.TemplateSessionBinder;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
@@ -44,8 +44,8 @@ public class TwigTemplate extends Template {
     }
 
     public void applyGlobals() {
-        this.set("site", new Site("http://localhost", "Icarus"));
-        this.set("session", new IcarusSession(this.webConnection));
+        this.set("site", new TemplateSiteBinder());
+        this.set("session", new TemplateSessionBinder(this.webConnection));
     }
 
     @Override
