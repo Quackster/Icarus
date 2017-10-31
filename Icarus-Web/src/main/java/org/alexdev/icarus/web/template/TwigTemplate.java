@@ -1,10 +1,12 @@
 package org.alexdev.icarus.web.template;
 
 import io.netty.handler.codec.http.FullHttpResponse;
-import org.alexdev.icarus.duckhttpd.server.session.WebSession;
-import org.alexdev.icarus.duckhttpd.template.Template;
-import org.alexdev.icarus.duckhttpd.util.config.Settings;
-import org.alexdev.icarus.duckhttpd.util.response.ResponseBuilder;
+import org.alexdev.duckhttpd.server.session.WebConnection;
+import org.alexdev.duckhttpd.template.Template;
+import org.alexdev.duckhttpd.util.config.Settings;
+import org.alexdev.duckhttpd.util.response.ResponseBuilder;
+import org.alexdev.icarus.web.template.site.IcarusSession;
+import org.alexdev.icarus.web.template.site.Site;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
@@ -17,7 +19,7 @@ public class TwigTemplate extends Template {
     private JtwigModel model;
     private JtwigTemplate template;
 
-    public TwigTemplate(WebSession session) {
+    public TwigTemplate(WebConnection session) {
         super(session);
     }
 
@@ -30,8 +32,9 @@ public class TwigTemplate extends Template {
             this.file = file;
             this.template = JtwigTemplate.fileTemplate(file);
             this.model = JtwigModel.newModel();
+
         } else {
-            throw new Exception("The template view " + view + " does not exist!");
+            throw new Exception("The template view " + view + " does not exist!\nThe path: " + file.getCanonicalPath());
         }
     }
 
@@ -40,10 +43,15 @@ public class TwigTemplate extends Template {
         this.model.with(name, value);
     }
 
+    public void applyGlobals() {
+        this.set("site", new Site("http://localhost", "Icarus"));
+        this.set("session", new IcarusSession(this.webConnection));
+    }
+
     @Override
     public FullHttpResponse render() {
-        FullHttpResponse response = ResponseBuilder.getHtmlResponse(this.template.render(this.model));
-        this.webSession.setResponse(response);
-        return response;
+        this.applyGlobals();
+        this.webConnection.setResponse(ResponseBuilder.getHtmlResponse(this.template.render(this.model)));
+        return this.webConnection.response();
     }
 }

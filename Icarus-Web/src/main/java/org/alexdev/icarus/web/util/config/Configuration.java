@@ -1,5 +1,7 @@
 package org.alexdev.icarus.web.util.config;
 
+import org.alexdev.duckhttpd.util.config.Settings;
+import org.alexdev.icarus.web.template.TwigTemplate;
 import org.ini4j.Wini;
 
 import java.io.File;
@@ -34,6 +36,20 @@ public class Configuration {
         writer.println();
     }
 
+    public void setSettings(Settings settings) {
+        settings.setSiteDirectory(configuration.get("Directories", "site.directory"));
+        settings.setTemplateDirectory(configuration.get("Directories", "template.directory"));
+        settings.setTemplateName(configuration.get("Template", "template.name"));
+        settings.setTemplateHook(TwigTemplate.class);
+    }
+
+    public void setContent(Settings settings) {
+        settings.setSiteDirectory(configuration.get("Directories", "site.directory"));
+        settings.setTemplateDirectory(configuration.get("Directories", "template.directory"));
+        settings.setTemplateName(configuration.get("Template", "template.name"));
+        settings.setTemplateHook(TwigTemplate.class);
+    }
+    
     public Wini values() {
         return configuration;
     }

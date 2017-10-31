@@ -1,9 +1,9 @@
 package org.alexdev.icarus.web.util;
 
 import io.netty.handler.codec.http.FullHttpResponse;
-import org.alexdev.icarus.duckhttpd.util.response.DefaultWebResponse;
-import org.alexdev.icarus.duckhttpd.util.response.ResponseBuilder;
-import org.alexdev.icarus.duckhttpd.util.response.WebResponses;
+import org.alexdev.duckhttpd.util.response.DefaultWebResponse;
+import org.alexdev.duckhttpd.util.response.ResponseBuilder;
+import org.alexdev.duckhttpd.util.response.WebResponses;
 
 public class IcarusWebResponses implements WebResponses {
     @Override

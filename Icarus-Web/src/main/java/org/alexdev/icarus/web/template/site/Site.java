@@ -1,17 +1,20 @@
 package org.alexdev.icarus.web.template.site;
 
 public class Site {
-    private String url;
 
-    public Site(String url) {
+    private String url;
+    private String name;
+
+    public Site(String url, String name) {
         this.url = url;
+        this.name = name;
     }
 
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public String getName() {
+        return name;
     }
 }
