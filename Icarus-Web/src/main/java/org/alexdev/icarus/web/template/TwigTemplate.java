@@ -4,7 +4,7 @@ import io.netty.handler.codec.http.FullHttpResponse;
 import org.alexdev.duckhttpd.server.session.WebConnection;
 import org.alexdev.duckhttpd.template.Template;
 import org.alexdev.duckhttpd.util.config.Settings;
-import org.alexdev.duckhttpd.util.response.ResponseBuilder;
+import org.alexdev.duckhttpd.response.ResponseBuilder;
 import org.alexdev.icarus.web.template.site.IcarusSession;
 import org.alexdev.icarus.web.template.site.Site;
 import org.jtwig.JtwigModel;

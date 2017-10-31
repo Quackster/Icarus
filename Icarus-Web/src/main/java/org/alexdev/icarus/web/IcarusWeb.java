@@ -4,7 +4,7 @@ import io.netty.util.ResourceLeakDetector;
 import org.alexdev.duckhttpd.routes.RouteManager;
 import org.alexdev.duckhttpd.server.WebServer;
 import org.alexdev.duckhttpd.util.config.Settings;
-import org.alexdev.icarus.web.util.IcarusWebResponses;
+import org.alexdev.icarus.web.responses.IcarusWebResponses;
 import org.alexdev.icarus.web.util.config.Configuration;
 
 public class IcarusWeb {
@@ -26,7 +26,7 @@ public class IcarusWeb {
         System.out.println("Starting web service on port " + port);
 
         Settings settings = Settings.getInstance();
-        settings.setWebResponses(new IcarusWebResponses());
+        settings.setResponses(new IcarusWebResponses());
         config.setSettings(settings);
 
         Routes.register();
