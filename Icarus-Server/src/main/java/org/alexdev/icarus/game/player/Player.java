@@ -333,7 +333,7 @@ public class Player extends Entity {
     }
 
     /**
-     * Gets the diffie hellman session instance.
+     * Gets the diffie hellman connection instance.
      *
      * @return the diffie hellman
      */
@@ -342,7 +342,7 @@ public class Player extends Entity {
     }
 
     /**
-     * Gets the per-session message handler
+     * Gets the per-connection message handler
      *
      * @return the message handler
      */

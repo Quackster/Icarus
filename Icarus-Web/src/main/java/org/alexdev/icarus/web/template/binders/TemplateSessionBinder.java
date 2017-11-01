@@ -1,6 +1,6 @@
 package org.alexdev.icarus.web.template.binders;
 
-import org.alexdev.duckhttpd.server.session.WebConnection;
+import org.alexdev.duckhttpd.server.connection.WebConnection;
 
 public class TemplateSessionBinder {
 

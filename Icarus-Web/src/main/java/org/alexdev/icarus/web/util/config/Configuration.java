@@ -12,6 +12,9 @@ public class Configuration {
 
     private Wini configuration;
 
+    public static String TEMPLATE_NAME;
+    public static String TEMPLATE_DIRECTORY;
+
     public void load() throws IOException {
 
         File file = new File("site-config.ini");
@@ -38,16 +41,10 @@ public class Configuration {
 
     public void setSettings(Settings settings) {
         settings.setSiteDirectory(configuration.get("Directories", "site.directory"));
-        settings.setTemplateDirectory(configuration.get("Directories", "template.directory"));
-        settings.setTemplateName(configuration.get("Template", "template.name"));
         settings.setTemplateHook(TwigTemplate.class);
-    }
 
-    public void setContent(Settings settings) {
-        settings.setSiteDirectory(configuration.get("Directories", "site.directory"));
-        settings.setTemplateDirectory(configuration.get("Directories", "template.directory"));
-        settings.setTemplateName(configuration.get("Template", "template.name"));
-        settings.setTemplateHook(TwigTemplate.class);
+        TEMPLATE_DIRECTORY = configuration.get("Directories", "template.directory");
+        TEMPLATE_NAME = configuration.get("Template", "template.name");
     }
     
     public Wini values() {

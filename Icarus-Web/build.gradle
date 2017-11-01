@@ -15,6 +15,15 @@ dependencies {
     // https://mvnrepository.com/artifact/org.jtwig/jtwig-web
     compile group: 'org.jtwig', name: 'jtwig-web', version: '5.86.1.RELEASE'
 
+    // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+    compile group: 'com.zaxxer', name: 'HikariCP', version: '2.7.1'
+
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
+
+    // https://mvnrepository.com/artifact/org.mindrot/jbcrypt
+    compile group: 'org.mindrot', name: 'jbcrypt', version: '0.3m'
+    
     // https://github.com/Quackster/duckHTTPD/
     compile project(':duckHTTPD')
 }
