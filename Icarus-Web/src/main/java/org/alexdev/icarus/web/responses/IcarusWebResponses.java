@@ -6,6 +6,7 @@ import org.alexdev.duckhttpd.response.DefaultWebResponse;
 import org.alexdev.duckhttpd.response.ResponseBuilder;
 import org.alexdev.duckhttpd.response.WebResponses;
 import org.alexdev.duckhttpd.server.connection.WebConnection;
+import org.alexdev.duckhttpd.template.Template;
 
 public class IcarusWebResponses implements WebResponses {
 
@@ -27,6 +28,12 @@ public class IcarusWebResponses implements WebResponses {
 
     @Override
     public FullHttpResponse getErrorResponse(WebConnection client, String header, String message) {
-        return new DefaultWebResponse().getErrorResponse(client, header, message);
+
+        Template tpl = client.template("error");
+        tpl.set("errorTitle", header);
+        tpl.set("errorMessage", message);
+        tpl.render();
+
+        return client.response();
     }
 }

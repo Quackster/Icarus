@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>{$site->name}: Error</title>
+		<title>{{ site.name }}: Home</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="Description" lang="en" content="ADD SITE DESCRIPTION">
 		<meta name="author" content="ADD AUTHOR INFORMATION">
@@ -14,7 +14,7 @@
 		<link rel="shortcut icon" href="favicon.ico">
 
 		<!-- Original CSS -->
-		<?php $this->inc("base/style"); ?>
+		{% include "base/style.tpl" %}
 		
 		
 	</head>
@@ -27,18 +27,18 @@
 				</div>			
 			</div>
 		</div>
-		<?php $this->inc("base/links"); ?>
+		{% include "base/links.tpl" %}
 		<div class="content" id="text-main">
 			<div class="container">
 				<div class="main">
 					<div id="div-header-top"><p>Homepage</p></div>
 					<br>
-					<h2>{$error->title}</h2>
-					<p>{$error->message}</p>
+					<h2>{{ errorTitle }}</h2>
+					<p>{{ errorMessage }}</p>
 					
 				</div>
 			</div>
 		</div>
-		<?php $this->inc("base/footer"); ?>
+		{% include "base/footer.tpl" %}
 	</body>
 </html>

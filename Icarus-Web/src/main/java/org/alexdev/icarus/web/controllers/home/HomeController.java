@@ -7,9 +7,9 @@ public class HomeController {
 
     public static void homepage(WebConnection client) throws Exception {
 
-       if (client.cookies().getString("authenticated", "0").equals("1")) {
-            // client.redirect("/me");
-           // return;
+       if (client.session().getBoolean("authenticated")) {
+           client.redirect("/me");
+           return;
         }
 
         Template tpl = client.template("index");

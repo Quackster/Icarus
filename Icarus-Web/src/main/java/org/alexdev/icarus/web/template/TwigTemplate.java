@@ -4,6 +4,7 @@ import io.netty.handler.codec.http.FullHttpResponse;
 import org.alexdev.duckhttpd.server.connection.WebConnection;
 import org.alexdev.duckhttpd.template.Template;
 import org.alexdev.duckhttpd.response.ResponseBuilder;
+import org.alexdev.duckhttpd.util.config.Settings;
 import org.alexdev.icarus.web.template.binders.TemplateSiteBinder;
 import org.alexdev.icarus.web.template.binders.TemplateSessionBinder;
 import org.alexdev.icarus.web.util.config.Configuration;
@@ -24,17 +25,23 @@ public class TwigTemplate extends Template {
     }
 
     @Override
-    public void start(String view) throws Exception {
+    public void start(String view) {
 
-        File file = Paths.get(Configuration.TEMPLATE_DIRECTORY, Configuration.TEMPLATE_NAME, view + ".tpl").toFile();
+        try {
 
-        if (file.exists() && file.isFile()) {
-            this.file = file;
-            this.template = JtwigTemplate.fileTemplate(file);
-            this.model = JtwigModel.newModel();
+            File file = Paths.get(Configuration.TEMPLATE_DIRECTORY, Configuration.TEMPLATE_NAME, view + ".tpl").toFile();
 
-        } else {
-            throw new Exception("The template view " + view + " does not exist!\nThe path: " + file.getCanonicalPath());
+            if (file.exists() && file.isFile()) {
+                this.file = file;
+                this.template = JtwigTemplate.fileTemplate(file);
+                this.model = JtwigModel.newModel();
+
+            } else {
+                throw new Exception("The template view " + view + " does not exist!\nThe path: " + file.getCanonicalPath());
+            }
+
+        } catch (Exception ex) {
+            Settings.getInstance().getResponses().getInternalServerErrorResponse(this.webConnection, ex);
         }
     }
 
