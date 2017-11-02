@@ -22,8 +22,21 @@ public class Configuration {
 
     public static String REGISTER_FIGURE;
     public static String REGISTER_MOTTO;
+
     public static Integer REGISTER_CREDITS;
     public static Integer REGISTER_DUCKETS;
+
+    public static String CLIENT_IP;
+    public static String CLIENT_PORT;
+    public static String CLIENT_EXTERNAL_VARIABLES;
+    public static String CLIENT_EXTERNAL_FLASH_TEXTS;
+    public static String CLIENT_EXTERNAL_OVERRIDE_TEXTS;
+    public static String CLIENT_EXTERNAL_OVERRIDE_VARIABLES;
+    public static String CLIENT_PRODUCTDATA;
+    public static String CLIENT_FURNIDATA;
+    public static String CLIENT_FIGUREDATA;
+    public static String CLIENT_PATH;
+    public static String CLIENT_SWF;
 
     public void load() throws IOException {
 
@@ -96,6 +109,19 @@ public class Configuration {
         writer.println("register.duckets=200");
         writer.println("register.motto=I'm a new user");
         writer.println();
+        writer.println("[Client]");
+        writer.println("client.ip=");
+        writer.println("client.port=");
+        writer.println("client.external.variables=");
+        writer.println("client.external.flash.texts=");
+        writer.println("client.external.override.texts=");
+        writer.println("client.external.override.variables=");
+        writer.println("client.productdata=");
+        writer.println("client.furnidata=");
+        writer.println("client.figuredata=");
+        writer.println("client.path=");
+        writer.println("client.swf=");
+        writer.println();
         writer.println("[Directories]");
         writer.println("site.directory=tools/www");
         writer.println("template.directory=tools/www-tpl");
@@ -109,17 +135,27 @@ public class Configuration {
     }
 
     private void loadConfiguration() {
-
         TEMPLATE_DIRECTORY = configuration.get("Directories", "template.directory");
         TEMPLATE_NAME = configuration.get("Template", "template.name");
-
         PUBLIC_RECAPTCHA_KEY = configuration.get("ReCaptcha", "recaptcha.public.key");
         PRIVATE_RECAPTCHA_KEY = configuration.get("ReCaptcha", "recaptcha.private.key");
-
         REGISTER_FIGURE = configuration.get("Register", "register.figure");
         REGISTER_CREDITS = configuration.get("Register", "register.credits", Integer.class);
         REGISTER_DUCKETS = configuration.get("Register", "register.duckets", Integer.class);
         REGISTER_MOTTO = configuration.get("Register", "register.motto");
+        CLIENT_IP = configuration.get("Client", "client.ip");
+        CLIENT_PORT = configuration.get("Client", "client.port");
+
+        CLIENT_EXTERNAL_VARIABLES =configuration.get("Client", "client.external.variables");
+        CLIENT_EXTERNAL_FLASH_TEXTS  =configuration.get("Client", "client.external.flash.texts");
+        CLIENT_EXTERNAL_OVERRIDE_TEXTS = configuration.get("Client", "client.external.override.texts");
+        CLIENT_EXTERNAL_OVERRIDE_VARIABLES = configuration.get("Client", "client.external.override.variables");
+        CLIENT_PRODUCTDATA = configuration.get("Client", "client.productdata");
+        CLIENT_FURNIDATA = configuration.get("Client", "client.furnidata");
+        CLIENT_FIGUREDATA = configuration.get("Client", "client.figuredata");
+        CLIENT_PATH = configuration.get("Client", "client.path");
+        CLIENT_SWF = configuration.get("Client", "client.swf");
+
 
     }
 

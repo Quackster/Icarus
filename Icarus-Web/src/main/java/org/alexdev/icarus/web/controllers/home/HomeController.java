@@ -2,6 +2,8 @@ package org.alexdev.icarus.web.controllers.home;
 
 import org.alexdev.duckhttpd.server.connection.WebConnection;
 import org.alexdev.duckhttpd.template.Template;
+import org.alexdev.icarus.web.game.player.Player;
+import org.alexdev.icarus.web.mysql.dao.PlayerDao;
 
 public class HomeController {
 
@@ -51,6 +53,18 @@ public class HomeController {
         if (!client.session().getBoolean("authenticated")) {
             client.session().set("authenticated", false);
             client.redirect("/home");
+            return;
+        }
+
+        // Creates a player instance and set it
+        if (!client.session().contains("player")) {
+            Player player = PlayerDao.get(client.session().getInt("userId"));
+            client.session().set("player", player);
+        }
+
+        // nux
+        if (client.session().get("player", Player.class).getName().isEmpty()) {
+            client.redirect("/hotel");
             return;
         }
 

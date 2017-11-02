@@ -5,6 +5,7 @@ import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.moderation.Permission;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerDetails;
+import org.alexdev.icarus.util.Util;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -213,6 +214,34 @@ public class PlayerDao {
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("UPDATE users SET sso_ticket = ? WHERE id = ?", sqlConnection);
             preparedStatement.setNull(1, Types.VARCHAR);
+            preparedStatement.setInt(2, userId);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    /**
+     * Update last online
+     *
+     * @param userId the user id
+     */
+    public static void updateLastOnline(int userId) {
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("UPDATE users SET last_online = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setLong(1, Util.getCurrentTimeSeconds());
             preparedStatement.setInt(2, userId);
             preparedStatement.execute();
 

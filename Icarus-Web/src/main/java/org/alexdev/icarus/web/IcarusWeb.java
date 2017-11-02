@@ -3,8 +3,10 @@ package org.alexdev.icarus.web;
 import org.alexdev.duckhttpd.routes.RouteManager;
 import org.alexdev.duckhttpd.server.WebServer;
 import org.alexdev.duckhttpd.util.config.Settings;
-import org.alexdev.icarus.web.responses.IcarusWebResponses;
+import org.alexdev.icarus.web.responses.ServerResponses;
+import org.alexdev.icarus.web.routes.Routes;
 import org.alexdev.icarus.web.util.config.Configuration;
+import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +21,9 @@ public class IcarusWeb {
     public static void main(String[] args) throws Exception {
 
         Settings settings = Settings.getInstance();
-        settings.setResponses(new IcarusWebResponses());
+        settings.setResponses(new ServerResponses());
+
+        System.out.println(BCrypt.hashpw("123", BCrypt.gensalt()));
 
         config = new Configuration();
         config.load();

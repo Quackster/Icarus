@@ -8,7 +8,7 @@ import org.alexdev.duckhttpd.response.WebResponses;
 import org.alexdev.duckhttpd.server.connection.WebConnection;
 import org.alexdev.duckhttpd.template.Template;
 
-public class IcarusWebResponses implements WebResponses {
+public class ServerResponses implements WebResponses {
 
     @Override
     public FullHttpResponse getForbiddenResponse(WebConnection client) {

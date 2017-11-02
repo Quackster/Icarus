@@ -1,16 +1,16 @@
 <!DOCTYPE HTML>
 <html>
-<title>Icarus: Hotel</title>
+<title>{{ site.name }}: Hotel</title>
 <head>
-    <link rel="stylesheet" type="text/css" href="{$site->url}/api/hotel.731d1960.css">
-    <script type="text/javascript" src="{$site->url}/api/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="{$site->url}/api/swfobject.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ site.url }}/api/hotel.731d1960.css">
+    <script type="text/javascript" src="{{ site.url }}/api/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="{{ site.url }}/api/swfobject.js"></script>
     <script type="text/javascript">
         var flashvars = {
             "new.user.flow.enabled":"true",
             "new.user.flow.onboarding.choose.your.room":"Choose your room",
             "new.user.flow.figure.ok":"Figure change ok!",
-            "external.texts.txt":"<?php echo Site::getConfig()->client->external_flash_texts; ?>",
+            "external.texts.txt":"{{ client.externalFlashTexts }}",
             "new.user.flow.onboarding.what.is.hc":"Habbo Club is designed for you to express yourself better than ever! It also has other useful benefits: outfits, rewards, room layouts, a special Shop, extended friends lists, preferential access in queues and room, and extended room limits.",
             "new.user.flow.onboarding.button.select.room":"I want this room",
             "url.prefix":"https:\/\/www.habbo.com",
@@ -35,7 +35,7 @@
             "new.user.flow.intro3":"Just one more thing! Tell us what kind of room you want to start with. It\'s not for life, so don\'t overthink it!",
             "new.user.flow.intro2":"Looking good! Next, give your Habbo a name. (Or skip and think of a good one later)",
             "supersonic_application_key":"2abb40ad",
-            "connection.info.host":"<?php echo Site::getConfig()->client->ip; ?>",
+            "connection.info.host":"{{ client.ip }}",
             "new.user.onboarding.hc.flow.enabled":"true",
             "client.notify.cross.domain":"0",
             "new.user.flow.onboarding.choose.your.name":"Choose your name",
@@ -52,33 +52,33 @@
             "new.user.flow.onboarding.your.looks":"Choose looks",
             "new.user.flow.note.header":"For choosing Habbo!",
             "new.user.flow.save":"I\'ll wear this!",
-            "connection.info.port":"<?php echo Site::getConfig()->client->port; ?>",
-            "furnidata.load.url":"<?php echo Site::getConfig()->client->furnidata; ?>",
+            "connection.info.port":"{{ client.port }}",
+            "furnidata.load.url":"{{ client.furnidata }}",
             "new.user.flow.onboarding.hint.hc":"You\'ve selected Habbo club items but you\'ll have to purchase it to wear them!",
-            "external.variables.txt":"<?php echo Site::getConfig()->client->external_variables; ?>",
+            "external.variables.txt":"{{ client.externalVariables }}",
             "client.allow.cross.domain":"1",
             "nux.lobbies.enabled":"true",
-            "external.override.texts.txt":"<?php echo Site::getConfig()->client->external_override_texts; ?>",
-            "supersonic_custom_css":"{$site->url}/api/hotel.731d1960.css",
-            "external.figurepartlist.txt":"<?php echo Site::getConfig()->client->figuredata; ?>",
+            "external.override.texts.txt":"{{ client.externalOverrideTexts }}",
+            "supersonic_custom_css":"{{ site.url }}/api/hotel.731d1960.css",
+            "external.figurepartlist.txt":"{{ client.figuredata }}",
             "flash.client.origin":"popup",
             "new.user.flow.onboard.what.is.hc.description":"What is Habbo Club?\nHabbo Club is a special club you can join to get access to more clothing styles, exclusive room designs, more space on your friends list and lots more",
-            "new.user.flow.galleryUrl":"{$site->url}/c_images/nux/",
+            "new.user.flow.galleryUrl":"{{ site.url }}/c_images/nux/",
             "new.user.reception.minLength":"2",
             "processlog.enabled":"1",
             "new.user.flow.page":"1",
             "new.user.flow.title":"Thank You",
             "new.user.flow.roomTypes":"10,11,12",
-            "avatareditor.promohabbos":"{$site->url}/api/public/lists/hotlooks.xml",
+            "avatareditor.promohabbos":"{{ site.url }}/api/public/lists/hotlooks.xml",
             "new.user.onboarding.show.hc.items":"false",
-            "new.user.flow.name":"<?php echo "character" . rand(1000,9000); ?>",
+            "new.user.flow.name":"lolol",
             "new.user.reception.maxLength":"15",
             "new.user.flow.onboarding.characters.tip":"TIP: 3-15 characters, letters, numbers and underscores are accepted.",
-            "productdata.load.url":"<?php echo Site::getConfig()->client->productdata; ?>",
+            "productdata.load.url":"{{ client.productdata }}",
             "new.user.flow.rename.warning":"TIP: There are tons of Habbos created every day, and your name must be unique, so be creative! You can also use these special characters: _-",
             "new.user.flow.rename.title":"Name your Habbo:",
             "new.user.flow.intro":"While we\'re preparing your check-in, please choose your first looks from this selection:",
-            "external.override.variables.txt":"<?php echo Site::getConfig()->client->external_override_variables; ?>",
+            "external.override.variables.txt":"{{ client.externalOverrideVariables }}",
             "new.user.flow.onboarding.button.skip":"Skip",
             "sso.ticket":"{$user->ssoticket}",
             "new.user.flow.onboarding.choose.your.style":"Choose your style",
@@ -87,7 +87,7 @@
             "new.user.flow.gender.boy":"Boy",
             "account_id":"63876736",
             "new.user.flow.figure.error":"Figure change error!",
-            "flash.client.url":"<?php echo Site::getConfig()->client->path; ?>",
+            "flash.client.url":"{{ client.path }}",
             "new.user.flow.note.title":"Thank You",
             "new.user.flow.rename.skip":"Skip for now",
             "new.user.flow.room.description.12":"Ambient retro Lava Lamp glow included",
@@ -95,15 +95,15 @@
             "new.user.flow.room.description.10":"For the Habbo who really likes shiny things",
         };
     </script>
-    <script type="text/javascript" src="{$site->url}/api/habboapi.js"></script>
+    <script type="text/javascript" src="{{ site.url }}/api/habboapi.js"></script>
     <script type="text/javascript">
         var params = {
-            "base" : "<?php echo Site::getConfig()->client->path; ?>",
+            "base" : "{{ client.path }}",
             "allowScriptAccess" : "always",
             "menu" : "false",
             "wmode": "opaque"
         };
-        swfobject.embedSWF("<?php echo Site::getConfig()->client->swf; ?>", 'flash-container', '100%', '100%', '11.1.0', '//icarus.dev/habboweb/63_1d5d8853040f30be0cc82355679bba7c/10751/web-gallery/flash/expressInstall.swf', flashvars, params, null, null);
+        swfobject.embedSWF("{{ client.swf }}", 'flash-container', '100%', '100%', '11.1.0', '//icarus.dev/habboweb/63_1d5d8853040f30be0cc82355679bba7c/10751/web-gallery/flash/expressInstall.swf', flashvars, params, null, null);
     </script>
 </head>
 <body>

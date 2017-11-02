@@ -93,14 +93,13 @@ public class PetDao {
             preparedStatement.setInt(9, Pet.DEFAULT_EXPERIENCE);
             preparedStatement.setInt(10, Pet.DEFAULT_ENERGY);
             preparedStatement.setInt(11, Util.getCurrentTimeSeconds());
-
             preparedStatement.execute();
-
             resultSet = preparedStatement.getGeneratedKeys();
 
             while (resultSet.next()) {
                 petId = resultSet.getInt(1);
             }
+
         } catch (Exception e) {
             Storage.logError(e);
         } finally {

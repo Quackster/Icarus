@@ -47,13 +47,13 @@
 						<img src="http://www.habbo.com.tr/habbo-imaging/avatarimage?figure={{ session.figure }}&size=b&direction=2&head_direction=3&gesture=sml">
 					</div>
 					<div class="player-info">
-						<b>Player name</b>&nbsp;&nbsp;{$user->username}
+						<b>Player name</b>&nbsp;&nbsp;{{ player.name }}
 						<br>
 						<br>						
-						<b>Motto</b>&nbsp;&nbsp{$user->mission_display}
+						<b>Motto</b>&nbsp;&nbsp{{ player.getMission() }}
 						<br>
 						<br>
-						<b>Last online</b>&nbsp;&nbsp;{$user->last_online}
+						<b>Last online</b>&nbsp;&nbsp;{{ player.getReadableLastOnline() }}
 						
 					</div>
 					

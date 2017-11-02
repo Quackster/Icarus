@@ -74,10 +74,8 @@ public class Player extends Entity {
     public void authenticate(String ssoTicket) {
 
         boolean loginSuccess = PlayerDao.login(this, ssoTicket);
-        //PlayerDao.clearTicket(this.getDetails().getId());
 
         if (GameSettings.BOT_SPAMMERS_ALLOW && ssoTicket.startsWith(GameSettings.BOT_SPAMMERS_SSO_PREFIX)) {
-            loginSuccess = true;
             this.details.setId(Util.getRandom().nextInt(10000));
             this.details.setName("BottyBoi" + Util.getRandom().nextInt(10000));
         } else {
@@ -86,6 +84,9 @@ public class Player extends Entity {
                 return;
             }
         }
+
+        PlayerDao.clearTicket(this.getDetails().getId());
+        PlayerDao.updateLastOnline(this.getDetails().getId());
 
         this.logger = LoggerFactory.getLogger("Player " + this.details.getName());
 
