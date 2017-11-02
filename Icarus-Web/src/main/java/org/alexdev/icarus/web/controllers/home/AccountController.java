@@ -2,10 +2,13 @@ package org.alexdev.icarus.web.controllers.home;
 
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpHeaderNames;
+import org.alexdev.duckhttpd.response.ResponseBuilder;
 import org.alexdev.duckhttpd.server.connection.WebConnection;
 import org.alexdev.duckhttpd.template.Template;
 import org.alexdev.duckhttpd.util.config.Settings;
 import org.alexdev.icarus.web.mysql.dao.PlayerDao;
+
+import java.util.Map;
 
 public class AccountController {
 
@@ -59,17 +62,14 @@ public class AccountController {
         client.redirect("/");
     }
 
-    public static void me(WebConnection client) throws Exception {
+    public static void register(WebConnection client) {
 
-        if (!client.session().getBoolean("authenticated")) {
-            client.session().set("authenticated", false);
-            client.redirect("/home");
-            return;
+        StringBuilder b = new StringBuilder();
+
+        for (Map.Entry<String, String> post : client.post().getQueries().entrySet()) {
+            b.append(post.getKey() + " = " + post.getValue() + "<br>");
         }
 
-        Template tpl = client.template("me");
-        tpl.render();
+        client.setResponse(ResponseBuilder.create(b.toString()));
     }
-
-
 }

@@ -9,8 +9,12 @@ public class Routes {
         RouteManager.addRoute("/", HomeController::homepage);
         RouteManager.addRoute("/index", HomeController::homepage);
         RouteManager.addRoute("/home", HomeController::homepage);
+        RouteManager.addRoute("/register", HomeController::register);
+        RouteManager.addRoute("/me", HomeController::me);
+
+        RouteManager.addRoute("/account/register", AccountController::register);
         RouteManager.addRoute("/account/login", AccountController::login);
         RouteManager.addRoute("/account/logout", AccountController::logout);
-        RouteManager.addRoute("/me", AccountController::me);
+
     }
 }

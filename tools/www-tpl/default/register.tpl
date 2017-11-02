@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>{$site->name}: Home</title>
+		<title>{{ site.name }}: Home</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="Description" lang="en" content="ADD SITE DESCRIPTION">
 		<meta name="author" content="ADD AUTHOR INFORMATION">
@@ -14,11 +14,12 @@
 		<link rel="shortcut icon" href="favicon.ico">
 
 		<!-- Original CSS -->
-<?php $this->inc("base/style"); ?>
+		{% include "base/style.tpl" %}
 		
 		<!-- Override CSS here -->
-		<link rel="stylesheet" href="{$site->url}/public/css/index.css">
-		<link rel="stylesheet" href="{$site->url}/public/css/register.css">
+		<script src='https://www.google.com/recaptcha/api.js'></script>
+		<link rel="stylesheet" href="{{ site.url }}/public/css/index.css">
+		<link rel="stylesheet" href="{{ site.url }}/public/css/register.css">
 		
 	</head>
 	<body>
@@ -30,55 +31,51 @@
 				</div>			
 			</div>
 		</div>
-		
-		<?php $this->inc("base/links"); ?>
-		
-		<div class="content">
+		{% include "base/links.tpl" %}
+		<div class="content" id="background-register">
 			<div class="container">
 			
-				<?php $this->inc("base/message"); ?>
+				{% include "base/message.tpl" %}
 				
 				<div class="main" id="register-div">
 				
 					<form action="account/register" method="POST">
 					
-						<h2 id="text-main">Welcome to Icarus Hotel!</h2>
-						<!-- <p class="register-text">
+						<h2 id="text-main">Welcome to {{ site.name }} Hotel!</h2>
+						<!-- 
+						<p class="register-text">
 							You'll need to use this username to log in to Icarus in the future. Please choose carefully.
 							<br>
 							<br>
 							<input class="register-border" type="text" placeholder="Username" name="regusername" required>
-						</p> -->
-						
-
+						</p>
+						-->
 						<p class="register-text">
-							You'll need to use this email address in the case that you have forgotten your password.<br>Please pick a valid email.
+							You'll need to use this email address to login and in the case that you have forgotten your password.<br>Please pick a valid email and remember it.
 							<br>
 							<br>
 							<input class="register-border" type="text" placeholder="Email" name="regemail" required>
 						</p>
-
-						
 						<div class="password-confirm">
-						
-						<p class="register-text">
-							Your password, keep this secret because it's used to access your account.
-							<br>
-							<br>
-							<input class="register-border" type="password" placeholder="Password" name="regpassword" required>
-						</p>
-						
-						<p class="register-text">
-							Confirm your password, we need to verify that you can access your account again in future.
-							<br>
-							<br>
-							<input class="register-border" type="password" placeholder="Confirm Password" name="regconfirmpassword" required>
-						</p>
-										
+							<p class="register-text">
+								Your password, keep this secret because it's used to access your account.
+								<br>
+								<br>
+								<input class="register-border" type="password" placeholder="Password" name="regpassword" required>
+							</p>
+							<p class="register-text">
+								Confirm your password, we need to verify that you can access your account again in future.
+								<br>
+								<br>
+								<input class="register-border" type="password" placeholder="Confirm Password" name="regconfirmpassword" required>
+							</p>
 						</div>
 						<br>
-						<br>
-						
+						<p class="register-text">
+							We need to verify you're not a robot!
+							<br>
+							<div class="g-recaptcha" data-sitekey="6LdM2zYUAAAAABWU_d0BlJfG9ejWsbXCuDZKBffT"></div>
+						</p>
 						<button class="login-button" style="width:300px;" type="submit">CREATE MY ACCOUNT!</button>
 						
 					</form>	
@@ -87,6 +84,6 @@
 				</div>
 			</div>
 		</div>
-		<?php $this->inc("base/footer"); ?>
+		{% include "base/footer.tpl" %}
 	</body>
 </html>

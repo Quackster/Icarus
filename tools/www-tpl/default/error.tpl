@@ -16,7 +16,6 @@
 		<!-- Original CSS -->
 		{% include "base/style.tpl" %}
 		
-		
 	</head>
 	<body>
 		<div class="header">
