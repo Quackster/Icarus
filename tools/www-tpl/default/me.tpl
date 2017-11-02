@@ -38,6 +38,7 @@
 		{% include "base/links.tpl" %}
 		<div class="content">
 			<div class="container" id="text-main">
+				{% include "base/message.tpl" %}
 				<div class="main" id="habbo-plate">
 				
 					<!-- seperator -->
