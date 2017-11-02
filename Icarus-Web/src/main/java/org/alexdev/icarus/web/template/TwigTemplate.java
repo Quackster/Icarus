@@ -5,6 +5,7 @@ import org.alexdev.duckhttpd.server.connection.WebConnection;
 import org.alexdev.duckhttpd.template.Template;
 import org.alexdev.duckhttpd.response.ResponseBuilder;
 import org.alexdev.duckhttpd.util.config.Settings;
+import org.alexdev.icarus.web.template.binders.TemplateRegisterBinder;
 import org.alexdev.icarus.web.template.binders.TemplateSiteBinder;
 import org.alexdev.icarus.web.template.binders.TemplateSessionBinder;
 import org.alexdev.icarus.web.util.config.Configuration;
@@ -17,6 +18,8 @@ import java.nio.file.Paths;
 public class TwigTemplate extends Template {
 
     private File file;
+    private String view;
+
     private JtwigModel model;
     private JtwigTemplate template;
 
@@ -27,11 +30,14 @@ public class TwigTemplate extends Template {
     @Override
     public void start(String view) {
 
+        this.view = view;
+
         try {
 
             File file = Paths.get(Configuration.TEMPLATE_DIRECTORY, Configuration.TEMPLATE_NAME, view + ".tpl").toFile();
 
             if (file.exists() && file.isFile()) {
+
                 this.file = file;
                 this.template = JtwigTemplate.fileTemplate(file);
                 this.model = JtwigModel.newModel();
@@ -51,6 +57,11 @@ public class TwigTemplate extends Template {
     }
 
     public void applyGlobals() {
+
+        if (this.view.equals("register")) {
+            this.set("register", new TemplateRegisterBinder());
+        }
+
         this.set("site", new TemplateSiteBinder());
         this.set("session", new TemplateSessionBinder(this.webConnection));
     }

@@ -74,7 +74,7 @@
 						<p class="register-text">
 							We need to verify you're not a robot!
 							<br>
-							<div class="g-recaptcha" data-sitekey="6LdM2zYUAAAAABWU_d0BlJfG9ejWsbXCuDZKBffT"></div>
+							<div class="g-recaptcha" data-sitekey="{{ register.publicRecaptchaKey }}"></div>
 						</p>
 						<button class="login-button" style="width:300px;" type="submit">CREATE MY ACCOUNT!</button>
 						

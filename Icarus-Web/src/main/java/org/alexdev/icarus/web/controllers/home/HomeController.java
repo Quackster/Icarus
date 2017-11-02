@@ -30,6 +30,8 @@ public class HomeController {
         Template tpl = client.template("register");
         tpl.render();
 
+        client.session().set("showAlert", false);
+
     }
 
     public static void me(WebConnection client) throws Exception {

@@ -1,14 +1,12 @@
 package org.alexdev.icarus.web.controllers.home;
 
-import io.netty.handler.codec.http.FullHttpResponse;
-import io.netty.handler.codec.http.HttpHeaderNames;
-import org.alexdev.duckhttpd.response.ResponseBuilder;
+import ch.compile.recaptcha.ReCaptchaVerify;
+import ch.compile.recaptcha.SiteVerifyResponse;
 import org.alexdev.duckhttpd.server.connection.WebConnection;
-import org.alexdev.duckhttpd.template.Template;
-import org.alexdev.duckhttpd.util.config.Settings;
 import org.alexdev.icarus.web.mysql.dao.PlayerDao;
+import org.alexdev.icarus.web.util.config.Configuration;
 
-import java.util.Map;
+import java.io.IOException;
 
 public class AccountController {
 
@@ -62,14 +60,37 @@ public class AccountController {
         client.redirect("/");
     }
 
-    public static void register(WebConnection client) {
+    public static void register(WebConnection client) throws IOException {
 
-        StringBuilder b = new StringBuilder();
+        String[] fieldCheck = new String[] { "regemail", "regpassword", "regconfirmpassword", "g-recaptcha-response" };
 
-        for (Map.Entry<String, String> post : client.post().getQueries().entrySet()) {
-            b.append(post.getKey() + " = " + post.getValue() + "<br>");
+        for (String field : fieldCheck) {
+
+            if (client.post().contains(field) &&
+                    client.post().get(field).length() > 0) {
+                continue;
+            }
+
+            client.session().set("showAlert", true);
+            client.session().set("alertType", "error");
+            client.session().set("alertMessage", "You need to answer all register fields correctly, including the captcha");
+            client.redirect("/register");
+            return;
         }
 
-        client.setResponse(ResponseBuilder.create(b.toString()));
+        ReCaptchaVerify reCaptchaVerify = new ReCaptchaVerify(Configuration.PRIVATE_RECAPTCHA_KEY);
+        SiteVerifyResponse siteVerifyResponse = reCaptchaVerify.verify(client.post().get("g-recaptcha-response"), client.getIpAddress());
+
+        if (!siteVerifyResponse.isSuccess()) {
+            client.session().set("showAlert", true);
+            client.session().set("alertType", "warning");
+            client.session().set("alertMessage", "The captcha is incorrect");
+            client.redirect("/register");
+            return;
+        }
+        /*    client.setResponse(ResponseBuilder.create(client.getIpAddress()));
+        } else {
+            client.setResponse(ResponseBuilder.create(siteVerifyResponse.getErrorCodes().toString()));
+        }*/
     }
 }

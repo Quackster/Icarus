@@ -18,20 +18,15 @@ public class IcarusWeb {
 
     public static void main(String[] args) throws Exception {
 
-        config = new Configuration();
-        config.load();
-
-        if (args.length < 1) {
-            logger.warn("No arguments found, defaulting to port 80 for web server.");
-            args = new String[] { "80"};
-        }
-
-        int port = Integer.parseInt(args[0]);
-        logger.info("Starting web service on port " + port);
-
         Settings settings = Settings.getInstance();
         settings.setResponses(new IcarusWebResponses());
+
+        config = new Configuration();
+        config.load();
         config.setSettings(settings);
+
+        int port = 80;
+        logger.info("Starting web service on port " + port);
 
         Routes.register();
         logger.info("Registered " + RouteManager.getRoutes().size() + " route(s)!");

@@ -11,7 +11,6 @@ public class Routes {
         RouteManager.addRoute("/home", HomeController::homepage);
         RouteManager.addRoute("/register", HomeController::register);
         RouteManager.addRoute("/me", HomeController::me);
-
         RouteManager.addRoute("/account/register", AccountController::register);
         RouteManager.addRoute("/account/login", AccountController::login);
         RouteManager.addRoute("/account/logout", AccountController::logout);

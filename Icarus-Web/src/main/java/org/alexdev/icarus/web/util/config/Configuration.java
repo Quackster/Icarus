@@ -17,6 +17,9 @@ public class Configuration {
     public static String TEMPLATE_NAME;
     public static String TEMPLATE_DIRECTORY;
 
+    public static String PUBLIC_RECAPTCHA_KEY;
+    public static String PRIVATE_RECAPTCHA_KEY;
+
     public void load() throws IOException {
 
         this.checkLog4j();
@@ -31,6 +34,7 @@ public class Configuration {
         }
 
         configuration = new Wini(new File("site-config.ini"));
+        loadConfiguration();
     }
 
     /**
@@ -78,9 +82,6 @@ public class Configuration {
 
         // Change the path where the logger property should be read from
         PropertyConfigurator.configure(loggingConfig.getAbsolutePath());
-
-        //...after this, we should be able to use Log4j (yay!)
-        // (hopefully, anyways, if no one operating this server screwed something up).
     }
 
     private static void writeSiteConfiguration(PrintWriter writer) {
@@ -88,17 +89,26 @@ public class Configuration {
         writer.println("site.directory=tools/www");
         writer.println("template.directory=tools/www-tpl");
         writer.println();
-        writer.println("[TwigTemplate]");
+        writer.println("[Template]");
         writer.println("template.name=default");
         writer.println();
+        writer.println("[ReCaptcha]");
+        writer.println("recaptcha.public.key=");
+        writer.println("recaptcha.private.key=");
+    }
+
+    private void loadConfiguration() {
+
+        TEMPLATE_DIRECTORY = configuration.get("Directories", "template.directory");
+        TEMPLATE_NAME = configuration.get("Template", "template.name");
+
+        PUBLIC_RECAPTCHA_KEY = configuration.get("ReCaptcha", "recaptcha.public.key");
+        PRIVATE_RECAPTCHA_KEY = configuration.get("ReCaptcha", "recaptcha.private.key");
     }
 
     public void setSettings(Settings settings) {
         settings.setSiteDirectory(configuration.get("Directories", "site.directory"));
         settings.setTemplateHook(TwigTemplate.class);
-
-        TEMPLATE_DIRECTORY = configuration.get("Directories", "template.directory");
-        TEMPLATE_NAME = configuration.get("Template", "template.name");
     }
     
     public Wini values() {
