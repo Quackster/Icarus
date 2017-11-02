@@ -20,6 +20,11 @@ public class Configuration {
     public static String PUBLIC_RECAPTCHA_KEY;
     public static String PRIVATE_RECAPTCHA_KEY;
 
+    public static String REGISTER_FIGURE;
+    public static String REGISTER_MOTTO;
+    public static Integer REGISTER_CREDITS;
+    public static Integer REGISTER_DUCKETS;
+
     public void load() throws IOException {
 
         this.checkLog4j();
@@ -85,6 +90,12 @@ public class Configuration {
     }
 
     private static void writeSiteConfiguration(PrintWriter writer) {
+        writer.println("[Register]");
+        writer.println("register.figure=ch-210-66.hr-100-0.sh-290-80.hd-180-7.lg-270-82");
+        writer.println("register.credits=5000");
+        writer.println("register.duckets=200");
+        writer.println("register.motto=I'm a new user");
+        writer.println();
         writer.println("[Directories]");
         writer.println("site.directory=tools/www");
         writer.println("template.directory=tools/www-tpl");
@@ -104,6 +115,12 @@ public class Configuration {
 
         PUBLIC_RECAPTCHA_KEY = configuration.get("ReCaptcha", "recaptcha.public.key");
         PRIVATE_RECAPTCHA_KEY = configuration.get("ReCaptcha", "recaptcha.private.key");
+
+        REGISTER_FIGURE = configuration.get("Register", "register.figure");
+        REGISTER_CREDITS = configuration.get("Register", "register.credits", Integer.class);
+        REGISTER_DUCKETS = configuration.get("Register", "register.duckets", Integer.class);
+        REGISTER_MOTTO = configuration.get("Register", "register.motto");
+
     }
 
     public void setSettings(Settings settings) {

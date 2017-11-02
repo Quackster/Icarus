@@ -5,6 +5,7 @@ import ch.compile.recaptcha.SiteVerifyResponse;
 import org.alexdev.duckhttpd.server.connection.WebConnection;
 import org.alexdev.icarus.web.mysql.dao.PlayerDao;
 import org.alexdev.icarus.web.util.config.Configuration;
+import org.apache.commons.validator.routines.EmailValidator;
 
 import java.io.IOException;
 
@@ -75,7 +76,7 @@ public class AccountController {
         for (String field : fieldCheck) {
 
             if (client.post().contains(field) &&
-                    client.post().get(field).length() > 0) {
+                client.post().get(field).length() > 0) {
                 continue;
             }
 
@@ -96,5 +97,42 @@ public class AccountController {
             client.redirect("/register");
             return;
         }
+
+        if (PlayerDao.exists(client.post().get("regemail"))) {
+            client.session().set("showAlert", true);
+            client.session().set("alertType", "error");
+            client.session().set("alertMessage", "The email you chose is already in use!");
+            client.redirect("/register");
+            return;
+        }
+
+        if (client.post().get("regpassword").equals(client.post().get("The two passwords do not match!"))) {
+            client.session().set("showAlert", true);
+            client.session().set("alertType", "error");
+            client.session().set("alertMessage", "The email you chose is already in use!");
+            client.redirect("/register");
+            return;
+        }
+
+        if (client.post().get("regpassword").length() < 6) {
+            client.session().set("showAlert", true);
+            client.session().set("alertType", "error");
+            client.session().set("alertMessage", "Your password needs to be at least 6 or more characters");
+            client.redirect("/register");
+            return;
+        }
+
+        if (!EmailValidator.getInstance().isValid(client.post().get("regemail"))) {
+            client.session().set("showAlert", true);
+            client.session().set("alertType", "error");
+            client.session().set("alertMessage", "The email you have entered is not valid");
+            client.redirect("/register");
+            return;
+        }
+
+        PlayerDao.create(client.post().get("regemail"), client.post().get("regpassword"));
+
+        client.session().set("authenticated", true);
+        client.redirect("/register");
     }
 }
