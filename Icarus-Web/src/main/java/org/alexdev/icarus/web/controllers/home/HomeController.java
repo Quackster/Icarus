@@ -5,6 +5,10 @@ import org.alexdev.duckhttpd.template.Template;
 
 public class HomeController {
 
+    /**
+     * Handle the /, /index and /homepage URI request
+     * @param client the connection
+     */
     public static void homepage(WebConnection client) {
 
         // If they are logged in, send them to the /me page
@@ -19,6 +23,10 @@ public class HomeController {
         client.session().set("showAlert", false);
     }
 
+    /**
+     * Handle the /register URI request
+     * @param client the connection
+     */
     public static void register(WebConnection client) {
 
         // If they are logged in, stop them from registering
@@ -31,9 +39,12 @@ public class HomeController {
         tpl.render();
 
         client.session().set("showAlert", false);
-
     }
 
+    /**
+     * Handle the /me URI request
+     * @param client the connection
+     */
     public static void me(WebConnection client) throws Exception {
 
         // If the user isn't logged, send them back to the index

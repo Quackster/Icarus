@@ -10,6 +10,10 @@ import java.io.IOException;
 
 public class AccountController {
 
+    /**
+     * Handle the /account/login URI request
+     * @param client the connection
+     */
     public static void login(WebConnection client) {
 
         String[] fieldCheck = new String[] { "email", "password" };
@@ -48,18 +52,22 @@ public class AccountController {
         client.redirect("/me");
     }
 
+    /**
+     * Handle the /logout URI request
+     * @param client the connection
+     */
     public static void logout(WebConnection client) {
-        /*String header = "Successfully logged out";
-        String message;
-        FullHttpResponse response = Settings.getInstance().getResponses().getErrorResponse(webConnection, header, message);*/
-
         client.session().set("showAlert", true);
-        client.session().set("alertType", "warning");
+        client.session().set("alertType", "success");
         client.session().set("alertMessage", "Successfully logged out!");
         client.session().set("authenticated", false);
         client.redirect("/");
     }
 
+    /**
+     * Handle the /account/register URI request
+     * @param client the connection
+     */
     public static void register(WebConnection client) throws IOException {
 
         String[] fieldCheck = new String[] { "regemail", "regpassword", "regconfirmpassword", "g-recaptcha-response" };
@@ -88,9 +96,5 @@ public class AccountController {
             client.redirect("/register");
             return;
         }
-        /*    client.setResponse(ResponseBuilder.create(client.getIpAddress()));
-        } else {
-            client.setResponse(ResponseBuilder.create(siteVerifyResponse.getErrorCodes().toString()));
-        }*/
     }
 }

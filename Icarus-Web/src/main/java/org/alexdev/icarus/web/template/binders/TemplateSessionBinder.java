@@ -10,6 +10,7 @@ public class TemplateSessionBinder {
 
     private String alertType;
     private String alertMessage;
+
     private String figure = "lg-270-90.sh-290-64.hd-180-1.ch-3015-1341.hr-828-45";
 
     public TemplateSessionBinder(WebConnection webConnection) {
