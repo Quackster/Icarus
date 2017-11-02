@@ -43,9 +43,9 @@ public class PlayerDao {
         return success;
     }
 
-    public static boolean create(String email, String password) {
+    public static int create(String email, String password) {
 
-        boolean success = false;
+        int userId = 0;
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;

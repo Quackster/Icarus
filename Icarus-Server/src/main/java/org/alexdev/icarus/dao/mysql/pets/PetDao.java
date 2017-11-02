@@ -70,6 +70,9 @@ public class PetDao {
      * @return the int
      */
     public static int createPet(int ownerId, String petName, int type, int race, String colour) {
+
+        int petId = -1;
+
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -96,7 +99,7 @@ public class PetDao {
             resultSet = preparedStatement.getGeneratedKeys();
 
             while (resultSet.next()) {
-                return resultSet.getInt(1);
+                petId = resultSet.getInt(1);
             }
         } catch (Exception e) {
             Storage.logError(e);
@@ -106,7 +109,7 @@ public class PetDao {
             Storage.closeSilently(sqlConnection);
         }
 
-        return 0;
+        return petId;
     }
 
     /**
