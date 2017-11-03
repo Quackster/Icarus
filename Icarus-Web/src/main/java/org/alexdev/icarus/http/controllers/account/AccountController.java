@@ -1,13 +1,7 @@
-package org.alexdev.icarus.web.controllers.account;
+package org.alexdev.icarus.http.controllers.account;
 
-import ch.compile.recaptcha.ReCaptchaVerify;
-import ch.compile.recaptcha.SiteVerifyResponse;
 import org.alexdev.duckhttpd.server.connection.WebConnection;
-import org.alexdev.icarus.web.mysql.dao.PlayerDao;
-import org.alexdev.icarus.web.util.config.Configuration;
-import org.apache.commons.validator.routines.EmailValidator;
-
-import java.io.IOException;
+import org.alexdev.icarus.http.mysql.dao.PlayerDao;
 
 public class AccountController {
 
@@ -33,7 +27,7 @@ public class AccountController {
             return;
         }
 
-        if (!PlayerDao.exists(client.post().get("email"))) {
+        if (!PlayerDao.emailExists(client.post().get("email"))) {
             client.session().set("showAlert", true);
             client.session().set("alertType", "error");
             client.session().set("alertMessage", "That account does not exist!");

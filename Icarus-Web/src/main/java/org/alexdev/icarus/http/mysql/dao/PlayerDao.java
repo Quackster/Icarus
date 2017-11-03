@@ -1,9 +1,10 @@
-package org.alexdev.icarus.web.mysql.dao;
+package org.alexdev.icarus.http.mysql.dao;
 
 import org.alexdev.duckhttpd.util.WebUtilities;
-import org.alexdev.icarus.web.game.player.Player;
-import org.alexdev.icarus.web.mysql.Storage;
-import org.alexdev.icarus.web.util.config.Configuration;
+import org.alexdev.icarus.http.game.player.Player;
+import org.alexdev.icarus.http.mysql.Storage;
+import org.alexdev.icarus.http.util.Util;
+import org.alexdev.icarus.http.util.config.Configuration;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;
@@ -12,7 +13,7 @@ import java.sql.ResultSet;
 
 public class PlayerDao {
 
-    public static boolean exists(String email) {
+    public static boolean emailExists(String email) {
 
         boolean success = false;
 
@@ -23,7 +24,7 @@ public class PlayerDao {
         try {
 
             sqlConnection = Storage.get().getConnection();
-            preparedStatement = Storage.get().prepare("SELECT * FROM users WHERE email = ? LIMIT 1", sqlConnection);
+            preparedStatement = Storage.get().prepare("SELECT id FROM users WHERE email = ? LIMIT 1", sqlConnection);
             preparedStatement.setString(1, email);
 
             resultSet = preparedStatement.executeQuery();
@@ -41,6 +42,109 @@ public class PlayerDao {
         }
 
         return success;
+    }
+
+    public static boolean nameExists(String name) {
+
+        boolean success = false;
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            sqlConnection = Storage.get().getConnection();
+            preparedStatement = Storage.get().prepare("SELECT id FROM users WHERE username = ? LIMIT 1", sqlConnection);
+            preparedStatement.setString(1, name);
+
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                success = true;
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return success;
+    }
+
+    public static void updateName(int userId, String name) {
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            sqlConnection = Storage.get().getConnection();
+            preparedStatement = Storage.get().prepare("UPDATE users SET username = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, userId);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    public static void updateFigure(int userId, String figure) {
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            sqlConnection = Storage.get().getConnection();
+            preparedStatement = Storage.get().prepare("UPDATE users SET figure = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setString(1, figure);
+            preparedStatement.setInt(2, userId);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    public static void updateTicket(int userId, Player player) {
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            String ssoTicket = "sso-icarus-" + Util.randomString(10) + "-" + Util.randomString(6) + "-" + Util.randomString(8);
+            player.setSsoTicket(ssoTicket);
+
+            sqlConnection = Storage.get().getConnection();
+            preparedStatement = Storage.get().prepare("UPDATE users SET sso_ticket = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setString(1, ssoTicket);
+            preparedStatement.setInt(2, userId);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
     }
 
     public static int create(String email, String password) {

@@ -1,12 +1,11 @@
-package org.alexdev.icarus.web;
+package org.alexdev.icarus.http;
 
 import org.alexdev.duckhttpd.routes.RouteManager;
 import org.alexdev.duckhttpd.server.WebServer;
 import org.alexdev.duckhttpd.util.config.Settings;
-import org.alexdev.icarus.web.responses.ServerResponses;
-import org.alexdev.icarus.web.routes.Routes;
-import org.alexdev.icarus.web.util.config.Configuration;
-import org.mindrot.jbcrypt.BCrypt;
+import org.alexdev.icarus.http.util.web.ServerResponses;
+import org.alexdev.icarus.http.util.web.Routes;
+import org.alexdev.icarus.http.util.config.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,14 +22,12 @@ public class IcarusWeb {
         Settings settings = Settings.getInstance();
         settings.setResponses(new ServerResponses());
 
-        System.out.println(BCrypt.hashpw("123", BCrypt.gensalt()));
-
         config = new Configuration();
         config.load();
         config.setSettings(settings);
 
         int port = 80;
-        logger.info("Starting web service on port " + port);
+        logger.info("Starting http service on port " + port);
 
         Routes.register();
         logger.info("Registered " + RouteManager.getRoutes().size() + " route(s)!");

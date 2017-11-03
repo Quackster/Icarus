@@ -1,12 +1,25 @@
-package org.alexdev.icarus.web.util;
+package org.alexdev.icarus.http.util;
 
-import org.alexdev.icarus.web.IcarusWeb;
+import org.alexdev.icarus.http.IcarusWeb;
+import org.apache.commons.lang3.RandomUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 public class Util {
+
+    private static Random random;
+
+    public static Random getRandom() {
+
+        if (random == null) {
+            random = new Random();
+        }
+
+        return random;
+    }
 
     /**
      * Gets the readable timestamp.
@@ -89,4 +102,36 @@ public class Util {
 
         return null;
     }
+
+    /**
+     * Create random alpha numeric string with given length
+     *
+     * @param length the string length
+     * @return the valid alpha numeric string
+     */
+    public static String randomString(final int length) {
+
+        char[] alphaNumeric = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijlmnopqrstuvwxyz0123456789".toCharArray();
+
+        StringBuilder sb = new StringBuilder();
+
+        for(int i = 0; i < length; i++) {
+            char c = alphaNumeric[RandomUtils.nextInt(0, alphaNumeric.length)];
+            sb.append(c);
+        }
+
+        return sb.toString();
+    }
+
+    /**
+     * Checks if is alpha numeric.
+     *
+     * @param word the word
+     * @return true, if is alpha numeric
+     */
+    public static boolean isAlphaNumeric(String word) {
+        return word.matches("[A-Za-z0-9]+");
+    }
+
+
 }

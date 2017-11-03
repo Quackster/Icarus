@@ -1,4 +1,4 @@
-package org.alexdev.icarus.web.mysql;
+package org.alexdev.icarus.http.mysql;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

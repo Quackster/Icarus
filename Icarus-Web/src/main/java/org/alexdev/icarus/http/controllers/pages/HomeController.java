@@ -1,9 +1,8 @@
-package org.alexdev.icarus.web.controllers.home;
+package org.alexdev.icarus.http.controllers.pages;
 
 import org.alexdev.duckhttpd.server.connection.WebConnection;
 import org.alexdev.duckhttpd.template.Template;
-import org.alexdev.icarus.web.game.player.Player;
-import org.alexdev.icarus.web.mysql.dao.PlayerDao;
+import org.alexdev.icarus.http.game.player.Player;
 
 public class HomeController {
 
@@ -22,6 +21,7 @@ public class HomeController {
         Template tpl = client.template("index");
         tpl.render();
 
+        // Show the alert only once...
         client.session().set("showAlert", false);
     }
 
@@ -51,15 +51,8 @@ public class HomeController {
 
         // If the user isn't logged, send them back to the index
         if (!client.session().getBoolean("authenticated")) {
-            client.session().set("authenticated", false);
             client.redirect("/home");
             return;
-        }
-
-        // Creates a player instance and set it
-        if (!client.session().contains("player")) {
-            Player player = PlayerDao.get(client.session().getInt("userId"));
-            client.session().set("player", player);
         }
 
         // nux
@@ -69,6 +62,17 @@ public class HomeController {
         }
 
         Template tpl = client.template("me");
+        tpl.render();
+    }
+
+    /**
+     * Handle the /disconnect URI request
+     * @param client the connection
+     */
+    public static void disconnected(WebConnection client) throws Exception {
+        Template tpl = client.template("error");
+        tpl.set("errorTitle", "Disconnected!");
+        tpl.set("errorMessage", "Looks like you were disconnected!<br><br>" + client.post().getQueries().toString() + "");
         tpl.render();
     }
 }

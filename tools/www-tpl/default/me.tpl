@@ -44,7 +44,7 @@
 					<!-- seperator -->
 					<div id="div-header-top"><p>About Me</p></div>
 					<div class="player-appearance">
-						<img src="http://www.habbo.com.tr/habbo-imaging/avatarimage?figure={{ session.figure }}&size=b&direction=2&head_direction=3&gesture=sml">
+						<img src="http://www.habbo.com.tr/habbo-imaging/avatarimage?figure={{ player.figure }}&size=b&direction=2&head_direction=3&gesture=sml">
 					</div>
 					<div class="player-info">
 						<b>Player name</b>&nbsp;&nbsp;{{ player.name }}

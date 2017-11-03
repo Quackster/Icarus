@@ -71,7 +71,7 @@
             "new.user.flow.roomTypes":"10,11,12",
             "avatareditor.promohabbos":"{{ site.url }}/api/public/lists/hotlooks.xml",
             "new.user.onboarding.show.hc.items":"false",
-            "new.user.flow.name":"lolol",
+            "new.user.flow.name":"{{ newname }}",
             "new.user.reception.maxLength":"15",
             "new.user.flow.onboarding.characters.tip":"TIP: 3-15 characters, letters, numbers and underscores are accepted.",
             "productdata.load.url":"{{ client.productdata }}",
@@ -80,7 +80,7 @@
             "new.user.flow.intro":"While we\'re preparing your check-in, please choose your first looks from this selection:",
             "external.override.variables.txt":"{{ client.externalOverrideVariables }}",
             "new.user.flow.onboarding.button.skip":"Skip",
-            "sso.ticket":"{$user->ssoticket}",
+            "sso.ticket":"{{ ticket }}",
             "new.user.flow.onboarding.choose.your.style":"Choose your style",
             "new.user.flow.onboarding.hint.hc.header":"Wait a second!",
             "new.user.flow.clothes":"Clothes",
@@ -119,22 +119,5 @@
     <div id="content" class="client-content"></div>
     <iframe id="page-content" class="hidden" allowtransparency="true" frameBorder="0" src="about:blank"></iframe>
 </div>
-
-<script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-448325-57']);
-    _gaq.push(['_trackPageview']);
-
-
-
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-</script>
-
-<iframe id="conversion-tracking" src="about:blank" width="0" height="0" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" style="position: absolute; top:0; left:0"></iframe>
-
 </body>
 </html>

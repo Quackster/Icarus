@@ -1,6 +1,6 @@
-package org.alexdev.icarus.web.template.binders;
+package org.alexdev.icarus.http.template.binders;
 
-import org.alexdev.icarus.web.util.config.Configuration;
+import org.alexdev.icarus.http.util.config.Configuration;
 
 public class TemplateClientBinder {
 

@@ -1,4 +1,4 @@
-package org.alexdev.icarus.web.responses;
+package org.alexdev.icarus.http.util.web;
 
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpResponseStatus;

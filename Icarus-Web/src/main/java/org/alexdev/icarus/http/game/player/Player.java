@@ -1,7 +1,6 @@
-package org.alexdev.icarus.web.game.player;
+package org.alexdev.icarus.http.game.player;
 
-import org.alexdev.duckhttpd.util.WebUtilities;
-import org.alexdev.icarus.web.util.Util;
+import org.alexdev.icarus.http.util.Util;
 
 public class Player {
 
@@ -13,6 +12,7 @@ public class Player {
     private String email;
     private String mission;
     private long lastOnline;
+    private String ssoTicket;
 
     public Player(int id, String name, String figure, int credits, int duckets, String email, String mission, long lastOnline) {
         this.id = id;
@@ -87,5 +87,13 @@ public class Player {
 
     public void setLastOnline(long lastOnline) {
         this.lastOnline = lastOnline;
+    }
+
+    public String getSsoTicket() {
+        return ssoTicket;
+    }
+
+    public void setSsoTicket(String ssoTicket) {
+        this.ssoTicket = ssoTicket;
     }
 }

@@ -1,7 +1,7 @@
 apply plugin: 'application'
 apply plugin: 'idea'
 
-mainClassName = 'org.alexdev.icarus.web.IcarusWeb'
+mainClassName = 'org.alexdev.icarus.http.IcarusWeb'
 
 repositories {
     mavenCentral()
@@ -38,6 +38,12 @@ dependencies {
 
     // https://mvnrepository.com/artifact/commons-validator/commons-validator
     compile group: 'commons-validator', name: 'commons-validator', version: '1.4.1'
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
+
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
 
     // https://github.com/Quackster/duckHTTPD/
     compile project(':duckHTTPD')

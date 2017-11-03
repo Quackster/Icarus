@@ -1,4 +1,4 @@
-package org.alexdev.icarus.web.template.binders;
+package org.alexdev.icarus.http.template.binders;
 
 import org.alexdev.duckhttpd.server.connection.WebConnection;
 
