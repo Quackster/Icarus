@@ -2,6 +2,7 @@ package org.alexdev.icarus.http.controllers.account;
 
 import org.alexdev.duckhttpd.server.connection.WebConnection;
 import org.alexdev.icarus.http.mysql.dao.PlayerDao;
+import org.alexdev.icarus.http.util.SessionUtil;
 
 public class AccountController {
 
@@ -45,8 +46,8 @@ public class AccountController {
             return;
         }
 
-        client.session().set("authenticated", true);
-        client.session().set("userId", userId);
+        client.session().set(SessionUtil.LOGGED_IN, true);
+        client.session().set(SessionUtil.USER_ID, userId);
         client.redirect("/me");
     }
 
@@ -58,7 +59,7 @@ public class AccountController {
         client.session().set("showAlert", true);
         client.session().set("alertType", "success");
         client.session().set("alertMessage", "Successfully logged out!");
-        client.session().set("authenticated", false);
+        client.session().set(SessionUtil.LOGGED_IN, false);
         client.redirect("/");
     }
 }

@@ -4,6 +4,7 @@ import ch.compile.recaptcha.ReCaptchaVerify;
 import ch.compile.recaptcha.SiteVerifyResponse;
 import org.alexdev.duckhttpd.server.connection.WebConnection;
 import org.alexdev.icarus.http.mysql.dao.PlayerDao;
+import org.alexdev.icarus.http.util.SessionUtil;
 import org.alexdev.icarus.http.util.config.Configuration;
 import org.apache.commons.validator.routines.EmailValidator;
 
@@ -78,8 +79,8 @@ public class RegisterController {
 
         int userId = PlayerDao.create(client.post().get("regemail"), client.post().get("regpassword"));
 
-        client.session().set("authenticated", true);
-        client.session().set("userId", userId);
+        client.session().set(SessionUtil.LOGGED_IN, true);
+        client.session().set(SessionUtil.USER_ID, userId);
         client.redirect("/me");
     }
 }

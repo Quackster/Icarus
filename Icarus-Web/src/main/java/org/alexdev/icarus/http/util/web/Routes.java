@@ -4,6 +4,7 @@ import org.alexdev.duckhttpd.routes.RouteManager;
 import org.alexdev.icarus.http.controllers.*;
 import org.alexdev.icarus.http.controllers.account.AccountController;
 import org.alexdev.icarus.http.controllers.account.RegisterController;
+import org.alexdev.icarus.http.controllers.housekeeping.HousekeepingController;
 import org.alexdev.icarus.http.controllers.pages.ClientController;
 import org.alexdev.icarus.http.controllers.pages.HomeController;
 
@@ -20,6 +21,10 @@ public class Routes {
         RouteManager.addRoute("/account/login", AccountController::login);
         RouteManager.addRoute("/account/logout", AccountController::logout);
         RouteManager.addRoute("/hotel", ClientController::hotel);
+
+        RouteManager.addRoute("/housekeeping", HousekeepingController::dashboard);
+        RouteManager.addRoute("/housekeeping/login", HousekeepingController::login);
+
         RouteManager.addRoute("/api/newuser/name/check", ApiController::nameCheck);
         RouteManager.addRoute("/api/newuser/name/select", ApiController::nameSelect);
         RouteManager.addRoute("/api/user/look/save", ApiController::saveLook);

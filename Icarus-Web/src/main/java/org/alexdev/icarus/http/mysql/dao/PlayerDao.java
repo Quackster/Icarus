@@ -236,7 +236,9 @@ public class PlayerDao {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                player = new Player(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("figure"), resultSet.getInt("credits"), resultSet.getInt("duckets"), resultSet.getString("email"), resultSet.getString("mission"), resultSet.getLong("last_online"));
+                player = new Player(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("figure"),
+                                    resultSet.getInt("credits"), resultSet.getInt("duckets"), resultSet.getString("email"),
+                                    resultSet.getString("mission"), resultSet.getLong("last_online"), resultSet.getInt("rank"));
             }
 
         } catch (Exception e) {

@@ -4,6 +4,7 @@ import org.alexdev.icarus.http.util.Util;
 
 public class Player {
 
+
     private int id;
     private String name;
     private String figure;
@@ -13,8 +14,9 @@ public class Player {
     private String mission;
     private long lastOnline;
     private String ssoTicket;
+    private int rank;
 
-    public Player(int id, String name, String figure, int credits, int duckets, String email, String mission, long lastOnline) {
+    public Player(int id, String name, String figure, int credits, int duckets, String email, String mission, long lastOnline, int rank) {
         this.id = id;
         this.name = name;
         this.figure = figure;
@@ -23,6 +25,7 @@ public class Player {
         this.email = email;
         this.mission = mission;
         this.lastOnline = lastOnline;
+        this.rank = rank;
     }
 
     public int getId() {
@@ -95,5 +98,17 @@ public class Player {
 
     public void setSsoTicket(String ssoTicket) {
         this.ssoTicket = ssoTicket;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public boolean hasHouskeeping() {
+        return this.rank > 5;
     }
 }

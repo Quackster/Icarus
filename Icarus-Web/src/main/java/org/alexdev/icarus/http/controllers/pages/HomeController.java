@@ -3,6 +3,7 @@ package org.alexdev.icarus.http.controllers.pages;
 import org.alexdev.duckhttpd.server.connection.WebConnection;
 import org.alexdev.duckhttpd.template.Template;
 import org.alexdev.icarus.http.game.player.Player;
+import org.alexdev.icarus.http.util.SessionUtil;
 
 public class HomeController {
 
@@ -13,7 +14,7 @@ public class HomeController {
     public static void homepage(WebConnection client) {
 
         // If they are logged in, send them to the /me page
-       if (client.session().getBoolean("authenticated")) {
+       if (client.session().getBoolean(SessionUtil.LOGGED_IN)) {
            client.redirect("/me");
            return;
         }
@@ -32,7 +33,7 @@ public class HomeController {
     public static void register(WebConnection client) {
 
         // If they are logged in, stop them from registering
-        if (client.session().getBoolean("authenticated")) {
+        if (client.session().getBoolean(SessionUtil.LOGGED_IN)) {
             client.redirect("/me");
             return;
         }
@@ -50,7 +51,7 @@ public class HomeController {
     public static void me(WebConnection client) throws Exception {
 
         // If the user isn't logged, send them back to the index
-        if (!client.session().getBoolean("authenticated")) {
+        if (!client.session().getBoolean(SessionUtil.LOGGED_IN)) {
             client.redirect("/home");
             return;
         }

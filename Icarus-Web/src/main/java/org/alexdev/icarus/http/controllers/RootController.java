@@ -11,7 +11,7 @@ public class RootController {
      */
     public static void root(WebConnection client) {
 
-        // If the user isn't logged, send them back to the index
+        // If the user is logged, create their player instance
         if (client.session().getBoolean("authenticated")) {
 
             // Creates a player instance and set it
