@@ -3,8 +3,15 @@ package org.alexdev.icarus.http.util;
 import org.alexdev.icarus.http.IcarusWeb;
 import org.apache.commons.lang3.RandomUtils;
 
+import javax.imageio.ImageIO;
+import javax.xml.bind.DatatypeConverter;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Random;
 
@@ -133,5 +140,20 @@ public class Util {
         return word.matches("[A-Za-z0-9]+");
     }
 
+    /**
+     * Converts a bitmap file to base64 string
+     *
+     * @param image the image
+     * @return bitmap
+     */
+    public static String convert(BufferedImage image) {
 
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, "png", output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return DatatypeConverter.printBase64Binary(output.toByteArray());
+    }
 }

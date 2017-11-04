@@ -15,10 +15,11 @@ public class Player {
     private long lastOnline;
     private String ssoTicket;
     private int rank;
+    private long joinDate;
 
-    public Player(int id, String name, String figure, int credits, int duckets, String email, String mission, long lastOnline, int rank) {
+    public Player(int id, String username, String figure, int credits, int duckets, String email, String mission, long last_online, int rank, long joinDate) {
         this.id = id;
-        this.name = name;
+        this.name = username;
         this.figure = figure;
         this.credits = credits;
         this.duckets = duckets;
@@ -26,6 +27,7 @@ public class Player {
         this.mission = mission;
         this.lastOnline = lastOnline;
         this.rank = rank;
+        this.joinDate = joinDate;
     }
 
     public int getId() {
@@ -110,5 +112,17 @@ public class Player {
 
     public boolean hasHouskeeping() {
         return this.rank > 5;
+    }
+
+    public long getJoinDate() {
+        return joinDate;
+    }
+
+    public String getReadableJoinDate() {
+        return Util.getDateAsString(this.joinDate);
+    }
+
+    public void setJoinDate(long joinDate) {
+        this.joinDate = joinDate;
     }
 }

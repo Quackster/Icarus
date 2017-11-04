@@ -238,7 +238,8 @@ public class PlayerDao {
             if (resultSet.next()) {
                 player = new Player(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("figure"),
                                     resultSet.getInt("credits"), resultSet.getInt("duckets"), resultSet.getString("email"),
-                                    resultSet.getString("mission"), resultSet.getLong("last_online"), resultSet.getInt("rank"));
+                                    resultSet.getString("mission"), resultSet.getLong("last_online"), resultSet.getInt("rank"),
+                                    resultSet.getLong("join_date"));
             }
 
         } catch (Exception e) {
