@@ -20,7 +20,7 @@
           </li>
         </ul>
         <form class="form-inline mt-2 mt-md-0">
-          <a href="{{ site.url }}/">><button type="button" class="btn my-2 my-sm-0">Back to main site</button></a>
+          <a href="{{ site.url }}/"><button type="button" class="btn my-2 my-sm-0">Back to main site</button></a>
         </form>
       </div>
     </nav>

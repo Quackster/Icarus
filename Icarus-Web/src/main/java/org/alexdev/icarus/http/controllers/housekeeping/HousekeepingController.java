@@ -30,7 +30,7 @@ public class HousekeepingController {
             tpl.render();
         } else {
 
-            int currentPage = 0;
+            int currentPage = 1;
 
             if (client.get().contains("page")) {
                 currentPage = Integer.parseInt(client.get().get("page"));
