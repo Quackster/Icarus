@@ -1,5 +1,18 @@
-{% include "base/header.tpl" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>{{ site.name }}: Housekeeping</title>
+    <link href="{{ site.url }}/public/hk/css/bootstrap.min.css" rel="stylesheet">
 	<link href="{{ site.url }}/public/hk/css/bootstrap.login.override.css" rel="stylesheet">	
+	<link href="{{ site.url }}/public/hk/css/sticky-footer.css" rel="stylesheet">
+  </head>
+  <body>
+	
 	<div class="container">
 		<div class="mt-1">
 			<h1>Housekeeping</h1>
@@ -22,4 +35,11 @@
 			</form>
 		</div>
 	</div>
-{% include "base/footer.tpl" %}
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">&copy; Copyright 2017 - Alex Miller</span>
+      </div>
+    </footer>
+    <script src="{{ site.url }}/public/hk/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

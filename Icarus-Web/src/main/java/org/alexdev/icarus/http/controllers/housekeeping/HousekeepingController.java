@@ -5,7 +5,13 @@ import org.alexdev.duckhttpd.server.connection.WebConnection;
 import org.alexdev.duckhttpd.template.Template;
 import org.alexdev.icarus.http.game.player.Player;
 import org.alexdev.icarus.http.mysql.dao.PlayerDao;
+import org.alexdev.icarus.http.util.PieChart;
 import org.alexdev.icarus.http.util.SessionUtil;
+import sun.reflect.annotation.AnnotationType;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class HousekeepingController {
 
