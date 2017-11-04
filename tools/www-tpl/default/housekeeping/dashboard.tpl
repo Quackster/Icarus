@@ -2,34 +2,46 @@
   <body>
 	{% include "base/navigation.tpl" %}
      <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-          <h1>Dashboard</h1>
-
-          <section class="row text-center placeholders">
-            <div class="col-6 col-sm-3 placeholder">
-              <img src="data:image/png;base64,{{ pieChartImage1 }}" width="300" height="200" class="img-fluid">
-              <h4>{{ pieChartLabel1 }}</h4>
-              <div class="text-muted">{{ pieChartText1 }}</div>
-            </div>
-            <div class="col-6 col-sm-3 placeholder">
-              <img src="data:image/png;base64,{{ pieChartImage2 }}" width="300" height="200" class="img-fluid">
-              <h4>{{ pieChartLabel2 }}</h4>
-              <div class="text-muted">{{ pieChartText2 }}</div>
-            </div>
-            <div class="col-6 col-sm-3 placeholder">
-              <img src="data:image/png;base64,{{ pieChartImage3 }}" width="300" height="200" class="img-fluid">
-              <h4>{{ pieChartLabel3 }}</h4>
-              <div class="text-muted">{{ pieChartText3 }}</div>
-            </div>
-            <div class="col-6 col-sm-3 placeholder">
-              <img src="data:image/png;base64,{{ pieChartImage3 }}" width="300" height="200" class="img-fluid">
-              <h4>{{ pieChartLabel3 }}</h4>
-              <div class="text-muted">{{ pieChartText3 }}</div>
-            </div>
-          </section>
-		  
-          <h2>
-			Newest Players
-		  </h2>
+          <h2>Hotel Statistics</h2>
+		  <p>Welcome to the housekeeping for {{ site.name }} Hotel, here you can manage a lot of things at once, such as users, news, site content and view the statistics of the hotel.</p>
+		   <div class="table-responsive col-md-4">
+            <table class="table table-striped">
+			<thead>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody class="col-md-4">
+				<tr>
+					<td><strong>Icarus Web Version</strong></td>
+					<td>1.0</td>
+				</tr>
+				<tr>
+					<td>Users</td>
+					<td>1337</td>
+				</tr>
+				<tr>
+					<td>Furniture</td>
+					<td>15667</td>
+				</tr>
+				<tr>
+					<td>Inventory Items</td>
+					<td>10</td>
+				</tr>
+				<tr>
+					<td>Groups</td>
+					<td>2</td>
+				</tr>
+				<tr>
+					<td>Pets</td>
+					<td>5</td>
+				</tr>
+			</tbody>
+			</table>
+		  </div>
+          <h2>Newest Players</h2>
+		  <p>The recently joined player list is seen below</p>
 		  <div style="margin:10px">
 			{% if nextPlayers|length > 0 %}
 				{% set ourNextPage = page + 1 %}
@@ -62,8 +74,8 @@
                   <td>{{ player.mission }}</td>
                   <td>{{ player.credits }}</td>
                   <td>{{ player.duckets }}</td>
-				  <td>{{ player.getReadableLastOnline() }}
-				  <td>{{ player.getReadableJoinDate() }}
+				  <td>{{ player.getReadableLastOnline() }}</td>
+				  <td>{{ player.getReadableJoinDate() }}</td>
                 </tr>
 			   {% set num = num + 1 %}
 			   {% endfor %}

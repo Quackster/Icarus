@@ -14,7 +14,7 @@ public class HousekeepingPlayerDao {
     public static List<Player> getPlayers(int page) {
 
         int rows = 25;
-        int nextOffset = (page - 1) * rows;
+        int nextOffset = page * rows;
 
         List<Player> players = new ArrayList<>();
 
