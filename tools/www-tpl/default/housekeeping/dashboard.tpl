@@ -58,6 +58,7 @@
                 <tr>
                   <th>ID</th>
                   <th>Name</th>
+				  <th>Look</th>
                   <th>Mission</th>
                   <th>Credits</th>
                   <th>Duckets</th>
@@ -71,6 +72,7 @@
                 <tr>
                   <td>{{ player.id }}</td>
                   <td>{{ player.name }}</td>
+				  <td><img src="https://www.habbo.com.tr/habbo-imaging/avatarimage?figure={{ player.figure }}&size=s"></td>
                   <td>{{ player.mission }}</td>
                   <td>{{ player.credits }}</td>
                   <td>{{ player.duckets }}</td>

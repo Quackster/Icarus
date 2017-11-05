@@ -30,43 +30,37 @@
         <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Reports</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Analytics</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Export</a>
+              <a class="nav-link active" href="/housekeeping/dashboard">Overview <span class="sr-only">(current)</span></a>
             </li>
           </ul>
 
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="#">Nav item</a>
+              <a class="nav-link" href="#">View users</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Nav item again</a>
+              <a class="nav-link" href="#">Search users</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">One more nav</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Another nav item</a>
+			<li class="nav-item">
+              <a class="nav-link" href="#">Create new user</a>
             </li>
           </ul>
 
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="#">Nav item again</a>
+              <a class="nav-link" href="#">View news articles</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">One more nav</a>
+              <a class="nav-link" href="#">Post new article</a>
+            </li>
+          </ul>
+		  
+		  <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Modify server scheduler</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Another nav item</a>
+              <a class="nav-link" href="#">Modify room limits</a>
             </li>
           </ul>
         </nav>
