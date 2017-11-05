@@ -36,13 +36,13 @@
 
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="#">View users</a>
+              <a class="nav-link" href="/housekeeping/users">View users</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Search users</a>
+              <a class="nav-link" href="/housekeeping/users/search">Search users</a>
             </li>
 			<li class="nav-item">
-              <a class="nav-link" href="#">Create new user</a>
+              <a class="nav-link" href="/housekeeping/users/create">Create new user</a>
             </li>
           </ul>
 
