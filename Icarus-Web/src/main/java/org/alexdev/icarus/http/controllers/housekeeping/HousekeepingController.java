@@ -25,7 +25,7 @@ public class HousekeepingController {
     public static void dashboard(WebConnection client) {
 
         // If they are logged in, send them to the /me page
-        if (!client.session().contains(SessionUtil.LOGGED_IN_HOUSKEEPING)) {
+        if (!client.session().getBoolean(SessionUtil.LOGGED_IN_HOUSKEEPING)) {
             Template tpl = client.template("housekeeping/login");
             tpl.render();
         } else {
@@ -100,6 +100,23 @@ public class HousekeepingController {
 
         client.session().set(SessionUtil.LOGGED_IN_HOUSKEEPING, true);
         client.session().set(SessionUtil.USER_ID, userId);
+        client.redirect("/housekeeping");
+    }
+
+    /**
+     * Handle the /housekeeping/login URI request
+     *
+     * @param client the connection
+     */
+    public static void logout(WebConnection client) {
+
+        if (client.session().getBoolean(SessionUtil.LOGGED_IN_HOUSKEEPING)) {
+            client.session().set("showAlert", true);
+            client.session().set("alertType", "success");
+            client.session().set("alertMessage", "Successfully logged out!");
+            client.session().set(SessionUtil.LOGGED_IN_HOUSKEEPING, false);
+        }
+
         client.redirect("/housekeeping");
     }
 }

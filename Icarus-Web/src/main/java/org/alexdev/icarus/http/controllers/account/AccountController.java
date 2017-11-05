@@ -56,10 +56,14 @@ public class AccountController {
      * @param client the connection
      */
     public static void logout(WebConnection client) {
-        client.session().set("showAlert", true);
-        client.session().set("alertType", "success");
-        client.session().set("alertMessage", "Successfully logged out!");
-        client.session().set(SessionUtil.LOGGED_IN, false);
+
+        if (client.session().getBoolean(SessionUtil.LOGGED_IN)) {
+            client.session().set("showAlert", true);
+            client.session().set("alertType", "success");
+            client.session().set("alertMessage", "Successfully logged out!");
+            client.session().set(SessionUtil.LOGGED_IN, false);
+        }
+
         client.redirect("/");
     }
 }
