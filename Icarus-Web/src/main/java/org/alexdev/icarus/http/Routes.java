@@ -1,10 +1,11 @@
-package org.alexdev.icarus.http.util.web;
+package org.alexdev.icarus.http;
 
 import org.alexdev.duckhttpd.routes.RouteManager;
 import org.alexdev.icarus.http.controllers.*;
 import org.alexdev.icarus.http.controllers.account.AccountController;
 import org.alexdev.icarus.http.controllers.account.RegisterController;
 import org.alexdev.icarus.http.controllers.housekeeping.HousekeepingController;
+import org.alexdev.icarus.http.controllers.housekeeping.HousekeepingUsersController;
 import org.alexdev.icarus.http.controllers.pages.ClientController;
 import org.alexdev.icarus.http.controllers.pages.HomeController;
 
@@ -25,6 +26,8 @@ public class Routes {
         RouteManager.addRoute("/housekeeping", HousekeepingController::dashboard);
         RouteManager.addRoute("/housekeeping/login", HousekeepingController::login);
         RouteManager.addRoute("/housekeeping/logout", HousekeepingController::logout);
+        RouteManager.addRoute("/housekeeping/users/search", HousekeepingUsersController::search);
+        RouteManager.addRoute("/housekeeping/users/create", HousekeepingUsersController::create);
 
         RouteManager.addRoute("/api/newuser/name/check", ApiController::nameCheck);
         RouteManager.addRoute("/api/newuser/name/select", ApiController::nameSelect);

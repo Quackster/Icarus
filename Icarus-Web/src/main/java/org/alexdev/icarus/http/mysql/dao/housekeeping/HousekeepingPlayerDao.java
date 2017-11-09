@@ -50,4 +50,56 @@ public class HousekeepingPlayerDao {
 
         return players;
     }
+
+    public static List<Player> search(String type, String field, String input) {
+
+        List<Player> players = new ArrayList<>();
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            sqlConnection = Storage.get().getConnection();
+
+            if (type.equals("contains")) {
+                preparedStatement = Storage.get().prepare("SELECT * FROM users WHERE " + field + " LIKE ?", sqlConnection);
+                preparedStatement.setString(1, "%" + input + "%");
+            }
+
+            if (type.equals("starts_with")) {
+                preparedStatement = Storage.get().prepare("SELECT * FROM users WHERE " + field + " LIKE ?", sqlConnection);
+                preparedStatement.setString(1, input + "%");
+            }
+
+            if (type.equals("ends_with")) {
+                preparedStatement = Storage.get().prepare("SELECT * FROM users WHERE " + field + " LIKE ?", sqlConnection);
+                preparedStatement.setString(1, "%" + input);
+            }
+
+            if (type.equals("equals")) {
+                preparedStatement = Storage.get().prepare("SELECT * FROM users WHERE " + field + " = ?", sqlConnection);
+                preparedStatement.setString(1, input);
+            }
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                players.add(new Player(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("figure"),
+                        resultSet.getInt("credits"), resultSet.getInt("duckets"), resultSet.getString("email"),
+                        resultSet.getString("mission"), resultSet.getLong("last_online"), resultSet.getInt("rank"),
+                        resultSet.getLong("join_date")));
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return players;
+    }
 }

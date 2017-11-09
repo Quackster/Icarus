@@ -30,19 +30,19 @@
         <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="/housekeeping/dashboard">Overview <span class="sr-only">(current)</span></a>
+              <a class="nav-link active" href="/housekeeping">Overview <span class="sr-only">(current)</span></a>
             </li>
           </ul>
 
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="/housekeeping/users">View users</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="/housekeeping/users/search">Search users</a>
             </li>
 			<li class="nav-item">
               <a class="nav-link" href="/housekeeping/users/create">Create new user</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/housekeeping/users/ban">Moderate users</a>
             </li>
           </ul>
 

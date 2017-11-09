@@ -4,7 +4,6 @@ import org.alexdev.duckhttpd.routes.RouteManager;
 import org.alexdev.duckhttpd.server.WebServer;
 import org.alexdev.duckhttpd.util.config.Settings;
 import org.alexdev.icarus.http.util.web.ServerResponses;
-import org.alexdev.icarus.http.util.web.Routes;
 import org.alexdev.icarus.http.util.config.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
