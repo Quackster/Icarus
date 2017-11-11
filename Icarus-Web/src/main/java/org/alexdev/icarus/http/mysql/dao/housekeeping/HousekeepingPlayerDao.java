@@ -18,7 +18,7 @@ public class HousekeepingPlayerDao {
         int rows = 25;
         int nextOffset = page * rows;
 
-        if (nextOffset > 0) {
+        if (nextOffset >= 0) {
             Connection sqlConnection = null;
             PreparedStatement preparedStatement = null;
             ResultSet resultSet = null;
