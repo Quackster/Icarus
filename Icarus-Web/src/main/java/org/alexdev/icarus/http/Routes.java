@@ -28,6 +28,7 @@ public class Routes {
         RouteManager.addRoute("/housekeeping/logout", HousekeepingController::logout);
         RouteManager.addRoute("/housekeeping/users/search", HousekeepingUsersController::search);
         RouteManager.addRoute("/housekeeping/users/create", HousekeepingUsersController::create);
+        RouteManager.addRoute("/housekeeping/users/edit", HousekeepingUsersController::edit);
 
         RouteManager.addRoute("/api/newuser/name/check", ApiController::nameCheck);
         RouteManager.addRoute("/api/newuser/name/select", ApiController::nameSelect);

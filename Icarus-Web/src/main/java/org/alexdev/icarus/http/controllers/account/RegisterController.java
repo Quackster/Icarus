@@ -45,7 +45,7 @@ public class RegisterController {
             return;
         }
 
-        if (PlayerDao.emailExists(client.post().get("regemail"))) {
+        if (PlayerDao.emailExists(client.post().get("regemail"), 0)) {
             client.session().set("showAlert", true);
             client.session().set("alertType", "error");
             client.session().set("alertMessage", "The email you chose is already in use!");

@@ -1,6 +1,7 @@
 package org.alexdev.icarus.http.mysql.dao;
 
 import org.alexdev.duckhttpd.util.WebUtilities;
+import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.http.game.player.Player;
 import org.alexdev.icarus.http.mysql.Storage;
 import org.alexdev.icarus.http.util.Util;
@@ -13,7 +14,7 @@ import java.sql.ResultSet;
 
 public class PlayerDao {
 
-    public static boolean emailExists(String email) {
+    public static boolean emailExists(String email, int id) {
 
         boolean success = false;
 
@@ -24,8 +25,14 @@ public class PlayerDao {
         try {
 
             sqlConnection = Storage.get().getConnection();
-            preparedStatement = Storage.get().prepare("SELECT id FROM users WHERE email = ? LIMIT 1", sqlConnection);
-            preparedStatement.setString(1, email);
+            if (id > 0) {
+                preparedStatement = Storage.get().prepare("SELECT id FROM users WHERE email = ? AND id <> ? LIMIT 1", sqlConnection);
+                preparedStatement.setString(1, email);
+                preparedStatement.setInt(2, id);
+            } else {
+                preparedStatement = Storage.get().prepare("SELECT id FROM users WHERE email = ? LIMIT 1", sqlConnection);
+                preparedStatement.setString(1, email);
+            }
 
             resultSet = preparedStatement.executeQuery();
 
@@ -255,5 +262,38 @@ public class PlayerDao {
         }
 
         return player;
+    }
+
+    /**
+     * Save.
+     *
+     * @param details the details
+     */
+    public static void save(Player details) {
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            sqlConnection = Storage.get().getConnection();
+            preparedStatement = Storage.get().prepare("UPDATE users SET mission = ?, figure = ?, gender = ?, credits = ?, duckets = ?, email = ?, username = ? WHERE id = ?", sqlConnection);
+            preparedStatement.setString(1, details.getMission());
+            preparedStatement.setString(2, details.getFigure());
+            preparedStatement.setInt(3, details.getCredits());
+            preparedStatement.setInt(4, details.getDuckets());
+            preparedStatement.setString(5, details.getEmail());
+            preparedStatement.setString(6, details.getName());
+            preparedStatement.setInt(7, details.getId());
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
     }
 }

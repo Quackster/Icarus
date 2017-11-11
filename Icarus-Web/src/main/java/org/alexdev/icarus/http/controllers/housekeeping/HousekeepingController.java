@@ -70,7 +70,7 @@ public class HousekeepingController {
             return;
         }
 
-        if (!PlayerDao.emailExists(client.post().get("hkemail"))) {
+        if (!PlayerDao.emailExists(client.post().get("hkemail"), 0)) {
             client.session().set("showAlert", true);
             client.session().set("alertType", "danger");
             client.session().set("alertMessage", "You have entered invalid details");

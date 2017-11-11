@@ -1,5 +1,6 @@
 {% include "base/header.tpl" %}
   <body>
+	{% set dashboardActive = " active " %}
 	{% include "base/navigation.tpl" %}
      <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
           <h2>Hotel Statistics</h2>
@@ -58,6 +59,7 @@
                 <tr>
                   <th>ID</th>
                   <th>Name</th>
+				  <th>Email</th>
 				  <th>Look</th>
                   <th>Mission</th>
                   <th>Credits</th>
@@ -71,7 +73,8 @@
 				{% for player in players %}
                 <tr>
                   <td>{{ player.id }}</td>
-                  <td>{{ player.name }}</td>
+                  <td><a href="{{ site.url }}/housekeeping/users/edit?id={{ player.id }}">{{ player.name }}</a></td>
+				  <td>{{ player.email }}</td>
 				  <td><img src="https://www.habbo.com.tr/habbo-imaging/avatarimage?figure={{ player.figure }}&size=s"></td>
                   <td>{{ player.mission }}</td>
                   <td>{{ player.credits }}</td>
@@ -87,10 +90,6 @@
         </main>
       </div>
     </div>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>

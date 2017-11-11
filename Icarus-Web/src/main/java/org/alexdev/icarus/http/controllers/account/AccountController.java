@@ -28,7 +28,7 @@ public class AccountController {
             return;
         }
 
-        if (!PlayerDao.emailExists(client.post().get("email"))) {
+        if (!PlayerDao.emailExists(client.post().get("email"), 0)) {
             client.session().set("showAlert", true);
             client.session().set("alertType", "error");
             client.session().set("alertMessage", "That account does not exist!");

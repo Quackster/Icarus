@@ -1,38 +1,38 @@
 {% include "base/header.tpl" %}
   <body>
-    {% set createUserActive = " active " %}
 	{% include "base/navigation.tpl" %}
      <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-		<h2>Create User</h2>
+		<h2>Edit User</h2>
 		{% include "base/alert.tpl" %}
-		<p>Enter the details to create a new user.</p>
+		<p>Here you can edit user details.</p>
 		<form class="table-responsive col-md-4" method="post">
 			<div class="form-group">
 				<label>Username:</label>
-				<input type="text" class="form-control" id="text" placeholder="Enter username" name="username">
-			</div>
-			<div class="form-group">
-				<label>Password:</label>
-				<input type="password" class="form-control" placeholder="Enter password" name="password">
-			</div>
-			<div class="form-group">
-				<label>Confirm Password:</label>
-				<input type="password" class="form-control" placeholder="Enter password" name="confirmpassword">
+				<input type="text" class="form-control" id="text" name="username"  value="{{ playerUsername }}">
 			</div>
 			<div class="form-group">
 				<label for="pwd">Email:</label>
-				<input type="email" class="form-control" placeholder="Enter email" name="email">
+				<input type="email" class="form-control" name="email" value="{{ playerEmail }}">
 			</div>
 			<div class="form-group">
 				<label for="pwd">Look/figure:</label>
-				<input type="text" class="form-control" name="figure" value="{{ defaultFigure }}">
+				<input type="text" class="form-control" name="figure" value="{{ playerFigure }}">
 			</div>
 			<div class="form-group">
 				<label for="pwd">Mission:</label>
-				<input type="text" class="form-control" placeholder="Enter mission" name="mission" value="{{ defaultMission }}">
+				<input type="text" class="form-control" name="mission" value="{{ playerMission }}">
+			</div>
+			<div class="form-group">
+				<label for="pwd">Credits:</label>
+				<input type="text" class="form-control" name="credits" value="{{ playerCredits }}">
+			</div>
+			<div class="form-group">
+				<label for="pwd">Duckets:</label>
+				<input type="text" class="form-control" name="duckets" value="{{ playerDuckets }}">
 			</div>
 			<div class="form-group"> 
-					<button type="submit" class="btn btn-info">Submit</button>
+				<input type="hidden" id="text" name="id" value="{{ playerId }}">
+				<button type="submit" class="btn btn-info">Save Details</button>
 			</div>
 		</form>
         </main>
