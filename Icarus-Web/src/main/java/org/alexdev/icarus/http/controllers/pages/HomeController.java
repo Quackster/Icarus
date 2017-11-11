@@ -73,7 +73,7 @@ public class HomeController {
     public static void disconnected(WebConnection client) throws Exception {
         Template tpl = client.template("error");
         tpl.set("errorTitle", "Disconnected!");
-        tpl.set("errorMessage", "Looks like you were disconnected!<br><br>" + client.post().getQueries().toString() + "");
+        tpl.set("errorMessage", "Looks like you were disconnected!<br><br>" + client.post().queries().toString() + "");
         tpl.render();
     }
 }

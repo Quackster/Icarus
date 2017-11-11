@@ -53,10 +53,10 @@ public class RegisterController {
             return;
         }
 
-        if (client.post().get("regpassword").equals(client.post().get("The two passwords do not match!"))) {
+        if (!client.post().get("regpassword").equals(client.post().get("regconfirmpassword"))) {
             client.session().set("showAlert", true);
             client.session().set("alertType", "error");
-            client.session().set("alertMessage", "The email you chose is already in use!");
+            client.session().set("alertMessage", "The two passwords do not match");
             client.redirect("/register");
             return;
         }

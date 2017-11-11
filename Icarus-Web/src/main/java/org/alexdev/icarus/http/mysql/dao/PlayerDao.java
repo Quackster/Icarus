@@ -148,6 +148,10 @@ public class PlayerDao {
     }
 
     public static int create(String email, String password) {
+        return create("", email, BCrypt.hashpw(password, BCrypt.gensalt()), Configuration.REGISTER_MOTTO,  Configuration.REGISTER_FIGURE);
+    }
+
+    public static int create(String username, String email, String password, String mission, String figure) {
 
         int userId = 0;
 
@@ -159,11 +163,11 @@ public class PlayerDao {
 
             sqlConnection = Storage.get().getConnection();
             preparedStatement = Storage.get().prepare("INSERT INTO `users` (username, password, email, mission, figure, credits, duckets, last_online, join_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", sqlConnection);
-            preparedStatement.setString(1, "");
+            preparedStatement.setString(1, username);
             preparedStatement.setString(2, BCrypt.hashpw(password, BCrypt.gensalt()));
             preparedStatement.setString(3, email);
-            preparedStatement.setString(4, Configuration.REGISTER_MOTTO);
-            preparedStatement.setString(5, Configuration.REGISTER_FIGURE);
+            preparedStatement.setString(4, mission);
+            preparedStatement.setString(5, figure);
             preparedStatement.setInt(6, Configuration.REGISTER_CREDITS);
             preparedStatement.setInt(7, Configuration.REGISTER_DUCKETS);
             preparedStatement.setLong(8, WebUtilities.currentTimeSeconds());
