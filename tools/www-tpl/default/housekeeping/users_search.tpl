@@ -1,7 +1,7 @@
 {% include "base/header.tpl" %}
   <body>
 	{% include "base/navigation.tpl" %}
-     <main>
+     <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
 		<h2>Search users</h2>
 		{% include "base/alert.tpl" %}
 		<p>Here you can search users by the field of your choice, and the requested input by you</p>

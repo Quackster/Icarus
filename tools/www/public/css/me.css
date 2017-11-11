@@ -1,0 +1,84 @@
+
+#info-name {
+	
+}
+
+#habbo-plate {
+	background-image: url('../../public/images/me/info_habbo_plate.png');
+	background-repeat: no-repeat;
+	background-position:18px -123px;
+}
+
+#habbo-figure {
+	position:absolute;
+	background-position: 20px 80px;
+	background-repeat: no-repeat;
+}
+
+div.main {
+	
+}
+
+
+
+/*
+	My info
+*/
+
+.player-info {
+	display:inline-block;
+	vertical-align:top;
+	width: 190;
+	padding: 20px;
+}
+
+.player-appearance {
+	display:inline-block;
+	margin-left: 20px;
+	width: 90px;
+	height: 170px;
+}
+
+/*
+	Hotel status
+*/
+#hotel-status-online {
+	background-image: url('../../public/images/hotel_status/hotel-button-hotelopen.gif');
+	background-repeat: no-repeat;
+	width: 90px;
+	height: 70px;
+}
+
+
+/*
+	Button override
+
+*/
+
+.enter-hotel {
+    border-color: #4da6ff;
+	border-style: solid;
+	border-radius: 4px;
+	padding: 10px;
+	background-color: #0059b3;
+	height: 50px;
+	width: 140px;
+	padding: 5px 5px;
+	font-size: 24px;
+	color: white;
+	font-family: "Ubuntu Condensed";
+}
+
+.enter-hotel:hover {
+	background-color: #4da6ff;
+	
+}
+
+.enter-hotel:focus {
+	background-color: #00264d;
+}
+
+.enter-hotel:active {
+	background-color: #0059b3;
+}
+

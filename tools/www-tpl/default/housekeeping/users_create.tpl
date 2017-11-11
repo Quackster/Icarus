@@ -5,35 +5,25 @@
 		<h2>Search users</h2>
 		{% include "base/alert.tpl" %}
 		<p>Here you can search users by the field of your choice, and the requested input by you</p>
-		<form class="form-horizontal col-md-2" method="post">
+		<form class="table-responsive col-md-2" method="post">
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="email">Username:</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" id="text" placeholder="Enter username" name="username">
-				</div>
+				<label>Username:</label>
+				<input type="text" class="form-control" id="text" placeholder="Enter username" name="username">
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="email">Password:</label>
-				<div class="col-sm-10">
-					<input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
-				</div>
+				<label>Password:</label>
+				<input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="pwd">Email:</label>
-				<div class="col-sm-10"> 
-					<input type="email" class="form-control" id="pwd" placeholder="Enter email" name="email">
-				</div>
+				<label for="pwd">Email:</label>
+				<input type="email" class="form-control" id="pwd" placeholder="Enter email" name="email">
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="pwd">Look/figure:</label>
-				<div class="col-sm-10"> 
-					<input type="text" class="form-control" id="pwd" name="figure">
-				</div>
+				<label for="pwd">Look/figure:</label>
+				<input type="text" class="form-control" id="pwd" name="figure">
 			</div>
 			<div class="form-group"> 
-				<div class="col-sm-offset-2 col-sm-10">
 					<button type="submit" class="btn btn-info">Submit</button>
-				</div>
 			</div>
 		</form>
         </main>

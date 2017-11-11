@@ -66,19 +66,13 @@ public class HousekeepingPlayerDao {
             if (type.equals("contains")) {
                 preparedStatement = Storage.get().prepare("SELECT * FROM users WHERE " + field + " LIKE ?", sqlConnection);
                 preparedStatement.setString(1, "%" + input + "%");
-            }
-
-            if (type.equals("starts_with")) {
+            } else if (type.equals("starts_with")) {
                 preparedStatement = Storage.get().prepare("SELECT * FROM users WHERE " + field + " LIKE ?", sqlConnection);
                 preparedStatement.setString(1, input + "%");
-            }
-
-            if (type.equals("ends_with")) {
+            } else if (type.equals("ends_with")) {
                 preparedStatement = Storage.get().prepare("SELECT * FROM users WHERE " + field + " LIKE ?", sqlConnection);
                 preparedStatement.setString(1, "%" + input);
-            }
-
-            if (type.equals("equals")) {
+            } else {
                 preparedStatement = Storage.get().prepare("SELECT * FROM users WHERE " + field + " = ?", sqlConnection);
                 preparedStatement.setString(1, input);
             }
