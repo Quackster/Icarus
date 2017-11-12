@@ -58,15 +58,14 @@ public class NewsDao {
         try {
 
             sqlConnection = Storage.get().getConnection();
-            preparedStatement = Storage.get().prepare("INSERT INTO site_articles (article_title, article_author, article_shortstory, article_fullstory, article_date, article_topstory, views)", sqlConnection);
+            preparedStatement = Storage.get().prepare("INSERT INTO `site_articles` (article_title, article_author, article_shortstory, article_fullstory, article_date, article_topstory) VALUES (?, ?, ?, ?, ?, ?)", sqlConnection);
             preparedStatement.setString(1, title);
             preparedStatement.setString(2, author);
             preparedStatement.setString(3, shortstory);
             preparedStatement.setString(4, fullstory);
             preparedStatement.setString(5, Util.getDateAsString());
-            preparedStatement.setInt(6, 0);
-            resultSet = preparedStatement.executeQuery();
-
+            preparedStatement.setString(6, topstory);
+            preparedStatement.execute();
 
         } catch (Exception e) {
             Storage.logError(e);
@@ -82,5 +81,57 @@ public class NewsDao {
                 resultSet.getInt("id"), resultSet.getString("article_title"), resultSet.getString("article_author"),
                 resultSet.getString("article_shortstory"), resultSet.getString("article_date"), resultSet.getString("article_topstory"),
                 resultSet.getInt("views"));
+    }
+
+    public static boolean exists(int id) {
+
+        boolean exists = false;
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            sqlConnection = Storage.get().getConnection();
+            preparedStatement = Storage.get().prepare("SELECT id FROM site_articles WHERE id = ? LIMIT 1", sqlConnection);
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                exists = true;
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return exists;
+    }
+
+    public static void delete(int id) {
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            sqlConnection = Storage.get().getConnection();
+            preparedStatement = Storage.get().prepare("DELETE FROM site_articles WHERE id = ? LIMIT 1", sqlConnection);
+            preparedStatement.setInt(1, id);
+            preparedStatement.execute();
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
     }
 }

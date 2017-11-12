@@ -27,8 +27,8 @@
 				  <td>{{ article.date }}</td>
 				  <td>{{ article.views }}</td>
 				  <td>
-				  	<a href="{{ site.url }}/housekeeping/articles/edit?article={{ article.id }}" class="btn btn-primary">Edit</a>
-				  	<a href="{{ site.url }}/housekeeping/articles/delete?article={{ article.id }}" class="btn btn-danger">Delete</a>
+				  	<a href="{{ site.url }}/housekeeping/articles/edit?id={{ article.id }}" class="btn btn-primary">Edit</a>
+				  	<a href="{{ site.url }}/housekeeping/articles/delete?id={{ article.id }}" class="btn btn-danger">Delete</a>
 				  </td>
                 </tr>
 			   {% endfor %}

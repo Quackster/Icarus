@@ -2,7 +2,7 @@
 <p></p>
 
 {% for article in site.articles %}
-<div class="news-img" style="background-image: url({{ article.topstory }})">
+<div class="news-img" style="background-image: url({{ site.url }}/c_images/Top_Story_Images/{{ article.topstory }})">
 
 </div>
 <div class="news-item">
