@@ -59,5 +59,8 @@
             <li class="nav-item">
              <a class="nav-link{{ cameraSettingsActive }}" href="{{ site.url }}/housekeeping/settings/camera">Edit camera settings</a>
             </li>
+			<li class="nav-item">
+             <a class="nav-link{{ thumbnailSettingsActive }}" href="{{ site.url }}/housekeeping/settings/thumbnail">Edit room thumbnail settings</a>
+            </li>
           </ul>
         </nav>

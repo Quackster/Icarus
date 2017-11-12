@@ -1,14 +1,14 @@
 {% include "base/header.tpl" %}
   <body>
-    {% set cameraSettingsActive = " active " %}
+    {% set thumbnailSettingsActive = " active " %}
 	{% include "base/navigation.tpl" %}
      <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-		<h2>Edit Thumbnail Settings</h2>
+		<h2>Edit Room Thumbnail Settings</h2>
 		{% include "base/alert.tpl" %}
-		<p>Here you can edit the variables that the thumbnail uses.</p>
+		<p>Here you can edit the variables that the room thumbnails use.</p>
 		<form class="table-responsive col-md-4" method="post">
 			<div class="form-group">
-				<label>Thumbnail enabled:</i></label>
+				<label>Room thumbnails enabled:</i></label>
 				<br>
 				<select name="thumbnail_enabled">
 					<option value="1"{% if cameraenabled == "1" %} selected{% endif %}>Yes</option>
@@ -27,7 +27,7 @@
 				<input type="text" class="form-control" id="text" name="thumbnail_filename"  value="{{ thumbnailfilename }}">
 			</div>
 			<div class="form-group">
-				<label>Thumbnail path <i>(The full directory of where to save the files, this also needs to be accessed for HTTP requests):</i></label>
+				<label>Thumbnail path <i>(Directory path to save images, somewhere within the www directory such as c_images):</i></label>
 				<input type="text" class="form-control" id="text" name="thumbnail_path"  value="{{ thumbnailpath }}">
 			</div>	
 			<div class="form-group">
