@@ -54,10 +54,10 @@
 		  
 		  <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="#">Edit server settings</a>
+              <a class="nav-link{{ schedulerSettingsActive }}" href="{{ site.url }}/housekeeping/settings/scheduler">Edit scheduler settings</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Edit room limits</a>
+             <a class="nav-link{{ cameraSettingsActive }}" href="{{ site.url }}/housekeeping/settings/camera">Edit camera settings</a>
             </li>
           </ul>
         </nav>

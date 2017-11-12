@@ -6,6 +6,7 @@ import org.alexdev.icarus.http.controllers.account.AccountController;
 import org.alexdev.icarus.http.controllers.account.RegisterController;
 import org.alexdev.icarus.http.controllers.housekeeping.HousekeepingController;
 import org.alexdev.icarus.http.controllers.housekeeping.HousekeepingNewsController;
+import org.alexdev.icarus.http.controllers.housekeeping.HousekeepingSettingsController;
 import org.alexdev.icarus.http.controllers.housekeeping.HousekeepingUsersController;
 import org.alexdev.icarus.http.controllers.pages.ClientController;
 import org.alexdev.icarus.http.controllers.pages.HomeController;
@@ -34,6 +35,9 @@ public class Routes {
         RouteManager.addRoute("/housekeeping/articles/create", HousekeepingNewsController::create);
         RouteManager.addRoute("/housekeeping/articles/delete", HousekeepingNewsController::delete);
         RouteManager.addRoute("/housekeeping/articles/edit", HousekeepingNewsController::edit);
+        RouteManager.addRoute("/housekeeping/settings/scheduler", HousekeepingSettingsController::scheduler);
+        RouteManager.addRoute("/housekeeping/settings/camera", HousekeepingSettingsController::camera);
+        RouteManager.addRoute("/housekeeping/settings/thumbnail", HousekeepingSettingsController::thumbnail);
 
         RouteManager.addRoute("/api/newuser/name/check", ApiController::nameCheck);
         RouteManager.addRoute("/api/newuser/name/select", ApiController::nameSelect);
