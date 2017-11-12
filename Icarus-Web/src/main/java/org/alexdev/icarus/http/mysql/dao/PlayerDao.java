@@ -278,7 +278,7 @@ public class PlayerDao {
         try {
 
             sqlConnection = Storage.get().getConnection();
-            preparedStatement = Storage.get().prepare("UPDATE users SET mission = ?, figure = ?, gender = ?, credits = ?, duckets = ?, email = ?, username = ? WHERE id = ?", sqlConnection);
+            preparedStatement = Storage.get().prepare("UPDATE users SET mission = ?, figure = ?, credits = ?, duckets = ?, email = ?, username = ? WHERE id = ?", sqlConnection);
             preparedStatement.setString(1, details.getMission());
             preparedStatement.setString(2, details.getFigure());
             preparedStatement.setInt(3, details.getCredits());

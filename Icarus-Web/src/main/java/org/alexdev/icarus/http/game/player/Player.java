@@ -78,6 +78,10 @@ public class Player {
         this.email = email;
     }
 
+    public void setMission(String mission) {
+        this.mission = mission;
+    }
+
     public String getMission() {
         return mission;
     }

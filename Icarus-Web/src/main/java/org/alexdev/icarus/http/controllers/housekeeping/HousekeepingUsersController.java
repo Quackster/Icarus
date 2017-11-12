@@ -205,6 +205,29 @@ public class HousekeepingUsersController {
 
             Player session = client.session().get(SessionUtil.PLAYER, Player.class);
 
+
+            if (session.getRank() <= player.getRank()) {
+                client.session().set("showAlert", true);
+                client.session().set("alertType", "danger");
+                client.session().set("alertMessage", "You cannot edit someone that is a higher rank than you");
+            } else {
+
+                if (client.post().queries().size() > 0 && !client.session().getBoolean("showAlert")) {
+                    player.setName(client.post().get("username"));
+                    player.setFigure(client.post().get("figure"));
+                    player.setEmail(client.post().get("email"));
+                    player.setMission(client.post().get("mission"));
+                    player.setDuckets(Integer.parseInt(client.post().get("duckets")));
+                    player.setCredits(Integer.parseInt(client.post().get("credits")));
+                    PlayerDao.save(player);
+
+                    client.session().set("showAlert", true);
+                    client.session().set("alertType", "success");
+                    client.session().set("alertMessage", "The user has been successfully saved");
+                }
+
+            }
+
             tpl.set("playerId", player.getId());
             tpl.set("playerUsername", player.getName());
             tpl.set("playerEmail", player.getEmail());
@@ -212,15 +235,6 @@ public class HousekeepingUsersController {
             tpl.set("playerDuckets", player.getDuckets());
             tpl.set("playerCredits", player.getCredits());
             tpl.set("playerFigure", player.getFigure());
-
-            if (session.getRank() <= player.getRank()) {
-                client.session().set("showAlert", true);
-                client.session().set("alertType", "danger");
-                client.session().set("alertMessage", "You cannot edit someone that is a lower rank than you");
-            } else {
-
-
-            }
         }
 
         tpl.render();
