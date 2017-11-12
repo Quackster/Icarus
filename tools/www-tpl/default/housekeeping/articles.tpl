@@ -12,17 +12,18 @@
                 <tr>
 				  <th>Name</th>
 				  <th>Author</th>
-				  <th>Description</th>
+				  <th>Short Story</th>
 				  <th>Date</th>
 				  <th>Views</th>
+				  <th></th>
                 </tr>
               </thead>
               <tbody>
 				{% for article in articles %}
                 <tr>
-				  <td>{{ article.name }}</td>
+				  <td>{{ article.title }}</td>
 				  <td>{{ article.author }}</td>
-				  <td>{{ article.description }}</td>
+				  <td>{{ article.shortstory }}</td>
 				  <td>{{ article.date }}</td>
 				  <td>{{ article.views }}</td>
 				  <td>

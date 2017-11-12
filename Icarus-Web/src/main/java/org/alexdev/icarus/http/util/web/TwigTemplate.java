@@ -35,6 +35,7 @@ public class TwigTemplate extends Template {
 
         try {
 
+
             File file = Paths.get(Configuration.TEMPLATE_DIRECTORY, Configuration.TEMPLATE_NAME, view + ".tpl").toFile();
 
             if (file.exists() && file.isFile()) {

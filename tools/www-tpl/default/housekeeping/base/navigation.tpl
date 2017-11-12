@@ -48,7 +48,7 @@
               <a class="nav-link{{ articlesActive }}" href="{{ site.url }}/housekeeping/articles">View news articles</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ site.url }}/housekeeping/articles/create">Post new article</a>
+              <a class="nav-link{{ createArticlesActive }}" href="{{ site.url }}/housekeeping/articles/create">Post new article</a>
             </li>
           </ul>
 		  

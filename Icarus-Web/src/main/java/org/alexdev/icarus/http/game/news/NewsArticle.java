@@ -3,18 +3,18 @@ package org.alexdev.icarus.http.game.news;
 public class NewsArticle {
 
     private int id;
-    private String name;
+    private String title;
     private String author;
-    private String description;
+    private String shortstory;
     private String date;
     private String topstory;
     private int views;
 
-    public NewsArticle(int id, String name, String author, String description, String date, String topstory, int views) {
+    public NewsArticle(int id, String title, String author, String shortstory, String date, String topstory, int views) {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.author = author;
-        this.description = description;
+        this.shortstory = shortstory;
         this.date = date;
         this.topstory = topstory;
         this.views = views;
@@ -28,12 +28,12 @@ public class NewsArticle {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAuthor() {
@@ -44,12 +44,12 @@ public class NewsArticle {
         this.author = author;
     }
 
-    public String getDescription() {
-        return description;
+    public String getShortStory() {
+        return shortstory;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setShortStory(String shortstory) {
+        this.shortstory = shortstory;
     }
 
     public String getDate() {

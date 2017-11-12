@@ -122,12 +122,12 @@ public class Configuration {
         writer.println("client.path=");
         writer.println("client.swf=");
         writer.println();
-        writer.println("[Directories]");
+        writer.println("[Site]");
         writer.println("site.directory=tools/www");
-        writer.println("template.directory=tools/www-tpl");
         writer.println();
         writer.println("[Template]");
         writer.println("template.name=default");
+        writer.println("template.directory=tools/www-tpl");
         writer.println();
         writer.println("[ReCaptcha]");
         writer.println("recaptcha.public.key=");
@@ -135,7 +135,7 @@ public class Configuration {
     }
 
     private void loadConfiguration() {
-        TEMPLATE_DIRECTORY = configuration.get("Directories", "template.directory");
+        TEMPLATE_DIRECTORY = configuration.get("Template", "template.directory");
         TEMPLATE_NAME = configuration.get("Template", "template.name");
         PUBLIC_RECAPTCHA_KEY = configuration.get("ReCaptcha", "recaptcha.public.key");
         PRIVATE_RECAPTCHA_KEY = configuration.get("ReCaptcha", "recaptcha.private.key");
@@ -145,7 +145,6 @@ public class Configuration {
         REGISTER_MOTTO = configuration.get("Register", "register.motto");
         CLIENT_IP = configuration.get("Client", "client.ip");
         CLIENT_PORT = configuration.get("Client", "client.port");
-
         CLIENT_EXTERNAL_VARIABLES =configuration.get("Client", "client.external.variables");
         CLIENT_EXTERNAL_FLASH_TEXTS  =configuration.get("Client", "client.external.flash.texts");
         CLIENT_EXTERNAL_OVERRIDE_TEXTS = configuration.get("Client", "client.external.override.texts");
@@ -160,7 +159,7 @@ public class Configuration {
     }
 
     public void setSettings(Settings settings) {
-        settings.setSiteDirectory(configuration.get("Directories", "site.directory"));
+        settings.setSiteDirectory(configuration.get("Site", "site.directory"));
         settings.setTemplateHook(TwigTemplate.class);
     }
     

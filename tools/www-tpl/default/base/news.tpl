@@ -6,12 +6,12 @@
 
 </div>
 <div class="news-item">
-<div><h3>{{ article.name }}</div>
+<div><h3>{{ article.title }}</div>
 	<div>
 		Posted: <i class="date">{{ article.date }}</i>
 		&nbsp;&nbsp;
 		<p></p>
 	</div>
-	<p>{{ article.description }}</p>
+	<p>{{ article.shortstory }}</p>
 </div>
 {% endfor %}
