@@ -45,10 +45,10 @@
 
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="#">View news articles</a>
+              <a class="nav-link{{ articlesActive }}" href="{{ site.url }}/housekeeping/articles">View news articles</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Post new article</a>
+              <a class="nav-link" href="{{ site.url }}/housekeeping/articles/create">Post new article</a>
             </li>
           </ul>
 		  

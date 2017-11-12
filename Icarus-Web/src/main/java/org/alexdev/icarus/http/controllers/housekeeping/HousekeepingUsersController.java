@@ -205,11 +205,10 @@ public class HousekeepingUsersController {
 
             Player session = client.session().get(SessionUtil.PLAYER, Player.class);
 
-
             if (session.getRank() <= player.getRank()) {
                 client.session().set("showAlert", true);
                 client.session().set("alertType", "danger");
-                client.session().set("alertMessage", "You cannot edit someone that is a higher rank than you");
+                client.session().set("alertMessage", "You cannot edit someone that has a equal or higher rank than you");
             } else {
 
                 if (client.post().queries().size() > 0 && !client.session().getBoolean("showAlert")) {

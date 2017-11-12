@@ -1,25 +1,17 @@
 <div id="div-header-middle"><p>Latest News</p></div>
-					<p></p>
-					
-					
-					<?php
-					$all = NewsDao::getTop(5);
-					foreach($all as $n) {
-					?>
-				
-					
-					<div class="news-img" style="background-image: url(<?php echo $n->article_topstory; ?>)">
+<p></p>
 
-					</div>
-					<div class="news-item">
-					<div><h3><?php echo $n->article_name; ?></div>
-						<div>
-							Posted: <i class="date"><?php echo $n->article_date; ?></i>
-							&nbsp;&nbsp;
-							<p></p>
-						</div>
-						<p><?php echo $n->article_description; ?></p>
-					</div>
-					
-					<?php } ?>
-					
+{% for article in site.articles %}
+<div class="news-img" style="background-image: url({{ article.topstory }})">
+
+</div>
+<div class="news-item">
+<div><h3>{{ article.name }}</div>
+	<div>
+		Posted: <i class="date">{{ article.date }}</i>
+		&nbsp;&nbsp;
+		<p></p>
+	</div>
+	<p>{{ article.description }}</p>
+</div>
+{% endfor %}
