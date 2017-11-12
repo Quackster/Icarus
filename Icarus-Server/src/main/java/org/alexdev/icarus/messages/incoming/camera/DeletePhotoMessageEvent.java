@@ -1,5 +1,8 @@
 package org.alexdev.icarus.messages.incoming.camera;
 
+import org.alexdev.icarus.dao.mysql.site.SiteDao;
+import org.alexdev.icarus.dao.site.SiteKey;
+import org.alexdev.icarus.game.GameSettings;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
@@ -12,7 +15,7 @@ public class DeletePhotoMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
 
-        if (!Configuration.getInstance().getGameConfig().get("Camera", "camera.enabled", Boolean.class)) {
+        if (!GameSettings.CAMERA_ENABLED) {
             return;
         }
 

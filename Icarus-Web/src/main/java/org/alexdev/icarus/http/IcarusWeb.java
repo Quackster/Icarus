@@ -3,10 +3,15 @@ package org.alexdev.icarus.http;
 import org.alexdev.duckhttpd.routes.RouteManager;
 import org.alexdev.duckhttpd.server.WebServer;
 import org.alexdev.duckhttpd.util.config.Settings;
+import org.alexdev.icarus.http.mysql.Storage;
 import org.alexdev.icarus.http.util.web.ServerResponses;
 import org.alexdev.icarus.http.util.config.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class IcarusWeb {
 
@@ -27,6 +32,29 @@ public class IcarusWeb {
 
         Routes.register();
         logger.info("Registered " + RouteManager.getRoutes().size() + " route(s)!");
+
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            sqlConnection = Storage.get().getConnection();
+            preparedStatement = Storage.get().prepare("SELECT * FROM `site_config`", sqlConnection);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                System.out.println(resultSet.getString("key").toUpperCase().replace(".", "_") + "(\"" + resultSet.getString("key") + "\"),");
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
 
         int port = 80;
         logger.info("Starting http service on port " + port);

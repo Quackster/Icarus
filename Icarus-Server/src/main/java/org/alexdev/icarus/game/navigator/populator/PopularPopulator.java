@@ -32,8 +32,8 @@ public class PopularPopulator extends NavigatorRoomPopulator {
 
         // Keep first thirty rooms
         if (limit) {
-            if (activeRooms.size() > GameSettings.MAX_ROOMS_POPULAR) {
-                activeRooms = activeRooms.subList(0, GameSettings.MAX_ROOMS_POPULAR);
+            if (activeRooms.size() > GameSettings.MAX_ROOMS_POPULAR_TAB) {
+                activeRooms = activeRooms.subList(0, GameSettings.MAX_ROOMS_POPULAR_TAB);
             }
         }
 

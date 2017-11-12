@@ -54,10 +54,10 @@
 		  
 		  <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="#">Modify server scheduler</a>
+              <a class="nav-link" href="#">Edit server settings</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Modify room limits</a>
+              <a class="nav-link" href="#">Edit room limits</a>
             </li>
           </ul>
         </nav>

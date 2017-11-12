@@ -1,12 +1,13 @@
 package org.alexdev.icarus.game;
 
-import org.alexdev.icarus.util.config.Configuration;
+import org.alexdev.icarus.dao.mysql.site.SiteDao;
+import org.alexdev.icarus.dao.site.SiteKey;
 
 public class GameSettings {
 
-    public static int MAX_ROOMS_PER_ACCOUNT;
-    public static int MAX_ROOMS_POPULAR;
-    public static int MAX_ROOMS_SUB_CATEGORIES;
+    public static int MAX_ROOMS_PER_USER;
+    public static int MAX_ROOMS_POPULAR_TAB;
+    public static int MAX_ROOMS_SUB_CATEGORY;
 
     public static int CREDITS_INTERVAL_MINUTES;
     public static int CREDITS_INTERVAL_AMOUNT;
@@ -14,24 +15,52 @@ public class GameSettings {
     public static int DUCKETS_INTERVAL_MINUTES;
     public static int DUCKETS_INTERVAL_AMOUNT;
 
-    public static int CHAT_FLOOD_SECONDS = 4;
-    public static int CHAT_FLOOD_WAIT = 20;
-    public static int MAX_CHAT_BEFORE_FLOOD = 8;
-
     public static boolean BOT_SPAMMERS_ALLOW;
     public static String BOT_SPAMMERS_SSO_PREFIX;
 
+    public static boolean THUMBNAIL_ENABLED;
+    public static String THUMBNAIL_FILENAME;
+    public static String THUMBNAIL_PATH;
+    public static String THUMBNAIL_URL;
+
+    public static boolean CAMERA_ENABLED;
+    public static String CAMERA_FILENAME;
+    public static String CAMERA_PATH;
+
     public static final double FURNITURE_OFFSET = 0.001;
 
-    public static void load() {
-        MAX_ROOMS_PER_ACCOUNT = Configuration.getInstance().getGameConfig().get("Navigator", "max.room.per.user", Integer.class);
-        MAX_ROOMS_POPULAR = Configuration.getInstance().getGameConfig().get("Navigator", "max.rooms.popular.tab", Integer.class);
-        MAX_ROOMS_SUB_CATEGORIES = Configuration.getInstance().getGameConfig().get("Navigator", "max.room.sub.category", Integer.class);
-        CREDITS_INTERVAL_MINUTES = Configuration.getInstance().getGameConfig().get("Scheduler", "credits.interval.minutes", Integer.class);
-        CREDITS_INTERVAL_AMOUNT = Configuration.getInstance().getGameConfig().get("Scheduler", "credits.interval.amount", Integer.class);
-        DUCKETS_INTERVAL_MINUTES = Configuration.getInstance().getGameConfig().get("Scheduler", "duckets.interval.minutes", Integer.class);
-        DUCKETS_INTERVAL_AMOUNT = Configuration.getInstance().getGameConfig().get("Scheduler", "duckets.interval.amount", Integer.class);
-        BOT_SPAMMERS_ALLOW = Configuration.getInstance().getGameConfig().get("Bots", "bot.spammers.allow", Boolean.class);
-        BOT_SPAMMERS_SSO_PREFIX = Configuration.getInstance().getGameConfig().get("Bots", "bot.spammer.sso.ticket.prefix", String.class);
+    private static GameSettings instance;
+
+    public GameSettings() {
+        MAX_ROOMS_PER_USER = SiteDao.getInt(SiteKey.MAX_ROOMS_PER_USER);
+        MAX_ROOMS_POPULAR_TAB = SiteDao.getInt(SiteKey.MAX_ROOMS_POPULAR_TAB);
+        MAX_ROOMS_SUB_CATEGORY = SiteDao.getInt(SiteKey.MAX_ROOMS_SUB_CATEGORY);
+        CREDITS_INTERVAL_MINUTES = SiteDao.getInt(SiteKey.CREDITS_INTERVAL_MINUTES);
+        CREDITS_INTERVAL_AMOUNT = SiteDao.getInt(SiteKey.CREDITS_INTERVAL_AMOUNT);
+        DUCKETS_INTERVAL_MINUTES = SiteDao.getInt(SiteKey.DUCKETS_INTERVAL_MINUTES);
+        DUCKETS_INTERVAL_AMOUNT = SiteDao.getInt(SiteKey.DUCKETS_INTERVAL_AMOUNT);
+        BOT_SPAMMERS_ALLOW = SiteDao.getBoolean(SiteKey.BOT_SPAMMERS_ALLOW);
+        BOT_SPAMMERS_SSO_PREFIX = SiteDao.get(SiteKey.BOT_SPAMMERS_TICKET_PREFIX);
+        CAMERA_ENABLED = SiteDao.getBoolean(SiteKey.CAMERA_ENABLED);
+        CAMERA_FILENAME = SiteDao.get(SiteKey.CAMERA_FILENAME);
+        CAMERA_PATH = SiteDao.get(SiteKey.CAMERA_PATH);
+        THUMBNAIL_ENABLED = SiteDao.getBoolean(SiteKey.THUMBNAIL_ENABLED);
+        THUMBNAIL_FILENAME = SiteDao.get(SiteKey.THUMBNAIL_FILENAME);
+        THUMBNAIL_PATH = SiteDao.get(SiteKey.THUMBNAIL_PATH);
+        THUMBNAIL_URL = SiteDao.get(SiteKey.THUMBNAIL_URL);
+    }
+
+    /**
+     * Get game settings instance
+     *
+     * @return the instance
+     */
+    public static GameSettings getInstance() {
+
+        if (instance == null) {
+            instance = new GameSettings();
+        }
+
+        return instance;
     }
 }

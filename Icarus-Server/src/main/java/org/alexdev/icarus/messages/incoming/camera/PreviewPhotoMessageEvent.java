@@ -1,6 +1,9 @@
 package org.alexdev.icarus.messages.incoming.camera;
 
+import org.alexdev.icarus.dao.mysql.site.SiteDao;
+import org.alexdev.icarus.dao.site.SiteKey;
 import org.alexdev.icarus.game.GameScheduler;
+import org.alexdev.icarus.game.GameSettings;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.outgoing.camera.PhotoPreviewMessageComposer;
@@ -17,7 +20,7 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
 
-        if (!Configuration.getInstance().getGameConfig().get("Camera", "camera.enabled", Boolean.class)) {
+        if (!GameSettings.CAMERA_ENABLED) {
             return;
         }
 
@@ -35,8 +38,8 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
             return;
         }
 
-        String fileName = Configuration.getInstance().getGameConfig().get("Camera", "camera.filename", String.class);
-        String filePath = Configuration.getInstance().getGameConfig().get("Camera", "camera.path", String.class);
+        String fileName = GameSettings.CAMERA_FILENAME;
+        String filePath = GameSettings.CAMERA_PATH;
 
         fileName = fileName.replace("{username}", player.getDetails().getName());
         fileName = fileName.replace("{id}", room.getData().getId() + "");

@@ -45,7 +45,6 @@ public class Icarus extends Metadata {
         try {
             Configuration.getInstance();
             Locale.getInstance();
-            GameSettings.load();
 
             log = LoggerFactory.getLogger(Icarus.class);
 
@@ -68,6 +67,7 @@ public class Icarus extends Metadata {
 
             log.info("Setting up game");
 
+            GameSettings.getInstance();
             RoomManager.getInstance();
             NavigatorManager.getInstance();
             ItemManager.getInstance();

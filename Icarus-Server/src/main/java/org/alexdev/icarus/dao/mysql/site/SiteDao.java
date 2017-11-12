@@ -1,5 +1,6 @@
 package org.alexdev.icarus.dao.mysql.site;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.dao.site.SiteKey;
@@ -87,5 +88,62 @@ public class SiteDao {
         }
 
         return exists;
+    }
+
+    /**
+     * Gets the key value
+     *
+     * @param key the key
+     * @return true, if successful
+     */
+    public static String get(SiteKey key) {
+
+        String value = null;
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM `site_config` WHERE `key` = ? LIMIT 1", sqlConnection);
+            preparedStatement.setString(1, key.getKey());
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                value = resultSet.getString("value");
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return value;
+    }
+
+    /**
+     * Gets the key value by boolean
+     *
+     * @param key the key
+     * @return true, if successful
+     */
+    public static boolean getBoolean(SiteKey key) {
+        String value = get(key).toLowerCase();
+        return value.equals("1") || value.equals("yes") || value.equals("true") || value.equals("on");
+    }
+
+    /**
+     * Gets the key value by Integer
+     *
+     * @param key the key
+     * @return true, if successful
+     */
+    public static int getInt(SiteKey key) {
+        return Integer.parseInt(get(key));
     }
 }

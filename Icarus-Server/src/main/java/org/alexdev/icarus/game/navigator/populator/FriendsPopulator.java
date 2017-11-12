@@ -38,8 +38,8 @@ public class FriendsPopulator extends NavigatorRoomPopulator {
                 
         // Keep first thirty rooms
         if (limit) {
-            if (friendRooms.size() > GameSettings.MAX_ROOMS_SUB_CATEGORIES) {
-                friendRooms = friendRooms.subList(0, GameSettings.MAX_ROOMS_SUB_CATEGORIES);
+            if (friendRooms.size() > GameSettings.MAX_ROOMS_SUB_CATEGORY) {
+                friendRooms = friendRooms.subList(0, GameSettings.MAX_ROOMS_SUB_CATEGORY);
             }
         }
 

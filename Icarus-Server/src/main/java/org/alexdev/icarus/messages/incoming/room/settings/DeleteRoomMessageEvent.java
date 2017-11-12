@@ -2,7 +2,10 @@ package org.alexdev.icarus.messages.incoming.room.settings;
 
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
+import org.alexdev.icarus.dao.mysql.site.SiteDao;
+import org.alexdev.icarus.dao.site.SiteKey;
 import org.alexdev.icarus.game.GameScheduler;
+import org.alexdev.icarus.game.GameSettings;
 import org.alexdev.icarus.game.inventory.InventoryNotification;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.player.Player;
@@ -51,7 +54,7 @@ public class DeleteRoomMessageEvent implements MessageEvent {
         if (room.getData().getThumbnail() != null && room.getData().getThumbnail().length() > 0) {
 
             final String fileName = room.getData().getThumbnail().split("/")[1];
-            final String filePath = Configuration.getInstance().getGameConfig().get("Thumbnail", "thumbnail.path", String.class);
+            final String filePath = GameSettings.THUMBNAIL_PATH;
             
             GameScheduler.getInstance().getScheduler().execute(() -> {
                 try {

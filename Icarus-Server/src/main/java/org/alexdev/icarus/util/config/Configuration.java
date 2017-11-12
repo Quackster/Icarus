@@ -12,7 +12,6 @@ import java.io.PrintWriter;
 public class Configuration {
 
     private Wini configuration;
-    private Wini gameConfig;
 
     private static Configuration instance;
 
@@ -22,7 +21,6 @@ public class Configuration {
 
             writeFileIfNotExist();
             configuration = new Wini(new File("icarus.properties"));
-            gameConfig = new Wini(new File("game.properties"));
         } catch (Exception e) {
             Log.getErrorLogger().error("Unhandled exception while loading the configurion: ", e);
         }
@@ -89,16 +87,6 @@ public class Configuration {
             writer.close();
         }
 
-        file = new File("game.properties");
-
-        if (!file.isFile()) { 
-            file.createNewFile();
-            PrintWriter writer = new PrintWriter(file.getAbsoluteFile());
-            writeGameConfiguration(writer);
-            writer.flush();
-            writer.close();
-        }
-
         file = new File("plugins");
 
         if (!file.exists()) { 
@@ -141,47 +129,6 @@ public class Configuration {
     }
 
     /**
-     * Writes default values for the game configuration
-     * 
-     * @param writer - {@link PrintWriter} the file writer
-     */
-    private void writeGameConfiguration(PrintWriter writer) {
-        writer.println("[Scheduler]");
-        writer.println("credits.interval.minutes=10");
-        writer.println("credits.interval.amount=100");
-        writer.println();
-        writer.println("duckets.interval.minutes=15");
-        writer.println("duckets.interval.amount=30");
-        writer.println();
-        writer.println("[Navigator]");
-        writer.println("max.rooms.popular.tab=30");
-        writer.println("max.room.sub.category=9");
-        writer.println("max.room.per.user=25");
-        writer.println();
-        writer.println("[Room]");
-        writer.println("afk.room.kick=1800");
-        writer.println();
-        writer.println("[Bots]");
-        writer.println("bot.spammers.allow=false");
-        writer.println("bot.spammer.sso.ticket.prefix=icarus-bot-");
-        writer.println();
-        writer.println("[Camera]");
-        writer.println("camera.enabled=true");
-        writer.println("camera.path=D:/xampp/htdocs/c_images/camera_photos/");
-        writer.println("camera.filename=room_{id}_{username}_{generatedId}.png");
-        writer.println();
-        writer.println("[Thumbnail]");
-        writer.println("thumbnail.create.enabled=true");
-        writer.println("thumbnail.path=D:/xampp/htdocs/c_images/thumbnails/");
-        writer.println("thumbnail.url=thumbnails/{filename}");
-        writer.println("thumbnail.filename=room_{id}_{generatedId}.png");
-        writer.println();
-        writer.println("[Debug]");
-        writer.println("debug.enable=true");
-        writer.println();
-    }
-    
-    /**
      * Writes default values for the plugin registry file
      * 
      * @param writer - {@link PrintWriter} the file writer
@@ -210,15 +157,6 @@ public class Configuration {
      */
     public Wini getServerConfig() {
         return configuration;
-    }
-
-    /**
-     * Get the game configuration that controls the variables that influence gameplay.
-     *
-     * @return the configuration
-     */
-    public Wini getGameConfig() {
-        return gameConfig;
     }
 
     /**

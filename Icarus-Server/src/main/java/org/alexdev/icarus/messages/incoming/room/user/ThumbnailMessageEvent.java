@@ -1,6 +1,9 @@
 package org.alexdev.icarus.messages.incoming.room.user;
 
+import org.alexdev.icarus.dao.mysql.site.SiteDao;
+import org.alexdev.icarus.dao.site.SiteKey;
 import org.alexdev.icarus.game.GameScheduler;
+import org.alexdev.icarus.game.GameSettings;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.outgoing.room.notify.RoomInfoUpdatedMessageComposer;
@@ -18,7 +21,7 @@ public class ThumbnailMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
 
-        boolean createThumbnailsEnabled = Configuration.getInstance().getGameConfig().get("Thumbnail", "thumbnail.create.enabled", Boolean.class);
+        boolean createThumbnailsEnabled = GameSettings.THUMBNAIL_ENABLED;
         
         if (!createThumbnailsEnabled) {
             return;
@@ -37,8 +40,8 @@ public class ThumbnailMessageEvent implements MessageEvent {
         if (room.getData().getThumbnail() != null && room.getData().getThumbnail().length() > 0) {
 
             final String fileName = room.getData().getThumbnail().split("/")[1];
-            final String filePath = Configuration.getInstance().getGameConfig().get("Thumbnail", "thumbnail.path", String.class);
-            
+            final String filePath = GameSettings.THUMBNAIL_PATH;
+
             GameScheduler.getInstance().getScheduler().execute(() -> {
                 try {
                     File file = new File(filePath + fileName);
@@ -53,9 +56,9 @@ public class ThumbnailMessageEvent implements MessageEvent {
             });
         }
 
-        String templateFileName = Configuration.getInstance().getGameConfig().get("Thumbnail", "thumbnail.filename", String.class);
-        String templateFilePath = Configuration.getInstance().getGameConfig().get("Thumbnail", "thumbnail.path", String.class);
-        String templateFileUrl = Configuration.getInstance().getGameConfig().get("Thumbnail", "thumbnail.url", String.class);
+        String templateFileName = GameSettings.THUMBNAIL_FILENAME;
+        String templateFilePath = GameSettings.THUMBNAIL_PATH;
+        String templateFileUrl = GameSettings.THUMBNAIL_URL;
 
         templateFileName = templateFileName.replace("{id}", player.getRoom().getData().getId() + "");
         templateFileName = templateFileName.replace("{generatedId}", Util.generateRandomString(10, false));
