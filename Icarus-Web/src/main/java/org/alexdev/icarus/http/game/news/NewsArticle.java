@@ -6,15 +6,17 @@ public class NewsArticle {
     private String title;
     private String author;
     private String shortstory;
+    private String fullstory;
     private String date;
     private String topstory;
     private int views;
 
-    public NewsArticle(int id, String title, String author, String shortstory, String date, String topstory, int views) {
+    public NewsArticle(int id, String title, String author, String shortstory, String fullStory, String date, String topstory, int views) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.shortstory = shortstory;
+        this.fullstory = fullStory;
         this.date = date;
         this.topstory = topstory;
         this.views = views;
@@ -74,5 +76,13 @@ public class NewsArticle {
 
     public void setViews(int views) {
         this.views = views;
+    }
+
+    public String getFullStory() {
+        return fullstory;
+    }
+
+    public void setFullStory(String fullstory) {
+        this.fullstory = fullstory;
     }
 }
