@@ -39,7 +39,13 @@ public class ThumbnailMessageEvent implements MessageEvent {
         
         if (room.getData().getThumbnail() != null && room.getData().getThumbnail().length() > 0) {
 
-            final String fileName = room.getData().getThumbnail().split("/")[1];
+            String thumbnailData = room.getData().getThumbnail();
+
+            if (thumbnailData.contains("/")) {
+                thumbnailData = thumbnailData.split("/")[1];
+            }
+
+            final String fileName = thumbnailData;
             final String filePath = GameSettings.THUMBNAIL_PATH;
 
             GameScheduler.getInstance().getScheduler().execute(() -> {
