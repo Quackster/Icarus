@@ -2,19 +2,10 @@ package org.alexdev.icarus.http.controllers.housekeeping;
 
 import org.alexdev.duckhttpd.server.connection.WebConnection;
 import org.alexdev.duckhttpd.template.Template;
-import org.alexdev.duckhttpd.util.config.Settings;
-import org.alexdev.icarus.http.game.news.NewsArticle;
-import org.alexdev.icarus.http.game.player.Player;
-import org.alexdev.icarus.http.game.site.SiteKey;
-import org.alexdev.icarus.http.mysql.dao.NewsDao;
-import org.alexdev.icarus.http.mysql.dao.SiteDao;
+import org.alexdev.icarus.dao.mysql.site.SiteDao;
+import org.alexdev.icarus.dao.site.SiteKey;
 import org.alexdev.icarus.http.util.SessionUtil;
-import org.alexdev.icarus.http.util.Util;
 
-import java.io.File;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class HousekeepingSettingsController {

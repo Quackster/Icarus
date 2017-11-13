@@ -31,9 +31,11 @@
 				<input type="text" class="form-control" id="text" name="thumbnail_path"  value="{{ thumbnailpath }}">
 			</div>	
 			<div class="form-group">
-				<label>Thumbnail relative url <i>(After the main site url):</i></label>
+				<label>Thumbnail relative url <i>(After {{ site.url }}/c_images/):</i></label>
+				<label>
 				<small>
-				<br><i>(Use {filename} within this setting, or else it won't work)</i>
+				<i>(Use {filename} within this setting, or else it won't work)</i>
+				</label>
 				</small></label>
 			
 				<input type="text" class="form-control" id="text" name="thumbnail_url"  value="{{ thumbnailurl }}">

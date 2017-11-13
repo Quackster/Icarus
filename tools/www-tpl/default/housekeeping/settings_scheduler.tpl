@@ -9,19 +9,19 @@
 		<form class="table-responsive col-md-4" method="post">
 			<div class="form-group">
 				<label>Credits every (x) minutes:</label>
-				<input type="text" class="form-control" id="text" name="credits_interval_minutes"  value="{{ creditsintervalminutes }}">
+				<input type="number" class="form-control" id="text" name="credits_interval_minutes"  value="{{ creditsintervalminutes }}">
 			</div>
 			<div class="form-group">
 				<label>Credits given every (x) minutes:</label>
-				<input type="text" class="form-control" id="text" name="credits_interval_amount"  value="{{ creditsintervalamount }}">
+				<input type="number" class="form-control" id="text" name="credits_interval_amount"  value="{{ creditsintervalamount }}">
 			</div>
 			<div class="form-group">
 				<label>Duckets every (x) minutes:</label>
-				<input type="text" class="form-control" id="text" name="duckets_interval_minutes"  value="{{ ducketsintervalminutes }}">
+				<input type="number" class="form-control" id="text" name="duckets_interval_minutes"  value="{{ ducketsintervalminutes }}">
 			</div>
 			<div class="form-group">
 				<label>Duckets given every (x) minutes:</label>
-				<input type="text" class="form-control" id="text" name="duckets_interval_amount"  value="{{ ducketsintervalamount }}">
+				<input type="number" class="form-control" id="text" name="duckets_interval_amount"  value="{{ ducketsintervalamount }}">
 			</div>			
 			<div class="form-group"> 
 				<button type="submit" class="btn btn-info">Save Settings</button>
