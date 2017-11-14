@@ -47,6 +47,9 @@ dependencies {
 
     // https://github.com/Quackster/duckHTTPD/
     compile project(':duckHTTPD')
+
+    // https://github.com/Quackster/Icarus/Icarus-Server
+    compile project(':Icarus-Server')
 }
 
 task fatJar(type: Jar) {

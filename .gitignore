@@ -9,6 +9,7 @@ tmp/
 
 gradlew
 gradlew.bat
+run.bat
 
 habbohotel.properties
 game.properties
@@ -17,6 +18,7 @@ locale.ini
 log4j.properties
 error.log
 site-config.ini
+Icarus-Web-all.jar
 
 tools/www/c_images
 tools/www/dcr
