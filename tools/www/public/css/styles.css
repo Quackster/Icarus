@@ -72,12 +72,6 @@ th, td
 	border-bottom: 0px;/*1px solid #ddd;*/
 }
 
-a:link { color: royalblue; }
-a:visited { color: purple; }
-a:focus { color: black; }
-a:hover { color: green; }
-a:active { color: red; }
-
 /* -----------------------
 Layout styles
 ------------------------*/
@@ -399,4 +393,9 @@ i.date {
 /* When moving the mouse over the close button */
 .closebtn:hover {
     color: black;
+}
+
+a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
 }

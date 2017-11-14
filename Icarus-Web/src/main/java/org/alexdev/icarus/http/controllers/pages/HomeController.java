@@ -2,7 +2,9 @@ package org.alexdev.icarus.http.controllers.pages;
 
 import org.alexdev.duckhttpd.server.connection.WebConnection;
 import org.alexdev.duckhttpd.template.Template;
+import org.alexdev.icarus.http.game.news.NewsArticle;
 import org.alexdev.icarus.http.game.player.Player;
+import org.alexdev.icarus.http.mysql.dao.NewsDao;
 import org.alexdev.icarus.http.util.SessionUtil;
 
 public class HomeController {
@@ -74,6 +76,19 @@ public class HomeController {
         Template tpl = client.template("error");
         tpl.set("errorTitle", "Disconnected!");
         tpl.set("errorMessage", "Looks like you were disconnected!<br><br>" + client.post().queries().toString() + "");
+        tpl.render();
+    }
+
+    /**
+     * Handle the /client URI request
+     * @param client the connection
+     */
+    public static void article(WebConnection client) {
+
+        NewsArticle article = NewsDao.get(client.get().getInt("id"));
+
+        Template tpl = client.template("article");
+        tpl.set("article", article);
         tpl.render();
     }
 }

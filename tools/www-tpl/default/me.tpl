@@ -88,8 +88,6 @@
 					<p>Visit the official server development thread</p>
 					<p><a href="http://forum.ragezone.com/f331/icarus-emulator-mysql-multi-platform-1116076/"><center><img src="http://i.imgur.com/fBvEwKg.png" height="40%" width="40%"></center></a></p>
 					<!-- seperator -->
-					
-					
 				</div>
 			</div>
 		</div>

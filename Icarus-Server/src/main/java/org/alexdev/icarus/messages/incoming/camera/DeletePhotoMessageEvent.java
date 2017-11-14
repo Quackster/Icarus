@@ -1,14 +1,11 @@
 package org.alexdev.icarus.messages.incoming.camera;
 
-import org.alexdev.icarus.dao.mysql.site.SiteDao;
-import org.alexdev.icarus.dao.site.SiteKey;
 import org.alexdev.icarus.game.GameSettings;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-import org.alexdev.icarus.util.config.Configuration;
 
 public class DeletePhotoMessageEvent implements MessageEvent {
 

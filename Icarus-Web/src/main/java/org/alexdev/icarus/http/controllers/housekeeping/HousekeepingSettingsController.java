@@ -2,8 +2,8 @@ package org.alexdev.icarus.http.controllers.housekeeping;
 
 import org.alexdev.duckhttpd.server.connection.WebConnection;
 import org.alexdev.duckhttpd.template.Template;
-import org.alexdev.icarus.dao.mysql.site.SiteDao;
 import org.alexdev.icarus.dao.site.SiteKey;
+import org.alexdev.icarus.http.mysql.dao.SiteDao;
 import org.alexdev.icarus.http.util.SessionUtil;
 
 import java.util.Map;

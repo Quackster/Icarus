@@ -20,6 +20,7 @@ public class Routes {
         RouteManager.addRoute("/register", HomeController::register);
         RouteManager.addRoute("/me", HomeController::me);
         RouteManager.addRoute("/disconnected", HomeController::disconnected);
+        RouteManager.addRoute("/article", HomeController::article);
         RouteManager.addRoute("/account/register", RegisterController::register);
         RouteManager.addRoute("/account/login", AccountController::login);
         RouteManager.addRoute("/account/logout", AccountController::logout);

@@ -13,7 +13,8 @@
 		<link rel="shortcut icon" href="favicon.ico">
 
 		{% include "base/style.tpl" %}
-		<link rel="stylesheet" href="{{ site.url }}/public/css/index.css">
+		
+		<link rel="stylesheet" href="{{ site.url }}/public/css/me.css">
 		
 	</head>
 	<body>
@@ -28,23 +29,20 @@
 		{% include "base/links.tpl" %}
 		<div class="content" id="text-main">
 			<div class="container">
-				{% include "base/message.tpl" %}
-				<div class="main" id="register-main">
-					<div id="div-header-top"><p>Homepage</p></div>
-					<p></p>
-					<div id="register-text">
-						<h3>MAKE FRIENDS & CHAT WITH MILLIONS IN A VIRTUAL WORLD</h3>
-						<p>There are currently {$users-online} players online!</p>
-						<a href="/register"><center><button class="register-button" id="text-main" type="submit">JOIN NOW</button></center></a>
-					</div>
+				<div class="main">
+					<div id="div-header-top"><p>News</p></div>
 					<br>
-					<p></p>
-					<p></p>
-					{% include "base/news.tpl" %}
-					
+					<h2>{{ article.title }}</h2>
+					<p><i>{{ article.shortstory }}</i></h2>
+					<p>{{ article.fullstory }}</p>
 					
 				</div>
+			
+			{% if session.loggedIn %}
+				{% include "base/sidebar_logged_in.tpl" %}
+			{% else %}
 				{% include "base/sidebar_login.tpl" %}
+			{% endif %}
 			</div>
 		</div>
 		{% include "base/footer.tpl" %}
