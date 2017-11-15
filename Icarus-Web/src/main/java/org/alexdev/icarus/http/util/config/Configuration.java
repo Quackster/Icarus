@@ -14,6 +14,9 @@ public class Configuration {
 
     private Wini configuration;
 
+    public static String SITE_URL;
+    public static String SITE_NAME;
+
     public static String TEMPLATE_NAME;
     public static String TEMPLATE_DIRECTORY;
 
@@ -26,6 +29,7 @@ public class Configuration {
     public static Integer REGISTER_CREDITS;
     public static Integer REGISTER_DUCKETS;
 
+    public static boolean CLIENT_POPUP;
     public static String CLIENT_IP;
     public static String CLIENT_PORT;
     public static String CLIENT_EXTERNAL_VARIABLES;
@@ -110,6 +114,7 @@ public class Configuration {
         writer.println("register.motto=I'm a new user");
         writer.println();
         writer.println("[Client]");
+        writer.println("client.popup=false");
         writer.println("client.ip=");
         writer.println("client.port=");
         writer.println("client.external.variables=");
@@ -123,6 +128,8 @@ public class Configuration {
         writer.println("client.swf=");
         writer.println();
         writer.println("[Site]");
+        writer.println("site.name=Icarus");
+        writer.println("site.url=http://localhost");
         writer.println("site.directory=tools/www");
         writer.println();
         writer.println("[Template]");
@@ -143,6 +150,7 @@ public class Configuration {
         REGISTER_CREDITS = configuration.get("Register", "register.credits", Integer.class);
         REGISTER_DUCKETS = configuration.get("Register", "register.duckets", Integer.class);
         REGISTER_MOTTO = configuration.get("Register", "register.motto");
+        CLIENT_POPUP = configuration.get("Client", "client.popup", Boolean.class);
         CLIENT_IP = configuration.get("Client", "client.ip");
         CLIENT_PORT = configuration.get("Client", "client.port");
         CLIENT_EXTERNAL_VARIABLES =configuration.get("Client", "client.external.variables");
@@ -154,7 +162,8 @@ public class Configuration {
         CLIENT_FIGUREDATA = configuration.get("Client", "client.figuredata");
         CLIENT_PATH = configuration.get("Client", "client.path");
         CLIENT_SWF = configuration.get("Client", "client.swf");
-
+        SITE_URL = configuration.get("Site", "site.url");
+        SITE_NAME = configuration.get("Site", "site.name");
 
     }
 
