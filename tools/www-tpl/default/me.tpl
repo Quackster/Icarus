@@ -9,13 +9,10 @@
 		<meta name="author" content="ADD AUTHOR INFORMATION">
 		<meta name="robots" content="index, follow">
 
-		<!-- icons -->
 		<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 		<link rel="shortcut icon" href="favicon.ico">
-
-		<!-- Original CSS -->
+		
 		{% include "base/style.tpl" %}
-
 		<link rel="stylesheet" href="{{ site.url }}/public/css/me.css">
 		
 		<script>
@@ -40,8 +37,6 @@
 			<div class="container" id="text-main">
 				{% include "base/message.tpl" %}
 				<div class="main" id="habbo-plate">
-				
-					<!-- seperator -->
 					<div id="div-header-top"><p>About Me</p></div>
 					<div class="player-appearance">
 						<img src="http://www.habbo.com.tr/habbo-imaging/avatarimage?figure={{ player.figure }}&size=b&direction=2&head_direction=3&gesture=sml">
@@ -56,8 +51,6 @@
 						<b>Last online</b>&nbsp;&nbsp;{{ player.getReadableLastOnline() }}
 						
 					</div>
-					
-					<!-- seperator -->
 					<div class="player-appearance" id="hotel-status-online">
 					</div>
 					<div class="player-info">
@@ -66,29 +59,11 @@
 						to meet other users, trade, build<br>
 						your room and play games!
 					</div>
-					<!-- seperator -->
-					
+
 					{% include "base/news.tpl" %}
 					
 				</div>
-				<div class="aside">
-				
-					<!-- seperator -->
-					<div id="div-header-top"><p>Enter Hotel</p></div>
-					<br>
-					<p>Can't wait to join the hotel? Click the button below!</p>
-					{% if site.popupClient %}
-						<p><a onClick="openLink()" href="#"><center><button class="enter-hotel" id="text-main" type="submit">ENTER NOW</button></center></a></p>
-					{% else %}
-						<p><a target="_blank" href="hotel"><center><button class="enter-hotel" id="text-main" type="submit">ENTER NOW</button></center></a></p>
-					{% endif %}
-					<!-- seperator -->
-					<div id="div-header-middle" style="margin-top: -4px"><p>Extra Links</p></div>
-					<br>
-					<p>Visit the official server development thread</p>
-					<p><a href="http://forum.ragezone.com/f331/icarus-emulator-mysql-multi-platform-1116076/"><center><img src="http://i.imgur.com/fBvEwKg.png" height="40%" width="40%"></center></a></p>
-					<!-- seperator -->
-				</div>
+				{% include "base/sidebar_logged_in.tpl" %}
 			</div>
 		</div>
 		{% include "base/footer.tpl" %}

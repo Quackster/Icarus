@@ -329,19 +329,27 @@ i.date {
 	vertical-align:top;
 	width: 199px;
 	padding: 10px;
+	margin-left:10px;
 }
 
 .news-img {
+	margin-left:10px;
 	display:inline-block;
 	padding: 10px;
-	height: 120px;
-	width: 120px;
+	height: 100px;
+	width: 100px;
 	background-repeat: no-repeat;
-	background-position: bottom 5px right 7px;
+	background-position: bottom 0px right 0px;
+	box-shadow: 3px 3px 0px #004466;
 }
 
 .news-text {
+	padding:20px;
 	white-space: nowrap;
+}
+
+.news-shortstory {
+	margin-top: 10px;
 }
 
 /*
