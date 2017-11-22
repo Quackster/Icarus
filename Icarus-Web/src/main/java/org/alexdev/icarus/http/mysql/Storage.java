@@ -2,6 +2,7 @@ package org.alexdev.icarus.http.mysql;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.alexdev.icarus.http.log.Log;
 import org.alexdev.icarus.http.util.config.Configuration;
 
 import java.sql.*;
@@ -50,7 +51,7 @@ public class Storage {
     }
 
     public static void logError(Exception ex) {
-        ex.printStackTrace();
+        Log.getErrorLogger().error("Error when executing MySQL query: ", ex);
     }
 
 	/**
