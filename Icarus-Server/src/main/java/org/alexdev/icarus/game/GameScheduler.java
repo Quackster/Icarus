@@ -30,9 +30,9 @@ public class GameScheduler implements Runnable {
      */
     @Override
     public void run() {
-        
+
         tickRate.incrementAndGet();
-        
+
         // If this task has ticked for an entire minute...
         if (tickRate.get() % 60 == 0) {
             for (Room room : RoomManager.getInstance().getPromotedRooms()) {
@@ -40,21 +40,25 @@ public class GameScheduler implements Runnable {
             }
         }
 
-        // If this task has ticked for an entire specified number of minutes...
-        if (tickRate.get() % (60 * GameSettings.CREDITS_INTERVAL_MINUTES) == 0) {
-            for (Player player : PlayerManager.getInstance().getPlayers()) {
-                player.getDetails().setCredits(player.getDetails().getCredits() + GameSettings.CREDITS_INTERVAL_AMOUNT);
-                player.getDetails().sendCredits();
-                player.getDetails().save();
+        if (GameSettings.CREDITS_INTERVAL_AMOUNT > 0) {
+            // If this task has ticked for an entire specified number of minutes...
+            if (tickRate.get() % (60 * GameSettings.CREDITS_INTERVAL_MINUTES) == 0) {
+                for (Player player : PlayerManager.getInstance().getPlayers()) {
+                    player.getDetails().setCredits(player.getDetails().getCredits() + GameSettings.CREDITS_INTERVAL_AMOUNT);
+                    player.getDetails().sendCredits();
+                    player.getDetails().save();
+                }
             }
         }
 
-        // If this task has ticked for an entire specified number of minutes...
-        if (tickRate.get() % (60 * GameSettings.DUCKETS_INTERVAL_MINUTES) == 0) {
-            for (Player player : PlayerManager.getInstance().getPlayers()) {
-                player.getDetails().setDuckets(player.getDetails().getDuckets() + GameSettings.DUCKETS_INTERVAL_AMOUNT);
-                player.getDetails().sendDuckets();
-                player.getDetails().save();
+        if (GameSettings.DUCKETS_INTERVAL_AMOUNT > 0) {
+            // If this task has ticked for an entire specified number of minutes...
+            if (tickRate.get() % (60 * GameSettings.DUCKETS_INTERVAL_MINUTES) == 0) {
+                for (Player player : PlayerManager.getInstance().getPlayers()) {
+                    player.getDetails().setDuckets(player.getDetails().getDuckets() + GameSettings.DUCKETS_INTERVAL_AMOUNT);
+                    player.getDetails().sendDuckets();
+                    player.getDetails().save();
+                }
             }
         }
     }

@@ -1,0 +1,19 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html, #client {
+    height: 100%;
+    text-align: left;
+    background-color: #000;
+}
+
+#client {
+    position: absolute;
+    overflow: hidden;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}

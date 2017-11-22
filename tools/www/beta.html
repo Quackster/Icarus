@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <title>Habbo: Client</title>
+		<link rel="stylesheet" href="http://localhost/api/client.css" type="text/css" />
+		<script src="http://localhost/api/swfobject.js" type="text/javascript"></script>
+
+        <script type="text/javascript">
+            var BaseUrl = "https://images.blizaurora.eu/gordon/RELEASE38-21895-21892-200910051619_1d5050e405763d187b9550892d4170ba/";
+            var flashvars =
+            {
+                "client.allow.cross.domain" : "1", 
+                "client.notify.cross.domain" : "0",			
+				"connection.info.host" : "127.0.0.1", 
+				"connection.info.port" : "30000",
+                "site.url" : "https://blizaurora.eu", 
+                "url.prefix" : "https://blizaurora.eu", 
+                "client.reload.url" : "https://blizaurora.eu/disconnected", 
+                "client.fatal.error.url" : "http://localhost/disconnected", 
+                "client.connection.failed.url" : "http://localhost/disconnected", 
+                "external.variables.txt" : "https://blizaurora.eu/gamedata/external_variables.txt", 
+                "external.texts.txt" : "https://blizaurora.eu/gamedata/external_flash_texts.txt", 
+                "external.figurepartlist.txt" : "https://blizaurora.eu/gamedata/figuredata.xml",
+                "productdata.load.url" : "https://blizaurora.eu/gamedata/productdata.txt", 
+                "furnidata.load.url" : "https://blizaurora.eu/gamedata/furnidata.txt", 
+                "use.sso.ticket" : "1", 
+                "sso.ticket" : "123",			
+                "processlog.enabled" : "0", 
+                "flash.client.url" : BaseUrl, 
+				"client.starting":"Please wait! Aurora is starting up.",
+                "flash.client.origin" : "popup"			
+            };
+            var params =
+            {
+                "base" : BaseUrl + "/",
+                "allowScriptAccess" : "always",
+                "menu" : "false"                
+            };
+            swfobject.embedSWF(BaseUrl + "Habbo.swf", "client", "100%", "100%", "10.0.0", "https://images.blizaurora.eu/gordon/RELEASE38-22219-22056-200910151012_31a79855239b3813da4dbae573bd0f54/expressInstall.swf", flashvars, params, null);
+        </script>
+    </head>
+    
+    <body>
+      
+        <div id="client"></div>
+
+    </body>
+</html>

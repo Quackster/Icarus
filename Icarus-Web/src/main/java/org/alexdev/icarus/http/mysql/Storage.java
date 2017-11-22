@@ -2,6 +2,7 @@ package org.alexdev.icarus.http.mysql;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.alexdev.icarus.http.util.config.Configuration;
 
 import java.sql.*;
 
@@ -15,13 +16,15 @@ public class Storage {
     public static Storage get() {
 
         if (storage == null) {
-            storage = new Storage("localhost", "root", "", "icarusdb");
+            storage = new Storage(Configuration.MYSQL_HOSTNAME, Configuration.MYSQL_USERNAME, Configuration.MYSQL_PASSWORD, Configuration.MYSQL_DATABASE);
         }
 
         return storage;
     }
 
     public Storage(String host, String username, String password, String db) {
+
+        //System.out.println(host + " / " + username + " / " + password + " / " + db);
 
         try {
 

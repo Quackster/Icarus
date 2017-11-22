@@ -1,7 +1,8 @@
-package org.alexdev.icarus.messages.incoming.room;
+package org.alexdev.icarus.messages.incoming.room.settings;
 
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.messages.incoming.room.RoomPromotionMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 

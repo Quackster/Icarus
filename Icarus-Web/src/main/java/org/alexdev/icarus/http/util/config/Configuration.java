@@ -42,6 +42,11 @@ public class Configuration {
     public static String CLIENT_PATH;
     public static String CLIENT_SWF;
 
+    public static String MYSQL_HOSTNAME;
+    public static String MYSQL_USERNAME;
+    public static String MYSQL_PASSWORD;
+    public static String MYSQL_DATABASE;
+
     public void load() throws IOException {
 
         this.checkLog4j();
@@ -107,6 +112,12 @@ public class Configuration {
     }
 
     private static void writeSiteConfiguration(PrintWriter writer) {
+        writer.println("[Database]");
+        writer.println("mysql.hostname=127.0.0.1");
+        writer.println("mysql.username=");
+        writer.println("mysql.password=");
+        writer.println("mysql.database=icarusdb");
+        writer.println();
         writer.println("[Register]");
         writer.println("register.figure=ch-210-66.hr-100-0.sh-290-80.hd-180-7.lg-270-82");
         writer.println("register.credits=5000");
@@ -142,6 +153,10 @@ public class Configuration {
     }
 
     private void loadConfiguration() {
+        MYSQL_HOSTNAME = configuration.get("Database", "mysql.hostname");
+        MYSQL_USERNAME = configuration.get("Database", "mysql.username");
+        MYSQL_PASSWORD = configuration.get("Database", "mysql.password");
+        MYSQL_DATABASE = configuration.get("Database", "mysql.database");
         TEMPLATE_DIRECTORY = configuration.get("Template", "template.directory");
         TEMPLATE_NAME = configuration.get("Template", "template.name");
         PUBLIC_RECAPTCHA_KEY = configuration.get("ReCaptcha", "recaptcha.public.key");
