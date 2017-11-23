@@ -47,7 +47,7 @@
     </script>
 </head>
 <body>
-<div id="client-ui">
+<!-- <div id="client-ui">
     <div id="flash-wrapper">
         <div id="flash-container">
             <div id="content" style="width: 400px; margin: 20px auto 0 auto; display: none">
@@ -58,6 +58,46 @@
     </div>
     <div id="content" class="client-content"></div>
     <iframe id="page-content" class="hidden" allowtransparency="true" frameBorder="0" src="about:blank"></iframe>
-</div>
+</div>-->
+<body id="client" class="flashclient">
+    <div id="overlay"></div>
+    <img src="/client/page_loader.gif" style="position:absolute; margin: -1500px;" />
+    <div id="client-ui">
+        <div id="flash-wrapper">
+            <div id="flash-container">
+                <div id="content" style="width: 400px; margin: 20px auto 0 auto;">
+                    <div class="cbb clearfix">
+						<h2 class="title">Please update your Flash Player to the latest version.</h2>
+						<div class="box-content">
+							<p>You can install and download Adobe Flash Player here: <a href="http://www.adobe.com/go/getflashplayer" target="_blank">Install flash player</a>. More instructions for installation can be found here: <a href="http://www.adobe.com/products/flashplayer/productinfo/instructions/">More information</a></p>
+							<p><a href="http://www.adobe.com/go/getflashplayer" target="_blank"><img src="/client/get_flash_player.gif" alt="Get Adobe Flash player" /></a></p>
+						</div>
+						
+                    </div>
+                </div>
+                <noscript>
+                    <div style="width: 400px; margin: 20px auto 0 auto; text-align: center">
+                        <p>If you are not automatically redirected, please <a href="/client/nojs">click here</a></p>
+                    </div>
+                </noscript>
+            </div>
+        </div>
+        <div id="content" class="client-content"></div>
+        <iframe id="game-content" class="hidden" allowtransparency="true" frameBorder="0" src="about:blank"></iframe>
+        <iframe id="page-content" class="hidden" allowtransparency="true" frameBorder="0" src="about:blank"></iframe>
+        <script type="text/javascript">
+            RightClick.init("flash-wrapper", "flash-container");
+            if (window.opener && window.opener != window && window.opener.location.href == "/") {
+                window.opener.location.replace("/me");
+            }
+            $(document.body).addClassName("js");
+            HabboClient.startPingListener();
+            Pinger.start(true);
+            HabboClient.resizeToFitScreenIfNeeded();
+        </script>
+        <script type="text/javascript">
+            HabboView.run();
+        </script>
+</body>
 </body>
 </html>
