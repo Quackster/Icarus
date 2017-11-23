@@ -1,6 +1,5 @@
 package org.alexdev.icarus.dao.mysql.site;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.dao.site.SiteKey;

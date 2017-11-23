@@ -31,6 +31,7 @@ public class CommandManager {
         commands.put(new String[] { "help", "commands" }, new HelpCommand());
         commands.put(new String[] { "debugfurni" }, new DebugFurnitureCommand());
         commands.put(new String[] { "rollerspeed" }, new RollerSpeedCommand());
+        commands.put(new String[] { "reloadconfig" }, new ReloadConfigCommand());
         commands.put(new String[] { "resetdecor" }, new ResetDecorationCommand());
         commands.put(new String[] { "clearinventory" }, new ClearInventoryCommand());
         commands.put(new String[] { "regencollision" }, new RegenCollisionCommand());

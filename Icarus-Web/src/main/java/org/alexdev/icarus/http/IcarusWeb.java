@@ -3,6 +3,8 @@ package org.alexdev.icarus.http;
 import org.alexdev.duckhttpd.routes.RouteManager;
 import org.alexdev.duckhttpd.server.WebServer;
 import org.alexdev.duckhttpd.util.config.Settings;
+import org.alexdev.icarus.http.game.GameSettings;
+import org.alexdev.icarus.http.mysql.Storage;
 import org.alexdev.icarus.http.util.config.Configuration;
 import org.alexdev.icarus.http.util.web.ServerResponses;
 import org.slf4j.Logger;
@@ -24,6 +26,17 @@ public class IcarusWeb {
         config = new Configuration();
         config.load();
         config.setSettings(settings);
+
+        logger.info("Connecting to MySQL");
+        Storage.get();
+
+        if (Storage.get().isConnected()) {
+            logger.info("Connection to MySQL server is successful");
+        } else {
+            logger.info("Connection to MySQL server was not successful");
+        }
+
+        GameSettings.getInstance();
 
         Routes.register();
         logger.info("Registered " + RouteManager.getRoutes().size() + " route(s)!");
