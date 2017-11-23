@@ -104,6 +104,7 @@ public class HousekeepingSettingsController {
         tpl.set("thumbnailfilename", GameSettings.THUMBNAIL_FILENAME);
         tpl.set("thumbnailpath", GameSettings.THUMBNAIL_PATH);
         tpl.set("thumbnailurl", GameSettings.THUMBNAIL_URL);
+        tpl.render();
 
         client.session().set("showAlert", false);
     }
