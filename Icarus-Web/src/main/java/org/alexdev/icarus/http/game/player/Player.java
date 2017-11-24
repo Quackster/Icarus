@@ -17,7 +17,7 @@ public class Player {
     private int rank;
     private long joinDate;
 
-    public Player(int id, String username, String figure, int credits, int duckets, String email, String mission, long last_online, int rank, long joinDate) {
+    public Player(int id, String username, String figure, int credits, int duckets, String email, String mission, long lastOnline, int rank, long joinDate) {
         this.id = id;
         this.name = username;
         this.figure = figure;
