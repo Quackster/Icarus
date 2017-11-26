@@ -1,6 +1,6 @@
 package org.alexdev.icarus.http.mysql.dao;
 
-import org.alexdev.icarus.dao.site.SiteKey;
+import org.alexdev.icarus.dao.mysql.site.SiteKey;
 import org.alexdev.icarus.http.mysql.Storage;
 import org.alexdev.icarus.log.Log;
 

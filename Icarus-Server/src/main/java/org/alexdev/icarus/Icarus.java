@@ -2,7 +2,7 @@ package org.alexdev.icarus;
 
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.site.SiteDao;
-import org.alexdev.icarus.dao.site.SiteKey;
+import org.alexdev.icarus.dao.mysql.site.SiteKey;
 import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.GameSettings;
 import org.alexdev.icarus.game.catalogue.CatalogueManager;

@@ -1,7 +1,7 @@
 package org.alexdev.icarus.http.util.config;
 
 import org.alexdev.duckhttpd.util.config.Settings;
-import org.alexdev.icarus.http.util.web.TwigTemplate;
+import org.alexdev.icarus.http.template.TwigTemplate;
 import org.apache.log4j.PropertyConfigurator;
 import org.ini4j.Wini;
 

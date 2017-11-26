@@ -78,10 +78,9 @@ public class PetDao {
         ResultSet resultSet = null;
 
         try {
+
             sqlConnection = Dao.getStorage().getConnection();
-
             preparedStatement = Dao.getStorage().prepare("INSERT INTO pets (owner_id, pet_name, type, race_id, colour, scratches, level, happiness, experience, energy, birthday) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", sqlConnection);
-
             preparedStatement.setInt(1, ownerId);
             preparedStatement.setString(2, petName);
             preparedStatement.setInt(3, type);
@@ -155,7 +154,6 @@ public class PetDao {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
 
         try {
             sqlConnection = Dao.getStorage().getConnection();
@@ -171,7 +169,6 @@ public class PetDao {
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
-            Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
@@ -202,7 +199,6 @@ public class PetDao {
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
-            Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }

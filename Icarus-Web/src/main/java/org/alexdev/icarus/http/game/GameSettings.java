@@ -1,6 +1,6 @@
 package org.alexdev.icarus.http.game;
 
-import org.alexdev.icarus.dao.site.SiteKey;
+import org.alexdev.icarus.dao.mysql.site.SiteKey;
 import org.alexdev.icarus.http.mysql.dao.SiteDao;
 
 public class GameSettings {

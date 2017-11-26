@@ -1,4 +1,4 @@
-package org.alexdev.icarus.dao.site;
+package org.alexdev.icarus.dao.mysql.site;
 
 public enum SiteKey {
 

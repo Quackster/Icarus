@@ -147,7 +147,6 @@ public class ItemDao {
         
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
 
         try {
             sqlConnection = Dao.getStorage().getConnection();
@@ -164,7 +163,6 @@ public class ItemDao {
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
-            Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
@@ -179,7 +177,6 @@ public class ItemDao {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
 
         try {
             sqlConnection = Dao.getStorage().getConnection();
@@ -191,7 +188,6 @@ public class ItemDao {
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
-            Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }

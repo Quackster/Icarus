@@ -1,12 +1,9 @@
 package org.alexdev.icarus.messages.outgoing.user;
 
-import org.alexdev.icarus.dao.mysql.site.SiteDao;
-import org.alexdev.icarus.dao.site.SiteKey;
 import org.alexdev.icarus.game.GameSettings;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
-import org.alexdev.icarus.util.config.Configuration;
 
 public class SendPerkAllowancesMessageComposer extends MessageComposer {
 

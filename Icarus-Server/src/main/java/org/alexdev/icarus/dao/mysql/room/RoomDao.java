@@ -161,7 +161,7 @@ public class RoomDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                rooms.add(Integer.valueOf(resultSet.getInt("user_id")));
+                rooms.add(resultSet.getInt("user_id"));
             }
 
         } catch (Exception e) {
@@ -205,7 +205,7 @@ public class RoomDao {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+
         try {
 
             sqlConnection = Dao.getStorage().getConnection();
@@ -217,7 +217,6 @@ public class RoomDao {
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
-            Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
@@ -240,9 +239,9 @@ public class RoomDao {
     public static void update(Room room) {
 
         RoomData data = room.getData();
+
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
 
         try {
 
@@ -286,7 +285,6 @@ public class RoomDao {
         } catch (SQLException e) {
             Storage.logError(e);
         } finally {
-            Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
@@ -329,7 +327,6 @@ public class RoomDao {
         } catch (SQLException e) {
             Storage.logError(e);
         } finally {
-            Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }

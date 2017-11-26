@@ -34,7 +34,6 @@ public class NavigatorDao {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
 
         try {
 
@@ -59,7 +58,6 @@ public class NavigatorDao {
         } catch (SQLException e) {
             Storage.logError(e);
         } finally {
-            Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }

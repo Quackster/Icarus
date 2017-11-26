@@ -142,7 +142,6 @@ public class MessengerDao {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
         boolean success = false;
         
         if (!requestExists(fromId, toId)) {
@@ -158,7 +157,6 @@ public class MessengerDao {
             } catch (SQLException e) {
                 Storage.logError(e);
             } finally {
-                Storage.closeSilently(resultSet);
                 Storage.closeSilently(preparedStatement);
                 Storage.closeSilently(sqlConnection);
             }
@@ -230,7 +228,7 @@ public class MessengerDao {
      * @param receiver the receiver
      * @return true, if successful
      */
-    public static boolean newFriend(int sender, int receiver) {
+    public static void newFriend(int sender, int receiver) {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -249,7 +247,5 @@ public class MessengerDao {
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
-
-        return false;
     }
 }

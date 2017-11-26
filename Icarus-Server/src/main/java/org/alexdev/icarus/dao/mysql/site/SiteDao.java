@@ -2,9 +2,7 @@ package org.alexdev.icarus.dao.mysql.site;
 
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
-import org.alexdev.icarus.dao.site.SiteKey;
 import org.alexdev.icarus.log.Log;
-import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -37,7 +35,6 @@ public class SiteDao {
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
 
         try {
 
@@ -50,7 +47,6 @@ public class SiteDao {
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
-            Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }

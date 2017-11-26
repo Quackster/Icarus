@@ -2,7 +2,7 @@ package org.alexdev.icarus.game.player;
 
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.dao.mysql.site.SiteDao;
-import org.alexdev.icarus.dao.site.SiteKey;
+import org.alexdev.icarus.dao.mysql.site.SiteKey;
 import org.alexdev.icarus.game.moderation.Permission;
 
 import java.util.List;

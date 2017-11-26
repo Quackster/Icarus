@@ -1,4 +1,4 @@
-package org.alexdev.icarus.http.util.web;
+package org.alexdev.icarus.http.template;
 
 import io.netty.handler.codec.http.FullHttpResponse;
 import org.alexdev.duckhttpd.server.connection.WebConnection;

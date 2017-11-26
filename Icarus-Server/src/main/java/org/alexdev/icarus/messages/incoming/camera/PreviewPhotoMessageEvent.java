@@ -1,7 +1,5 @@
 package org.alexdev.icarus.messages.incoming.camera;
 
-import org.alexdev.icarus.dao.mysql.site.SiteDao;
-import org.alexdev.icarus.dao.site.SiteKey;
 import org.alexdev.icarus.game.GameScheduler;
 import org.alexdev.icarus.game.GameSettings;
 import org.alexdev.icarus.game.player.Player;
@@ -10,7 +8,6 @@ import org.alexdev.icarus.messages.outgoing.camera.PhotoPreviewMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.alexdev.icarus.util.Util;
-import org.alexdev.icarus.util.config.Configuration;
 import org.alexdev.icarus.util.locale.Locale;
 
 import java.io.FileOutputStream;
