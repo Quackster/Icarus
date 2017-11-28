@@ -4,12 +4,12 @@ import java.math.BigInteger;
 
 public class RSA {
 
-    public BigInteger Exponent;
+    public BigInteger exponent;
     public BigInteger n;
-    public BigInteger Private;
+    public BigInteger d;
 
-    public boolean Decryptable;
-    public boolean Encryptable;
+    public boolean decryptable;
+    public boolean encryptable;
 
     private String privateKey;
     private String publicKey;
@@ -21,11 +21,11 @@ public class RSA {
 
     public RSA() {
         n = new BigInteger("86851dd364d5c5cece3c883171cc6ddc5760779b992482bd1e20dd296888df91b33b936a7b93f06d29e8870f703a216257dec7c81de0058fea4cc5116f75e6efc4e9113513e45357dc3fd43d4efab5963ef178b78bd61e81a14c603b24c8bcce0a12230b320045498edc29282ff0603bc7b7dae8fc1b05b52b2f301a9dc783b7", 16);
-        Exponent = new BigInteger("3", 16);
-        Private = new BigInteger("59ae13e243392e89ded305764bdd9e92e4eafa67bb6dac7e1415e8c645b0950bccd26246fd0d4af37145af5fa026c0ec3a94853013eaae5ff1888360f4f9449ee023762ec195dff3f30ca0b08b8c947e3859877b5d7dced5c8715c58b53740b84e11fbc71349a27c31745fcefeeea57cff291099205e230e0c7c27e8e1c0512b", 16);
+        exponent = new BigInteger("3", 16);
+        d = new BigInteger("59ae13e243392e89ded305764bdd9e92e4eafa67bb6dac7e1415e8c645b0950bccd26246fd0d4af37145af5fa026c0ec3a94853013eaae5ff1888360f4f9449ee023762ec195dff3f30ca0b08b8c947e3859877b5d7dced5c8715c58b53740b84e11fbc71349a27c31745fcefeeea57cff291099205e230e0c7c27e8e1c0512b", 16);
 
-        Encryptable = (n != null && n != Zero && Exponent != Zero);
-        Decryptable = (Encryptable && Private != Zero && Private != null);
+        encryptable = (n != null && n != Zero && exponent != Zero);
+        decryptable = (encryptable && d != Zero && d != null);
     }
 
     /**
@@ -44,8 +44,8 @@ public class RSA {
      * @return the big integer
      */
     public BigInteger doPublic(BigInteger x) {
-        if (this.Encryptable) {
-            return x.modPow(new BigInteger(this.Exponent + ""), this.n);
+        if (this.encryptable) {
+            return x.modPow(new BigInteger(this.exponent + ""), this.n);
         }
 
         return Zero;
@@ -142,8 +142,8 @@ public class RSA {
      * @return the big integer
      */
     public BigInteger DoPrivate(BigInteger x) {
-        if (this.Decryptable) {
-            return x.modPow(this.Private, this.n);
+        if (this.decryptable) {
+            return x.modPow(this.d, this.n);
         }
 
         return Zero;
@@ -248,7 +248,7 @@ public class RSA {
      * @return the exponent
      */
     public BigInteger getExponent() {
-        return Exponent;
+        return exponent;
     }
 
     /**
@@ -257,7 +257,7 @@ public class RSA {
      * @param exponent the new exponent
      */
     public void setExponent(BigInteger exponent) {
-        Exponent = exponent;
+        this.exponent = exponent;
     }
 
     
@@ -285,8 +285,8 @@ public class RSA {
      *
      * @return the private
      */
-    public BigInteger getPrivate() {
-        return Private;
+    public BigInteger getD() {
+        return d;
     }
 
     /**
@@ -294,8 +294,8 @@ public class RSA {
      *
      * @param private1 the new private
      */
-    public void setPrivate(BigInteger private1) {
-        Private = private1;
+    public void setD(BigInteger private1) {
+        d = private1;
     }
 
     /**
@@ -304,7 +304,7 @@ public class RSA {
      * @return true, if is decryptable
      */
     public boolean isDecryptable() {
-        return Decryptable;
+        return decryptable;
     }
 
     /**
@@ -313,7 +313,7 @@ public class RSA {
      * @param decryptable the new decryptable
      */
     public void setDecryptable(boolean decryptable) {
-        Decryptable = decryptable;
+        this.decryptable = decryptable;
     }
 
     /**
@@ -322,7 +322,7 @@ public class RSA {
      * @return true, if is encryptable
      */
     public boolean isEncryptable() {
-        return Encryptable;
+        return encryptable;
     }
 
     /**
@@ -331,7 +331,7 @@ public class RSA {
      * @param encryptable the new encryptable
      */
     public void setEncryptable(boolean encryptable) {
-        Encryptable = encryptable;
+        this.encryptable = encryptable;
     }
 
     /**
