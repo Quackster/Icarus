@@ -14,7 +14,7 @@ public class CameraController {
      * @param client the connection
      */
     public static void camera(WebConnection client) throws Exception {
-        File file = Paths.get(GameSettings.CAMERA_PATH, client.get().get("image").replace("_small.png",".png")).toFile();
+        File file = Paths.get(GameSettings.CAMERA_PATH, client.getUriRequest().replace("_small.png",".png")).toFile();
         ResponseBuilder.create(file, client);
     }
 }

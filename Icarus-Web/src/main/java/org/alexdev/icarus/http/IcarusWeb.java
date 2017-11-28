@@ -2,6 +2,7 @@ package org.alexdev.icarus.http;
 
 import org.alexdev.duckhttpd.routes.RouteManager;
 import org.alexdev.duckhttpd.server.WebServer;
+import org.alexdev.duckhttpd.util.CompressionUtil;
 import org.alexdev.duckhttpd.util.config.Settings;
 import org.alexdev.icarus.http.game.GameSettings;
 import org.alexdev.icarus.http.mysql.Storage;

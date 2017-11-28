@@ -102,7 +102,7 @@ public class HousekeepingNewsController {
         }
 
         Template tpl = client.template("housekeeping/articles");
-        tpl.set("images", getTopStoryImages());
+        tpl.set("articles", NewsDao.getArticles());
         tpl.render();
 
     }
