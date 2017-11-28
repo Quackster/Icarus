@@ -59,7 +59,6 @@ public class PurchasePhotoMessageEvent implements MessageEvent {
         }
 
         player.getDetails().save();
-
         
         player.getMetadata().remove("latestPhotoUrl");
         player.send(new PurchasedPhotoMessageComposer());
