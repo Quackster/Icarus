@@ -2,6 +2,7 @@ package org.alexdev.icarus.http.controllers;
 
 import org.alexdev.duckhttpd.response.ResponseBuilder;
 import org.alexdev.duckhttpd.server.connection.WebConnection;
+import org.alexdev.duckhttpd.util.config.Settings;
 import org.alexdev.icarus.http.game.GameSettings;
 
 import java.io.File;
@@ -15,6 +16,12 @@ public class CameraController {
      */
     public static void camera(WebConnection client) throws Exception {
         File file = Paths.get(GameSettings.CAMERA_PATH, client.getUriRequest().replace("_small.png",".png")).toFile();
+
+        if (!file.exists()) {
+            client.setResponse(Settings.getInstance().getResponses().getForbiddenResponse(client));
+            return;
+        }
+
         ResponseBuilder.create(file, client);
     }
 }
