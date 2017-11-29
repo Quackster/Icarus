@@ -40,11 +40,9 @@ public class TwigTemplate extends Template {
             File file = Paths.get(Configuration.TEMPLATE_DIRECTORY, Configuration.TEMPLATE_NAME, view + ".tpl").toFile();
 
             if (file.exists() && file.isFile()) {
-
                 this.file = file;
                 this.template = JtwigTemplate.fileTemplate(file);
                 this.model = JtwigModel.newModel();
-
             } else {
                 throw new Exception("The template view " + view + " does not exist!\nThe path: " + file.getCanonicalPath());
             }
