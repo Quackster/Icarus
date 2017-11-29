@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.room;
 
+import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.room.enums.RoomState;
 import org.alexdev.icarus.game.room.enums.RoomType;
 import org.alexdev.icarus.util.metadata.Metadata;
@@ -208,6 +209,7 @@ public class RoomData extends Metadata {
      */
     public void setUsersNow(int usersNow) {
         this.usersNow = usersNow;
+        RoomDao.updateUsers(this.id, this.usersNow);
     }
     
     /**
