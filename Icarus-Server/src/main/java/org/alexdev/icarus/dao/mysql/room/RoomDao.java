@@ -333,6 +333,40 @@ public class RoomDao {
     }
 
     /**
+     * Update room users, use -1 for room ID to perform global query.
+     *
+     * @param roomId the room id
+     * @param currentUsers the amount of users to update
+     */
+    public static void updateUsers(int roomId, int currentUsers) {
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+
+            sqlConnection = Dao.getStorage().getConnection();
+
+            if (roomId > 0) {
+                preparedStatement = Dao.getStorage().prepare("UPDATE rooms SET users_now = ? WHERE id = ? LIMIT 1", sqlConnection);
+                preparedStatement.setInt(1, currentUsers);
+                preparedStatement.setInt(2, roomId);
+            } else {
+                preparedStatement = Dao.getStorage().prepare("UPDATE rooms SET users_now = ? WHERE users_now > 0", sqlConnection);
+                preparedStatement.setInt(1, currentUsers);
+            }
+
+            preparedStatement.execute();
+
+        } catch (SQLException e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+    }
+
+    /**
      * Fill.
      *
      * @param row the row

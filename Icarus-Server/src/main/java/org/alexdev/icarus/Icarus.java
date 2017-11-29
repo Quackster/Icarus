@@ -1,6 +1,7 @@
 package org.alexdev.icarus;
 
 import org.alexdev.icarus.dao.mysql.Dao;
+import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.dao.mysql.site.SiteDao;
 import org.alexdev.icarus.dao.mysql.site.SiteKey;
 import org.alexdev.icarus.game.GameScheduler;
@@ -82,6 +83,9 @@ public class Icarus extends Metadata {
 
             log.info("Resetting users online...");
             SiteDao.updateKey(SiteKey.USERS_ONLINE, 0);
+
+            log.info("Resetting room user counts...");
+            RoomDao.updateUsers(-1, 0);
 
             log.info("Setting up server");
 
