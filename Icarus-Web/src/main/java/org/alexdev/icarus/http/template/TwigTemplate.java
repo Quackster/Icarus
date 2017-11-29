@@ -9,6 +9,7 @@ import org.alexdev.icarus.http.game.player.Player;
 import org.alexdev.icarus.http.template.binders.TemplateRegisterBinder;
 import org.alexdev.icarus.http.template.binders.TemplateSiteBinder;
 import org.alexdev.icarus.http.template.binders.TemplateSessionBinder;
+import org.alexdev.icarus.http.util.SessionUtil;
 import org.alexdev.icarus.http.util.config.Configuration;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
@@ -64,7 +65,7 @@ public class TwigTemplate extends Template {
             this.set("register", new TemplateRegisterBinder());
         }
 
-        if (this.webConnection.session().contains("player")) {
+        if (this.webConnection.session().contains(SessionUtil.PLAYER)) {
             this.set("player", this.webConnection.session().get("player", Player.class));
         }
 
