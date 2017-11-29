@@ -20,7 +20,7 @@ public class MoodlightInteractMessageEvent implements MessageEvent {
         
         Room room = player.getRoom();
 
-        if (!room.hasRights(player.getEntityId()) && !player.getDetails().hasPermission("room_all_rights")) {
+        if (!room.hasRights(player.getEntityId()) && !player.hasPermission("room_all_rights")) {
             return;
         }
         

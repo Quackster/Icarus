@@ -1,6 +1,7 @@
 package org.alexdev.icarus.game.commands.types;
 
 import org.alexdev.icarus.game.commands.Command;
+import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.user.ChatType;
 
@@ -12,14 +13,18 @@ public class MoonWalkCommand extends Command {
     }
 
     @Override
-    public void handleCommand(Player player, String message, String[] args) {
+    public void handleCommand(Entity entity, String message, String[] args) {
 
-        if (!player.getMetadata().hasMetadata("moonwalk")) {
-            player.getMetadata().set("moonwalk", false);
+        if (entity instanceof Player) {
+            Player player = (Player) entity;
+
+            if (!player.getMetadata().hasMetadata("moonwalk")) {
+                player.getMetadata().set("moonwalk", false);
+            }
+
+            player.getMetadata().set("moonwalk", !player.getMetadata().getBoolean("moonwalk"));
+            player.getRoomUser().chatSelf(ChatType.WHISPER, "I have turned " + (player.getMetadata().getBoolean("moonwalk") ? "on" : "off") + " moonwalking.");
         }
-
-        player.getMetadata().set("moonwalk", !player.getMetadata().getBoolean("moonwalk"));
-        player.getRoomUser().chatSelf(ChatType.WHISPER, "I have turned " + (player.getMetadata().getBoolean("moonwalk") ? "on" : "off") + " moonwalking.");
     }
 
     @Override

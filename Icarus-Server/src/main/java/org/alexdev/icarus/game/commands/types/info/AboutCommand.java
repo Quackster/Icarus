@@ -2,6 +2,7 @@ package org.alexdev.icarus.game.commands.types.info;
 
 import org.alexdev.icarus.Icarus;
 import org.alexdev.icarus.game.commands.Command;
+import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.util.Util;
@@ -10,12 +11,13 @@ public class AboutCommand extends Command {
     
     @Override
     public void addPermissions() {
+        this.permissions.add("operator");
         this.permissions.add("user");
     }
     
     @Override
-    public void handleCommand(Player player, String message, String[] args) {
-        
+    public void handleCommand(Entity entity, String message, String[] args) {
+
         StringBuilder about = new StringBuilder();
         about.append("Icarus server written by Quackster, powered by Java!\n");
         about.append("\n<b>Server Status</b>\n\n");
@@ -28,8 +30,13 @@ public class AboutCommand extends Command {
         about.append("- Glaceon\n");
         about.append("- Jaxter\n");
         about.append("- Nillus\n");
-        
-        player.sendCustomMessage("Powered by Icarus Server", about.toString(), "icarus", "Development Thread", "http://");
+
+        if (entity instanceof Player) {
+            Player player = (Player) entity;
+            player.sendCustomMessage("Powered by Icarus Server", about.toString(), "icarus", "Development Thread", "http://");
+        } else {
+            System.out.println(about.toString());
+        }
     }
 
     @Override

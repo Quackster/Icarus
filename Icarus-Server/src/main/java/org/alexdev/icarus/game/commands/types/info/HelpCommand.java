@@ -4,24 +4,26 @@ import java.util.Map.Entry;
 
 import org.alexdev.icarus.game.commands.Command;
 import org.alexdev.icarus.game.commands.CommandManager;
+import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.player.Player;
 
 public class HelpCommand extends Command {
 
     @Override
     public void addPermissions() {
+        this.permissions.add("operator");
         this.permissions.add("user");
     }
-    
+
     @Override
-    public void handleCommand(Player player, String message, String[] args) {
+    public void handleCommand(Entity entity, String message, String[] args) {
 
         StringBuilder about = new StringBuilder();
         about.append("Commands:\n\n");
 
         for (Entry<String[], Command> set : CommandManager.getInstance().getCommands().entrySet()) {
 
-            if (!CommandManager.getInstance().hasCommandPermission(player, set.getValue())) {
+            if (!CommandManager.getInstance().hasCommandPermission(entity, set.getValue())) {
                 continue;
             }
 
@@ -33,16 +35,20 @@ public class HelpCommand extends Command {
                 if (command.getArguments().length > 1) {
                     about.append(" - [" + String.join("] [", command.getArguments()) + "]");
                 } else {
-                    about.append(" - [" + command.getArguments()[0] + "]");                    
+                    about.append(" - [" + command.getArguments()[0] + "]");
                 }
             }
 
             about.append(" - " + command.getDescription() + "\n");
         }
 
-        player.sendMOTD(about.toString());
+        if (entity instanceof Player) {
+            Player player = (Player) entity;
+            player.sendMOTD(about.toString());
+        } else {
+            System.out.println(about.toString());
+        }
     }
-    
 
     @Override
     public String getDescription() {

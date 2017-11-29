@@ -4,8 +4,10 @@ import org.alexdev.icarus.game.commands.types.*;
 import org.alexdev.icarus.game.commands.types.info.AboutCommand;
 import org.alexdev.icarus.game.commands.types.info.HelpCommand;
 import org.alexdev.icarus.game.commands.types.reload.ReloadCatalogueCommand;
+import org.alexdev.icarus.game.commands.types.reload.ReloadConfigCommand;
 import org.alexdev.icarus.game.commands.types.reload.ReloadItemDefinitions;
 import org.alexdev.icarus.game.commands.types.reload.ReloadPluginsCommand;
+import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.util.config.Configuration;
 import org.alexdev.icarus.util.locale.Locale;
@@ -69,11 +71,11 @@ public class CommandManager {
     /**
      * Checks for command.
      *
-     * @param player the player
+     * @param entity the player
      * @param message the message
      * @return true, if successful
      */
-    public boolean hasCommand(Player player, String message) {
+    public boolean hasCommand(Entity entity, String message) {
 
         if (message.startsWith(":") && message.length() > 1) {
 
@@ -81,7 +83,7 @@ public class CommandManager {
             Command cmd = getCommand(commandName);
 
             if (cmd != null) {
-                return this.hasCommandPermission(player, cmd);
+                return this.hasCommandPermission(entity, cmd);
             }
         }
 
@@ -91,15 +93,16 @@ public class CommandManager {
     /**
      * Checks for command permission.
      *
-     * @param player the player
+     * @param entity the player
      * @param cmd the command
      * @return true, if successful
      */
-    public boolean hasCommandPermission(Player player, Command cmd) {
+    public boolean hasCommandPermission(Entity entity, Command cmd) {
 
         if (cmd.getPermissions().length > 0) {
-            for (String permission : cmd.getPermissions()) {                   
-                if (player.getDetails().hasPermission(permission)) {    
+            for (String permission : cmd.getPermissions()) {
+                System.out.println(permission);
+                if (entity.hasPermission(permission)) {
                     return true;
                 }
             }
@@ -113,10 +116,10 @@ public class CommandManager {
     /**
      * Invoke command.
      *
-     * @param player the player
+     * @param entity the player
      * @param message the message
      */
-    public void invokeCommand(Player player, String message) {
+    public void invokeCommand(Entity entity, String message) {
 
         String commandName = message.split(":")[1].split(" ")[0];
         Command cmd = getCommand(commandName);
@@ -130,11 +133,17 @@ public class CommandManager {
         if (cmd != null) {
             
             if (args.length < cmd.getArguments().length) {
-                player.sendMessage(Locale.getInstance().getEntry("player.commands.no.args"));
+                if (entity instanceof Player) {
+                    Player player = (Player)entity;
+                    player.sendMessage(Locale.getInstance().getEntry("player.commands.no.args"));
+                } else {
+                    System.out.println(Locale.getInstance().getEntry("player.commands.no.args"));
+                }
+
                 return;
             }
             
-            cmd.handleCommand(player, message, args);
+            cmd.handleCommand(entity, message, args);
         }
     }
 

@@ -1,6 +1,7 @@
 package org.alexdev.icarus.game.entity;
 
 import org.alexdev.icarus.game.player.PlayerDetails;
+import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.util.metadata.Metadata;
@@ -8,6 +9,14 @@ import org.alexdev.icarus.util.metadata.Metadata;
 public abstract class Entity extends Metadata {
     
     protected boolean disposed;
+
+    /**
+     * Checks for permission.
+     *
+     * @param permission the permission
+     * @return true, if successful
+     */
+    public abstract boolean hasPermission(String permission);
     
     /**
      * Gets the details.

@@ -3,6 +3,7 @@ package org.alexdev.icarus.game.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.player.Player;
 
 public abstract class Command {
@@ -30,10 +31,10 @@ public abstract class Command {
     /**
      * Handle command.
      *
-     * @param player the player
+     * @param entity the entity
      * @param message the message
      */
-    public abstract void handleCommand(Player player, String message, String[] args);
+    public abstract void handleCommand(Entity entity, String message, String[] args);
     
     /**
      * Gets the description.

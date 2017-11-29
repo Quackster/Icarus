@@ -30,7 +30,7 @@ public class ThumbnailMessageEvent implements MessageEvent {
             return;
         }
 
-        if (!room.hasOwnership(player.getEntityId()) && !player.getDetails().hasPermission("room_all_rights")) {
+        if (!room.hasOwnership(player.getEntityId()) && !player.hasPermission("room_all_rights")) {
             return;
         }
         

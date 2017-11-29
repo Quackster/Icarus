@@ -51,16 +51,6 @@ public class PlayerDetails {
         this.homeRoomId = homeRoomId;
         this.authenticated = true;
     }
-    
-    /**
-     * Checks for permission.
-     *
-     * @param permission the permission
-     * @return true, if successful
-     */
-    public boolean hasPermission(String permission) {
-        return PlayerManager.getInstance().hasPermission(this.rank, permission);
-    }
 
     /**
      * Save the details

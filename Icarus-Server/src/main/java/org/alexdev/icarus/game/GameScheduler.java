@@ -71,15 +71,6 @@ public class GameScheduler implements Runnable {
     public ScheduledExecutorService getScheduler() {
         return scheduler;
     }
-    
-    /**
-     * Gets the game scheduler.
-     *
-     * @return the game scheduler
-     */
-    public ScheduledFuture<?> getGameScheduler() {
-        return gameScheduler;
-    }
 
     /**
      * Creates the new scheduler.

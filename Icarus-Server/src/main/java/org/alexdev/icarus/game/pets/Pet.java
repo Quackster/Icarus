@@ -68,10 +68,15 @@ public class Pet extends Entity {
             this.y = y;
         }
     }
-    
+
+    @Override
+    public boolean hasPermission(String permission) {
+        return false;
+    }
+
     /* (non-Javadoc)
-     * @see org.alexdev.icarus.game.entity.Entity#getDetails()
-     */
+         * @see org.alexdev.icarus.game.entity.Entity#getDetails()
+         */
     @Override
     public PlayerDetails getDetails() {
         return this.playerDetails;

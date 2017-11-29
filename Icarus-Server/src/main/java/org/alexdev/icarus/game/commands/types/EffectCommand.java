@@ -1,22 +1,27 @@
 package org.alexdev.icarus.game.commands.types;
 
 import org.alexdev.icarus.game.commands.Command;
+import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.player.Player;
 
 public class EffectCommand extends Command {
 
     @Override
-    public void handleCommand(Player player, String message, String[] args) {
+    public void handleCommand(Entity entity, String message, String[] args) {
         
         //player.getRoom().getMetadata().set("enableEffectCommand", true, true); // the second "true" will flag as yes to save in DB
         //player.getRoom().saveMetadata();
-        
-        if (player.getRoom() == null) {
-            return;
+
+        if (entity instanceof Player) {
+            Player player = (Player) entity;
+
+            if (player.getRoom() == null) {
+                return;
+            }
+
+            int effectId = Integer.valueOf(args[0]);
+            player.getRoomUser().applyEffect(effectId);
         }
-        
-        int effectId = Integer.valueOf(args[0]);
-        player.getRoomUser().applyEffect(effectId);
 
     }
 

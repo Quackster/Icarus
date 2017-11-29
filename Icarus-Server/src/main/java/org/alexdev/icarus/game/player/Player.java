@@ -66,6 +66,14 @@ public class Player extends Entity {
         this.logger = LoggerFactory.getLogger("Player " + this.network.getConnectionId());
     }
 
+    /* (non-Javadoc)
+     * @see org.alexdev.icarus.game.entity.Entity#hasPermission()
+     */
+    @Override
+    public boolean hasPermission(String permission) {
+        return PlayerManager.getInstance().hasPermission(this.details.getRank(), permission);
+    }
+
     /**
      * Logs in the user.
      *
@@ -224,8 +232,8 @@ public class Player extends Entity {
     }
 
     /* (non-Javadoc)
-     * @see org.alexdev.icarus.game.entity.Entity#getDetails()
-     */
+         * @see org.alexdev.icarus.game.entity.Entity#getDetails()
+         */
     public PlayerDetails getDetails() {
         return details;
     }

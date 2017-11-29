@@ -1,7 +1,8 @@
-package org.alexdev.icarus.game.commands.types;
+package org.alexdev.icarus.game.commands.types.reload;
 
 import org.alexdev.icarus.game.GameSettings;
 import org.alexdev.icarus.game.commands.Command;
+import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.user.ChatType;
 
@@ -9,13 +10,20 @@ public class ReloadConfigCommand extends Command {
 
     @Override
     public void addPermissions() {
+        this.permissions.add("operator");
         this.permissions.add("administrator");
     }
 
     @Override
-    public void handleCommand(Player player, String message, String[] args) {
+    public void handleCommand(Entity entity, String message, String[] args) {
         GameSettings.getInstance().reload();
-        player.getRoomUser().chatSelf(ChatType.WHISPER, "The configuration values have been reloaded.");
+
+        if (entity instanceof Player) {
+            Player player = (Player) entity;
+            player.getRoomUser().chatSelf(ChatType.WHISPER, "The configuration values have been reloaded.");
+        } else {
+            System.out.println("The configuration values have been reloaded.");
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package org.alexdev.icarus;
 
+import org.alexdev.icarus.console.ConsoleReader;
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.dao.mysql.site.SiteDao;
@@ -110,6 +111,9 @@ public class Icarus extends Metadata {
             server = serverConstructor.newInstance(serverIP, serverPort);
             server.createSocket();
             server.bind();
+
+            // Create console reader
+            ConsoleReader.getInstance();
 
         } catch (Exception e) {
             e.printStackTrace();

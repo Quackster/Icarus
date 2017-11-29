@@ -14,11 +14,17 @@ public class Bot extends Entity {
         this.details = new PlayerDetails(this);
         this.roomUser = new RoomUser(this);
     }
-    
+
+    @Override
+    public boolean hasPermission(String permission) {
+        return false;
+    }
+
     @Override
     public EntityType getType() {
         return EntityType.BOT;
     }
+
 
     @Override
     public PlayerDetails getDetails() {
