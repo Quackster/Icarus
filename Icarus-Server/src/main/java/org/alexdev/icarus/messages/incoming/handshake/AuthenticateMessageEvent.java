@@ -10,7 +10,6 @@ public class AuthenticateMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage request) {
 
-
         if (!GameSettings.BOT_SPAMMERS_ALLOW) {
             if (player.getRc4() == null) {
                 player.getNetwork().close();
