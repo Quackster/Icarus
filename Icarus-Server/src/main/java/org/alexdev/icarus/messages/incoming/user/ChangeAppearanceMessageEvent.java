@@ -30,8 +30,9 @@ public class ChangeAppearanceMessageEvent implements MessageEvent {
         
         if (player.inRoom()) {
             player.sendQueued(new UserChangeMessageComposer(player, true));
+            player.flushQueue();
+
             player.getRoom().send(new UserChangeMessageComposer(player, false));
         }
-
     }
 }
