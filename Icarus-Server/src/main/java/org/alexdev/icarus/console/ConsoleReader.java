@@ -31,8 +31,9 @@ public class ConsoleReader implements Runnable {
             String command = ":" + scanner.nextLine();
 
             if (CommandManager.getInstance().hasCommand(this.operator, command)) {
-                System.out.println(command);
                 CommandManager.getInstance().invokeCommand(this.operator, command);
+            } else {
+                System.out.println("That command does not exist.");
             }
         }
     }
