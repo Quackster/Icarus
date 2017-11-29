@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemDao {
+
     public static List<String> getRecentPhotos() {
 
         List<String> jsonData = new ArrayList<String>();
@@ -23,7 +24,7 @@ public class ItemDao {
         try {
 
             sqlConnection = Storage.get().getConnection();
-            preparedStatement = Storage.get().prepare("SELECT * FROM items WHERE item_id = (SELECT id FROM item_definitions WHERE item_name = 'external_image_wallitem_poster_small') LIMIT 24", sqlConnection);
+            preparedStatement = Storage.get().prepare("SELECT id, extra_data FROM items WHERE item_id = (SELECT id FROM item_definitions WHERE item_name = 'external_image_wallitem_poster_small') ORDER BY id DESC LIMIT 24", sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
