@@ -6,8 +6,10 @@ import org.alexdev.duckhttpd.util.CompressionUtil;
 import org.alexdev.duckhttpd.util.config.Settings;
 import org.alexdev.icarus.http.game.GameSettings;
 import org.alexdev.icarus.http.mysql.Storage;
+import org.alexdev.icarus.http.mysql.dao.ItemDao;
 import org.alexdev.icarus.http.util.config.Configuration;
 import org.alexdev.icarus.http.util.web.ServerResponses;
+import org.alexdev.icarus.http.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,6 +40,8 @@ public class IcarusWeb {
         }
 
         GameSettings.getInstance();
+
+        ItemDao.getRecentPhotos();
 
         Routes.register();
         logger.info("Registered " + RouteManager.getRoutes().size() + " route(s)!");

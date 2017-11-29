@@ -9,6 +9,10 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
@@ -155,5 +159,30 @@ public class Util {
             e.printStackTrace();
         }
         return DatatypeConverter.printBase64Binary(output.toByteArray());
+    }
+
+    /**
+     * Get recent files in the directory
+     *
+     * @param filePath the directory path
+     * @param maxFiles the number of max files
+     * @throws IOException
+     */
+    public static void getRecentFiles(String filePath, int maxFiles) throws IOException {
+
+        int i = 1;
+
+        Path dir = FileSystems.getDefault().getPath(filePath);
+        DirectoryStream<Path> stream = Files.newDirectoryStream(dir);
+
+        for (Path path : stream) {
+
+            System.out.println(path.getFileName());
+
+            if (++i > maxFiles)
+                break;
+        }
+
+        stream.close();
     }
 }

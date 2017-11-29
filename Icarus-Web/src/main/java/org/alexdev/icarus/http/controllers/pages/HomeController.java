@@ -4,8 +4,12 @@ import org.alexdev.duckhttpd.server.connection.WebConnection;
 import org.alexdev.duckhttpd.template.Template;
 import org.alexdev.icarus.http.game.news.NewsArticle;
 import org.alexdev.icarus.http.game.player.Player;
+import org.alexdev.icarus.http.mysql.dao.ItemDao;
 import org.alexdev.icarus.http.mysql.dao.NewsDao;
 import org.alexdev.icarus.http.util.SessionUtil;
+import org.alexdev.icarus.util.Util;
+
+import java.util.List;
 
 public class HomeController {
 
@@ -80,7 +84,7 @@ public class HomeController {
     }
 
     /**
-     * Handle the /client URI request
+     * Handle the /article URI request
      * @param client the connection
      */
     public static void article(WebConnection client) {
@@ -89,6 +93,20 @@ public class HomeController {
 
         Template tpl = client.template("article");
         tpl.set("article", article);
+        tpl.render();
+    }
+
+    /**
+     * Handle the /community URI request
+     * @param client the connection
+     */
+    public static void community(WebConnection client) {
+
+        List<String> photos = ItemDao.getRecentPhotos();
+        List<List<String>> images = Util.paginate(photos, 4);
+
+        Template tpl = client.template("community");
+        tpl.set("images", images);
         tpl.render();
     }
 }
