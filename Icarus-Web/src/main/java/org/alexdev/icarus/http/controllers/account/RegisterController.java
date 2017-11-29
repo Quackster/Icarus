@@ -9,6 +9,7 @@ import org.alexdev.icarus.http.util.config.Configuration;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import java.io.IOException;
+import java.util.concurrent.ConcurrentMap;
 
 public class RegisterController {
 
@@ -35,15 +36,17 @@ public class RegisterController {
             return;
         }
 
-        ReCaptchaVerify reCaptchaVerify = new ReCaptchaVerify(Configuration.PRIVATE_RECAPTCHA_KEY);
-        SiteVerifyResponse siteVerifyResponse = reCaptchaVerify.verify(client.post().get("g-recaptcha-response"), client.getIpAddress());
+        if (Configuration.PUBLIC_RECAPTCHA_KEY.length() > 0) {
+            ReCaptchaVerify reCaptchaVerify = new ReCaptchaVerify(Configuration.PRIVATE_RECAPTCHA_KEY);
+            SiteVerifyResponse siteVerifyResponse = reCaptchaVerify.verify(client.post().get("g-recaptcha-response"), client.getIpAddress());
 
-        if (!siteVerifyResponse.isSuccess()) {
-            client.session().set("showAlert", true);
-            client.session().set("alertType", "warning");
-            client.session().set("alertMessage", "The captcha is incorrect");
-            client.redirect("/register");
-            return;
+            if (!siteVerifyResponse.isSuccess()) {
+                client.session().set("showAlert", true);
+                client.session().set("alertType", "warning");
+                client.session().set("alertMessage", "The captcha is incorrect");
+                client.redirect("/register");
+                return;
+            }
         }
 
         if (PlayerDao.emailExists(client.post().get("regemail"), 0)) {
