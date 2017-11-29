@@ -23,7 +23,8 @@ public class RegisterController {
         for (String field : fieldCheck) {
 
             if (client.post().contains(field) &&
-                    client.post().get(field).length() > 0) {
+                client.post().get(field).length() > 0 &&
+                client.post().get(field).length() < 4096) {
                 continue;
             }
 
