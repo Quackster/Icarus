@@ -266,7 +266,7 @@ public class RoomUser {
      */
     public void warpTo(int x, int y, int rotation) {
 
-        if (this.room.getModel().hasInvalidCoordinates(x, y)) {
+        if (this.room.getModel().isOutsideBounds(x, y)) {
             return;
         }
 

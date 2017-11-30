@@ -36,7 +36,7 @@ public class Pathfinder {
         int X = entity.getRoomUser().getGoal().getX();
         int Y = entity.getRoomUser().getGoal().getY();
         
-        if (entity.getRoom().getModel().hasInvalidCoordinates(X, Y)) {
+        if (entity.getRoom().getModel().isOutsideBounds(X, Y)) {
             return new LinkedList<>();
         }
 

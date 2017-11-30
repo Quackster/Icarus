@@ -27,5 +27,4 @@ public class PetInformationMessageEvent implements MessageEvent {
         
         player.send(new PetInformationMessageComposer(pet));
     }
-
 }

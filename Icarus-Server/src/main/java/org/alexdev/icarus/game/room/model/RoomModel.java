@@ -240,7 +240,7 @@ public class RoomModel {
      * @param y the y
      * @return true, if successful
      */
-    public boolean hasInvalidCoordinates(int x, int y) {
+    public boolean isOutsideBounds(int x, int y) {
         if (x >= this.mapSizeX) {
             return true;
         }

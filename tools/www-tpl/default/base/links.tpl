@@ -6,7 +6,7 @@
 			<li><a href="{{ site.url }}/staff">STAFF</a></li>
 			{% if session.loggedIn %}
 				{% if session.housekeeping %}
-					<li><a href="{{ site.url }}/housekeeping">HOUSEKEEPING</a></li>
+					<li><a target="_blank" href="{{ site.url }}/housekeeping">HOUSEKEEPING</a></li>
 				{% endif %}
 				<li><a href="{{ site.url }}/account/logout">LOGOUT</a></li>
 			{% endif %}

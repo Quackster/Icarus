@@ -10,8 +10,6 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RemoveItemMessageComposer;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class RoomMapping {
@@ -40,13 +38,7 @@ public class RoomMapping {
         }
 
         List<Item> items = this.room.getItemManager().getFloorItems();
-
-        Collections.sort(items, new Comparator<Item>() {
-            @Override
-            public int compare(Item item1, Item item2) {
-                return Double.compare(item1.getPosition().getZ(), item2.getPosition().getZ());
-            }
-        });
+        items.sort((item1, item2) -> Double.compare(item1.getPosition().getZ(), item2.getPosition().getZ()));
 
         for (Item item : items) {
 
@@ -130,9 +122,7 @@ public class RoomMapping {
 
                     if (!isFinalMove) {
                         return currentItem.getDefinition().isRug() || currentItem.isGateOpen();
-                    }
-
-                    if (isFinalMove) {
+                    } else {
                         return currentItem.isWalkable();
                     }
                 }
@@ -152,7 +142,7 @@ public class RoomMapping {
      */
     public boolean isTileWalkable(int x, int y, Entity entity) {
 
-        if (this.room.getModel().hasInvalidCoordinates(x, y)) {
+        if (this.room.getModel().isOutsideBounds(x, y)) {
             return false;
         }
 
@@ -278,9 +268,7 @@ public class RoomMapping {
                 item.getPosition().setRotation(moveItem.getPosition().getRotation());
                 item.updateStatus();
             }
-        }
-
-        if (!rotation) {
+        } else {
             moveItem.getPosition().setZ(this.getTileHeight(moveItem.getPosition().getX(), moveItem.getPosition().getY()));
         }
     }
@@ -294,7 +282,7 @@ public class RoomMapping {
      */
     public RoomTile getTile(int x, int y) {
 
-        if (this.room.getModel().hasInvalidCoordinates(x, y)) {
+        if (this.room.getModel().isOutsideBounds(x, y)) {
             return null;
         }
 
@@ -316,7 +304,7 @@ public class RoomMapping {
      */
     public double getTileHeight(int x, int y) {
 
-        if (this.room.getModel().hasInvalidCoordinates(x, y)) {
+        if (this.room.getModel().isOutsideBounds(x, y)) {
             return 0;
         }
 
@@ -332,7 +320,7 @@ public class RoomMapping {
      */
     public Item getHighestItem(int x, int y) {
 
-        if (this.room.getModel().hasInvalidCoordinates(x, y)) {
+        if (this.room.getModel().isOutsideBounds(x, y)) {
             return null;
         }
 
