@@ -27,7 +27,6 @@ public class GroupItemDao {
      * @return the group items
      */
     public static void getGroupItems(List<GroupBase> bases, List<GroupSymbol> symbols, List<GroupBaseColour> baseColours, Map<Integer, GroupSymbolColour> symbolColours, Map<Integer, GroupBackgroundColour> backgroundColours) {
-        
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;

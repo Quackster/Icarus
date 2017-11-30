@@ -20,7 +20,6 @@ public class PlayerDao {
      * @return the details
      */
     public static PlayerDetails getDetails(int userId) {
-
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -60,7 +59,6 @@ public class PlayerDao {
      * @return true, if successful
      */
     public static boolean login(Player player, String ssoTicket) {
-        
         boolean success = false;
         
         Connection sqlConnection = null;
@@ -98,7 +96,6 @@ public class PlayerDao {
      * @return the id
      */
     public static int getId(String username) {
-
         int id = -1;
         
         Connection sqlConnection = null;
@@ -134,7 +131,6 @@ public class PlayerDao {
      * @return the name
      */
     public static String getName(int id) {
-
         String name = null;
         
         Connection sqlConnection = null;
@@ -170,7 +166,6 @@ public class PlayerDao {
      * @param details the details
      */
     public static void save(PlayerDetails details) {
-        
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
@@ -202,7 +197,6 @@ public class PlayerDao {
      * @param userId the user id
      */
     public static void clearTicket(int userId) {
-        
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
@@ -228,7 +222,6 @@ public class PlayerDao {
      * @param userId the user id
      */
     public static void updateLastOnline(int userId) {
-
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 

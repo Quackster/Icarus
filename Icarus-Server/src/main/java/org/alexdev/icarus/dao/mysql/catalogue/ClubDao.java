@@ -16,7 +16,6 @@ public class ClubDao {
      * @return the subscription
      */
     public static long[] getSubscription(int userId) {
-
         long[] subscriptionData = null;
 
         Connection sqlConnection = null;
@@ -56,7 +55,6 @@ public class ClubDao {
      * @param boughtTime the bought time
      */
     public static void create(int userId, long expireTime, long boughtTime) {
-
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -87,7 +85,6 @@ public class ClubDao {
      * @param boughtTime the bought time
      */
     public static void update(int userId, long expireTime, long boughtTime) {
-
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -116,7 +113,6 @@ public class ClubDao {
      * @param userId the user id
      */
     public static void delete(int userId) {
-
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;

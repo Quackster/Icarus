@@ -33,9 +33,7 @@ public class GroupDao {
         int groupId = -1;
         
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
-
             preparedStatement = Dao.getStorage().prepare("INSERT INTO groups (title, description, badge, owner_id, room_id, created, colour_a, colour_b) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", sqlConnection);
             preparedStatement.setString(1, title);
             preparedStatement.setString(2, description);
@@ -71,7 +69,6 @@ public class GroupDao {
      * @return the group
      */
     public static Group getGroup(int groupId) {
-        
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -106,7 +103,6 @@ public class GroupDao {
      * @param id the id
      */
     public static void deleteGroup(int id) {
-        
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -135,7 +131,6 @@ public class GroupDao {
      * @param group the group
      */
     public static void saveGroup(Group group) {
-        
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;

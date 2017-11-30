@@ -20,7 +20,6 @@ public class MessengerDao {
      * @return the friends
      */
     public static List<MessengerUser> getFriends(int userId) {
-
         List<MessengerUser> friends = new ArrayList<>();
 
         Connection sqlConnection = null;
@@ -65,7 +64,6 @@ public class MessengerDao {
      * @return the requests
      */
     public static List<MessengerUser> getRequests(int userId) {
-
         List<MessengerUser> users = new ArrayList<>();
 
         Connection sqlConnection = null;
@@ -100,7 +98,6 @@ public class MessengerDao {
      * @return the list
      */
     public static List<Integer> search(String query) {
-
         List<Integer> users = new ArrayList<>();
 
         Connection sqlConnection = null;
@@ -139,7 +136,6 @@ public class MessengerDao {
      * @return true, if successful
      */
     public static boolean newRequest(int fromId, int toId) {
-
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         boolean success = false;
@@ -173,7 +169,6 @@ public class MessengerDao {
      * @return true, if successful
      */
     public static boolean requestExists(int fromId, int toId) {
-
         boolean exists = false;
         
         Connection sqlConnection = null;
@@ -229,7 +224,6 @@ public class MessengerDao {
      * @return true, if successful
      */
     public static void newFriend(int sender, int receiver) {
-
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 

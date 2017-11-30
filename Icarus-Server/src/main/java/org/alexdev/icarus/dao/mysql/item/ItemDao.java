@@ -102,7 +102,6 @@ public class ItemDao {
      * @return the room items
      */
     public static Map<Integer, Item> getRoomItems(int roomId) {
-
         Map<Integer, Item> items = new HashMap<>();
 
         Connection sqlConnection = null;
@@ -136,7 +135,6 @@ public class ItemDao {
      * @param item the item
      */
     public static void saveItem(Item item) {
-
         String x = item.getPosition().getX() + "";
         String y = item.getPosition().getY() + "";
 

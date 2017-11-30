@@ -21,7 +21,6 @@ public class TargetedOfferDao {
      * @return the offers
      */
     public static Map<Integer, TargetedOffer> getOffers() {
-        
         Map<Integer, TargetedOffer> offers = new HashMap<>();
         
         Connection sqlConnection = null;
@@ -60,7 +59,6 @@ public class TargetedOfferDao {
      * @return the offer blacklist
      */
     public static List<Integer> getOfferBlacklist(int id) {
-        
         List<Integer> blacklist = new ArrayList<>();
         
         Connection sqlConnection = null;
@@ -98,7 +96,6 @@ public class TargetedOfferDao {
      * @param userId the user id
      */
     public static void addUserToBlacklist(int offerId, int userId) {
-        
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;

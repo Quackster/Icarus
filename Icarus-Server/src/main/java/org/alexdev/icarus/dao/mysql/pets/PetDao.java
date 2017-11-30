@@ -24,7 +24,6 @@ public class PetDao {
      * @return the pet races
      */
     public static Map<Integer, List<PetRace>> getPetRaces() {
-
         Map<Integer, List<PetRace>> races = new HashMap<>();
 
         Connection sqlConnection = null;
@@ -70,7 +69,6 @@ public class PetDao {
      * @return the int
      */
     public static int createPet(int ownerId, String petName, int type, int race, String colour) {
-
         int petId = -1;
 
         Connection sqlConnection = null;
@@ -117,7 +115,6 @@ public class PetDao {
      * @return the room pets
      */
     public static List<Pet> getRoomPets(int roomId) {
-
         List<Pet> pets = new ArrayList<>();
 
         Connection sqlConnection = null;
@@ -151,7 +148,6 @@ public class PetDao {
      * @param pet the pet
      */
     public static void savePet(Pet pet) {
-
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
@@ -180,7 +176,6 @@ public class PetDao {
      * @param pet the pet
      */
     public static void savePetPosition(Pet pet) {
-
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;

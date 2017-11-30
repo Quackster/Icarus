@@ -26,7 +26,6 @@ public class RoomDao {
      * @return the public rooms
      */
     public static List<Room> getPublicRooms() {
-
         List<Room> rooms = new ArrayList<>();
 
         Connection sqlConnection = null;
@@ -64,7 +63,6 @@ public class RoomDao {
      * @return the player rooms
      */
     public static List<Room> getPlayerRooms(int userId) {
-
         List<Room> rooms = new ArrayList<>();
 
         Connection sqlConnection = null;
@@ -102,7 +100,6 @@ public class RoomDao {
      * @return the room
      */
     public static Room getRoom(int roomId, boolean storeInMemory) {
-
         Room room = null;
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -147,7 +144,6 @@ public class RoomDao {
      * @return the room rights
      */
     public static List<Integer> getRoomRights(int roomId) {
-
         List<Integer> rooms = new ArrayList<>();
 
         Connection sqlConnection = null;
@@ -202,7 +198,6 @@ public class RoomDao {
      * @param userId the user id
      */
     public static void addRoomRights(int roomId, int userId) {
-
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
@@ -237,7 +232,6 @@ public class RoomDao {
      * @param room the room
      */
     public static void update(Room room) {
-
         RoomData data = room.getData();
 
         Connection sqlConnection = null;
@@ -299,7 +293,6 @@ public class RoomDao {
      * @param message the message
      */
     public static void saveChatlog(Player chatter, int roomId, String chatType, String message) {
-
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -339,7 +332,6 @@ public class RoomDao {
      * @param currentUsers the amount of users to update
      */
     public static void updateUsers(int roomId, int currentUsers) {
-
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
@@ -374,9 +366,7 @@ public class RoomDao {
      * @throws SQLException the SQL exception
      */
     public static Room fill(ResultSet row) throws SQLException {
-
         RoomType type = RoomType.valueOf(row.getString("room_type"));
-
         String ownerName = "";
 
         if (type == RoomType.PRIVATE) {

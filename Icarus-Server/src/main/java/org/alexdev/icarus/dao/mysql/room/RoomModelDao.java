@@ -53,7 +53,6 @@ public class RoomModelDao {
      * @return the custom model
      */
     public static RoomModel getCustomModel(int roomId) {
-
         RoomModel model = null;
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -93,7 +92,6 @@ public class RoomModelDao {
      * @param model the model
      */
     public static void newCustomModel(int roomId, RoomModel model) {
-
         deleteCustomModel(roomId);
 
         Connection sqlConnection = null;
@@ -126,7 +124,6 @@ public class RoomModelDao {
      * @param roomId the room id
      */
     public static void deleteCustomModel(int roomId) {
-
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 

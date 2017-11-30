@@ -14,7 +14,6 @@ public class PetRacesMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-        
         String petRace = reader.readString();
         String petRaceId = petRace.replace("a0 pet", "");
         

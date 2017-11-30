@@ -16,7 +16,6 @@ public class TeleporterDao {
      * @return the pair id
      */
     public static int getPairId(int id) {
-        
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;

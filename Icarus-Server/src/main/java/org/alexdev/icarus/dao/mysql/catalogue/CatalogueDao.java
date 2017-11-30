@@ -20,7 +20,6 @@ public class CatalogueDao {
      * @return the catalog tabs
      */
     public static List<CatalogueTab> getCatalogTabs(int parentId) {
-
         List<CatalogueTab> tabs = new ArrayList<>();
 
         Connection sqlConnection = null;
@@ -61,7 +60,6 @@ public class CatalogueDao {
      * @return the catalogue pages
      */
     public static List<CataloguePage> getCataloguePages() {
-
         List<CataloguePage> pages = new ArrayList<>();
         
         Connection sqlConnection = null;
@@ -96,7 +94,6 @@ public class CatalogueDao {
      * @return the catalogue items
      */
     public static List<CatalogueItem> getCatalogueItems() {
-
         List<CatalogueItem> items = new ArrayList<>();
 
         Connection sqlConnection = null;
@@ -137,7 +134,6 @@ public class CatalogueDao {
      * @throws Exception the exception
      */
     public static CataloguePage fill(ResultSet row) throws Exception {
-        
         List<String> images = new ArrayList<>();
         List<String> texts = new ArrayList<>();
         

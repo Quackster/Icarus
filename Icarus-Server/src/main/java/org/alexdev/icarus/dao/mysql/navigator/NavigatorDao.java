@@ -31,7 +31,6 @@ public class NavigatorDao {
      * @return the room
      */
     public static Room createRoom(Player player, String name, String description, String model, int category, int usersMax, int tradeState) {
-
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
@@ -72,7 +71,6 @@ public class NavigatorDao {
      * @return the tabs
      */
     public static List<NavigatorTab> getTabs(int childId) {
-
         List<NavigatorTab> tabs = new ArrayList<>();
 
         Connection sqlConnection = null;
@@ -110,7 +108,6 @@ public class NavigatorDao {
      * @return the categories
      */
     public static List<NavigatorCategory> getCategories() {
-
         List<NavigatorCategory> categories = new ArrayList<>();
 
         Connection sqlConnection = null;
@@ -146,7 +143,6 @@ public class NavigatorDao {
      * @throws SQLException the SQL exception
      */
     public static NavigatorTab fill(ResultSet set) throws SQLException {
-
         NavigatorTab instance = new NavigatorTab();
 
         instance.fill(set.getInt("id"), set.getInt("child_id"), set.getString("tab_name"), set.getString("title"), set.getByte("button_type"), 

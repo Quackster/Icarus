@@ -22,7 +22,6 @@ public class GroupMemberDao {
      * @param memberType the member type
      */
     public static void createGroupMember(int userId, int groupId, GroupMemberType memberType) {
-        
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -54,7 +53,6 @@ public class GroupMemberDao {
      * @return the members
      */
     public static Map<GroupMemberType, List<Integer>> getMembers(int groupId) {
-        
         Map<GroupMemberType, List<Integer>> groupMembers = new HashMap<>();
 
         for (GroupMemberType memberType : GroupMemberType.values()) {
@@ -95,7 +93,6 @@ public class GroupMemberDao {
      * @param userId the user id
      */
     public static void deleteMember(int groupId, int userId) {
-        
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;

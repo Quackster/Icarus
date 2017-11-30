@@ -100,7 +100,6 @@ public class InventoryDao {
      * @return the item
      */
     public static Item newItem(int itemId, int ownerId, String extraData) {
-
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
