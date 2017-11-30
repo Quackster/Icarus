@@ -133,7 +133,6 @@ public class RoomManager {
      * @return the by room id
      */
     public Room getByRoomId(int roomId) {
-
         if (this.rooms.containsKey(roomId)) {
             return this.rooms.get(roomId);
         }

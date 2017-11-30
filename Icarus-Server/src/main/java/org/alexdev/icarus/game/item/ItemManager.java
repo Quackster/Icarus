@@ -10,8 +10,7 @@ import java.util.Map;
 
 public class ItemManager {
 
-
-    private Map<Integer, ItemDefinition> furnitures;
+    private Map<Integer, ItemDefinition> furniture;
     private Map<String, ItemDefinition> furnitureClassLookup;
 
     private static final Logger log = LoggerFactory.getLogger(ItemManager.class);
@@ -25,15 +24,15 @@ public class ItemManager {
      * Reloads all definitions from database
      */
     public void reload() {
-        this.furnitures = ItemDao.getFurniture();
+        this.furniture = ItemDao.getFurniture();
         this.furnitureClassLookup = new HashMap<>();
 
-        for (ItemDefinition def : this.furnitures.values()) {
+        for (ItemDefinition def : this.furniture.values()) {
             this.furnitureClassLookup.put(def.getItemName(), def);
         }
 
         if (Configuration.getInstance().getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
-            log.info("Loaded {} item definitions", furnitures.size());
+            log.info("Loaded {} item definitions", furniture.size());
         }
     }
 
@@ -45,8 +44,8 @@ public class ItemManager {
      */
     public ItemDefinition getFurnitureById(int id) {
 
-        if (this.furnitures.containsKey(id)) {
-            return this.furnitures.get(id);
+        if (this.furniture.containsKey(id)) {
+            return this.furniture.get(id);
         }
 
         return null;

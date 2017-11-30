@@ -164,6 +164,15 @@ public class Room extends Metadata {
     }
 
     /**
+     * Checks for group.
+     *
+     * @return true, if successful
+     */
+    public boolean hasGroup() {
+        return this.data.getGroupId() > 0;
+    }
+
+    /**
      * Gets the group, if the room has no users, it will only load
      * group information straight from the database.
      *

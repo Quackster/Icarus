@@ -21,7 +21,6 @@ public class GroupPurchaseMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-        
         String name = reader.readString();
         String desc = reader.readString();
 

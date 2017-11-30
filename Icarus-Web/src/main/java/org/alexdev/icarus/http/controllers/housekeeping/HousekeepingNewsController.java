@@ -66,7 +66,7 @@ public class HousekeepingNewsController {
             return;
         }
 
-        List<String> images = getTopStoryImages();
+        List<String> images = NewsDao.getTopStoryImages();
 
         Template tpl = client.template("housekeeping/articles_create");
         tpl.set("images", images);
@@ -120,7 +120,7 @@ public class HousekeepingNewsController {
         }
 
         Template tpl = client.template("housekeeping/articles_edit");
-        tpl.set("images", getTopStoryImages());
+        tpl.set("images", NewsDao.getTopStoryImages());
 
         if (!client.get().contains("id")) {
             client.session().set("showAlert", true);
@@ -154,21 +154,5 @@ public class HousekeepingNewsController {
         tpl.render();
         client.session().set("showAlert", false);
 
-    }
-
-    public static List<String> getTopStoryImages() {
-
-        List<String> images = new ArrayList<String>();
-
-        for (File file : Paths.get(Settings.getInstance().getSiteDirectory(), "c_images", "Top_Story_Images").toFile().listFiles()) {
-
-            if (!file.getName().contains(".png") && !file.getName().contains(".gif")) {
-                continue;
-            }
-
-            images.add(file.getName());
-        }
-
-        return images;
     }
 }

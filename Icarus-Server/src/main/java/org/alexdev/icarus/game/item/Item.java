@@ -187,24 +187,6 @@ public class Item extends Metadata {
     }
 
     /**
-     * Returns a list of items below this current item.
-     *
-     * @return {@link List} - list of items
-     */
-    public List<Item> getItemsBeneath() {
-
-        List<Item> items = new ArrayList<>();
-
-        Item item = this;
-
-        while ((item = item.getItemBeneath()) != null) {
-            items.add(item);
-        }
-
-        return items;
-    }
-
-    /**
      * Update status.
      */
     public void updateStatus() {
@@ -322,15 +304,6 @@ public class Item extends Metadata {
     }
 
     /**
-     * Sets the length Y.
-     *
-     * @param lengthY the new length Y
-     */
-    public void setLengthY(int lengthY) {
-        this.lengthY = lengthY;
-    }
-
-    /**
      * Gets the side.
      *
      * @return the side
@@ -339,14 +312,6 @@ public class Item extends Metadata {
         return side;
     }
 
-    /**
-     * Sets the side.
-     *
-     * @param side the new side
-     */
-    public void setSide(char side) {
-        this.side = side;
-    }
 
     /**
      * Gets the width X.
@@ -358,30 +323,12 @@ public class Item extends Metadata {
     }
 
     /**
-     * Sets the width X.
-     *
-     * @param widthX the new width X
-     */
-    public void setWidthX(int widthX) {
-        this.widthX = widthX;
-    }
-
-    /**
      * Gets the width Y.
      *
      * @return the width Y
      */
     public int getWidthY() {
         return widthY;
-    }
-
-    /**
-     * Sets the width Y.
-     *
-     * @param widthY the new width Y
-     */
-    public void setWidthY(int widthY) {
-        this.widthY = widthY;
     }
 
     /**

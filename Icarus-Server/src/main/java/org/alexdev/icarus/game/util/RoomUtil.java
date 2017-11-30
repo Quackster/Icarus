@@ -177,10 +177,7 @@ public class RoomUtil {
      * @param enterRoom the enter room
      */
     public static void serialise(Room room, Response response, boolean enterRoom) {
-        
         RoomData data = room.getData();
-        Group group = room.getGroup();
-        
         response.writeInt(data.getId());
         response.writeString(data.getName());
         response.writeInt(data.getOwnerId());
@@ -215,11 +212,11 @@ public class RoomUtil {
             roomListingType.getAndAdd(16);
         }
         
-        if (room.getPromotion() != null) {
+        if (room.hasPromotion()) {
             roomListingType.getAndAdd(4);
         }
         
-        if (group != null) {
+        if (room.hasGroup()) {
             roomListingType.getAndAdd(2);
         }
 
@@ -231,13 +228,14 @@ public class RoomUtil {
             }
         }
         
-        if (group != null) {
+        if (room.hasGroup()) {
+            Group group = room.getGroup();
             response.writeInt(group.getId());
             response.writeString(group.getTitle());
             response.writeString(group.getBadge());
         }
         
-        if (room.getPromotion() != null) {
+        if (room.hasPromotion()) {
             response.writeString(room.getPromotion().getPromotionName());
             response.writeString(room.getPromotion().getPromotionDescription());
             response.writeInt(room.getPromotion().getPromotionMinutesLeft().get());

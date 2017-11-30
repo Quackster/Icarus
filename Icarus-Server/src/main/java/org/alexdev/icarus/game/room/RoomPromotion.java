@@ -21,7 +21,6 @@ public class RoomPromotion {
      * If the timer has expired, then the promotion has ended and will be removed.
      */
     public void performCycle() {
-        
         if (this.room.getPromotion().getPromotionMinutesLeft().get() > 0) {
             this.room.getPromotion().getPromotionMinutesLeft().decrementAndGet();
         }
@@ -75,14 +74,5 @@ public class RoomPromotion {
      */
     public AtomicInteger getPromotionMinutesLeft() {
         return promotionMinutesLeft;
-    }
-
-    /**
-     * Sets the promotion minutes left.
-     *
-     * @param promotionMinutesLeft the new promotion minutes left
-     */
-    public void setPromotionMinutesLeft(AtomicInteger promotionMinutesLeft) {
-        this.promotionMinutesLeft = promotionMinutesLeft;
     }
 }

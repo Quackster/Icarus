@@ -1,9 +1,12 @@
 package org.alexdev.icarus.http.mysql.dao;
 
+import org.alexdev.duckhttpd.util.config.Settings;
 import org.alexdev.icarus.http.game.news.NewsArticle;
 import org.alexdev.icarus.http.mysql.Storage;
 import org.alexdev.icarus.http.util.Util;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -180,6 +183,22 @@ public class NewsDao {
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
+    }
+
+    public static List<String> getTopStoryImages() {
+
+        List<String> images = new ArrayList<String>();
+
+        for (File file : Paths.get(Settings.getInstance().getSiteDirectory(), "c_images", "Top_Story_Images").toFile().listFiles()) {
+
+            if (!file.getName().contains(".png") && !file.getName().contains(".gif")) {
+                continue;
+            }
+
+            images.add(file.getName());
+        }
+
+        return images;
     }
 
     private static NewsArticle fill(ResultSet resultSet) throws SQLException {

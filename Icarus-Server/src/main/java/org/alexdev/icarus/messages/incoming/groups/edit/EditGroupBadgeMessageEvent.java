@@ -15,9 +15,7 @@ public class EditGroupBadgeMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-        
         int groupId = reader.readInt();
-        
         Group group = GroupManager.getInstance().getGroup(groupId);
         
         if (group == null) {

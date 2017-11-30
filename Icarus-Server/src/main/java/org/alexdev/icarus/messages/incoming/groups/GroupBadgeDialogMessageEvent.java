@@ -10,7 +10,6 @@ public class GroupBadgeDialogMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-        
         player.send(new GroupBadgeDialogComposer(
                 GroupManager.getInstance().getBases(),
                 GroupManager.getInstance().getSymbols(),

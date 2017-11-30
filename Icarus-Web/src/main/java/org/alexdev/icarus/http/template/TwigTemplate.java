@@ -32,12 +32,9 @@ public class TwigTemplate extends Template {
 
     @Override
     public void start(String view) {
-
         this.view = view;
 
         try {
-
-
             File file = Paths.get(Configuration.TEMPLATE_DIRECTORY, Configuration.TEMPLATE_NAME, view + ".tpl").toFile();
 
             if (file.exists() && file.isFile()) {
@@ -59,19 +56,12 @@ public class TwigTemplate extends Template {
     }
 
     public void applyGlobals() {
-
         if (this.view.equals("register")) {
             this.set("register", new TemplateRegisterBinder());
         }
 
         if (this.webConnection.session().contains(SessionUtil.PLAYER)) {
             Player player = this.webConnection.session().get("player", Player.class);
-
-            if (player == null) {
-                // Creates a player instance and set it
-                player = PlayerDao.get(this.webConnection.session().getInt(SessionUtil.USER_ID));
-                this.webConnection.session().set(SessionUtil.PLAYER, player);
-            }
 
             if (player != null) {
                 this.set("player", player);
@@ -85,7 +75,6 @@ public class TwigTemplate extends Template {
     @Override
     public void render() {
         this.applyGlobals();
-        FullHttpResponse response = ResponseBuilder.create(this.template.render(this.model));
-        this.webConnection.setResponse(response);
+        this.webConnection.setResponse(ResponseBuilder.create(this.template.render(this.model)));
     }
 }
