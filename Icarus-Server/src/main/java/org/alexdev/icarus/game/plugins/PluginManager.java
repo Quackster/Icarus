@@ -45,7 +45,6 @@ public class PluginManager {
 	 * @return the plugin files
 	 */
 	private void getPluginFiles() {
-
 		Globals globals = JsePlatform.standardGlobals();
 		LuaValue chunk = globals.loadfile("plugins" + File.separator + "plugin_registry.lua");
 		chunk.call();
@@ -81,7 +80,6 @@ public class PluginManager {
 	 * @param path the path
 	 */
 	private void loadPlugin(String path) throws PluginException {
-
 		Globals globals = JsePlatform.standardGlobals();
 		LuaValue chunk = globals.loadfile("plugins" + File.separator + path);
 		chunk.call();
@@ -126,7 +124,6 @@ public class PluginManager {
 	 * @return true, if successful
 	 */
 	public boolean callEvent(PluginEvent event, LuaValue[] values) {
-
 		if (!this.registeredPluginEvents.containsKey(event)) {
 			return false;
 		}
@@ -150,7 +147,6 @@ public class PluginManager {
 	 * Dispose plugins.
 	 */
 	public void disposePlugins() {
-
 		for (Plugin plugin : plugins) {
 			plugin.setClosed(true);
 		}

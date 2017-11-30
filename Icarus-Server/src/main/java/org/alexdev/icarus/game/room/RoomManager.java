@@ -46,7 +46,6 @@ public class RoomManager {
      * @param room the room
      */
     public void addRoom(Room room) {
-
         if (this.rooms.containsKey(room.getData().getId())) {
             return;
         }
@@ -74,7 +73,6 @@ public class RoomManager {
      * @param room the room
      */
     public void addPromotedRoom(int id, Room room) {
-
         if (this.promotedRooms.containsKey(room.getData().getId())) {
             return;
         }
@@ -88,7 +86,6 @@ public class RoomManager {
      * @param id the id
      */
     public void removeRoom(int id) {
-   
         if (this.rooms.containsKey(id)) {
             this.rooms.remove(Integer.valueOf(id));
         }
@@ -174,7 +171,6 @@ public class RoomManager {
      * @return the scheduler
      */
     public ScheduledExecutorService getScheduleService() {
-
         if (scheduler == null) {
             scheduler = GameScheduler.createNewScheduler();
         }

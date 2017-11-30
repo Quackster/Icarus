@@ -70,7 +70,6 @@ public class RoomItemManager {
      * @return the item
      */
     public Item getItem(int itemId) {
-
         if (this.items.containsKey(itemId)) {
             return this.items.get(itemId);
         }
@@ -82,7 +81,6 @@ public class RoomItemManager {
      * Refresh room furniture.
      */
     public void refreshRoomFurniture() {
-        
         if (this.items != null) {
             this.items.clear();
         }

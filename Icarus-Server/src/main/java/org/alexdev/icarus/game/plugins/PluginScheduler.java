@@ -18,7 +18,6 @@ public class PluginScheduler {
      * @param parameterObject - the {@link LuaTable} of parameters
      */
     public static void runTaskLater(int seconds, Object functionObject, Object parameterObject) {
-
         if (!(functionObject instanceof LuaFunction)) {
             return;
         }
@@ -55,7 +54,6 @@ public class PluginScheduler {
      * @param parameterObject - the {@link LuaTable} of parameters
      */
     public static void runTaskAsynchronously(Object functionObject, Object parameterObject) {
-
         if (!(functionObject instanceof LuaFunction)) {
             return;
         }

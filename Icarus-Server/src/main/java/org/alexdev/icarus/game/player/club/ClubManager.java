@@ -18,7 +18,6 @@ public class ClubManager {
      * @param amount the amount
      */
     public static void handlePurchase(Player player, CatalogueItem item, int amount) {
-        
         int daysPurchased = 30 * amount;
         String catalogueName = item.getDisplayName();
         
@@ -43,7 +42,6 @@ public class ClubManager {
      * @param daysPurchased the days purchased
      */
     public static void purchaseDays(Player player, int daysPurchased) {
-
         long currentTime = Util.getCurrentTimeSeconds();
         long newExpireTime = TimeUnit.DAYS.toSeconds(daysPurchased);
         

@@ -82,7 +82,6 @@ public class ClubSubscription {
      * @return the days left
      */
     public int getDaysLeft() {
-
         if (this.hasSubscription()) {
             int result = (int) (this.difference  % (86400 * 30)) / 86400;
 
@@ -102,7 +101,6 @@ public class ClubSubscription {
      * @return the months left
      */
     public int getMonthsLeft() {
-
         if (this.hasSubscription()) {
             int result = (int) (this.difference / (60 * 60 * 24 * 30));
 
@@ -122,7 +120,6 @@ public class ClubSubscription {
      * @return the years left
      */
     public int getYearsLeft() {
-
         if (this.hasSubscription()) {
             int result = (int) (this.difference / (60 * 60 * 24 * 365));
 
