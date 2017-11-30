@@ -31,7 +31,7 @@ public class PickupItemMessageEvent implements MessageEvent {
         }
 
         if (item.getDefinition().getType() == ItemType.FLOOR || item.getDefinition().getType() == ItemType.WALL) {
-
+            item.setUserId(player.getEntityId());
             room.getMapping().removeItem(item);
             
             player.getInventory().addItem(item, InventoryNotification.NONE);

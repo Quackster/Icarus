@@ -18,10 +18,7 @@ public class PlaceItemMessageComposer extends MessageComposer {
 
     @Override
     public void compose(Response response) {
-
         if (this.item.getDefinition().getType() == ItemType.FLOOR) {
-            //response.init(Outgoing.PlaceFloorItemMessageComposer); 
-
             response.writeInt(this.item.getId());
             response.writeInt(this.item.getDefinition().getSpriteId());
             response.writeInt(this.item.getPosition().getX());
@@ -40,7 +37,6 @@ public class PlaceItemMessageComposer extends MessageComposer {
         }
 
         if (this.item.getDefinition().getType() == ItemType.WALL) {
-            //response.init(Outgoing.PlaceWallItemMessageComposer);
             response.writeString(item.getId() + "");
             response.writeInt(item.getDefinition().getSpriteId());
             response.writeString(item.getWallPosition());

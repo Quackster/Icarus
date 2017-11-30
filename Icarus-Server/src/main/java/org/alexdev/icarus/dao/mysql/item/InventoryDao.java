@@ -121,7 +121,7 @@ public class InventoryDao {
 
             if (resultSet != null && resultSet.next()) {
                 int inventoryItemId = resultSet.getInt(1);
-                return new Item(inventoryItemId, ownerId, itemId, 0, "0", "0", 0, 0, extraData);
+                return new Item(inventoryItemId, ownerId, ownerId, itemId, 0, "0", "0", 0, 0, extraData);
             }
 
         } catch (SQLException e) {
@@ -181,7 +181,7 @@ public class InventoryDao {
      * @throws Exception the exception
      */
     public static Item fill(ResultSet row) throws Exception {
-        Item item = new Item(row.getInt("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
+        Item item = new Item(row.getInt("id"), row.getInt("owner_id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
         return item;
     }
 }

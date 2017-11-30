@@ -19,8 +19,6 @@ public class WallItemsMessageComposer extends MessageComposer {
     @Override
     public void compose(Response response) {
 
-        //response.init(Outgoing.WallItemsMessageComposer);
-
         response.writeInt(this.items.size());
         for (Item wallItem : this.items) {
             response.writeInt(wallItem.getOwnerId());
@@ -28,7 +26,6 @@ public class WallItemsMessageComposer extends MessageComposer {
         }
 
         response.writeInt(this.items.size());
-
         for (Item wallItem : this.items) {
             response.writeString(wallItem.getId() + "");
             response.writeInt(wallItem.getDefinition().getSpriteId());

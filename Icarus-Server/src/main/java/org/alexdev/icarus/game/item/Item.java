@@ -23,6 +23,7 @@ public class Item extends Metadata {
 
     private int id;
     private int ownerId;
+    private int userId;
     private String ownerName;
     private int itemId;
     private int roomId;
@@ -35,10 +36,11 @@ public class Item extends Metadata {
     private int widthX = 0;
     private int widthY = 0;
 
-    public Item(int id, int userId, int itemId, int roomId, String x, String y, double z, int rotation, String extraData) {
+    public Item(int id, int ownerId, int userId, int itemId, int roomId, String x, String y, double z, int rotation, String extraData) {
 
         this.id = id;
-        this.ownerId = userId;
+        this.ownerId = ownerId;
+        this.userId = userId;
         this.ownerName = PlayerDao.getName(this.ownerId);
         this.itemId = itemId;
         this.roomId = roomId;
@@ -285,14 +287,6 @@ public class Item extends Metadata {
         return lengthX;
     }
 
-    /**
-     * Sets the length X.
-     *
-     * @param lengthX the new length X
-     */
-    public void setLengthX(int lengthX) {
-        this.lengthX = lengthX;
-    }
 
     /**
      * Gets the length Y.
@@ -338,6 +332,22 @@ public class Item extends Metadata {
      */
     public int getOwnerId() {
         return ownerId;
+    }
+
+    /**
+     * Gets the user id.
+     *
+     * @return the user id
+     */
+    public int getUserId() {
+        return userId;
+    }
+
+    /**
+     * Sets the user id.
+     */
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     /**
