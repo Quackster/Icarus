@@ -133,7 +133,6 @@ public class Inventory {
      * @return the item
      */
     public Item getItem(int id) {
-
         if (this.items.containsKey(id)) {
             return this.items.get(id);
         }

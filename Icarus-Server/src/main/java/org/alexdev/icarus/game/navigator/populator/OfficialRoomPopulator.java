@@ -12,7 +12,6 @@ public class OfficialRoomPopulator extends NavigatorRoomPopulator {
     
     @Override
     public List<Room> generateListing(boolean limit, Player player) {
-        
         List<Room> rooms =  RoomManager.getInstance().getPublicRooms();
         
         if (rooms == null) {

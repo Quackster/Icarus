@@ -11,7 +11,6 @@ public class DefaultInteractor extends Interaction {
 
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {
-
         if (!roomUser.getRoom().hasRights(roomUser.getEntity().getEntityId()) && !roomUser.getEntity().hasPermission("room_all_rights")) {
             return;
         }
@@ -40,9 +39,7 @@ public class DefaultInteractor extends Interaction {
 
     @Override
     public void onStopWalking(Item item, RoomUser roomUser) {
-
         if (!item.getDefinition().allowSitOrLay()) {
-
             if (roomUser.containsStatus(EntityStatus.LAY)) {
                 roomUser.removeStatus(EntityStatus.LAY);
             }

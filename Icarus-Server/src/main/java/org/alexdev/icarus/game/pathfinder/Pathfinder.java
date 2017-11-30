@@ -32,7 +32,6 @@ public class Pathfinder {
      * @return the linked list
      */
     public static LinkedList<Position> makePath(Entity entity) {
-
         int X = entity.getRoomUser().getGoal().getX();
         int Y = entity.getRoomUser().getGoal().getY();
         

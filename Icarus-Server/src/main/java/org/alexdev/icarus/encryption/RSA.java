@@ -178,8 +178,6 @@ public class RSA {
      * Fixed by Joopie. https://github.com/Joopie1994/habbo-encryption/blob/master/HabboEncryption/Security/Cryptography/RSACrypto.cs#L173
      * Context:         http://forum.ragezone.com/f331/icarus-production-java-server-mysql-1087933-post8823721/#post8823721
      *
-     * @param src the src
-     * @param n the n
      * @return the byte[]
      */
     private byte[] pkcs1unpad2(BigInteger bigInteger) {
@@ -188,7 +186,6 @@ public class RSA {
         byte[] dst = null;
         
         if (src[0] == 2) {
-
             byte[] temp = new byte[src.length + 1];
             System.arraycopy(src, 0, temp, 1, src.length);
             
@@ -196,7 +193,6 @@ public class RSA {
         }
 
         if (src[0] == 0 && src[1] == 2) {
-
             int startIndex = 2;
 
             do {

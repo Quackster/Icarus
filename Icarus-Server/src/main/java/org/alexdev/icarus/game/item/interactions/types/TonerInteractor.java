@@ -15,7 +15,6 @@ public class TonerInteractor extends Interaction {
 
     @Override
     public ExtraData createExtraData(Item item) {
-
         List<Integer> objects = new ArrayList<>();
 
         if (item.getExtraData().length() > 0) {

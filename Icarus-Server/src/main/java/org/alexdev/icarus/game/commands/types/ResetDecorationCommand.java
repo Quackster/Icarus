@@ -20,7 +20,6 @@ public class ResetDecorationCommand extends Command {
     
     @Override
     public void handleCommand(Entity entity, String message, String[] args) {
-
         if (entity instanceof Player) {
             Player player = (Player) entity;
             if (player.getRoom() == null) {
@@ -52,7 +51,6 @@ public class ResetDecorationCommand extends Command {
             }
         }
     }
-    
 
     @Override
     public String getDescription() {

@@ -1,8 +1,5 @@
 package org.alexdev.icarus.game.item.interactions.types;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.extradata.ExtraData;
 import org.alexdev.icarus.game.item.extradata.ExtraDataManager;
@@ -10,13 +7,14 @@ import org.alexdev.icarus.game.item.extradata.ExtraDataPerspective;
 import org.alexdev.icarus.game.item.extradata.types.KeyValueExtraData;
 import org.alexdev.icarus.game.item.interactions.Interaction;
 import org.alexdev.icarus.game.item.json.adsbackground.AdsBackgroundData;
-import org.alexdev.icarus.game.room.user.RoomUser;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AdsBackgroundInteractor extends Interaction {
 
     @Override
     public ExtraData createExtraData(Item item) {
-
         AdsBackgroundData data = null;
         Map<String, String> objects = new HashMap<>();
 

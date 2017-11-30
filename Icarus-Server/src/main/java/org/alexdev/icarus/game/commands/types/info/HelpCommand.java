@@ -17,7 +17,6 @@ public class HelpCommand extends Command {
 
     @Override
     public void handleCommand(Entity entity, String message, String[] args) {
-
         StringBuilder about = new StringBuilder();
         about.append("Commands:\n\n");
 

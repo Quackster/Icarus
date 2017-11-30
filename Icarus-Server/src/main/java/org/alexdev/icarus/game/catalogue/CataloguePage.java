@@ -29,7 +29,6 @@ public class CataloguePage {
     }
 
     public CatalogueItem getItem(int itemId) {
-
         for (CatalogueItem item : this.items) {
             if (item.getId() == itemId) {
                 return item;
@@ -40,7 +39,6 @@ public class CataloguePage {
     }
 
     public List<CatalogueItem> getItems() {
-
         if (this.items == null) {
             this.items = CatalogueManager.getInstance().getPageItems(this.id);
         }

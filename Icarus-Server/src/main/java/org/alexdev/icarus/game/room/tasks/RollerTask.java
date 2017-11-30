@@ -21,7 +21,6 @@ public class RollerTask extends RoomTask {
 
     @Override
     public void execute() {
-
         boolean redoMap = false;
 
         if (!(this.room.getEntityManager().getEntities().size() > 0)) {

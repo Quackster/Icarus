@@ -16,7 +16,6 @@ public class MannequinInteractor extends Interaction {
 
     @Override
     public ExtraData createExtraData(Item item) {
-        
         Map<String, String> objects = new HashMap<>();
         MannequinData data = null;
         

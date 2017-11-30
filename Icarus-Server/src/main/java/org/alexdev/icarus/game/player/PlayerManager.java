@@ -30,7 +30,6 @@ public class PlayerManager {
      * @param player the player
      */
     public void addPlayer(Player player) {
-
         if (player.getDetails().isAuthenticated()) {
             this.authenticatedPlayersById.put(player.getEntityId(), player);
             this.authenticatedPlayersByName.put(player.getDetails().getName(), player);
@@ -44,7 +43,6 @@ public class PlayerManager {
      * @param player the player
      */
     public void removePlayer(Player player) {
-
         if (player.getDetails().isAuthenticated()) {
             this.authenticatedPlayersById.remove(player.getEntityId());
             this.authenticatedPlayersByName.remove(player.getDetails().getName());
@@ -59,7 +57,6 @@ public class PlayerManager {
      * @return {@link Player} the by id
      */
     public Player getById(int userId) {
-
         if (this.authenticatedPlayersById.containsKey(userId)) {
             return this.authenticatedPlayersById.get(userId);
         }
@@ -74,7 +71,6 @@ public class PlayerManager {
      * @return {@link Player} the by name
      */
     public Player getByName(String name) {
-
         if (this.authenticatedPlayersByName.containsKey(name)) {
             return this.authenticatedPlayersByName.get(name);
         }
@@ -111,7 +107,6 @@ public class PlayerManager {
      * @return the player data
      */
     public PlayerDetails getPlayerData(int userId) {
-
         Player player = this.getById(userId);
 
         if (player == null) {
@@ -139,14 +134,14 @@ public class PlayerManager {
      * @return true, if successful
      */
     public boolean disconnectExistingUsers(Player player) {
-
         for (Player session : this.authenticatedPlayersById.values()) {
 
-            if (session.getDetails().getId() == player.getEntityId()) {
-                if (session.getNetwork().getConnectionId() != player.getNetwork().getConnectionId()) { // user tries to login twice
-                    session.getNetwork().close();
-                    break;
-                }
+            if (session.getDetails().getId() != player.getEntityId()) {
+                continue;
+            }
+
+            if (session.getNetwork().getConnectionId() != player.getNetwork().getConnectionId()) { // user tries to login twice
+                session.getNetwork().close();
             }
         }
         

@@ -34,7 +34,6 @@ public class RoomUtil {
      * @param password the password
      */
     public static void playerRoomEntry(Player player, Room room, String password) {
-        
         playerRoomEntry(player, room, 
                 room.getModel().getDoorLocation().getX(), 
                 room.getModel().getDoorLocation().getY(), 
@@ -51,7 +50,6 @@ public class RoomUtil {
      * @param rotation the rotation
      */
     public static void playerRoomEntry(Player player, Room room, int x, int y, int rotation) {
-        
         RoomUser roomUser = player.getRoomUser();
 
         roomUser.setRoom(room);
@@ -99,7 +97,6 @@ public class RoomUtil {
      * @param room the room
      */
     public static void playerRoomMapEntry(Player player, Room room) {
-
         if (room == null) {
             return;
         }
@@ -178,6 +175,7 @@ public class RoomUtil {
      */
     public static void serialise(Room room, Response response, boolean enterRoom) {
         RoomData data = room.getData();
+
         response.writeInt(data.getId());
         response.writeString(data.getName());
         response.writeInt(data.getOwnerId());

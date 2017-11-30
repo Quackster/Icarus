@@ -24,20 +24,20 @@ public class CatalogueItem {
     private boolean hasOffer;
 
     public CatalogueItem(int id, int pageId, String itemIds, String catalogueName, int costCredits, int costPixels, int costOther, int amount, String extraData, String badage, int limitedStack, int limitedSells, boolean hasOffer) {
-            this.id = id;
-            this.pageId = pageId;
-            this.itemId = Integer.valueOf(itemIds);
-            this.itemName = catalogueName;
-            this.costCredits = costCredits;
-            this.costPixels = costPixels;
-            this.costOther = costOther;
-            this.amount = amount;
-            this.extraData = extraData;
-            this.badge = badage;
-            this.limitedTotal = limitedStack;
-            this.limitedSells = limitedSells;
-            this.hasOffer = hasOffer;
-            this.subscriptionStatus = 0;
+        this.id = id;
+        this.pageId = pageId;
+        this.itemId = Integer.valueOf(itemIds);
+        this.itemName = catalogueName;
+        this.costCredits = costCredits;
+        this.costPixels = costPixels;
+        this.costOther = costOther;
+        this.amount = amount;
+        this.extraData = extraData;
+        this.badge = badage;
+        this.limitedTotal = limitedStack;
+        this.limitedSells = limitedSells;
+        this.hasOffer = hasOffer;
+        this.subscriptionStatus = 0;
     }
 
     /**
@@ -47,7 +47,6 @@ public class CatalogueItem {
      * @param debugFurniture the debug furniture
      */
     public void serialise(Response response, boolean debugFurniture) {
-
         final ItemDefinition def = this.getItemDefinition();
 
         response.writeInt(this.getId());
@@ -110,6 +109,7 @@ public class CatalogueItem {
      */
     public ItemDefinition getItemDefinition() {
         ItemDefinition def = ItemManager.getInstance().getFurnitureById(this.itemId);
+
         if (def == null) {
             def = ItemManager.getInstance().getFurnitureById(1);
         }

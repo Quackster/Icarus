@@ -12,7 +12,6 @@ public class VendingInteractor extends Interaction {
 
     @Override
     public void onUseItem(final Item item, final RoomUser roomUser) {
-
         // Can't get to the vending machine unless we're close
         Position front = item.getPosition().getSquareInFront();
 

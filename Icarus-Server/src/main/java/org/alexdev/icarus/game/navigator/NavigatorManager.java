@@ -35,7 +35,6 @@ public class NavigatorManager {
      * @return the tab
      */
     public NavigatorTab getTab(String tabName) {
-
         return this.tabs.stream().filter(tab -> tab.getTabName().equals(tabName))
                 .findFirst()
                 .orElse(null);
@@ -67,7 +66,6 @@ public class NavigatorManager {
     public List<NavigatorTab> getAllTabs() {
         return this.tabs;
     }
-
 
     /**
      * Gets the instance

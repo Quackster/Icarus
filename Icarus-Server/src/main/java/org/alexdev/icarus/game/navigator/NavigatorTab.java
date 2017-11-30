@@ -52,9 +52,7 @@ public class NavigatorTab {
      * @return the populator
      */
     public static NavigatorRoomPopulator getPopulator(String roomPopulatorClass) {
-
         try {
-
             Class<? extends NavigatorRoomPopulator> clazz = Class.forName("org.alexdev.icarus.game.navigator.populator." + roomPopulatorClass).asSubclass(NavigatorRoomPopulator.class);
             return clazz.getDeclaredConstructor().newInstance();
 
@@ -71,7 +69,6 @@ public class NavigatorTab {
      * @return the child tabs
      */
     public List<NavigatorTab> getChildTabs() {
-
         try {
             return NavigatorManager.getInstance().getAllTabs().stream().filter(t -> t.childId == this.id).collect(Collectors.toList());
         } catch (Exception e) {

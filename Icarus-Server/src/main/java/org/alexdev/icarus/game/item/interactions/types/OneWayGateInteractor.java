@@ -12,7 +12,6 @@ public class OneWayGateInteractor extends Interaction {
 
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {
-
         Position behind = item.getPosition().getSquareInFront();
 
         if (!behind.equals(roomUser.getPosition())) {

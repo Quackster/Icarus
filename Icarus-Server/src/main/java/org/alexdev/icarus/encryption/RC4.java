@@ -60,7 +60,6 @@ public class RC4 {
         i = ++i & (POOL_SIZE - 1);
         j = (j + table[i]) & (POOL_SIZE - 1);
         swap(i, j);
-
         return (byte) table[(table[i] + table[j]) & (POOL_SIZE - 1)];
     }
     
@@ -71,7 +70,6 @@ public class RC4 {
      * @return the byte[]
      */
     public byte[] decipher(byte[] array) {
-        
         byte[] result = new byte[array.length];
         
         for (int i = 0; i < array.length; i++) {

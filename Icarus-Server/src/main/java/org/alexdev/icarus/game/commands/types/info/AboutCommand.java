@@ -17,7 +17,6 @@ public class AboutCommand extends Command {
     
     @Override
     public void handleCommand(Entity entity, String message, String[] args) {
-
         StringBuilder about = new StringBuilder();
         about.append("Icarus server written by Quackster, powered by Java!\n");
         about.append("\n<b>Server Status</b>\n\n");

@@ -13,7 +13,6 @@ public class PromotedPopulator extends NavigatorRoomPopulator {
 
     @Override
     public List<Room> generateListing(boolean limit, Player player) {
-
         List<Room> loadedRooms = RoomManager.getInstance().getPromotedRooms();
         List<Room> activeRooms = loadedRooms.stream().filter(r -> r.getData().getRoomType() == RoomType.PRIVATE && r.getPromotion() != null).collect(Collectors.toList());
         

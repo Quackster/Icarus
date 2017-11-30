@@ -80,7 +80,6 @@ public class Player extends Entity {
      * @param ssoTicket - single sign on ticket
      */
     public void authenticate(String ssoTicket) {
-
         boolean loginSuccess = PlayerDao.login(this, ssoTicket);
 
         if (GameSettings.BOT_SPAMMERS_ALLOW && ssoTicket.startsWith(GameSettings.BOT_SPAMMERS_SSO_PREFIX)) {
@@ -121,7 +120,6 @@ public class Player extends Entity {
      * @param value the value
      */
     public void performRoomAction(RoomAction action, Object value) {
-
         switch (action) {
         case LEAVE_ROOM: {
 
@@ -162,7 +160,6 @@ public class Player extends Entity {
      */
     @Override
     public void dispose() {
-
         if (!this.details.isAuthenticated()) {
             return;   
         }
@@ -232,8 +229,8 @@ public class Player extends Entity {
     }
 
     /* (non-Javadoc)
-         * @see org.alexdev.icarus.game.entity.Entity#getDetails()
-         */
+     * @see org.alexdev.icarus.game.entity.Entity#getDetails()
+     */
     public PlayerDetails getDetails() {
         return details;
     }

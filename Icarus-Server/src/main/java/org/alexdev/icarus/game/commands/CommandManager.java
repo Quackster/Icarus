@@ -55,7 +55,6 @@ public class CommandManager {
      * @return the command
      */
     private Command getCommand(String commandName) {
-
         for (Entry<String[], Command> entrySet : commands.entrySet()) {
             for (String name : entrySet.getKey()) {
 
@@ -76,7 +75,6 @@ public class CommandManager {
      * @return true, if successful
      */
     public boolean hasCommand(Entity entity, String message) {
-
         if (message.startsWith(":") && message.length() > 1) {
 
             String commandName = message.split(":")[1].split(" ")[0];
@@ -98,7 +96,6 @@ public class CommandManager {
      * @return true, if successful
      */
     public boolean hasCommandPermission(Entity entity, Command cmd) {
-
         if (cmd.getPermissions().length > 0) {
             for (String permission : cmd.getPermissions()) {
                 System.out.println(permission);

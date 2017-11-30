@@ -22,7 +22,6 @@ public class TargetedOffer {
     private List<Integer> blacklist;
     
     public TargetedOffer(int id, String title, String description, int costCredits, int costActivityPoints, int activityPointsType, int purchaseLimit, String largeImage, String smallImage, long expiryDate, String itemIds) {
-        
         this.id = id;
         this.title = title;
         this.description = description;

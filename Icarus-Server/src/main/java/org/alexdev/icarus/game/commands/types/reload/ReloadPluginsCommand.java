@@ -19,7 +19,6 @@ public class ReloadPluginsCommand extends Command {
         PluginManager.getInstance().reload();
     }
 
-
     @Override
     public String getDescription() {
         return "Reloads plugins, may cause undefined errors!";

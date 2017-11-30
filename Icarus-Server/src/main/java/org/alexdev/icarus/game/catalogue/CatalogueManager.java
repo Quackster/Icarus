@@ -22,7 +22,6 @@ public class CatalogueManager {
     private static final Logger log = LoggerFactory.getLogger(CatalogueManager.class);
     private static CatalogueManager instance;
 
-
     public CatalogueManager() {
         this.reload();
     }
@@ -33,8 +32,7 @@ public class CatalogueManager {
     public void reload() {
         this.loadCataloguePages();
         this.loadCatalogueItems();
-
-        this.offers = TargetedOfferDao.getOffers();
+        this.reloadOffers();
         this.parentTabs = CatalogueDao.getCatalogTabs(-1);
         this.childTabs = new HashMap<>();
 

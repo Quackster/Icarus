@@ -8,13 +8,11 @@ import org.alexdev.icarus.game.item.extradata.types.StringExtraData;
 import org.alexdev.icarus.game.item.interactions.Interaction;
 import org.alexdev.icarus.game.item.json.moodlight.MoodlightData;
 import org.alexdev.icarus.game.item.json.moodlight.MoodlightPreset;
-import org.alexdev.icarus.game.room.user.RoomUser;
 
 public class DimmerInteractor extends Interaction {
 
     @Override
     public ExtraData createExtraData(Item item) {
-        
         MoodlightData data = null;
         MoodlightPreset preset = null;
 

@@ -23,7 +23,6 @@ public class RollerSpeedCommand extends Command {
 
     @Override
     public void handleCommand(Entity entity, String message, String[] args) {
-
         if (entity instanceof Player) {
             Player player = (Player) entity;
 

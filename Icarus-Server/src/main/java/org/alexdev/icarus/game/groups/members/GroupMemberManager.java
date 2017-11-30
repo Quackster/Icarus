@@ -34,7 +34,6 @@ public class GroupMemberManager {
      * @return the members by types
      */
     public List<Integer> getMembersByTypes(GroupMemberType... types) {
-        
         List<Integer> members = new ArrayList<>();
         
         for (GroupMemberType memberType : types) {
@@ -85,7 +84,6 @@ public class GroupMemberManager {
     /**
      * Gets the member size.
      *
-     * @param type the type
      * @return the member size
      */
     public int getMemberSize() {
@@ -100,7 +98,6 @@ public class GroupMemberManager {
      * @param userId the user id
      */
     public void addMember(GroupMemberType type, int userId) {
-        
         this.remove(userId);
         this.groupMembers.get(type).add(userId);
         
@@ -113,7 +110,6 @@ public class GroupMemberManager {
      * @param userId the user id
      */
     public void remove(int userId) {
-
         GroupMemberDao.deleteMember(this.group.getId(), userId);
         
         for (List<Integer> members : this.groupMembers.values()) {

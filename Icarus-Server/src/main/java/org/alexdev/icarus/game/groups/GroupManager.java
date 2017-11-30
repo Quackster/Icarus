@@ -38,7 +38,6 @@ public class GroupManager {
      * @return the group
      */
     public Group getGroup(int groupId) {
-
         if (groups.containsKey(groupId)) {
             return groups.get(groupId);
         }
@@ -54,7 +53,6 @@ public class GroupManager {
      * @return
      */
     public Group loadGroup(int groupId) {
-
         Group group = GroupDao.getGroup(groupId);
 
         if (group != null) {
@@ -71,7 +69,6 @@ public class GroupManager {
      * @param groupId
      */
     public void unloadGroup(int groupId) {
-
         if (groups.containsKey(groupId)) {
             groups.remove(groupId);
         }
@@ -128,7 +125,6 @@ public class GroupManager {
      * @return the instance
      */
     public static GroupManager getInstance() {
-
         if (instance == null) {
             instance = new GroupManager();
         }

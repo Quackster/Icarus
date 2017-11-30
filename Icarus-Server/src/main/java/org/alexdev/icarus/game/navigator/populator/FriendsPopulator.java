@@ -15,18 +15,15 @@ public class FriendsPopulator extends NavigatorRoomPopulator {
 
     @Override
     public List<Room> generateListing(boolean limit, Player player) {
-
         List<Room> friendRooms = new ArrayList<>();
 
+        // Get a list of rooms, but do NOT store them in memory
         for (MessengerUser friend : player.getMessenger().getFriends()) {
-
-            // Get a list of rooms, but do NOT store them in memory
             List<Room> rooms = RoomDao.getPlayerRooms(friend.getDetails().getId());
             friendRooms.addAll(rooms);
         }
 
         for (int i = 0; i < friendRooms.size(); i++) {
-
             Room room = friendRooms.get(i);
 
             if (room.getData().getState() == RoomState.INVISIBLE) {

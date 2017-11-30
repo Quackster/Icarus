@@ -15,7 +15,6 @@ public class SitCommand extends Command {
     
     @Override
     public void handleCommand(Entity entity, String message, String[] args) {
-
         if (entity instanceof Player) {
             Player player = (Player) entity;
             RoomUser roomUser = player.getRoomUser();
