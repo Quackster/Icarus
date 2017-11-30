@@ -37,7 +37,6 @@ public class RoomEntityManager {
      * @param entity the entity
      */
     public void addEntity(Entity entity) {
-
         this.addEntity(entity,
                 this.room.getModel().getDoorLocation().getX(),
                 this.room.getModel().getDoorLocation().getY(),
@@ -54,7 +53,6 @@ public class RoomEntityManager {
      * @param rotation - {@link int} the rotation of the entity
      */
     public void addEntity(Entity entity, int x, int y, int rotation) {
-    
         if (entity.getType() == EntityType.PLAYER) {
             if (this.room.getEntityManager().getPlayers().size() == 0) {
                 this.beginRoomEntry(entity);
@@ -87,7 +85,6 @@ public class RoomEntityManager {
      * @param entity the entity
      */
     private void beginRoomEntry(Entity entity) {
-
         Player player = (Player) entity;;
         
         this.room.getItemManager().refreshRoomFurniture();
@@ -111,7 +108,6 @@ public class RoomEntityManager {
      * with their saved coordinates from the database.
      */
     public void addPets() {
-        
         for (Pet pet : PetDao.getRoomPets(this.room.getData().getId())) {
             pet.getRoomUser().setRoom(this.room);
             pet.getRoomUser().setVirtualId(this.generateVirtualId());
@@ -134,7 +130,6 @@ public class RoomEntityManager {
      * @param entity - {@link Entity}
      */
     public void removeEntity(Entity entity) {
-
         RoomUser roomUser = entity.getRoomUser();
         this.room.getMapping().getTile(roomUser.getPosition().getX(), roomUser.getPosition().getY()).removeEntity(entity);
 
@@ -165,9 +160,7 @@ public class RoomEntityManager {
      * 
      */
     public void cleanupNonPlayableEntities() {
-
         if (this.entities != null) {
-
             List<Entity> nonPlayableEntities = this.getNonPlayable();
 
             for (int i = 0; i < nonPlayableEntities.size(); i++) {
@@ -205,7 +198,6 @@ public class RoomEntityManager {
      * @return List<{@link T}> list of entities
      */
     public <T extends Entity> List<T> getEntitiesByClass(Class<T> entityClass) {
-
         List<T> entities = new ArrayList<>();
 
         for (Entity entity : this.entities) {
@@ -226,7 +218,6 @@ public class RoomEntityManager {
      * @return list of entities
      */
     public List<Entity> getEntitiesByType(EntityType... types) {
-
         List<Entity> entities = new ArrayList<>();
 
         for (Entity entity : this.entities) {
@@ -249,7 +240,6 @@ public class RoomEntityManager {
      * @return Entity
      */
     public <T extends Entity> T getEntityById(int id, Class<T> entityClass) {
-
         for (Entity entity : this.entities) {
             if (entity.getType().getEntityClass().isAssignableFrom(entityClass)) {
                 if (entity.getDetails().getId() == id) {
@@ -268,7 +258,6 @@ public class RoomEntityManager {
      * @return the virtual room id
      */
     public int generateVirtualId() {
-
         int virtualId = 0;
 
         while (this.getEntityByVirtualId(virtualId) != null) {
@@ -285,7 +274,6 @@ public class RoomEntityManager {
      * @return the entity by virtual id
      */
     public Entity getEntityByVirtualId(int virtualId) {
-
         for (Entity entity : this.entities) {
             if (entity.getRoomUser().getVirtualId() == virtualId) {
                 return entity;

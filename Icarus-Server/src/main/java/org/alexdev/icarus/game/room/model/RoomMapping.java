@@ -28,7 +28,6 @@ public class RoomMapping {
      * Regenerate collision maps.
      */
     public void regenerateCollisionMaps(boolean refreshItemList) {
-
         this.mapSizeX = this.room.getModel().getMapSizeX();
         this.mapSizeY = this.room.getModel().getMapSizeY();
         this.tiles = new RoomTile[this.mapSizeX][this.mapSizeY];
@@ -57,7 +56,6 @@ public class RoomMapping {
             tile.getItems().add(item);
 
             if (tile.getHeight() < item.getTotalHeight()) {
-
                 item.setItemUnderneath(tile.getHighestItem());
                 tile.setHeight(item.getTotalHeight());
                 tile.setHighestItem(item);
@@ -91,7 +89,6 @@ public class RoomMapping {
      * @return true, if is valid step
      */
     public boolean isValidStep(Entity entity, Position current, Position neighbour, boolean isFinalMove) {
-
         if (!this.isTileWalkable(current.getX(), current.getY(), entity)) {
             return false;
         }
@@ -141,7 +138,6 @@ public class RoomMapping {
      * @return true, if is tile walkable
      */
     public boolean isTileWalkable(int x, int y, Entity entity) {
-
         if (this.room.getModel().isOutsideBounds(x, y)) {
             return false;
         }
@@ -186,7 +182,6 @@ public class RoomMapping {
      * @param item the item
      */
     public void addItem(Item item) {
-
         item.setRoomId(this.room.getData().getId());
 
         this.room.getItemManager().getItems().put(item.getId(), item);
@@ -208,7 +203,6 @@ public class RoomMapping {
      * @param isRotation the rotation only
      */
     public void moveItem(Item item, boolean isRotation, Position previous) {
-
         this.room.send(new PlaceItemMessageComposer(item));
 
         if (item.getDefinition().getType() == ItemType.FLOOR) {
@@ -227,7 +221,6 @@ public class RoomMapping {
      * @param item the item
      */
     public void removeItem(Item item) {
-
         this.room.getItemManager().getItems().remove(item.getId());
         this.regenerateCollisionMaps(true);
 
@@ -253,7 +246,6 @@ public class RoomMapping {
      * @param rotation the rotation only
      */
     private void handleItemAdjustment(Item moveItem, boolean rotation) {
-
         if (rotation) {
             for (Item item : this.getTile(moveItem.getPosition().getX(), moveItem.getPosition().getY()).getItems()) {
 
@@ -281,7 +273,6 @@ public class RoomMapping {
      * @return the tile
      */
     public RoomTile getTile(int x, int y) {
-
         if (this.room.getModel().isOutsideBounds(x, y)) {
             return null;
         }
@@ -303,7 +294,6 @@ public class RoomMapping {
      * @return the tile height
      */
     public double getTileHeight(int x, int y) {
-
         if (this.room.getModel().isOutsideBounds(x, y)) {
             return 0;
         }
@@ -319,7 +309,6 @@ public class RoomMapping {
      * @return the highest item
      */
     public Item getHighestItem(int x, int y) {
-
         if (this.room.getModel().isOutsideBounds(x, y)) {
             return null;
         }
