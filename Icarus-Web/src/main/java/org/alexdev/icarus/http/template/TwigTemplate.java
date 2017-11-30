@@ -6,6 +6,7 @@ import org.alexdev.duckhttpd.template.Template;
 import org.alexdev.duckhttpd.response.ResponseBuilder;
 import org.alexdev.duckhttpd.util.config.Settings;
 import org.alexdev.icarus.http.game.player.Player;
+import org.alexdev.icarus.http.mysql.dao.PlayerDao;
 import org.alexdev.icarus.http.template.binders.TemplateRegisterBinder;
 import org.alexdev.icarus.http.template.binders.TemplateSiteBinder;
 import org.alexdev.icarus.http.template.binders.TemplateSessionBinder;
@@ -64,7 +65,17 @@ public class TwigTemplate extends Template {
         }
 
         if (this.webConnection.session().contains(SessionUtil.PLAYER)) {
-            this.set("player", this.webConnection.session().get("player", Player.class));
+            Player player = this.webConnection.session().get("player", Player.class);
+
+            if (player == null) {
+                // Creates a player instance and set it
+                player = PlayerDao.get(this.webConnection.session().getInt(SessionUtil.USER_ID));
+                this.webConnection.session().set(SessionUtil.PLAYER, player);
+            }
+
+            if (player != null) {
+                this.set("player", player);
+            }
         }
 
         this.set("site", new TemplateSiteBinder());
