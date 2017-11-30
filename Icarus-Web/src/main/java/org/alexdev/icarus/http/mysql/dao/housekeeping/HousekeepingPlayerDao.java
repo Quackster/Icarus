@@ -26,7 +26,7 @@ public class HousekeepingPlayerDao {
             try {
 
                 sqlConnection = Storage.get().getConnection();
-                preparedStatement = Storage.get().prepare("SELECT * FROM users ORDER BY join_date DESC LIMIT ? OFFSET ?", sqlConnection);
+                preparedStatement = Storage.get().prepare("SELECT * FROM users WHERE username <> '' ORDER BY join_date DESC LIMIT ? OFFSET ?", sqlConnection);
                 preparedStatement.setInt(1, rows);
                 preparedStatement.setInt(2, nextOffset);
 
