@@ -7,6 +7,7 @@ import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
 import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.groups.GroupManager;
+import org.alexdev.icarus.game.groups.members.GroupMemberType;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.enums.RoomType;
@@ -49,18 +50,41 @@ public class Room extends Metadata {
     }
 
     /**
-     * Checks for rights, including ownership.
+     * Checks for rights, including ownership and groups
+     *
+     * @param userId the user id
+     * @param groupCheck should we check for group rights
+     * @return true, if successful
+     */
+    public boolean hasRights(int userId, boolean groupCheck) {
+        if (this.data.getOwnerId() == userId) {
+            return true;
+        } else {
+
+            if (groupCheck && this.hasGroup()) {
+                Group group = this.getGroup();
+
+                if (group.getMemberManager().isMemberType(userId, GroupMemberType.ADMINISTRATOR)) {
+                    return true;
+                }
+
+                if (group.canMembersDecorate() && group.getMemberManager().isMemberType(userId, GroupMemberType.MEMBER)) {
+                    return true;
+                }
+            }
+
+            return this.rights.contains(userId);
+        }
+    }
+
+    /**
+     * Checks for rights, including ownership and excluding group checking
      *
      * @param userId the user id
      * @return true, if successful
      */
     public boolean hasRights(int userId) {
-
-        if (this.data.getOwnerId() == userId) {
-            return true;
-        } else {
-            return this.rights.contains(Integer.valueOf(userId));
-        }
+        return this.hasRights(userId, false);
     }
 
     /**
@@ -79,9 +103,7 @@ public class Room extends Metadata {
      * @param response the response
      */
     public void sendWithRights(MessageComposer response) {
-
         for (Player player : this.getEntityManager().getPlayers()) {
-
             if (this.hasRights(player.getEntityId())) {
                 player.send(response);
             }

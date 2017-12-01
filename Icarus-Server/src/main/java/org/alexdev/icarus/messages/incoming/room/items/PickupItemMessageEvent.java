@@ -4,6 +4,7 @@ import org.alexdev.icarus.game.inventory.InventoryNotification;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.ItemType;
 import org.alexdev.icarus.game.player.Player;
+import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
@@ -19,7 +20,7 @@ public class PickupItemMessageEvent implements MessageEvent {
             return;
         }
 
-        if (!room.hasRights(player.getEntityId()) && !player.hasPermission("room_all_rights")) {
+        if (!room.hasRights(player.getEntityId(), true) && !player.hasPermission("room_all_rights")) {
             return;
         }
         
@@ -30,12 +31,22 @@ public class PickupItemMessageEvent implements MessageEvent {
             return;
         }
 
-        if (item.getDefinition().getType() == ItemType.FLOOR || item.getDefinition().getType() == ItemType.WALL) {
-            item.setUserId(player.getEntityId());
-            room.getMapping().removeItem(item);
-            
+        if (item.getDefinition().getType() != ItemType.FLOOR && item.getDefinition().getType() != ItemType.WALL) {
+            return;
+        }
+
+        if (item.getUserId() != player.getEntityId()) {
+            Player owner = PlayerManager.getInstance().getById(item.getUserId());
+
+            if (owner != null) {
+                owner.getInventory().addItem(item, InventoryNotification.NONE);
+                owner.getInventory().updateItems();
+            }
+        } else {
             player.getInventory().addItem(item, InventoryNotification.NONE);
             player.getInventory().updateItems();
         }
+
+        room.getMapping().removeItem(item);
     }
 }

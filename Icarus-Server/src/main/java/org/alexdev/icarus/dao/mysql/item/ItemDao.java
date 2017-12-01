@@ -21,7 +21,6 @@ public class ItemDao {
      * @return the furniture
      */
     public static Map<Integer, ItemDefinition> getFurniture() {
-
         Map<Integer, ItemDefinition> furni = new HashMap<>();
 
         Connection sqlConnection = null;
@@ -144,15 +143,14 @@ public class ItemDao {
 
         try {
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("UPDATE items SET extra_data = ?, x = ?, y = ?, z = ?, rotation = ?, room_id = ?, user_id = ? WHERE id = ?", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("UPDATE items SET extra_data = ?, x = ?, y = ?, z = ?, rotation = ?, room_id = ? WHERE id = ?", sqlConnection);
             preparedStatement.setString(1, item.getExtraData());
             preparedStatement.setString(2, x);
             preparedStatement.setString(3, y);
             preparedStatement.setDouble(4, item.getPosition().getZ());
             preparedStatement.setInt(5, item.getPosition().getRotation());
             preparedStatement.setInt(6, item.getRoomId());
-            preparedStatement.setInt(7, item.getUserId());
-            preparedStatement.setLong(8, item.getId());
+            preparedStatement.setLong(7, item.getId());
             preparedStatement.executeUpdate();
 
         } catch (Exception e) {
