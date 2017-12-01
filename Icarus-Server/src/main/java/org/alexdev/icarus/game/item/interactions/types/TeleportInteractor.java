@@ -19,9 +19,9 @@ public class TeleportInteractor extends Interaction {
     
     @Override
     public void onUseItem(Item item, RoomUser roomUser) {
+
         // Check if the user is inside the teleporter, if so, walk out. Useful if the user is stuck inside.
         if (item.getPosition().equals(roomUser.getPosition())) {
-
             item.setExtraData(TELEPORTER_OPEN);
             item.updateStatus();
 
@@ -31,7 +31,6 @@ public class TeleportInteractor extends Interaction {
                 item.setExtraData(TELEPORTER_CLOSE);
                 item.updateStatus();
             }, 1, TimeUnit.SECONDS);
-
             return;
         }
 
