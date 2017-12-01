@@ -18,7 +18,6 @@ public class EncryptionDecoder extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf buffer, List<Object> out) throws Exception {
-
         ByteBuf result = Unpooled.buffer();
 
         while (buffer.readableBytes() > 0) {

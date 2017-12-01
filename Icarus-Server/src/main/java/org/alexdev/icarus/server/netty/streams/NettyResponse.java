@@ -71,7 +71,6 @@ public class NettyResponse implements Response {
      * @see org.alexdev.icarus.server.api.messages.Response#getBodyString()
      */
     public String getBodyString() {
-        
         String str = new String(this.buffer.toString(Charset.defaultCharset()));
         
         for (int i = 0; i < 14; i++) { 

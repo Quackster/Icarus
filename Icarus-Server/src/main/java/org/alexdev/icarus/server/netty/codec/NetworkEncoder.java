@@ -18,7 +18,6 @@ public class NetworkEncoder extends MessageToMessageEncoder<MessageComposer> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, MessageComposer msg, List<Object> out) throws Exception {
-
         ByteBuf buffer = Unpooled.buffer();
 
         NettyResponse response = new NettyResponse(msg.getHeader(), buffer);

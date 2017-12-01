@@ -22,7 +22,6 @@ public class NettyRequest implements ClientMessage {
      * @see org.alexdev.icarus.server.api.messages.ClientMessage#readInt()
      */
     public Integer readInt() {
-        
         try {
             return this.buffer.readInt();
         } catch (Exception e) {
@@ -34,7 +33,6 @@ public class NettyRequest implements ClientMessage {
      * @see org.alexdev.icarus.server.api.messages.ClientMessage#readIntAsBool()
      */
     public boolean readIntAsBool() {
-        
         try {
             return this.buffer.readInt() == 1;
         } catch (Exception e) {
@@ -58,7 +56,6 @@ public class NettyRequest implements ClientMessage {
      * @see org.alexdev.icarus.server.api.messages.ClientMessage#readString()
      */
     public String readString() {
-        
         try {
             int length = this.buffer.readShort();
             byte[] data = this.readBytes(length);
@@ -73,9 +70,7 @@ public class NettyRequest implements ClientMessage {
      * @see org.alexdev.icarus.server.api.messages.ClientMessage#readBytes(int)
      */
     public byte[] readBytes(int len) {
-        
         try {
-            
             byte[] payload = new byte[len];
             this.buffer.readBytes(payload);
             return payload;
@@ -89,7 +84,6 @@ public class NettyRequest implements ClientMessage {
      * @see org.alexdev.icarus.server.api.messages.ClientMessage#getMessageBody()
      */
     public String getMessageBody() {
-        
         String consoleText = new String(this.buffer.toString(Charset.defaultCharset()));
 
         for (int i = 0; i < 13; i++) { 
