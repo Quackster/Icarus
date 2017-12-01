@@ -65,7 +65,7 @@ public class ApiController {
             client.session().set("regname", name);
         }
 
-        client.setResponse(ResponseBuilder.create(MimeType.json, json.toString()));
+        client.setResponse(ResponseBuilder.create(MimeType.getContentType("json"), json.toString()));
     }
 
     public static void saveLook(WebConnection client) {
@@ -86,7 +86,7 @@ public class ApiController {
         json.addProperty("motto", "");
 
         PlayerDao.updateFigure(client.session().getInt("userId"), look);
-        client.setResponse(ResponseBuilder.create(MimeType.json, json.toString()));
+        client.setResponse(ResponseBuilder.create(MimeType.getContentType("json"), json.toString()));
     }
 
     public static void nameSelect(WebConnection client) {
@@ -144,15 +144,15 @@ public class ApiController {
             PlayerDao.updateName(client.session().getInt("userId"), name);
         }
 
-        client.setResponse(ResponseBuilder.create(MimeType.json, json.toString()));
+        client.setResponse(ResponseBuilder.create(MimeType.getContentType("json"), json.toString()));
 
     }
 
     public static void roomSelect(WebConnection client) {
-        client.setResponse(ResponseBuilder.create(MimeType.json, ""));
+        client.setResponse(ResponseBuilder.create(MimeType.getContentType("json"), ""));
     }
 
     public static void loginStep(WebConnection client) {
-        client.setResponse(ResponseBuilder.create(MimeType.json, "{}"));
+        client.setResponse(ResponseBuilder.create(MimeType.getContentType("json"), "{}"));
     }
 }
