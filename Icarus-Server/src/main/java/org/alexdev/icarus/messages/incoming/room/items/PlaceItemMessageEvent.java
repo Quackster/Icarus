@@ -29,7 +29,7 @@ public class PlaceItemMessageEvent implements MessageEvent {
             return;
         }
 
-        if (!room.hasRights(player.getEntityId(), true) && !player.hasPermission("room_all_rights")) {
+        if (!room.hasRights(player.getEntityId(), false) && !room.hasGroupRights(player.getEntityId(), true) && !player.hasPermission("room_all_rights")) {
             return;
         }
 
@@ -45,7 +45,6 @@ public class PlaceItemMessageEvent implements MessageEvent {
         }
 
         if (item.getDefinition().getInteractionType() == InteractionType.DIMMER) {
-
             List<Item> items = player.getRoom().getItemManager().getItems(InteractionType.DIMMER);
 
             if (items.size() > 0) {
@@ -60,7 +59,6 @@ public class PlaceItemMessageEvent implements MessageEvent {
         }
 
         if (item.getDefinition().getType() == ItemType.FLOOR) {
-
             int x = Integer.parseInt(data[1]);
             int y = Integer.parseInt(data[2]);
             int rotation = Integer.parseInt(data[3]);

@@ -5,6 +5,7 @@ import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.game.util.RoomUtil;
 import org.alexdev.icarus.messages.outgoing.room.RightsLevelMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.settings.RightsAssignedMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
@@ -31,20 +32,19 @@ public class GiveRightsMessageEvent implements MessageEvent {
             return;
         }
 
+        room.getRights().add(userId);
+        RoomDao.addRoomRights(room.getData().getId(), userId);
+
         Player user = PlayerManager.getInstance().getById(userId);
 
         if (user != null) {
             if (user.getRoomUser().getRoomId() == room.getData().getId()) {
-
-                user.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "1");
-                user.getRoomUser().setNeedsUpdate(true);
-
-                user.send(new RightsLevelMessageComposer(1));
+                //user.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "1");
+                //user.getRoomUser().setNeedsUpdate(true);
+                RoomUtil.refreshRights(room, user);
             }
         }
 
-        room.getRights().add(userId);
-        RoomDao.addRoomRights(room.getData().getId(), userId);
         
         player.send(new RightsAssignedMessageComposer(room.getData().getId(), userId, PlayerManager.getInstance().getPlayerData(userId).getName()));
     }

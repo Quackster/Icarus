@@ -5,6 +5,7 @@ import org.alexdev.icarus.game.groups.GroupManager;
 import org.alexdev.icarus.game.groups.members.GroupMemberType;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
+import org.alexdev.icarus.game.util.RoomUtil;
 import org.alexdev.icarus.messages.outgoing.groups.GroupInfoMessageComposer;
 import org.alexdev.icarus.messages.outgoing.groups.members.UnknownGroupMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
@@ -37,11 +38,11 @@ public class GroupRemoveMemberMessageEvent implements MessageEvent {
         }
        
         group.getMemberManager().remove(removeUserId);
-        
         Player user = PlayerManager.getInstance().getById(removeUserId);
         
         if (user != null) {
             user.send(new GroupInfoMessageComposer(group, user, false));
+            RoomUtil.refreshRights(player.getRoom(), user);
         }
         
         player.send(new UnknownGroupMessageComposer(group.getId(), removeUserId));

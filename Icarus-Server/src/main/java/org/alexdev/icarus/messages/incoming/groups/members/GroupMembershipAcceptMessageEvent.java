@@ -5,6 +5,7 @@ import org.alexdev.icarus.game.groups.GroupManager;
 import org.alexdev.icarus.game.groups.members.GroupMemberType;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
+import org.alexdev.icarus.game.util.RoomUtil;
 import org.alexdev.icarus.messages.outgoing.groups.GroupInfoMessageComposer;
 import org.alexdev.icarus.messages.outgoing.groups.members.GroupUpdateMemberComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
@@ -41,6 +42,7 @@ public class GroupMembershipAcceptMessageEvent implements MessageEvent {
         
         if (user != null) {
             user.send(new GroupInfoMessageComposer(group, user, false));
+            RoomUtil.refreshRights(player.getRoom(), user);
         }
         
         player.send(new GroupUpdateMemberComposer(group.getId(), userId, 4));

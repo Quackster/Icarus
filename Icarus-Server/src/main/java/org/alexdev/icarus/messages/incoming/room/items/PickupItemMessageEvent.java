@@ -20,7 +20,7 @@ public class PickupItemMessageEvent implements MessageEvent {
             return;
         }
 
-        if (!room.hasRights(player.getEntityId(), true) && !player.hasPermission("room_all_rights")) {
+        if (!room.hasRights(player.getEntityId(), false) && !room.hasGroupRights(player.getEntityId(), true) && !player.hasPermission("room_all_rights")) {
             return;
         }
         

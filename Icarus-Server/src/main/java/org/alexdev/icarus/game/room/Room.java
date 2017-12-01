@@ -61,20 +61,36 @@ public class Room extends Metadata {
             return true;
         } else {
 
-            if (groupCheck && this.hasGroup()) {
-                Group group = this.getGroup();
-
-                if (group.getMemberManager().isMemberType(userId, GroupMemberType.ADMINISTRATOR)) {
-                    return true;
-                }
-
-                if (group.canMembersDecorate() && group.getMemberManager().isMemberType(userId, GroupMemberType.MEMBER)) {
-                    return true;
-                }
+            if (groupCheck && this.hasGroupRights(userId, true)) {
+                return true;
             }
 
             return this.rights.contains(userId);
         }
+    }
+
+    /**
+     * Checks for group rights
+     *
+     * @param userId the user id
+     * @return true, if successful
+     */
+    public boolean hasGroupRights(int userId, boolean adminCheck) {
+        if (this.hasGroup()) {
+            Group group = this.getGroup();
+
+            if (adminCheck) {
+                if (group.getMemberManager().isMemberType(userId, GroupMemberType.ADMINISTRATOR)) {
+                    return true;
+                }
+            }
+
+            if (group.canMembersDecorate() && group.getMemberManager().isMemberType(userId, GroupMemberType.MEMBER)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

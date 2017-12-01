@@ -5,6 +5,7 @@ import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.game.util.RoomUtil;
 import org.alexdev.icarus.messages.outgoing.room.RightsLevelMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.settings.RightsRemovedMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
@@ -34,21 +35,19 @@ public class RemoveRightsMessageEvent implements MessageEvent {
             if (!room.hasRights(userId)) {
                 continue;
             }
-            
+
+            room.getRights().remove(Integer.valueOf(userId));
+            RoomDao.removeRoomRights(room.getData().getId(), userId);
+
             Player user = PlayerManager.getInstance().getById(userId);
             
             if (user != null) {
                 if (user.getRoomUser().getRoomId() == room.getData().getId()) {
-                    
-                    user.getRoomUser().removeStatus(EntityStatus.FLAT_CONTROL);
-                    user.getRoomUser().setNeedsUpdate(true);
-                    
-                    user.send(new RightsLevelMessageComposer(0));
+                    //user.getRoomUser().removeStatus(EntityStatus.FLAT_CONTROL);
+                    //user.getRoomUser().setNeedsUpdate(true);
+                    RoomUtil.refreshRights(room, user);
                 }
             }
-            
-            room.getRights().remove(Integer.valueOf(userId));
-            RoomDao.removeRoomRights(room.getData().getId(), userId);
             
             player.send(new RightsRemovedMessageComposer(room.getData().getId(), userId));
         }

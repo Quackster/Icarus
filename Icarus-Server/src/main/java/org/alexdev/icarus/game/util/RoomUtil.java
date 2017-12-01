@@ -2,6 +2,7 @@ package org.alexdev.icarus.game.util;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.player.Player;
@@ -74,20 +75,41 @@ public class RoomUtil {
  
         player.sendQueued(new RoomSpacesMessageComposer("landscape", room.getData().getLandscape()));
         player.sendQueued(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
-        
+        refreshRights(room, player);
+
+        player.flushQueue();
+        room.getEntityManager().addEntity(player, x, y, rotation);
+    }
+
+    /**
+     * Refresh the rights of this room user
+     *
+     * @param room the room to refresh in
+     * @param player the user to refresh for
+     */
+    public static void refreshRights(Room room, Player player) {
+        boolean isOwner = (room.hasOwnership(player.getEntityId())
+                || player.hasPermission("room_all_rights"));
+
+        player.sendQueued(new RoomSpacesMessageComposer("landscape", room.getData().getLandscape()));
+        player.sendQueued(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
+
         if (isOwner) {
             player.sendQueued(new RightsLevelMessageComposer(3));
             player.sendQueued(new OwnerRightsMessageComposer());
 
-        } else if (room.hasRights(player.getEntityId())) {
+        } else if (room.hasGroupRights(player.getEntityId(), true)) {
+            player.sendQueued(new RightsLevelMessageComposer(3));
+
+        } else if (room.hasGroupRights(player.getEntityId(), false)) {
+            player.sendQueued(new RightsLevelMessageComposer(3));
+
+        } else if (room.hasRights(player.getEntityId(), false)) {
             player.sendQueued(new RightsLevelMessageComposer(1));
 
         } else {
             player.sendQueued(new RightsLevelMessageComposer(0));
         }
-
-        player.flushQueue();
-        room.getEntityManager().addEntity(player, x, y, rotation);
     }
 
     /**
