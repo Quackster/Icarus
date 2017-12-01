@@ -102,7 +102,7 @@ public class RoomUtil {
             player.sendQueued(new RightsLevelMessageComposer(3));
 
         } else if (room.hasGroupRights(player.getEntityId(), false)) {
-            player.sendQueued(new RightsLevelMessageComposer(3));
+            player.sendQueued(new RightsLevelMessageComposer(1));
 
         } else if (room.hasRights(player.getEntityId(), false)) {
             player.sendQueued(new RightsLevelMessageComposer(1));

@@ -1,5 +1,6 @@
 package org.alexdev.icarus.messages.incoming.groups.members;
 
+import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.groups.GroupManager;
 import org.alexdev.icarus.game.groups.members.GroupMemberType;
@@ -42,7 +43,7 @@ public class GroupMembershipAcceptMessageEvent implements MessageEvent {
         
         if (user != null) {
             user.send(new GroupInfoMessageComposer(group, user, false));
-            RoomUtil.refreshRights(player.getRoom(), user);
+            RoomUtil.refreshRights(RoomDao.getRoom(group.getRoomId(), false), user);
         }
         
         player.send(new GroupUpdateMemberComposer(group.getId(), userId, 4));

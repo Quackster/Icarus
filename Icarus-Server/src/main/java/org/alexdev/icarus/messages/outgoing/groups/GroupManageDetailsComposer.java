@@ -24,7 +24,7 @@ public class GroupManageDetailsComposer extends MessageComposer {
         response.writeInt(group.getColourA());
         response.writeInt(group.getColourB());
         response.writeInt(group.getAccessType().getType());
-        response.writeInt(group.canMembersDecorate());
+        response.writeInt(!group.canMembersDecorate());
         response.writeBool(false);
         response.writeString("");
         response.writeInt(5);

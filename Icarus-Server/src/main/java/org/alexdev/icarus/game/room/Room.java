@@ -83,10 +83,15 @@ public class Room extends Metadata {
                 if (group.getMemberManager().isMemberType(userId, GroupMemberType.ADMINISTRATOR)) {
                     return true;
                 }
-            }
+            } else {
 
-            if (group.canMembersDecorate() && group.getMemberManager().isMemberType(userId, GroupMemberType.MEMBER)) {
-                return true;
+                if (group.getMemberManager().isMemberType(userId, GroupMemberType.ADMINISTRATOR)) {
+                    return true;
+                }
+
+                if (group.canMembersDecorate() && group.getMemberManager().isMemberType(userId, GroupMemberType.MEMBER)) {
+                    return true;
+                }
             }
         }
 

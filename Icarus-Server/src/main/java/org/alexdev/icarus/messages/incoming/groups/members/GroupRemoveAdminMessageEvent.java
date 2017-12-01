@@ -1,5 +1,6 @@
 package org.alexdev.icarus.messages.incoming.groups.members;
 
+import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.groups.GroupManager;
 import org.alexdev.icarus.game.groups.members.GroupMemberType;
@@ -35,7 +36,7 @@ public class GroupRemoveAdminMessageEvent implements MessageEvent {
         Player user = PlayerManager.getInstance().getById(userId);
 
         if (user != null) {
-            RoomUtil.refreshRights(player.getRoom(), user);
+            RoomUtil.refreshRights(RoomDao.getRoom(group.getRoomId(), false), user);
         }
 
         player.send(new GroupUpdateMemberComposer(group.getId(), userId, 2));
