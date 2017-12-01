@@ -31,6 +31,7 @@ public class NavigatorDao {
      * @return the room
      */
     public static Room createRoom(Player player, String name, String description, String model, int category, int usersMax, int tradeState) {
+        Room room = null;
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
 
@@ -51,7 +52,7 @@ public class NavigatorDao {
             ResultSet row = preparedStatement.getGeneratedKeys();
 
             if (row != null && row.next()) {
-                return RoomDao.getRoom(row.getInt(1), true);
+                room = RoomDao.getRoom(row.getInt(1), true);
             }
 
         } catch (SQLException e) {
@@ -61,7 +62,7 @@ public class NavigatorDao {
             Storage.closeSilently(sqlConnection);
         }
 
-        return null;
+        return room;
     }
     
     /**
@@ -84,9 +85,7 @@ public class NavigatorDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-
                 NavigatorTab tab = fill(resultSet);
-
                 tabs.add(tab);
                 tabs.addAll(getTabs(tab.getId()));
             }
@@ -145,8 +144,7 @@ public class NavigatorDao {
     public static NavigatorTab fill(ResultSet set) throws SQLException {
         NavigatorTab instance = new NavigatorTab();
 
-        instance.fill(set.getInt("id"), set.getInt("child_id"), set.getString("tab_name"), set.getString("title"), set.getByte("button_type"), 
-                set.getByte("closed") == 1, set.getByte("thumbnail") == 1, set.getString("room_populator"));
+        instance.fill(set.getInt("id"), set.getInt("child_id"), set.getString("tab_name"), set.getString("title"), set.getByte("button_type"), set.getByte("closed") == 1, set.getByte("thumbnail") == 1, set.getString("room_populator"));
 
         return instance;
     }

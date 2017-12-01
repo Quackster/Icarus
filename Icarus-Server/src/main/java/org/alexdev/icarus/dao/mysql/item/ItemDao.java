@@ -29,7 +29,6 @@ public class ItemDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM item_definitions", sqlConnection);
             resultSet = preparedStatement.executeQuery();
@@ -57,7 +56,6 @@ public class ItemDao {
         }
 
         return furni;
-
     }
     
     /**
@@ -75,7 +73,6 @@ public class ItemDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM items WHERE id = " + itemId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
@@ -109,7 +106,6 @@ public class ItemDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM items WHERE room_id = " + roomId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
@@ -200,7 +196,6 @@ public class ItemDao {
     public static void deleteItem(long id) {
         Dao.getStorage().execute("DELETE FROM items WHERE id = " + id);
     }
-
 
     /**
      * Fill.

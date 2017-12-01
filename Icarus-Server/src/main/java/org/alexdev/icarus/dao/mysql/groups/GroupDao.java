@@ -76,7 +76,6 @@ public class GroupDao {
         Group group = null;
         
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM groups WHERE id = ? LIMIT 1", sqlConnection);
             preparedStatement.setInt(1, groupId);
@@ -108,9 +107,7 @@ public class GroupDao {
         ResultSet resultSet = null;
         
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
-
             preparedStatement = Dao.getStorage().prepare("DELETE FROM groups WHERE id = ?", sqlConnection);
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
@@ -136,9 +133,7 @@ public class GroupDao {
         ResultSet resultSet = null;
         
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
-
             preparedStatement = Dao.getStorage().prepare("UPDATE groups SET title = ?, description = ?, badge = ?, room_id = ?, colour_a = ?, colour_b = ?, access_type = ?, can_members_decorate = ? WHERE id = ?", sqlConnection);
             preparedStatement.setString(1, group.getTitle());
             preparedStatement.setString(2, group.getDescription());
@@ -150,7 +145,6 @@ public class GroupDao {
             preparedStatement.setInt(8, group.canMembersDecorate() ? 1 : 0);
             preparedStatement.setInt(9, group.getId());
             preparedStatement.execute();
-
         } catch (Exception e) {
             Storage.logError(e);
         } finally {

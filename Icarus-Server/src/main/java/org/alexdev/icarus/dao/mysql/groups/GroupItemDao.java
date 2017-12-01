@@ -38,7 +38,6 @@ public class GroupItemDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                
                 switch (resultSet.getString("type")) {
                     case "base":
                         bases.add(new GroupBase(resultSet.getInt("id"), resultSet.getString("firstvalue"), resultSet.getString("secondvalue")));

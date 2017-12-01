@@ -23,17 +23,13 @@ public class ClubDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
-
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM users_subscriptions WHERE user_id = ? LIMIT 1", sqlConnection);
             preparedStatement.setInt(1, userId);
-
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 subscriptionData = new long[] { resultSet.getLong("expire_time"), resultSet.getLong("bought_time") };
-
             }
 
         } catch (Exception e) {
@@ -60,7 +56,6 @@ public class ClubDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("INSERT INTO users_subscriptions (user_id, expire_time, bought_time) VALUES (?, ?, ?)", sqlConnection);
             preparedStatement.setInt(1, userId);

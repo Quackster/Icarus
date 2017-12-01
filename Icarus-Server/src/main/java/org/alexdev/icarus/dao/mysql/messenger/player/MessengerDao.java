@@ -27,7 +27,6 @@ public class MessengerDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM messenger_friendships WHERE (sender = " + userId + ") OR (receiver = " + userId + ")", sqlConnection);
             resultSet = preparedStatement.executeQuery();
@@ -71,7 +70,6 @@ public class MessengerDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM messenger_requests WHERE to_id = " + userId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
@@ -105,9 +103,7 @@ public class MessengerDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
-
             preparedStatement = Dao.getStorage().prepare("SELECT id FROM users WHERE username LIKE ? LIMIT 30", sqlConnection);
             preparedStatement.setString(1, query + "%");
 
@@ -143,7 +139,6 @@ public class MessengerDao {
         if (!requestExists(fromId, toId)) {
 
             try {
-
                 sqlConnection = Dao.getStorage().getConnection();
                 preparedStatement = Dao.getStorage().prepare("INSERT INTO messenger_requests (to_id, from_id) VALUES (?, ?)", sqlConnection);
                 preparedStatement.setInt(1, toId);
@@ -176,7 +171,6 @@ public class MessengerDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM messenger_requests WHERE (to_id = '" + toId + "') AND (from_id = '" + fromId + "') OR (from_id = '" + toId + "') AND (to_id = '" + fromId + "')", sqlConnection);
             resultSet = preparedStatement.executeQuery();
@@ -228,7 +222,6 @@ public class MessengerDao {
         PreparedStatement preparedStatement = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("INSERT INTO messenger_friendships (sender, receiver) VALUES (?, ?)", sqlConnection);
             preparedStatement.setInt(1, sender);

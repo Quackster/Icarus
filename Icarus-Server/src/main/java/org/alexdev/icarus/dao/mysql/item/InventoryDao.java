@@ -1,18 +1,17 @@
 package org.alexdev.icarus.dao.mysql.item;
 
+import org.alexdev.icarus.dao.mysql.Dao;
+import org.alexdev.icarus.dao.mysql.Storage;
+import org.alexdev.icarus.dao.mysql.pets.PetDao;
+import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.pets.Pet;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.alexdev.icarus.dao.mysql.Dao;
-import org.alexdev.icarus.dao.mysql.Storage;
-import org.alexdev.icarus.dao.mysql.pets.PetDao;
-import org.alexdev.icarus.game.item.Item;
-import org.alexdev.icarus.game.item.interactions.InteractionType;
-import org.alexdev.icarus.game.pets.Pet;
 
 public class InventoryDao {
     
@@ -31,12 +30,9 @@ public class InventoryDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
-            
             preparedStatement = Dao.getStorage().prepare("SELECT id, user_id, item_id, room_id, x, y, z, rotation, extra_data FROM items WHERE room_id = 0 AND user_id = ?", sqlConnection);
             preparedStatement.setInt(1, userId);
-            
             resultSet = preparedStatement.executeQuery();
     
             while (resultSet.next()) {
@@ -61,19 +57,15 @@ public class InventoryDao {
      * @return the item
      */
     public static Item getItem(long id) {
-
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         Item item = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
-            
             preparedStatement = Dao.getStorage().prepare("SELECT id, user_id, item_id, room_id, x, y, z, rotation, extra_data FROM items WHERE id = ? LIMIT 1", sqlConnection);
             preparedStatement.setLong(1, id);
-            
             resultSet = preparedStatement.executeQuery();
                 
             if (resultSet.next()) {
@@ -106,10 +98,8 @@ public class InventoryDao {
         Item item = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("INSERT INTO items (owner_id, user_id, item_id, extra_data) VALUES(?, ?, ?, ?)", sqlConnection);
-            
             preparedStatement.setInt(1, ownerId);
             preparedStatement.setInt(2, ownerId);
             preparedStatement.setInt(3, itemId);
@@ -119,8 +109,7 @@ public class InventoryDao {
             resultSet = preparedStatement.getGeneratedKeys();
 
             if (resultSet != null && resultSet.next()) {
-                int inventoryItemId = resultSet.getInt(1);
-                return new Item(inventoryItemId, ownerId, ownerId, itemId, 0, "0", "0", 0, 0, extraData);
+                item = new Item(resultSet.getInt(1), ownerId, ownerId, itemId, 0, "0", "0", 0, 0, extraData);
             }
 
         } catch (SQLException e) {
@@ -141,7 +130,6 @@ public class InventoryDao {
      * @return the inventory pets
      */
     public static Map<Integer, Pet> getInventoryPets(int id) {
-
         Map<Integer, Pet> items = new HashMap<>();
         
         Connection sqlConnection = null;
@@ -149,12 +137,9 @@ public class InventoryDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
-            
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM pets WHERE room_id = 0 AND owner_id = ?", sqlConnection);
             preparedStatement.setInt(1, id);
-            
             resultSet = preparedStatement.executeQuery();
     
             while (resultSet.next()) {

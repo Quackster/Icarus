@@ -27,12 +27,9 @@ public class PlayerDao {
         PlayerDetails details = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
-
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM users WHERE id = ? LIMIT 1", sqlConnection);
             preparedStatement.setInt(1, userId);
-
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -70,7 +67,6 @@ public class PlayerDao {
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM users WHERE sso_ticket = ? LIMIT 1", sqlConnection);
             preparedStatement.setString(1, ssoTicket);
-            
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -103,11 +99,9 @@ public class PlayerDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT id FROM users WHERE username = ? LIMIT 1", sqlConnection);
             preparedStatement.setString(1, username);
-            
             resultSet = preparedStatement.executeQuery();
             
             if (resultSet.next()) {
@@ -138,11 +132,9 @@ public class PlayerDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT username FROM users WHERE id = ? LIMIT 1", sqlConnection);
             preparedStatement.setInt(1, id);
-            
             resultSet = preparedStatement.executeQuery();
             
             if (resultSet.next()) {
@@ -170,7 +162,6 @@ public class PlayerDao {
         PreparedStatement preparedStatement = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("UPDATE users SET mission = ?, figure = ?, gender = ?, rank = ?, credits = ?, duckets = ?, home_room = ? WHERE id = ?", sqlConnection);
             preparedStatement.setString(1, details.getMission());
@@ -182,7 +173,6 @@ public class PlayerDao {
             preparedStatement.setInt(7, details.getHomeRoomId());
             preparedStatement.setInt(8, details.getId());
             preparedStatement.execute();
-
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
@@ -201,7 +191,6 @@ public class PlayerDao {
         PreparedStatement preparedStatement = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("UPDATE users SET sso_ticket = ? WHERE id = ?", sqlConnection);
             preparedStatement.setNull(1, Types.VARCHAR);
@@ -226,7 +215,6 @@ public class PlayerDao {
         PreparedStatement preparedStatement = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("UPDATE users SET last_online = ? WHERE id = ?", sqlConnection);
             preparedStatement.setLong(1, Util.getCurrentTimeSeconds());
@@ -254,7 +242,6 @@ public class PlayerDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM users_permissions", sqlConnection);
             resultSet = preparedStatement.executeQuery();

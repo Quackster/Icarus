@@ -27,15 +27,12 @@ public class GroupMemberDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
-
             preparedStatement = Dao.getStorage().prepare("INSERT INTO group_members (user_id, group_id, member_type) VALUES (?, ?, ?)", sqlConnection);
             preparedStatement.setInt(1, userId);
             preparedStatement.setInt(2, groupId);
             preparedStatement.setString(3, memberType.name());
             preparedStatement.execute();
-
         } catch (Exception e) {
             Storage.logError(e);
         } finally {

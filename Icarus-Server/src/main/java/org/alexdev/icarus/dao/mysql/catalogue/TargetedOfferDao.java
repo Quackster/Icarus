@@ -28,17 +28,13 @@ public class TargetedOfferDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
-
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM targeted_offers WHERE expire_time > ? AND enabled = 1", sqlConnection);
             preparedStatement.setLong(1, Util.getCurrentTimeSeconds());
-
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 offers.put(resultSet.getInt("id"), new TargetedOffer(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getString("description"), resultSet.getInt("credits"), resultSet.getInt("activity_points"), resultSet.getInt("activity_points_type"), resultSet.getInt("purchase_limit"), resultSet.getString("large_image"), resultSet.getString("small_image"), resultSet.getLong("expire_time"), resultSet.getString("items")));
-
             }
 
         } catch (Exception e) {
@@ -66,18 +62,14 @@ public class TargetedOfferDao {
         ResultSet resultSet = null;
         
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
-
             preparedStatement = Dao.getStorage().prepare("SELECT user_id FROM targeted_offers_blacklist WHERE offer_id = ?", sqlConnection);
             preparedStatement.setInt(1, id);
-
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 blacklist.add(resultSet.getInt("user_id"));
             }
-
         } catch (Exception e) {
             Storage.logError(e);
         } finally {

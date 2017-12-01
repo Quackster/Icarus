@@ -67,7 +67,6 @@ public class CatalogueDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM catalog_pages", sqlConnection);
             resultSet = preparedStatement.executeQuery();
@@ -101,7 +100,6 @@ public class CatalogueDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM catalog_items", sqlConnection);
             resultSet = preparedStatement.executeQuery();

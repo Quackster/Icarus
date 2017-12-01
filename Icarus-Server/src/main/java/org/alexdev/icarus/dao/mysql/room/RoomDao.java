@@ -33,7 +33,6 @@ public class RoomDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE room_type = ?", sqlConnection);
             preparedStatement.setString(1, RoomType.PUBLIC.name());
@@ -70,13 +69,11 @@ public class RoomDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM rooms WHERE owner_id = " + userId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-
                 Room room = fill(resultSet);
                 rooms.add(room);
             }
@@ -151,7 +148,6 @@ public class RoomDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM room_rights WHERE room_id = " + roomId, sqlConnection);
             resultSet = preparedStatement.executeQuery();
@@ -202,7 +198,6 @@ public class RoomDao {
         PreparedStatement preparedStatement = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("INSERT INTO room_rights (room_id, user_id) VALUES (?, ?)", sqlConnection);
             preparedStatement.setInt(1, roomId);
@@ -238,7 +233,6 @@ public class RoomDao {
         PreparedStatement preparedStatement = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("UPDATE rooms SET name = ?, description = ?, "
                     + "state = ?, password = ?, users_max = ?, category = ?, tags = ?, trade_state = ?, allow_pets = ?, allow_pets_eat = ?, " 
@@ -298,9 +292,7 @@ public class RoomDao {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
-
             preparedStatement = Dao.getStorage().prepare("INSERT INTO room_chatlogs (user, room_id, timestamp, message_type, message) VALUES (?, ?, ?, ?, ?)", sqlConnection);
             preparedStatement.setString(1, chatter.getDetails().getName());
             preparedStatement.setInt(2, roomId);
@@ -336,7 +328,6 @@ public class RoomDao {
         PreparedStatement preparedStatement = null;
 
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
 
             if (roomId > 0) {
