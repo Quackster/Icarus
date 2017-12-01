@@ -99,17 +99,16 @@ public class InventoryDao {
 
         try {
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("INSERT INTO items (owner_id, user_id, item_id, extra_data) VALUES(?, ?, ?, ?)", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("INSERT INTO items (user_id, item_id, extra_data) VALUES(?, ?, ?, ?)", sqlConnection);
             preparedStatement.setInt(1, ownerId);
-            preparedStatement.setInt(2, ownerId);
-            preparedStatement.setInt(3, itemId);
-            preparedStatement.setString(4, extraData);
+            preparedStatement.setInt(2, itemId);
+            preparedStatement.setString(3, extraData);
             preparedStatement.executeUpdate();
 
             resultSet = preparedStatement.getGeneratedKeys();
 
             if (resultSet != null && resultSet.next()) {
-                item = new Item(resultSet.getInt(1), ownerId, ownerId, itemId, 0, "0", "0", 0, 0, extraData);
+                item = new Item(resultSet.getInt(1), ownerId,  itemId, 0, "0", "0", 0, 0, extraData);
             }
 
         } catch (SQLException e) {
@@ -165,7 +164,7 @@ public class InventoryDao {
      * @throws Exception the exception
      */
     public static Item fill(ResultSet row) throws Exception {
-        Item item = new Item(row.getInt("id"), row.getInt("owner_id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
+        Item item = new Item(row.getInt("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
         return item;
     }
 }

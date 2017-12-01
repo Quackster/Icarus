@@ -151,7 +151,7 @@ public class ItemDao {
             preparedStatement.setDouble(4, item.getPosition().getZ());
             preparedStatement.setInt(5, item.getPosition().getRotation());
             preparedStatement.setInt(6, item.getRoomId());
-            preparedStatement.setInt(8, item.getUserId());
+            preparedStatement.setInt(7, item.getUserId());
             preparedStatement.setLong(8, item.getId());
             preparedStatement.executeUpdate();
 
@@ -205,7 +205,7 @@ public class ItemDao {
      * @throws Exception the exception
      */
     public static Item fill(ResultSet row) throws Exception {
-        Item item = new Item(row.getInt("id"), row.getInt("owner_id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
+        Item item = new Item(row.getInt("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
         return item;
     }
 }

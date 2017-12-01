@@ -21,7 +21,7 @@ public class WallItemsMessageComposer extends MessageComposer {
 
         response.writeInt(this.items.size());
         for (Item wallItem : this.items) {
-            response.writeInt(wallItem.getOwnerId());
+            response.writeInt(wallItem.getUserId());
             response.writeString(wallItem.getOwnerName());
         }
 
@@ -33,7 +33,7 @@ public class WallItemsMessageComposer extends MessageComposer {
             ItemUtil.generateWallExtraData(wallItem, response);
             response.writeInt(-1);
             response.writeInt(wallItem.getDefinition().getInteractionModes() > 0 ? 1 : 0);
-            response.writeInt(wallItem.getOwnerId());
+            response.writeInt(wallItem.getUserId());
         }
     }
 

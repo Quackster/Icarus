@@ -18,7 +18,7 @@ public class RemoveItemMessageComposer extends MessageComposer {
     public void compose(Response response) {
         response.writeString(item.getId());
         response.writeBool(false);
-        response.writeInt(item.getOwnerId());
+        response.writeInt(item.getUserId());
 
         if (this.item.getDefinition().getType() == ItemType.FLOOR) {
             response.writeInt(0);

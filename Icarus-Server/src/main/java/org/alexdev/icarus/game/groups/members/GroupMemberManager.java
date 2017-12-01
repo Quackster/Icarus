@@ -70,8 +70,7 @@ public class GroupMemberManager {
         
         return false;
     }
-    
-    
+
     /**
      * Gets the members.
      *

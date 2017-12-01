@@ -22,7 +22,7 @@ public class FloorItemsMessageComposer extends MessageComposer {
         //response.init(Outgoing.FloorItemsMessageComposer);
         response.writeInt(this.items.size());
         for (Item floorItem : this.items) {
-            response.writeInt(floorItem.getOwnerId());
+            response.writeInt(floorItem.getUserId());
             response.writeString(floorItem.getOwnerName());
         }
 
@@ -38,7 +38,7 @@ public class FloorItemsMessageComposer extends MessageComposer {
             ItemUtil.generateExtraData(floorItem, response);
             response.writeInt(-1);
             response.writeInt(floorItem.getDefinition().getInteractionModes() > 0 ? 1 : 0);
-            response.writeInt(floorItem.getOwnerId());
+            response.writeInt(floorItem.getUserId());
         }
     }
 

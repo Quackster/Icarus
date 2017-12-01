@@ -29,7 +29,7 @@ public class MoveItemMessageComposer extends MessageComposer {
             ItemUtil.generateExtraData(item, response);
             response.writeInt(-1);
             response.writeInt(this.item.getDefinition().getInteractionModes() > 0 ? 1 : 0);
-            response.writeInt(this.item.getOwnerId());
+            response.writeInt(this.item.getUserId());
             response.writeString(this.item.getOwnerName());
         }
 
@@ -40,7 +40,7 @@ public class MoveItemMessageComposer extends MessageComposer {
             ItemUtil.generateWallExtraData(item, response);
             response.writeInt(-1);
             response.writeInt(item.getDefinition().getInteractionModes() > 0 ? 1 : 0);
-            response.writeInt(this.item.getOwnerId());
+            response.writeInt(this.item.getUserId());
             response.writeString(this.item.getOwnerName());
         }
     }

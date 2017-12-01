@@ -22,7 +22,6 @@ import java.util.List;
 public class Item extends Metadata {
 
     private int id;
-    private int ownerId;
     private int userId;
     private String ownerName;
     private int itemId;
@@ -36,12 +35,11 @@ public class Item extends Metadata {
     private int widthX = 0;
     private int widthY = 0;
 
-    public Item(int id, int ownerId, int userId, int itemId, int roomId, String x, String y, double z, int rotation, String extraData) {
+    public Item(int id, int userId, int itemId, int roomId, String x, String y, double z, int rotation, String extraData) {
 
         this.id = id;
-        this.ownerId = ownerId;
         this.userId = userId;
-        this.ownerName = PlayerDao.getName(this.ownerId);
+        this.ownerName = PlayerDao.getName(this.userId);
         this.itemId = itemId;
         this.roomId = roomId;
         this.extraData = extraData;
@@ -323,15 +321,6 @@ public class Item extends Metadata {
      */
     public int getWidthY() {
         return widthY;
-    }
-
-    /**
-     * Gets the owner id.
-     *
-     * @return the owner id
-     */
-    public int getOwnerId() {
-        return ownerId;
     }
 
     /**

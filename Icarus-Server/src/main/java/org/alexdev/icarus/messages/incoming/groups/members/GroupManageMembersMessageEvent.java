@@ -40,7 +40,6 @@ public class GroupManageMembersMessageEvent implements MessageEvent {
             break;
         }
 
-
         boolean hasAccess = group.getOwnerId() == player.getEntityId();
 
         if (!hasAccess) {

@@ -46,7 +46,7 @@ public class InteractItemMessageEvent implements MessageEvent {
             builder.append("<b>Item settings</b>\n");
             builder.append("item_id: " + item.getId() + "\n");
             builder.append("exta_data: " + item.getExtraData() + "\n");
-            builder.append("owner_id: " + item.getOwnerId() + "\n");
+            builder.append("user_id: " + item.getUserId() + "\n");
             builder.append("height: " + item.getPosition().getZ() + "\n");
             builder.append("\r");
             builder.append("<b>Definition settings</b>\n");
