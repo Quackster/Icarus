@@ -3,6 +3,10 @@ package org.alexdev.icarus.game.groups;
 import org.alexdev.icarus.dao.mysql.groups.GroupDao;
 import org.alexdev.icarus.game.groups.access.GroupAccessType;
 import org.alexdev.icarus.game.groups.members.GroupMemberManager;
+import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.item.interactions.InteractionType;
+import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.game.room.RoomManager;
 
 public class Group {
 
@@ -34,6 +38,25 @@ public class Group {
         this.canMembersDecorate = canMembersDecorate;
         this.accessType = type;
         this.memberManager = new GroupMemberManager(this);
+    }
+
+    /**
+     * Refresh group items live, but will only work
+     * if this group home room was already loaded.
+     */
+    public void refreshItems() {
+        Room room = RoomManager.getInstance().getByRoomId(this.roomId);
+
+        if (room != null) {
+            for (Item item : room.getItemManager().getItems(InteractionType.GLD_GATE, InteractionType.GLD_FORUM, InteractionType.GLD_ITEM)) {
+
+                if (item.getGroupId() != this.id) {
+                    continue;
+                }
+
+                item.updateStatus();
+            }
+        }
     }
 
     /**
@@ -238,5 +261,4 @@ public class Group {
     public void setCanMembersDecorate(boolean canMembersDecorate) {
         this.canMembersDecorate = canMembersDecorate;
     }
-
 }

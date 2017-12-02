@@ -44,11 +44,17 @@ public class RoomItemManager {
     /**
      * Gets the items by interaction type.
      *
-     * @param interactionType the interaction type
+     * @param interactionTypes the array of types
      * @return the items
      */
-    public List<Item> getItems(InteractionType interactionType) {
-        return this.items.values().stream().filter(item -> item.getDefinition().getInteractionType() == interactionType).collect(Collectors.toList());
+    public List<Item> getItems(InteractionType... interactionTypes) {
+        List<Item> items = new ArrayList<>();
+
+        for (InteractionType interactionType : interactionTypes) {
+            items.addAll(this.items.values().stream().filter(item -> item.getDefinition().getInteractionType() == interactionType).collect(Collectors.toList()));
+        }
+
+        return items;
     }
 
 

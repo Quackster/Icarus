@@ -29,6 +29,7 @@ public class EditGroupColoursMessageEvent implements MessageEvent {
         
         group.setColourA(colourA);
         group.setColourB(colourB);
+        group.refreshItems();
         group.save();
         
         player.send(new GroupInfoMessageComposer(group, player, false));

@@ -21,7 +21,6 @@ public class GuildFurniInteractor extends Interaction {
         if (item.getDefinition().getInteractionType() == InteractionType.GLD_GATE) {
             InteractionType.GATE.getInteractor().useItem(item, roomUser);
         } else {
-            System.out.println("INTERACTION MODES COUNT: " + item.getDefinition().getInteractionModes());
             InteractionType.DEFAULT.getInteractor().useItem(item, roomUser);
         }
     }
@@ -34,9 +33,12 @@ public class GuildFurniInteractor extends Interaction {
         if (group == null) {
             return new StringExtraData(ExtraDataPerspective.FURNI, item.getExtraData());
         } else {
-            List<String> objects = new ArrayList<String>();
+
+            System.out.println("BADGE: " + group.getBadge());
+
+            List<String> objects = new ArrayList<>();
             objects.add(item.getExtraData());
-            objects.add(group.getId() + "");
+            objects.add(String.valueOf(group.getId()));
             objects.add(group.getBadge());
             objects.add(GroupManager.getInstance().getColourCode(group.getColourA(), true));
             objects.add(GroupManager.getInstance().getColourCode(group.getColourB(), false));
