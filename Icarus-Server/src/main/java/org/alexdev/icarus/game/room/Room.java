@@ -61,7 +61,7 @@ public class Room extends Metadata {
             return true;
         } else {
 
-            if (groupCheck && this.hasGroupRights(userId, true)) {
+            if (groupCheck && this.hasGroupRights(userId, false)) {
                 return true;
             }
 
@@ -84,7 +84,6 @@ public class Room extends Metadata {
                     return true;
                 }
             } else {
-
                 if (group.getMemberManager().isMemberType(userId, GroupMemberType.ADMINISTRATOR)) {
                     return true;
                 }
