@@ -23,6 +23,10 @@ public class ApplyDecorationMessageEvent implements MessageEvent {
         if (room == null) {
             return;
         }
+
+        if (!room.hasRights(player.getEntityId(), true) && !player.hasPermission("room_all_rights")) {
+            return;
+        }
         
         if (item.getDefinition().getItemName().startsWith("wallpaper")) {
             room.getData().setWall(item.getExtraData());
