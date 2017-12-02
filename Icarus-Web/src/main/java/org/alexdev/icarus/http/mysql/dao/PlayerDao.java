@@ -155,7 +155,7 @@ public class PlayerDao {
     }
 
     public static int create(String email, String password) {
-        return create("", email, BCrypt.hashpw(password, BCrypt.gensalt()), Configuration.REGISTER_MOTTO,  Configuration.REGISTER_FIGURE);
+        return create("", email, password, Configuration.REGISTER_MOTTO,  Configuration.REGISTER_FIGURE);
     }
 
     public static int create(String username, String email, String password, String mission, String figure) {
