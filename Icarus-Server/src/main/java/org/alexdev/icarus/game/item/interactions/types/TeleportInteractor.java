@@ -51,6 +51,7 @@ public class TeleportInteractor extends Interaction {
         }
 
         Position front = item.getPosition().getSquareInFront();
+
         if (!front.equals(roomUser.getPosition())) {
             roomUser.walkTo(front.getX(), front.getY());
             return;
@@ -65,7 +66,6 @@ public class TeleportInteractor extends Interaction {
        RoomManager.getInstance().getScheduleService().schedule(() -> {
             item.setExtraData(TELEPORTER_EFFECTS);
             item.updateStatus();
-
         }, 1, TimeUnit.SECONDS);
 
         RoomManager.getInstance().getScheduleService().schedule(() -> {
@@ -101,7 +101,6 @@ public class TeleportInteractor extends Interaction {
                 roomUser.getRoom().getItemManager().getItem(pairId).setExtraData(TELEPORTER_OPEN);
                 roomUser.getRoom().getItemManager().getItem(pairId).updateStatus();
             }
-
         }, 3, TimeUnit.SECONDS);
 
         RoomManager.getInstance().getScheduleService().schedule(() -> {
@@ -109,7 +108,6 @@ public class TeleportInteractor extends Interaction {
             roomUser.walkTo(
                     targetTeleporter.getPosition().getSquareInFront().getX(), 
                     targetTeleporter.getPosition().getSquareInFront().getY());
-            
         }, 3500, TimeUnit.MILLISECONDS);
 
         RoomManager.getInstance().getScheduleService().schedule(() -> {
@@ -120,7 +118,6 @@ public class TeleportInteractor extends Interaction {
                 roomUser.getRoom().getItemManager().getItem(pairId).setExtraData(TELEPORTER_CLOSE);
                 roomUser.getRoom().getItemManager().getItem(pairId).updateStatus();
             }
-
         }, 4, TimeUnit.SECONDS);
     }
 }

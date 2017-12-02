@@ -5,7 +5,7 @@ import org.alexdev.icarus.game.catalogue.CataloguePage;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.outgoing.catalogue.CatalogueDiscountComposer;
 import org.alexdev.icarus.messages.outgoing.catalogue.CataloguePageMessageComposer;
-import org.alexdev.icarus.messages.outgoing.catalogue.RequireGroupComposer;
+import org.alexdev.icarus.messages.outgoing.catalogue.GroupFurniConfigMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
@@ -28,7 +28,7 @@ public class CataloguePageMessageEvent implements MessageEvent {
         player.send(new CatalogueDiscountComposer());
 
         if (page.getLayout().equals("guild_custom_furni") || page.getLayout().equals("guild_forum")) {
-            player.send(new RequireGroupComposer());
+            player.send(new GroupFurniConfigMessageComposer(player.getGroups()));
         }
     }
 }

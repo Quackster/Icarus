@@ -1,6 +1,7 @@
 package org.alexdev.icarus.game.player;
 
 import io.netty.util.AttributeKey;
+import org.alexdev.icarus.dao.mysql.groups.GroupDao;
 import org.alexdev.icarus.dao.mysql.player.PlayerDao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.encryption.DiffieHellman;
@@ -8,6 +9,7 @@ import org.alexdev.icarus.encryption.RC4;
 import org.alexdev.icarus.game.GameSettings;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityType;
+import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.inventory.Inventory;
 import org.alexdev.icarus.game.messenger.Messenger;
 import org.alexdev.icarus.game.player.club.ClubSubscription;
@@ -33,6 +35,7 @@ import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends Entity {
@@ -208,6 +211,15 @@ public class Player extends Entity {
      */
     public List<Room> getRooms() {
         return RoomManager.getInstance().getPlayerRooms(this.details.getId());
+    }
+
+    /**
+     * Gets the groups this user is a member of.
+     *
+     * @return the list of groups
+     */
+    public List<Group> getGroups() {
+        return GroupDao.getMemberGroups(this.details.getId());
     }
 
     /**

@@ -3,6 +3,9 @@ package org.alexdev.icarus.dao.mysql.groups;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
@@ -82,7 +85,7 @@ public class GroupDao {
             resultSet = preparedStatement.executeQuery();
             
             if (resultSet.next()) {
-                group = new Group(groupId, resultSet.getString("title"), resultSet.getString("description"), resultSet.getString("badge"), resultSet.getInt("owner_id"), resultSet.getInt("room_id"), resultSet.getInt("created"), resultSet.getInt("colour_a"), resultSet.getInt("colour_b"), resultSet.getInt("can_members_decorate") == 1, GroupAccessType.valueOf(resultSet.getString("access_type")));
+                group = fill(resultSet);
             }
 
         } catch (Exception e) {
@@ -95,7 +98,7 @@ public class GroupDao {
         
         return group;
     }
-    
+
     /**
      * Delete group.
      *
@@ -119,7 +122,6 @@ public class GroupDao {
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
-        
     }
 
     /**
@@ -152,5 +154,50 @@ public class GroupDao {
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
+    }
+
+    /**
+     * Get groups this user is a member of
+     */
+    public static List<Group> getMemberGroups(int userId) {
+        List<Group> groups = new ArrayList<Group>();
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("SELECT * FROM groups WHERE owner_id = ?", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                groups.add(fill(resultSet));
+            }
+
+            preparedStatement = Dao.getStorage().prepare("SELECT group_id FROM group_members WHERE user_id = ? AND member_type <> 'REQUEST'", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                groups.add(getGroup(resultSet.getInt("group_id")));
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return groups;
+    }
+
+
+    private static Group fill(ResultSet resultSet) throws SQLException {
+        Group group = new Group(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getString("description"), resultSet.getString("badge"), resultSet.getInt("owner_id"), resultSet.getInt("room_id"), resultSet.getInt("created"), resultSet.getInt("colour_a"), resultSet.getInt("colour_b"), resultSet.getInt("can_members_decorate") == 1, GroupAccessType.valueOf(resultSet.getString("access_type")));
+        return group;
     }
 }
