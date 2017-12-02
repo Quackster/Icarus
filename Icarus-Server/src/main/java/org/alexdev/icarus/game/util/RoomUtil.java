@@ -75,9 +75,12 @@ public class RoomUtil {
  
         player.sendQueued(new RoomSpacesMessageComposer("landscape", room.getData().getLandscape()));
         player.sendQueued(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
+        player.sendQueued(new RoomSpacesMessageComposer("landscape", room.getData().getLandscape()));
+        player.sendQueued(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
+        player.flushQueue();
+
         refreshRights(room, player);
 
-        player.flushQueue();
         room.getEntityManager().addEntity(player, x, y, rotation);
     }
 
@@ -91,11 +94,8 @@ public class RoomUtil {
         boolean isOwner = (room.hasOwnership(player.getEntityId())
                 || player.hasPermission("room_all_rights"));
 
-        player.sendQueued(new RoomSpacesMessageComposer("landscape", room.getData().getLandscape()));
-        player.sendQueued(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
-
         if (isOwner) {
-            player.sendQueued(new RightsLevelMessageComposer(3));
+            player.sendQueued(new RightsLevelMessageComposer(4));
             player.sendQueued(new OwnerRightsMessageComposer());
 
         } else if (room.hasGroupRights(player.getEntityId(), true)) {
@@ -110,6 +110,8 @@ public class RoomUtil {
         } else {
             player.sendQueued(new RightsLevelMessageComposer(0));
         }
+
+        player.flushQueue();
     }
 
     /**

@@ -33,13 +33,13 @@ public class GuildFurniInteractor extends Interaction {
         if (group == null) {
             return new StringExtraData(ExtraDataPerspective.FURNI, item.getExtraData());
         } else {
-            List<String> objects = new ArrayList<>();
-            objects.add(item.getExtraData());
-            objects.add(String.valueOf(group.getId()));
-            objects.add(group.getBadge());
-            objects.add(GroupManager.getInstance().getColourCode(group.getColourA(), true));
-            objects.add(GroupManager.getInstance().getColourCode(group.getColourB(), false));
-            return new StringArrayExtraData(ExtraDataPerspective.FURNI, objects);
+            List<String> tags = new ArrayList<>();
+            tags.add(item.getExtraData());
+            tags.add(String.valueOf(group.getId()));
+            tags.add(group.getBadge());
+            tags.add(GroupManager.getInstance().getColourCode(group.getColourA(), true));
+            tags.add(GroupManager.getInstance().getColourCode(group.getColourB(), false));
+            return new StringArrayExtraData(ExtraDataPerspective.FURNI, tags);
         }
     }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.groups.GroupDao;
+import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
@@ -52,9 +53,12 @@ public class GroupPurchaseMessageEvent implements MessageEvent {
         }
 
         String badge = BadgeUtil.generate(groupBase, groupBaseColour, groupItems);
+
+        RoomDao.clearRoomRights(roomId);
         Group group = GroupDao.createGroup(name, desc, badge, player.getEntityId(), roomId, Util.getCurrentTimeSeconds(), colourA, colourB);
         
         room.getData().setGroupId(group.getId());
+        room.getRights().clear();
         room.loadGroup();
         room.save();
         
