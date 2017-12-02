@@ -223,6 +223,15 @@ public class Player extends Entity {
     }
 
     /**
+     * Gets the groups this user is either an owner, or administrator of
+     *
+     * @return the list of groups
+     */
+    public List<Group> getAdministrativeGroups() {
+        return GroupDao.getMemberOwnershipGroups(this.details.getId());
+    }
+
+    /**
      * Sets the machine id.
      *
      * @param machineId the new machine id

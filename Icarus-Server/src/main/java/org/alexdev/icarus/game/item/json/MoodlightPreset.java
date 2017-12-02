@@ -1,4 +1,4 @@
-package org.alexdev.icarus.game.item.json.moodlight;
+package org.alexdev.icarus.game.item.json;
 
 public class MoodlightPreset {
     

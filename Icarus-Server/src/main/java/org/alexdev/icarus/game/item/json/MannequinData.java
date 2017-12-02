@@ -1,4 +1,4 @@
-package org.alexdev.icarus.game.item.json.mannequin;
+package org.alexdev.icarus.game.item.json;
 
 public class MannequinData {
 

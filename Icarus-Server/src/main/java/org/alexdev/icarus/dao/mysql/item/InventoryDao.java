@@ -31,7 +31,7 @@ public class InventoryDao {
 
         try {
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT id, user_id, item_id, room_id, x, y, z, rotation, extra_data FROM items WHERE room_id = 0 AND user_id = ?", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT id, user_id, group_id, item_id, room_id, x, y, z, rotation, extra_data FROM items WHERE room_id = 0 AND user_id = ?", sqlConnection);
             preparedStatement.setInt(1, userId);
             resultSet = preparedStatement.executeQuery();
     
@@ -91,7 +91,7 @@ public class InventoryDao {
      * @param extraData the extra data
      * @return the item
      */
-    public static Item newItem(int itemId, int ownerId, String extraData) {
+    public static Item newItem(int itemId, int ownerId, String extraData, int groupId) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -99,16 +99,17 @@ public class InventoryDao {
 
         try {
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("INSERT INTO items (user_id, item_id, extra_data) VALUES (?, ?, ?)", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("INSERT INTO items (user_id, group_id, item_id, extra_data) VALUES (?, ?, ?, ?)", sqlConnection);
             preparedStatement.setInt(1, ownerId);
-            preparedStatement.setInt(2, itemId);
-            preparedStatement.setString(3, extraData);
+            preparedStatement.setInt(2, groupId);
+            preparedStatement.setInt(3, itemId);
+            preparedStatement.setString(4, extraData);
             preparedStatement.executeUpdate();
 
             resultSet = preparedStatement.getGeneratedKeys();
 
             if (resultSet != null && resultSet.next()) {
-                item = new Item(resultSet.getInt(1), ownerId,  itemId, 0, "0", "0", 0, 0, extraData);
+                item = new Item(resultSet.getInt(1), ownerId, groupId, itemId, 0, "0", "0", 0, 0, extraData);
             }
 
         } catch (SQLException e) {
@@ -164,7 +165,7 @@ public class InventoryDao {
      * @throws Exception the exception
      */
     public static Item fill(ResultSet row) throws Exception {
-        Item item = new Item(row.getInt("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
+        Item item = new Item(row.getInt("id"), row.getInt("user_id"), row.getInt("group_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
         return item;
     }
 }

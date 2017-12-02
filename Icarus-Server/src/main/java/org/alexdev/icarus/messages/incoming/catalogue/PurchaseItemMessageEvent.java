@@ -7,6 +7,7 @@ import org.alexdev.icarus.game.catalogue.CataloguePage;
 import org.alexdev.icarus.game.inventory.InventoryNotification;
 import org.alexdev.icarus.game.inventory.effects.Effect;
 import org.alexdev.icarus.game.item.ItemType;
+import org.alexdev.icarus.game.item.interactions.Interaction;
 import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.club.ClubManager;
@@ -57,7 +58,6 @@ public class PurchaseItemMessageEvent implements MessageEvent {
      * @param extraData the extra data to read to know the name, race of the pet.
      */
     private void purchasePet(Player player, CatalogueItem item, String extraData) {
-        
         boolean creditsError = false;
 
         if (player.getDetails().getCredits() < item.getCostCredits()) {
@@ -99,24 +99,7 @@ public class PurchaseItemMessageEvent implements MessageEvent {
      * @param item the item purchased
      */
     private void purchaseEffect(Player player, CatalogueItem item) {
-
-        /*3859}
---------------------
-Outgoing(2386, 16, _-04Q) -> [0][0][0][9]R[0][11]h’[0][0]IÊ[0][0][0][0][0][1]
-{l}{u:2386}{i:747666}{i:18890}{s:}{i:1}
---------------------
-Incoming(277, 69, _-14, _-2mM) <- [0][0][0]E[1][0][0]IÊ[0]avatar_effect101[0][0][0][0][0][0][0][0]–[0][0][0][0][0][0][0][0][1][0][1]e[0][0][0]e[0][0][0][0][0][1][0][0][0][0][0][0][0][0][0][0][0][0][0][0]
---------------------
-Incoming(3182, 14, _-6dE, _-30-) <- [0][0][0][12]n[0][0][4]~ÿÿÿj[0][0][0][0]
---------------------
-Incoming(818, 15, _-03E, _-5n4) <- [0][0][0][3]2[0][0][0]e[0][0][0][0][0][9]:€[0]
---------------------
-Outgoing(1483, 6, _-2Nu) -> [0][0][0][6][5]Ë[0][0][0][3]
-{l}{u:1483}{i:3}*/
-
-
         int effectId = item.getItemDefinition().getSpriteId();
-
         Effect effect = player.getInventory().getEffectManager().addEffect(effectId);
 
         if (effect != null) {
@@ -191,8 +174,17 @@ Outgoing(1483, 6, _-2Nu) -> [0][0][0][6][5]Ë[0][0][0][3]
                     return;
                 }
 
+                String dbExtraData = extraData;
+                int groupId = 0;
+
+                if (item.getItemDefinition().getInteractionType().name().startsWith("GLD_")) {
+                    dbExtraData = "";
+                    groupId = Integer.parseInt(extraData);
+                    System.out.println("GROUP ID: " + groupId);
+                }
+
                 for (int i = 0; i < amount; i++) {
-                    item.getItemDefinition().handlePurchase(player, extraData);
+                    item.getItemDefinition().handlePurchase(player, dbExtraData, groupId);
                 }
 
                 player.send(new PurchaseNotificationMessageComposer(item));

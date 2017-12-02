@@ -196,6 +196,45 @@ public class GroupDao {
         return groups;
     }
 
+    /**
+     * Get groups this user is a member of
+     */
+    public static List<Group> getMemberOwnershipGroups(int userId) {
+        List<Group> groups = new ArrayList<Group>();
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("SELECT id FROM groups WHERE owner_id = ?", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                groups.add(GroupManager.getInstance().getGroup(resultSet.getInt("id")));
+            }
+
+            preparedStatement = Dao.getStorage().prepare("SELECT group_id FROM group_members WHERE user_id = ? AND member_type = 'ADMINISTRATOR'", sqlConnection);
+            preparedStatement.setInt(1, userId);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                groups.add(GroupManager.getInstance().getGroup(resultSet.getInt("group_id")));
+            }
+
+        } catch (Exception e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return groups;
+    }
+
 
     private static Group fill(ResultSet resultSet) throws SQLException {
         Group group = new Group(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getString("description"), resultSet.getString("badge"), resultSet.getInt("owner_id"), resultSet.getInt("room_id"), resultSet.getInt("created"), resultSet.getInt("colour_a"), resultSet.getInt("colour_b"), resultSet.getInt("can_members_decorate") == 1, GroupAccessType.valueOf(resultSet.getString("access_type")));

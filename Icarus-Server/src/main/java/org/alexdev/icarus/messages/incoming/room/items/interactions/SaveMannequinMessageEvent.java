@@ -2,7 +2,7 @@ package org.alexdev.icarus.messages.incoming.room.items.interactions;
 
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.extradata.ExtraDataManager;
-import org.alexdev.icarus.game.item.json.mannequin.MannequinData;
+import org.alexdev.icarus.game.item.json.MannequinData;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.types.MessageEvent;

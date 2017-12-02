@@ -1,4 +1,4 @@
-package org.alexdev.icarus.game.item.json.toner;
+package org.alexdev.icarus.game.item.json;
 
 public class TonerData {
 

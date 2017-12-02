@@ -203,7 +203,7 @@ public class ItemDao {
      * @throws Exception the exception
      */
     public static Item fill(ResultSet row) throws Exception {
-        Item item = new Item(row.getInt("id"), row.getInt("user_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
+        Item item = new Item(row.getInt("id"), row.getInt("user_id"), row.getInt("group_id"), row.getInt("item_id"), row.getInt("room_id"), row.getString("x"), row.getString("y"), row.getDouble("z"), row.getInt("rotation"), row.getString("extra_data"));
         return item;
     }
 }

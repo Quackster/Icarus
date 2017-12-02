@@ -23,6 +23,7 @@ public class Item extends Metadata {
 
     private int id;
     private int userId;
+    private int groupId;
     private String ownerName;
     private int itemId;
     private int roomId;
@@ -35,10 +36,11 @@ public class Item extends Metadata {
     private int widthX = 0;
     private int widthY = 0;
 
-    public Item(int id, int userId, int itemId, int roomId, String x, String y, double z, int rotation, String extraData) {
+    public Item(int id, int userId, int groupId, int itemId, int roomId, String x, String y, double z, int rotation, String extraData) {
 
         this.id = id;
         this.userId = userId;
+        this.groupId = groupId;
         this.ownerName = PlayerDao.getName(this.userId);
         this.itemId = itemId;
         this.roomId = roomId;
@@ -333,10 +335,12 @@ public class Item extends Metadata {
     }
 
     /**
-     * Sets the user id.
+     * Get the group id that this furniture belongs to
+     *
+     * @return the group id
      */
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public int getGroupId() {
+        return groupId;
     }
 
     /**

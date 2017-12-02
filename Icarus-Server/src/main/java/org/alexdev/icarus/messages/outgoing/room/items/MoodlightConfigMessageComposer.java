@@ -1,7 +1,7 @@
 package org.alexdev.icarus.messages.outgoing.room.items;
 
-import org.alexdev.icarus.game.item.json.moodlight.MoodlightData;
-import org.alexdev.icarus.game.item.json.moodlight.MoodlightPreset;
+import org.alexdev.icarus.game.item.json.MoodlightData;
+import org.alexdev.icarus.game.item.json.MoodlightPreset;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;

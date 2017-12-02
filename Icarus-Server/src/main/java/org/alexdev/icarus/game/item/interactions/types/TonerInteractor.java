@@ -8,8 +8,7 @@ import org.alexdev.icarus.game.item.extradata.ExtraDataManager;
 import org.alexdev.icarus.game.item.extradata.ExtraDataPerspective;
 import org.alexdev.icarus.game.item.extradata.types.IntArrayExtraData;
 import org.alexdev.icarus.game.item.interactions.Interaction;
-import org.alexdev.icarus.game.item.json.toner.TonerData;
-import org.alexdev.icarus.game.room.user.RoomUser;
+import org.alexdev.icarus.game.item.json.TonerData;
 
 public class TonerInteractor extends Interaction {
 

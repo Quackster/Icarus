@@ -81,12 +81,12 @@ public class ItemDefinition {
      * @param player the player
      * @param extraData the extra data
      */
-    public void handlePurchase(Player player, String extraData) {
+    public void handlePurchase(Player player, String extraData, int groupId) {
 
-        Item inventoryItem = InventoryDao.newItem(this.id, player.getEntityId(), extraData);
+        Item inventoryItem = InventoryDao.newItem(this.id, player.getEntityId(), extraData, groupId);
 
         if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
-            Item secondTeleporter = InventoryDao.newItem(this.id, player.getEntityId(), "0");
+            Item secondTeleporter = InventoryDao.newItem(this.id, player.getEntityId(), "0", groupId);
             TeleporterDao.savePair(inventoryItem.getId(), secondTeleporter.getId());
 
             player.getInventory().addItem(secondTeleporter, InventoryNotification.ALERT);

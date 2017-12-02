@@ -6,8 +6,8 @@ import org.alexdev.icarus.game.item.extradata.ExtraDataManager;
 import org.alexdev.icarus.game.item.extradata.ExtraDataPerspective;
 import org.alexdev.icarus.game.item.extradata.types.StringExtraData;
 import org.alexdev.icarus.game.item.interactions.Interaction;
-import org.alexdev.icarus.game.item.json.moodlight.MoodlightData;
-import org.alexdev.icarus.game.item.json.moodlight.MoodlightPreset;
+import org.alexdev.icarus.game.item.json.MoodlightData;
+import org.alexdev.icarus.game.item.json.MoodlightPreset;
 
 public class DimmerInteractor extends Interaction {
 

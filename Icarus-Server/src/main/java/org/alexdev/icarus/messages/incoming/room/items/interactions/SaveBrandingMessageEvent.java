@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.extradata.ExtraDataManager;
-import org.alexdev.icarus.game.item.json.adsbackground.AdsBackgroundData;
+import org.alexdev.icarus.game.item.json.AdsBackgroundData;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.types.MessageEvent;

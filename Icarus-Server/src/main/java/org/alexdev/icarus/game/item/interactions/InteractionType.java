@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.item.interactions;
 
+import org.alexdev.icarus.game.item.interactions.types.GuildFurniInteractor;
 import org.alexdev.icarus.game.item.interactions.types.*;
 
 public enum InteractionType {
@@ -19,7 +20,10 @@ public enum InteractionType {
     LANDSCAPE(new LandscapeInteractor()),
     ROOMBG(new TonerInteractor()),
     BACKGROUND(new AdsBackgroundInteractor()),
-    PHOTO(new PhotoInteractor());
+    PHOTO(new PhotoInteractor()),
+    GLD_GATE(new GuildFurniInteractor()),
+    GLD_ITEM(new GuildFurniInteractor()),
+    GLD_FORUM(new GuildFurniInteractor());
 
     private Interaction interaction;
 

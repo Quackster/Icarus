@@ -78,6 +78,7 @@ public class Incoming {
     public static short ClearRoomRightsMessageEvent = 163;//561
     public static short GroupCatalogueMessageEvent = 1180;//828
     public static short GroupBadgeDialogMessageEvent = 497;//3879
+    public static short GroupFurniConfigMessageEvent = 1810;
     public static short GroupPurchaseMessageEvent = 882;//842
     public static short GroupInfoMessageEvent = 1015;//3880
     public static short GroupManageDetailsMessageEvent = 201;//659

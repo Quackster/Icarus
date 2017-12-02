@@ -5,7 +5,7 @@ import java.util.List;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.extradata.ExtraDataManager;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
-import org.alexdev.icarus.game.item.json.moodlight.MoodlightData;
+import org.alexdev.icarus.game.item.json.MoodlightData;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;

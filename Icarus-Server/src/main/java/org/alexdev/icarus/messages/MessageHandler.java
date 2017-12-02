@@ -259,6 +259,7 @@ public class MessageHandler {
         registerEvent(Incoming.GroupPurchaseMessageEvent, new GroupPurchaseMessageEvent());
         registerEvent(Incoming.GroupInfoMessageEvent, new GroupInfoMessageEvent());
         registerEvent(Incoming.DeleteGroupMessageEvent, new DeleteGroupMessageEvent());
+        registerEvent(Incoming.GroupFurniConfigMessageEvent, new GroupFurniConfigMessageEvent());
         registerEvent(Incoming.GroupManageDetailsMessageEvent, new GroupManageDetailsMessageEvent());
         registerEvent(Incoming.GroupManageMembersMessageEvent, new GroupManageMembersMessageEvent());
         registerEvent(Incoming.GroupMembershipRequestMessageEvent, new GroupMembershipRequestMessageEvent());

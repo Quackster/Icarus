@@ -6,7 +6,7 @@ import org.alexdev.icarus.game.item.extradata.ExtraDataManager;
 import org.alexdev.icarus.game.item.extradata.ExtraDataPerspective;
 import org.alexdev.icarus.game.item.extradata.types.KeyValueExtraData;
 import org.alexdev.icarus.game.item.interactions.Interaction;
-import org.alexdev.icarus.game.item.json.adsbackground.AdsBackgroundData;
+import org.alexdev.icarus.game.item.json.AdsBackgroundData;
 
 import java.util.HashMap;
 import java.util.Map;

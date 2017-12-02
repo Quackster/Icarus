@@ -1,4 +1,4 @@
-package org.alexdev.icarus.game.item.json.adsbackground;
+package org.alexdev.icarus.game.item.json;
 
 public class AdsBackgroundData {
 

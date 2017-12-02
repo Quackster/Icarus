@@ -43,7 +43,7 @@ public class PurchasePhotoMessageEvent implements MessageEvent {
         extraData.append("\"m\":\"\"");
         extraData.append("}");
 
-        Item photo = InventoryDao.newItem(photoDef.getId(), player.getEntityId(), extraData.toString());
+        Item photo = InventoryDao.newItem(photoDef.getId(), player.getEntityId(), extraData.toString(),  0);
         
         player.getInventory().addItem(photo, InventoryNotification.ALERT);
         player.getInventory().updateItems();

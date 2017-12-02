@@ -9,8 +9,7 @@ import org.alexdev.icarus.game.item.extradata.ExtraDataManager;
 import org.alexdev.icarus.game.item.extradata.ExtraDataPerspective;
 import org.alexdev.icarus.game.item.extradata.types.KeyValueExtraData;
 import org.alexdev.icarus.game.item.interactions.Interaction;
-import org.alexdev.icarus.game.item.json.mannequin.MannequinData;
-import org.alexdev.icarus.game.room.user.RoomUser;
+import org.alexdev.icarus.game.item.json.MannequinData;
 
 public class MannequinInteractor extends Interaction {
 

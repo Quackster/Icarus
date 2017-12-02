@@ -26,9 +26,5 @@ public class CataloguePageMessageEvent implements MessageEvent {
 
         player.send(new CataloguePageMessageComposer(page, request.readString(), player.getMetadata().getBoolean("debugfurniture")));
         player.send(new CatalogueDiscountComposer());
-
-        if (page.getLayout().equals("guild_custom_furni") || page.getLayout().equals("guild_forum")) {
-            player.send(new GroupFurniConfigMessageComposer(player.getGroups()));
-        }
     }
 }
