@@ -11,11 +11,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-
--- Dumping database structure for icarusdb
-CREATE DATABASE IF NOT EXISTS `icarusdb` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `icarusdb`;
-
 -- Dumping structure for table icarusdb.catalog_gift_wrapping
 CREATE TABLE IF NOT EXISTS `catalog_gift_wrapping` (
   `type` enum('new','old') CHARACTER SET utf8mb4 DEFAULT 'new',
