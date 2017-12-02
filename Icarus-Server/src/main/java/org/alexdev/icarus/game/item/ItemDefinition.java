@@ -212,6 +212,10 @@ public class ItemDefinition {
             return true;
         }
 
+        if (this.interactionType == InteractionType.GLD_GATE) {
+            return true;
+        }
+
         if (this.interactionType == InteractionType.TELEPORT) {
             return true;
 

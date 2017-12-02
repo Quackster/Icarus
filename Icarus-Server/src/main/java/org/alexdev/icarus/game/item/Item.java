@@ -134,13 +134,9 @@ public class Item extends Metadata {
      * @return true, if successful
      */
     public boolean isGateOpen() {
-
         ItemDefinition definition = this.getDefinition();
 
-        if (definition.getInteractionType() == InteractionType.GATE ||
-                definition.getInteractionType() == InteractionType.ONEWAYGATE ||
-                definition.getInteractionType() == InteractionType.TELEPORT) {
-
+        if (definition.isDoor()) {
             if (this.getExtraData().equals("1")) {
                 return true;
             } else {
