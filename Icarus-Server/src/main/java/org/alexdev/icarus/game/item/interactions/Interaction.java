@@ -14,7 +14,7 @@ public abstract class Interaction {
      * @param item the item
      * @param roomUser the room user
      */
-    public void onUseItem(final Item item, final RoomUser roomUser) { }
+    public void useItem(final Item item, final RoomUser roomUser) { }
     
     /**
      * Called when the user stops walking on the item.

@@ -73,7 +73,7 @@ public class MessageHandler {
         registerCameraPackets();
         registerItemInteractionPackets();
 
-        //if (Configuration.getInstance().getServerConfig().get("Logging", "log.items.loaded", Boolean.class)) {
+        //if (Configuration.getInstance().getServerConfig().getInteractor("Logging", "log.items.loaded", Boolean.class)) {
         //    log.info("Loaded {} message event handlers", messages.size());
         //}
     }

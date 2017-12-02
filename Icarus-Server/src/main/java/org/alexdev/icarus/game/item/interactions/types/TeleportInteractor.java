@@ -18,7 +18,7 @@ public class TeleportInteractor extends Interaction {
     public static final String TELEPORTER_EFFECTS = "2";
     
     @Override
-    public void onUseItem(Item item, RoomUser roomUser) {
+    public void useItem(Item item, RoomUser roomUser) {
 
         // Check if the user is inside the teleporter, if so, walk out. Useful if the user is stuck inside.
         if (item.getPosition().equals(roomUser.getPosition())) {

@@ -4,14 +4,11 @@ import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.groups.GroupManager;
 import org.alexdev.icarus.game.item.Item;
 import org.alexdev.icarus.game.item.extradata.ExtraData;
-import org.alexdev.icarus.game.item.extradata.ExtraDataManager;
 import org.alexdev.icarus.game.item.extradata.ExtraDataPerspective;
-import org.alexdev.icarus.game.item.extradata.types.IntArrayExtraData;
 import org.alexdev.icarus.game.item.extradata.types.StringArrayExtraData;
 import org.alexdev.icarus.game.item.extradata.types.StringExtraData;
 import org.alexdev.icarus.game.item.interactions.Interaction;
 import org.alexdev.icarus.game.item.interactions.InteractionType;
-import org.alexdev.icarus.game.item.json.TonerData;
 import org.alexdev.icarus.game.room.user.RoomUser;
 
 import java.util.ArrayList;
@@ -20,11 +17,12 @@ import java.util.List;
 public class GuildFurniInteractor extends Interaction {
 
     @Override
-    public void onUseItem(Item item, RoomUser roomUser) {
+    public void useItem(Item item, RoomUser roomUser) {
         if (item.getDefinition().getInteractionType() == InteractionType.GLD_GATE) {
-            InteractionType.GATE.get().onUseItem(item, roomUser);
+            InteractionType.GATE.getInteractor().useItem(item, roomUser);
         } else {
-            InteractionType.DEFAULT.get().onUseItem(item, roomUser);
+            System.out.println("INTERACTION MODES COUNT: " + item.getDefinition().getInteractionModes());
+            InteractionType.DEFAULT.getInteractor().useItem(item, roomUser);
         }
     }
 

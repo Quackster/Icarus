@@ -20,7 +20,7 @@ public class ItemUtil {
      * @param response the response
      */
     public static void generateExtraData(Item item, Response response) {
-        ExtraData extraData = item.getDefinition().getInteractionType().get().createExtraData(item);
+        ExtraData extraData = item.getDefinition().getInteractionType().getInteractor().createExtraData(item);
 
         response.writeInt(extraData.getPerspective().getIdentifier());
         response.writeInt(extraData.getType().getTypeId());
@@ -66,7 +66,7 @@ public class ItemUtil {
      * @param response the response
      */
     public static void generateWallExtraData(Item item, Response response) {
-        ExtraData extraData = item.getDefinition().getInteractionType().get().createExtraData(item);
+        ExtraData extraData = item.getDefinition().getInteractionType().getInteractor().createExtraData(item);
         
         if (extraData.getType() == ExtraDataType.STRING) {
             StringExtraData data = (StringExtraData)extraData;

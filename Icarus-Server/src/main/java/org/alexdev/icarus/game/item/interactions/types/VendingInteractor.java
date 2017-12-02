@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
 public class VendingInteractor extends Interaction {
 
     @Override
-    public void onUseItem(final Item item, final RoomUser roomUser) {
-        // Can't get to the vending machine unless we're close
+    public void useItem(final Item item, final RoomUser roomUser) {
+        // Can't getInteractor to the vending machine unless we're close
         Position front = item.getPosition().getSquareInFront();
 
         if (!front.equals(roomUser.getPosition())) {

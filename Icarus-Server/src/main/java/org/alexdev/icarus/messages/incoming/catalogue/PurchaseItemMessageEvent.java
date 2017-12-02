@@ -122,7 +122,7 @@ public class PurchaseItemMessageEvent implements MessageEvent {
         }
 
         if (amount > 1 && !item.allowOffer()) {
-            //client.send(new AlertMessageComposer(Locale.get("catalog.error.nooffer")));
+            //client.send(new AlertMessageComposer(Locale.getInteractor("catalog.error.nooffer")));
             return;
         }
 

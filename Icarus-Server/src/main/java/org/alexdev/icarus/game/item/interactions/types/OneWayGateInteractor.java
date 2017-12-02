@@ -11,7 +11,7 @@ import org.alexdev.icarus.game.room.user.RoomUser;
 public class OneWayGateInteractor extends Interaction {
 
     @Override
-    public void onUseItem(Item item, RoomUser roomUser) {
+    public void useItem(Item item, RoomUser roomUser) {
         Position behind = item.getPosition().getSquareInFront();
 
         if (!behind.equals(roomUser.getPosition())) {

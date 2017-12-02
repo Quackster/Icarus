@@ -10,7 +10,7 @@ import org.alexdev.icarus.game.room.user.RoomUser;
 public class PhotoInteractor extends Interaction {
 
     @Override
-    public void onUseItem(Item item, RoomUser roomUser) { }
+    public void useItem(Item item, RoomUser roomUser) { }
 
     @Override
     public void onStopWalking(Item item, RoomUser roomUser) { }

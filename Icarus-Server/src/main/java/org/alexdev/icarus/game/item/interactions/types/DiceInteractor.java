@@ -11,7 +11,7 @@ import org.alexdev.icarus.util.Util;
 public class DiceInteractor extends Interaction {
 
     @Override
-    public void onUseItem(Item item, RoomUser roomUser) {
+    public void useItem(Item item, RoomUser roomUser) {
 
         //int modes = item.getDefinition().getInterationModes();
         int current_mode = Util.getRandom().nextInt(6 + 1);

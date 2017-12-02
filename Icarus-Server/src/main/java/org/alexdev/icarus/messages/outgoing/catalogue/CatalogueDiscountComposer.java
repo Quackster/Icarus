@@ -12,7 +12,7 @@ public class CatalogueDiscountComposer extends MessageComposer {
 
     @Override
     public void compose(Response response) {
-        response.writeInt(100);//Most you can get.
+        response.writeInt(100);//Most you can getInteractor.
         response.writeInt(6);
         response.writeInt(1);
         response.writeInt(1);

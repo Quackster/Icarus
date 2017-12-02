@@ -35,10 +35,10 @@ public class DeletePhotoMessageEvent implements MessageEvent {
         room.getMapping().removeItem(item);
         item.delete();
 
-        /*if (Configuration.getInstance().getServerConfig().getGameConfig().get("Camera", "remove.file.photo.delete", Boolean.class)) {
+        /*if (Configuration.getInstance().getServerConfig().getGameConfig().getInteractor("Camera", "remove.file.photo.delete", Boolean.class)) {
 
             final String fileName = item.getExtraData().substring(6).substring(0, item.getExtraData().indexOf(".png") - 2);
-            final String filePath = Configuration.getInstance().getServerConfig().getGameConfig().get("Camera", "camera.path", String.class);
+            final String filePath = Configuration.getInstance().getServerConfig().getGameConfig().getInteractor("Camera", "camera.path", String.class);
             
             GameScheduler.getScheduler().execute(() -> {
                 try {

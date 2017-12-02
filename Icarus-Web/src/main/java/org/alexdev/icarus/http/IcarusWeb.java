@@ -52,8 +52,8 @@ public class IcarusWeb {
 
         try {
 
-            sqlConnection = Storage.get().getConnection();
-            preparedStatement = Storage.get().prepare("SELECT * FROM `site_config`", sqlConnection);
+            sqlConnection = Storage.getInteractor().getConnection();
+            preparedStatement = Storage.getInteractor().prepare("SELECT * FROM `site_config`", sqlConnection);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {

@@ -25,7 +25,7 @@ public class PetTask extends RoomTask {
 
         for (int i = 0; i < pets.size(); i++) {
 
-            /*Entity entity = pets.get(i);
+            /*Entity entity = pets.getInteractor(i);
                     Position tile = this.room.getMapping().getAvaliableTile();
 
                     RoomUser roomUser = entity.getRoomUser();

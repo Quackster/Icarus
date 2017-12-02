@@ -40,7 +40,7 @@ public enum InteractionType {
      *
      * @return the handler
      */
-    public Interaction get() {
+    public Interaction getInteractor() {
         return interaction;
     }
 

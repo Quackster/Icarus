@@ -10,7 +10,7 @@ import org.alexdev.icarus.game.room.user.RoomUser;
 public class GateInteractor extends Interaction {
 
     @Override
-    public void onUseItem(Item item, RoomUser roomUser) {
+    public void useItem(Item item, RoomUser roomUser) {
 
         String extraData = null;
 

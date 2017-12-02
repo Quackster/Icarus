@@ -25,7 +25,7 @@ public class PurchasePresentMessageEvent implements MessageEvent {
         }
 
         CatalogueItem item = page.getItem(itemId);
-        CatalogueBundledItem bundleItem = item.getItems().get(0);
+        CatalogueBundledItem bundleItem = item.getItems().getInteractor(0);
         ItemDefinition definition = bundleItem.getItemDefinition();
         
         if (player.getDetails().getCredits() < item.getCostCredits()) {

@@ -10,7 +10,7 @@ import org.alexdev.icarus.util.Util;
 public class DefaultInteractor extends Interaction {
 
     @Override
-    public void onUseItem(Item item, RoomUser roomUser) {
+    public void useItem(Item item, RoomUser roomUser) {
         if (!roomUser.getRoom().hasRights(roomUser.getEntity().getEntityId(), true) && !roomUser.getEntity().hasPermission("room_all_rights")) {
             return;
         }
