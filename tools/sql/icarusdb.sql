@@ -8337,7 +8337,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
 -- Dumping data for table icarusdb.groups: ~1 rows (approximately)
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
 INSERT INTO `groups` (`id`, `title`, `description`, `badge`, `owner_id`, `room_id`, `created`, `colour_a`, `colour_b`, `access_type`, `can_members_decorate`) VALUES
-	(1, 'Alex\'s Fantastic Group', 'Fantastic groups and where to find them', 'b0524s60174s40222s41220s00000', 1, 4, 1505279665, 122, 108, 'PRIVATE', 1);
+	(1, 'Alex\'s Fantastic Group', 'Fantastic groups and where to find them', 'b0524s60044s40062s41060s00000', 1, 4, 1505279665, 36, 11, 'PRIVATE', 1);
 /*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 
 -- Dumping structure for table icarusdb.group_items
@@ -8860,9 +8860,9 @@ CREATE TABLE IF NOT EXISTS `items` (
   `rotation` int(11) NOT NULL DEFAULT '0',
   `extra_data` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=738 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=761 DEFAULT CHARSET=latin1;
 
--- Dumping data for table icarusdb.items: ~259 rows (approximately)
+-- Dumping data for table icarusdb.items: ~279 rows (approximately)
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
 INSERT INTO `items` (`id`, `user_id`, `item_id`, `room_id`, `group_id`, `x`, `y`, `z`, `rotation`, `extra_data`) VALUES
 	(1, 1, 5011, 1, 0, '11', '10', 0.03, 1, '{"offsetX":-704,"offsetY":186,"offsetZ":8700,"imageUrl":"/c_images/album3809/wl15_c.png","state":0}'),
@@ -9094,35 +9094,56 @@ INSERT INTO `items` (`id`, `user_id`, `item_id`, `room_id`, `group_id`, `x`, `y`
 	(307, 1, 7195, 3, 0, '20', '24', 1.4029999999999996, 0, '1'),
 	(345, 1, 3275, 4, 0, 'r,5,0', '9,28', 0, 0, '513'),
 	(402, 1, 3561, 3, 0, '10', '16', 0.001, 0, '{"hue":136,"saturation":202,"brightness":202,"enabled":true}'),
-	(506, 1, 1643, 4, 0, 'l,3,2', '2,35', 0, 0, '1'),
+	(506, 1, 1643, 0, 0, 'l,3,2', '2,35', 0, 0, '0'),
 	(577, 1, 2423, 3, 0, '23', '6', 0, 0, '3'),
-	(587, 1, 1628, 4, 0, 'l,3,7', '1,28', 0, 0, '{"enabled":true,"currentPreset":1,"presets":[{"backgroundOnly":true,"colorCode":"#0053F7","colorIntensity":76},{"backgroundOnly":true,"colorCode":"#74F5F5","colorIntensity":96},{"backgroundOnly":false,"colorCode":"#000000","colorIntensity":255}]}'),
+	(587, 1, 1628, 4, 0, 'l,3,10', '15,18', 0, 0, '{"enabled":true,"currentPreset":1,"presets":[{"backgroundOnly":true,"colorCode":"#0053F7","colorIntensity":96},{"backgroundOnly":false,"colorCode":"#000000","colorIntensity":255},{"backgroundOnly":false,"colorCode":"#000000","colorIntensity":255}]}'),
 	(704, 1, 1661, 4, 0, 'r,10,0', '14,37', 0, 0, ''),
 	(705, 1, 1661, 4, 0, 'r,9,0', '2,31', 0, 0, ''),
 	(706, 1, 1661, 4, 0, 'r,7,0', '3,31', 0, 0, ''),
 	(707, 1, 1661, 4, 0, 'l,3,6', '6,35', 0, 0, ''),
-	(708, 1, 1661, 4, 0, 'l,3,9', '12,31', 0, 0, ''),
+	(708, 1, 1661, 4, 0, 'l,3,8', '3,35', 0, 0, ''),
 	(709, 1, 1661, 4, 0, 'l,3,11', '9,33', 0, 0, ''),
 	(710, 1, 1661, 4, 0, 'l,3,13', '9,33', 0, 0, ''),
-	(714, 1, 1049, 4, 0, '8', '4', 0, 0, ''),
-	(715, 1, 1055, 4, 0, '7', '4', 0, 2, ''),
-	(716, 1, 1055, 4, 0, '4', '7', 0, 2, ''),
-	(717, 1, 1055, 4, 0, '11', '5', 0.002, 0, ''),
-	(718, 1, 1055, 4, 0, '11', '5', 0.001, 0, ''),
-	(719, 1, 1055, 4, 0, '9', '6', 0, 0, '0'),
-	(720, 1, 1055, 4, 0, '8', '2', 0, 4, '0'),
-	(721, 1, 1061, 4, 0, '7', '9', 0, 0, ''),
-	(722, 1, 1067, 4, 0, '6', '11', 0, 2, '1'),
+	(714, 1, 1049, 0, 0, '0', '0', 0, 0, ''),
+	(715, 1, 1055, 0, 0, '0', '0', 0, 2, ''),
+	(716, 1, 1055, 0, 0, '0', '0', 0, 2, ''),
+	(717, 1, 1055, 0, 0, '0', '0', 0, 0, ''),
+	(718, 1, 1055, 0, 0, '0', '0', 0, 0, ''),
+	(719, 1, 1055, 0, 0, '0', '0', 0, 0, '0'),
+	(720, 1, 1055, 0, 0, '0', '0', 0, 4, '0'),
+	(721, 1, 1061, 0, 0, '0', '0', 0, 0, ''),
+	(722, 1, 1067, 0, 0, '0', '0', 0, 2, '1'),
 	(724, 1, 1073, 0, 0, '0', '0', 0, 2, ''),
-	(725, 1, 1073, 4, 0, '4', '2', 0, 2, ''),
-	(726, 1, 1073, 4, 0, '4', '10', 0, 2, ''),
-	(727, 1, 103, 4, 0, '9', '5', 1.001, 0, ''),
-	(728, 1, 102, 4, 0, '9', '4', 1.001, 0, '0'),
-	(729, 1, 109, 4, 0, '8', '10', 0.001, 0, ''),
-	(730, 1, 123, 4, 0, '9', '1', 0, 2, '1'),
-	(731, 1, 7460, 4, 0, 'l,3,10', '8,23', 0, 0, '{"w":"room_4_Alex_8jhl9swao4.png","t":"1511883891901","u":"1","n":"Alex","s":"1","m":""}'),
-	(732, 1, 7460, 0, 0, '0', '0', 0, 0, '{"w":"room_4_Alex_k71dys0qfu.png","t":"1511942397973","u":"1","n":"Alex","s":"1","m":""}'),
-	(737, 1, 5131, 4, 1, '5', '12', 0, 2, '1');
+	(725, 1, 1073, 0, 0, '0', '0', 0, 2, ''),
+	(726, 1, 1073, 0, 0, '0', '0', 0, 2, ''),
+	(727, 1, 103, 0, 0, '0', '0', 0, 0, ''),
+	(728, 1, 102, 4, 0, '9', '7', 0, 0, '0'),
+	(729, 1, 109, 4, 0, '6', '6', 0, 0, ''),
+	(730, 1, 123, 0, 0, '0', '0', 0, 2, '1'),
+	(731, 1, 7460, 4, 0, 'l,3,12', '8,31', 0, 0, '{"w":"room_4_Alex_8jhl9swao4.png","t":"1511883891901","u":"1","n":"Alex","s":"1","m":""}'),
+	(732, 1, 7460, 7, 0, 'r,3,4', '2,26', 0, 0, '{"w":"room_4_Alex_k71dys0qfu.png","t":"1511942397973","u":"1","n":"Alex","s":"1","m":""}'),
+	(737, 1, 5131, 0, 1, '0', '0', 0, 2, '2'),
+	(738, 1, 5129, 0, 1, '0', '0', 0, 0, '1'),
+	(739, 1, 2235, 0, 0, '0', '0', 0, 0, '0'),
+	(740, 1, 3743, 0, 0, '0', '0', 0, 0, ''),
+	(741, 1, 3745, 0, 0, '0', '0', 0, 2, ''),
+	(742, 1, 3744, 0, 0, '0', '0', 0, 0, ''),
+	(743, 1, 3764, 0, 0, '0', '0', 0, 0, ''),
+	(744, 1, 3757, 0, 0, '0', '0', 0, 0, ''),
+	(745, 1, 706, 4, 0, '8', '1', 0, 0, ''),
+	(746, 1, 709, 4, 0, '5', '1', 0, 4, ''),
+	(747, 1, 709, 4, 0, '4', '2', 0, 2, ''),
+	(748, 1, 707, 4, 0, '11', '1', 0, 4, ''),
+	(749, 1, 707, 4, 0, '4', '11', 0, 2, ''),
+	(750, 1, 707, 4, 0, '4', '8', 0, 2, ''),
+	(751, 1, 710, 4, 0, '4', '9', 0, 2, ''),
+	(752, 1, 710, 4, 0, '6', '3', 0, 0, ''),
+	(755, 1, 1661, 0, 0, '0', '0', 0, 0, ''),
+	(756, 1, 1661, 0, 0, '0', '0', 0, 0, ''),
+	(757, 1, 1661, 0, 0, '0', '0', 0, 0, ''),
+	(758, 1, 1661, 0, 0, '0', '0', 0, 0, ''),
+	(759, 1, 1661, 4, 0, 'l,3,2', '11,31', 0, 0, ''),
+	(760, 1, 1661, 4, 0, 'l,3,4', '9,33', 0, 0, '');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 
 -- Dumping structure for table icarusdb.item_definitions
@@ -14246,7 +14267,7 @@ INSERT INTO `item_definitions` (`id`, `item_name`, `public_name`, `type`, `width
 	(5128, 'pikae', 'pikae', 's', 1, 1, 1, '1', '0', '0', -1, '1', '1', '1', '1', '1', 'default', 0, 1, '0', '0', 0, 0, '1', 0, '0'),
 	(5129, 'gld_gate', 'Blue Wallshelf', 's', 1, 1, 0, '1', '0', '0', 4389, '1', '1', '1', '0', '1', 'gld_gate', 0, 2, '0', '0', 0, 0, '0', 0, '0'),
 	(5130, 'gld_carpet', 'The Tunisian Flag', 's', 2, 3, 0, '0', '0', '1', 4248, '1', '1', '1', '0', '1', 'gld_item', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
-	(5131, 'gld_badgewall_tall', 'The Singapore Flag', 's', 1, 1, 0, '0', '0', '0', 4249, '1', '1', '1', '0', '1', 'gld_item', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
+	(5131, 'gld_badgewall_tall', 'The Singapore Flag', 's', 1, 1, 0, '0', '0', '0', 4249, '1', '1', '1', '0', '1', 'gld_item', 0, 12, '0', '0', 0, 0, '0', 0, '0'),
 	(5132, 'gld_stool2', 'The Mexican Flag', 's', 1, 1, 1.4, '1', '1', '0', 4250, '1', '1', '1', '0', '1', 'gld_item', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
 	(5133, 'gld_stool1', 'The Philippines Flag', 's', 1, 1, 1.4, '1', '1', '0', 4251, '1', '1', '1', '0', '1', 'gld_item', 0, 1, '0', '0', 0, 0, '0', 0, '0'),
 	(5134, 'gld_wall_tall', 'The Malaysian Flag', 's', 1, 1, 1, '1', '0', '0', 4252, '1', '1', '1', '0', '1', 'gld_item', 0, 12, '0', '0', 0, 0, '0', 0, '1'),
@@ -16958,7 +16979,7 @@ INSERT INTO `rooms` (`id`, `name`, `room_type`, `date_created`, `owner_id`, `gro
 	(1, 'Welcome Lobby', 'PUBLIC', '2017-03-21 06:15:27', -1, 0, 'thumbnails/room_1_yus7y2ycpg.png', '', '', 0, 25, 'dynamic_model_1', '0', '0', '0.0', '', 0, 'OPEN', 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0),
 	(2, 'Coffee House', 'PUBLIC', '2017-03-21 06:19:36', -1, 0, 'thumbnails/room_2_h0lcj7tr5f.png', '', '', 0, 25, 'dynamic_model_2', '105', '608', '0.0', '', 0, 'OPEN', 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0),
 	(3, 'Picnic', 'PUBLIC', '2017-10-02 02:50:19', -1, 0, 'thumbnails/room_3_7mehe4543b.png', '', '', 0, 10, 'dynamic_model_3', '0', '0', '0', '', 0, 'OPEN', 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
-	(4, 'Alex\'s Room', 'PRIVATE', '2017-10-08 04:48:55', 1, 1, 'thumbnails/room_4_hfdrkmr79v.png', '', '', 0, 10, 'model_a', '805', '302', '3.4', '', 1, 'OPEN', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
+	(4, 'Alex\'s Room', 'PRIVATE', '2017-10-08 04:48:55', 1, 1, 'thumbnails/room_4_hfdrkmr79v.png', '', '', 1, 10, 'model_a', '805', '201', '2.1', '', 1, 'OPEN', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
 	(7, 'AlexLUL Room', 'PRIVATE', '2017-10-26 04:29:00', 1, 0, NULL, '', '', 0, 10, 'model_b', '0', '0', '0', '', 0, 'OPEN', 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 30, 0, 0, 0);
 /*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
 
@@ -16992,7 +17013,7 @@ CREATE TABLE IF NOT EXISTS `room_chatlogs` (
   `message` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table icarusdb.room_chatlogs: ~40 rows (approximately)
+-- Dumping data for table icarusdb.room_chatlogs: ~51 rows (approximately)
 /*!40000 ALTER TABLE `room_chatlogs` DISABLE KEYS */;
 INSERT INTO `room_chatlogs` (`user`, `room_id`, `timestamp`, `message_type`, `message`) VALUES
 	('alexLUL', 1, 1508466915, 0, 'lol'),
@@ -17034,7 +17055,18 @@ INSERT INTO `room_chatlogs` (`user`, `room_id`, `timestamp`, `message_type`, `me
 	('Alex', 4, 1509070044, 0, ':D'),
 	('Alex', 4, 1509070046, 0, 'lol'),
 	('Alex', 4, 1512127804, 0, ':debugfurniture'),
-	('Alex', 4, 1512127810, 0, ':debugfurni');
+	('Alex', 4, 1512127810, 0, ':debugfurni'),
+	('Alex', 4, 1512204930, 0, ':debugfurni'),
+	('Alex', 4, 1512205094, 0, ':reloaddef'),
+	('Alex', 4, 1512205100, 0, ':reloaddefinitions'),
+	('Alex', 4, 1512205104, 0, ':help'),
+	('Alex', 4, 1512205175, 0, ':reloadfurni'),
+	('Alex', 4, 1512205183, 0, ':debugfurni'),
+	('Alex', 4, 1512206717, 0, ':debugfurni'),
+	('Alex', 4, 1512212168, 0, ':debugfurni'),
+	('Alex', 4, 1512212473, 0, ':resetdecor'),
+	('Alex', 4, 1512212487, 0, ':resetdecor floor'),
+	('Alex', 4, 1512212585, 0, ':debugfurni');
 /*!40000 ALTER TABLE `room_chatlogs` ENABLE KEYS */;
 
 -- Dumping structure for table icarusdb.room_models
@@ -17149,7 +17181,7 @@ CREATE TABLE IF NOT EXISTS `site_articles` (
 -- Dumping data for table icarusdb.site_articles: ~1 rows (approximately)
 /*!40000 ALTER TABLE `site_articles` DISABLE KEYS */;
 INSERT INTO `site_articles` (`id`, `article_title`, `article_author`, `article_shortstory`, `article_fullstory`, `article_topstory`, `article_when`, `views`, `article_date`) VALUES
-	(8, 'test', 'Alex', '', '', 'ts_generic_3.gif', 0, 0, 'Wednesday, 29 Nov, 2017');
+	(8, 'test', 'Alex', '', '', 'ts_augcoll_zzz.gif', 0, 0, 'Wednesday, 29 Nov, 2017');
 /*!40000 ALTER TABLE `site_articles` ENABLE KEYS */;
 
 -- Dumping structure for table icarusdb.site_config
@@ -17179,7 +17211,7 @@ INSERT INTO `site_config` (`key`, `value`) VALUES
 	('thumbnail.filename', 'room_{id}_{generatedId}.png'),
 	('thumbnail.path', 'C:\\Users\\Alex\\Documents\\GitHub\\Icarus\\tools\\www\\c_images\\thumbnails\\'),
 	('thumbnail.url', 'thumbnails/{filename}'),
-	('users.online', '0');
+	('users.online', '1');
 /*!40000 ALTER TABLE `site_config` ENABLE KEYS */;
 
 -- Dumping structure for table icarusdb.site_housekeeping_notes
@@ -17268,7 +17300,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table icarusdb.users: ~2 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `username`, `password`, `rank`, `join_date`, `last_online`, `sso_ticket`, `email`, `mission`, `gender`, `figure`, `credits`, `duckets`, `home_room`) VALUES
-	(1, 'Alex', '$2a$10$7dNeC4v6MRro5xT/DNSyzOp0KCmcsEa5CpI78OPopjPwKAiNwSpba', 7, 190340513, 1512201260, NULL, 'test@alex.com', 'Icarus alpha tester', 'M', 'hd-200-1.lg-270-80.sh-3068-83-25.ch-3030-75.hr-145-37', 97070, 100020, 0),
+	(1, 'Alex', '$2a$10$7dNeC4v6MRro5xT/DNSyzOp0KCmcsEa5CpI78OPopjPwKAiNwSpba', 7, 190340513, 1512212021, NULL, 'test@alex.com', 'Icarus alpha tester', 'M', 'hd-200-1.lg-270-80.sh-3068-83-25.ch-3030-75.hr-145-37', 97004, 100104, 0),
 	(2, 'Jackm8', '$2a$10$7dNeC4v6MRro5xT/DNSyzOp0KCmcsEa5CpI78OPopjPwKAiNwSpba', 1, 190340513, 1512153206, NULL, 'lul@alex.com', 'Icarus alpha tester', 'M', 'hd-200-1.lg-270-80.sh-3068-83-25.ch-3030-75.hr-145-37', 97073, 99960, 0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 

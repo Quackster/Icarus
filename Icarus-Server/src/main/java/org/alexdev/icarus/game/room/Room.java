@@ -79,15 +79,11 @@ public class Room extends Metadata {
         if (this.hasGroup()) {
             Group group = this.getGroup();
 
-            if (adminCheck) {
-                if (group.getMemberManager().isMemberType(userId, GroupMemberType.ADMINISTRATOR)) {
-                    return true;
-                }
-            } else {
-                if (group.getMemberManager().isMemberType(userId, GroupMemberType.ADMINISTRATOR)) {
-                    return true;
-                }
+            if (group.getMemberManager().isMemberType(userId, GroupMemberType.ADMINISTRATOR)) {
+                return true;
+            }
 
+            if (!adminCheck) {
                 if (group.canMembersDecorate() && group.getMemberManager().isMemberType(userId, GroupMemberType.MEMBER)) {
                     return true;
                 }
@@ -148,9 +144,7 @@ public class Room extends Metadata {
      * @return the model
      */
     public RoomModel getModel() {
-
         if (this.data.getModel().startsWith("dynamic_model")) {
-
             if (this.model == null) {
                 this.model = RoomModelDao.getCustomModel(this.data.getId());
             }
@@ -276,7 +270,6 @@ public class Room extends Metadata {
      * is offline (if this parameter is met then the room will be unloaded).
      */
     public void dispose() {
-
         if (this.entityManager.getPlayers().size() > 0) {
             return;
         }
@@ -373,5 +366,4 @@ public class Room extends Metadata {
     public RoomScheduler getScheduler() {
         return scheduler;
     }
-
 }
