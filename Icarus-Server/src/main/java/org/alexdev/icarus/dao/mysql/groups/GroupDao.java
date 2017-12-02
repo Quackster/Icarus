@@ -10,6 +10,7 @@ import java.util.List;
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.groups.Group;
+import org.alexdev.icarus.game.groups.GroupManager;
 import org.alexdev.icarus.game.groups.access.GroupAccessType;
 
 public class GroupDao {
@@ -168,12 +169,12 @@ public class GroupDao {
 
         try {
             sqlConnection = Dao.getStorage().getConnection();
-            preparedStatement = Dao.getStorage().prepare("SELECT * FROM groups WHERE owner_id = ?", sqlConnection);
+            preparedStatement = Dao.getStorage().prepare("SELECT id FROM groups WHERE owner_id = ?", sqlConnection);
             preparedStatement.setInt(1, userId);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                groups.add(fill(resultSet));
+                groups.add(GroupManager.getInstance().getGroup(resultSet.getInt("id")));
             }
 
             preparedStatement = Dao.getStorage().prepare("SELECT group_id FROM group_members WHERE user_id = ? AND member_type <> 'REQUEST'", sqlConnection);
@@ -181,7 +182,7 @@ public class GroupDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                groups.add(getGroup(resultSet.getInt("group_id")));
+                groups.add(GroupManager.getInstance().getGroup(resultSet.getInt("group_id")));
             }
 
         } catch (Exception e) {
