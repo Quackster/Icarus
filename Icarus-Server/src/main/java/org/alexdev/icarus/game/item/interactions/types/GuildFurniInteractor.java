@@ -33,9 +33,6 @@ public class GuildFurniInteractor extends Interaction {
         if (group == null) {
             return new StringExtraData(ExtraDataPerspective.FURNI, item.getExtraData());
         } else {
-
-            System.out.println("BADGE: " + group.getBadge());
-
             List<String> objects = new ArrayList<>();
             objects.add(item.getExtraData());
             objects.add(String.valueOf(group.getId()));

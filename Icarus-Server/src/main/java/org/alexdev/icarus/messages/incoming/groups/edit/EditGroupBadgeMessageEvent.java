@@ -40,13 +40,9 @@ public class EditGroupBadgeMessageEvent implements MessageEvent {
         }
 
         String badge = BadgeUtil.generate(groupBase, groupBaseColour, groupItems);
-
         group.setBadge(badge);
-        System.out.println("BADGE: " + group.getBadge());
-
-        group.refreshItems();
         group.save();
-        
+
         player.send(new GroupInfoMessageComposer(group, player, false));
     }
 }
