@@ -1,6 +1,7 @@
 package org.alexdev.icarus.messages.outgoing.catalogue;
 
 import org.alexdev.icarus.game.groups.Group;
+import org.alexdev.icarus.game.groups.GroupManager;
 import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
@@ -22,8 +23,8 @@ public class GroupFurniConfigMessageComposer extends MessageComposer {
             response.writeInt(group.getId());
             response.writeString(group.getTitle());
             response.writeString(group.getBadge());
-            response.writeString(group.getColourA());
-            response.writeString(group.getColourB());
+            response.writeString(GroupManager.getInstance().getColourCode(group.getColourA(), true));
+            response.writeString(GroupManager.getInstance().getColourCode(group.getColourB(), false));
             response.writeBool(false);
             response.writeInt(group.getOwnerId());
             response.writeBool(false);

@@ -32,6 +32,27 @@ public class GroupManager {
     }
 
     /**
+     * Get group colour code data
+     *
+     * @param id the colour id
+     * @param colourOne whether the group colour is the first or second
+     * @return the colour code
+     */
+    public String getColourCode(int id, boolean colourOne) {
+        if (colourOne) {
+            if (this.symbolColours.containsKey(id)) {
+                return this.symbolColours.get(id).getColour();
+            }
+        } else {
+            if (this.backgroundColours.containsKey(id)) {
+                return this.backgroundColours.get(id).getColour();
+            }
+        }
+
+        return "";
+    }
+
+    /**
      * Gets the group.
      *
      * @param groupId the group id
