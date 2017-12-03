@@ -14,15 +14,18 @@ public class ApplyEffectMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-        
+
         int effectId = reader.readInt();
+        Effect effect = null;
 
-        Effect effect = player.getInventory().getEffectManager().getEffect(effectId);
+        if (effectId > 0) {
+            effect = player.getInventory().getEffectManager().getEffect(effectId);
 
-        if (effect == null) {
-            return;
+            if (effect == null) {
+                return;
+            }
         }
-        
+
         if (effectId < 0) {
             effectId = 0;
         }
@@ -30,11 +33,11 @@ public class ApplyEffectMessageEvent implements MessageEvent {
         player.getInventory().getEffectManager().deactivateEffects();
         player.getRoomUser().applyEffect(effectId);
 
-        effect.setActivated(true);
-
-        player.send(new EffectExpiredMessageComposer(effect)); // Remove effect
-        player.send(new EffectsMessageComposer(effect)); // Re-add the effect
-
-        player.send(new EffectActivatedMessageComposer(effect)); // Activate the effect
+        if (effect != null) {
+            effect.setActivated(true);
+            player.send(new EffectExpiredMessageComposer(effect)); // Remove effect
+            player.send(new EffectsMessageComposer(effect)); // Re-add the effect
+            player.send(new EffectActivatedMessageComposer(effect)); // Activate the effect
+        }
     }
 }

@@ -105,6 +105,37 @@ public class PurchaseItemMessageEvent implements MessageEvent {
         if (effect != null) {
             player.send(player.getInventory().getEffectManager().createEffectComposer(effect));
         }
+
+        int totalCostCredits = item.getCostCredits();
+        int totalCostActivityPoints = item.getCostPixels();
+
+        boolean creditsError = false;
+        boolean pixelError = false;
+
+        if (player.getDetails().getCredits() < totalCostCredits) {
+            creditsError = true;
+        }
+
+        if (player.getDetails().getDuckets() < totalCostActivityPoints) {
+            pixelError = true;
+        }
+
+        if (creditsError || pixelError) {
+            player.send(new PurchaseErrorMessageComposer(creditsError, pixelError));
+            return;
+        }
+
+        if (totalCostCredits > 0) {
+            player.getDetails().setCredits(player.getDetails().getCredits() - totalCostCredits);
+            player.getDetails().sendCredits();
+        }
+
+        if (totalCostActivityPoints > 0) {
+            player.getDetails().setDuckets(player.getDetails().getDuckets() - totalCostActivityPoints);
+            player.getDetails().sendDuckets();
+        }
+
+        player.send(new PurchaseNotificationMessageComposer());
     }
 
     /**
@@ -145,9 +176,18 @@ public class PurchaseItemMessageEvent implements MessageEvent {
         }
 
         boolean creditsError = false;
+        boolean pixelError = false;
 
         if (player.getDetails().getCredits() < totalCostCredits) {
-            player.send(new PurchaseErrorMessageComposer(creditsError, false));
+            creditsError = true;
+        }
+
+        if (player.getDetails().getDuckets() < totalCostActivityPoints) {
+            pixelError = true;
+        }
+
+        if (creditsError || pixelError) {
+            player.send(new PurchaseErrorMessageComposer(creditsError, pixelError));
             return;
         }
 

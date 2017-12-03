@@ -98,6 +98,7 @@ public class CommandManager {
      */
     public boolean hasCommandPermission(Entity entity, Command cmd) {
         if (cmd.getPermissions().length > 0) {
+
             for (String permission : cmd.getPermissions()) {
                 if (entity.hasPermission(permission)) {
                     return true;
@@ -117,7 +118,6 @@ public class CommandManager {
      * @param message the message
      */
     public void invokeCommand(Entity entity, String message) {
-
         String commandName = message.split(":")[1].split(" ")[0];
         Command cmd = getCommand(commandName);
 
@@ -136,7 +136,6 @@ public class CommandManager {
                 } else {
                     System.out.println(Locale.getInstance().getEntry("player.commands.no.args"));
                 }
-
                 return;
             }
             
@@ -159,7 +158,6 @@ public class CommandManager {
      * @return the instance
      */
     public static CommandManager getInstance() {
-
         if (instance == null) {
             instance = new CommandManager();
         }

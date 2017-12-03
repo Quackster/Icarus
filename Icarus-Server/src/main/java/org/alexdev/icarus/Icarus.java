@@ -1,5 +1,7 @@
 package org.alexdev.icarus;
 
+import io.netty.util.ResourceLeak;
+import io.netty.util.ResourceLeakDetector;
 import org.alexdev.icarus.console.ConsoleReader;
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
@@ -44,6 +46,7 @@ public class Icarus extends Metadata {
      */
     public static void main(String[] args) {
 
+        ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.ADVANCED);
         startupTime = Util.getCurrentTimeSeconds();
 
         try {

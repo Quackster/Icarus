@@ -2,7 +2,6 @@ package org.alexdev.icarus.game.commands.types;
 
 import org.alexdev.icarus.game.commands.Command;
 import org.alexdev.icarus.game.entity.Entity;
-import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.user.ChatType;
 import org.alexdev.icarus.game.room.user.RoomUser;
