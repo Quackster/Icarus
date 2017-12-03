@@ -2,6 +2,7 @@ package org.alexdev.icarus.game.room.user;
 
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.commands.CommandManager;
+import org.alexdev.icarus.game.commands.types.WarpCommand;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.entity.EntityType;
@@ -287,6 +288,11 @@ public class RoomUser {
      */
     public void walkTo(int X, int Y) {
         if (!this.isWalkingAllowed) {
+            return;
+        }
+
+        if (this.entity.getMetadata().getBoolean(WarpCommand.COMMAND_METADATA)) {
+            this.warpTo(X, Y, this.position.getRotation());
             return;
         }
 

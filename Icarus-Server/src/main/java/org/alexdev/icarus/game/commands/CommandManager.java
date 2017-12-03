@@ -28,6 +28,7 @@ public class CommandManager {
     public CommandManager() {
         commands = new HashMap<>();
         commands.put(new String[] { "effect" }, new EffectCommand());
+        commands.put(new String[] { "warp" }, new WarpCommand());
         commands.put(new String[] { "about", "info" }, new AboutCommand());
         commands.put(new String[] { "sit" }, new SitCommand());
         commands.put(new String[] { "help", "commands" }, new HelpCommand());
@@ -98,7 +99,6 @@ public class CommandManager {
     public boolean hasCommandPermission(Entity entity, Command cmd) {
         if (cmd.getPermissions().length > 0) {
             for (String permission : cmd.getPermissions()) {
-                System.out.println(permission);
                 if (entity.hasPermission(permission)) {
                     return true;
                 }

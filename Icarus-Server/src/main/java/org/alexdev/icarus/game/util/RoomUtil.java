@@ -94,10 +94,7 @@ public class RoomUtil {
      * @param player the user to refresh for
      */
     public static void refreshRights(Room room, Player player) {
-        boolean isOwner = (room.hasOwnership(player.getEntityId())
-                || player.hasPermission("room_all_rights"));
-
-        boolean updateStatus = false;
+        boolean isOwner = (room.hasOwnership(player.getEntityId()) || player.hasPermission("room_all_rights"));
 
         if (isOwner) {
             player.sendQueued(new YouAreControllerMessageComposer(4));
@@ -106,10 +103,7 @@ public class RoomUtil {
         } else if (room.hasGroupRights(player.getEntityId(), true)) {
             player.sendQueued(new YouAreControllerMessageComposer(3));
             player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "3");
-        } else if (room.hasGroupRights(player.getEntityId(), false)) {
-            player.sendQueued(new YouAreControllerMessageComposer(1));
-            player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "1");
-        } else if (room.hasRights(player.getEntityId(), false)) {
+        } else if (room.hasGroupRights(player.getEntityId(), false)|| room.hasRights(player.getEntityId(), false)) {
             player.sendQueued(new YouAreControllerMessageComposer(1));
             player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "1");
         } else {
