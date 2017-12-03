@@ -140,9 +140,12 @@ public class RoomUser {
      * Removes the status.
      *
      * @param status the status
+     * @return if the user contained the status
      */
-    public void removeStatus(EntityStatus status) {
+    public boolean removeStatus(EntityStatus status) {
+        boolean containedStatus = this.statuses.containsKey(status);
         this.statuses.remove(status);
+        return containedStatus;
     }
 
     /**
@@ -179,9 +182,7 @@ public class RoomUser {
      * @param type the type
      */
     public void chat(String message, ChatType type) {
-
         //layer.send(new FloodFilterMessageComposer(GameSettings.CHAT_FLOOD_WAIT));
-
         if (this.entity.getType() != EntityType.PLAYER) {
 
             MessageComposer composer = null;
@@ -235,7 +236,6 @@ public class RoomUser {
      * @param look the position to look towards
      */
     public void lookTowards(Position look) {
-
         if (this.isWalking) {
             return;
         }
@@ -265,7 +265,6 @@ public class RoomUser {
      * @param rotation the rotation
      */
     public void warpTo(int x, int y, int rotation) {
-
         if (this.room.getModel().isOutsideBounds(x, y)) {
             return;
         }
@@ -287,7 +286,6 @@ public class RoomUser {
      * @param Y the y
      */
     public void walkTo(int X, int Y) {
-
         if (!this.isWalkingAllowed) {
             return;
         }
@@ -327,7 +325,6 @@ public class RoomUser {
         }
     }
 
-
     /**
      * Update new height.
      *
@@ -344,7 +341,6 @@ public class RoomUser {
      * @param vendingId the vending id
      */
     public void carryItem(int vendingId) {
-
         if (vendingId == -1) {
             return;
         }
@@ -365,7 +361,6 @@ public class RoomUser {
      * Dispose.
      */
     public void clearUserData() {
-        
         this.room = null;
         this.nextPosition = null;
         
@@ -395,7 +390,6 @@ public class RoomUser {
      * @param danceId the dance id
      */
     public void applyDance(int danceId) {
-
         if (this.danceId == danceId) {
             return;
         }
@@ -417,7 +411,6 @@ public class RoomUser {
      * @param effectId the effect id
      */
     public void applyEffect(int effectId) {
-
         if (this.effectId == effectId) {
             return;
         }
@@ -470,15 +463,6 @@ public class RoomUser {
     }
 
     /**
-     * Sets the goal.
-     *
-     * @param goal the new goal
-     */
-    public void setGoal(Position goal) {
-        this.goal = goal;
-    }
-
-    /**
      * Gets the next.
      *
      * @return the next
@@ -512,15 +496,6 @@ public class RoomUser {
      */
     public void setVirtualId(int virtualId) {
         this.virtualId = virtualId;
-    }
-
-    /**
-     * Gets the chat color.
-     *
-     * @return the chat color
-     */
-    public int getChatColor() {
-        return chatColor;
     }
 
     /**
@@ -655,42 +630,6 @@ public class RoomUser {
     }
 
     /**
-     * Gets the look reset time.
-     *
-     * @return the look reset time
-     */
-    public int getLookResetTime() {
-        return lookResetTime;
-    }
-
-    /**
-     * Sets the look reset time.
-     *
-     * @param lookResetTime the new look reset time
-     */
-    public void setLookResetTime(int lookResetTime) {
-        this.lookResetTime = lookResetTime;
-    }
-
-    /**
-     * Gets the current item.
-     *
-     * @return the current item
-     */
-    public Item getCurrentItem() {
-        return currentItem;
-    }
-
-    /**
-     * Sets the current item.
-     *
-     * @param currentItem the new current item
-     */
-    public void setCurrentItem(Item currentItem) {
-        this.currentItem = currentItem;
-    }
-
-    /**
      * Gets the carry timer.
      *
      * @return the carry timer
@@ -706,24 +645,6 @@ public class RoomUser {
      */
     public int getCarryItem() {
         return carryItem;
-    }
-
-    /**
-     * Sets the carry item.
-     *
-     * @param carryItem the new carry item
-     */
-    public void setCarryItem(int carryItem) {
-        this.carryItem = carryItem;
-    }
-
-    /**
-     * Checks if is needs update.
-     *
-     * @return true, if is needs update
-     */
-    public boolean isNeedsUpdate() {
-        return needsUpdate;
     }
 
     /**

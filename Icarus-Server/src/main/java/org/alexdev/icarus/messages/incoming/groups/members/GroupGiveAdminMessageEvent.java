@@ -37,6 +37,7 @@ public class GroupGiveAdminMessageEvent implements MessageEvent {
 
         if (user != null) {
             RoomUtil.refreshRights(RoomDao.getRoom(group.getRoomId(), false), user);
+            user.getRoomUser().setNeedsUpdate(true);
         }
 
         player.send(new GroupUpdateMemberComposer(group.getId(), userId, 1));

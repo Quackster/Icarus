@@ -97,6 +97,8 @@ public class RoomUtil {
         boolean isOwner = (room.hasOwnership(player.getEntityId())
                 || player.hasPermission("room_all_rights"));
 
+        boolean updateStatus = false;
+
         if (isOwner) {
             player.sendQueued(new YouAreControllerMessageComposer(4));
             player.sendQueued(new OwnerRightsMessageComposer());

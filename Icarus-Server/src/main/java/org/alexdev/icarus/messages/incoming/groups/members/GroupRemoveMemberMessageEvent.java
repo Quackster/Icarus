@@ -42,8 +42,9 @@ public class GroupRemoveMemberMessageEvent implements MessageEvent {
         Player user = PlayerManager.getInstance().getById(removeUserId);
         
         if (user != null) {
-            user.send(new GroupInfoMessageComposer(group, user, false));
             RoomUtil.refreshRights(RoomDao.getRoom(group.getRoomId(), false), user);
+            user.send(new GroupInfoMessageComposer(group, user, false));
+            user.getRoomUser().setNeedsUpdate(true);
         }
         
         player.send(new UnknownGroupMessageComposer(group.getId(), removeUserId));

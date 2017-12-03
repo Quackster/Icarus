@@ -105,7 +105,7 @@ public class Outgoing {
     public static short ClubCenterMessageComposer = 1310;//3828
     public static short PetInformationMessageComposer = 3915;//2582
     public static short WhisperMessageComposer = 1338;//142
-    public static short RightsRemovedMessageComposer = 947;//2635
+    public static short RightsRemovedMessageComposer = 2152;//3668
     public static short RoomRightsListMessageComposer = 2152;//3668
     public static short RightsAssignedMessageComposer = 2667;//199
     public static short SettingsUpdatedMessageComposer = 2075;//562

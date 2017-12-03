@@ -33,6 +33,7 @@ public class ClearRoomRightsMessageEvent implements MessageEvent {
                     //user.getRoomUser().removeStatus(EntityStatus.FLAT_CONTROL);
                     //user.getRoomUser().setNeedsUpdate(true);
                     RoomUtil.refreshRights(room, user);
+                    user.getRoomUser().setNeedsUpdate(true);
                 }
             }
             

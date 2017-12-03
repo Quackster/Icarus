@@ -42,6 +42,7 @@ public class EditGroupAccessMessageEvent implements MessageEvent {
 
             if (user != null) {
                 RoomUtil.refreshRights(RoomDao.getRoom(group.getRoomId(), false), user);
+                user.getRoomUser().setNeedsUpdate(true);
             }
         }
     }

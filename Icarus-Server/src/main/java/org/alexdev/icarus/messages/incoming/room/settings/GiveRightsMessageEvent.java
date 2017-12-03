@@ -40,6 +40,7 @@ public class GiveRightsMessageEvent implements MessageEvent {
                 //user.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "1");
                 //user.getRoomUser().setNeedsUpdate(true);
                 RoomUtil.refreshRights(room, user);
+                user.getRoomUser().setNeedsUpdate(true);
             }
         }
 
