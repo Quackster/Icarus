@@ -2,7 +2,6 @@ package org.alexdev.icarus.game.util;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.alexdev.icarus.dao.mysql.room.RoomDao;
 import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.player.Player;
@@ -17,6 +16,8 @@ import org.alexdev.icarus.messages.incoming.room.RoomPromotionMessageComposer;
 import org.alexdev.icarus.messages.outgoing.groups.NewGroupInfoMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.*;
 import org.alexdev.icarus.messages.outgoing.room.items.*;
+import org.alexdev.icarus.messages.outgoing.room.settings.YouAreControllerMessageComposer;
+import org.alexdev.icarus.messages.outgoing.room.settings.YouAreNotControllerMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.*;
 import org.alexdev.icarus.messages.outgoing.user.effects.*;
 import org.alexdev.icarus.server.api.messages.Response;
@@ -79,8 +80,6 @@ public class RoomUtil {
  
         player.sendQueued(new RoomSpacesMessageComposer("landscape", room.getData().getLandscape()));
         player.sendQueued(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
-        player.sendQueued(new RoomSpacesMessageComposer("landscape", room.getData().getLandscape()));
-        player.sendQueued(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
         player.flushQueue();
 
         refreshRights(room, player);
@@ -99,20 +98,21 @@ public class RoomUtil {
                 || player.hasPermission("room_all_rights"));
 
         if (isOwner) {
-            player.sendQueued(new RightsLevelMessageComposer(4));
+            player.sendQueued(new YouAreControllerMessageComposer(4));
             player.sendQueued(new OwnerRightsMessageComposer());
-
+            player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "useradmin");
         } else if (room.hasGroupRights(player.getEntityId(), true)) {
-            player.sendQueued(new RightsLevelMessageComposer(3));
-
+            player.sendQueued(new YouAreControllerMessageComposer(3));
+            player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "3");
         } else if (room.hasGroupRights(player.getEntityId(), false)) {
-            player.sendQueued(new RightsLevelMessageComposer(1));
-
+            player.sendQueued(new YouAreControllerMessageComposer(1));
+            player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "1");
         } else if (room.hasRights(player.getEntityId(), false)) {
-            player.sendQueued(new RightsLevelMessageComposer(1));
-
+            player.sendQueued(new YouAreControllerMessageComposer(1));
+            player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "1");
         } else {
-            player.sendQueued(new RightsLevelMessageComposer(0));
+            player.sendQueued(new YouAreNotControllerMessageComposer());
+            player.getRoomUser().removeStatus(EntityStatus.FLAT_CONTROL);
         }
 
         player.flushQueue();

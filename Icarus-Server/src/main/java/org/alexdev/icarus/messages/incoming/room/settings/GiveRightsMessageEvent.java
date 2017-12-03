@@ -1,12 +1,10 @@
 package org.alexdev.icarus.messages.incoming.room.settings;
 
 import org.alexdev.icarus.dao.mysql.room.RoomDao;
-import org.alexdev.icarus.game.entity.EntityStatus;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.util.RoomUtil;
-import org.alexdev.icarus.messages.outgoing.room.RightsLevelMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.settings.RightsAssignedMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
