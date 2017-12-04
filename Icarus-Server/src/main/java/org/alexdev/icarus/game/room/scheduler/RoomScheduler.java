@@ -47,11 +47,8 @@ public class RoomScheduler implements Runnable {
         }
         
         try {
-     
             for (Entry<Long, ConcurrentLinkedQueue<RoomTask>> kvp : this.tasks.entrySet()) {
-
                 if (this.counter.get() % kvp.getKey() == 0) {
-                    
                     for (RoomTask task : kvp.getValue()) {
                         task.execute();
                         
@@ -76,9 +73,7 @@ public class RoomScheduler implements Runnable {
      * any user defined events.
      */
     public void scheduleTasks() {
-
         boolean taskStarted = false;
-        
         if (this.roomScheduledTasks == null) {
             this.roomScheduledTasks = RoomManager.getInstance().getScheduleService()
                     .scheduleAtFixedRate(this, 0, 1, TimeUnit.SECONDS);
