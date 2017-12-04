@@ -42,7 +42,6 @@ public class Icarus extends Metadata {
      * @param args System arguments
      */
     public static void main(String[] args) {
-        ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.ADVANCED);
         startupTime = Util.getCurrentTimeSeconds();
 
         try {
@@ -50,6 +49,7 @@ public class Icarus extends Metadata {
             Locale.getInstance();
 
             log = LoggerFactory.getLogger(Icarus.class);
+            ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.ADVANCED);
 
             // The "Doom" ASCII from
             // http://patorjk.com/software/taag/#p=display&f=Doom&t=Icarus

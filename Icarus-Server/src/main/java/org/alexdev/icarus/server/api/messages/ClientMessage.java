@@ -37,7 +37,14 @@ public interface ClientMessage {
      * @return the byte[]
      */
     public byte[] readBytes(int len);
-    
+
+    /**
+     * Get remaining bytes
+     *
+     * @return the remaining bytes
+     */
+    public byte[] remainingBytes();
+
     /**
      * Gets the message body.
      *

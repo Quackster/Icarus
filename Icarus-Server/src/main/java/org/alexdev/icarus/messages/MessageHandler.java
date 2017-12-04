@@ -149,6 +149,9 @@ public class MessageHandler {
         registerEvent(Incoming.SearchNewNavigatorEvent, new SearchNewNavigatorEvent());
         registerEvent(Incoming.CreateRoomMessageEvent, new CreateRoomMessageEvent());
         registerEvent(Incoming.CanCreateRoomMessageEvent, new CanCreateRoomMessageEvent());
+        registerEvent(Incoming.ToggleVisibleThumbnailsMessageEvent, new ToggleVisibleThumbnailsMessageEvent());
+        registerEvent(Incoming.CloseNavigatorTabMessageEvent, new CloseNavigatorTabMessageEvent());
+        registerEvent(Incoming.ExpandNavigatorTabMessageEvent, new ExpandNavigatorTabMessageEvent());
     }
 
     /**

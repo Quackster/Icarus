@@ -81,12 +81,30 @@ public class NettyRequest implements ClientMessage {
     }
 
     /* (non-Javadoc)
+     * @see org.alexdev.icarus.server.api.messages.ClientMessage#remainingBytes()
+     */
+    public byte[] remainingBytes() {
+        try {
+            this.buffer.markReaderIndex();
+
+            byte[] bytes = new byte[this.buffer.readableBytes()];
+            buffer.readBytes(bytes);
+
+            this.buffer.resetReaderIndex();
+            return bytes;
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /* (non-Javadoc)
      * @see org.alexdev.icarus.server.api.messages.ClientMessage#getMessageBody()
      */
     public String getMessageBody() {
-        String consoleText = new String(this.buffer.toString(Charset.defaultCharset()));
+        String consoleText = this.buffer.toString(Charset.defaultCharset());
 
-        for (int i = 0; i < 13; i++) { 
+        for (int i = 0; i < 50; i++) {
             consoleText = consoleText.replace(Character.toString((char)i), "[" + i + "]");
         }
 

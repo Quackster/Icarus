@@ -8,6 +8,6 @@ public class EventLogMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-        
+
     }
 }

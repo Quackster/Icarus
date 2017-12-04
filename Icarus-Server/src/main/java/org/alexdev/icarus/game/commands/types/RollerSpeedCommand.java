@@ -1,14 +1,13 @@
 package org.alexdev.icarus.game.commands.types;
 
-import java.util.concurrent.TimeUnit;
-
 import org.alexdev.icarus.game.commands.Command;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.scheduler.TaskType;
 import org.alexdev.icarus.game.room.tasks.RollerTask;
-import org.alexdev.icarus.game.room.user.ChatType;
+
+import java.util.concurrent.TimeUnit;
 
 public class RollerSpeedCommand extends Command {
 

@@ -105,4 +105,7 @@ public class Incoming {
     public static short UseOneWayGateMessageEvent = 3330;//3856
     public static short ApplyEffectMessageEvent = 3110;//771
     public static short SaveTonerMessageEvent = 932;//244
+    public static short ToggleVisibleThumbnailsMessageEvent = 2045;
+    public static Short CloseNavigatorTabMessageEvent = 1608;
+    public static Short ExpandNavigatorTabMessageEvent = 1684;
 }

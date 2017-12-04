@@ -95,7 +95,7 @@ public class Player extends Entity {
             }
         }
 
-        PlayerDao.clearTicket(this.getDetails().getId());
+        //PlayerDao.clearTicket(this.getDetails().getId());
         PlayerDao.updateLastOnline(this.getDetails().getId());
 
         this.logger = LoggerFactory.getLogger("Player " + this.details.getName());
