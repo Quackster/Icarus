@@ -175,6 +175,7 @@ public class MessageHandler {
         registerEvent(Incoming.AnswerDoorbellMessageEvent, new DoorbellAnswerMessageEvent());
         registerEvent(Incoming.EnterDoorbellMessageEvent, new DoorbellEnterMessageEvent());
         registerEvent(Incoming.ThumbnailMessageEvent, new ThumbnailMessageEvent());
+        registerEvent(Incoming.EditRoomPromotionMessageEvent, new EditRoomPromotionMessageEvent());
     }
 
     /**

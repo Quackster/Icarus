@@ -1,6 +1,5 @@
 package org.alexdev.icarus;
 
-import io.netty.util.ResourceLeak;
 import io.netty.util.ResourceLeakDetector;
 import org.alexdev.icarus.console.ConsoleReader;
 import org.alexdev.icarus.dao.mysql.Dao;
@@ -25,10 +24,8 @@ import org.alexdev.icarus.util.metadata.Metadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.lang.reflect.Constructor;
 import java.net.InetAddress;
-import java.nio.file.Paths;
 
 public class Icarus extends Metadata {
 
@@ -45,7 +42,6 @@ public class Icarus extends Metadata {
      * @param args System arguments
      */
     public static void main(String[] args) {
-
         ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.ADVANCED);
         startupTime = Util.getCurrentTimeSeconds();
 

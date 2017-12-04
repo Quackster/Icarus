@@ -85,7 +85,6 @@ public class EffectManager {
         List<Effect> effects = new ArrayList<>();
 
         for (Effect effect : this.effects.values()) {
-
             if (!effect.isActivated()) {
                 continue;
             }
