@@ -26,6 +26,7 @@ public class Routes {
         RouteManager.addRoute("/account/register", RegisterController::register);
         RouteManager.addRoute("/account/login", AccountController::login);
         RouteManager.addRoute("/account/logout", AccountController::logout);
+        RouteManager.addRoute("/account/disconnected", AccountController::disconnected);
         RouteManager.addRoute("/hotel", ClientController::hotel);
         RouteManager.addRoute("/habbo-stories", CameraController::camera);
         RouteManager.addRoute("/habbo-stories/*", CameraController::camera);

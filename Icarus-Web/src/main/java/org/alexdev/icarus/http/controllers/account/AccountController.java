@@ -69,4 +69,12 @@ public class AccountController {
 
         client.redirect("/");
     }
+
+    /**
+     * Handle the /account/disconnected URI request
+     * @param client the connection
+     */
+    public static void disconnected(WebConnection client) {
+        client.redirect("/community");
+    }
 }
