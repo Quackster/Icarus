@@ -30,7 +30,6 @@ public class RoomScheduler implements Runnable {
     public RoomScheduler (Room room) {
     	this.room = room;
         this.tasks = new ConcurrentHashMap<>();
-        
         this.counter = new AtomicLong();
         this.movementTask = new MovementTask(room);
     }
@@ -40,7 +39,6 @@ public class RoomScheduler implements Runnable {
      */
     @Override
     public void run() {
-        
         if (this.disabled) {
             this.cancelTasks();
             return;
@@ -95,7 +93,6 @@ public class RoomScheduler implements Runnable {
      * Cancel tasks.
      */
     public void cancelTasks() {
-
         if (this.walkingScheduledTask != null) {
             this.walkingScheduledTask.cancel(true);
             this.walkingScheduledTask = null;
@@ -120,7 +117,6 @@ public class RoomScheduler implements Runnable {
      * @param task the task
      */
     public void scheduleEvent(int number, TimeUnit measurement,TaskType taskType, RoomTask task) {
-        
         task.setTaskType(taskType);
         
         long taskInSeconds = measurement.toSeconds(number);
@@ -133,33 +129,12 @@ public class RoomScheduler implements Runnable {
     }
     
     /**
-     * Gets the task by class.
-     *
-     * @param <T> the generic type
-     * @param taskClass the task class
-     * @return the task by class
-     */
-    public <T> T getTaskByClass(Class<T> taskClass) {
-        
-        for (ConcurrentLinkedQueue<RoomTask> taskDurationList : this.tasks.values()) {
-            for (RoomTask task : taskDurationList) {
-                if (task.getClass().equals(taskClass)) {
-                    return taskClass.cast(task);
-                }
-            }
-        }
-        
-        return null;
-    }
-    
-    /**
      * Remove the task by class.
      *
      * @param taskClass the task class
      * @return the task by class
      */
     public void removeTask(Class<? extends RoomTask> taskClass) {
-        
         for (ConcurrentLinkedQueue<RoomTask> taskDurationList : this.tasks.values()) {
             for (RoomTask task : taskDurationList) {
                 if (task.getClass().equals(taskClass)) {
@@ -168,7 +143,6 @@ public class RoomScheduler implements Runnable {
             }
         }
     }
-
 
     /**
      * Checks if is disabled.

@@ -1,30 +1,11 @@
-/*
- * Copyright (c) 2012 Quackster <alex.daniel.97@gmail>. 
- * 
- * This file is part of Sierra.
- * 
- * Sierra is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * Sierra is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with Sierra.  If not, see <http ://www.gnu.org/licenses/>.
- */
-
 package org.alexdev.icarus.game.room.model;
 
 import org.alexdev.icarus.game.pathfinder.Position;
 
 public class RoomModel {
 
-    public final static int OPEN = 0;
-    public final static int CLOSED = 1;
+    private final static int OPEN = 0;
+    private final static int CLOSED = 1;
 
     private String name;
     private String heightmap;
@@ -36,13 +17,10 @@ public class RoomModel {
     private String relativeHeightmap;
 
     public RoomModel(String name, String heightmap, int doorX, int doorY, int doorZ, int doorRot) {
-
         this.name = name;
         this.heightmap = heightmap;
-
         this.doorLocation = new Position(doorX, doorY, doorZ);
         this.doorLocation.setRotation(doorRot);
-
         this.generateHeightmapLookups();
         this.generateRelativeHeightmap();
     }
@@ -51,7 +29,6 @@ public class RoomModel {
      * Generate heightmap lookups.
      */
     private void generateHeightmapLookups() {
-
         String[] temporary = this.heightmap.split("\\{13}");
 
         this.mapSizeX = temporary[0].length();
@@ -61,20 +38,16 @@ public class RoomModel {
         this.squareHeight = new double[mapSizeX][mapSizeY];
         
         for (int y = 0; y < mapSizeY; y++) {
-
             String line = temporary[y];
-
             line = line.replace(Character.toString((char)10), "");
             line = line.replace(Character.toString((char)13), "");
 
             int x = 0;
 
             for (char square : line.toCharArray()) {
-
                 if (square == 'x') {
                     this.squares[x][y] = CLOSED;
                 } else {
-
                     this.squares[x][y] = OPEN;
                     this.squareHeight[x][y] = parse(square);
                 }
@@ -93,14 +66,12 @@ public class RoomModel {
      * Generate relative heightmap.
      */
     private void generateRelativeHeightmap() {
-        
         StringBuilder relativeMap = new StringBuilder();
 
         for (int y = 0; y < mapSizeY; y++) {
             for (int x = 0; x < mapSizeX; x++) {
 
                 if (x == this.doorLocation.getX() && y == this.doorLocation.getY()) {
-
                     if (this.doorLocation.getZ() > 9) {
                         relativeMap.append((char)(87 + this.doorLocation.getZ()));
                     } else {
@@ -140,7 +111,6 @@ public class RoomModel {
      * @return the double
      */
     public static double parse(char input) {
-
         switch (input) {
         case '0':
             return 0;
@@ -208,7 +178,6 @@ public class RoomModel {
             return 31;
         case 'w':
             return 32;
-
         default:
             return -1;
         }

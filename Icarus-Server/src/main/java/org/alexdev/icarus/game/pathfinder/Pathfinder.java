@@ -101,7 +101,6 @@ public class Pathfinder {
             current = openList.pollFirst();
             current.setInClosed(true);
 
-
             for (int i = 0; i < POINTS.length; i++) {
                 tmp = current.getPosition().add(POINTS[i]);
 

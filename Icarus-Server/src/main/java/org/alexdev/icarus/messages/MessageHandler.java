@@ -315,7 +315,7 @@ public class MessageHandler {
      *
      * @param header the header
      */
-    public void unregisterEvent(Short header) {
+    private void unregisterEvent(Short header) {
 
         List<MessageEvent> events = this.messages.get(header);
 
@@ -349,7 +349,7 @@ public class MessageHandler {
      * @param messageId the message id
      * @param message the message
      */
-    public void invoke(short messageId, ClientMessage message) {
+    private void invoke(short messageId, ClientMessage message) {
 
         if (this.messages.containsKey(messageId)) {
             for (MessageEvent event : this.messages.get(messageId)) {
