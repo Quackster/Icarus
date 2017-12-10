@@ -11,8 +11,8 @@
 				<label>Room thumbnails enabled:</i></label>
 				<br>
 				<select name="thumbnail_enabled">
-					<option value="1"{% if cameraenabled == "1" %} selected{% endif %}>Yes</option>
-					<option value="0"{% if cameraenabled == "0" %} selected{% endif %}>No</option>
+					<option value="1"{% if thumbnailenabled == "1" %} selected{% endif %}>Yes</option>
+					<option value="0"{% if thumbnailenabled == "0" %} selected{% endif %}>No</option>
 				</select>
 			</div>
 			<div class="form-group">
