@@ -1,5 +1,7 @@
 package org.alexdev.icarus.messages.outgoing.navigator;
 
+import org.alexdev.icarus.dao.mysql.navigator.NavigatorPreferenceDao;
+import org.alexdev.icarus.game.navigator.NavigatorPreference;
 import org.alexdev.icarus.game.navigator.NavigatorTab;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
@@ -48,9 +50,13 @@ public class SearchResultSetComposer extends MessageComposer {
                 for (NavigatorTab tab : tabs) {
                     response.writeString(tab.getTabName());
                     response.writeString(tab.getTitle());
+
+                    boolean isClosed = !NavigatorPreferenceDao.get(player.getEntityId(), tab.getId(), NavigatorPreference.EXPANDED);
+                    boolean showThumbnail = NavigatorPreferenceDao.get(player.getEntityId(), tab.getId(), NavigatorPreference.THUMBNAIL);
+
                     response.writeInt(roomLimit ? (int) tab.getButtonType() : 2); // force no button
-                    response.writeBool(roomLimit ? tab.isClosed() : false); // force collapsed
-                    response.writeInt(tab.isThumbnail());
+                    response.writeBool(roomLimit && isClosed); // force collapsed
+                    response.writeInt(showThumbnail);
 
                     List<Room> rooms = new ArrayList<>();
 

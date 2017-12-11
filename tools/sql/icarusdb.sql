@@ -11,6 +11,11 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+
+-- Dumping database structure for icarusdb
+CREATE DATABASE IF NOT EXISTS `icarusdb` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `icarusdb`;
+
 -- Dumping structure for table icarusdb.catalog_gift_wrapping
 CREATE TABLE IF NOT EXISTS `catalog_gift_wrapping` (
   `type` enum('new','old') CHARACTER SET utf8mb4 DEFAULT 'new',
@@ -8327,12 +8332,10 @@ CREATE TABLE IF NOT EXISTS `groups` (
   PRIMARY KEY (`id`),
   KEY `room_id` (`room_id`),
   KEY `owner_id` (`owner_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table icarusdb.groups: ~1 rows (approximately)
+-- Dumping data for table icarusdb.groups: ~0 rows (approximately)
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
-INSERT INTO `groups` (`id`, `title`, `description`, `badge`, `owner_id`, `room_id`, `created`, `colour_a`, `colour_b`, `access_type`, `can_members_decorate`) VALUES
-	(1, 'Alex\'s Fantastic Group', 'Fantastic groups and where to find them', 'b0524s60044s40062s41060s00000', 1, 4, 1505279665, 36, 11, 'PRIVATE', 1);
 /*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 
 -- Dumping structure for table icarusdb.group_items
@@ -8836,7 +8839,7 @@ CREATE TABLE IF NOT EXISTS `group_members` (
   `member_type` enum('REQUEST','MEMBER','ADMINISTRATOR','') NOT NULL DEFAULT 'MEMBER'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table icarusdb.group_members: ~1 rows (approximately)
+-- Dumping data for table icarusdb.group_members: ~0 rows (approximately)
 /*!40000 ALTER TABLE `group_members` DISABLE KEYS */;
 INSERT INTO `group_members` (`group_id`, `user_id`, `member_type`) VALUES
 	(2, 2, 'ADMINISTRATOR');
@@ -8855,9 +8858,9 @@ CREATE TABLE IF NOT EXISTS `items` (
   `rotation` int(11) NOT NULL DEFAULT '0',
   `extra_data` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=761 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=763 DEFAULT CHARSET=latin1;
 
--- Dumping data for table icarusdb.items: ~279 rows (approximately)
+-- Dumping data for table icarusdb.items: ~274 rows (approximately)
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
 INSERT INTO `items` (`id`, `user_id`, `item_id`, `room_id`, `group_id`, `x`, `y`, `z`, `rotation`, `extra_data`) VALUES
 	(1, 1, 5011, 1, 0, '11', '10', 0.03, 1, '{"offsetX":-704,"offsetY":186,"offsetZ":8700,"imageUrl":"/c_images/album3809/wl15_c.png","state":0}'),
@@ -9087,7 +9090,7 @@ INSERT INTO `items` (`id`, `user_id`, `item_id`, `room_id`, `group_id`, `x`, `y`
 	(305, 1, 7195, 3, 0, '8', '27', 1.4029999999999996, 0, '1'),
 	(306, 1, 7195, 3, 0, '11', '20', 0.001, 0, '1'),
 	(307, 1, 7195, 3, 0, '20', '24', 1.4029999999999996, 0, '1'),
-	(345, 1, 3275, 4, 0, 'r,5,0', '9,28', 0, 0, '513'),
+	(345, 1, 3275, 4, 0, 'r,5,0', '3,20', 0, 0, '513'),
 	(402, 1, 3561, 3, 0, '10', '16', 0.001, 0, '{"hue":136,"saturation":202,"brightness":202,"enabled":true}'),
 	(506, 1, 1643, 0, 0, 'l,3,2', '2,35', 0, 0, '0'),
 	(577, 1, 2423, 3, 0, '23', '6', 0, 0, '3'),
@@ -9138,7 +9141,9 @@ INSERT INTO `items` (`id`, `user_id`, `item_id`, `room_id`, `group_id`, `x`, `y`
 	(757, 1, 1661, 0, 0, '0', '0', 0, 0, ''),
 	(758, 1, 1661, 0, 0, '0', '0', 0, 0, ''),
 	(759, 1, 1661, 4, 0, 'l,3,2', '11,31', 0, 0, ''),
-	(760, 1, 1661, 4, 0, 'l,3,4', '9,33', 0, 0, '');
+	(760, 1, 1661, 4, 0, 'l,3,4', '9,33', 0, 0, ''),
+	(761, 1, 176, 7, 0, '1', '6', 0, 2, ''),
+	(762, 1, 176, 4, 0, '4', '13', 0, 2, '0');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 
 -- Dumping structure for table icarusdb.item_definitions
@@ -16529,6 +16534,8 @@ CREATE TABLE IF NOT EXISTS `item_teleporter_links` (
 
 -- Dumping data for table icarusdb.item_teleporter_links: ~0 rows (approximately)
 /*!40000 ALTER TABLE `item_teleporter_links` DISABLE KEYS */;
+INSERT INTO `item_teleporter_links` (`item_one`, `item_two`) VALUES
+	(761, 762);
 /*!40000 ALTER TABLE `item_teleporter_links` ENABLE KEYS */;
 
 -- Dumping structure for table icarusdb.messenger_friendships
@@ -16539,7 +16546,7 @@ CREATE TABLE IF NOT EXISTS `messenger_friendships` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table icarusdb.messenger_friendships: ~2 rows (approximately)
+-- Dumping data for table icarusdb.messenger_friendships: ~1 rows (approximately)
 /*!40000 ALTER TABLE `messenger_friendships` DISABLE KEYS */;
 INSERT INTO `messenger_friendships` (`id`, `sender`, `receiver`) VALUES
 	(1, 2, 1);
@@ -16566,7 +16573,7 @@ CREATE TABLE IF NOT EXISTS `messenger_requests` (
   `from_id` int(11) NOT NULL,
   `to_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table icarusdb.messenger_requests: ~0 rows (approximately)
 /*!40000 ALTER TABLE `messenger_requests` DISABLE KEYS */;
@@ -16596,6 +16603,37 @@ INSERT INTO `navigator_categories` (`id`, `title`, `min_rank`) VALUES
 	(13, 'Themed & RPG Rooms', 1),
 	(14, 'Staff Rooms"', 5);
 /*!40000 ALTER TABLE `navigator_categories` ENABLE KEYS */;
+
+-- Dumping structure for table icarusdb.navigator_preferences
+CREATE TABLE IF NOT EXISTS `navigator_preferences` (
+  `user_id` int(11) NOT NULL,
+  `tab_id` int(11) NOT NULL,
+  `setting` enum('EXPANDED','THUMBNAIL') NOT NULL,
+  `value` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table icarusdb.navigator_preferences: ~0 rows (approximately)
+/*!40000 ALTER TABLE `navigator_preferences` DISABLE KEYS */;
+INSERT INTO `navigator_preferences` (`user_id`, `tab_id`, `setting`, `value`) VALUES
+	(1, 5, 'THUMBNAIL', 0),
+	(1, 5, 'EXPANDED', 1),
+	(1, 6, 'THUMBNAIL', 0),
+	(1, 6, 'EXPANDED', 0),
+	(1, 7, 'THUMBNAIL', 0),
+	(1, 7, 'EXPANDED', 1),
+	(1, 8, 'THUMBNAIL', 0),
+	(1, 8, 'EXPANDED', 1),
+	(1, 9, 'THUMBNAIL', 0),
+	(1, 9, 'EXPANDED', 1),
+	(1, 10, 'THUMBNAIL', 0),
+	(1, 10, 'EXPANDED', 1),
+	(1, 11, 'THUMBNAIL', 0),
+	(1, 11, 'EXPANDED', 1),
+	(1, 12, 'THUMBNAIL', 0),
+	(1, 12, 'EXPANDED', 0),
+	(1, 13, 'THUMBNAIL', 0),
+	(1, 13, 'EXPANDED', 0);
+/*!40000 ALTER TABLE `navigator_preferences` ENABLE KEYS */;
 
 -- Dumping structure for table icarusdb.navigator_tabs
 CREATE TABLE IF NOT EXISTS `navigator_tabs` (
@@ -16966,16 +17004,17 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `who_can_kick` tinyint(1) NOT NULL DEFAULT '0',
   `who_can_ban` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
--- Dumping data for table icarusdb.rooms: ~5 rows (approximately)
+-- Dumping data for table icarusdb.rooms: ~6 rows (approximately)
 /*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
 INSERT INTO `rooms` (`id`, `name`, `room_type`, `date_created`, `owner_id`, `group_id`, `thumbnail`, `description`, `password`, `users_now`, `users_max`, `model`, `wallpaper`, `floor`, `outside`, `tags`, `trade_state`, `state`, `score`, `category`, `allow_pets`, `allow_pets_eat`, `allow_walkthrough`, `hidewall`, `wall_thickness`, `floor_thickness`, `chat_mode`, `chat_size`, `chat_speed`, `chat_flood`, `chat_distance`, `who_can_mute`, `who_can_kick`, `who_can_ban`) VALUES
 	(1, 'Welcome Lobby', 'PUBLIC', '2017-03-21 06:15:27', -1, 0, 'thumbnails/room_1_yus7y2ycpg.png', '', '', 0, 25, 'dynamic_model_1', '0', '0', '0.0', '', 0, 'OPEN', 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0),
 	(2, 'Coffee House', 'PUBLIC', '2017-03-21 06:19:36', -1, 0, 'thumbnails/room_2_h0lcj7tr5f.png', '', '', 0, 25, 'dynamic_model_2', '105', '608', '0.0', '', 0, 'OPEN', 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 90, 0, 0, 0),
 	(3, 'Picnic', 'PUBLIC', '2017-10-02 02:50:19', -1, 0, 'thumbnails/room_3_7mehe4543b.png', '', '', 0, 10, 'dynamic_model_3', '0', '0', '0', '', 0, 'OPEN', 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
-	(4, 'Alex\'s Room', 'PRIVATE', '2017-10-08 04:48:55', 1, 1, 'thumbnails/room_4_hfdrkmr79v.png', '', '', 1, 10, 'model_a', '805', '201', '2.1', '', 1, 'OPEN', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
-	(7, 'AlexLUL Room', 'PRIVATE', '2017-10-26 04:29:00', 1, 0, NULL, '', '', 0, 10, 'model_b', '0', '0', '0', '', 0, 'OPEN', 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 30, 0, 0, 0);
+	(4, 'Alex\'s Room', 'PRIVATE', '2017-10-08 04:48:55', 1, 0, 'thumbnails/room_4_hfdrkmr79v.png', '', '', 0, 10, 'model_a', '805', '201', '2.1', '', 1, 'OPEN', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0),
+	(7, 'AlexLUL Room', 'PRIVATE', '2017-10-26 04:29:00', 1, 0, NULL, '', '', 0, 10, 'model_b', '0', '0', '0', '', 0, 'OPEN', 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 30, 0, 0, 0),
+	(8, 'testmap', 'PRIVATE', '2017-12-07 05:40:37', 1, 0, NULL, '', '', 0, 10, 'dynamic_model_8', '0', '0', '0', '', 0, 'OPEN', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 30, 0, 0, 0);
 /*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
 
 -- Dumping structure for table icarusdb.rooms_newbie
@@ -17061,7 +17100,12 @@ INSERT INTO `room_chatlogs` (`user`, `room_id`, `timestamp`, `message_type`, `me
 	('Alex', 4, 1512212168, 0, ':debugfurni'),
 	('Alex', 4, 1512212473, 0, ':resetdecor'),
 	('Alex', 4, 1512212487, 0, ':resetdecor floor'),
-	('Alex', 4, 1512212585, 0, ':debugfurni');
+	('Alex', 4, 1512212585, 0, ':debugfurni'),
+	('Alex', 4, 1512305977, 0, ':warp'),
+	('Alex', 4, 1512306006, 0, ':warp'),
+	('Alex', 4, 1512306009, 0, ':help'),
+	('Alex', 4, 1512306086, 0, ':help'),
+	('Alex', 4, 1512306092, 0, ':warp');
 /*!40000 ALTER TABLE `room_chatlogs` ENABLE KEYS */;
 
 -- Dumping structure for table icarusdb.room_models
@@ -17144,7 +17188,8 @@ CREATE TABLE IF NOT EXISTS `room_models_dynamic` (
 INSERT INTO `room_models_dynamic` (`id`, `door_x`, `door_y`, `door_z`, `door_dir`, `heightmap`, `wall_height`) VALUES
 	('dynamic_model_1', 23, 20, 0, 6, 'xxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxx00xxxxxxxxxxxxxxxxx{13}xxxxx00xxxxxxxxxxxxxxxxx{13}xxxxx00xxxxx00xxxxxxxxxx{13}xxxxxxxxxxx00000000xxxxx{13}xxxxxxxxxxx00000000xxxxx{13}xxxxxxxxxxx00000000xxxxx{13}xxxxxxxxxxx00000000xxxxx{13}xxxxxxxxxxx00000000xxxxx{13}xxxxxxxxxxx00000000xxxxx{13}xxxxxxxxxxx000000000000x{13}xxxxxxxxxxx000000000000x{13}xxxxxxxxxxx000000000000x{13}xxxxxxxxxx0000000000000x{13}xxxxxxxxxxx0000000000000{13}xxxxxxxxxxx0000000000000{13}x66666xxxxx000000000000x{13}x66666xxxxx000000000000x{13}x6666xxxxxx000000000000x{13}x6666xxxxxx000000000000x{13}x6666xxxxxx00000000xxxxx{13}x6666xxxxxx00000000xxxxx{13}x6666xxxxxx00000000xxxxx{13}x6666xxxxxx00000000xxxxx{13}x6666xxxxxx00000000xxxxx{13}x6666xxxxxx00000000xxxxx{13}xxxxxxxxxxxx00xxxxxxxxxx', -1),
 	('dynamic_model_2', 9, 26, 0, 0, 'xxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxx{13}xx00000000000000000000{13}x000000000000000000000{13}x000000000000000000000{13}x000000000000000000000{13}x000000000000000000000{13}x000000000000000000000{13}x0000000000000xxxxxxxx{13}x0000000000000xxxxxxxx{13}x0000000000000xxxxxxxx{13}x0000000000000xxxxxxxx{13}x0000000000000xxxxxxxx{13}x0000000000000xxxxxxxx{13}x0000000000000xxxxxxxx{13}x0000000000000xxxxxxxx{13}x0000000000000xxxxxxxx{13}x0000000000000xxxxxxxx{13}xxxx00xxx00xxxxxxxxxxx', -1),
-	('dynamic_model_3', 5, 18, 0, 4, 'xxxxxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxx0000xx{13}xxxxxxxxxxxxxxxxxxxxx0000xx{13}xxxxxxxxx0000000000000000xx{13}xxxxxxxxx00000000000000000x{13}xxxxxxxx000000000000000000x{13}xxxxxxxxx00000000000000000x{13}xxxxxxxxx00000000000000000x{13}xxxxxxxxx00000000000000000x{13}xxxxxxxxx00000000000000000x{13}xxxxxxxxx00000000000000000x{13}xxxxxxxxx00000000000000000x{13}xxxxxxxxx00000000000000000x{13}xxx00000000000000000000000x{13}xxx00000000000000000000000x{13}xx000000000000000000000000x{13}xx000000000000000000000000x{13}xxx000000000000000000000000{13}xxx000000000000000000000000{13}xxx00000000000000000000000x{13}xxx0000000000000000000000xx{13}xxx0000000000000000000000xx{13}xxx0000000000000000000000xx{13}xxxx000000000000000000000xx{13}xxxxx00000000000000000000xx{13}xxxxxx0000000000000000000xx{13}xxxxxxx000000000000000000xx{13}xxxxxxxx00000000000000000xx{13}xxxxxxxxx0000000000000000xx{13}xxxxxxxxxx00000000000000xxx', -1);
+	('dynamic_model_3', 5, 18, 0, 4, 'xxxxxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxx0000xx{13}xxxxxxxxxxxxxxxxxxxxx0000xx{13}xxxxxxxxx0000000000000000xx{13}xxxxxxxxx00000000000000000x{13}xxxxxxxx000000000000000000x{13}xxxxxxxxx00000000000000000x{13}xxxxxxxxx00000000000000000x{13}xxxxxxxxx00000000000000000x{13}xxxxxxxxx00000000000000000x{13}xxxxxxxxx00000000000000000x{13}xxxxxxxxx00000000000000000x{13}xxxxxxxxx00000000000000000x{13}xxx00000000000000000000000x{13}xxx00000000000000000000000x{13}xx000000000000000000000000x{13}xx000000000000000000000000x{13}xxx000000000000000000000000{13}xxx000000000000000000000000{13}xxx00000000000000000000000x{13}xxx0000000000000000000000xx{13}xxx0000000000000000000000xx{13}xxx0000000000000000000000xx{13}xxxx000000000000000000000xx{13}xxxxx00000000000000000000xx{13}xxxxxx0000000000000000000xx{13}xxxxxxx000000000000000000xx{13}xxxxxxxx00000000000000000xx{13}xxxxxxxxx0000000000000000xx{13}xxxxxxxxxx00000000000000xxx', -1),
+	('dynamic_model_8', 3, 5, 0, 2, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx{13}x54321231xx00000000xx00000000xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx{13}x54321234xx00000000xx00000000xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx{13}x00000000xx00000000xx00000000xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000{13}000000000xx00000000xx00000000xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000{13}x00000000xx00000000xx00000000xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000{13}x00000000xx00000000xx00000000xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0000{13}x00000000xx00000000xx00000000xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx{13}x00000000xx00000000xx00000000xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx{13}xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', -1);
 /*!40000 ALTER TABLE `room_models_dynamic` ENABLE KEYS */;
 
 -- Dumping structure for table icarusdb.room_rights
@@ -17153,7 +17198,7 @@ CREATE TABLE IF NOT EXISTS `room_rights` (
   `room_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table icarusdb.room_rights: ~0 rows (approximately)
 /*!40000 ALTER TABLE `room_rights` DISABLE KEYS */;
@@ -17295,8 +17340,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table icarusdb.users: ~2 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `username`, `password`, `rank`, `join_date`, `last_online`, `sso_ticket`, `email`, `mission`, `gender`, `figure`, `credits`, `duckets`, `home_room`) VALUES
-	(1, 'Alex', '$2a$10$7dNeC4v6MRro5xT/DNSyzOp0KCmcsEa5CpI78OPopjPwKAiNwSpba', 7, 190340513, 1512212021, NULL, 'test@alex.com', 'Icarus alpha tester', 'M', 'hd-200-1.lg-270-80.sh-3068-83-25.ch-3030-75.hr-145-37', 97004, 100104, 0),
-	(2, 'Jackm8', '$2a$10$7dNeC4v6MRro5xT/DNSyzOp0KCmcsEa5CpI78OPopjPwKAiNwSpba', 1, 190340513, 1512153206, NULL, 'lul@alex.com', 'Icarus alpha tester', 'M', 'hd-200-1.lg-270-80.sh-3068-83-25.ch-3030-75.hr-145-37', 97073, 99960, 0);
+	(1, 'Alex', '$2a$10$7dNeC4v6MRro5xT/DNSyzOp0KCmcsEa5CpI78OPopjPwKAiNwSpba', 7, 190340513, 1513027963, 'sso-icarus-hIY8DUOB0L-e7mntZ-ZlfexEsv', 'test@alex.com', 'Icarus alpha tester', 'M', 'hr-3163-37.sh-3068-83-25.hd-180-1.lg-270-80.ch-878-70-1408', 97001, 100139, 0),
+	(2, 'Jackm8', '$2a$10$7dNeC4v6MRro5xT/DNSyzOp0KCmcsEa5CpI78OPopjPwKAiNwSpba', 1, 190340513, 1512299638, NULL, 'lul@alex.com', 'Icarus alpha tester', 'M', 'hd-200-1.lg-270-80.sh-3068-83-25.ch-3030-75.hr-145-37', 97073, 99960, 0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table icarusdb.users_permissions
@@ -17329,7 +17374,7 @@ CREATE TABLE IF NOT EXISTS `users_subscriptions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table icarusdb.users_subscriptions: ~1 rows (approximately)
+-- Dumping data for table icarusdb.users_subscriptions: ~0 rows (approximately)
 /*!40000 ALTER TABLE `users_subscriptions` DISABLE KEYS */;
 INSERT INTO `users_subscriptions` (`id`, `user_id`, `bought_time`, `expire_time`) VALUES
 	(1, 1, 1512127509, 1527679509);

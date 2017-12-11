@@ -104,7 +104,7 @@ public class NettyRequest implements ClientMessage {
     public String getMessageBody() {
         String consoleText = this.buffer.toString(Charset.defaultCharset());
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 13; i++) {
             consoleText = consoleText.replace(Character.toString((char)i), "[" + i + "]");
         }
 

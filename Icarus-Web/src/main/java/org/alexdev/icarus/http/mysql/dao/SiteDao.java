@@ -27,7 +27,6 @@ public class SiteDao {
      * @param value the string value
      */
     public static void updateKey(SiteKey key, String value) {
-
         if (!keyExists(key)) {
             Log.getErrorLogger().error("The key {} with raw name {} does not exist!", key.name(), key.getKey());
             Log.getErrorLogger().error("Could not set key {} with value \"{}\"", key.name(), value);
@@ -61,7 +60,6 @@ public class SiteDao {
      * @return true, if successful
      */
     public static boolean keyExists(SiteKey key) {
-
         boolean exists = false;
 
         Connection sqlConnection = null;
@@ -94,7 +92,6 @@ public class SiteDao {
      * @return true, if successful
      */
     public static String get(SiteKey key) {
-
         String value = null;
 
         Connection sqlConnection = null;
