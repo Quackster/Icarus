@@ -13,10 +13,7 @@ public class CloseNavigatorTabMessageEvent implements MessageEvent {
     @Override
     public void handle(Player player, ClientMessage reader) {
         NavigatorTab tab = NavigatorManager.getInstance().getTab(reader.readString());
-
         boolean value = NavigatorPreferenceDao.get(player.getEntityId(), tab.getId(), NavigatorPreference.EXPANDED);
-        boolean newValue = !value;
-
-        NavigatorPreferenceDao.update(player.getEntityId(), tab.getId(), NavigatorPreference.EXPANDED, newValue);
+        NavigatorPreferenceDao.update(player.getEntityId(), tab.getId(), NavigatorPreference.EXPANDED, !value);
     }
 }

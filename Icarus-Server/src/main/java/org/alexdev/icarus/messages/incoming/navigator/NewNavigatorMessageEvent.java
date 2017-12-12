@@ -11,7 +11,6 @@ import org.alexdev.icarus.messages.outgoing.navigator.NavigatorPreferencesMessag
 import org.alexdev.icarus.messages.outgoing.navigator.NavigatorTabsMessageComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
-import sun.plugin.javascript.navig.Navigator;
 
 public class NewNavigatorMessageEvent implements MessageEvent {
 

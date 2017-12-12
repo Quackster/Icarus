@@ -22,7 +22,6 @@ public class ConnectionHandler extends SimpleChannelInboundHandler<NettyRequest>
 
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-
         Player player = new Player(new NettyPlayerNetwork(ctx.channel(), ctx.channel().hashCode()));
         ctx.channel().attr(Player.PLAYER_KEY).set(player);
 
@@ -38,7 +37,6 @@ public class ConnectionHandler extends SimpleChannelInboundHandler<NettyRequest>
 
     @Override
     public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
-
         server.getChannels().remove(ctx.channel());
         Player player = ctx.channel().attr(Player.PLAYER_KEY).get();
 
@@ -51,9 +49,7 @@ public class ConnectionHandler extends SimpleChannelInboundHandler<NettyRequest>
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, NettyRequest message) throws Exception {
-
         try {
-
             Player player = ctx.channel().attr(Player.PLAYER_KEY).get();
 
             if (message == null) {

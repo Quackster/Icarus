@@ -53,7 +53,6 @@ public class NettyServer extends ServerHandler  {
 
     @Override
     public boolean bind() {
-
         this.bootstrap.bind(new InetSocketAddress(this.getIp(), this.getPort())).addListener(objectFuture -> {
             if (!objectFuture.isSuccess()) {
                 Log.getErrorLogger().error("Failed to start server on address: {}:{}", this.getIp(), this.getPort());
