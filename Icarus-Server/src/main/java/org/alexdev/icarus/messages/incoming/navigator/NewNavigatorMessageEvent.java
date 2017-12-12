@@ -2,7 +2,7 @@ package org.alexdev.icarus.messages.incoming.navigator;
 
 import org.alexdev.icarus.dao.mysql.navigator.NavigatorPreferenceDao;
 import org.alexdev.icarus.game.navigator.NavigatorManager;
-import org.alexdev.icarus.game.navigator.NavigatorPreference;
+import org.alexdev.icarus.game.navigator.preference.NavigatorPreferenceType;
 import org.alexdev.icarus.game.navigator.NavigatorTab;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.outgoing.navigator.FlatCategoriesMessageComposer;
@@ -32,8 +32,11 @@ public class NewNavigatorMessageEvent implements MessageEvent {
                 continue;
             }
 
-            NavigatorPreferenceDao.create(player.getEntityId(), tab.getId(), NavigatorPreference.THUMBNAIL, tab.isThumbnail());
-            NavigatorPreferenceDao.create(player.getEntityId(), tab.getId(), NavigatorPreference.EXPANDED, !tab.isClosed());
+            boolean thumbnailFlag = NavigatorPreferenceDao.create(player.getEntityId(), tab.getId(), NavigatorPreferenceType.THUMBNAIL, tab.isThumbnail());
+            boolean expandedFlag = NavigatorPreferenceDao.create(player.getEntityId(), tab.getId(), NavigatorPreferenceType.EXPANDED, !tab.isClosed());
+
+            player.getNavigatorPreference().addPreference(NavigatorPreferenceType.THUMBNAIL, tab.getTabName(), thumbnailFlag);
+            player.getNavigatorPreference().addPreference(NavigatorPreferenceType.EXPANDED, tab.getTabName(), expandedFlag);
         }
         
         player.sendQueued(new NavigatorTabsMessageComposer(NavigatorManager.getInstance().getParentTabs()));

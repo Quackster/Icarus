@@ -2,7 +2,8 @@ package org.alexdev.icarus.dao.mysql.navigator;
 
 import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
-import org.alexdev.icarus.game.navigator.NavigatorPreference;
+import org.alexdev.icarus.game.navigator.preference.NavigatorPreference;
+import org.alexdev.icarus.game.navigator.preference.NavigatorPreferenceType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ public class NavigatorPreferenceDao {
      * @param preference the preference setting
      * @return true, if successful
      */
-    public static boolean exists(int userId, int navigatorTabId, NavigatorPreference preference) {
+    public static boolean exists(int userId, int navigatorTabId, NavigatorPreferenceType preference) {
         boolean exists = false;
 
         Connection sqlConnection = null;
@@ -54,7 +55,7 @@ public class NavigatorPreferenceDao {
      * @param preference the preference setting
      * @return true, if successful
      */
-    public static boolean get(int userId, int navigatorTabId, NavigatorPreference preference) {
+    public static boolean get(int userId, int navigatorTabId, NavigatorPreferenceType preference) {
         /*if (!NavigatorPreferenceDao.exists(userId, navigatorTabId, preference)) {
             NavigatorPreferenceDao.create(userId, navigatorTabId, preference, defaultValue);
         }*/
@@ -97,7 +98,7 @@ public class NavigatorPreferenceDao {
      * @param value the default value to insert or the value to override
      * @return true, if successful
      */
-    public static boolean update(int userId, int navigatorTabId, NavigatorPreference preference, boolean value) {
+    public static boolean update(int userId, int navigatorTabId, NavigatorPreferenceType preference, boolean value) {
         /*if (!NavigatorPreferenceDao.exists(userId, navigatorTabId, preference)) {
             NavigatorPreferenceDao.create(userId, navigatorTabId, preference, value);
             return true;
@@ -135,9 +136,9 @@ public class NavigatorPreferenceDao {
      * @param preference the preference setting
      * @param defaultValue the default value to insert
      */
-    public static void create(int userId, int navigatorTabId, NavigatorPreference preference, boolean defaultValue) {
+    public static boolean create(int userId, int navigatorTabId, NavigatorPreferenceType preference, boolean defaultValue) {
         if (NavigatorPreferenceDao.exists(userId, navigatorTabId, preference)) {
-            return;
+            return NavigatorPreferenceDao.get(userId, navigatorTabId, preference);
         }
 
         Connection sqlConnection = null;
@@ -158,6 +159,8 @@ public class NavigatorPreferenceDao {
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
+
+        return defaultValue;
     }
 
     /**

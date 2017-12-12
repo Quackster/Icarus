@@ -350,7 +350,6 @@ public class MessageHandler {
      * @param message the message
      */
     private void invoke(short messageId, ClientMessage message) {
-
         if (this.messages.containsKey(messageId)) {
             for (MessageEvent event : this.messages.get(messageId)) {
                 event.handle(this.player, message);

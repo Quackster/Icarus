@@ -12,6 +12,7 @@ import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.groups.Group;
 import org.alexdev.icarus.game.inventory.Inventory;
 import org.alexdev.icarus.game.messenger.Messenger;
+import org.alexdev.icarus.game.navigator.preference.NavigatorPreference;
 import org.alexdev.icarus.game.player.club.ClubSubscription;
 import org.alexdev.icarus.game.plugins.PluginEvent;
 import org.alexdev.icarus.game.plugins.PluginManager;
@@ -50,10 +51,10 @@ public class Player extends Entity {
     private Messenger messenger;
     private Inventory inventory;
     private ClubSubscription subscription;
+    private NavigatorPreference navigatorPreference;
     private RC4 rc4;
     private DiffieHellman diffieHellman;
     private MessageHandler messageHandler;
-
     private boolean loggedIn;
 
     public Player(PlayerNetwork network) {
@@ -63,9 +64,9 @@ public class Player extends Entity {
         this.messenger = new Messenger(this);
         this.inventory = new Inventory(this);
         this.subscription = new ClubSubscription(this);
+        this.navigatorPreference = new NavigatorPreference();
         this.diffieHellman = new DiffieHellman();
         this.messageHandler = new MessageHandler(this);
-
         this.logger = LoggerFactory.getLogger("Player " + this.network.getConnectionId());
     }
 
@@ -422,5 +423,14 @@ public class Player extends Entity {
      */
     public RC4 getRc4() {
         return rc4;
+    }
+
+    /**
+     * Get the navigator preference manager instance
+     *
+     * @return the preference manager
+     */
+    public NavigatorPreference getNavigatorPreference() {
+        return navigatorPreference;
     }
 }
