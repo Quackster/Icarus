@@ -10,7 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class InventoryDao {
@@ -105,10 +107,9 @@ public class InventoryDao {
             preparedStatement.setInt(3, itemId);
             preparedStatement.setString(4, extraData);
             preparedStatement.executeUpdate();
-
             resultSet = preparedStatement.getGeneratedKeys();
 
-            if (resultSet != null && resultSet.next()) {
+            if (resultSet.next()) {
                 item = new Item(resultSet.getInt(1), ownerId, groupId, itemId, 0, "0", "0", 0, 0, extraData);
             }
 
@@ -121,6 +122,51 @@ public class InventoryDao {
         }
 
         return item;
+    }
+
+    /**
+     * New batch of inventory items
+     *
+     * @param itemId the item id
+     * @param ownerId the owner id
+     * @param extraData the extra data
+     * @return the list of items
+     */
+    public static List<Item> newItems(int itemId, int ownerId, String extraData, int groupId, int amount) {
+        List<Item> items = new ArrayList<Item>();
+
+        Connection sqlConnection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            sqlConnection = Dao.getStorage().getConnection();
+            preparedStatement = Dao.getStorage().prepare("INSERT INTO items (user_id, group_id, item_id, extra_data) VALUES (?, ?, ?, ?)", sqlConnection);
+
+            for (int i = 0; i < amount; i++) {
+                preparedStatement.setInt(1, ownerId);
+                preparedStatement.setInt(2, groupId);
+                preparedStatement.setInt(3, itemId);
+                preparedStatement.setString(4, extraData);
+                preparedStatement.addBatch();
+            }
+
+            preparedStatement.executeBatch();
+            resultSet = preparedStatement.getGeneratedKeys();
+
+            while (resultSet.next()) {
+                items.add(new Item(resultSet.getInt(1), ownerId, groupId, itemId, 0, "0", "0", 0, 0, extraData));
+            }
+
+        } catch (SQLException e) {
+            Storage.logError(e);
+        } finally {
+            Storage.closeSilently(resultSet);
+            Storage.closeSilently(preparedStatement);
+            Storage.closeSilently(sqlConnection);
+        }
+
+        return items;
     }
     
     /**

@@ -208,11 +208,13 @@ public class PurchaseItemMessageEvent implements MessageEvent {
     private void handlePurchase(final CatalogueItem item, final Player player, final int amount, final String extraData) {
         
         RoomManager.getInstance().getScheduleService().execute(() -> {
-            for (int listingAmount = 0; listingAmount < item.getAmount(); listingAmount++) {
+
+            for (int i = 0; i < item.getAmount(); i++) {
                 if (item.getDisplayName().startsWith("DEAL_HC_")) {
                     ClubManager.handlePurchase(player, item, amount);
                     return;
                 }
+
 
                 String dbExtraData = extraData;
                 int groupId = 0;
@@ -220,12 +222,9 @@ public class PurchaseItemMessageEvent implements MessageEvent {
                 if (item.getItemDefinition().getInteractionType().name().startsWith("GLD_")) {
                     dbExtraData = "";
                     groupId = Integer.parseInt(extraData);
-                    System.out.println("GROUP ID: " + groupId);
                 }
 
-                for (int i = 0; i < amount; i++) {
-                    item.getItemDefinition().handlePurchase(player, dbExtraData, groupId);
-                }
+                item.getItemDefinition().handlePurchase(player, dbExtraData, groupId, amount);
 
                 player.send(new PurchaseNotificationMessageComposer(item));
                 player.getInventory().updateItems();

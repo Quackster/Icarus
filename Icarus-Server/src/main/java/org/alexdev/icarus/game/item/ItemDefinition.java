@@ -7,6 +7,8 @@ import org.alexdev.icarus.game.item.interactions.InteractionType;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.util.Util;
 
+import java.util.List;
+
 public class ItemDefinition {
 
     private int id;
@@ -77,22 +79,22 @@ public class ItemDefinition {
 
     /**
      * Handle purchase of item.
-     *
-     * @param player the player
+     *  @param player the player
      * @param extraData the extra data
+     * @param amount
      */
-    public void handlePurchase(Player player, String extraData, int groupId) {
+    public void handlePurchase(Player player, String extraData, int groupId, int amount) {
+        List<Item> inventoryItems = InventoryDao.newItems(this.id, player.getEntityId(), extraData, groupId, amount);
 
-        Item inventoryItem = InventoryDao.newItem(this.id, player.getEntityId(), extraData, groupId);
+        for (Item inventoryItem : inventoryItems) {
+            if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
+                Item secondTeleporter = InventoryDao.newItem(this.id, player.getEntityId(), "0", groupId);
+                TeleporterDao.savePair(inventoryItem.getId(), secondTeleporter.getId());
+                player.getInventory().addItem(secondTeleporter, InventoryNotification.ALERT);
+            }
 
-        if (inventoryItem.getDefinition().getInteractionType() == InteractionType.TELEPORT) {
-            Item secondTeleporter = InventoryDao.newItem(this.id, player.getEntityId(), "0", groupId);
-            TeleporterDao.savePair(inventoryItem.getId(), secondTeleporter.getId());
-
-            player.getInventory().addItem(secondTeleporter, InventoryNotification.ALERT);
+            player.getInventory().addItem(inventoryItem, InventoryNotification.ALERT);
         }
-
-        player.getInventory().addItem(inventoryItem, InventoryNotification.ALERT);
     }
 
     /**
