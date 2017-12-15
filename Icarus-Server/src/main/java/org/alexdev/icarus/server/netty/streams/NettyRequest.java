@@ -21,6 +21,7 @@ public class NettyRequest implements ClientMessage {
     /* (non-Javadoc)
      * @see org.alexdev.icarus.server.api.messages.ClientMessage#readInt()
      */
+    @Override
     public Integer readInt() {
         try {
             return this.buffer.readInt();
@@ -32,6 +33,7 @@ public class NettyRequest implements ClientMessage {
     /* (non-Javadoc)
      * @see org.alexdev.icarus.server.api.messages.ClientMessage#readIntAsBool()
      */
+    @Override
     public boolean readIntAsBool() {
         try {
             return this.buffer.readInt() == 1;
@@ -43,6 +45,7 @@ public class NettyRequest implements ClientMessage {
     /* (non-Javadoc)
      * @see org.alexdev.icarus.server.api.messages.ClientMessage#readBoolean()
      */
+    @Override
     public boolean readBoolean()  {
         
         try {
@@ -55,6 +58,7 @@ public class NettyRequest implements ClientMessage {
     /* (non-Javadoc)
      * @see org.alexdev.icarus.server.api.messages.ClientMessage#readString()
      */
+    @Override
     public String readString() {
         try {
             int length = this.buffer.readShort();
@@ -69,6 +73,7 @@ public class NettyRequest implements ClientMessage {
     /* (non-Javadoc)
      * @see org.alexdev.icarus.server.api.messages.ClientMessage#readBytes(int)
      */
+    @Override
     public byte[] readBytes(int len) {
         try {
             byte[] payload = new byte[len];
@@ -83,6 +88,7 @@ public class NettyRequest implements ClientMessage {
     /* (non-Javadoc)
      * @see org.alexdev.icarus.server.api.messages.ClientMessage#remainingBytes()
      */
+    @Override
     public byte[] remainingBytes() {
         try {
             this.buffer.markReaderIndex();
@@ -101,6 +107,7 @@ public class NettyRequest implements ClientMessage {
     /* (non-Javadoc)
      * @see org.alexdev.icarus.server.api.messages.ClientMessage#getMessageBody()
      */
+    @Override
     public String getMessageBody() {
         String consoleText = this.buffer.toString(Charset.defaultCharset());
 
@@ -110,19 +117,11 @@ public class NettyRequest implements ClientMessage {
 
         return consoleText;
     }
-    
-    /**
-     * Gets the buffer.
-     *
-     * @return the buffer
-     */
-    public ByteBuf getBuffer() {
-        return buffer;
-    }
 
     /* (non-Javadoc)
      * @see org.alexdev.icarus.server.api.messages.ClientMessage#getMessageId()
      */
+    @Override
     public short getMessageId() {
         return header;
     }
@@ -130,7 +129,17 @@ public class NettyRequest implements ClientMessage {
     /* (non-Javadoc)
      * @see org.alexdev.icarus.server.api.messages.ClientMessage#getLength()
      */
+    @Override
     public int getLength() {
         return length;
+    }
+
+
+    /* (non-Javadoc)
+     * @see org.alexdev.icarus.server.api.messages.ClientMessage#dispose()
+     */
+    @Override
+    public void dispose() {
+        this.buffer.release();
     }
 }

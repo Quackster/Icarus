@@ -64,4 +64,9 @@ public interface ClientMessage {
      * @return the length
      */
     public int getLength();
+
+    /*
+     * Clears the request buffer, called after the message was handled.
+     */
+    public void dispose();
 }

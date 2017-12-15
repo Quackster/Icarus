@@ -330,7 +330,6 @@ public class MessageHandler {
      * @param message the message
      */
     public void handleRequest(ClientMessage message) {
-
         if (Configuration.getInstance().getServerConfig().get("Logging", "log.received.packets", Boolean.class)) {
             if (this.messages.containsKey(message.getMessageId())) {
                 MessageEvent event = this.messages.get(message.getMessageId()).get(0);
@@ -355,6 +354,8 @@ public class MessageHandler {
                 event.handle(this.player, message);
             }
         }
+
+        message.dispose();
     }
 
     /**

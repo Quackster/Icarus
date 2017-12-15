@@ -48,7 +48,7 @@ public class ConnectionHandler extends SimpleChannelInboundHandler<NettyRequest>
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, NettyRequest message) throws Exception {
+    public void channelRead0(ChannelHandlerContext ctx, NettyRequest message) throws Exception {
         try {
             Player player = ctx.channel().attr(Player.PLAYER_KEY).get();
 
@@ -68,5 +68,10 @@ public class ConnectionHandler extends SimpleChannelInboundHandler<NettyRequest>
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         ctx.flush();
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+
     }
 }
