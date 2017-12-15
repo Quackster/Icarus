@@ -1,5 +1,6 @@
 package org.alexdev.icarus.http;
 
+import io.netty.util.ResourceLeakDetector;
 import org.alexdev.duckhttpd.routes.RouteManager;
 import org.alexdev.duckhttpd.server.WebServer;
 import org.alexdev.duckhttpd.util.CompressionUtil;
@@ -40,10 +41,10 @@ public class IcarusWeb {
         }
 
         GameSettings.getInstance();
-
         ItemDao.getRecentPhotos();
-
         Routes.register();
+
+        ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.ADVANCED);
         logger.info("Registered " + RouteManager.getRoutes().size() + " route(s)!");
 
         /*Connection sqlConnection = null;

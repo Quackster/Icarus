@@ -93,9 +93,7 @@ public class TargetedOfferDao {
         ResultSet resultSet = null;
         
         try {
-
             sqlConnection = Dao.getStorage().getConnection();
-
             preparedStatement = Dao.getStorage().prepare("INSERT INTO targeted_offers_blacklist (offer_id, user_id) VALUES (?, ?)", sqlConnection);
             preparedStatement.setInt(1, offerId);
             preparedStatement.setInt(2, userId);

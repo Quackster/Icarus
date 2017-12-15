@@ -98,10 +98,6 @@ public class Icarus extends Metadata {
                 serverIP = InetAddress.getByName(serverIP).getHostAddress();
             }
 
-            // Since we have overridden the IP, grab it again from the config to have a nice output instead of
-            // something like 0.0.0.0 for instance ;)
-            String configurationAddress = Configuration.getInstance().getServerConfig().get("Server", "server.ip", String.class);
-
             // Get the server instance through reflection
             Class<? extends ServerHandler> serverClass = Class.forName(Icarus.getServerClassPath()).asSubclass(ServerHandler.class);
             Constructor<? extends ServerHandler> serverConstructor = serverClass.getDeclaredConstructor(String.class, Integer.class);
