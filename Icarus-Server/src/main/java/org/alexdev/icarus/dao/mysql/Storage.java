@@ -21,9 +21,7 @@ public class Storage {
     final private static Logger log = LoggerFactory.getLogger(Storage.class);
     
     public Storage(String host, String username, String password, String db) {
-
         try {
-
             HikariConfig config = new HikariConfig();
             config.setJdbcUrl("jdbc:mysql://" + host + ":3306/" + db + "?useSSL=false");
             config.setUsername(username);
@@ -58,7 +56,6 @@ public class Storage {
      * @throws SQLException the SQL exception
      */
     public PreparedStatement prepare(String query, Connection conn) throws SQLException {
-
         try {
             return conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         } catch(SQLException e) {
@@ -74,7 +71,6 @@ public class Storage {
      * @param query the query
      */
     public void execute(String query) {
-        
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -101,7 +97,6 @@ public class Storage {
      * @return the string
      */
     public String getString(String query) {
-        
         String value = null;
         
         Connection sqlConnection = null;
@@ -109,10 +104,8 @@ public class Storage {
         ResultSet resultSet = null;
 
         try {
-
             sqlConnection = this.getConnection();
             preparedStatement = this.prepare(query, sqlConnection);
-            
             resultSet = preparedStatement.executeQuery();
             resultSet.next();
             
@@ -183,7 +176,6 @@ public class Storage {
         try {
             resultSet.close();
         } catch (Exception e) { }
-        
     }
 
     /**
