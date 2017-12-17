@@ -302,7 +302,6 @@ public class MessageHandler {
      * @param messageEvent the message event
      */
     private void registerEvent(Short header, MessageEvent messageEvent) {
-
         if (!this.messages.containsKey(header)) {
             this.messages.put(header, new ArrayList<>());
         }
@@ -316,7 +315,6 @@ public class MessageHandler {
      * @param header the header
      */
     private void unregisterEvent(Short header) {
-
         List<MessageEvent> events = this.messages.get(header);
 
         if (events != null) {

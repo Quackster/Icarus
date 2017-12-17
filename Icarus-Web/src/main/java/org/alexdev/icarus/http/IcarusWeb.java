@@ -23,7 +23,6 @@ public class IcarusWeb {
     private static WebServer instance;
 
     public static void main(String[] args) throws Exception {
-
         Settings settings = Settings.getInstance();
         settings.setResponses(new ServerResponses());
 
@@ -38,6 +37,7 @@ public class IcarusWeb {
             logger.info("Connection to MySQL server is successful");
         } else {
             logger.info("Connection to MySQL server was not successful");
+            return;
         }
 
         GameSettings.getInstance();
@@ -46,28 +46,6 @@ public class IcarusWeb {
 
         ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.ADVANCED);
         logger.info("Registered " + RouteManager.getRoutes().size() + " route(s)!");
-
-        /*Connection sqlConnection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-
-            sqlConnection = Storage.getInteractor().getConnection();
-            preparedStatement = Storage.getInteractor().prepare("SELECT * FROM `site_config`", sqlConnection);
-            resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                System.out.println(resultSet.getString("key").toUpperCase().replace(".", "_") + "(\"" + resultSet.getString("key") + "\"),");
-            }
-
-        } catch (Exception e) {
-            Storage.logError(e);
-        } finally {
-            Storage.closeSilently(resultSet);
-            Storage.closeSilently(preparedStatement);
-            Storage.closeSilently(sqlConnection);
-        }*/
 
         int port = 80;
         logger.info("Starting http service on port " + port);

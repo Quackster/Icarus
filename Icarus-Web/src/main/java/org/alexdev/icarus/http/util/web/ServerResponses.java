@@ -7,6 +7,7 @@ import org.alexdev.duckhttpd.response.ResponseBuilder;
 import org.alexdev.duckhttpd.response.WebResponses;
 import org.alexdev.duckhttpd.server.connection.WebConnection;
 import org.alexdev.duckhttpd.template.Template;
+import org.alexdev.icarus.http.log.Log;
 
 public class ServerResponses implements WebResponses {
 
@@ -22,13 +23,12 @@ public class ServerResponses implements WebResponses {
 
     @Override
     public FullHttpResponse getInternalServerErrorResponse(WebConnection client, Throwable cause) {
-        cause.printStackTrace();
+        Log.getErrorLogger().error("Netty error occurred: ", cause);
         return ResponseBuilder.create(HttpResponseStatus.INTERNAL_SERVER_ERROR, "\n" + "<html>\n" + "<head>\n" + "</head>\n" + "<body>\n" + "   <h1>Internal Server Error</h1>\n" + "<body>\n" + "</html>");
     }
 
     @Override
     public FullHttpResponse getErrorResponse(WebConnection client, String header, String message) {
-
         Template tpl = client.template("error");
         tpl.set("errorTitle", header);
         tpl.set("errorMessage", message);

@@ -291,6 +291,10 @@ public class RoomUser {
             return;
         }
 
+        if (this.room == null) {
+            return;
+        }
+
         if (this.entity.getMetadata().getBoolean(WarpCommand.COMMAND_METADATA)) {
             this.warpTo(X, Y, this.position.getRotation());
             return;

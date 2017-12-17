@@ -72,6 +72,6 @@ public class ConnectionHandler extends SimpleChannelInboundHandler<NettyRequest>
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-
+        Log.getErrorLogger().error("Netty error occurred: ", cause);
     }
 }

@@ -18,7 +18,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.stream.Collectors;
 
 public class RoomManager {
-
     private Map<Integer, Room> rooms;
     private Map<Integer, Room> promotedRooms;
     private HashMap<String, RoomModel> roomModels;
@@ -184,7 +183,6 @@ public class RoomManager {
      * @return the instance
      */
     public static RoomManager getInstance() {
-
         if (instance == null) {
             instance = new RoomManager();
         }
