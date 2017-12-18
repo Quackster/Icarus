@@ -1,5 +1,6 @@
 package org.alexdev.icarus.game.room.model;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.Set;
 
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.item.Item;
+import org.alexdev.icarus.game.pathfinder.Pathfinder;
 import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 
@@ -31,6 +33,17 @@ public class RoomTile {
         this.y = y;
         this.items = new ArrayList<>();
         this.entities = new ArrayList<>();
+    }
+
+    /**
+     * Returns if the tile is reachable from a specific entity
+     *
+     * @param entity the entity to move
+     * @return true, if successful
+     */
+    public boolean isReachable(Entity entity) {
+        List<Position> pathfinderPath = Pathfinder.makePath(entity, this.x, this.y);
+        return pathfinderPath != null && pathfinderPath.size() > 0;
     }
     
     /**

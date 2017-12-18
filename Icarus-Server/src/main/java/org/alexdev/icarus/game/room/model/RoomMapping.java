@@ -9,11 +9,11 @@ import org.alexdev.icarus.game.pathfinder.Position;
 import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.messages.outgoing.room.items.PlaceItemMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.RemoveItemMessageComposer;
+import org.alexdev.icarus.util.RandomInteger;
 
 import java.util.List;
 
 public class RoomMapping {
-
     private int mapSizeX;
     private int mapSizeY;
 
@@ -61,7 +61,6 @@ public class RoomMapping {
                 tile.setHighestItem(item);
 
                 for (Position affected : AffectedTile.getAffectedTiles(item.getPosition(), item.getDefinition())) {
-
                     RoomTile affectedTile = this.getTile(affected.getX(), affected.getY());
 
                     if (tile == null) {
@@ -248,7 +247,6 @@ public class RoomMapping {
     private void handleItemAdjustment(Item moveItem, boolean rotation) {
         if (rotation) {
             for (Item item : this.getTile(moveItem.getPosition().getX(), moveItem.getPosition().getY()).getItems()) {
-
                 if (item.getId() == moveItem.getId()) {
                     continue;
                 }
@@ -314,5 +312,22 @@ public class RoomMapping {
         }
 
         return this.getTile(x, y).getHighestItem();
+    }
+
+    /**
+     * Gets a random access walkable tile
+     */
+    public RoomTile getReachableTile(Entity entity) {
+        for (int tries = 0; tries < (this.room.getModel().getMapSizeX() * this.room.getModel().getMapSizeY()); tries++) {
+            int X = RandomInteger.getRandom(0, this.room.getModel().getMapSizeX() - 1);
+            int Y = RandomInteger.getRandom(0, this.room.getModel().getMapSizeY() - 1);
+
+            RoomTile tile = this.getTile(X, Y);
+            if (tile.isReachable(entity)) {
+                return tile;
+            }
+        }
+
+        return null;
     }
 }
