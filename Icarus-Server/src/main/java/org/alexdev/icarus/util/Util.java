@@ -203,14 +203,13 @@ public class Util {
     }
     
     /**
-     * Paginate.
+     * Paginate a list of items.
      *
      * @param <T> the generic type
      * @param originalList the original list
      * @param chunkSize the chunk size
      * @return the list
      */
-    /* Taken from Comet, used for various pagination methods, turned into generic type*/
     public static <T> List<List<T>> paginate(List<T> originalList, int chunkSize) {
         List<List<T>> listOfChunks = new ArrayList<>();
 

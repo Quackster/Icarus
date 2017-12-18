@@ -19,8 +19,6 @@ public class InventoryLoadMessageComposer extends MessageComposer {
 
     @Override
     public void compose(Response response) {
-
-        //response.init(Outgoing.InventoryMessageComposer);
         response.writeInt(1);
         response.writeInt(0);
         response.writeInt(this.items.size());

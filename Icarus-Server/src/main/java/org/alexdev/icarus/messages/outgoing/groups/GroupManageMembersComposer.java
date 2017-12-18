@@ -44,13 +44,10 @@ public class GroupManageMembersComposer extends MessageComposer {
         if (groupMembers.size() == 0) {
             response.writeInt(0);
         } else {
-
-            // Inspired by Comet... best way to do this in Java
             List<List<Integer>> paginatedMembers = Util.paginate(groupMembers, GROUP_MEMBERS_PER_PAGE);
             response.writeInt(paginatedMembers.get(page).size());
 
             for (int userId : paginatedMembers.get(page)) {
-                
                 PlayerDetails details = PlayerManager.getInstance().getPlayerData(userId);
                 
                 if (group.getOwnerId() == userId) {
