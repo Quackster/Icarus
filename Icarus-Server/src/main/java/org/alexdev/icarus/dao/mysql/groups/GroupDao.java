@@ -32,7 +32,6 @@ public class GroupDao {
         
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
         
         int groupId = -1;
         
@@ -58,7 +57,6 @@ public class GroupDao {
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
-            Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
@@ -108,7 +106,6 @@ public class GroupDao {
     public static void deleteGroup(int id) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
         
         try {
             sqlConnection = Dao.getStorage().getConnection();
@@ -119,7 +116,6 @@ public class GroupDao {
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
-            Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
@@ -133,7 +129,6 @@ public class GroupDao {
     public static void saveGroup(Group group) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
         
         try {
             sqlConnection = Dao.getStorage().getConnection();
@@ -151,7 +146,6 @@ public class GroupDao {
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
-            Storage.closeSilently(resultSet);
             Storage.closeSilently(preparedStatement);
             Storage.closeSilently(sqlConnection);
         }
@@ -161,7 +155,7 @@ public class GroupDao {
      * Get groups this user is a member of
      */
     public static List<Group> getMemberGroups(int userId) {
-        List<Group> groups = new ArrayList<Group>();
+        List<Group> groups = new ArrayList<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
@@ -200,7 +194,7 @@ public class GroupDao {
      * Get groups this user is a member of
      */
     public static List<Group> getMemberOwnershipGroups(int userId) {
-        List<Group> groups = new ArrayList<Group>();
+        List<Group> groups = new ArrayList<>();
 
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;

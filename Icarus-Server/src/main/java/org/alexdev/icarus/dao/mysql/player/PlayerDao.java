@@ -107,6 +107,7 @@ public class PlayerDao {
             if (resultSet.next()) {
                 id = resultSet.getInt("id");
             }
+
         } catch (Exception e) {
             Storage.logError(e);
         } finally {
