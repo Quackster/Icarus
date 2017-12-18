@@ -103,6 +103,10 @@ public class Pet extends Entity {
      */
     @Override
     public void dispose() {
+        if (this.roomUser.getRoom() != null){
+            this.roomUser.getRoom().getEntityManager().removeEntity(this);
+        }
+
         this.disposed = true;
     }
     

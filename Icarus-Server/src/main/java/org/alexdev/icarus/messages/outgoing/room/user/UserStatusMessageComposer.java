@@ -2,6 +2,8 @@ package org.alexdev.icarus.messages.outgoing.room.user;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.entity.room.EntityState;
 import org.alexdev.icarus.messages.headers.Outgoing;
@@ -11,6 +13,10 @@ import org.alexdev.icarus.server.api.messages.Response;
 public class UserStatusMessageComposer extends MessageComposer {
 
     private List<EntityState> states;
+
+    public UserStatusMessageComposer(ConcurrentLinkedQueue<Entity> entities) {
+        createEntityStates(new ArrayList<>(entities));
+    }
 
     public UserStatusMessageComposer(List<Entity> users) {
         createEntityStates(users);

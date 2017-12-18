@@ -34,7 +34,18 @@ public class Pathfinder {
     public static LinkedList<Position> makePath(Entity entity) {
         int X = entity.getRoomUser().getGoal().getX();
         int Y = entity.getRoomUser().getGoal().getY();
-        
+        return makePath(entity, X, Y);
+    }
+
+    /**
+     * Make path with specified last coordinates
+     *
+     * @param entity the entity to move
+     * @param X the xcoord to move from
+     * @param Y the y coord to move from
+     * @return the linked list
+     */
+    public static LinkedList<Position> makePath(Entity entity, int X, int Y) {
         if (entity.getRoom().getModel().isOutsideBounds(X, Y)) {
             return new LinkedList<>();
         }
@@ -50,10 +61,10 @@ public class Pathfinder {
         if (entity.getRoomUser().getPosition().equals(new Position(X, Y))) {
             return new LinkedList<>();
         }
-        
+
         LinkedList<Position> squares = new LinkedList<>();
 
-        PathfinderNode nodes = makePathReversed(entity);
+        PathfinderNode nodes = makePathReversed(entity, X, Y);
 
         if (nodes != null) {
             while (nodes.getNextNode() != null) {
@@ -61,9 +72,10 @@ public class Pathfinder {
                 nodes = nodes.getNextNode();
             }
         }
-        
+
         Collections.reverse(squares);
         return squares;
+
     }
 
     /**
@@ -72,7 +84,7 @@ public class Pathfinder {
      * @param entity the entity
      * @return the pathfinder node
      */
-    private static PathfinderNode makePathReversed(Entity entity) {
+    private static PathfinderNode makePathReversed(Entity entity, int X, int Y) {
         LinkedList<PathfinderNode> openList = new LinkedList<>();
 
         PathfinderNode[][] map = new PathfinderNode[entity.getRoom().getModel().getMapSizeX()][entity.getRoom().getModel().getMapSizeY()];
@@ -85,7 +97,7 @@ public class Pathfinder {
         PathfinderNode current = new PathfinderNode(entity.getRoomUser().getPosition());
         current.setCost(0);
 
-        Position end = entity.getRoomUser().getGoal();
+        Position end = new Position(X, Y);
         PathfinderNode finish = new PathfinderNode(end);
 
         map[current.getPosition().getX()][current.getPosition().getY()] = current;

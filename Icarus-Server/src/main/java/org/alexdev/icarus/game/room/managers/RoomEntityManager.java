@@ -19,15 +19,16 @@ import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class RoomEntityManager {
 
     private Room room;
-    private List<Entity> entities; 
+    private ConcurrentLinkedQueue<Entity> entities;
 
     public RoomEntityManager(Room room) {
         this.room = room;
-        this.entities = new ArrayList<>();
+        this.entities = new ConcurrentLinkedQueue<>();
     }
 
     /**
@@ -146,6 +147,7 @@ public class RoomEntityManager {
         if (entity.getType() == EntityType.PET) {
             Pet pet = (Pet)entity;
             pet.savePosition();
+            System.out.println("SAVE POSITION PET");
         }
 
         entity.getRoomUser().clearUserData();
@@ -201,8 +203,7 @@ public class RoomEntityManager {
         List<T> entities = new ArrayList<>();
 
         for (Entity entity : this.entities) {
-
-            if (entity.getType().getEntityClass() == entityClass) {
+            if (entity.getClass().isAssignableFrom(entityClass)) {
                 entities.add(entityClass.cast(entity));
             }
         }
@@ -288,7 +289,7 @@ public class RoomEntityManager {
      *
      * @return the entities
      */
-    public List<Entity> getEntities() {
+    public ConcurrentLinkedQueue<Entity> getEntities() {
         return entities;
     }
 }

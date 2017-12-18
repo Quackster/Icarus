@@ -1,6 +1,8 @@
 package org.alexdev.icarus.messages.outgoing.room.user;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.alexdev.icarus.game.entity.EntityType;
 import org.alexdev.icarus.game.pets.Pet;
@@ -13,6 +15,10 @@ public class UserDisplayMessageComposer extends MessageComposer {
 
     private List<Entity> entities;
 
+    public UserDisplayMessageComposer(ConcurrentLinkedQueue<Entity> entities) {
+        this.entities = new ArrayList<>(entities);
+    }
+
     public UserDisplayMessageComposer(List<Entity> entities) {
         this.entities = entities;
     }
@@ -23,7 +29,6 @@ public class UserDisplayMessageComposer extends MessageComposer {
         //response.init(Outgoing.UserDisplayMessageComposer);
 
         synchronized (this.entities) {
-
             response.writeInt(this.entities.size());
 
             for (Entity entity : this.entities) {

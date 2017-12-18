@@ -12,6 +12,7 @@ import org.alexdev.icarus.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class MovementTask implements Runnable {
 
@@ -26,23 +27,17 @@ public class MovementTask implements Runnable {
      */
     @Override
     public void run() {
-
         if (this.room.getEntityManager().getEntities().size() == 0) {
             return;
         }
 
-        List<Entity> entities = this.room.getEntityManager().getEntities();
+        ConcurrentLinkedQueue<Entity> entities = this.room.getEntityManager().getEntities();
         List<Entity> entitiesToUpdate = new ArrayList<>();
 
-        for (int i = 0; i < entities.size(); i++) {
-
-            Entity entity = entities.get(i);
-
+        for (Entity entity : entities) {
             if (entity != null) {
                 if (entity.getRoomUser() != null && entity.getRoomUser().getRoom() != null) {
-
                     this.processEntity(entity);
-
                     RoomUser roomEntity = entity.getRoomUser();
 
                     if (roomEntity.getNeedsUpdate()) {
@@ -64,14 +59,12 @@ public class MovementTask implements Runnable {
      * @param entity the entity
      */
     private void processEntity(Entity entity) {
-
         RoomUser roomUser = entity.getRoomUser();
 
         Position position = roomUser.getPosition();
         Position goal = roomUser.getGoal();
 
         if (roomUser.isWalking()) {
-
             // Apply next tile from the tile we removed from the list the cycle before
             if (roomUser.getNextPosition() != null) {
                 roomUser.getPosition().setX(roomUser.getNextPosition().getX());
@@ -81,7 +74,6 @@ public class MovementTask implements Runnable {
 
             // We still have more tiles left, so lets continue moving
             if (roomUser.getPath().size() > 0) {
-
                 Position next = roomUser.getPath().pop();
 
                 if (!roomUser.getRoom().getMapping().isTileWalkable(next.getX(), next.getY(), entity)) {
@@ -106,19 +98,18 @@ public class MovementTask implements Runnable {
                 } else {
                     rotation = Rotation.calculate(position.getX(), position.getY(), next.getX(), next.getY());
                 }
+
                 double height = this.room.getMapping().getTileHeight(next.getX(), next.getY());
 
                 roomUser.getPosition().setRotation(rotation);
                 roomUser.setStatus(EntityStatus.MOVE, next.getX() + "," + next.getY() + "," + Util.format(height));
                 roomUser.setNextPosition(next);
             } else {
-
                 // No more tiles left, so lets stop walking and interact with any furniture nearby
                 roomUser.setNextPosition(null);
                 roomUser.setWalking(false);
                 roomUser.removeStatus(EntityStatus.MOVE);
                 roomUser.refreshItemStatus();
-
             }
 
             // If we're walking, make sure to tell the server
