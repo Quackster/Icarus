@@ -147,7 +147,6 @@ public class RoomEntityManager {
         if (entity.getType() == EntityType.PET) {
             Pet pet = (Pet)entity;
             pet.savePosition();
-            System.out.println("SAVE POSITION PET");
         }
 
         entity.getRoomUser().clearUserData();
