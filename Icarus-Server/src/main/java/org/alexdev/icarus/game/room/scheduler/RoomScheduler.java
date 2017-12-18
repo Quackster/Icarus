@@ -14,18 +14,14 @@ import org.alexdev.icarus.game.room.tasks.MovementTask;
 import org.alexdev.icarus.log.Log;
 
 public class RoomScheduler implements Runnable {
-    
 	private Room room;
     private ScheduledFuture<?> walkingScheduledTask;
     private ScheduledFuture<?> roomScheduledTasks;
-    
     private Map<Long, ConcurrentLinkedQueue<RoomTask>> tasks;
-
     private MovementTask movementTask;
     private AtomicLong counter;
     
     private boolean disabled;
-	
 
     public RoomScheduler (Room room) {
     	this.room = room;

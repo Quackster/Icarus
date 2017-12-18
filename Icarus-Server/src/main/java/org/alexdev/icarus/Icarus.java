@@ -122,7 +122,6 @@ public class Icarus extends Metadata {
      * @return true if valid IPv4
      */
     public static boolean isValidIpAddress(String ip) {
-
         String[] numbers = ip.split("\\.");
 
         if (numbers.length != 4) {
@@ -130,7 +129,6 @@ public class Icarus extends Metadata {
         }
 
         for (String part : numbers) {
-
             if (!Util.isNumber(part)) {
                 return false;
             }

@@ -173,7 +173,6 @@ public class PetDao {
     public static void savePetPosition(Pet pet) {
         Connection sqlConnection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
         
         pet.setX(pet.getRoomUser().getPosition().getX());
         pet.setY(pet.getRoomUser().getPosition().getY());

@@ -19,7 +19,6 @@ import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.util.metadata.Metadata;
 
 public class Room extends Metadata {
-
     private RoomData data;
     private RoomModel model;
     private RoomScheduler scheduler;
