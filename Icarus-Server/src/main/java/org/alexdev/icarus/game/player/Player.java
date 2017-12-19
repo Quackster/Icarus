@@ -30,13 +30,13 @@ import org.alexdev.icarus.messages.outgoing.room.user.RoomForwardComposer;
 import org.alexdev.icarus.messages.outgoing.user.*;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.PlayerNetwork;
+import org.alexdev.icarus.server.api.ServerHandlerType;
 import org.alexdev.icarus.util.Util;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends Entity {
@@ -95,11 +95,10 @@ public class Player extends Entity {
                 return;
             }
         }
+        this.logger = LoggerFactory.getLogger("Player " + this.details.getName());
 
         //PlayerDao.clearTicket(this.getDetails().getId());
         PlayerDao.updateLastOnline(this.getDetails().getId());
-
-        this.logger = LoggerFactory.getLogger("Player " + this.details.getName());
 
         PlayerManager.getInstance().addPlayer(this);
         RoomManager.getInstance().addRooms(RoomDao.getPlayerRooms(this.getEntityId()));
@@ -148,7 +147,6 @@ public class Player extends Entity {
 
             this.messenger.sendStatus(false);
             break;
-
         }
 
         case FORWARD_ROOM: {
@@ -404,7 +402,7 @@ public class Player extends Entity {
      */
     public void setRC4(byte[] sharedKey) {
         this.rc4 = new RC4(sharedKey);
-        this.network.addPipelineStage(this.rc4);
+        this.network.registerHandler(ServerHandlerType.RC4, this.rc4);
     }
 
     /**

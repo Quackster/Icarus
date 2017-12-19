@@ -52,7 +52,7 @@ public abstract class PlayerNetwork {
      *
      * @param object the object
      */
-    public abstract void addPipelineStage(Object object);
+    public abstract void registerHandler(ServerHandlerType type, Object object);
 
     /**
      * Flush all data written to socket.
