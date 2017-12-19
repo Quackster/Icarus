@@ -74,12 +74,6 @@ public class RoomUser {
      * they're sitting on items, or not..s
      */
     public void refreshItemStatus() {
-
-        boolean allowUpdate = false;
-
-        Item previousItem = this.currentItem;
-        double previousHeight = this.position.getZ();
-
         Item item = this.room.getMapping().getHighestItem(this.position.getX(), this.position.getY());
 
         if (item != null && item.isWalkable()) {
@@ -87,17 +81,22 @@ public class RoomUser {
         } else {
             this.currentItem = null;
         }
+
+        boolean allowUpdate = false;
+        double previousHeight = this.position.getZ();
+
         // Should we apply a height update?
         if (item != null && Position.getHeightDifference(previousHeight, item.getTotalHeight()) >= 0.1) {
             allowUpdate = true;
         }
+
+        Item previousItem = this.currentItem;
 
         /**
          * If we removed an item from underneath the player OR
          * the current item doesn't allow to sit or lay but the previous item did.
          */
         if (this.currentItem == null || (!this.currentItem.getDefinition().allowSitOrLay() && previousItem != null && previousItem.getDefinition().allowSitOrLay())) {
-
             if (this.containsStatus(EntityStatus.LAY)) {
                 this.removeStatus(EntityStatus.LAY);
             }
@@ -109,7 +108,6 @@ public class RoomUser {
             allowUpdate = true;
 
         } else {
-
             Interaction handler = this.currentItem.getDefinition().getInteractionType().getInteractor();
 
             if (handler != null) {
@@ -183,9 +181,9 @@ public class RoomUser {
      * @param type the type
      */
     public void chat(String message, ChatType type) {
-        //layer.send(new FloodFilterMessageComposer(GameSettings.CHAT_FLOOD_WAIT));
-        if (this.entity.getType() != EntityType.PLAYER) {
+        //player.send(new FloodFilterMessageComposer(GameSettings.CHAT_FLOOD_WAIT));
 
+        if (this.entity.getType() != EntityType.PLAYER) {
             MessageComposer composer = null;
 
             if (this.entity.getType() == EntityType.PET) {
@@ -222,7 +220,6 @@ public class RoomUser {
         this.room.send(composer);
 
         for (Player person : this.room.getEntityManager().getPlayers()) {
-
             if (this.entity == person) {
                 continue;
             }
@@ -244,7 +241,6 @@ public class RoomUser {
         int diff = this.getPosition().getRotation() - Rotation.calculate(this.position.getX(), this.position.getY(), look.getX(), look.getY());
 
         if ((this.getPosition().getRotation() % 2) == 0) {
-
             if (diff > 0) {
                 this.position.setHeadRotation(this.getPosition().getRotation() - 1);
             } else if (diff < 0) {
@@ -373,25 +369,19 @@ public class RoomUser {
     public void clearUserData() {
         this.room = null;
         this.nextPosition = null;
-        
         this.statuses = new HashMap<>();
         this.path = new LinkedList<>();
-
         this.position = new Position(0, 0, 0);
         this.goal = new Position(0, 0, 0);
-        
         this.carryTimer = new AtomicInteger(-1);
         this.lookResetTime = -1;
         this.virtualId = -1;
-
         this.chatColor = 0;
         this.danceId = 0;
         this.carryItem = 0;
-
         this.needsUpdate = false;
         this.isWalking = false;
         this.isWalkingAllowed = true;
-
     }
 
     /**
@@ -551,20 +541,6 @@ public class RoomUser {
      */
     public LinkedList<Position> getPath() {
         return path;
-    }
-
-    /**
-     * Sets the path.
-     *
-     * @param path the new path
-     */
-    public void setPath(LinkedList<Position> path) {
-
-        if (this.path != null) {
-            this.path.clear();
-        }
-
-        this.path = path;
     }
 
     /**

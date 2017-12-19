@@ -35,7 +35,6 @@ public class SaveFloorPlanMessageEvent implements MessageEvent {
         heightmap = heightmap.replace("-", "");
 
         String[] modelData = heightmap.split("\\{13}");
-
         int doorX = reader.readInt();
         int doorY = reader.readInt();
         double doorZ = -1;
