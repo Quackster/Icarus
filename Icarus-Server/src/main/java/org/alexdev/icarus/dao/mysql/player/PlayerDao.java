@@ -6,6 +6,7 @@ import org.alexdev.icarus.game.moderation.Permission;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.date.DateUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -218,7 +219,7 @@ public class PlayerDao {
         try {
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("UPDATE users SET last_online = ? WHERE id = ?", sqlConnection);
-            preparedStatement.setLong(1, Util.getCurrentTimeSeconds());
+            preparedStatement.setLong(1, DateUtil.getCurrentTimeSeconds());
             preparedStatement.setInt(2, userId);
             preparedStatement.execute();
 

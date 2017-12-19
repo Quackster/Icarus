@@ -7,6 +7,7 @@ import org.alexdev.icarus.game.catalogue.CatalogueItem;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessageComposer;
 import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.date.DateUtil;
 
 public class ClubManager {
 
@@ -30,7 +31,6 @@ public class ClubManager {
         }
         
         player.send(new PurchaseNotificationMessageComposer(item));
-        
         purchaseDays(player, daysPurchased);
     }
     
@@ -41,8 +41,8 @@ public class ClubManager {
      * @param player the player
      * @param daysPurchased the days purchased
      */
-    public static void purchaseDays(Player player, int daysPurchased) {
-        long currentTime = Util.getCurrentTimeSeconds();
+    private static void purchaseDays(Player player, int daysPurchased) {
+        long currentTime = DateUtil.getCurrentTimeSeconds();
         long newExpireTime = TimeUnit.DAYS.toSeconds(daysPurchased);
         
         if (player.getSubscription().hasSubscription()) {

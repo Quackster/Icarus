@@ -106,6 +106,8 @@ public class Incoming {
     public static short ApplyEffectMessageEvent = 3110;//771
     public static short SaveTonerMessageEvent = 932;//244
     public static short ToggleVisibleThumbnailsMessageEvent = 2045;
-    public static Short CloseNavigatorTabMessageEvent = 1608;
-    public static Short ExpandNavigatorTabMessageEvent = 1684;
+    public static short CloseNavigatorTabMessageEvent = 1608;
+    public static short ExpandNavigatorTabMessageEvent = 1684;
+    public static short ProfileMessageEvent = 878;
+    public static short LoadProfileMessageComposer = 1455;
 }

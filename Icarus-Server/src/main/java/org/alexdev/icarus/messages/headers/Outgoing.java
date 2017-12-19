@@ -15,7 +15,7 @@ public class Outgoing {
     public static short HomeRoomMessageComposer = 456;//3255
     public static short HotelViewMessageComposer = 2364;//3035
     public static short InitialRoomInfoMessageComposer = 3657;//3964
-    public static short InitMessengerMessageComposer = 1053;//1475
+    public static short FriendsListMessageComposer = 1053;//1475
     public static short LandingWidgetMessageComposer = 3763;//3113
     public static short MessengerCategoriesMessageComposer = 2496;//1984
     public static short MessengerMessageComposer = 260;//1335
@@ -110,10 +110,10 @@ public class Outgoing {
     public static short RightsAssignedMessageComposer = 2667;//199
     public static short SettingsUpdatedMessageComposer = 2075;//562
     public static short RoomInfoUpdatedMessageComposer = 1626;//2740
-    public static short GroupPurchaseDialogComposer = 3155;//2555
+    public static short CreateGroupDialogComposer = 3155;//2555
     public static short GroupBadgeDialogComposer = 627;//509
     public static short GroupBadgesMessageComposer = 2165;//3331
-    public static short NewGroupInfoMessageComposer = 989;//3587
+    public static short GroupPurchasedMessageComposer = 989;//3587
     public static short AvatarAspectUpdateMessageComposer = 1412;//750
     public static short GroupInfoMessageComposer = 1110;//595
     public static short GroupManageDetailsComposer = 3438;//126

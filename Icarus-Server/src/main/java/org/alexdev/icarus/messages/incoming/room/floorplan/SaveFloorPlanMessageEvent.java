@@ -2,10 +2,12 @@ package org.alexdev.icarus.messages.incoming.room.floorplan;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.alexdev.icarus.dao.mysql.room.RoomModelDao;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
+import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.enums.RoomAction;
 import org.alexdev.icarus.game.room.model.RoomModel;
 import org.alexdev.icarus.messages.types.MessageEvent;
@@ -22,7 +24,7 @@ public class SaveFloorPlanMessageEvent implements MessageEvent {
             return;
         }
 
-        if (!room.hasOwnership(player.getEntityId()) && !player.hasPermission("room_all_rights")) {
+        if (!player.hasPermission("room_all_rights")) {
             return;
         }
 
@@ -54,25 +56,23 @@ public class SaveFloorPlanMessageEvent implements MessageEvent {
         RoomModelDao.newCustomModel(room.getData().getId(), model);
 
         room.setModel(model);
-
         room.getData().setWallThickness(wallThickness);
         room.getData().setFloorThickness(floorThickness);
         room.getData().setWallHeight(wallHeight);
         room.getData().setModel("dynamic_model_" + room.getData().getId());
         room.save();
 
-        List<Player> connectedPlayers = new ArrayList<>();
-
-        for (Player user : room.getEntityManager().getPlayers()) {
-            connectedPlayers.add(user);
+        final List<Player> connectedPlayers = new ArrayList<>(room.getEntityManager().getPlayers());
+        for (Player user : connectedPlayers) {
             user.performRoomAction(RoomAction.LEAVE_ROOM, false);
         }
 
-        for (Player user : connectedPlayers) {
-            if (user != null) {
-                user.performRoomAction(RoomAction.FORWARD_ROOM, room.getData().getId());
+        RoomManager.getInstance().getScheduleService().schedule(() -> {
+            for (Player user : connectedPlayers) {
+                if (user != null) {
+                    user.performRoomAction(RoomAction.FORWARD_ROOM, room.getData().getId());
+                }
             }
-        }
-
+        }, 5, TimeUnit.SECONDS);
     }
 }

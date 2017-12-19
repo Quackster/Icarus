@@ -12,6 +12,7 @@ import org.alexdev.icarus.dao.mysql.Dao;
 import org.alexdev.icarus.dao.mysql.Storage;
 import org.alexdev.icarus.game.catalogue.targetedoffer.TargetedOffer;
 import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.date.DateUtil;
 
 public class TargetedOfferDao {
 
@@ -30,7 +31,7 @@ public class TargetedOfferDao {
         try {
             sqlConnection = Dao.getStorage().getConnection();
             preparedStatement = Dao.getStorage().prepare("SELECT * FROM targeted_offers WHERE expire_time > ? AND enabled = 1", sqlConnection);
-            preparedStatement.setLong(1, Util.getCurrentTimeSeconds());
+            preparedStatement.setLong(1, DateUtil.getCurrentTimeSeconds());
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {

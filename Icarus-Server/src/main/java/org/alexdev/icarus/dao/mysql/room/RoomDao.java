@@ -17,6 +17,7 @@ import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.game.room.enums.RoomType;
 
 import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.date.DateUtil;
 
 public class RoomDao {
     
@@ -296,7 +297,7 @@ public class RoomDao {
             preparedStatement = Dao.getStorage().prepare("INSERT INTO room_chatlogs (user, room_id, timestamp, message_type, message) VALUES (?, ?, ?, ?, ?)", sqlConnection);
             preparedStatement.setString(1, chatter.getDetails().getName());
             preparedStatement.setInt(2, roomId);
-            preparedStatement.setLong(3, Util.getCurrentTimeSeconds());
+            preparedStatement.setLong(3, DateUtil.getCurrentTimeSeconds());
 
             if (chatType.equals("CHAT")) {
                 preparedStatement.setInt(4, 0);

@@ -5,6 +5,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.date.DateUtil;
 
 public class PetInformationMessageComposer extends MessageComposer {
 
@@ -29,7 +30,7 @@ public class PetInformationMessageComposer extends MessageComposer {
         response.writeInt(100); // max nutrition
         response.writeInt(this.pet.getScratches());
         response.writeInt(this.pet.getOwnerId());
-        response.writeInt((Util.getCurrentTimeSeconds() - this.pet.getBirthday()) / 60 / 60 / 24);
+        response.writeInt((DateUtil.getCurrentTimeSeconds() - this.pet.getBirthday()) / 60 / 60 / 24);
         response.writeString(this.pet.getOwnerName());
         response.writeInt(0);
         response.writeBool(this.pet.isSaddled());

@@ -5,6 +5,7 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.date.DateUtil;
 
 public class TargettedOfferDataComposer extends MessageComposer {
 
@@ -26,7 +27,7 @@ public class TargettedOfferDataComposer extends MessageComposer {
         response.writeInt(this.offer.getCostActivityPoints()); // how many activity points
         response.writeInt(this.offer.getActivityPointsType()); // activity points type (like diamonds = 0)
         response.writeInt(this.offer.getPurchaseLimit()); // purchase limit
-        response.writeInt((int) (this.offer.getExpiryDate() - Util.getCurrentTimeSeconds())); // time in seconds until expiry
+        response.writeInt((int) (this.offer.getExpiryDate() - DateUtil.getCurrentTimeSeconds())); // time in seconds until expiry
         response.writeString(this.offer.getTitle()); // title - can either be external text entry or just straight text
         response.writeString(this.offer.getDescription()); // description - can either be external text entry or just straight text
         response.writeString(this.offer.getLargeImage()); // image large

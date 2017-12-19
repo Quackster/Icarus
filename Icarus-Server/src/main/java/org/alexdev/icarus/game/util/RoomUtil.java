@@ -13,7 +13,7 @@ import org.alexdev.icarus.game.room.enums.RoomAction;
 import org.alexdev.icarus.game.room.enums.RoomType;
 import org.alexdev.icarus.game.room.user.RoomUser;
 import org.alexdev.icarus.messages.incoming.room.RoomPromotionMessageComposer;
-import org.alexdev.icarus.messages.outgoing.groups.NewGroupInfoMessageComposer;
+import org.alexdev.icarus.messages.outgoing.groups.GroupPurchasedMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.*;
 import org.alexdev.icarus.messages.outgoing.room.items.*;
 import org.alexdev.icarus.messages.outgoing.room.settings.YouAreControllerMessageComposer;
@@ -178,7 +178,7 @@ public class RoomUtil {
         if (group != null) {
             if (player.getMetadata().getBoolean("showGroupHomeroomDialog")) {
                 player.getMetadata().set("showGroupHomeroomDialog", false);
-                player.sendQueued(new NewGroupInfoMessageComposer(room.getData().getId(), room.getData().getGroupId()));
+                player.sendQueued(new GroupPurchasedMessageComposer(room.getData().getId(), room.getData().getGroupId()));
             }
         }
 

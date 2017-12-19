@@ -19,6 +19,7 @@ import org.alexdev.icarus.game.room.RoomManager;
 import org.alexdev.icarus.server.api.ServerHandler;
 import org.alexdev.icarus.util.Util;
 import org.alexdev.icarus.util.config.Configuration;
+import org.alexdev.icarus.util.date.DateUtil;
 import org.alexdev.icarus.util.locale.Locale;
 import org.alexdev.icarus.util.metadata.Metadata;
 import org.slf4j.Logger;
@@ -42,7 +43,7 @@ public class Icarus extends Metadata {
      * @param args System arguments
      */
     public static void main(String[] args) {
-        startupTime = Util.getCurrentTimeSeconds();
+        startupTime = DateUtil.getCurrentTimeSeconds();
 
         try {
             Configuration.getInstance();

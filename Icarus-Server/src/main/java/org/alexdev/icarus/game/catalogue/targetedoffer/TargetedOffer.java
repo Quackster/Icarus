@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.alexdev.icarus.dao.mysql.catalogue.TargetedOfferDao;
 import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.date.DateUtil;
 
 public class TargetedOffer {
 
@@ -138,7 +139,7 @@ public class TargetedOffer {
      * @return true, if is expired
      */
     public boolean isExpired() {
-        return !(this.expiryDate > Util.getCurrentTimeSeconds());
+        return !(this.expiryDate > DateUtil.getCurrentTimeSeconds());
     }
 
     /**

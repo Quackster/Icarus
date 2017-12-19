@@ -5,6 +5,7 @@ import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.outgoing.user.club.SubscriptionMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.settings.UserRightsMessageComposer;
 import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.date.DateUtil;
 
 public class ClubSubscription {
     
@@ -40,7 +41,7 @@ public class ClubSubscription {
             }
         }
        
-        this.difference = this.expireTime - Util.getCurrentTimeSeconds();
+        this.difference = this.expireTime - DateUtil.getCurrentTimeSeconds();
     }
 
     /**
@@ -54,7 +55,7 @@ public class ClubSubscription {
             return false;
         }
         
-        if (Util.getCurrentTimeSeconds() >= this.expireTime) {
+        if (DateUtil.getCurrentTimeSeconds() >= this.expireTime) {
             return false;
         }
         

@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.room.Room;
-import org.alexdev.icarus.messages.outgoing.groups.GroupPurchaseDialogComposer;
+import org.alexdev.icarus.messages.outgoing.groups.CreateGroupDialogComposer;
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 
@@ -18,6 +18,6 @@ public class GroupCatalogueMessageEvent implements MessageEvent {
                 .filter(room -> room.getGroup() == null)
                 .collect(Collectors.toList());
         
-        player.send(new GroupPurchaseDialogComposer(roomsWithoutGroup));
+        player.send(new CreateGroupDialogComposer(roomsWithoutGroup));
     }
 }

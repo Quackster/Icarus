@@ -29,10 +29,7 @@ import org.alexdev.icarus.messages.incoming.room.items.interactions.*;
 import org.alexdev.icarus.messages.incoming.room.settings.*;
 import org.alexdev.icarus.messages.incoming.room.user.*;
 import org.alexdev.icarus.messages.incoming.trading.StartTradingMessageEvent;
-import org.alexdev.icarus.messages.incoming.user.ChangeAppearanceMessageEvent;
-import org.alexdev.icarus.messages.incoming.user.CurrencyBalanceMessageEvent;
-import org.alexdev.icarus.messages.incoming.user.InfoRetrieveMessageEvent;
-import org.alexdev.icarus.messages.incoming.user.WelcomeMessageEvent;
+import org.alexdev.icarus.messages.incoming.user.*;
 import org.alexdev.icarus.messages.incoming.user.club.HabboClubCenterMessageEvent;
 import org.alexdev.icarus.messages.incoming.user.club.SubscriptionMessageEvent;
 import org.alexdev.icarus.messages.types.MessageEvent;
@@ -110,6 +107,7 @@ public class MessageHandler {
         registerEvent(Incoming.SubscriptionMessageEvent, new SubscriptionMessageEvent());
         registerEvent(Incoming.NavigatorPromoteRoomCategories, new WelcomeMessageEvent());
         registerEvent(Incoming.HabboClubCenterMessageEvent, new HabboClubCenterMessageEvent());
+        registerEvent(Incoming.ProfileMessageEvent, new ProfileMessageEvent());
     }
 
     /**
@@ -132,14 +130,6 @@ public class MessageHandler {
     private void registerEnableNavigatorPackets() {
         registerEvent(Incoming.NewNavigatorMessageEvent, new NewNavigatorMessageEvent());
         registerEvent(Incoming.NavigatorPromoteRoomCategories, new NavigatorPromoteCategoriesMessageEvent());
-    }
-
-    /**
-     * Unegister enable navigator packets
-     */
-    public void unregisterEnableNavigatorPackets() {
-        unregisterEvent(Incoming.NewNavigatorMessageEvent);
-        unregisterEvent(Incoming.NavigatorPromoteRoomCategories);
     }
 
     /**

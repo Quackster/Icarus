@@ -5,7 +5,7 @@ import org.alexdev.icarus.game.commands.Command;
 import org.alexdev.icarus.game.entity.Entity;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerManager;
-import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.date.DateUtil;
 
 public class AboutCommand extends Command {
     
@@ -21,7 +21,7 @@ public class AboutCommand extends Command {
         about.append("Icarus server written by Quackster, powered by Java!\n");
         about.append("\n<b>Server Status</b>\n\n");
         about.append("Users Online: " + PlayerManager.getInstance().getPlayers().size() + "\n");
-        about.append("Uptime: " + Util.getReadableTimestamp(Icarus.getStartupTime()) + "\n");
+        about.append("Uptime: " + DateUtil.getReadableTimestamp(Icarus.getStartupTime()) + "\n");
         about.append("\n<b>Contributors</b>\n\n");
         about.append("- Sledmore\n");
         about.append("- Leon\n");

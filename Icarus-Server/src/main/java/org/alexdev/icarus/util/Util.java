@@ -20,51 +20,6 @@ public class Util {
         secureRandom = new SecureRandom();
         rsa = new RSA();
     }
-    
-    /**
-     * Gets the current time in seconds.
-     *
-     * @return the current time in seconds
-     */
-    public static int getCurrentTimeSeconds() {
-        return (int) (System.currentTimeMillis() / 1000);
-    }
-
-    /**
-     * Gets the readable timestamp.
-     *
-     * @param timestamp the timestamp
-     * @return the readable timestamp
-     */
-    public static String getReadableTimestamp(long timestamp) {
-
-        try {
-
-            long different = System.currentTimeMillis() - (timestamp * 1000);
-
-            long secondsInMilli = 1000;
-            long minutesInMilli = secondsInMilli * 60;
-            long hoursInMilli = minutesInMilli * 60;
-            long daysInMilli = hoursInMilli * 24;
-
-            long elapsedDays = different / daysInMilli;
-            different = different % daysInMilli;
-
-            long elapsedHours = different / hoursInMilli;
-            different = different % hoursInMilli;
-
-            long elapsedMinutes = different / minutesInMilli;
-            different = different % minutesInMilli;
-
-            long elapsedSeconds = different / secondsInMilli;
-            return elapsedDays + " days, " + elapsedHours + " hours, " + elapsedMinutes + " minutes, " + elapsedSeconds + " seconds";
-
-        } catch (Exception e){
-        	Log.getErrorLogger().error("Error occurred: ", e);
-        }
-        
-        return null;
-    }
 
     /**
      * Checks if is null or empty.
@@ -128,7 +83,6 @@ public class Util {
      * @return the int
      */
     public static int randomInt(int from, int to, boolean inclusive) {
-
         if (inclusive) {
             return from + secureRandom.nextInt(to + 1);    
         } else {
@@ -242,7 +196,7 @@ public class Util {
      * @return the list
      */
     public static List<String> split(String str, String delim) {
-        return new ArrayList<String>(Arrays.asList(str.split(delim)));
+        return new ArrayList<>(Arrays.asList(str.split(delim)));
     }
 
     /**

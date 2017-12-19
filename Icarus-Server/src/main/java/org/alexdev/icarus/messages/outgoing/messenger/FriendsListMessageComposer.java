@@ -17,7 +17,6 @@ public class FriendsListMessageComposer extends MessageComposer {
 
     @Override
     public void compose(Response response) {
-        //response.init(Outgoing.InitMessengerMessageComposer);
         response.writeInt(1);
         response.writeInt(0);
         response.writeInt(this.friends.size());
@@ -29,6 +28,6 @@ public class FriendsListMessageComposer extends MessageComposer {
 
     @Override
     public short getHeader() {
-        return Outgoing.InitMessengerMessageComposer;
+        return Outgoing.FriendsListMessageComposer;
     }
 }

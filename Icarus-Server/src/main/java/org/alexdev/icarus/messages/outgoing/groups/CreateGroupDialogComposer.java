@@ -7,17 +7,17 @@ import org.alexdev.icarus.messages.headers.Outgoing;
 import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
-public class GroupPurchaseDialogComposer extends MessageComposer {
+public class CreateGroupDialogComposer extends MessageComposer {
 
     private List<Room> roomsWithoutGroup;
 
-    public GroupPurchaseDialogComposer(List<Room> roomsWithoutGroup) {
+    public CreateGroupDialogComposer(List<Room> roomsWithoutGroup) {
         this.roomsWithoutGroup = roomsWithoutGroup;
     }
 
     @Override
     public void compose(Response response) {
-        //response.init(Outgoing.GroupPurchaseDialogComposer);
+        //response.init(Outgoing.CreateGroupDialogComposer);
         response.writeInt(100); // Groups cost
         response.writeInt(this.roomsWithoutGroup.size());
 
@@ -44,6 +44,6 @@ public class GroupPurchaseDialogComposer extends MessageComposer {
 
     @Override
     public short getHeader() {
-        return Outgoing.GroupPurchaseDialogComposer;
+        return Outgoing.CreateGroupDialogComposer;
     }
 }

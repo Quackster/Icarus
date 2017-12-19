@@ -261,4 +261,12 @@ public class Group {
     public void setCanMembersDecorate(boolean canMembersDecorate) {
         this.canMembersDecorate = canMembersDecorate;
     }
+
+    /**
+     * Returns whether or not this group has a forum
+     * @return true, if successful
+     */
+    public boolean hasForum() {
+        return false;
+    }
 }

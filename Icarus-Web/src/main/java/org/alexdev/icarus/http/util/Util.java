@@ -39,9 +39,7 @@ public class Util {
      * @return the readable timestamp
      */
     public static String getReadableTimestamp(long timestamp) {
-
         try {
-
             long different = System.currentTimeMillis() - (timestamp * 1000);
 
             long secondsInMilli = 1000;

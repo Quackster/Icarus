@@ -268,4 +268,28 @@ public class PlayerDetails {
     public void setHomeRoomId(int homeRoomId) {
         this.homeRoomId = homeRoomId;
     }
+
+    /**
+     * Gets the timestamp of register date
+     * @return the register date
+     */
+    public int getRegisterDate() {
+        return 0;
+    }
+
+    /**
+     * Gets the timestamp of join date
+     * @return the join date
+     */
+    public int getLastOnlineDate() {
+        return 0;
+    }
+
+    /**
+     * Returns the id the favourite group
+     * @return the favourite group id
+     */
+    public int getFavouriteGroup() {
+        return 0;
+    }
 }

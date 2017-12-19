@@ -17,6 +17,7 @@ import org.alexdev.icarus.messages.outgoing.catalogue.PurchaseNotificationMessag
 import org.alexdev.icarus.messages.types.MessageEvent;
 import org.alexdev.icarus.server.api.messages.ClientMessage;
 import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.date.DateUtil;
 
 public class PurchaseItemMessageEvent implements MessageEvent {
 
@@ -84,7 +85,7 @@ public class PurchaseItemMessageEvent implements MessageEvent {
         String colour = petData[2];
         
         int petId = PetDao.createPet(player.getEntityId(), petData[0], type, race, colour);
-        Pet pet = new Pet(petId, petName, Pet.DEFAULT_LEVEL, Pet.DEFAULT_HAPPINESS, Pet.DEFAULT_EXPERIENCE, Pet.DEFAULT_ENERGY, player.getEntityId(), colour, race, type, false, -1, 0, false, (int)Util.getCurrentTimeSeconds(), 0, 0, 0);
+        Pet pet = new Pet(petId, petName, Pet.DEFAULT_LEVEL, Pet.DEFAULT_HAPPINESS, Pet.DEFAULT_EXPERIENCE, Pet.DEFAULT_ENERGY, player.getEntityId(), colour, race, type, false, -1, 0, false, (int) DateUtil.getCurrentTimeSeconds(), 0, 0, 0);
         
         player.getInventory().addPet(pet, InventoryNotification.ALERT);
         player.getInventory().updatePets();

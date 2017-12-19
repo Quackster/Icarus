@@ -14,7 +14,6 @@ public class NetworkDecoder extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf buffer, List<Object> out) throws Exception {
-
         buffer.markReaderIndex();
 
         if (buffer.readableBytes() < 6) {
@@ -36,7 +35,6 @@ public class NetworkDecoder extends ByteToMessageDecoder {
             future.addListener(ChannelFutureListener.CLOSE);
 
         } else {
-
             buffer.markReaderIndex();
             int length = buffer.readInt();
 
@@ -49,8 +47,7 @@ public class NetworkDecoder extends ByteToMessageDecoder {
                 return;
             }
 
-            NettyRequest request = new NettyRequest(length, buffer.readBytes(length));
-            out.add(request);
+            out.add(new NettyRequest(length, buffer.readBytes(length)));
         }
     }
 }

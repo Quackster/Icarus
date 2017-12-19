@@ -15,6 +15,7 @@ import org.alexdev.icarus.game.pets.Pet;
 import org.alexdev.icarus.game.pets.PetRace;
 
 import org.alexdev.icarus.util.Util;
+import org.alexdev.icarus.util.date.DateUtil;
 
 public class PetDao {
 
@@ -86,7 +87,7 @@ public class PetDao {
             preparedStatement.setInt(8, Pet.DEFAULT_HAPPINESS);
             preparedStatement.setInt(9, Pet.DEFAULT_EXPERIENCE);
             preparedStatement.setInt(10, Pet.DEFAULT_ENERGY);
-            preparedStatement.setInt(11, Util.getCurrentTimeSeconds());
+            preparedStatement.setInt(11, DateUtil.getCurrentTimeSeconds());
             preparedStatement.execute();
             resultSet = preparedStatement.getGeneratedKeys();
 
