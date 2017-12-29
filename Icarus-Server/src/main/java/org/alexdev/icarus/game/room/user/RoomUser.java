@@ -271,8 +271,8 @@ public class RoomUser {
 
         this.position.setX(x);
         this.position.setY(y);
-        this.position.setZ(this.room.getMapping().getTileHeight(x, y));
         this.position.setRotation(rotation);
+        this.updateNewHeight(this.position);
         this.needsUpdate = true;
     }
 
