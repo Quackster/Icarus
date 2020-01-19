@@ -33,7 +33,6 @@ public class Configuration {
      * @throws IOException
      */
     private void checkLog4j() throws FileNotFoundException {
-
     	String output = "log4j.rootLogger=INFO, stdout\n" +
                 "log4j.appender.stdout.threshold=info\n" +
                 "log4j.appender.stdout=org.apache.log4j.ConsoleAppender\n" +
@@ -165,7 +164,6 @@ public class Configuration {
      * @return the instance
      */
     public static Configuration getInstance() {
-
         if (instance == null) {
             instance = new Configuration();
         }
