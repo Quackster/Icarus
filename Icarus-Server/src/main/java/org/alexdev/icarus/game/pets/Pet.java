@@ -8,7 +8,6 @@ import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.room.user.RoomUser;
 
 public class Pet extends Entity {
-    
     public static final int DEFAULT_LEVEL = 1;
     public static final int DEFAULT_ENERGY = 100;
     public static final int DEFAULT_HAPPINESS = 100;

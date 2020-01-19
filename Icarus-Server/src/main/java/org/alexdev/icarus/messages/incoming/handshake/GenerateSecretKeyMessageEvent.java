@@ -10,7 +10,6 @@ public class GenerateSecretKeyMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-        
         String cipherPublicKey = reader.readString();
         String plaintextKey = Util.getRSA().decrypt(cipherPublicKey).replace(Character.toString((char) 0), "");
         String publicKey = Util.getRSA().sign(player.getDiffieHellman().getPublicKey().toString());

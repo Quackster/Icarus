@@ -1,9 +1,8 @@
 package org.alexdev.icarus.game.messenger;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.alexdev.icarus.dao.mysql.messenger.player.MessengerDao;
+import org.alexdev.icarus.dao.mysql.messenger.MessengerDao;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.messages.outgoing.messenger.MessengerUpdateMessageComposer;
 import org.alexdev.icarus.messages.types.MessageComposer;
@@ -50,7 +49,6 @@ public class Messenger {
      * @return the friend
      */
     public MessengerUser getFriend(int id) {
-
         return this.friends.stream().filter(f -> f.getDetails().getId() == id)
                 .findFirst()
                 .orElse(null);
@@ -63,7 +61,6 @@ public class Messenger {
      * @return the request
      */
     public MessengerUser getRequest(int id) {
-
         return this.requests.stream().filter(f -> f.getDetails().getId() == id)
                 .findFirst()
                 .orElse(null);

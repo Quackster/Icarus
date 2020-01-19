@@ -1,7 +1,6 @@
 package org.alexdev.icarus.game.plugins;
 
 public enum PluginEvent {
-
     // Player events
     PLAYER_LOGIN_EVENT("onPlayerLoginEvent"),
     PLAYER_DISCONNECT_EVENT("onPlayerDisconnectEvent"),

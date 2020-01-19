@@ -11,7 +11,6 @@ public class MessengerInitMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-
         player.send(new MessengerCategoriesMessageComposer());
         player.send(new MessengerRequestsMessageComposer(player, player.getMessenger().getRequests()));
         player.send(new FriendsListMessageComposer(player.getMessenger().getFriends()));

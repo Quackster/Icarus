@@ -21,7 +21,6 @@ public class EnterRoomMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-
         int roomId = request.readInt();
 
         if (player.inRoom()) {
@@ -75,7 +74,6 @@ public class EnterRoomMessageEvent implements MessageEvent {
             }
         }
         else {
-
             if (room.getData().getState().getStateCode() > 0 && (!room.hasRights(player.getEntityId()) && !player.hasPermission("room_all_rights"))) {
                 if (room.getData().getState() == RoomState.DOORBELL) {
 

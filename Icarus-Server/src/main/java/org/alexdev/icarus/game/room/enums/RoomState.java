@@ -1,7 +1,6 @@
 package org.alexdev.icarus.game.room.enums;
 
 public enum RoomState {
-    
     OPEN(0),
     DOORBELL(1),
     PASSWORD(2),

@@ -11,7 +11,6 @@ public class InitCryptoMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-
         DiffieHellman dh = player.getDiffieHellman();
 
         String prime = Util.getRSA().sign(dh.getPrime().toString());

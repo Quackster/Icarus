@@ -12,7 +12,6 @@ public class SaveTonerMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-        
         Room room = player.getRoom();
 
         if (!room.hasRights(player.getEntityId()) && !player.hasPermission("room_all_rights")) {

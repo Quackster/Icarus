@@ -1,7 +1,6 @@
 package org.alexdev.icarus.game.moderation;
 
 public class Permission {
-
     private String permission;
     private boolean inheritable;
     private int rank;

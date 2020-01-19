@@ -11,7 +11,6 @@ public class RoomInfoMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-
         Room room = RoomDao.getRoom(request.readInt(), true);
 
         if (room == null) {

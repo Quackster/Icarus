@@ -29,7 +29,6 @@ public class AffectedTile {
      * @return the affected tiles
      */
     public static List<Position> getAffectedTiles(int length, int width, int posX, int posY, int rotation) {
-        
         List<Position> points = new ArrayList<Position>();
 
         if (length > 1)    {

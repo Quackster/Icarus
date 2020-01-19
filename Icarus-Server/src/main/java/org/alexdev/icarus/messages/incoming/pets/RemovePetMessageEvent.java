@@ -29,7 +29,6 @@ public class RemovePetMessageEvent implements MessageEvent {
         boolean isPetOwner = player.getEntityId() == pet.getOwnerId();
         
         if (isPetOwner) {
-            
             player.getInventory().addPet(pet,  InventoryNotification.NONE);
             player.getInventory().updatePets();
             
@@ -37,7 +36,6 @@ public class RemovePetMessageEvent implements MessageEvent {
             pet.save();
         
         } else {
-            
             boolean isPetOwnerOnline = PlayerManager.getInstance().getById(pet.getOwnerId()) != null;
             
             pet.setRoomId(0);

@@ -11,7 +11,6 @@ public class InventoryMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-        
         Inventory inventory = player.getInventory();
         
         if (inventory == null) {

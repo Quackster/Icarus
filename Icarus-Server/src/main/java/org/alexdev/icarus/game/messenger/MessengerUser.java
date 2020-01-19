@@ -7,7 +7,6 @@ import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.game.player.Player;
 
 public class MessengerUser {
-
     private int userId;
     private PlayerDetails details;
 
@@ -66,7 +65,6 @@ public class MessengerUser {
      * @return true, if successful
      */
     public boolean inRoom() {
-
         if (this.isUserOnline()) {
             Player player = PlayerManager.getInstance().getById(this.userId);
             return player.inRoom();

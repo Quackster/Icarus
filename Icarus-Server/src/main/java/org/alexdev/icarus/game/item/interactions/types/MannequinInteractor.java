@@ -12,7 +12,6 @@ import org.alexdev.icarus.game.item.interactions.Interaction;
 import org.alexdev.icarus.game.item.json.MannequinData;
 
 public class MannequinInteractor extends Interaction {
-
     @Override
     public ExtraData createExtraData(Item item) {
         Map<String, String> objects = new HashMap<>();

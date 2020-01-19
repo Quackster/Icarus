@@ -12,7 +12,6 @@ public class SearchNewNavigatorEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-        
         String tab = request.readString();
         String searchQuery = request.readString();
         

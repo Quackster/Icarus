@@ -8,7 +8,6 @@ public class UniqueIDMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-
         request.readString();
         player.setMachineId(request.readString());
     }

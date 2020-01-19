@@ -9,12 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 public class PetManager {
-
     private Map<Integer, List<PetRace>> races;
 
     private static final Logger log = LoggerFactory.getLogger(PetManager.class);
     private static PetManager instance;
-
 
     public PetManager() {
         this.races = PetDao.getPetRaces();

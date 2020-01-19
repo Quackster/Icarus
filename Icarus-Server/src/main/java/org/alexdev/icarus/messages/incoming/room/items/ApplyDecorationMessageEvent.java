@@ -11,7 +11,6 @@ public class ApplyDecorationMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-        
         Item item = player.getInventory().getItem(request.readInt());
         
         if (item == null) {

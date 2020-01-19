@@ -15,7 +15,6 @@ public class SaveBrandingMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-
         int brandingId = reader.readInt();
 
         Room room = player.getRoom();

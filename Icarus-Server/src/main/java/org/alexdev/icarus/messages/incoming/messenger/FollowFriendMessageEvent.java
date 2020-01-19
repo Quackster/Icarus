@@ -10,7 +10,6 @@ public class FollowFriendMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-        
         int friendId = request.readInt();
         int errorId = -1;
 

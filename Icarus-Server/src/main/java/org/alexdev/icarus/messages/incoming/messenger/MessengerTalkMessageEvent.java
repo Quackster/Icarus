@@ -15,7 +15,6 @@ public class MessengerTalkMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-        
         int friendId = request.readInt();
         String message = request.readString();
         

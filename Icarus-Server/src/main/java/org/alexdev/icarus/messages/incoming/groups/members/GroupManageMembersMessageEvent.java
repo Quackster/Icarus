@@ -15,7 +15,6 @@ public class GroupManageMembersMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-
         Group group = GroupManager.getInstance().getGroup(reader.readInt());
 
         if (group == null) {

@@ -16,7 +16,6 @@ public class DeleteGroupMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-
         int groupId = reader.readInt();
         
         if (!(groupId > 0)) {

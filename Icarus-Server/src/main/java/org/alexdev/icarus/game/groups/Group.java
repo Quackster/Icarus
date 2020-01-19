@@ -9,7 +9,6 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 
 public class Group {
-
     private int id;
     private String title;
     private String description;

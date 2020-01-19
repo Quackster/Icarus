@@ -14,7 +14,6 @@ public class InteractItemMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-
         int itemId = reader.readInt();
 
         Item item = player.getRoom().getItemManager().getItem(itemId);

@@ -13,7 +13,6 @@ public class PurchaseOfferMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-       
         int targetedOfferId = reader.readInt();
         
         TargetedOffer offer = CatalogueManager.getInstance().getOfferById(targetedOfferId);

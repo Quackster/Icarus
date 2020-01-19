@@ -11,7 +11,6 @@ public class CreateRoomMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-        
         String name = request.readString();
         String description = request.readString();
         String model = request.readString();

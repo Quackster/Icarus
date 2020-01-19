@@ -9,7 +9,6 @@ public class VersionCheckMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-        
         String version = request.readString();
         
         if (!version.equals("PRODUCTION-201711211204-412329988")) {

@@ -11,7 +11,6 @@ public class ChangeAppearanceMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-        
         String gender = reader.readString();
         String figure = reader.readString(); // Yes I know this shit is prone to scripting, I'll come back to this when I add buyable clothes
         

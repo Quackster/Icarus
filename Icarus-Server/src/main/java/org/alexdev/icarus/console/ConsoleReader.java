@@ -7,7 +7,6 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class ConsoleReader implements Runnable {
-
     public ConsoleOperator operator;
     public static ConsoleReader instance;
 

@@ -12,7 +12,6 @@ import org.alexdev.icarus.game.room.Room;
 import org.alexdev.icarus.game.room.RoomManager;
 
 public class GameScheduler implements Runnable {
-
     private AtomicLong tickRate = new AtomicLong();
 
     private ScheduledExecutorService scheduler;
@@ -30,7 +29,6 @@ public class GameScheduler implements Runnable {
      */
     @Override
     public void run() {
-
         tickRate.incrementAndGet();
 
         // If this task has ticked for an entire minute...

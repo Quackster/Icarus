@@ -14,7 +14,6 @@ public class SaveRoomMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-        
         Room room = player.getRoomUser().getRoom();
 
         if (room == null) {

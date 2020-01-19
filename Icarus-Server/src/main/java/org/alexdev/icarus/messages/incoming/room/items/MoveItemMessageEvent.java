@@ -17,7 +17,6 @@ public class MoveItemMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-
         if (!player.inRoom()) {
             return;
         }
@@ -37,7 +36,6 @@ public class MoveItemMessageEvent implements MessageEvent {
         boolean rotation = false;
 
         if (item.getDefinition().getType() == ItemType.FLOOR) {
-
             int x = reader.readInt();
             int y = reader.readInt();
             int direction = reader.readInt();

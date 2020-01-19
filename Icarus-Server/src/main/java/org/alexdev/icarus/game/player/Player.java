@@ -40,7 +40,6 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class Player extends Entity {
-
     public static final AttributeKey<Player> PLAYER_KEY = AttributeKey.valueOf("Player");
 
     private Logger logger;

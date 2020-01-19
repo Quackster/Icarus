@@ -19,9 +19,7 @@ public class DeleteRoomMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-        
         int roomId = request.readInt();
-        
         Room room = RoomManager.getInstance().getByRoomId(roomId);
 
         if (room == null) {

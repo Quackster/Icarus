@@ -11,7 +11,6 @@ public class DeletePhotoMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-
         if (!GameSettings.CAMERA_ENABLED) {
             return;
         }

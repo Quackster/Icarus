@@ -13,7 +13,6 @@ public class CataloguePageMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-
         int pageId = request.readInt();
 
         CataloguePage page = CatalogueManager.getInstance().getPage(pageId);

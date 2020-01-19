@@ -13,7 +13,6 @@ public class GroupCatalogueMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-        
         List<Room> roomsWithoutGroup = player.getRooms().stream()
                 .filter(room -> room.getGroup() == null)
                 .collect(Collectors.toList());

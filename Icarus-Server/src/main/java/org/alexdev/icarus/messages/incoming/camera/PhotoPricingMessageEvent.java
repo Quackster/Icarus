@@ -12,7 +12,6 @@ public class PhotoPricingMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-        
         player.send(new PhotoPriceMessageComposer(COST_CREDITS, COST_DUCKETS));
     }
 }

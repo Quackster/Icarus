@@ -9,18 +9,14 @@ public class SubscriptionMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-
         if (!(player.getSubscription().getUserId() > 0)) {
-            
             long[] subscriptionData = ClubDao.getSubscription(player.getEntityId());
 
             if (subscriptionData != null) {
                 player.getSubscription().update(player.getEntityId(), subscriptionData[0], subscriptionData[1]);
-
             }
         }
 
         player.getSubscription().sendSubscriptionStatus();
-
     }
 }

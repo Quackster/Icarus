@@ -99,7 +99,7 @@ public class CatalogueItem {
         response.writeInt(this.subscriptionStatus);
         response.writeBool(!(this.getLimitedTotal() > 0) && this.allowOffer()); // can we buy more than 1?
         response.writeBool(false);
-        response.writeString("test.png");
+        response.writeString("");
     }
 
     /**

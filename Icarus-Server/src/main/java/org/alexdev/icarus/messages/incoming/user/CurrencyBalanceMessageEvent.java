@@ -13,7 +13,6 @@ public class CurrencyBalanceMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-
         /*Response response = new Response();
         this.response.init(Outgoing.ActivityPointsMessageComposer);
         this.response.appendInt32(2);

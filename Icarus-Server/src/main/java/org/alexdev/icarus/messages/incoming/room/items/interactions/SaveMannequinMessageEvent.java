@@ -12,7 +12,6 @@ public class SaveMannequinMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-        
         Room room = player.getRoom();
         
         if (room == null) {

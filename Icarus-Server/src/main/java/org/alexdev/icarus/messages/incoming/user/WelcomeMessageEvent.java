@@ -15,7 +15,6 @@ public class WelcomeMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-
         if (player.isLoggedIn()) {
             return;
         }
@@ -31,7 +30,6 @@ public class WelcomeMessageEvent implements MessageEvent {
     }
 
     private void handleTargetedOffer(Player player) {
-        
         for (TargetedOffer offer : CatalogueManager.getInstance().getOffers()) {
             
             if (offer.isExpired()) {

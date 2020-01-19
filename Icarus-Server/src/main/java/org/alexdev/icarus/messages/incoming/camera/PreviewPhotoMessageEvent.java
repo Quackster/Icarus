@@ -16,7 +16,6 @@ public class PreviewPhotoMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-
         if (!GameSettings.CAMERA_ENABLED) {
             return;
         }

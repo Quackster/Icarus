@@ -10,7 +10,6 @@ public class EditRoomPromotionMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-        
         int roomId = reader.readInt();
         String promotionName = reader.readString();    
         String promotionDescription = reader.readString();

@@ -23,7 +23,6 @@ public class PurchaseItemMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-
         int pageId = request.readInt();
         int itemId = request.readInt();
         String extraData = request.readString();

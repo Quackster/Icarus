@@ -8,9 +8,7 @@ public class StartTradingMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-        
         //int tradeWithId = reader.readInt();
-        
 
     }
 }

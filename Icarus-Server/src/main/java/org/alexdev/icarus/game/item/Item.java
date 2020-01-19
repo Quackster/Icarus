@@ -37,7 +37,6 @@ public class Item extends Metadata {
     private int widthY = 0;
 
     public Item(int id, int userId, int groupId, int itemId, int roomId, String x, String y, double z, int rotation, String extraData) {
-
         this.id = id;
         this.userId = userId;
         this.groupId = groupId;
@@ -71,7 +70,6 @@ public class Item extends Metadata {
      * @param previousPosition the previous position (for example, when moving or rotating furniture).
      */
     public void updateEntities(Position previousPosition) {
-
         if (this.getDefinition().getType() != ItemType.FLOOR) {
             return;
         }
@@ -107,7 +105,6 @@ public class Item extends Metadata {
      * @return true, if is walkable
      */
     public boolean isWalkable() {
-
         ItemDefinition definition = this.getDefinition();
 
         if (definition.getInteractionType() == InteractionType.BED) {
@@ -154,7 +151,6 @@ public class Item extends Metadata {
      * @return none
      */
     public void parseWallPosition(String position) {
-
         try {
             String[] xData = position.split(" ")[0].split(",");
             this.side = xData[0].toCharArray()[0];
@@ -176,7 +172,6 @@ public class Item extends Metadata {
      * @return {@link String} - the wall position string
      */
     public String getWallPosition() {
-
         if (this.getDefinition().getType() == ItemType.WALL) {
             return ":w=" + this.widthX + "," + this.widthY + " " + "l=" + this.lengthX + "," + this.lengthY + " " + this.side;
         }
@@ -188,7 +183,6 @@ public class Item extends Metadata {
      * Update status.
      */
     public void updateStatus() {
-
         if (this.getRoom() == null) {
             return;
         }
@@ -213,7 +207,6 @@ public class Item extends Metadata {
      * @return the total height
      */
     public double getTotalHeight() {
-
         double currentHeight = GameSettings.FURNITURE_OFFSET;
 
         if (this.getDefinition().getVariableHeight().length > 0) {
@@ -231,7 +224,6 @@ public class Item extends Metadata {
             currentHeight += this.getDefinition().getVariableHeight()[variableHeight];
             
         } else {
-
             currentHeight += this.position.getZ();
 
             if (this.getDefinition().allowStack()) {

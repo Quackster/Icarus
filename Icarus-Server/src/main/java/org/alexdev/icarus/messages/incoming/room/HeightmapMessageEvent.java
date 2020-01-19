@@ -10,7 +10,6 @@ public class HeightmapMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-
         Room room = player.getRoomUser().getRoom();
         RoomUtil.playerRoomMapEntry(player, room);
     }

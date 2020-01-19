@@ -14,7 +14,6 @@ public class PurchasePhotoMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-
         if (!player.getMetadata().hasMetadata("latestPhotoUrl")) {
             return;
         }

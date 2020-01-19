@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.alexdev.icarus.log.Log;
 
 public class NavigatorTab {
-
     private int id;
     private int childId;
     private String tabName;

@@ -11,7 +11,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CatalogueManager {
-
     private List<CatalogueTab> parentTabs;
     private Map<Integer, List<CatalogueTab>> childTabs;
     
@@ -59,7 +58,6 @@ public class CatalogueManager {
      * @param tab the tab
      */
     public void loadCatalogueTabs(CatalogueTab tab) {
-
         List<CatalogueTab> child = CatalogueDao.getCatalogTabs(tab.getId());
 
         for (CatalogueTab parentTab : child) {

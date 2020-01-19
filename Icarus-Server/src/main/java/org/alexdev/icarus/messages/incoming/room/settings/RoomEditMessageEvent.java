@@ -10,7 +10,6 @@ public class RoomEditMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage request) {
-        
         int roomId = request.readInt();
         
         Room room = player.getRoomUser().getRoom();

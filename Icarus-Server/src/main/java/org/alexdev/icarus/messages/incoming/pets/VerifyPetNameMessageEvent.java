@@ -10,7 +10,6 @@ public class VerifyPetNameMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-        
         String petName = reader.readString();
 
         if (petName.length() < 2) {

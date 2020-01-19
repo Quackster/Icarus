@@ -11,7 +11,6 @@ public class PurchaseRoomPromotionMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-        
         reader.readInt();
         reader.readInt();
         

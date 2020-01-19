@@ -14,7 +14,6 @@ public class ApplyEffectMessageEvent implements MessageEvent {
 
     @Override
     public void handle(Player player, ClientMessage reader) {
-
         int effectId = reader.readInt();
         Effect effect = null;
 

@@ -1,8 +1,7 @@
 package org.alexdev.icarus.messages.incoming.user;
 
 import org.alexdev.icarus.dao.mysql.groups.GroupDao;
-import org.alexdev.icarus.dao.mysql.messenger.player.MessengerDao;
-import org.alexdev.icarus.game.groups.GroupManager;
+import org.alexdev.icarus.dao.mysql.messenger.MessengerDao;
 import org.alexdev.icarus.game.player.Player;
 import org.alexdev.icarus.game.player.PlayerDetails;
 import org.alexdev.icarus.game.player.PlayerManager;
