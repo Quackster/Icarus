@@ -39,11 +39,10 @@ public class NewNavigatorMessageEvent implements MessageEvent {
             player.getNavigatorPreference().addPreference(NavigatorPreferenceType.EXPANDED, tab.getTabName(), expandedFlag);
         }
         
-        player.sendQueued(new NavigatorTabsMessageComposer(NavigatorManager.getInstance().getParentTabs()));
-        player.sendQueued(new FlatCategoriesMessageComposer(NavigatorManager.getInstance().getCategories()));
-        player.sendQueued(new NavigatorCategoriesMessageComposer(NavigatorManager.getInstance().getCategories()));
-        player.sendQueued(new NavigatorPreferencesMessagesComposer());
-        player.flushQueue();
+        player.send(new NavigatorTabsMessageComposer(NavigatorManager.getInstance().getParentTabs()));
+        player.send(new FlatCategoriesMessageComposer(NavigatorManager.getInstance().getCategories()));
+        player.send(new NavigatorCategoriesMessageComposer(NavigatorManager.getInstance().getCategories()));
+        player.send(new NavigatorPreferencesMessagesComposer());
     }
 
 }

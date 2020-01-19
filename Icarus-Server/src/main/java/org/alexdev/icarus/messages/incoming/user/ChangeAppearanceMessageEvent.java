@@ -23,14 +23,12 @@ public class ChangeAppearanceMessageEvent implements MessageEvent {
         player.getDetails().setGender(gender);
         player.getDetails().save();
         
-        player.sendQueued(new AvatarAspectUpdateMessageComposer(figure, gender));
-        player.sendQueued(new UserObjectMessageComposer(player.getDetails()));
+        player.send(new AvatarAspectUpdateMessageComposer(figure, gender));
+        player.send(new UserObjectMessageComposer(player.getDetails()));
 
         
         if (player.inRoom()) {
-            player.sendQueued(new UserChangeMessageComposer(player, true));
-            player.flushQueue();
-
+            player.send(new UserChangeMessageComposer(player, true));
             player.getRoom().send(new UserChangeMessageComposer(player, false));
         }
     }

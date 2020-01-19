@@ -22,7 +22,7 @@ public class CurrencyBalanceMessageEvent implements MessageEvent {
         this.response.appendInt32(44444);
         player.send(response);*/
         
-        player.sendQueued(new CreditsMessageComposer(player.getDetails().getCredits()));
+        player.send(new CreditsMessageComposer(player.getDetails().getCredits()));
         
         Map<Integer, Integer> currencies = new HashMap<Integer, Integer>();
         currencies.put(0, 5000);
@@ -36,7 +36,6 @@ public class CurrencyBalanceMessageEvent implements MessageEvent {
         currencies.put(104, 0); // clouds
         currencies.put(105, 0); // diamonds again??
         
-        player.sendQueued(new ActivityPointsMessageComposer(currencies));
-        player.flushQueue();
+        player.send(new ActivityPointsMessageComposer(currencies));
     }
 }

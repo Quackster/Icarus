@@ -23,6 +23,5 @@ public class SearchNewNavigatorEvent implements MessageEvent {
         }
 
         player.send(new SearchResultSetComposer(player, navigatorTab, searchQuery));
-        player.flushQueue();
     }
 }

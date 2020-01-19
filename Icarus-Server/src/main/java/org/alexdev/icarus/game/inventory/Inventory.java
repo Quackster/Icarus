@@ -46,31 +46,17 @@ public class Inventory {
     }
 
     /**
-     * Adds the item.
+     * Adds the item
      *
      * @param item the item
      * @param notification the notification
      */
     public void addItem(Item item, InventoryNotification notification) {
-        addItem(item, notification, false);
-    }
-
-    /**
-     * Adds the item but with queue packet option.
-     *
-     * @param item the item
-     * @param notification the notification
-     */
-    public void addItem(Item item, InventoryNotification notification, boolean queuePacket) {
         this.items.put(item.getId(), item);
 
         if (notification == InventoryNotification.ALERT) {
             MessageComposer composer = new UnseenItemsNotificationComposer(item.getId(), 1);
-            if (queuePacket) {
-                this.player.sendQueued(composer);
-            } else {
-                this.player.send(composer);
-            }
+            this.player.send(composer);
         }
     }
 
@@ -112,18 +98,16 @@ public class Inventory {
      * Update items.
      */
     public void updateItems() {
-        this.player.sendQueued(new UpdateInventoryMessageComposer());
-        this.player.sendQueued(new InventoryLoadMessageComposer(this.items.values()));
-        this.player.flushQueue();
+        this.player.send(new UpdateInventoryMessageComposer());
+        this.player.send(new InventoryLoadMessageComposer(this.items.values()));
     }
 
     /**
      * Update pets.
      */
     public void updatePets() {
-        this.player.sendQueued(new UpdateInventoryMessageComposer());
-        this.player.sendQueued(new PetInventoryMessageComposer(this.pets));
-        this.player.flushQueue();
+        this.player.send(new UpdateInventoryMessageComposer());
+        this.player.send(new PetInventoryMessageComposer(this.pets));
     }
 
     /**

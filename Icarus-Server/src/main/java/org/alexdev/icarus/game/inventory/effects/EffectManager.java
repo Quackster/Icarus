@@ -54,11 +54,10 @@ public class EffectManager {
 
         for (Effect activatedEffect : activatedEffects) {
             activatedEffect.setActivated(false);
-            this.player.sendQueued(new EffectExpiredMessageComposer(activatedEffect));
-            this.player.sendQueued(new EffectsMessageComposer(activatedEffect));
+            this.player.send(new EffectExpiredMessageComposer(activatedEffect));
+            this.player.send(new EffectsMessageComposer(activatedEffect));
         }
 
-        this.player.flushQueue();
         this.player.getRoomUser().applyEffect(0);
     }
 

@@ -106,13 +106,12 @@ public class Player extends Entity {
         this.getMessenger().init();
         this.getDetails().setAuthenticated(true);
 
-        this.sendQueued(new UniqueMachineIDMessageComposer(this.getMachineId()));
-        this.sendQueued(new AuthenticationOKMessageComposer());
-        this.sendQueued(this.getInventory().getEffectManager().createEffectsComposer());
-        this.sendQueued(new HomeRoomMessageComposer(2, false));
-        this.sendQueued(new LandingWidgetMessageComposer());
-        this.sendQueued(new AvailabilityMessageComposer());
-        this.flushQueue();
+        this.send(new UniqueMachineIDMessageComposer(this.getMachineId()));
+        this.send(new AuthenticationOKMessageComposer());
+        this.send(this.getInventory().getEffectManager().createEffectsComposer());
+        this.send(new HomeRoomMessageComposer(2, false));
+        this.send(new LandingWidgetMessageComposer());
+        this.send(new AvailabilityMessageComposer());
     }
 
     /**
@@ -339,22 +338,6 @@ public class Player extends Entity {
         } catch (Exception e) {
             Log.getErrorLogger().error("[Player] Could not send message to player {}", this.details.getName());
         }
-    }
-
-    /**
-     * Send queued packet to the server.
-     *
-     * @param response the response
-     */
-    public void sendQueued(MessageComposer response) {
-        this.network.sendQueued(response);
-    }
-
-    /**
-     * Send all data written in socket.
-     */
-    public void flushQueue() {
-        this.network.flush();
     }
 
     /**

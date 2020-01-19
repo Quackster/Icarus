@@ -61,26 +61,25 @@ public class RoomUtil {
         roomUser.setRoom(room);
         roomUser.getStatuses().clear();
 
-        player.sendQueued(new RoomModelMessageComposer(room.getModel().getName(), room.getData().getId()));
-        player.sendQueued(new RoomRatingMessageComposer(room.getData().getScore()));
+        player.send(new RoomModelMessageComposer(room.getModel().getName(), room.getData().getId()));
+        player.send(new RoomRatingMessageComposer(room.getData().getScore()));
 
         int floorData = Integer.valueOf(room.getData().getFloor());
         int wallData = Integer.valueOf(room.getData().getWall());
 
         if (floorData > 0) {
-            player.sendQueued(new RoomSpacesMessageComposer("floor", room.getData().getFloor()));
+            player.send(new RoomSpacesMessageComposer("floor", room.getData().getFloor()));
         }
 
         if (wallData > 0) {
-            player.sendQueued(new RoomSpacesMessageComposer("wallpaper", room.getData().getWall()));
+            player.send(new RoomSpacesMessageComposer("wallpaper", room.getData().getWall()));
         }
         
         boolean isOwner = (roomUser.getRoom().hasOwnership(player.getEntityId()) 
                 || player.hasPermission("room_all_rights"));
  
-        player.sendQueued(new RoomSpacesMessageComposer("landscape", room.getData().getLandscape()));
-        player.sendQueued(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
-        player.flushQueue();
+        player.send(new RoomSpacesMessageComposer("landscape", room.getData().getLandscape()));
+        player.send(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
 
         refreshRights(room, player);
 
@@ -97,21 +96,19 @@ public class RoomUtil {
         boolean isOwner = (room.hasOwnership(player.getEntityId()) || player.hasPermission("room_all_rights"));
 
         if (isOwner) {
-            player.sendQueued(new YouAreControllerMessageComposer(4));
-            player.sendQueued(new OwnerRightsMessageComposer());
+            player.send(new YouAreControllerMessageComposer(4));
+            player.send(new OwnerRightsMessageComposer());
             player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "useradmin");
         } else if (room.hasGroupRights(player.getEntityId(), true)) {
-            player.sendQueued(new YouAreControllerMessageComposer(3));
+            player.send(new YouAreControllerMessageComposer(3));
             player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "3");
         } else if (room.hasGroupRights(player.getEntityId(), false)|| room.hasRights(player.getEntityId(), false)) {
-            player.sendQueued(new YouAreControllerMessageComposer(1));
+            player.send(new YouAreControllerMessageComposer(1));
             player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "1");
         } else {
-            player.sendQueued(new YouAreNotControllerMessageComposer());
+            player.send(new YouAreNotControllerMessageComposer());
             player.getRoomUser().removeStatus(EntityStatus.FLAT_CONTROL);
         }
-
-        player.flushQueue();
     }
 
     /**
@@ -130,23 +127,23 @@ public class RoomUtil {
             return;
         }
         
-        player.sendQueued(new HeightMapMessageComposer(room.getModel()));
-        player.sendQueued(new FloorMapMessageComposer(room));
+        player.send(new HeightMapMessageComposer(room.getModel()));
+        player.send(new FloorMapMessageComposer(room));
 
-        player.sendQueued(new UserDisplayMessageComposer(room.getEntityManager().getEntities()));
-        player.sendQueued(new UserStatusMessageComposer(room.getEntityManager().getEntities()));
+        player.send(new UserDisplayMessageComposer(room.getEntityManager().getEntities()));
+        player.send(new UserStatusMessageComposer(room.getEntityManager().getEntities()));
 
         for (Player players : room.getEntityManager().getPlayers()) {
             if (players.getRoomUser().getDanceId() > 0) {
-                player.sendQueued(new DanceMessageComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getDanceId()));
+                player.send(new DanceMessageComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getDanceId()));
             }
 
             if (players.getRoomUser().getEffectId() > 0) {
-                player.sendQueued(new DisplayEffectMessageComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getVirtualId()));
+                player.send(new DisplayEffectMessageComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getVirtualId()));
             }
             
             if (players.getRoomUser().getCarryItem() > 0) {
-                player.sendQueued(new CarryObjectMessageComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getCarryItem()));
+                player.send(new CarryObjectMessageComposer(players.getRoomUser().getVirtualId(), players.getRoomUser().getCarryItem()));
             }
         }
 
@@ -156,11 +153,11 @@ public class RoomUtil {
             player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "1");
         }        
 
-        player.sendQueued(new WallOptionsMessageComposer(room.getData().hasHiddenWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
-        player.sendQueued(new RoomPromotionMessageComposer(room));
+        player.send(new WallOptionsMessageComposer(room.getData().hasHiddenWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
+        player.send(new RoomPromotionMessageComposer(room));
 
-        player.sendQueued(new FloorItemsMessageComposer(room.getItemManager().getFloorItems()));
-        player.sendQueued(new WallItemsMessageComposer(room.getItemManager().getWallItems()));
+        player.send(new FloorItemsMessageComposer(room.getItemManager().getFloorItems()));
+        player.send(new WallItemsMessageComposer(room.getItemManager().getWallItems()));
 
         player.getMessenger().sendStatus(false);
 
@@ -178,7 +175,7 @@ public class RoomUtil {
         if (group != null) {
             if (player.getMetadata().getBoolean("showGroupHomeroomDialog")) {
                 player.getMetadata().set("showGroupHomeroomDialog", false);
-                player.sendQueued(new GroupPurchasedMessageComposer(room.getData().getId(), room.getData().getGroupId()));
+                player.send(new GroupPurchasedMessageComposer(room.getData().getId(), room.getData().getGroupId()));
             }
         }
 
@@ -186,8 +183,6 @@ public class RoomUtil {
             // If so, show everybody on room entry!
             player.getRoomUser().applyEffect(player.getRoomUser().getEffectId());
         }
-
-        player.flushQueue();
     }
     
     /**
