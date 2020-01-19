@@ -10,7 +10,7 @@ public class AvailabilityMessageComposer extends MessageComposer {
     public void compose(Response response) {
         //response.init(Outgoing.AvailabilityMessageComposer);
         response.writeBool(true);
-        response.writeBool(false);
+        response.writeBool(true);
         response.writeBool(true);
     }
 

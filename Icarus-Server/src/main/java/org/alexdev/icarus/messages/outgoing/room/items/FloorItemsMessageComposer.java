@@ -10,7 +10,6 @@ import org.alexdev.icarus.server.api.messages.Response;
 import org.alexdev.icarus.util.Util;
 
 public class FloorItemsMessageComposer extends MessageComposer {
-
     private List<Item> items;
 
     public FloorItemsMessageComposer(List<Item> list) {

@@ -15,7 +15,7 @@ public class Incoming {
     public static short SearchNewNavigatorEvent = 249;//2221
     public static short UserWalkMessageEvent = 3320;//3559
     public static short EnterRoomMessageEvent = 2312;//2503
-    public static short HeightMapMessageEvent = 21;//2741
+    public static short HeightMapMessageEvent = 3898;//2741
     public static short EventLogMessageEvent = 3457;//789
     public static short RoomInfoMessageEvent = 2230;//3688
     public static short MessengerInitMessageEvent = 1523;//3055

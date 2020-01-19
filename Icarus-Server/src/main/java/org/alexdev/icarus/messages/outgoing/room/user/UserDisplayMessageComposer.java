@@ -46,9 +46,10 @@ public class UserDisplayMessageComposer extends MessageComposer {
                     response.writeString(entity.getDetails().getGender().toLowerCase());
                     response.writeInt(-1);
                     response.writeInt(-1);
-                    response.writeInt(0);
-                    response.writeInt(1337); // achievement points
-                    response.writeBool(false);
+                    response.writeString("");
+                    response.writeString("");
+                    response.writeInt(0); // achievement points
+                    response.writeBool(true);
                 }
 
                 if (entity.getType() == EntityType.BOT) {

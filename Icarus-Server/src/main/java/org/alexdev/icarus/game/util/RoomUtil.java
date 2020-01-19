@@ -12,10 +12,10 @@ import org.alexdev.icarus.game.room.RoomData;
 import org.alexdev.icarus.game.room.enums.RoomAction;
 import org.alexdev.icarus.game.room.enums.RoomType;
 import org.alexdev.icarus.game.room.user.RoomUser;
-import org.alexdev.icarus.messages.incoming.room.RoomPromotionMessageComposer;
 import org.alexdev.icarus.messages.outgoing.groups.GroupPurchasedMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.*;
 import org.alexdev.icarus.messages.outgoing.room.items.*;
+import org.alexdev.icarus.messages.outgoing.room.settings.RoomScoreMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.settings.YouAreControllerMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.settings.YouAreNotControllerMessageComposer;
 import org.alexdev.icarus.messages.outgoing.room.user.*;
@@ -61,8 +61,8 @@ public class RoomUtil {
         roomUser.setRoom(room);
         roomUser.getStatuses().clear();
 
+        player.send(new RoomEnterComposer());
         player.send(new RoomModelMessageComposer(room.getModel().getName(), room.getData().getId()));
-        player.send(new RoomRatingMessageComposer(room.getData().getScore()));
 
         int floorData = Integer.valueOf(room.getData().getFloor());
         int wallData = Integer.valueOf(room.getData().getWall());
@@ -74,14 +74,9 @@ public class RoomUtil {
         if (wallData > 0) {
             player.send(new RoomSpacesMessageComposer("wallpaper", room.getData().getWall()));
         }
-        
-        boolean isOwner = (roomUser.getRoom().hasOwnership(player.getEntityId()) 
-                || player.hasPermission("room_all_rights"));
- 
-        player.send(new RoomSpacesMessageComposer("landscape", room.getData().getLandscape()));
-        player.send(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
 
-        refreshRights(room, player);
+        player.send(new RoomSpacesMessageComposer("landscape", room.getData().getLandscape()));
+        player.send(new RoomScoreMessageComposer(room));
 
         room.getEntityManager().addEntity(player, x, y, rotation);
     }
@@ -96,8 +91,8 @@ public class RoomUtil {
         boolean isOwner = (room.hasOwnership(player.getEntityId()) || player.hasPermission("room_all_rights"));
 
         if (isOwner) {
-            player.send(new YouAreControllerMessageComposer(4));
             player.send(new OwnerRightsMessageComposer());
+            player.send(new YouAreControllerMessageComposer(4));
             player.getRoomUser().setStatus(EntityStatus.FLAT_CONTROL, "useradmin");
         } else if (room.hasGroupRights(player.getEntityId(), true)) {
             player.send(new YouAreControllerMessageComposer(3));
@@ -126,12 +121,9 @@ public class RoomUtil {
         if (!room.getEntityManager().getEntities().contains(player)) {
             return;
         }
-        
-        player.send(new HeightMapMessageComposer(room.getModel()));
-        player.send(new FloorMapMessageComposer(room));
 
-        player.send(new UserDisplayMessageComposer(room.getEntityManager().getEntities()));
-        player.send(new UserStatusMessageComposer(room.getEntityManager().getEntities()));
+        player.send(new HeightMapMessageComposer(room));
+        player.send(new FloorMapMessageComposer(room));
 
         for (Player players : room.getEntityManager().getPlayers()) {
             if (players.getRoomUser().getDanceId() > 0) {
@@ -154,10 +146,17 @@ public class RoomUtil {
         }        
 
         player.send(new WallOptionsMessageComposer(room.getData().hasHiddenWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
-        player.send(new RoomPromotionMessageComposer(room));
+        player.send(new RoomDataMessageComposer(room, player, false, true));
+        //player.send(new RoomPromotionMessageComposer(room));
 
         player.send(new FloorItemsMessageComposer(room.getItemManager().getFloorItems()));
-        player.send(new WallItemsMessageComposer(room.getItemManager().getWallItems()));
+
+        boolean isOwner = (player.getRoomUser().getRoom().hasOwnership(player.getEntityId())
+                || player.hasPermission("room_all_rights"));
+
+        refreshRights(room, player);
+        player.send(new RoomOwnerRightsComposer(room.getData().getId(), isOwner));
+        //player.send(new WallItemsMessageComposer(room.getItemManager().getWallItems()));
 
         player.getMessenger().sendStatus(false);
 
@@ -183,16 +182,17 @@ public class RoomUtil {
             // If so, show everybody on room entry!
             player.getRoomUser().applyEffect(player.getRoomUser().getEffectId());
         }
+
+        player.send(new UserDisplayMessageComposer(room.getEntityManager().getEntities()));
+        player.send(new UserStatusMessageComposer(room.getEntityManager().getEntities()));
     }
     
     /**
      * Serialise room information.
-     *
-     * @param room the room
+     *  @param room the room
      * @param response the response
-     * @param enterRoom the enter room
      */
-    public static void serialise(Room room, Response response, boolean enterRoom) {
+    public static void serialise(Room room, Response response) {
         RoomData data = room.getData();
 
         response.writeInt(data.getId());
@@ -204,8 +204,8 @@ public class RoomUtil {
         response.writeInt(data.getUsersMax());
         response.writeString(data.getDescription());
         response.writeInt(data.getTradeState());
+        response.writeInt(2);
         response.writeInt(data.getScore());
-        response.writeInt(0);
         response.writeInt(data.getCategory());
         response.writeInt(data.getTags().length);
 
@@ -213,7 +213,7 @@ public class RoomUtil {
             response.writeString(tag);
         }
         
-        AtomicInteger roomListingType = new AtomicInteger(enterRoom ? 32 : 0);
+        AtomicInteger roomListingType = new AtomicInteger(0);
         
         if (data.getThumbnail() != null) {
             if (data.getThumbnail().length() > 0) {

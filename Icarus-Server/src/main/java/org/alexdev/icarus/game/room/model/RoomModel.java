@@ -293,7 +293,7 @@ public class RoomModel {
      * @return the relative heightmap
      */
     public String getRelativeHeightmap() {
-        return relativeHeightmap;
+        return heightmap.replace("{13}", "\r");
     }
 
     /**

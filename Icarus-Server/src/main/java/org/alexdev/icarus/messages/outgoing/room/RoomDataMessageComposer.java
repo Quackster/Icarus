@@ -8,25 +8,24 @@ import org.alexdev.icarus.messages.types.MessageComposer;
 import org.alexdev.icarus.server.api.messages.Response;
 
 public class RoomDataMessageComposer extends MessageComposer {
-
     private Room room;
     private Player player;
-    private boolean isLoading;
-    private boolean checkEntry;
+    private boolean roomForward;
+    private boolean enterRoom;
 
-    public RoomDataMessageComposer(Room room, Player player, boolean isLoading, boolean checkEntry) {
+    public RoomDataMessageComposer(Room room, Player player, boolean roomForward, boolean enterRoom) {
         this.room = room;
         this.player = player;
-        this.isLoading = isLoading;
-        this.checkEntry = checkEntry;
+        this.roomForward = roomForward;
+        this.enterRoom = enterRoom;
     }
 
     @Override
     public void compose(Response response) {
         //response.init(Outgoing.RoomDataMessageComposer);
-        response.writeBool(this.isLoading);
-        RoomUtil.serialise(this.room, response, this.isLoading);
-        response.writeBool(this.checkEntry);
+        response.writeBool(this.enterRoom);
+        RoomUtil.serialise(this.room, response);
+        response.writeBool(this.roomForward);
         response.writeBool(false);
         response.writeBool(false);
         response.writeBool(false);

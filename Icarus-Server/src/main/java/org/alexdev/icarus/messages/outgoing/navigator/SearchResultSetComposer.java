@@ -1,6 +1,5 @@
 package org.alexdev.icarus.messages.outgoing.navigator;
 
-import org.alexdev.icarus.dao.mysql.navigator.NavigatorPreferenceDao;
 import org.alexdev.icarus.game.navigator.preference.NavigatorPreferenceType;
 import org.alexdev.icarus.game.navigator.NavigatorTab;
 import org.alexdev.icarus.game.player.Player;
@@ -69,7 +68,7 @@ public class SearchResultSetComposer extends MessageComposer {
                         response.writeInt(rooms.size());
 
                         for (Room room : rooms) {
-                            RoomUtil.serialise(room, response, false);
+                            RoomUtil.serialise(room, response);
                         }
                     }
                 }

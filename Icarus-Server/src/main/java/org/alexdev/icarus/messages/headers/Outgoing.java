@@ -17,7 +17,7 @@ public class Outgoing {
     public static short InitialRoomInfoMessageComposer = 2031;//3657
     public static short FriendsListMessageComposer = 3130;//1053
     public static short LandingWidgetMessageComposer = 1745;//3763
-    public static short MessengerCategoriesMessageComposer = -2496;//2496
+    public static short MessengerCategoriesMessageComposer = 1605;//2496
     public static short MessengerMessageComposer = -260;//260
     public static short MessengerRequestsMessageComposer = 280;//1397
     public static short MessengerSearchMessageComposer = 973;//1118
@@ -35,11 +35,11 @@ public class Outgoing {
     public static short RoomSpacesMessageComposer = 2454;//1154
     public static short SearchResultSetComposer = 2690;//1598
     public static short SecretKeyMessageComposer = 3885;//2334
-    public static short SendPerkAllowancesMessageComposer = -66;//66
+    public static short SendPerkAllowancesMessageComposer = 2586;//66
     public static short UniqueMachineIDMessageComposer = 1488;//1954
     public static short UserDisplayMessageComposer = 374;//3550
     public static short RemoveUserMessageComposer = 2661;//1506
-    public static short UserObjectMessageComposer = -3064;//3064
+    public static short UserObjectMessageComposer = 2725;//3064
     public static short UserStatusMessageComposer = 1640;//1434
     public static short CanCreateRoomMessageComposer = 378;//434
     public static short RoomOwnerRightsComposer = 749;//2620
@@ -133,4 +133,5 @@ public class Outgoing {
     public static short EffectActivatedMessageComposer = 1959;//546
     public static short EffectExpiredMessageComposer = 2228;//3417
     public static short ActivityPointNotificationComposer = 2275;//2802
+    public static short RoomEnterComposer = 758;
 }

@@ -179,4 +179,8 @@ public class RoomTile {
     public int getY() {
         return y;
     }
+
+    public int getRelativeHeight() {
+        return (int) (this.getHeight() * 256.0);
+    }
 }

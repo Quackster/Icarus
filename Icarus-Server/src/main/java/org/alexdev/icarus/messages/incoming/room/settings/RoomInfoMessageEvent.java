@@ -13,13 +13,36 @@ public class RoomInfoMessageEvent implements MessageEvent {
     public void handle(Player player, ClientMessage request) {
         Room room = RoomDao.getRoom(request.readInt(), true);
 
-        if (room == null) {
-            return;
-        }
-        
         int isLoading = request.readInt();
         int checkEntry = request.readInt();
-        
-        player.send(new RoomDataMessageComposer(room, player, isLoading == 1, checkEntry == 1));
+
+        if (room != null) {
+            boolean unknown = true;
+
+            if (isLoading == 0 && checkEntry == 1) {
+                unknown = false;
+            }
+
+            player.send(new RoomDataMessageComposer(room, player, true, unknown));
+        }
+
+
+        /*
+
+        int something = this.packet.readInt();
+        int something2 = this.packet.readInt();
+
+        if (room != null) {
+            boolean unknown = true;
+
+            if (something == 0 && something2 == 1) {
+                unknown = false;
+            }
+
+            //this.client.getHabbo().getHabboInfo().getCurrentRoom() != room
+            this.client.sendResponse(new RoomDataComposer(room, this.client.getHabbo(), true, unknown));
+        }
+
+         */
     }
 }
