@@ -146,7 +146,7 @@ public class RoomUtil {
         }        
 
         player.send(new WallOptionsMessageComposer(room.getData().hasHiddenWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
-        player.send(new RoomDataMessageComposer(room, player, false, true));
+        //player.send(new RoomDataMessageComposer(room, player, false, false));
         //player.send(new RoomPromotionMessageComposer(room));
 
         player.send(new FloorItemsMessageComposer(room.getItemManager().getFloorItems()));
